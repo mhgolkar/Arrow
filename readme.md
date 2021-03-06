@@ -31,15 +31,15 @@ Notable Features:
 
 ## Download
 
-Arrow prebuilt executables are available to download from the archive of [releases](./releases/).
+Arrow prebuilt executables are available to download from the archive of [releases].
 Following links are to the *latest*:
 
-Linux X11 [x86_64](./archive/v1.0.0-linux.tar.gz)
+Linux X11 [x86_64][linux-x11-x86-64-latest]
 
-Windows [32-bit](./archive/v1.0.0-win.32.zip) | [64-bit](./archive/v1.0.0-win.64.zip)
+Windows [32-bit][win-32-latest] | [64-bit][win-64-latest]
 
 > At the time `MacOS` releases are not available.  
-> Mac users may kindly and *easily* [build Arrow from source](./wiki/build-from-source).
+> Mac users may kindly and *easily* [build Arrow from source][wiki-build-from-source].
 
 
 ## Support Arrow
@@ -57,21 +57,21 @@ highly grateful if you consider donation as well:
 
 ## Runtimes
 
-+ Official (Bundled) [HTML-JS Runtime](./runtimes/html-js/)
++ Official (Bundled) [HTML-JS Runtime][runtime-html-js]
 
 
 ## Guides
 
-Docs for Arrow are available in the [project's wiki](./wiki)
+Docs for Arrow are available in the [project's wiki][wiki-home]
 including:
 
-[Quick Start Guide](./wiki/quick-start-guide)
+[Quick Start Guide][wiki-quick-start-guide]
 
-[Keyboard & Mouse Shortcuts](./wiki/shortcuts)
+[Keyboard & Mouse Shortcuts][wiki-shortcuts]
 
-[CLI Arguments](./wiki/cli-arguments)
+[CLI Arguments][wiki-cli-arguments]
 
-[Build from Source](./wiki/build-from-source)
+[Build from Source][wiki-build-from-source]
 
 
 ## Licenses
@@ -79,12 +79,26 @@ including:
 Copyright (c) 2021 Mor. H. Golkar and contributors
 
 Unless otherwise specified, Arrow and files in this repository are
-available under `MIT` license. See [license](./license) file for more information.
+available under `MIT` license. See [license][license-file] file for more information.
 
 
 Have a Good Time
 
 
+<!-- download -->
+[releases]: https://github.com/mhgolkar/Arrow/releases
+[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.0/Arrow-v1.0.0-linux.tar.gz
+[win-32-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.0/Arrow-v1.0.0-win.32.zip
+[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.0/Arrow-v1.0.0-win.64.zip
+<!-- wiki -->
+[wiki-home]: https://github.com/mhgolkar/Arrow/wiki/
+[wiki-build-from-source]: https://github.com/mhgolkar/Arrow/wiki/build-from-source
+[wiki-quick-start-guide]: https://github.com/mhgolkar/Arrow/wiki/quick-start-guide
+[wiki-shortcuts]: https://github.com/mhgolkar/Arrow/wiki/shortcuts
+[wiki-cli-arguments]: https://github.com/mhgolkar/Arrow/wiki/cli-arguments
+<!-- rel -->
+[runtime-html-js]: ./runtimes/html-js/
+[license-file]: ./license
 <!-- resources -->
 [arrow-logo]: ./icon.png
 [arrow-screenshot]: ./.screenshot.png
