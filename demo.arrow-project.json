@@ -1,0 +1,2213 @@
+{
+	"title": "Demo Project",
+	"entry": 1,
+	"meta": {
+		"offline": true,
+		"remote": {
+
+		},
+		"rtl": false,
+		"last_save": {
+			"utc": {
+				"year": 2021,
+				"month": 3,
+				"day": 6,
+				"weekday": 6,
+				"dst": false,
+				"hour": 6,
+				"minute": 30,
+				"second": 0
+			},
+			"local": {
+				"year": 2021,
+				"month": 3,
+				"day": 6,
+				"weekday": 6,
+				"dst": false,
+				"hour": 6,
+				"minute": 30,
+				"second": 0
+			}
+		},
+		"arrow_editor_version": "1.0.0"
+	},
+	"next_resource_seed": 112,
+	"resources": {
+		"scenes": {
+			"0": {
+				"name": "Getting Started",
+				"entry": 1,
+				"map": {
+					"1": {
+						"offset": [
+							100,
+							100
+						],
+						"io": [
+							[
+								1,
+								0,
+								2,
+								0
+							]
+						]
+					},
+					"2": {
+						"offset": [
+							210,
+							100
+						],
+						"io": [
+							[
+								2,
+								0,
+								92,
+								0
+							]
+						]
+					},
+					"11": {
+						"offset": [
+							410,
+							100
+						]
+					},
+					"20": {
+						"offset": [
+							320,
+							230
+						],
+						"io": [
+							[
+								20,
+								0,
+								24,
+								0
+							]
+						]
+					},
+					"21": {
+						"offset": [
+							650,
+							100
+						]
+					},
+					"24": {
+						"offset": [
+							410,
+							320
+						],
+						"io": [
+							[
+								24,
+								0,
+								21,
+								0
+							],
+							[
+								24,
+								1,
+								50,
+								0
+							]
+						]
+					},
+					"50": {
+						"offset": [
+							630,
+							250
+						],
+						"io": [
+							[
+								50,
+								0,
+								52,
+								0
+							]
+						]
+					},
+					"52": {
+						"offset": [
+							630,
+							340
+						],
+						"io": [
+							[
+								52,
+								1,
+								56,
+								0
+							],
+							[
+								52,
+								0,
+								57,
+								0
+							]
+						]
+					},
+					"53": {
+						"offset": [
+							810,
+							340
+						],
+						"io": [
+							[
+								53,
+								0,
+								55,
+								0
+							]
+						]
+					},
+					"55": {
+						"offset": [
+							840,
+							240
+						],
+						"io": [
+							[
+								55,
+								0,
+								58,
+								0
+							]
+						]
+					},
+					"56": {
+						"offset": [
+							660,
+							520
+						],
+						"io": [
+							[
+								56,
+								0,
+								53,
+								1
+							]
+						]
+					},
+					"57": {
+						"offset": [
+							660,
+							440
+						],
+						"io": [
+							[
+								57,
+								0,
+								53,
+								0
+							]
+						]
+					},
+					"58": {
+						"offset": [
+							830,
+							100
+						]
+					},
+					"92": {
+						"offset": [
+							200,
+							210
+						],
+						"io": [
+							[
+								92,
+								0,
+								11,
+								0
+							],
+							[
+								92,
+								1,
+								20,
+								0
+							]
+						]
+					},
+					"108": {
+						"offset": [
+							1030,
+							260
+						],
+						"io": [
+							[
+								108,
+								0,
+								109,
+								0
+							]
+						]
+					},
+					"109": {
+						"offset": [
+							1070,
+							370
+						],
+						"io": [
+							[
+								109,
+								0,
+								108,
+								0
+							],
+							[
+								109,
+								1,
+								110,
+								0
+							]
+						]
+					},
+					"110": {
+						"offset": [
+							1140,
+							470
+						]
+					}
+				}
+			},
+			"9": {
+				"name": "Content Nodes",
+				"entry": 10,
+				"map": {
+					"10": {
+						"offset": [
+							100,
+							100
+						],
+						"io": [
+							[
+								10,
+								0,
+								8,
+								0
+							]
+						]
+					},
+					"8": {
+						"offset": [
+							160,
+							190
+						],
+						"io": [
+							[
+								8,
+								0,
+								12,
+								0
+							]
+						]
+					},
+					"12": {
+						"offset": [
+							210,
+							290
+						],
+						"io": [
+							[
+								12,
+								0,
+								93,
+								0
+							]
+						]
+					},
+					"13": {
+						"offset": [
+							420,
+							370
+						],
+						"io": [
+							[
+								13,
+								0,
+								14,
+								0
+							]
+						]
+					},
+					"14": {
+						"offset": [
+							550,
+							410
+						],
+						"io": [
+							[
+								14,
+								0,
+								18,
+								0
+							]
+						]
+					},
+					"18": {
+						"offset": [
+							660,
+							370
+						],
+						"skip": true,
+						"io": [
+							[
+								18,
+								0,
+								19,
+								0
+							]
+						]
+					},
+					"19": {
+						"offset": [
+							720,
+							460
+						],
+						"io": [
+							[
+								19,
+								0,
+								51,
+								0
+							]
+						]
+					},
+					"51": {
+						"offset": [
+							710,
+							110
+						]
+					},
+					"93": {
+						"offset": [
+							310,
+							330
+						],
+						"io": [
+							[
+								93,
+								0,
+								13,
+								0
+							]
+						]
+					}
+				}
+			},
+			"22": {
+				"name": "Logic & Conditionals",
+				"entry": 23,
+				"map": {
+					"23": {
+						"offset": [
+							100,
+							100
+						],
+						"io": [
+							[
+								23,
+								0,
+								25,
+								0
+							]
+						]
+					},
+					"25": {
+						"offset": [
+							160,
+							190
+						],
+						"io": [
+							[
+								25,
+								0,
+								26,
+								0
+							]
+						]
+					},
+					"26": {
+						"offset": [
+							240,
+							320
+						],
+						"io": [
+							[
+								26,
+								0,
+								27,
+								0
+							]
+						]
+					},
+					"27": {
+						"offset": [
+							350,
+							300
+						],
+						"io": [
+							[
+								27,
+								0,
+								29,
+								0
+							]
+						]
+					},
+					"29": {
+						"offset": [
+							490,
+							270
+						],
+						"io": [
+							[
+								29,
+								0,
+								30,
+								0
+							]
+						]
+					},
+					"30": {
+						"offset": [
+							600,
+							230
+						],
+						"io": [
+							[
+								30,
+								0,
+								34,
+								0
+							]
+						]
+					},
+					"34": {
+						"offset": [
+							660,
+							110
+						]
+					}
+				}
+			},
+			"31": {
+				"name": "Variable Modification",
+				"entry": 32,
+				"map": {
+					"32": {
+						"offset": [
+							100,
+							100
+						],
+						"io": [
+							[
+								32,
+								0,
+								33,
+								0
+							]
+						]
+					},
+					"33": {
+						"offset": [
+							220,
+							220
+						],
+						"io": [
+							[
+								33,
+								0,
+								35,
+								0
+							]
+						]
+					},
+					"35": {
+						"offset": [
+							260,
+							320
+						],
+						"io": [
+							[
+								35,
+								0,
+								37,
+								0
+							]
+						]
+					},
+					"37": {
+						"offset": [
+							500,
+							350
+						],
+						"io": [
+							[
+								37,
+								0,
+								39,
+								0
+							]
+						]
+					},
+					"39": {
+						"offset": [
+							620,
+							350
+						],
+						"io": [
+							[
+								39,
+								0,
+								40,
+								0
+							],
+							[
+								39,
+								1,
+								41,
+								0
+							]
+						]
+					},
+					"40": {
+						"offset": [
+							840,
+							310
+						],
+						"io": [
+							[
+								40,
+								0,
+								42,
+								0
+							]
+						]
+					},
+					"41": {
+						"offset": [
+							840,
+							400
+						],
+						"io": [
+							[
+								41,
+								0,
+								42,
+								1
+							]
+						]
+					},
+					"42": {
+						"offset": [
+							980,
+							340
+						],
+						"io": [
+							[
+								42,
+								0,
+								44,
+								0
+							]
+						]
+					},
+					"43": {
+						"offset": [
+							1290,
+							480
+						],
+						"io": [
+							[
+								43,
+								0,
+								47,
+								0
+							]
+						]
+					},
+					"44": {
+						"offset": [
+							990,
+							470
+						],
+						"io": [
+							[
+								44,
+								0,
+								45,
+								0
+							]
+						]
+					},
+					"45": {
+						"offset": [
+							990,
+							610
+						],
+						"io": [
+							[
+								45,
+								0,
+								46,
+								0
+							]
+						]
+					},
+					"46": {
+						"offset": [
+							1170,
+							480
+						],
+						"io": [
+							[
+								46,
+								0,
+								43,
+								0
+							]
+						]
+					},
+					"47": {
+						"offset": [
+							1460,
+							480
+						],
+						"io": [
+							[
+								47,
+								0,
+								49,
+								0
+							]
+						]
+					},
+					"49": {
+						"offset": [
+							1500,
+							620
+						]
+					}
+				}
+			},
+			"59": {
+				"name": "Navigation",
+				"entry": 60,
+				"map": {
+					"60": {
+						"offset": [
+							100,
+							100
+						],
+						"io": [
+							[
+								60,
+								0,
+								61,
+								0
+							]
+						]
+					},
+					"61": {
+						"offset": [
+							380,
+							150
+						],
+						"io": [
+							[
+								61,
+								0,
+								62,
+								0
+							]
+						]
+					},
+					"62": {
+						"offset": [
+							540,
+							160
+						],
+						"io": [
+							[
+								62,
+								0,
+								63,
+								0
+							]
+						]
+					},
+					"63": {
+						"offset": [
+							610,
+							270
+						],
+						"io": [
+							[
+								63,
+								0,
+								64,
+								0
+							]
+						]
+					},
+					"64": {
+						"offset": [
+							730,
+							270
+						],
+						"io": [
+							[
+								64,
+								0,
+								65,
+								0
+							]
+						]
+					},
+					"65": {
+						"offset": [
+							850,
+							260
+						]
+					},
+					"66": {
+						"offset": [
+							380,
+							360
+						],
+						"io": [
+							[
+								66,
+								0,
+								67,
+								0
+							]
+						]
+					},
+					"67": {
+						"offset": [
+							510,
+							380
+						]
+					},
+					"68": {
+						"offset": [
+							380,
+							480
+						],
+						"io": [
+							[
+								68,
+								0,
+								69,
+								0
+							]
+						]
+					},
+					"69": {
+						"offset": [
+							510,
+							510
+						],
+						"io": [
+							[
+								69,
+								0,
+								73,
+								0
+							],
+							[
+								69,
+								1,
+								74,
+								0
+							]
+						]
+					},
+					"70": {
+						"offset": [
+							1070,
+							530
+						],
+						"io": [
+							[
+								70,
+								0,
+								76,
+								0
+							]
+						]
+					},
+					"73": {
+						"offset": [
+							720,
+							430
+						],
+						"io": [
+							[
+								73,
+								0,
+								75,
+								0
+							],
+							[
+								73,
+								1,
+								75,
+								1
+							]
+						]
+					},
+					"74": {
+						"offset": [
+							720,
+							580
+						],
+						"io": [
+							[
+								74,
+								0,
+								75,
+								2
+							],
+							[
+								74,
+								1,
+								75,
+								3
+							]
+						]
+					},
+					"75": {
+						"offset": [
+							920,
+							530
+						],
+						"io": [
+							[
+								75,
+								0,
+								70,
+								0
+							]
+						]
+					},
+					"76": {
+						"offset": [
+							1070,
+							620
+						],
+						"io": [
+							[
+								76,
+								0,
+								77,
+								0
+							]
+						]
+					},
+					"77": {
+						"offset": [
+							1210,
+							570
+						],
+						"io": [
+							[
+								77,
+								0,
+								78,
+								0
+							],
+							[
+								77,
+								1,
+								79,
+								0
+							]
+						]
+					},
+					"78": {
+						"offset": [
+							1340,
+							530
+						],
+						"io": [
+							[
+								78,
+								0,
+								81,
+								0
+							]
+						]
+					},
+					"79": {
+						"offset": [
+							1340,
+							610
+						],
+						"io": [
+							[
+								79,
+								0,
+								80,
+								0
+							]
+						]
+					},
+					"80": {
+						"offset": [
+							1470,
+							650
+						],
+						"io": [
+							[
+								80,
+								1,
+								86,
+								0
+							],
+							[
+								80,
+								0,
+								86,
+								1
+							]
+						]
+					},
+					"81": {
+						"offset": [
+							1480,
+							440
+						],
+						"io": [
+							[
+								81,
+								1,
+								82,
+								0
+							],
+							[
+								81,
+								0,
+								82,
+								1
+							]
+						]
+					},
+					"82": {
+						"offset": [
+							1720,
+							490
+						],
+						"io": [
+							[
+								82,
+								0,
+								83,
+								0
+							]
+						]
+					},
+					"83": {
+						"offset": [
+							1840,
+							480
+						],
+						"io": [
+							[
+								83,
+								0,
+								84,
+								0
+							]
+						]
+					},
+					"84": {
+						"offset": [
+							1970,
+							450
+						]
+					},
+					"85": {
+						"offset": [
+							1870,
+							700
+						],
+						"io": [
+							[
+								85,
+								0,
+								87,
+								0
+							]
+						]
+					},
+					"86": {
+						"offset": [
+							1760,
+							710
+						],
+						"io": [
+							[
+								86,
+								0,
+								85,
+								0
+							]
+						]
+					},
+					"87": {
+						"offset": [
+							2010,
+							600
+						],
+						"io": [
+							[
+								87,
+								1,
+								88,
+								0
+							],
+							[
+								87,
+								0,
+								90,
+								0
+							]
+						]
+					},
+					"88": {
+						"offset": [
+							2180,
+							670
+						],
+						"io": [
+							[
+								88,
+								0,
+								96,
+								0
+							]
+						]
+					},
+					"89": {
+						"offset": [
+							2440,
+							660
+						]
+					},
+					"90": {
+						"offset": [
+							2190,
+							530
+						],
+						"io": [
+							[
+								90,
+								0,
+								91,
+								0
+							]
+						]
+					},
+					"91": {
+						"offset": [
+							2310,
+							530
+						],
+						"io": [
+							[
+								91,
+								0,
+								97,
+								0
+							]
+						]
+					},
+					"96": {
+						"offset": [
+							2290,
+							670
+						],
+						"io": [
+							[
+								96,
+								0,
+								89,
+								0
+							]
+						]
+					},
+					"97": {
+						"offset": [
+							2440,
+							530
+						]
+					}
+				}
+			},
+			"98": {
+				"name": "counter_macro",
+				"entry": 99,
+				"map": {
+					"99": {
+						"offset": [
+							100,
+							100
+						],
+						"io": [
+							[
+								99,
+								0,
+								102,
+								0
+							]
+						],
+						"skip": true
+					},
+					"101": {
+						"offset": [
+							490,
+							110
+						],
+						"io": [
+							[
+								101,
+								0,
+								106,
+								0
+							]
+						]
+					},
+					"102": {
+						"offset": [
+							200,
+							230
+						],
+						"io": [
+							[
+								102,
+								0,
+								104,
+								0
+							]
+						]
+					},
+					"104": {
+						"offset": [
+							310,
+							230
+						],
+						"io": [
+							[
+								104,
+								0,
+								105,
+								0
+							]
+						]
+					},
+					"105": {
+						"offset": [
+							420,
+							230
+						],
+						"io": [
+							[
+								105,
+								0,
+								101,
+								0
+							]
+						]
+					},
+					"106": {
+						"offset": [
+							580,
+							230
+						],
+						"io": [
+							[
+								106,
+								0,
+								107,
+								0
+							]
+						]
+					},
+					"107": {
+						"offset": [
+							690,
+							230
+						],
+						"io": [
+							[
+								107,
+								0,
+								111,
+								0
+							]
+						]
+					},
+					"111": {
+						"offset": [
+							740,
+							350
+						]
+					}
+				},
+				"macro": true,
+				"use": [
+					108
+				]
+			}
+		},
+		"nodes": {
+			"1": {
+				"type": "entry",
+				"name": "S0N0Ent",
+				"data": {
+					"plaque": "Start"
+				},
+				"notes": "Every project, scene and macro starts with an Entry node.\nThis one is the Entry node for the project and the scene it resides in.",
+				"use": [
+					89
+				]
+			},
+			"2": {
+				"type": "content",
+				"name": "S0N1Cnt",
+				"data": {
+					"title": "Howdy!",
+					"content": "New here?\nI'm a Content node, one of the node-types you will use a lot.\nWould you like to know more about us?",
+					"clear": true
+				},
+				"notes": "BTW, You can wtite whatever you want here. These `Node Notes` are like metadata and won't affect the narrative."
+			},
+			"8": {
+				"type": "content",
+				"name": "S0N8Cnt",
+				"data": {
+					"title": "Introduction to Content Nodes",
+					"content": "`Content` nodes display textual content to players. The good news is that they are quite flexible thanks to BBCode support and templating.",
+					"clear": false
+				}
+			},
+			"10": {
+				"type": "entry",
+				"name": "S9NaEnt",
+				"data": {
+					"plaque": "Content Nodes"
+				},
+				"use": [
+					11
+				]
+			},
+			"11": {
+				"type": "jump",
+				"name": "S0NbJmp",
+				"data": {
+					"target": 10,
+					"reason": "Chapter: Content Nodes"
+				},
+				"ref": [
+					10
+				],
+				"notes": "This is a Jump node. They help quick navigation between nodes, even on different scenes.\nThis particular jump node will send us to another scene called `Content Nodes`."
+			},
+			"12": {
+				"type": "content",
+				"name": "S9NcCnt",
+				"data": {
+					"title": "BBCodes",
+					"content": "Special markups called `BBCode` let us to extend our textual content. For example, we can [color=red]colorize[/color] a piece of text or extend the content by inserting images.\nNote that final result of BBCode markups, [i]depends on the runtime[/i] you use.",
+					"clear": false
+				}
+			},
+			"13": {
+				"type": "content",
+				"name": "S9NdCnt",
+				"data": {
+					"title": "Clear Printing",
+					"content": "Content nodes can clear the view as well. Just like what I've tried to do.\nIf you're playing this project in the Arrow editor, you can `Prevent Clearance` from the `Console` panel settings.",
+					"clear": true
+				}
+			},
+			"14": {
+				"type": "content",
+				"name": "S9NeCnt",
+				"data": {
+					"title": "Templating",
+					"content": "Parsing templates is another interesting thing we can do here. A Content node gets mustache tags like `{variable_id}` and replaces them with the current value of the variable:\n\n[p] boolean_var = {boolean_var} [/p]\n[p] string_var = {string_var} [/p]\n[p] number_var = {number_var} [/p]\n\nThis comes in handy when you intend to customize content based on player choices.",
+					"clear": false
+				}
+			},
+			"18": {
+				"type": "content",
+				"name": "S9NiCnt",
+				"data": {
+					"title": "I'm Skipped",
+					"content": "Content nodes like any other node can be skipped by setting the `Skip` checkbox on the `Node` tab of the `Inspector` panel.\nThe skip behavior differs depending on the node-type. Content nodes don't get displayed if skipped and send you to the next node immediately.",
+					"clear": false
+				}
+			},
+			"19": {
+				"type": "content",
+				"name": "S9NjCnt",
+				"data": {
+					"title": "Skipped Nodes ?",
+					"content": "We just skipped a Content node!\nIf you're playing a project using the Arrow editor's console, you can activate `Show Skipped Nodes` from settings of the console panel to make them visible, and go `Back` in case you want to manually play them. Some runtimes may support going backwards to a skipped node.\n\nSkipping nodes let us temporarily cancel a node from our narrative without removing them permanently or changing the plot flow. It's mostly a review tool and the behavior may not be consistent over different runtimes.",
+					"clear": false
+				}
+			},
+			"20": {
+				"type": "content",
+				"name": "S0NkCnt",
+				"data": {
+					"title": "What about Logic?",
+					"content": "We can talk about variables and conditionals.\nWhat do you think?",
+					"clear": true
+				},
+				"use": [
+					51
+				]
+			},
+			"21": {
+				"type": "jump",
+				"name": "S0NlJmp",
+				"data": {
+					"target": 23,
+					"reason": "Chapter: Logic"
+				},
+				"ref": [
+					23
+				]
+			},
+			"23": {
+				"type": "entry",
+				"name": "S22NnEnt",
+				"data": {
+					"plaque": "Condition Nodes"
+				},
+				"use": [
+					21
+				]
+			},
+			"24": {
+				"type": "interaction",
+				"name": "S0NoInt",
+				"data": {
+					"actions": [
+						"Go ahead!",
+						"Maybe a better time."
+					]
+				}
+			},
+			"25": {
+				"type": "content",
+				"name": "S22NpCnt",
+				"data": {
+					"title": "Introduction to Condition Nodes",
+					"content": "`Condition` nodes compare current value of their target variable to a specified value, to current value of another variable or to the initial value of the variable itself.",
+					"clear": false
+				}
+			},
+			"26": {
+				"type": "content",
+				"name": "S22NqCnt",
+				"data": {
+					"title": "Variable?",
+					"content": "So there must be a variable first. You can make them from the `Variables` tab of the `Inspector` panel of the editor.",
+					"clear": false
+				}
+			},
+			"27": {
+				"type": "content",
+				"name": "S22NrCnt",
+				"data": {
+					"title": "Variable Types",
+					"content": "There are three kinds of variables:\n\n[p] Numbers (num) which hold an integer. [/p]\n[p] Booleans (bool) which hold a binary state (i.e. `True` or `False.) [/p]\n[p] Strings (str) which hold text. [/p]",
+					"clear": false
+				}
+			},
+			"29": {
+				"type": "content",
+				"name": "S22NtCnt",
+				"data": {
+					"title": "Operators",
+					"content": "Condition nodes compare current state of a target variable using an operator.\nAvailable operators depend on type of the target variable. For example a number can be checked if it's lesser or equal to another number, etc.",
+					"clear": false
+				}
+			},
+			"30": {
+				"type": "content",
+				"name": "S22NuCnt",
+				"data": {
+					"title": "",
+					"content": "There are many operators available. It's recommended to have fun with them. But remember that only variables and values of the same type can be compared to each other (type-casting is not supported.)",
+					"clear": false
+				}
+			},
+			"32": {
+				"type": "entry",
+				"name": "S31NwEnt",
+				"data": {
+					"plaque": "Variable Modification"
+				},
+				"use": [
+					34
+				]
+			},
+			"33": {
+				"type": "content",
+				"name": "S31NxCnt",
+				"data": {
+					"title": "Variable Modification",
+					"content": "We can modify current value of our variables in different ways.\nOne of them is to ask players for their `User Input`, as I'm about to.",
+					"clear": false
+				}
+			},
+			"34": {
+				"type": "jump",
+				"name": "S22NyJmp",
+				"data": {
+					"target": 32,
+					"reason": "Read more about variables"
+				},
+				"ref": [
+					32
+				]
+			},
+			"35": {
+				"type": "user_input",
+				"name": "S31NzUsr",
+				"data": {
+					"variable": 36,
+					"prompt": "Do you like the color `red` ?"
+				},
+				"ref": [
+					36
+				]
+			},
+			"37": {
+				"type": "content",
+				"name": "S31N11Cnt",
+				"data": {
+					"title": "",
+					"content": "User Input nodes replace current value of their target nodes with the input they get from the player.\nThis is why a Content node like me knows you have replied with `{player_likes_red}` ...",
+					"clear": false
+				}
+			},
+			"39": {
+				"type": "condition",
+				"name": "S31N13Cnd",
+				"data": {
+					"variable": 36,
+					"operator": "eq",
+					"with": [
+						0,
+						true
+					]
+				},
+				"ref": [
+					36
+				]
+			},
+			"40": {
+				"type": "content",
+				"name": "S31N14Cnt",
+				"data": {
+					"title": "",
+					"content": "... therefore I'm not going to show you any more [color=green]red[/color].",
+					"clear": false
+				}
+			},
+			"41": {
+				"type": "content",
+				"name": "S31N15Cnt",
+				"data": {
+					"title": "",
+					"content": "... therefore I'm going to show you some [color=red]red[/color].",
+					"clear": false
+				}
+			},
+			"42": {
+				"type": "hub",
+				"name": "S31N16Hub",
+				"data": {
+					"slots": 2
+				}
+			},
+			"43": {
+				"type": "variable_update",
+				"name": "S31N17Vrb",
+				"data": {
+					"variable": 95,
+					"operator": "add",
+					"with": [
+						0,
+						2
+					]
+				},
+				"ref": [
+					95
+				]
+			},
+			"44": {
+				"type": "content",
+				"name": "S31N18Cnt",
+				"data": {
+					"title": "",
+					"content": "Let me ask you a favor ...",
+					"clear": false
+				}
+			},
+			"45": {
+				"type": "user_input",
+				"name": "S31N19Usr",
+				"data": {
+					"variable": 95,
+					"prompt": "Can you give me a number ? Any integer would do."
+				},
+				"ref": [
+					95
+				]
+			},
+			"46": {
+				"type": "content",
+				"name": "S31N1aCnt",
+				"data": {
+					"title": "",
+					"content": "I'll increase the number you've inputed, by 2, using an `Update Variable` node.\nYour number ({lucky_number}) is going to change ... ",
+					"clear": false
+				}
+			},
+			"47": {
+				"type": "content",
+				"name": "S31N1bCnt",
+				"data": {
+					"title": "",
+					"content": "... and it's now `{lucky_number}`",
+					"clear": false
+				}
+			},
+			"49": {
+				"type": "jump",
+				"name": "S31N1dJmp",
+				"data": {
+					"target": 50,
+					"reason": "Back to the Main Scene"
+				},
+				"ref": [
+					50
+				]
+			},
+			"50": {
+				"type": "content",
+				"name": "S0N1eCnt",
+				"data": {
+					"title": "About Navigation?",
+					"content": "OK! Would you like to know more about plot management and navigation?",
+					"clear": true
+				},
+				"use": [
+					49
+				]
+			},
+			"51": {
+				"type": "jump",
+				"name": "S9N1fJmp",
+				"data": {
+					"target": 20,
+					"reason": "Back to the main scene: Getting Started"
+				},
+				"ref": [
+					20
+				]
+			},
+			"52": {
+				"type": "interaction",
+				"name": "S0N1gInt",
+				"data": {
+					"actions": [
+						"Sure!",
+						"No! Why?"
+					]
+				}
+			},
+			"53": {
+				"type": "hub",
+				"name": "S0N1hHub",
+				"data": {
+					"slots": 2
+				}
+			},
+			"55": {
+				"type": "content",
+				"name": "S0N1jCnt",
+				"data": {
+					"title": "",
+					"content": "{machine_reaction}! Let's talk about it.",
+					"clear": false
+				}
+			},
+			"56": {
+				"type": "variable_update",
+				"name": "S0N1kVrb",
+				"data": {
+					"variable": 94,
+					"operator": "set",
+					"with": [
+						0,
+						"Anyway"
+					]
+				},
+				"ref": [
+					94
+				]
+			},
+			"57": {
+				"type": "variable_update",
+				"name": "S0N1lVrb",
+				"data": {
+					"variable": 94,
+					"operator": "set",
+					"with": [
+						0,
+						"Cool"
+					]
+				},
+				"ref": [
+					94
+				]
+			},
+			"58": {
+				"type": "jump",
+				"name": "S0N1mJmp",
+				"data": {
+					"target": 60,
+					"reason": "Chapter: Navigation"
+				},
+				"ref": [
+					60
+				]
+			},
+			"60": {
+				"type": "entry",
+				"name": "S59N1oEnt",
+				"data": {
+					"plaque": "Navigation and Plot Management"
+				},
+				"use": [
+					58
+				]
+			},
+			"61": {
+				"type": "content",
+				"name": "S59N1pCnt",
+				"data": {
+					"title": "Plot Management",
+					"content": "Plot Management is the process of deviding your story/play to smaller scenes and/or sub-plots.\nThe way you do it, depends on your storytelling style and narrative preferences.\nGenerally we recommend to keep scenes independent and small as possible.\nYou may also have a main scene, serving as an overall map or an interactive table of contents.",
+					"clear": true
+				}
+			},
+			"62": {
+				"type": "content",
+				"name": "S59N1qCnt",
+				"data": {
+					"title": "Navigation",
+					"content": "Navigation is another concept you may care about. It's the way you pass your players (the audience) through different plots and sub-plots so they can enjoy interactive experience of your play/narrative.\n",
+					"clear": false
+				}
+			},
+			"63": {
+				"type": "content",
+				"name": "S59N1rCnt",
+				"data": {
+					"title": "",
+					"content": "Arrow offers many handy tools for Navigation and Plot Management. Scenes and the graph-node system is the basic ones.\nEach scene can include one or many plots and/or sub-plots, consisted of nodes linked to one another.",
+					"clear": false
+				}
+			},
+			"64": {
+				"type": "content",
+				"name": "S59N1sCnt",
+				"data": {
+					"title": "",
+					"content": "You can link nodes by graph connections or by `Jump` nodes.",
+					"clear": false
+				}
+			},
+			"65": {
+				"type": "jump",
+				"name": "S59N1tJmp",
+				"data": {
+					"target": 66,
+					"reason": " Jumping inside the scene"
+				},
+				"ref": [
+					66
+				]
+			},
+			"66": {
+				"type": "content",
+				"name": "S59N1uCnt",
+				"data": {
+					"title": "",
+					"content": "Jump nodes can navigate players to any (destination) node, either in the same scene or any other one. This is why this content node having no incoming connection is displayed for you.\n\n",
+					"clear": false
+				},
+				"use": [
+					65
+				]
+			},
+			"67": {
+				"type": "jump",
+				"name": "S59N1vJmp",
+				"data": {
+					"target": 68,
+					"reason": ""
+				},
+				"ref": [
+					68
+				]
+			},
+			"68": {
+				"type": "content",
+				"name": "S59N1wCnt",
+				"data": {
+					"title": "",
+					"content": "Besides getting variable inputs and updating them, there are some other ways to introduce interactivity to your narrative.\n`Interaction` and `Dialog` nodes are the most important ones. They are quite similar. They both give a set of options to the players so they can decide where the story shall take us. Dialog nodes in addition, relate to a character and can be playable by users or displayed as a random reply (NPC).\nHere one character bumps to another one ...",
+					"clear": false
+				},
+				"use": [
+					67
+				]
+			},
+			"69": {
+				"type": "dialog",
+				"name": "S59N1xDlg",
+				"data": {
+					"character": 71,
+					"lines": [
+						"Sorry! Are you OK?",
+						"Hey! Watch out!"
+					],
+					"playable": true
+				},
+				"ref": [
+					71
+				]
+			},
+			"70": {
+				"type": "content",
+				"name": "S59N1yCnt",
+				"data": {
+					"title": "",
+					"content": "... You played `Mr. X`, but `Mis. Y` was played by the machine because the Dialog node(s) are none-playable (i.e. randomized.)",
+					"clear": false
+				}
+			},
+			"73": {
+				"type": "dialog",
+				"name": "S59N21Dlg",
+				"data": {
+					"character": 72,
+					"lines": [
+						"I'm fine.",
+						"What do you think?!"
+					],
+					"playable": false
+				},
+				"ref": [
+					72
+				]
+			},
+			"74": {
+				"type": "dialog",
+				"name": "S59N22Dlg",
+				"data": {
+					"character": 72,
+					"lines": [
+						"What ?!",
+						"Are you drunk?"
+					],
+					"playable": false
+				},
+				"ref": [
+					72
+				]
+			},
+			"75": {
+				"type": "hub",
+				"name": "S59N23Hub",
+				"data": {
+					"slots": 4
+				}
+			},
+			"76": {
+				"type": "content",
+				"name": "S59N24Cnt",
+				"data": {
+					"title": "",
+					"content": "I shall add that, we would arrive here anyway, in this sub-plot, because we have used a `Hub` node to fold back all the possible interactions to a deterministic focal node.\nWe can also use a `Randomizer` node to navigate the player to a randomly chosen node from a list of possibilities.\nHere you pass a Randomizer node and ...",
+					"clear": false
+				}
+			},
+			"77": {
+				"type": "randomizer",
+				"name": "S59N25Rnd",
+				"data": {
+					"slots": 2
+				}
+			},
+			"78": {
+				"type": "content",
+				"name": "S59N26Cnt",
+				"data": {
+					"title": "",
+					"content": "... get where `Mr. X` just runs away blushing!",
+					"clear": false
+				}
+			},
+			"79": {
+				"type": "content",
+				"name": "S59N27Cnt",
+				"data": {
+					"title": "",
+					"content": "... get where `Mr. X` starts laughing!",
+					"clear": false
+				}
+			},
+			"80": {
+				"type": "dialog",
+				"name": "S59N28Dlg",
+				"data": {
+					"character": 72,
+					"lines": [
+						"Yes you're sure drunk!",
+						"Good lord! And now you're laughing?!"
+					],
+					"playable": false
+				},
+				"ref": [
+					72
+				]
+			},
+			"81": {
+				"type": "dialog",
+				"name": "S59N29Dlg",
+				"data": {
+					"character": 72,
+					"lines": [
+						"Sure! Run! You ...",
+						"Wait! Why are you running?!"
+					],
+					"playable": false
+				},
+				"ref": [
+					72
+				]
+			},
+			"82": {
+				"type": "hub",
+				"name": "S59N2aHub",
+				"data": {
+					"slots": 2
+				}
+			},
+			"83": {
+				"type": "content",
+				"name": "S59N2bCnt",
+				"data": {
+					"title": "",
+					"content": "... and after another automatic reply from `Mis. Y` (NPC,) the plot ends with a `Marker` node which you might not see depending on how you run your project.",
+					"clear": false
+				}
+			},
+			"84": {
+				"type": "marker",
+				"name": "S59N2cMrk",
+				"data": {
+					"label": "Just a Marker!",
+					"color": "ff00ff1c"
+				},
+				"notes": "Markers are colorful and easily found on the graph. You may use them to mark parts of the narrative which need more attention (ToDo) or devide sub-plots virtually."
+			},
+			"85": {
+				"type": "content",
+				"name": "S59N2dCnt",
+				"data": {
+					"title": "",
+					"content": "... and after another automatic reply from `Mis. Y` (NPC,) we'll have an Interaction node, which lets us decide to ...",
+					"clear": false
+				}
+			},
+			"86": {
+				"type": "hub",
+				"name": "S59N2eHub",
+				"data": {
+					"slots": 2
+				}
+			},
+			"87": {
+				"type": "interaction",
+				"name": "S59N2fInt",
+				"data": {
+					"actions": [
+						"Kick the guy",
+						"Leave the clown"
+					]
+				}
+			},
+			"88": {
+				"type": "content",
+				"name": "S59N2gCnt",
+				"data": {
+					"title": "",
+					"content": "... and jump back to the main scene.",
+					"clear": false
+				}
+			},
+			"89": {
+				"type": "jump",
+				"name": "S59N2hJmp",
+				"data": {
+					"target": 1,
+					"reason": ""
+				},
+				"ref": [
+					1
+				]
+			},
+			"90": {
+				"type": "content",
+				"name": "S59N2iCnt",
+				"data": {
+					"title": "",
+					"content": "... and wake up, where in the real world plot ends!",
+					"clear": false
+				}
+			},
+			"91": {
+				"type": "marker",
+				"name": "S59N2jMrk",
+				"data": {
+					"label": "Here it Ends!",
+					"color": "ff00fff9"
+				}
+			},
+			"92": {
+				"type": "interaction",
+				"name": "S0N2kInt",
+				"data": {
+					"actions": [
+						"Yes",
+						"Nope!"
+					]
+				}
+			},
+			"93": {
+				"type": "content",
+				"name": "S9N2lCnt",
+				"data": {
+					"title": "Runtimes?",
+					"content": "A Runtime is a piece of standalone software, able to interpret (play) an exported Arrow project. Runtimes are light and likely portable, so they can be easily used to help distribute or review your project.\n\nArrow has an official HTML-JS runtime which is bundled with the editor. You can export any project to a playable single html file via `Inspector > Project > More > export HTML...`",
+					"clear": false
+				}
+			},
+			"96": {
+				"type": "marker",
+				"name": "S59N2oMrk",
+				"data": {
+					"label": "Restart",
+					"color": "fffb8c09"
+				}
+			},
+			"97": {
+				"type": "content",
+				"name": "S59N2pCnt",
+				"data": {
+					"title": "The End!",
+					"content": "See you later.",
+					"clear": false
+				}
+			},
+			"99": {
+				"type": "entry",
+				"name": "M98N2rEnt",
+				"data": {
+					"plaque": "Counter Macro"
+				}
+			},
+			"101": {
+				"type": "variable_update",
+				"name": "M98N2tVrb",
+				"data": {
+					"variable": 100,
+					"operator": "add",
+					"with": [
+						0,
+						1
+					]
+				},
+				"ref": [
+					100
+				]
+			},
+			"102": {
+				"type": "content",
+				"name": "M98N2uCnt",
+				"data": {
+					"title": "Macro!",
+					"content": "`Macro` nodes are reusable scenes. They do whatever a scene can do but you can re-use them in the other scenes.",
+					"clear": false
+				}
+			},
+			"104": {
+				"type": "content",
+				"name": "M98N2wCnt",
+				"data": {
+					"title": "",
+					"content": "When a Macro is done, it can jump to another node, or just leave its last node disconnected. In the latter case, the parent scene will continue to the next node (connected to the Macro node's outgoing slot.)",
+					"clear": false
+				}
+			},
+			"105": {
+				"type": "content",
+				"name": "M98N2xCnt",
+				"data": {
+					"title": "",
+					"content": "This very macro will increase value of the numeral variable `counter` by 1.",
+					"clear": false
+				}
+			},
+			"106": {
+				"type": "content",
+				"name": "M98N2yCnt",
+				"data": {
+					"title": "",
+					"content": "So I know you have played this macro {counter} time(s.)",
+					"clear": false
+				}
+			},
+			"107": {
+				"type": "content",
+				"name": "M98N2zCnt",
+				"data": {
+					"title": "",
+					"content": "Because the macro doesn't jump, it is up to the parent scene to continue or end its plot-line.",
+					"clear": false
+				}
+			},
+			"108": {
+				"type": "macro_use",
+				"name": "S0N30Mcr",
+				"data": {
+					"macro": 98
+				},
+				"ref": [
+					98
+				]
+			},
+			"109": {
+				"type": "interaction",
+				"name": "S0N31Int",
+				"data": {
+					"actions": [
+						"Replay The Macro",
+						"End"
+					]
+				}
+			},
+			"110": {
+				"type": "marker",
+				"name": "S0N32Mrk",
+				"data": {
+					"label": "The Macro's Parent Ends",
+					"color": "ff04a1ff"
+				}
+			},
+			"111": {
+				"type": "marker",
+				"name": "M98N33Mrk",
+				"data": {
+					"label": "Macro Itself Ends Here",
+					"color": "ff69c85d"
+				}
+			}
+		},
+		"variables": {
+			"15": {
+				"name": "number_var",
+				"type": "num",
+				"init": 1234567
+			},
+			"16": {
+				"name": "boolean_var",
+				"type": "bool",
+				"init": true
+			},
+			"17": {
+				"name": "string_var",
+				"type": "str",
+				"init": "blah-blah"
+			},
+			"36": {
+				"name": "player_likes_red",
+				"type": "bool",
+				"init": true,
+				"use": [
+					35,
+					39
+				]
+			},
+			"94": {
+				"name": "machine_reaction",
+				"type": "str",
+				"init": "well",
+				"use": [
+					57,
+					56
+				]
+			},
+			"95": {
+				"name": "lucky_number",
+				"type": "num",
+				"init": 7,
+				"use": [
+					45,
+					43
+				]
+			},
+			"100": {
+				"name": "counter",
+				"type": "num",
+				"init": 0,
+				"use": [
+					101
+				]
+			}
+		},
+		"characters": {
+			"71": {
+				"name": "Mr. X",
+				"color": "a300ff",
+				"use": [
+					69
+				]
+			},
+			"72": {
+				"name": "Mis. Y",
+				"color": "1dff00",
+				"use": [
+					73,
+					74,
+					80,
+					81
+				]
+			}
+		}
+	}
+}

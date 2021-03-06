@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/macro_use/console.gd" type="Script" id=1]
+
+[node name="MacroUse" type="PanelContainer"]
+margin_top = 166.0
+margin_right = 233.0
+margin_bottom = 198.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MacroUsePlay" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 226.0
+margin_bottom = 63.0
+mouse_filter = 2
+
+[node name="MacroUseTitle" type="HBoxContainer" parent="MacroUsePlay"]
+margin_right = 219.0
+margin_bottom = 14.0
+mouse_filter = 2
+
+[node name="Icon" type="Label" parent="MacroUsePlay/MacroUseTitle"]
+margin_right = 20.0
+margin_bottom = 14.0
+text = "[M]"
+
+[node name="Name" type="Label" parent="MacroUsePlay/MacroUseTitle"]
+margin_left = 24.0
+margin_right = 219.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "{name}"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="PanelContainer" type="PanelContainer" parent="MacroUsePlay"]
+margin_top = 18.0
+margin_right = 219.0
+margin_bottom = 32.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MacroUseSubConsole" type="VBoxContainer" parent="MacroUsePlay/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 212.0
+margin_bottom = 7.0
+size_flags_horizontal = 3
+
+[node name="SkipMacro" type="Button" parent="MacroUsePlay"]
+margin_left = 181.0
+margin_top = 36.0
+margin_right = 219.0
+margin_bottom = 56.0
+mouse_filter = 1
+size_flags_horizontal = 8
+text = "Skip"

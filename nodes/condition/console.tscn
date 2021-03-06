@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/condition/console.gd" type="Script" id=1]
+
+[node name="Condition" type="PanelContainer"]
+margin_right = 221.0
+margin_bottom = 42.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConditionPlay" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 214.0
+margin_bottom = 35.0
+mouse_filter = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Statement" type="Label" parent="ConditionPlay"]
+margin_right = 114.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "{ statement }"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="False" type="Button" parent="ConditionPlay"]
+self_modulate = Color( 0.815686, 0.0588235, 0.956863, 1 )
+margin_left = 118.0
+margin_top = 4.0
+margin_right = 163.0
+margin_bottom = 24.0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "False"
+
+[node name="Label" type="Label" parent="ConditionPlay/False"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 1
+text = "False"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="True" type="Button" parent="ConditionPlay"]
+self_modulate = Color( 0, 1, 0.952941, 1 )
+margin_left = 167.0
+margin_top = 4.0
+margin_right = 207.0
+margin_bottom = 24.0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "True"
+
+[node name="Label" type="Label" parent="ConditionPlay/True"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 1
+text = "True"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

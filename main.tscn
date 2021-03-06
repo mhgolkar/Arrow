@@ -1,0 +1,3331 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://scripts/main.gd" type="Script" id=1]
+[ext_resource path="res://scripts/editor/app_menu.gd" type="Script" id=2]
+[ext_resource path="res://scripts/editor/panels/preferences_panel.gd" type="Script" id=3]
+[ext_resource path="res://scripts/editor/panels/preferences_panel_ald_menu.gd" type="Script" id=4]
+[ext_resource path="res://scripts/editor/grid_graph_edit.gd" type="Script" id=5]
+[ext_resource path="res://scripts/editor/grid_context_menu.gd" type="Script" id=6]
+[ext_resource path="res://scripts/editor/panels/inspector_project_local_new_menu.gd" type="Script" id=7]
+[ext_resource path="res://scripts/editor/editor.gd" type="Script" id=8]
+[ext_resource path="res://scripts/editor/panels/inspector.gd" type="Script" id=9]
+[ext_resource path="res://scripts/editor/panels/inspector_tab_variables.gd" type="Script" id=10]
+[ext_resource path="res://scripts/editor/panels/inspector_tab_node.gd" type="Script" id=11]
+[ext_resource path="res://scripts/editor/panels/inspector_tab_characters.gd" type="Script" id=12]
+[ext_resource path="res://scripts/editor/panels/inspector_tab_macros.gd" type="Script" id=13]
+[ext_resource path="res://scripts/editor/panels/inspector_tab_scenes.gd" type="Script" id=14]
+[ext_resource path="res://scripts/editor/minimap.gd" type="Script" id=15]
+[ext_resource path="res://scripts/editor/query.gd" type="Script" id=16]
+[ext_resource path="res://scripts/editor/panels/inspector_project.gd" type="Script" id=17]
+[ext_resource path="res://scripts/editor/panels/new_project_prompt.gd" type="Script" id=18]
+[ext_resource path="res://scripts/editor/panels/inspector_project_local_properties.gd" type="Script" id=19]
+[ext_resource path="res://scripts/editor/panels/path_dialog.gd" type="Script" id=20]
+[ext_resource path="res://scripts/editor/panels/about.gd" type="Script" id=21]
+[ext_resource path="res://resources/about_splash.png" type="Texture" id=22]
+[ext_resource path="res://scripts/editor/panels/notification.gd" type="Script" id=23]
+[ext_resource path="res://scripts/editor/panels/console.gd" type="Script" id=33]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0627451, 0.0588235, 0.0588235, 1 )
+border_width_top = 10
+border_color = Color( 0.0627451, 0.0588235, 0.0588235, 1 )
+
+[sub_resource type="NoiseTexture" id=2]
+width = 25
+height = 25
+
+[node name="Main" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockingLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Container" type="Container" parent="BlockingLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockingOverlay" type="ColorRect" parent="BlockingLayer/Container"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.03742, 0.0228, 0.04, 0.498039 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AboutApp" type="PanelContainer" parent="BlockingLayer/Container"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -200.0
+margin_right = 250.0
+margin_bottom = 140.0
+script = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/AboutApp"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 493.0
+margin_bottom = 363.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer"]
+margin_right = 486.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ArrowLogo" type="TextureRect" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer"]
+margin_right = 192.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+texture = ExtResource( 22 )
+expand = true
+stretch_mode = 6
+
+[node name="Information" type="PanelContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer"]
+margin_left = 196.0
+margin_right = 486.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 283.0
+margin_bottom = 349.0
+
+[node name="AppName" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_right = 276.0
+margin_bottom = 14.0
+text = "Arrow"
+
+[node name="Version" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 18.0
+margin_right = 276.0
+margin_bottom = 32.0
+text = "v1.0.0"
+
+[node name="MarginContainer1" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 36.0
+margin_right = 276.0
+margin_bottom = 40.0
+size_flags_vertical = 3
+
+[node name="Description" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 44.0
+margin_right = 276.0
+margin_bottom = 92.0
+text = "Arrow is a free and open-source game narrative design tool.
+For more information check out:"
+autowrap = true
+
+[node name="InfoLinks" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 96.0
+margin_right = 276.0
+margin_bottom = 128.0
+
+[node name="MarginLeft" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks"]
+margin_right = 27.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks"]
+margin_left = 31.0
+margin_right = 276.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 9.0
+
+[node name="Source" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
+margin_right = 245.0
+margin_bottom = 14.0
+text = "Git Repository"
+
+[node name="Docs" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
+margin_top = 18.0
+margin_right = 245.0
+margin_bottom = 32.0
+text = "Online Documentation"
+
+[node name="Reditt" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
+visible = false
+margin_top = 36.0
+margin_right = 245.0
+margin_bottom = 50.0
+text = "r/arrow"
+
+[node name="MarginContainer2" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 132.0
+margin_right = 276.0
+margin_bottom = 136.0
+size_flags_vertical = 3
+
+[node name="AskDonation" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 140.0
+margin_right = 276.0
+margin_bottom = 205.0
+text = "Please show your support by spreading the word if you enjoy Arrow.
+I'll be grateful if you consider donation as well. Ethereum Wallet Address:"
+autowrap = true
+
+[node name="EthWalletAddress" type="TextEdit" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 209.0
+margin_right = 276.0
+margin_bottom = 269.0
+rect_min_size = Vector2( 0, 60 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/read_only = SubResource( 1 )
+custom_colors/font_color_readonly = Color( 1, 1, 1, 1 )
+text = "0xA594b3d7E844060eD253E6269F12ece8Dc1c6B37"
+readonly = true
+virtual_keyboard_enabled = false
+wrap_enabled = true
+
+[node name="MarginContainer3" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 273.0
+margin_right = 276.0
+margin_bottom = 282.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="DevevlopedByLabel" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+visible = false
+margin_top = 207.0
+margin_right = 276.0
+margin_bottom = 221.0
+text = "Developed by:"
+
+[node name="Developer" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 286.0
+margin_right = 276.0
+margin_bottom = 300.0
+
+[node name="Account" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Developer"]
+margin_right = 92.0
+margin_bottom = 14.0
+text = "Mor. H. Golkar"
+
+[node name="Copyright" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Developer"]
+margin_left = 96.0
+margin_right = 144.0
+margin_bottom = 14.0
+text = "© 2021"
+
+[node name="Made" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 304.0
+margin_right = 276.0
+margin_bottom = 318.0
+
+[node name="WithLove" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made"]
+margin_right = 75.0
+margin_bottom = 14.0
+text = "with Love &"
+
+[node name="Godot" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made"]
+margin_left = 79.0
+margin_right = 164.0
+margin_bottom = 14.0
+text = "Godot Engine"
+
+[node name="More" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made"]
+visible = false
+margin_left = 169.0
+margin_right = 173.0
+margin_bottom = 14.0
+text = "."
+
+[node name="Buttons" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 322.0
+margin_right = 276.0
+margin_bottom = 342.0
+alignment = 2
+
+[node name="OK" type="Button" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Buttons"]
+margin_left = 226.0
+margin_right = 276.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 50, 0 )
+text = "OK"
+
+[node name="Preferences" type="PanelContainer" parent="BlockingLayer/Container"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -180.0
+margin_right = 200.0
+margin_bottom = 103.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 393.0
+margin_bottom = 276.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer"]
+margin_right = 386.0
+margin_bottom = 20.0
+alignment = 2
+
+[node name="PreferencesLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/HBoxContainer"]
+margin_top = 3.0
+margin_right = 252.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Prefrences"
+
+[node name="PreferencesDismiss" type="Button" parent="BlockingLayer/Container/Preferences/VBoxContainer/HBoxContainer"]
+margin_left = 256.0
+margin_right = 320.0
+margin_bottom = 20.0
+text = "Dismiss"
+
+[node name="PreferencesConfirm" type="Button" parent="BlockingLayer/Container/Preferences/VBoxContainer/HBoxContainer"]
+margin_left = 324.0
+margin_right = 386.0
+margin_bottom = 20.0
+text = "Confirm"
+
+[node name="PanelContainer" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer"]
+margin_top = 24.0
+margin_right = 386.0
+margin_bottom = 269.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 379.0
+margin_bottom = 238.0
+alignment = 1
+
+[node name="UILabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 13.0
+margin_right = 372.0
+margin_bottom = 27.0
+text = "User Interface"
+
+[node name="PreferencesUI" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
+visible = false
+margin_top = 18.0
+margin_right = 372.0
+margin_bottom = 84.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 365.0
+margin_bottom = 59.0
+
+[node name="UIScaleLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer"]
+margin_right = 358.0
+margin_bottom = 14.0
+text = "Scale"
+
+[node name="UIScaleSlider" type="HSlider" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer"]
+margin_top = 18.0
+margin_right = 358.0
+margin_bottom = 34.0
+min_value = 0.1
+max_value = 2.0
+step = 0.01
+page = 0.01
+value = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer"]
+margin_top = 38.0
+margin_right = 358.0
+margin_bottom = 52.0
+alignment = 1
+
+[node name="XSmallLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer/HBoxContainer"]
+margin_right = 68.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "X-Small"
+valign = 1
+
+[node name="MarginContainer1" type="MarginContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer/HBoxContainer"]
+margin_left = 72.0
+margin_right = 140.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MediumLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer/HBoxContainer"]
+margin_left = 144.0
+margin_right = 213.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Medium"
+align = 1
+valign = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer/HBoxContainer"]
+margin_left = 217.0
+margin_right = 285.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="XLargeLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer/HBoxContainer"]
+margin_left = 289.0
+margin_right = 358.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "X-Large"
+align = 2
+valign = 1
+
+[node name="PreferencesAppearance" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 31.0
+margin_right = 372.0
+margin_bottom = 83.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 365.0
+margin_bottom = 45.0
+
+[node name="AppearanceLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance/VBoxContainer"]
+margin_right = 358.0
+margin_bottom = 14.0
+text = "Appearance"
+
+[node name="PreferencesThemeOptions" type="OptionButton" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance/VBoxContainer"]
+margin_top = 18.0
+margin_right = 358.0
+margin_bottom = 38.0
+text = "{ themes }"
+items = [ "{ themes }", null, false, 0, null ]
+selected = 0
+
+[node name="PreferencesBorderless" type="CheckBox" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance/VBoxContainer"]
+visible = false
+margin_top = 42.0
+margin_right = 358.0
+margin_bottom = 66.0
+text = "Borderless (Depends on OS)"
+
+[node name="PreferencesLanguage" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 87.0
+margin_right = 372.0
+margin_bottom = 139.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesLanguage"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 365.0
+margin_bottom = 45.0
+
+[node name="LanguageLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesLanguage/VBoxContainer"]
+margin_right = 358.0
+margin_bottom = 14.0
+text = "Language"
+
+[node name="PreferencesLanguageOptions" type="OptionButton" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesLanguage/VBoxContainer"]
+margin_top = 18.0
+margin_right = 358.0
+margin_bottom = 38.0
+text = "English"
+items = [ "English", null, false, 0, null ]
+selected = 0
+
+[node name="ALDLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 143.0
+margin_right = 372.0
+margin_bottom = 157.0
+text = "Data Management"
+
+[node name="PreferencesAppDir" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 161.0
+margin_right = 372.0
+margin_bottom = 217.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 365.0
+margin_bottom = 49.0
+
+[node name="AppLocalDirLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer"]
+margin_right = 358.0
+margin_bottom = 14.0
+text = "App Local / Work Directory"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer"]
+margin_top = 18.0
+margin_right = 358.0
+margin_bottom = 42.0
+
+[node name="PreferencesAppDirPath" type="LineEdit" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer/HBoxContainer"]
+margin_right = 243.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "user://"
+editable = false
+
+[node name="PreferencesAppDirPathBrowse" type="Button" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer/HBoxContainer"]
+margin_left = 247.0
+margin_right = 306.0
+margin_bottom = 24.0
+text = "Browse"
+
+[node name="PreferencesAppDirPathResetMenu" type="MenuButton" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer/HBoxContainer"]
+margin_left = 310.0
+margin_right = 358.0
+margin_bottom = 24.0
+text = "Reset"
+flat = false
+script = ExtResource( 4 )
+
+[node name="DocLinks" type="HBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer"]
+visible = false
+margin_top = 46.0
+margin_right = 358.0
+margin_bottom = 60.0
+
+[node name="Label" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer/DocLinks"]
+margin_right = 140.0
+margin_bottom = 14.0
+text = "Please Check Docs on"
+
+[node name="LinkButton" type="LinkButton" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer/DocLinks"]
+margin_left = 144.0
+margin_right = 336.0
+margin_bottom = 14.0
+text = "Local Data Security & Backups"
+
+[node name="LoadingSpinner" type="PanelContainer" parent="BlockingLayer/Container"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -110.0
+margin_right = 100.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadingSpinnerData" type="MarginContainer" parent="BlockingLayer/Container/LoadingSpinner"]
+margin_left = 25.0
+margin_top = 30.0
+margin_right = 225.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 200, 100 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LoadingSpinnerDataProgress" type="VBoxContainer" parent="BlockingLayer/Container/LoadingSpinner/LoadingSpinnerData"]
+margin_right = 200.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressActionLabel" type="Label" parent="BlockingLayer/Container/LoadingSpinner/LoadingSpinnerData/LoadingSpinnerDataProgress"]
+margin_top = 20.0
+margin_right = 200.0
+margin_bottom = 34.0
+text = "Loading/Refreshing Stuff"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="MarginContainer" type="MarginContainer" parent="BlockingLayer/Container/LoadingSpinner/LoadingSpinnerData/LoadingSpinnerDataProgress"]
+margin_top = 38.0
+margin_right = 200.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 0, 5 )
+size_flags_horizontal = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="BlockingLayer/Container/LoadingSpinner/LoadingSpinnerData/LoadingSpinnerDataProgress"]
+margin_top = 47.0
+margin_right = 200.0
+margin_bottom = 61.0
+value = 30.0
+
+[node name="ProgressStepLabel" type="Label" parent="BlockingLayer/Container/LoadingSpinner/LoadingSpinnerData/LoadingSpinnerDataProgress"]
+margin_top = 65.0
+margin_right = 200.0
+margin_bottom = 79.0
+text = "[1 / 5] The Action I'm Doing..."
+autowrap = true
+
+[node name="DoubleEncryptionPrompt" type="PanelContainer" parent="BlockingLayer/Container"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -110.0
+margin_right = 200.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/DoubleEncryptionPrompt"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 393.0
+margin_bottom = 183.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="BlockingLayer/Container/DoubleEncryptionPrompt/VBoxContainer"]
+margin_top = 14.0
+margin_right = 386.0
+margin_bottom = 28.0
+text = "Double Encrypted Project!"
+
+[node name="description" type="Label" parent="BlockingLayer/Container/DoubleEncryptionPrompt/VBoxContainer"]
+margin_top = 32.0
+margin_right = 386.0
+margin_bottom = 63.0
+text = "To open this project, you need to provide the same Private Key you've used before to encrypt it."
+autowrap = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BlockingLayer/Container/DoubleEncryptionPrompt/VBoxContainer"]
+margin_top = 67.0
+margin_right = 386.0
+margin_bottom = 81.0
+
+[node name="Label" type="Label" parent="BlockingLayer/Container/DoubleEncryptionPrompt/VBoxContainer/HBoxContainer2"]
+margin_right = 144.0
+margin_bottom = 14.0
+text = "Check out our Docs on"
+
+[node name="description2" type="LinkButton" parent="BlockingLayer/Container/DoubleEncryptionPrompt/VBoxContainer/HBoxContainer2"]
+margin_left = 148.0
+margin_right = 269.0
+margin_bottom = 14.0
+text = "Double Encryption."
+
+[node name="DoubleEncryptionKeyInput" type="LineEdit" parent="BlockingLayer/Container/DoubleEncryptionPrompt/VBoxContainer"]
+margin_top = 85.0
+margin_right = 386.0
+margin_bottom = 109.0
+placeholder_text = "Enter Key String or Select a Key File."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/DoubleEncryptionPrompt/VBoxContainer"]
+margin_top = 113.0
+margin_right = 386.0
+margin_bottom = 133.0
+alignment = 2
+
+[node name="DoubleEncryptionSelectKeyFile" type="Button" parent="BlockingLayer/Container/DoubleEncryptionPrompt/VBoxContainer/HBoxContainer"]
+margin_left = 215.0
+margin_right = 320.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+text = "Select Key File"
+
+[node name="DoubleEncryptionDecrypt" type="Button" parent="BlockingLayer/Container/DoubleEncryptionPrompt/VBoxContainer/HBoxContainer"]
+margin_left = 324.0
+margin_right = 386.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+text = "Decrypt"
+
+[node name="DoubleEncryptionKeepKey" type="CheckBox" parent="BlockingLayer/Container/DoubleEncryptionPrompt/VBoxContainer"]
+margin_top = 137.0
+margin_right = 386.0
+margin_bottom = 161.0
+text = "Keep a copy of this key."
+
+[node name="NewProjectPrompt" type="PanelContainer" parent="BlockingLayer/Container"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -110.0
+margin_right = 150.0
+margin_bottom = 20.0
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/NewProjectPrompt"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 293.0
+margin_bottom = 123.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer"]
+margin_top = 1.0
+margin_right = 286.0
+margin_bottom = 15.0
+size_flags_vertical = 6
+text = "New Project"
+valign = 1
+
+[node name="TitleContainer" type="HBoxContainer" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer"]
+margin_top = 20.0
+margin_right = 286.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer/TitleContainer"]
+margin_top = 8.0
+margin_right = 36.0
+margin_bottom = 22.0
+text = "Title: "
+
+[node name="ProjectTitle" type="LineEdit" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer/TitleContainer"]
+margin_left = 40.0
+margin_right = 286.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+placeholder_text = "Project Title"
+
+[node name="FilenameContainer" type="HBoxContainer" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer"]
+margin_top = 54.0
+margin_right = 286.0
+margin_bottom = 84.0
+
+[node name="Label" type="Label" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer/FilenameContainer"]
+margin_top = 8.0
+margin_right = 35.0
+margin_bottom = 22.0
+text = "File : "
+
+[node name="FileName" type="LineEdit" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer/FilenameContainer"]
+margin_left = 39.0
+margin_right = 286.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+placeholder_text = "Filename (without extension)"
+
+[node name="description" type="Label" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer"]
+visible = false
+margin_top = 84.0
+margin_right = 286.0
+margin_bottom = 109.0
+rect_min_size = Vector2( 0, 25 )
+text = "* Both Fields are required"
+valign = 1
+autowrap = true
+
+[node name="Buttons" type="HBoxContainer" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer"]
+margin_top = 88.0
+margin_right = 286.0
+margin_bottom = 116.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="Dismiss" type="Button" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer/Buttons"]
+margin_left = 161.0
+margin_right = 227.0
+margin_bottom = 28.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Dismiss"
+
+[node name="Create" type="Button" parent="BlockingLayer/Container/NewProjectPrompt/VBoxContainer/Buttons"]
+margin_left = 231.0
+margin_right = 286.0
+margin_bottom = 28.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Create"
+
+[node name="PathDialog" type="FileDialog" parent="BlockingLayer/Container"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+window_title = "{ title by options }"
+mode_overrides_title = false
+mode = 2
+access = 2
+current_dir = "res://"
+current_path = "res://"
+script = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Notification" type="ColorRect" parent="BlockingLayer/Container"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.03742, 0.0228, 0.04, 0.498039 )
+script = ExtResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NotificationPanel" type="PanelContainer" parent="BlockingLayer/Container/Notification"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -150.0
+margin_right = 250.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Notification/NotificationPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 493.0
+margin_bottom = 143.0
+
+[node name="Colorband" type="ColorRect" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer"]
+margin_right = 5.0
+margin_bottom = 136.0
+rect_min_size = Vector2( 5, 5 )
+size_flags_vertical = 3
+color = Color( 0.0588235, 0.796078, 0.956863, 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer"]
+margin_left = 9.0
+margin_right = 486.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 470.0
+margin_bottom = 129.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Heading" type="Label" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer/VBoxContainer"]
+margin_right = 463.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+size_flags_vertical = 1
+text = "{ heading }"
+valign = 1
+autowrap = true
+
+[node name="MarginContainer" type="MarginContainer" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 29.0
+margin_right = 463.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Message" type="RichTextLabel" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 50.0
+margin_right = 463.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "{ rich text message }"
+fit_content_height = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 72.0
+margin_right = 463.0
+margin_bottom = 89.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Buttons" type="HBoxContainer" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 93.0
+margin_right = 463.0
+margin_bottom = 121.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Dismiss" type="Button" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer/VBoxContainer/Buttons"]
+margin_right = 66.0
+margin_bottom = 28.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Dismiss"
+
+[node name="Custom" type="HBoxContainer" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer/VBoxContainer/Buttons"]
+margin_left = 70.0
+margin_right = 463.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer/VBoxContainer/Buttons/Custom"]
+margin_right = 326.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionX" type="Button" parent="BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer/VBoxContainer/Buttons/Custom"]
+margin_left = 330.0
+margin_right = 393.0
+margin_bottom = 28.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "{action}"
+
+[node name="FloatToolsLayer" type="CanvasLayer" parent="."]
+
+[node name="Container" type="Container" parent="FloatToolsLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inspector" type="PanelContainer" parent="FloatToolsLayer/Container"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -325.0
+margin_top = 80.0
+margin_right = -50.0
+margin_bottom = -90.0
+rect_min_size = Vector2( 270, 430 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 268.0
+margin_bottom = 423.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Titlebar" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer"]
+margin_right = 261.0
+margin_bottom = 20.0
+
+[node name="DragPoint" type="Control" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/Titlebar"]
+margin_right = 237.0
+margin_bottom = 20.0
+mouse_default_cursor_shape = 6
+size_flags_horizontal = 3
+
+[node name="InspectorLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/Titlebar/DragPoint"]
+size_flags_vertical = 1
+text = "Inspector"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResizePoint" type="Control" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/Titlebar"]
+margin_left = 241.0
+margin_right = 261.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+mouse_default_cursor_shape = 11
+size_flags_horizontal = 9
+size_flags_vertical = 9
+
+[node name="TabContainer" type="TabContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer"]
+margin_top = 24.0
+margin_right = 261.0
+margin_bottom = 416.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Project" type="Tabs" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 17 )
+
+[node name="RemoteProject" type="Control" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RemoteProjectRevision" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision"]
+margin_right = 253.0
+margin_bottom = 24.0
+alignment = 2
+
+[node name="ProjectManagementTitle" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/HBoxContainer"]
+margin_right = 153.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "{project Title}"
+editable = false
+
+[node name="RemoteProjectClose" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/HBoxContainer"]
+margin_left = 157.0
+margin_right = 204.0
+margin_bottom = 24.0
+text = "Close"
+
+[node name="RemoteProjectManagementMoreTools" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/HBoxContainer"]
+margin_left = 208.0
+margin_right = 253.0
+margin_bottom = 24.0
+text = "More"
+flat = false
+items = [ "Export", null, 0, false, false, 0, 0, null, "", false, "Duplicate", null, 0, false, false, 1, 0, null, "", false, "Terminate Project", null, 0, false, false, 2, 0, null, "", false, "", null, 0, false, true, 3, 0, null, "", true, "Clone Project as Local", null, 0, false, false, 4, 0, null, "", false ]
+
+[node name="RevisioningToolbox" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision"]
+margin_top = 28.0
+margin_right = 253.0
+margin_bottom = 318.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 283.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RevisionsLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 14.0
+text = "Revisions"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 42.0
+
+[node name="MasterRevLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 44.0
+margin_bottom = 19.0
+text = "Master"
+
+[node name="MasterRevCode" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer/HBoxContainer"]
+margin_left = 48.0
+margin_right = 239.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1 - 2020.05.08:14:34:25"
+editable = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer"]
+margin_top = 46.0
+margin_right = 239.0
+margin_bottom = 206.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RevisionsList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer/ScrollContainer"]
+margin_right = 239.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "2 - 2020.05.09:21:15:30  UserX", null, false, "1 - 2020.05.08:14:34:25  Head", null, false, "0 - 2020.05.08:10:34:25  Head", null, false ]
+
+[node name="WorkingDraftLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer"]
+margin_top = 210.0
+margin_right = 239.0
+margin_bottom = 224.0
+text = "Current Working Draft"
+
+[node name="WorkingDraftRevCode" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer"]
+margin_top = 228.0
+margin_right = 239.0
+margin_bottom = 252.0
+size_flags_horizontal = 3
+text = "1 @ local - 2020.05.08:14:34:25"
+editable = false
+
+[node name="RevisionTools" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer"]
+margin_top = 256.0
+margin_right = 239.0
+margin_bottom = 276.0
+alignment = 1
+
+[node name="RevSave" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer/RevisionTools"]
+margin_right = 56.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Save"
+flat = false
+items = [ "Save Current Working Draft Locally", null, 0, false, false, 0, 0, null, "", false, "Save Base Revision Copy as File", null, 0, false, false, 1, 0, null, "", false, "Save Current Working Draft Copy as File", null, 0, false, false, 2, 0, null, "", false ]
+
+[node name="RevView" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer/RevisionTools"]
+margin_left = 60.0
+margin_right = 117.0
+margin_bottom = 20.0
+hint_tooltip = "Import a Project File as Current Working Draft"
+size_flags_horizontal = 3
+text = "View"
+flat = false
+items = [ "Preview Selected Revision", null, 0, false, false, 0, 0, null, "", false, "Refresh Revisions List", null, 0, false, false, 1, 0, null, "", false, "", null, 0, false, true, 2, 0, null, "", true, "Sort List by Author", null, 0, false, false, 3, 0, null, "", false, "Sort List by Time", null, 0, false, false, 4, 0, null, "", false, "Sort List by Revision Base", null, 0, false, false, 5, 0, null, "", false ]
+
+[node name="RevPull" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer/RevisionTools"]
+margin_left = 121.0
+margin_right = 178.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Pull"
+flat = false
+items = [ "Clean Fork of Master", null, 0, false, false, 0, 0, null, "", false, "Replace Current with Selected", null, 0, false, false, 1, 0, null, "", false, "Mix Selected into Current", null, 0, false, false, 2, 0, null, "", false, "Insert from File", null, 0, false, false, 3, 0, null, "", false, "Insert Twine Project", null, 0, false, false, 4, 0, null, "", false, "Save Selected Revision as Local Project", null, 0, false, false, 5, 0, null, "", false ]
+
+[node name="RevPush" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/RevisioningToolbox/VBoxContainer/RevisionTools"]
+margin_left = 182.0
+margin_right = 239.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Push"
+flat = false
+items = [ "Push Current as New Revision", null, 0, false, false, 0, 0, null, "", false, "Push Selected Revision as Master", null, 0, false, false, 1, 0, null, "", false ]
+
+[node name="Collabration" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision"]
+margin_top = 322.0
+margin_right = 253.0
+margin_bottom = 356.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/Collabration"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LiveCollabrationLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/Collabration/HBoxContainer"]
+margin_top = 3.0
+margin_right = 185.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Live Collaboration"
+
+[node name="LobbyTools" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectRevision/Collabration/HBoxContainer"]
+margin_left = 189.0
+margin_right = 239.0
+margin_bottom = 20.0
+text = "Lobby"
+flat = false
+items = [ "Reopen Recent Lobby", null, 0, false, true, 0, 0, null, "", false, "", null, 0, false, true, 1, 0, null, "", true, "Create from Master", null, 0, false, false, 2, 0, null, "", false, "Create from Current Draft", null, 0, false, false, 3, 0, null, "", false, "Create from Selected Revision", null, 0, false, false, 4, 0, null, "", false, "", null, 0, false, true, 5, 0, null, "", true, "Attach/Update Lobby Records", null, 0, false, false, 6, 0, null, "", false, "Read Attached Records", null, 0, false, true, 7, 0, null, "", false, "", null, 0, false, true, 8, 0, null, "", true, "Burn & Clear", null, 0, false, false, 9, 0, null, "", false ]
+
+[node name="RemoteProjectManagement" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloudProjectConfigTitle" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement"]
+margin_right = 253.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "{project Title}"
+
+[node name="CloudProjectConfigurationTools" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement"]
+margin_top = 28.0
+margin_right = 253.0
+margin_bottom = 52.0
+alignment = 2
+
+[node name="CloudProjectConfigRTL" type="CheckBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectConfigurationTools"]
+margin_right = 50.0
+margin_bottom = 24.0
+text = "RTL"
+
+[node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectConfigurationTools"]
+margin_left = 54.0
+margin_right = 162.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CloudProjectConfigSave" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectConfigurationTools"]
+margin_left = 166.0
+margin_right = 207.0
+margin_bottom = 24.0
+text = "Save"
+
+[node name="CloudProjectBack" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectConfigurationTools"]
+margin_left = 211.0
+margin_right = 253.0
+margin_bottom = 24.0
+text = "Back"
+
+[node name="CloudProjectDoubleEncryption" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement"]
+margin_top = 56.0
+margin_right = 253.0
+margin_bottom = 108.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectDoubleEncryption"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 45.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectDoubleEncryption/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 14.0
+
+[node name="Label2" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectDoubleEncryption/VBoxContainer/HBoxContainer"]
+margin_right = 117.0
+margin_bottom = 14.0
+text = "Double Encryption"
+valign = 1
+
+[node name="CloudProjectDoubleEncryptionCaution" type="LinkButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectDoubleEncryption/VBoxContainer/HBoxContainer"]
+margin_left = 121.0
+margin_right = 189.0
+margin_bottom = 14.0
+text = "( Caution! )"
+
+[node name="CloudProjectDoubleEncriptionTools" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectDoubleEncryption/VBoxContainer"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 38.0
+alignment = 2
+
+[node name="CloudProjectDoubleEncriptionSetKey" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectDoubleEncryption/VBoxContainer/CloudProjectDoubleEncriptionTools"]
+margin_left = 30.0
+margin_right = 155.0
+margin_bottom = 20.0
+text = "Encrypte with Key"
+
+[node name="CloudProjectDoubleEncriptionDeactivate" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectDoubleEncryption/VBoxContainer/CloudProjectDoubleEncriptionTools"]
+margin_left = 159.0
+margin_right = 239.0
+margin_bottom = 20.0
+disabled = true
+text = "Deactivate"
+
+[node name="CloudProjectAccessManagement" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement"]
+margin_top = 112.0
+margin_right = 253.0
+margin_bottom = 272.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectAccessManagement"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 153.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectAccessManagement/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 14.0
+text = "Authors Access Management"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectAccessManagement/VBoxContainer"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CloudProjectAccessList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectAccessManagement/VBoxContainer/ScrollContainer"]
+margin_right = 239.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "Alpha-man (You, Head)", null, false, "User-X", null, false, "User-Y (Read-Only)", null, false ]
+
+[node name="CloudProjectAccessUserId" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectAccessManagement/VBoxContainer"]
+margin_top = 94.0
+margin_right = 239.0
+margin_bottom = 118.0
+size_flags_horizontal = 3
+placeholder_text = "Registered User ID"
+
+[node name="CloudProjectAccessTools" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectAccessManagement/VBoxContainer"]
+margin_top = 122.0
+margin_right = 239.0
+margin_bottom = 146.0
+alignment = 2
+
+[node name="CloudProjectAccessReadOnly" type="CheckBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectAccessManagement/VBoxContainer/CloudProjectAccessTools"]
+margin_right = 94.0
+margin_bottom = 24.0
+text = "Read-Only"
+
+[node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectAccessManagement/VBoxContainer/CloudProjectAccessTools"]
+margin_left = 98.0
+margin_right = 120.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CloudProjectAccessRemove" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectAccessManagement/VBoxContainer/CloudProjectAccessTools"]
+margin_left = 124.0
+margin_right = 188.0
+margin_bottom = 24.0
+text = "Remove"
+
+[node name="CloudProjectAccessGrant" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectAccessManagement/VBoxContainer/CloudProjectAccessTools"]
+margin_left = 192.0
+margin_right = 239.0
+margin_bottom = 24.0
+text = "Grant"
+
+[node name="CloudProjectPublic" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement"]
+margin_top = 276.0
+margin_right = 253.0
+margin_bottom = 356.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectPublic"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 73.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectPublic/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 14.0
+
+[node name="Label2" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectPublic/VBoxContainer/HBoxContainer"]
+margin_right = 69.0
+margin_bottom = 14.0
+text = "Public Link"
+valign = 1
+
+[node name="Label" type="LinkButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectPublic/VBoxContainer/HBoxContainer"]
+margin_left = 73.0
+margin_right = 141.0
+margin_bottom = 14.0
+text = "( Caution! )"
+
+[node name="CloudProjectPublicLink" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectPublic/VBoxContainer"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 42.0
+editable = false
+placeholder_text = "Really? Click Generate to Do This!"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectPublic/VBoxContainer"]
+margin_top = 46.0
+margin_right = 239.0
+margin_bottom = 66.0
+alignment = 2
+
+[node name="CloudProjectPublicLinkGenerate" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectPublic/VBoxContainer/HBoxContainer2"]
+margin_left = 22.0
+margin_right = 155.0
+margin_bottom = 20.0
+text = "Generate New Link"
+
+[node name="CloudProjectPublicDeactive" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/RemoteProject/RemoteProjectManagement/CloudProjectPublic/VBoxContainer/HBoxContainer2"]
+margin_left = 159.0
+margin_right = 239.0
+margin_bottom = 20.0
+disabled = true
+text = "Deactivate"
+
+[node name="LocalProjectProperties" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LocalProjectConfigTitle" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties"]
+margin_right = 253.0
+margin_bottom = 24.0
+
+[node name="Title" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/LocalProjectConfigTitle"]
+margin_right = 217.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "{project Title}"
+
+[node name="Set" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/LocalProjectConfigTitle"]
+margin_left = 221.0
+margin_right = 253.0
+margin_bottom = 24.0
+text = "Set"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties"]
+margin_top = 28.0
+margin_right = 253.0
+margin_bottom = 48.0
+alignment = 2
+
+[node name="LocalProjectConfigRTL" type="CheckBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
+visible = false
+margin_right = 50.0
+margin_bottom = 24.0
+text = "RTL"
+
+[node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
+margin_right = 153.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="LocalProjectMoreTools" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
+margin_left = 157.0
+margin_right = 202.0
+margin_bottom = 20.0
+text = "More"
+flat = false
+items = [ "{ more tools }", null, 0, false, false, 0, 0, null, "", false ]
+
+[node name="LocalProjectClose" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
+margin_left = 206.0
+margin_right = 253.0
+margin_bottom = 20.0
+text = "Close"
+
+[node name="DraftManagement" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties"]
+margin_top = 52.0
+margin_right = 253.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 297.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LastSaveLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 14.0
+text = "Last Save"
+
+[node name="LastSave" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 42.0
+
+[node name="Timestamp" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/LastSave"]
+margin_right = 182.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+editable = false
+
+[node name="Revert" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/LastSave"]
+margin_left = 186.0
+margin_right = 239.0
+margin_bottom = 24.0
+hint_tooltip = "Revert to Last Saved File"
+text = "Revert"
+
+[node name="SnapshotLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
+margin_top = 46.0
+margin_right = 239.0
+margin_bottom = 60.0
+text = "Snapshots"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
+margin_top = 64.0
+margin_right = 239.0
+margin_bottom = 266.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SnapshotsList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/ScrollContainer"]
+margin_right = 239.0
+margin_bottom = 202.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SnapshotTools" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
+margin_top = 270.0
+margin_right = 239.0
+margin_bottom = 290.0
+
+[node name="Restore" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
+margin_right = 61.0
+margin_bottom = 20.0
+text = "Restore"
+
+[node name="Take" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
+margin_left = 65.0
+margin_right = 168.0
+margin_bottom = 20.0
+hint_tooltip = "Create Restore Point (Ctrl + D)"
+text = "Take Snapshot"
+
+[node name="Preview" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
+margin_left = 172.0
+margin_right = 234.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "Preview"
+
+[node name="ProjectListModes" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RemoteModeLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes"]
+visible = false
+margin_right = 253.0
+margin_bottom = 14.0
+text = "Remote"
+
+[node name="RemoteMode" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes"]
+visible = false
+margin_top = 18.0
+margin_right = 253.0
+margin_bottom = 210.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RemoteProjects" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode"]
+visible = false
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/RemoteProjects"]
+margin_right = 239.0
+margin_bottom = 153.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RemoteProjectsList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/RemoteProjects/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 129.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "Cloud Project - A", null, false, "Another Cloud Project", null, false ]
+
+[node name="RemoteProjectsActions" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/RemoteProjects/VBoxContainer"]
+margin_top = 133.0
+margin_right = 239.0
+margin_bottom = 153.0
+alignment = 2
+
+[node name="SessionManagement" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/RemoteProjects/VBoxContainer/RemoteProjectsActions"]
+margin_right = 61.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+text = "Session"
+flat = false
+items = [ "Logout", null, 0, false, false, 0, 0, null, "", false, "Close All Sessions (3 Devices)", null, 0, false, false, 1, 0, null, "", false, "Clear Projects Local Cache", null, 0, false, false, 2, 0, null, "", false ]
+
+[node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/RemoteProjects/VBoxContainer/RemoteProjectsActions"]
+margin_left = 65.0
+margin_right = 80.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RefreshRemoteProjectList" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/RemoteProjects/VBoxContainer/RemoteProjectsActions"]
+margin_left = 84.0
+margin_right = 144.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+text = "Refresh"
+
+[node name="OpenRemoteProject" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/RemoteProjects/VBoxContainer/RemoteProjectsActions"]
+margin_left = 148.0
+margin_right = 195.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+disabled = true
+text = "Open"
+
+[node name="NewRemoteProject" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/RemoteProjects/VBoxContainer/RemoteProjectsActions"]
+margin_left = 199.0
+margin_right = 239.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+text = "New"
+
+[node name="SessioningForm" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 185.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AccountLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm"]
+margin_right = 239.0
+margin_bottom = 14.0
+text = "Account"
+
+[node name="AccountAddress" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 42.0
+placeholder_text = "Repository or Account Adress"
+
+[node name="AccountTools" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm"]
+margin_top = 46.0
+margin_right = 239.0
+margin_bottom = 66.0
+alignment = 2
+
+[node name="CreateAccount" type="LinkButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm/AccountTools"]
+margin_right = 73.0
+margin_bottom = 20.0
+size_flags_horizontal = 9
+text = "Create New"
+
+[node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm/AccountTools"]
+margin_left = 77.0
+margin_right = 141.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Authenticate" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm/AccountTools"]
+margin_left = 145.0
+margin_right = 239.0
+margin_bottom = 20.0
+size_flags_horizontal = 9
+text = "Authenticate"
+
+[node name="Authentication" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm"]
+margin_top = 70.0
+margin_right = 239.0
+margin_bottom = 126.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm/Authentication"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 232.0
+margin_bottom = 49.0
+
+[node name="AuthenticationLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm/Authentication/VBoxContainer"]
+margin_right = 225.0
+margin_bottom = 14.0
+text = "Authentication Key"
+
+[node name="AuthenticationKey" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm/Authentication/VBoxContainer"]
+margin_top = 18.0
+margin_right = 225.0
+margin_bottom = 42.0
+
+[node name="AuthenticationKeyEdit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm/Authentication/VBoxContainer/AuthenticationKey"]
+margin_right = 176.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+secret = true
+clear_button_enabled = true
+
+[node name="ShowAuthenticationKeyValue" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm/Authentication/VBoxContainer/AuthenticationKey"]
+margin_left = 180.0
+margin_right = 225.0
+margin_bottom = 24.0
+toggle_mode = true
+text = "Show"
+
+[node name="KeepSession" type="CheckBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm"]
+margin_top = 130.0
+margin_right = 239.0
+margin_bottom = 154.0
+pressed = true
+text = "Keep Session"
+
+[node name="CreateSession" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/RemoteMode/SessioningForm"]
+margin_top = 158.0
+margin_right = 239.0
+margin_bottom = 178.0
+size_flags_vertical = 0
+disabled = true
+text = "Create Session"
+
+[node name="LocalLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes"]
+visible = false
+margin_top = 214.0
+margin_right = 253.0
+margin_bottom = 228.0
+text = "Local"
+
+[node name="LocalMode" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes"]
+margin_right = 253.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LocalProjects" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 349.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects"]
+margin_right = 239.0
+margin_bottom = 318.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ListedProjects" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/ScrollContainer"]
+margin_right = 239.0
+margin_bottom = 318.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "{ local projects }", null, false ]
+
+[node name="LocalProjectsActions" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects"]
+margin_top = 322.0
+margin_right = 239.0
+margin_bottom = 342.0
+alignment = 1
+
+[node name="NewLocalProjectMenu" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions"]
+margin_right = 77.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "New"
+flat = false
+script = ExtResource( 7 )
+
+[node name="OpenLocalProject" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions"]
+margin_left = 81.0
+margin_right = 158.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+disabled = true
+text = "Open"
+
+[node name="RemoveLocalProject" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions"]
+margin_left = 162.0
+margin_right = 239.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+disabled = true
+text = "Remove"
+
+[node name="Node" type="Tabs" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 11 )
+
+[node name="SubInspectorBlockMessage" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Select A Node to Inspect or
+Right-Click on the Grid to
+Create New Nodes."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Properties" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NodeTypeLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties"]
+margin_right = 253.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "{Type}"
+
+[node name="NodeUID" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties"]
+margin_top = 18.0
+margin_right = 253.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeUID"]
+margin_top = 5.0
+margin_right = 29.0
+margin_bottom = 19.0
+text = "UID:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Edit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeUID"]
+margin_left = 33.0
+margin_right = 253.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "S1TYPE1"
+placeholder_text = "Node Unique ID"
+
+[node name="NodeState" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties"]
+margin_top = 46.0
+margin_right = 253.0
+margin_bottom = 70.0
+
+[node name="NodeIsSkiped" type="CheckBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState"]
+margin_right = 54.0
+margin_bottom = 24.0
+text = "Skip"
+
+[node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState"]
+margin_left = 58.0
+margin_right = 156.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="NodeUseCases" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState"]
+margin_left = 160.0
+margin_right = 253.0
+margin_bottom = 24.0
+text = "0 Usecase(s)"
+
+[node name="VSplitContainer" type="VSplitContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties"]
+margin_top = 74.0
+margin_right = 253.0
+margin_bottom = 318.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offset = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SubInspectorHolder" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/VSplitContainer"]
+margin_right = 253.0
+margin_bottom = 177.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="NodeNotes" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/VSplitContainer"]
+margin_top = 189.0
+margin_right = 253.0
+margin_bottom = 244.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/VSplitContainer/NodeNotes"]
+margin_right = 253.0
+margin_bottom = 14.0
+text = "Node Notes"
+valign = 1
+
+[node name="Edit" type="TextEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/VSplitContainer/NodeNotes"]
+margin_top = 18.0
+margin_right = 253.0
+margin_bottom = 55.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+show_line_numbers = true
+draw_tabs = true
+draw_spaces = true
+breakpoint_gutter = true
+fold_gutter = true
+wrap_enabled = true
+
+[node name="NodeTools" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties"]
+margin_top = 322.0
+margin_right = 253.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 27.0
+alignment = 2
+
+[node name="ShowFocusNode" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer"]
+margin_right = 49.0
+margin_bottom = 20.0
+hint_tooltip = "Locate Inspected Node on the Grid (Ctrl + Backslash)"
+text = "Focus"
+
+[node name="ResetNodeParams" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer"]
+margin_left = 53.0
+margin_right = 101.0
+margin_bottom = 20.0
+hint_tooltip = "Reset Node Parameters (Ctrl + Shift + Minus)"
+text = "Reset"
+
+[node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer"]
+margin_left = 105.0
+margin_right = 177.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="UpdateNode" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer"]
+margin_left = 181.0
+margin_right = 239.0
+margin_bottom = 20.0
+hint_tooltip = "Update Node (Ctrl + Shift + Plus)"
+text = "Update"
+
+[node name="Scenes" type="Tabs" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 14 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OpenSceneConfigs" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer"]
+margin_right = 253.0
+margin_bottom = 38.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 31.0
+
+[node name="SceneName" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 24.0
+
+[node name="Edit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer/SceneName"]
+margin_right = 203.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "Scene's Unique Title"
+
+[node name="Set" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer/SceneName"]
+margin_left = 207.0
+margin_right = 239.0
+margin_bottom = 24.0
+text = "Set"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer"]
+margin_top = 42.0
+margin_right = 253.0
+margin_bottom = 318.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="ScenesList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/ScrollContainer"]
+margin_right = 253.0
+margin_bottom = 276.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "Scene Abc", null, false, "Scene Xyz [Entry, Current]", null, false ]
+
+[node name="SceneActions" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer"]
+margin_top = 322.0
+margin_right = 253.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/SceneActions"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 27.0
+alignment = 1
+
+[node name="NewScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/SceneActions/HBoxContainer"]
+margin_right = 77.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "New"
+
+[node name="RemoveScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/SceneActions/HBoxContainer"]
+margin_left = 81.0
+margin_right = 158.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Remove"
+
+[node name="OpenSceneToEdit" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/SceneActions/HBoxContainer"]
+margin_left = 162.0
+margin_right = 239.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Open"
+
+[node name="Macros" type="Tabs" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 13 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OpenMacroConfigs" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
+margin_right = 253.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 31.0
+
+[node name="MacroName" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 24.0
+alignment = 2
+
+[node name="Edit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/MacroName"]
+margin_right = 203.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "Macro's Unique Identifier"
+
+[node name="Set" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/MacroName"]
+margin_left = 207.0
+margin_right = 239.0
+margin_bottom = 24.0
+text = "Set"
+
+[node name="CloseMacro" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer"]
+visible = false
+margin_top = 28.0
+margin_right = 47.0
+margin_bottom = 48.0
+size_flags_horizontal = 0
+text = "Close"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
+margin_top = 42.0
+margin_right = 253.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MacrosList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ScrollContainer"]
+margin_right = 253.0
+margin_bottom = 238.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "{ macros }", null, false ]
+allow_reselect = true
+
+[node name="MacroInstances" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
+margin_top = 284.0
+margin_right = 253.0
+margin_bottom = 318.0
+size_flags_horizontal = 3
+
+[node name="MacroInstancesPagination" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 27.0
+
+[node name="InstancesLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
+margin_top = 3.0
+margin_right = 70.0
+margin_bottom = 17.0
+text = "Instance(s)"
+
+[node name="Indication" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
+margin_left = 74.0
+margin_right = 181.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "0:0"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="GoToInstance" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
+margin_left = 185.0
+margin_right = 239.0
+margin_bottom = 20.0
+text = "Locate"
+flat = false
+items = [ "{ usecases by name }", null, 0, false, false, 0, 0, null, "", false ]
+
+[node name="MacroTools" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
+margin_top = 322.0
+margin_right = 253.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroTools"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 27.0
+alignment = 1
+
+[node name="NewMacro" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroTools/HBoxContainer"]
+margin_right = 77.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "New"
+
+[node name="RemoveMacro" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroTools/HBoxContainer"]
+margin_left = 81.0
+margin_right = 158.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Remove"
+
+[node name="OpenMacroToEdit" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroTools/HBoxContainer"]
+margin_left = 162.0
+margin_right = 239.0
+margin_bottom = 20.0
+hint_tooltip = "Open Macro to Edit"
+size_flags_horizontal = 3
+text = "Open"
+
+[node name="Variables" type="Tabs" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 10 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer"]
+margin_right = 253.0
+margin_bottom = 186.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VariablesList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ScrollContainer"]
+margin_right = 253.0
+margin_bottom = 186.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "{ project variables list }", null, false, "variable_name (type, initial)", null, false ]
+allow_reselect = true
+
+[node name="VariableEditor" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer"]
+margin_top = 190.0
+margin_right = 253.0
+margin_bottom = 318.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 121.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 9.0
+alignment = 1
+
+[node name="VariableUsages" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+
+[node name="VariableUsagesPagination" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 232.0
+margin_bottom = 27.0
+
+[node name="UsecasesLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
+margin_top = 3.0
+margin_right = 69.0
+margin_bottom = 17.0
+text = "Usecase(s)"
+
+[node name="Indication" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
+margin_left = 73.0
+margin_right = 167.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "7 : 23"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="GoToUsage" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
+margin_left = 171.0
+margin_right = 225.0
+margin_bottom = 20.0
+text = "Locate"
+flat = false
+items = [ "{ usecases by name }", null, 0, false, false, 0, 0, null, "", false ]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer"]
+margin_top = 38.0
+margin_right = 239.0
+margin_bottom = 62.0
+
+[node name="IdentLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 38.0
+margin_bottom = 19.0
+text = "Ident:"
+align = 3
+valign = 3
+
+[node name="VariablesNameEdit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer"]
+margin_left = 42.0
+margin_right = 239.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "Variable's Unique Identifier"
+
+[node name="VariableInitial" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer"]
+margin_top = 66.0
+margin_right = 239.0
+margin_bottom = 90.0
+
+[node name="VariablesInitialValueLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableInitial"]
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Initial:"
+align = 3
+valign = 3
+
+[node name="VariableInitialValue" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableInitial"]
+margin_left = 45.0
+margin_right = 239.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="String" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableInitial/VariableInitialValue"]
+margin_right = 194.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "Initial Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Number" type="SpinBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableInitial/VariableInitialValue"]
+visible = false
+margin_right = 194.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+allow_greater = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Boolean" type="OptionButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableInitial/VariableInitialValue"]
+visible = false
+margin_right = 194.0
+margin_bottom = 24.0
+text = "True"
+items = [ "True", null, false, 1, null, "False", null, false, 0, null ]
+selected = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer"]
+margin_top = 94.0
+margin_right = 239.0
+margin_bottom = 114.0
+
+[node name="RemoveVariable" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer2"]
+margin_right = 64.0
+margin_bottom = 20.0
+text = "Remove"
+
+[node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer2"]
+margin_left = 68.0
+margin_right = 203.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="SaveVariable" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer2"]
+margin_left = 207.0
+margin_right = 239.0
+margin_bottom = 20.0
+text = "Set"
+
+[node name="PanelContainer" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer"]
+margin_top = 322.0
+margin_right = 253.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 27.0
+alignment = 2
+
+[node name="TypeSelect" type="OptionButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/PanelContainer/HBoxContainer"]
+margin_right = 195.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 8.0
+text = "{ variable types }"
+items = [ "{ variable types }", null, false, 0, null ]
+selected = 0
+
+[node name="NewButton" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/PanelContainer/HBoxContainer"]
+margin_left = 199.0
+margin_right = 239.0
+margin_bottom = 20.0
+text = "New"
+
+[node name="Characters" type="Tabs" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 12 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer"]
+margin_right = 253.0
+margin_bottom = 238.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CharactersList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ScrollContainer"]
+margin_right = 253.0
+margin_bottom = 238.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "{ characters }", null, false ]
+allow_reselect = true
+
+[node name="CharacterEditor" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer"]
+margin_top = 242.0
+margin_right = 253.0
+margin_bottom = 318.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 69.0
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 24.0
+
+[node name="CharacterColor" type="ColorPickerButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/HBoxContainer"]
+margin_right = 39.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+color = Color( 0.0588235, 0.956863, 0.87451, 1 )
+edit_alpha = false
+
+[node name="CharacterNameEdit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/HBoxContainer"]
+margin_left = 43.0
+margin_right = 202.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 8.0
+placeholder_text = "Character's Unique Name"
+
+[node name="SaveCharacter" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/HBoxContainer"]
+margin_left = 206.0
+margin_right = 238.0
+margin_bottom = 24.0
+text = "Set"
+
+[node name="CharacterAppearance" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer"]
+margin_top = 28.0
+margin_right = 239.0
+margin_bottom = 62.0
+size_flags_horizontal = 3
+
+[node name="CharacterAppearancePagination" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 232.0
+margin_bottom = 27.0
+
+[node name="AppearancesLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
+margin_top = 3.0
+margin_right = 90.0
+margin_bottom = 17.0
+text = "Appearance(s)"
+
+[node name="Indication" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
+margin_left = 94.0
+margin_right = 167.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "7 : 23"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="GoToAppearance" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
+margin_left = 171.0
+margin_right = 225.0
+margin_bottom = 20.0
+text = "Locate"
+flat = false
+items = [ "{ usecases by name }", null, 0, false, false, 0, 0, null, "", false ]
+
+[node name="CharacterCreate" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer"]
+margin_top = 322.0
+margin_right = 253.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 27.0
+alignment = 2
+
+[node name="RemoveCharacter" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate/HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 20.0
+text = "Remove"
+
+[node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate/HBoxContainer"]
+margin_left = 68.0
+margin_right = 195.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="NewCharacter" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate/HBoxContainer"]
+margin_left = 199.0
+margin_right = 239.0
+margin_bottom = 20.0
+text = "New"
+
+[node name="Lobby" type="PanelContainer" parent="FloatToolsLayer/Container"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -625.0
+margin_top = 80.0
+margin_right = -350.0
+margin_bottom = -90.0
+rect_min_size = Vector2( 270, 430 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Lobby"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 268.0
+margin_bottom = 423.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer"]
+margin_right = 261.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="LobbyLabel" type="Label" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/HBoxContainer"]
+margin_right = 82.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Lobby"
+valign = 1
+
+[node name="CloseLobby" type="Button" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/HBoxContainer"]
+margin_left = 86.0
+margin_right = 177.0
+margin_bottom = 28.0
+text = "Close Lobby"
+
+[node name="DistractionFreeLobby" type="Button" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/HBoxContainer"]
+margin_left = 181.0
+margin_right = 205.0
+margin_bottom = 28.0
+text = "D"
+
+[node name="ResizeLobby" type="Button" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/HBoxContainer"]
+margin_left = 209.0
+margin_right = 231.0
+margin_bottom = 28.0
+text = "R"
+
+[node name="MoveLobby" type="Button" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/HBoxContainer"]
+margin_left = 235.0
+margin_right = 261.0
+margin_bottom = 28.0
+text = "M"
+
+[node name="PanelContainer" type="PanelContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer"]
+margin_top = 32.0
+margin_right = 261.0
+margin_bottom = 398.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LobbyChat" type="VSplitContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 254.0
+margin_bottom = 359.0
+
+[node name="LobbyChatMessagesContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat"]
+margin_right = 247.0
+margin_bottom = 263.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 9.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer"]
+margin_right = 247.0
+margin_bottom = 263.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LobbyMessageIn" type="PanelContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer/VBoxContainer"]
+margin_right = 247.0
+margin_bottom = 63.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer/VBoxContainer/LobbyMessageIn"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 240.0
+margin_bottom = 56.0
+
+[node name="ColorRect" type="ColorRect" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer/VBoxContainer/LobbyMessageIn/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+size_flags_horizontal = 4
+size_flags_vertical = 0
+color = Color( 0.0588235, 0.796078, 0.956863, 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer/VBoxContainer/LobbyMessageIn/HBoxContainer"]
+margin_left = 44.0
+margin_right = 233.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer/VBoxContainer/LobbyMessageIn/HBoxContainer/VBoxContainer"]
+margin_right = 189.0
+margin_bottom = 14.0
+text = "User-X:"
+
+[node name="Label2" type="Label" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer/VBoxContainer/LobbyMessageIn/HBoxContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 189.0
+margin_bottom = 49.0
+text = "Lurep ipsum stuff message incoming."
+autowrap = true
+
+[node name="LobbyMessageOut" type="PanelContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer/VBoxContainer"]
+margin_top = 67.0
+margin_right = 247.0
+margin_bottom = 113.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer/VBoxContainer/LobbyMessageOut"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 240.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer/VBoxContainer/LobbyMessageOut/VBoxContainer"]
+margin_right = 233.0
+margin_bottom = 14.0
+text = "You:"
+
+[node name="Label2" type="Label" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer/VBoxContainer/LobbyMessageOut/VBoxContainer"]
+margin_top = 18.0
+margin_right = 233.0
+margin_bottom = 32.0
+text = "Lurep ipsum my message outgoing."
+autowrap = true
+
+[node name="LobbyChatMessageInput" type="VBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat"]
+margin_top = 275.0
+margin_right = 247.0
+margin_bottom = 352.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LobbyChatMessageEdit" type="TextEdit" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessageInput"]
+margin_right = 247.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 45 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+fold_gutter = true
+wrap_enabled = true
+
+[node name="LobbyChatMessageSend" type="HBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessageInput"]
+margin_top = 49.0
+margin_right = 247.0
+margin_bottom = 77.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="LobbyChatMessageBroadcast" type="Button" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessageInput/LobbyChatMessageSend"]
+margin_left = 113.0
+margin_right = 190.0
+margin_bottom = 28.0
+size_flags_horizontal = 9
+text = "Broadcast"
+
+[node name="LobbyChatMessageDirect" type="MenuButton" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessageInput/LobbyChatMessageSend"]
+margin_left = 194.0
+margin_right = 247.0
+margin_bottom = 28.0
+text = "Direct"
+flat = false
+items = [ "User-X (Offline)", SubResource( 2 ), 0, false, true, 0, 0, null, "", false, "User-Y", null, 0, false, false, 1, 0, null, "", false ]
+
+[node name="LobbyStatus" type="Label" parent="FloatToolsLayer/Container/Lobby/VBoxContainer"]
+margin_top = 402.0
+margin_right = 261.0
+margin_bottom = 416.0
+text = "Live! 2 of 3 Authors Online"
+
+[node name="Console" type="PanelContainer" parent="FloatToolsLayer/Container"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -366.181
+margin_top = 99.0834
+margin_right = -91.1805
+margin_bottom = -70.9166
+rect_min_size = Vector2( 270, 270 )
+script = ExtResource( 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Console"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 268.001
+margin_bottom = 423.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Titlebar" type="HBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer"]
+margin_right = 261.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="DragPoint" type="Control" parent="FloatToolsLayer/Container/Console/VBoxContainer/Titlebar"]
+margin_right = 237.0
+margin_bottom = 20.0
+mouse_default_cursor_shape = 6
+size_flags_horizontal = 3
+
+[node name="ConsoleLabel" type="Label" parent="FloatToolsLayer/Container/Console/VBoxContainer/Titlebar/DragPoint"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Console"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResizePoint" type="Control" parent="FloatToolsLayer/Container/Console/VBoxContainer/Titlebar"]
+margin_left = 241.0
+margin_right = 261.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+mouse_default_cursor_shape = 11
+
+[node name="PanelContainer" type="PanelContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer"]
+margin_top = 24.0
+margin_right = 261.0
+margin_bottom = 391.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 254.0
+margin_bottom = 360.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_right = 247.0
+margin_bottom = 353.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 240.0
+margin_bottom = 346.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ConsoleTerminal" type="VBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/PanelContainer/ScrollContainer"]
+margin_right = 233.0
+margin_bottom = 339.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VariableCurrentValueInspector" type="PanelContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer"]
+visible = false
+margin_top = 292.0
+margin_right = 247.0
+margin_bottom = 354.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 240.0
+margin_bottom = 55.0
+
+[node name="Variables" type="OptionButton" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer"]
+margin_right = 233.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "{ variables list }"
+items = [ "{ variables list }", null, false, 0, null ]
+selected = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer"]
+margin_top = 24.0
+margin_right = 233.0
+margin_bottom = 48.0
+
+[node name="CurrentValue" type="MarginContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer"]
+margin_right = 171.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="String" type="LineEdit" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer/CurrentValue"]
+margin_right = 171.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Number" type="SpinBox" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer/CurrentValue"]
+visible = false
+margin_right = 171.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+allow_greater = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Boolean" type="OptionButton" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer/CurrentValue"]
+visible = false
+margin_right = 171.0
+margin_bottom = 24.0
+text = "True"
+items = [ "True", null, false, 1, null, "False", null, false, 0, null ]
+selected = 0
+
+[node name="UpdateCurrentValue" type="Button" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer"]
+margin_left = 175.0
+margin_right = 233.0
+margin_bottom = 24.0
+text = "Update"
+
+[node name="Toolbar" type="HBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer"]
+margin_top = 395.0
+margin_right = 261.0
+margin_bottom = 415.0
+size_flags_horizontal = 3
+
+[node name="ConsoleSettings" type="MenuButton" parent="FloatToolsLayer/Container/Console/VBoxContainer/Toolbar"]
+margin_right = 63.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+text = "Settings"
+flat = false
+items = [ "{ settings }", null, 1, true, false, 0, 0, null, "", false ]
+
+[node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/Toolbar"]
+margin_left = 67.0
+margin_right = 116.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Close" type="Button" parent="FloatToolsLayer/Container/Console/VBoxContainer/Toolbar"]
+margin_left = 120.0
+margin_right = 167.0
+margin_bottom = 20.0
+hint_tooltip = "Hides Console"
+text = "Close"
+
+[node name="Clear" type="Button" parent="FloatToolsLayer/Container/Console/VBoxContainer/Toolbar"]
+margin_left = 171.0
+margin_right = 215.0
+margin_bottom = 20.0
+hint_tooltip = "Clears Console & State of Play"
+text = "Clear"
+
+[node name="PlayStepBack" type="Button" parent="FloatToolsLayer/Container/Console/VBoxContainer/Toolbar"]
+margin_left = 219.0
+margin_right = 261.0
+margin_bottom = 20.0
+text = "Back"
+
+[node name="GridContextMenu" type="PopupPanel" parent="FloatToolsLayer/Container"]
+anchor_left = 0.576236
+anchor_top = 0.682596
+anchor_right = 0.581119
+anchor_bottom = 0.682596
+margin_left = -101.066
+margin_top = -102.558
+margin_right = 98.9337
+margin_bottom = 97.4423
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/GridContextMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NodeInsert" type="PanelContainer" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer"]
+margin_right = 196.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 189.0
+margin_bottom = 153.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer"]
+margin_right = 182.0
+margin_bottom = 112.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NodeInsertList" type="ItemList" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer/ScrollContainer"]
+margin_right = 182.0
+margin_bottom = 112.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "% will be set by code %", null, false ]
+select_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer"]
+margin_top = 116.0
+margin_right = 182.0
+margin_bottom = 146.0
+
+[node name="NodeInsertFilterInput" type="LineEdit" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer/HBoxContainer"]
+margin_right = 126.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+clear_button_enabled = true
+placeholder_text = "Filter"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Insert" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer/HBoxContainer"]
+margin_left = 130.0
+margin_right = 182.0
+margin_bottom = 30.0
+size_flags_horizontal = 8
+text = "Insert"
+
+[node name="EditTools" type="HBoxContainer" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer"]
+margin_top = 164.0
+margin_right = 196.0
+margin_bottom = 192.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="CleanClipboard" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
+visible = false
+margin_right = 32.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Rst"
+
+[node name="Copy" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
+margin_right = 46.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+text = "Cp"
+
+[node name="Cut" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
+margin_left = 50.0
+margin_right = 96.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+text = "Ct"
+
+[node name="Paste" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
+margin_left = 100.0
+margin_right = 146.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+text = "pst"
+
+[node name="Remove" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
+margin_left = 150.0
+margin_right = 196.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+text = "Del"
+
+[node name="Editor" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+alignment = 1
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top" type="HBoxContainer" parent="Editor"]
+margin_right = 1010.0
+margin_bottom = 34.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Toolbar" type="HBoxContainer" parent="Editor/Top"]
+margin_right = 1010.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+alignment = 1
+
+[node name="AppMenu" type="MenuButton" parent="Editor/Top/Toolbar"]
+margin_right = 89.0
+margin_bottom = 34.0
+size_flags_horizontal = 7
+size_flags_vertical = 3
+text = "Arrow"
+flat = false
+items = [ "Note: Items are set by script", null, 0, false, false, 0, 0, null, "", false ]
+script = ExtResource( 2 )
+
+[node name="ProjectTitle" type="Label" parent="Editor/Top/Toolbar"]
+margin_left = 93.0
+margin_right = 810.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 8.0
+text = "% Project Title %"
+align = 1
+valign = 1
+
+[node name="ProjectSaveStatus" type="Label" parent="Editor/Top/Toolbar"]
+visible = false
+margin_left = 764.0
+margin_top = 10.0
+margin_right = 868.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0.815686, 0.0588235, 0.956863, 1 )
+text = "% save status %"
+
+[node name="AutoLocalSaveSwitch" type="CheckButton" parent="Editor/Top/Toolbar"]
+visible = false
+margin_left = 688.0
+margin_right = 868.0
+margin_bottom = 40.0
+text = "Auto Local Save"
+
+[node name="PlayModes" type="PanelContainer" parent="Editor/Top/Toolbar"]
+margin_left = 814.0
+margin_right = 951.0
+margin_bottom = 34.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Editor/Top/Toolbar/PlayModes"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 130.0
+margin_bottom = 27.0
+
+[node name="PlayFromProjectEntry" type="Button" parent="Editor/Top/Toolbar/PlayModes/HBoxContainer"]
+margin_right = 27.0
+margin_bottom = 20.0
+hint_tooltip = "Play from Project Entry (F4)"
+text = "PE"
+
+[node name="PlayFromSceneEntry" type="Button" parent="Editor/Top/Toolbar/PlayModes/HBoxContainer"]
+margin_left = 31.0
+margin_right = 58.0
+margin_bottom = 20.0
+hint_tooltip = "Play from Scene Entry (F5)"
+text = "PS"
+
+[node name="PlayFromLeftConsole" type="Button" parent="Editor/Top/Toolbar/PlayModes/HBoxContainer"]
+margin_left = 62.0
+margin_right = 89.0
+margin_bottom = 20.0
+hint_tooltip = "Show Console (F6)"
+text = "CL"
+
+[node name="PlayFromSelectedNode" type="Button" parent="Editor/Top/Toolbar/PlayModes/HBoxContainer"]
+margin_left = 93.0
+margin_right = 123.0
+margin_bottom = 20.0
+hint_tooltip = "Play Selected Node (F7)"
+text = "PN"
+
+[node name="EditQuickTools" type="PanelContainer" parent="Editor/Top/Toolbar"]
+margin_left = 955.0
+margin_right = 1010.0
+margin_bottom = 34.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Editor/Top/Toolbar/EditQuickTools"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 48.0
+margin_bottom = 27.0
+
+[node name="SaveProject" type="Button" parent="Editor/Top/Toolbar/EditQuickTools/HBoxContainer"]
+margin_right = 41.0
+margin_bottom = 20.0
+hint_tooltip = "Save Project (Ctrl + S)"
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveIndicator" type="ColorRect" parent="Editor/Top/Toolbar/EditQuickTools/HBoxContainer/SaveProject"]
+anchor_top = 0.9
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.74902, 0.121569, 0.54902, 1 )
+
+[node name="Center" type="Control" parent="Editor"]
+margin_top = 38.0
+margin_right = 1010.0
+margin_bottom = 542.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 14.0
+
+[node name="GridGraphEdit" type="GraphEdit" parent="Editor/Center"]
+anchor_left = 0.000882049
+anchor_top = -0.00178896
+anchor_right = 1.00088
+anchor_bottom = 0.998211
+margin_left = -5.96046e-08
+size_flags_horizontal = 3
+size_flags_vertical = 3
+right_disconnects = true
+scroll_offset = Vector2( -5.96046e-08, 0 )
+snap_distance = 10
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MinimapBox" type="Panel" parent="Editor/Center"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 25.0
+margin_top = -100.0
+margin_right = 300.0
+margin_bottom = -25.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Minimap" type="Control" parent="Editor/Center/MinimapBox"]
+anchor_left = 0.015
+anchor_top = 0.05
+anchor_right = 0.985
+anchor_bottom = 0.95
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bottom" type="HBoxContainer" parent="Editor"]
+margin_top = 546.0
+margin_right = 1010.0
+margin_bottom = 586.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BreadCrumb" type="MarginContainer" parent="Editor/Bottom"]
+margin_right = 152.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="OpenSceneTitle" type="Label" parent="Editor/Bottom/BreadCrumb"]
+margin_right = 152.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "{ scence title/name }"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="QueryPanel" type="PanelContainer" parent="Editor/Bottom"]
+margin_left = 156.0
+margin_right = 767.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+script = ExtResource( 16 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Editor/Bottom/QueryPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 604.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="QueryInput" type="LineEdit" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
+margin_right = 316.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 8.0
+align = 1
+clear_button_enabled = true
+placeholder_text = "Query"
+
+[node name="How" type="OptionButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
+margin_left = 320.0
+margin_right = 395.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 75, 0 )
+text = "{ how }"
+items = [ "{ how }", null, false, 0, null ]
+selected = 0
+
+[node name="Search" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
+margin_left = 399.0
+margin_right = 417.0
+margin_bottom = 26.0
+hint_tooltip = "Query (Ctrl + Q)"
+text = "?"
+
+[node name="PreviousMatch" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
+margin_left = 421.0
+margin_right = 461.0
+margin_bottom = 26.0
+hint_tooltip = "Locate Previous Match (Ctrl + 1)"
+text = "Prev"
+
+[node name="Matchs" type="MenuButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
+margin_left = 465.0
+margin_right = 551.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+text = "c : t Matchs"
+items = [ "Scence Abx / s1n1act : Action / 3 - ... queried part sample ...", null, 0, false, false, 0, 0, null, "", false, "Scence Abx / s1n3 : Change Var / Note - ... query....", null, 0, false, false, 1, 0, null, "", false ]
+
+[node name="NextMatch" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
+margin_left = 555.0
+margin_right = 597.0
+margin_bottom = 26.0
+hint_tooltip = "Locate Next Match (Ctrl + 2)"
+text = "Next"
+
+[node name="Switchs" type="HBoxContainer" parent="Editor/Bottom"]
+margin_left = 771.0
+margin_right = 1010.0
+margin_bottom = 40.0
+size_flags_vertical = 5
+alignment = 2
+
+[node name="AutoInspectSwitch" type="CheckButton" parent="Editor/Bottom/Switchs"]
+margin_right = 162.0
+margin_bottom = 40.0
+hint_tooltip = "Switch Auto-inspection (Ctrl + U)"
+size_flags_horizontal = 3
+size_flags_vertical = 5
+pressed = true
+text = "Auto Inspect"
+
+[node name="InspectorViewToggle" type="Button" parent="Editor/Bottom/Switchs"]
+margin_left = 166.0
+margin_right = 239.0
+margin_bottom = 40.0
+hint_tooltip = "Toggle Inspector Panel (Ctrl + I)"
+toggle_mode = true
+pressed = true
+text = "Inspector"

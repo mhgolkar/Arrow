@@ -1,0 +1,109 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/condition/inspector.gd" type="Script" id=1]
+
+[node name="ConditionType" type="ScrollContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 157.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Condition" type="VBoxContainer" parent="."]
+margin_right = 239.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CheckFor" type="Label" parent="Condition"]
+margin_right = 239.0
+margin_bottom = 14.0
+text = "Check for variable"
+
+[node name="Variables" type="OptionButton" parent="Condition"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 38.0
+
+[node name="if" type="Label" parent="Condition"]
+margin_top = 42.0
+margin_right = 239.0
+margin_bottom = 56.0
+text = "if"
+
+[node name="Operator" type="OptionButton" parent="Condition"]
+margin_top = 60.0
+margin_right = 239.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+
+[node name="CompareTo" type="Label" parent="Condition"]
+margin_top = 84.0
+margin_right = 239.0
+margin_bottom = 98.0
+text = "comparing to"
+
+[node name="With" type="PanelContainer" parent="Condition"]
+margin_top = 102.0
+margin_right = 239.0
+margin_bottom = 136.0
+
+[node name="Parameter" type="HBoxContainer" parent="Condition/With"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 232.0
+margin_bottom = 27.0
+
+[node name="Type" type="OptionButton" parent="Condition/With/Parameter"]
+margin_right = 74.0
+margin_bottom = 20.0
+text = "{types}"
+items = [ "{types}", null, false, 0, null ]
+selected = 0
+
+[node name="Mode" type="MarginContainer" parent="Condition/With/Parameter"]
+margin_left = 78.0
+margin_right = 225.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Value" type="MarginContainer" parent="Condition/With/Parameter/Mode"]
+margin_right = 147.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="String" type="LineEdit" parent="Condition/With/Parameter/Mode/Value"]
+visible = false
+margin_right = 147.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Number" type="SpinBox" parent="Condition/With/Parameter/Mode/Value"]
+visible = false
+margin_right = 147.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+allow_greater = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Boolean" type="OptionButton" parent="Condition/With/Parameter/Mode/Value"]
+visible = false
+margin_right = 147.0
+margin_bottom = 20.0
+text = "True"
+items = [ "True", null, false, 1, null, "False", null, false, 0, null ]
+selected = 0
+
+[node name="Variable" type="OptionButton" parent="Condition/With/Parameter/Mode"]
+visible = false
+margin_right = 147.0
+margin_bottom = 20.0
+size_flags_horizontal = 3

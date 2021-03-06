@@ -1,0 +1,230 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Addressbook",
+"language": "GDScript",
+"path": "res://scripts/shared/address_book.gd"
+}, {
+"base": "Reference",
+"class": "CONSOLE_STATUS_CODE",
+"language": "GDScript",
+"path": "res://scripts/editor/panels/console_status_codes.gd"
+}, {
+"base": "Reference",
+"class": "CentralMind",
+"language": "GDScript",
+"path": "res://scripts/core/central_mind.gd"
+}, {
+"base": "Reference",
+"class": "ConditionSharedClass",
+"language": "GDScript",
+"path": "res://nodes/condition/shared.gd"
+}, {
+"base": "Reference",
+"class": "Configuration",
+"language": "GDScript",
+"path": "res://scripts/core/configuration_handler.gd"
+}, {
+"base": "Reference",
+"class": "DialogSharedClass",
+"language": "GDScript",
+"path": "res://nodes/dialog/shared.gd"
+}, {
+"base": "Reference",
+"class": "Embedded",
+"language": "GDScript",
+"path": "res://scripts/shared/embedded_data.gd"
+}, {
+"base": "Reference",
+"class": "Helpers",
+"language": "GDScript",
+"path": "res://scripts/shared/shared_helpers.gd"
+}, {
+"base": "Reference",
+"class": "HubSharedClass",
+"language": "GDScript",
+"path": "res://nodes/hub/shared.gd"
+}, {
+"base": "Reference",
+"class": "MainUserInterface",
+"language": "GDScript",
+"path": "res://scripts/core/main_ui_management.gd"
+}, {
+"base": "Reference",
+"class": "NodeTypes",
+"language": "GDScript",
+"path": "res://scripts/core/node_types_handler.gd"
+}, {
+"base": "Reference",
+"class": "ProjectManagement",
+"language": "GDScript",
+"path": "res://scripts/core/project_management.gd"
+}, {
+"base": "Reference",
+"class": "RandomizerSharedClass",
+"language": "GDScript",
+"path": "res://nodes/randomizer/shared.gd"
+}, {
+"base": "Reference",
+"class": "Settings",
+"language": "GDScript",
+"path": "res://scripts/settings.gd"
+}, {
+"base": "Reference",
+"class": "VariableUpdateSharedClass",
+"language": "GDScript",
+"path": "res://nodes/variable_update/shared.gd"
+} ]
+_global_script_class_icons={
+"Addressbook": "",
+"CONSOLE_STATUS_CODE": "",
+"CentralMind": "",
+"ConditionSharedClass": "",
+"Configuration": "",
+"DialogSharedClass": "",
+"Embedded": "",
+"Helpers": "",
+"HubSharedClass": "",
+"MainUserInterface": "",
+"NodeTypes": "",
+"ProjectManagement": "",
+"RandomizerSharedClass": "",
+"Settings": "",
+"VariableUpdateSharedClass": ""
+}
+
+[application]
+
+config/name="Arrow"
+config/description="Game Narrative Design Tool"
+run/main_scene="res://main.tscn"
+run/low_processor_mode=true
+boot_splash/image="res://resources/boot_splash.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0.22, 0.22, 0.22, 1 )
+config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
+config/auto_accept_quit=false
+config/quit_on_go_back=false
+
+[debug]
+
+gdscript/completion/autocomplete_setters_and_getters=true
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
+gdscript/warnings/unsafe_property_access=true
+gdscript/warnings/unsafe_method_access=true
+gdscript/warnings/unsafe_cast=true
+gdscript/warnings/unsafe_call_argument=true
+
+[display]
+
+window/energy_saving/keep_screen_on=false
+
+[gdnative]
+
+singletons=[  ]
+
+[input]
+
+arrow_save={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_switch_fullscreen={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777254,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_query_set={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":81,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777246,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_query_next={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":50,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_query_previous={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":49,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_reset_node={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":true,"control":true,"meta":false,"command":true,"pressed":false,"scancode":45,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_update_node={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":true,"control":true,"meta":false,"command":true,"pressed":false,"scancode":61,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_focus_node={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":92,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_unselect_nodes_all={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_switch_auto_inspection={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":85,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_toggle_inspector_panel_view={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":73,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_play_from_project_entry={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777247,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_play_from_scene_entry={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777248,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_play_from_left_console={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777249,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_play_from_selected_node={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777250,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_take_snapshot={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"

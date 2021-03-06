@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/marker/inspector.gd" type="Script" id=1]
+
+[node name="MarkerType" type="ScrollContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 157.0
+scroll_horizontal_enabled = false
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Marker" type="VBoxContainer" parent="."]
+margin_right = 239.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorLabel" type="Label" parent="Marker"]
+margin_right = 239.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Color"
+
+[node name="ColorPicker" type="ColorPickerButton" parent="Marker"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 50, 30 )
+size_flags_horizontal = 7
+size_flags_vertical = 5
+color = Color( 0.0588235, 0.796078, 0.956863, 1 )
+edit_alpha = false
+
+[node name="LabelLabel" type="Label" parent="Marker"]
+margin_top = 52.0
+margin_right = 239.0
+margin_bottom = 66.0
+size_flags_horizontal = 3
+text = "Label"
+
+[node name="LabelEdit" type="LineEdit" parent="Marker"]
+margin_top = 70.0
+margin_right = 239.0
+margin_bottom = 94.0

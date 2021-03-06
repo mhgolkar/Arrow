@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/jump/inspector.gd" type="Script" id=1]
+
+[node name="JumpType" type="ScrollContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 157.0
+scroll_horizontal_enabled = false
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Jump" type="VBoxContainer" parent="."]
+margin_right = 239.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ReasonLabel" type="Label" parent="Jump"]
+margin_right = 239.0
+margin_bottom = 14.0
+text = "Reason"
+
+[node name="Reason" type="LineEdit" parent="Jump"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 42.0
+placeholder_text = "eg. Level Up"
+
+[node name="DestinationLabel" type="Label" parent="Jump"]
+margin_top = 46.0
+margin_right = 239.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+text = "Destination"
+
+[node name="Destination" type="LineEdit" parent="Jump"]
+margin_top = 64.0
+margin_right = 239.0
+margin_bottom = 88.0
+placeholder_text = "Node UID"
+
+[node name="Suggestion" type="HBoxContainer" parent="Jump"]
+margin_top = 92.0
+margin_right = 239.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Jump/Suggestion"]
+margin_right = 11.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="List" type="ItemList" parent="Jump/Suggestion"]
+margin_left = 15.0
+margin_right = 239.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 9.5
+items = [ "{auto fill suggestions}", null, false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}

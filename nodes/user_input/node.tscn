@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/user_input/node.gd" type="Script" id=1]
+
+[node name="UserInputNode" type="GraphNode"]
+mouse_filter = 1
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 1
+slot/0/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 199.0
+margin_bottom = 92.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 183.0
+margin_bottom = 14.0
+text = "Ask :"
+
+[node name="Prompt" type="Label" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 183.0
+margin_bottom = 32.0
+text = "{the prompt question}"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+margin_top = 36.0
+margin_right = 183.0
+margin_bottom = 50.0
+text = "Set response to :"
+
+[node name="TargetVariable" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 54.0
+margin_right = 183.0
+margin_bottom = 68.0
+
+[node name="Type" type="Label" parent="VBoxContainer/TargetVariable"]
+margin_right = 38.0
+margin_bottom = 14.0
+text = "{type}"
+
+[node name="Name" type="Label" parent="VBoxContainer/TargetVariable"]
+margin_left = 42.0
+margin_right = 183.0
+margin_bottom = 14.0
+text = "{target variable name}"

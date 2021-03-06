@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/macro_use/inspector.gd" type="Script" id=1]
+
+[node name="MacroUseType" type="ScrollContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 157.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Macro" type="VBoxContainer" parent="."]
+margin_right = 239.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Macro"]
+margin_right = 239.0
+margin_bottom = 14.0
+text = "Macro"
+
+[node name="Options" type="OptionButton" parent="Macro"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 38.0

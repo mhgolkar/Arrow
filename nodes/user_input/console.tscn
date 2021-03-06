@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/user_input/console.gd" type="Script" id=1]
+
+[node name="UserInput" type="PanelContainer"]
+margin_right = 233.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UserInputPlay" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 226.0
+margin_bottom = 91.0
+mouse_filter = 2
+
+[node name="Prompt" type="Label" parent="UserInputPlay"]
+margin_right = 219.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "{ question }"
+autowrap = true
+
+[node name="Input" type="MarginContainer" parent="UserInputPlay"]
+margin_top = 18.0
+margin_right = 219.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+
+[node name="String" type="LineEdit" parent="UserInputPlay/Input"]
+visible = false
+margin_right = 219.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Number" type="SpinBox" parent="UserInputPlay/Input"]
+margin_right = 219.0
+margin_bottom = 24.0
+allow_greater = true
+
+[node name="Boolean" type="OptionButton" parent="UserInputPlay/Input"]
+margin_right = 219.0
+margin_bottom = 24.0
+text = "Positive (True)"
+items = [ "Positive (True)", null, false, 1, null, "Negative (False)", null, false, 0, null ]
+selected = 0
+
+[node name="Result" type="Label" parent="UserInputPlay"]
+margin_top = 46.0
+margin_right = 219.0
+margin_bottom = 60.0
+text = "{ result }"
+
+[node name="Enter" type="Button" parent="UserInputPlay"]
+margin_left = 174.0
+margin_top = 64.0
+margin_right = 219.0
+margin_bottom = 84.0
+size_flags_horizontal = 8
+text = "Enter"

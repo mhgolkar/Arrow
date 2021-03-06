@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/variable_update/console.gd" type="Script" id=1]
+
+[node name="VariableUpdate" type="PanelContainer"]
+margin_top = 84.0
+margin_right = 233.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VariableUpdatePlay" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 226.0
+margin_bottom = 56.0
+mouse_filter = 2
+
+[node name="PanelContainer" type="MarginContainer" parent="VariableUpdatePlay"]
+margin_right = 219.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+mouse_filter = 2
+size_flags_horizontal = 3
+
+[node name="Expression" type="Label" parent="VariableUpdatePlay/PanelContainer"]
+margin_right = 219.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "{ expression }"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Application" type="HBoxContainer" parent="VariableUpdatePlay"]
+margin_top = 29.0
+margin_right = 219.0
+margin_bottom = 49.0
+mouse_filter = 2
+alignment = 2
+
+[node name="Dismiss" type="Button" parent="VariableUpdatePlay/Application"]
+margin_left = 103.0
+margin_right = 167.0
+margin_bottom = 20.0
+text = "Dismiss"
+
+[node name="Apply" type="Button" parent="VariableUpdatePlay/Application"]
+margin_left = 171.0
+margin_right = 219.0
+margin_bottom = 20.0
+text = "Apply"

@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/macro_use/node.gd" type="Script" id=1]
+
+[node name="MacroUseNode" type="GraphNode"]
+mouse_filter = 1
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 1
+slot/0/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 147.0
+margin_bottom = 56.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 131.0
+margin_bottom = 14.0
+text = "Macro"
+
+[node name="MacroName" type="Label" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 131.0
+margin_bottom = 32.0
+text = "{macro-name}"

@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/content/console.gd" type="Script" id=1]
+
+[node name="Content" type="PanelContainer"]
+margin_top = 46.0
+margin_right = 221.0
+margin_bottom = 146.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ContentPlay" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 214.0
+margin_bottom = 93.0
+mouse_filter = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="ContentPlay"]
+margin_right = 207.0
+margin_bottom = 14.0
+text = "{ Title }"
+align = 1
+
+[node name="Content" type="RichTextLabel" parent="ContentPlay"]
+margin_top = 18.0
+margin_right = 207.0
+margin_bottom = 48.0
+mouse_filter = 2
+bbcode_enabled = true
+bbcode_text = "{ Rich text with [color=yellow] BBCode[/color] content }"
+text = "{ Rich text with  BBCode content }"
+fit_content_height = true
+
+[node name="Margin" type="MarginContainer" parent="ContentPlay"]
+margin_top = 52.0
+margin_right = 207.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 0, 10 )
+mouse_filter = 2
+
+[node name="Continue" type="Button" parent="ContentPlay"]
+margin_left = 138.0
+margin_top = 66.0
+margin_right = 207.0
+margin_bottom = 86.0
+size_flags_horizontal = 8
+text = "Continue"

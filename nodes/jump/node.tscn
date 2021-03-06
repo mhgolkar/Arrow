@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/jump/node.gd" type="Script" id=1]
+
+[node name="JumpNode" type="GraphNode"]
+mouse_filter = 1
+size_flags_horizontal = 5
+size_flags_vertical = 5
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slot" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 98.0
+margin_bottom = 74.0
+size_flags_horizontal = 7
+size_flags_vertical = 7
+
+[node name="Label" type="Label" parent="Slot"]
+margin_right = 82.0
+margin_bottom = 14.0
+text = "Jump to"
+
+[node name="Destination" type="Label" parent="Slot"]
+margin_top = 18.0
+margin_right = 82.0
+margin_bottom = 32.0
+size_flags_horizontal = 5
+text = "{destination}"
+
+[node name="Reason" type="Label" parent="Slot"]
+margin_top = 36.0
+margin_right = 82.0
+margin_bottom = 50.0
+text = "{reason}"

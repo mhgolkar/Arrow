@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/content/inspector.gd" type="Script" id=1]
+
+[node name="ContentType" type="ScrollContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 157.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="VBoxContainer" parent="."]
+margin_right = 239.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TitleLabel" type="Label" parent="Content"]
+margin_right = 239.0
+margin_bottom = 14.0
+text = "Title"
+
+[node name="Title" type="LineEdit" parent="Content"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 42.0
+
+[node name="ContentLabel" type="Label" parent="Content"]
+margin_top = 46.0
+margin_right = 239.0
+margin_bottom = 60.0
+text = "Content"
+
+[node name="Content" type="TextEdit" parent="Content"]
+margin_top = 64.0
+margin_right = 239.0
+margin_bottom = 122.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+breakpoint_gutter = true
+fold_gutter = true
+wrap_enabled = true
+minimap_width = 25
+
+[node name="ClearPage" type="CheckBox" parent="Content"]
+margin_top = 126.0
+margin_right = 239.0
+margin_bottom = 150.0
+text = "Print on Clear Page"
