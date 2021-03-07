@@ -34,7 +34,7 @@ Notable Features:
 Arrow prebuilt executables are available to download from the archive of [releases].
 Following links are to the *latest*:
 
-Linux X11 [x86_64][linux-x11-x86-64-latest]
+Linux X11 [x86 (32-bit)][linux-x11-x86-latest] | [x86_64 (64-bit)][linux-x11-x86-64-latest]
 
 Windows [32-bit][win-32-latest] | [64-bit][win-64-latest]
 
@@ -87,7 +87,8 @@ Have a Good Time
 
 <!-- download -->
 [releases]: https://github.com/mhgolkar/Arrow/releases
-[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.0/Arrow-v1.0.0-linux.tar.gz
+[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.0/Arrow-v1.0.0-linux-x86_64.tar.gz
+[linux-x11-x86-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.0/Arrow-v1.0.0-linux-x86.tar.gz
 [win-32-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.0/Arrow-v1.0.0-win.32.zip
 [win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.0/Arrow-v1.0.0-win.64.zip
 <!-- wiki -->
