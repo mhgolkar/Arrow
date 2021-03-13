@@ -252,7 +252,7 @@ class ConditionStatement {
                             result = ( left.search(regex) >= 0);
                         } catch(err) {
                             if (_VERBOSE){
-                                console.warn(`Evaluation Failed! Bad RegEx Macth operation: ` + err);
+                                console.warn(`Evaluation Failed! Bad RegEx Match operation: ` + err);
                                 console.warn(arguments);
                             }
                         }

@@ -29,7 +29,7 @@ var _STATISTICS = { "current": 0 , "total": 0 }
 
 # CAUTION! This should correspond to the match arms in `central_mind::query_dataset`
 const HOWS = {
-	1: { "text": "Any Macth", "command": "any" },
+	1: { "text": "Any Match", "command": "any" },
 	2: { "text": "Including", "command": "including" },
 	3: { "text": "Exact Match", "command": "exact" },
 	4: { "text": "RegEx", "command": "regexp" },
