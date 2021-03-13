@@ -9,7 +9,7 @@ This runtime helps you convert any Arrow project to a playable HTML document.
 HTML-JS official runtime is bundled with Arrow as a template (besides the source;)
 so you can easily generate playable copies of any project, *as HTML*, with defaults, via:
 
-`Inspector (Panel) > Project (Tab) > More (Menu Button) > Export HTML`
+`Inspector (Panel) > Project (Tab) > Export (Menu Button) > Export HTML`
 
 This way you have a single, compressed `.html` document of your project
 exported with all defaults, ready to play.
@@ -23,7 +23,7 @@ If you want to customize how the runtime plays your project, you have the source
     This runtime needs to have an Arrow project (object/dictionary)
     as a global constant called `PROJECT`, and following is the quickest way to make it:
 
-    + Export your project as `.json` via `Inspector (Panel) > Project (Tab) > More (Menu) > ...`.
+    + Export your project as `.json` via `Inspector (Panel) > Project (Tab) > Export (Menu) > ...`.
     + Copy the exported file to the runtime directory (where `index.html` file is.)
     + Rename the `.json` file to `project.js`,
     + Edit the `.json` file using a text editor:

@@ -181,7 +181,7 @@ class ProjectManager :
 		# print_debug("Refactored JSON project: ", refactoring)
 		return refactoring
 	
-	func read_project_file_data(project_uid_or_file_path, is_json:bool = false):
+	func read_project_file_data(project_uid_or_file_path, try_json = null):
 		# get the full path to the project file
 		var full_project_file_path:String
 		if project_uid_or_file_path is int:
@@ -193,12 +193,13 @@ class ProjectManager :
 			return null
 		# and try to read the project out of it
 		if is_project_file_accessible(full_project_file_path):
-			var project_file_data
-			if Settings.USE_JSON_FOR_PROJECT_FILES || is_json == true:
-				var parsed_project_file_data = Utils.read_and_parse_json_file(full_project_file_path)
-				if parsed_project_file_data is Dictionary:
-					project_file_data = refactore_parsed_json_project_data(parsed_project_file_data)
-			else:
+			var project_file_data = null
+			var parsed_project_file_data = null
+			if Settings.USE_JSON_FOR_PROJECT_FILES != false || try_json == true:
+				parsed_project_file_data = Utils.read_and_parse_json_file(full_project_file_path)
+			if parsed_project_file_data is Dictionary:
+				project_file_data = refactore_parsed_json_project_data(parsed_project_file_data)
+			else :
 				project_file_data = Utils.read_and_parse_variant_file(full_project_file_path)
 			# validate the project file
 			if project_file_data is Dictionary:
@@ -338,32 +339,32 @@ class ProjectManager :
 			printerr("Disallowed Operation! You can't unlist currently active project.")
 		pass
 	
-	func save_project_native_file(project_data:Dictionary, full_path:String, force_as_json:bool = false):
+	func save_project_native_file(project_data:Dictionary, full_path:String, prefer_json = null):
 		var done
-		if Settings.USE_JSON_FOR_PROJECT_FILES || force_as_json == true:
+		if prefer_json == true || ( prefer_json != false && Settings.USE_JSON_FOR_PROJECT_FILES != false ) :
 			done = Utils.save_data_as_json_file(project_data, full_path, Settings.PROJECT_FILE_JSON_DEFAULT_IDENT, false)
 		else:
 			done = Utils.save_data_as_variant_file(project_data, full_path)
 		return done
 	
-	func save_project_into(project_uid:int, project_data:Dictionary, duplicate:bool = false):
+	func save_project_into(project_uid:int, project_data:Dictionary, duplicate:bool = false, textual = null):
 		if is_project_listed(project_uid):
 			var full_project_file_path = get_project_file_path(project_uid)
 			var ready_project_data = (project_data.duplicate(true) if duplicate else project_data)
 			# if project title is changed during edit ...
 			if ready_project_data.title != _PROJECT_LIST.projects[project_uid].title:
 				update_listed_title(project_uid, ready_project_data.title, true)
-			var done = save_project_native_file(ready_project_data, full_project_file_path)
+			var done = save_project_native_file(ready_project_data, full_project_file_path, textual)
 			return done
 		else:
 			printerr("Unexpected Behavior! Saving project to none-listed uid: ", project_uid)
 			return ERR_CANT_ACQUIRE_RESOURCE
 	
-	func save_project(project_data:Dictionary, duplicate:bool = false) -> void:
+	func save_project(project_data:Dictionary, duplicate:bool = false, textual = null) -> void:
 		# save current open project
 		if _ACTIVE_PROJECT_UID >= 0:
 			print_debug("Saving Project: ", _ACTIVE_PROJECT_UID, " : ", _PROJECT_LIST.projects[_ACTIVE_PROJECT_UID])
-			var done = save_project_into(_ACTIVE_PROJECT_UID, project_data, duplicate)
+			var done = save_project_into(_ACTIVE_PROJECT_UID, project_data, duplicate, textual)
 			if done == OK :
 				_IS_ACTIVE_PROJECT_SAVED = true
 			else:

@@ -8,6 +8,7 @@ extends PanelContainer
 onready var Main = get_tree().get_root().get_child(0)
 
 onready var OkButton = get_node(Addressbook.ABOUT_PANEL.OK_BUTTON)
+onready var AppVersion = get_node(Addressbook.ABOUT_PANEL.VERSION_CODE)
 
 const LINKS = [
 	[Addressbook.ABOUT_PANEL.LINKS.SOURCE, "https://github.com/mhgolkar/Arrow"],
@@ -16,6 +17,7 @@ const LINKS = [
 ]
 
 func _ready() -> void:
+	AppVersion.set_text( Settings.ARROW_VERSION );
 	register_connections()
 	pass
 

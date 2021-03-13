@@ -67,6 +67,25 @@ class Utils:
 		path = path.replace("///", "//")
 		return path
 	
+	static func get_abs_path(path:String) -> String:
+		var absolute_path = path
+		if path.begins_with('user://'):
+			absolute_path = path.replace(
+				'user://',
+				normalize_dir_path( OS.get_user_data_dir() )
+			)
+		elif path.begins_with('res://'):
+			absolute_path = path.replace(
+				'res://',
+				get_absolute_path_to_res_dir(true)
+			)
+		else:
+			var dir = Directory.new()
+			if dir.dir_exists(path):
+				if dir.open(path) == OK:
+					absolute_path = normalize_dir_path( dir.get_current_dir() )
+		return absolute_path
+	
 	static func is_access_granted_to_dir(path:String, access_type = File.WRITE_READ) -> bool:
 		var base = safe_base_dir(path)
 		if base is String:

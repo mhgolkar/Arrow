@@ -6,7 +6,7 @@
 # Other scripts use this class as a centralized set of configurations
 class_name Settings
 
-const ARROW_VERSION = "1.0.0"
+const ARROW_VERSION = "1.0.1"
 const ARROW_WEBSITE = "https://github.com/mhgolkar/Arrow"
 
 # Sandbox
@@ -41,7 +41,10 @@ const TIME_STAMP_TEMPLATE_UTC_MARK = " UTC"
 # ProjectManagement
 
 const PROJECT_LIST_FILE_NAME = "projects.arrow"
-const USE_JSON_FOR_PROJECT_FILES = false # false = working with Godot native variants api such as `File::store_var()`
+const USE_JSON_FOR_PROJECT_FILES = null
+	# null  : auto-detect and comply with the user preference
+	# true  : auto-detect on open, always save as JSON (converts binary in-place)
+	# false : works with Godot variants
 const PROJECT_FILE_JSON_DEFAULT_IDENT = "\t"
 const PROJECT_FILE_EXTENSION = ".arrow-project" # CAUTION! change `PATH_DIALOG_PROPERTIES` respectively.
 
