@@ -1504,7 +1504,7 @@ class Mind :
 			reset_project_title(project_title) # just registered, no need for re-updating ProMan's list
 			reset_project_last_save_time()
 			# then saves it
-			ProMan.save_project(_PROJECT)
+			ProMan.save_project(_PROJECT, false, Main.Configs.CONFIRMED.textual_save_data)
 			# and update current view
 			reset_project_save_status()
 			load_projects_list()
@@ -1524,7 +1524,7 @@ class Mind :
 					# then calls `register_and_save_project`
 			else:
 				reset_project_last_save_time()
-				ProMan.save_project(_PROJECT)
+				ProMan.save_project(_PROJECT, false, Main.Configs.CONFIRMED.textual_save_data)
 				reset_project_save_status()
 				if try_close_project:
 					close_project(false, try_quit_app)
@@ -1626,8 +1626,7 @@ class Mind :
 		print_debug("Importing Project from File (into %s): " % into_project_uid, file_path)
 		var filename = file_path.get_file()
 		var extension = file_path.get_extension()
-		var is_json = (extension.findn("json") >= 0)
-		var importing_data = ProMan.read_project_file_data(file_path, is_json)
+		var importing_data = ProMan.read_project_file_data(file_path, true) # always try json
 		# project manager will return `null` if the file is invalid
 		if importing_data is Dictionary:
 			# where to import data ?
@@ -1640,7 +1639,7 @@ class Mind :
 				var pure_filename = filename.replacen(("." + extension), "")
 				target_registered_uid_to_save_into = ProMan.register_project(importing_data.title, pure_filename, false)
 			# finally writing data
-			ProMan.save_project_into(target_registered_uid_to_save_into, importing_data, false)
+			ProMan.save_project_into(target_registered_uid_to_save_into, importing_data, false, Main.Configs.CONFIRMED.textual_save_data)
 			load_projects_list()
 		else:
 			printerr("Invalid Project File! The file selected is not of a supported format or is corrupted.")
@@ -1668,7 +1667,7 @@ class Mind :
 			else:
 				# format is not specified so use native project format
 				var full_export_file_path = (Utils.normalize_dir_path(base_directory) + filename + Settings.PROJECT_FILE_EXTENSION)
-				ProMan.save_project_native_file(_PROJECT, full_export_file_path)
+				ProMan.save_project_native_file(_PROJECT, full_export_file_path, Main.Configs.CONFIRMED.textual_save_data)
 				print_debug("Saving a Copy of the Project as `%s` to: "% (filename + Settings.PROJECT_FILE_EXTENSION), base_directory )
 		pass
 	

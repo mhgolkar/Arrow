@@ -64,13 +64,15 @@ const PREF_PANEL_FIELDS = {
 	"appearance_theme": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance/VBoxContainer/PreferencesThemeOptions",
 	#	"appearance_borderless": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance/VBoxContainer/PreferencesBorderless",
 	"language": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesLanguage/VBoxContainer/PreferencesLanguageOptions",
-	"app_local_dir_path": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer/HBoxContainer/PreferencesAppDirPath",
-	"app_local_dir_browse": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer/HBoxContainer/PreferencesAppDirPathBrowse",
-	"app_local_dir_reset_menu": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppDir/VBoxContainer/HBoxContainer/PreferencesAppDirPathResetMenu",
+	"app_local_dir_path": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer/PreferencesAppDirPath",
+	"app_local_dir_browse": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer/PreferencesAppDirPathBrowse",
+	"app_local_dir_reset_menu": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer/PreferencesAppDirPathResetMenu",
+	"textual_save_data": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/TextualSaveData"
 }
 
 const ABOUT_PANEL = {
 	"itself": "/root/Main/BlockingLayer/Container/AboutApp",
+	"VERSION_CODE": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Version",
 	"OK_BUTTON": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Buttons/OK",
 	"LINKS": {
 		"SOURCE": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/Source",
@@ -256,8 +258,10 @@ const NEW_PROJECT_PROMPT_PANEL = {
 	"itself": "/root/Main/BlockingLayer/Container/NewProjectPrompt",
 	"FIELDS":{
 		"TITLE": "/root/Main/BlockingLayer/Container/NewProjectPrompt/VBoxContainer/TitleContainer/ProjectTitle",
-		"FILENAME": "/root/Main/BlockingLayer/Container/NewProjectPrompt/VBoxContainer/FilenameContainer/FileName"
+		"FILENAME": "/root/Main/BlockingLayer/Container/NewProjectPrompt/VBoxContainer/FilenameContainer/FileName",
+		"FINAL_PATH": "/root/Main/BlockingLayer/Container/NewProjectPrompt/VBoxContainer/FinalPathContainer/FinalPath"
 	},
+	"RENAME_WARN": "/root/Main/BlockingLayer/Container/NewProjectPrompt/VBoxContainer/ProjectRenameWarn",
 	"CREATE_BUTTON": "/root/Main/BlockingLayer/Container/NewProjectPrompt/VBoxContainer/Buttons/Create",
 	"DISMISS_BUTTON": "/root/Main/BlockingLayer/Container/NewProjectPrompt/VBoxContainer/Buttons/Dismiss"
 }
