@@ -3316,12 +3316,12 @@ margin_bottom = 26.0
 hint_tooltip = "Locate Previous Match (Ctrl + 1)"
 text = "Prev"
 
-[node name="Matchs" type="MenuButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
+[node name="Matches" type="MenuButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
 margin_left = 465.0
 margin_right = 551.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
-text = "c : t Matchs"
+text = "c : t Matches"
 items = [ "Scence Abx / s1n1act : Action / 3 - ... queried part sample ...", null, 0, false, false, 0, 0, null, "", false, "Scence Abx / s1n3 : Change Var / Note - ... query....", null, 0, false, false, 1, 0, null, "", false ]
 
 [node name="NextMatch" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]

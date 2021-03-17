@@ -812,9 +812,9 @@ class Mind :
 		return the_owner_scene_id
 	
 	func is_node_name_available(name:String) -> bool:
-		var matchs = query_nodes_by_name(name, -2) # -2 means all the nodes in the dataset
-		# `matchs` is a dictionary of all identically named nodes by id (case-insensitive)
-		if matchs.size() == 0 :
+		var matches = query_nodes_by_name(name, -2) # -2 means all the nodes in the dataset
+		# `matches` is a dictionary of all identically named nodes by id (case-insensitive)
+		if matches.size() == 0 :
 			return true
 		return false
 	
@@ -1728,9 +1728,9 @@ class Mind :
 			# do_query with existing string and grab_focus
 			Query.call_deferred("do_query", "", true)
 		elif event.is_action_pressed("arrow_query_next"):
-			Query.call_deferred("rotate_matchs", 1)
+			Query.call_deferred("rotate_matches", 1)
 		elif event.is_action_pressed("arrow_query_previous"):
-			Query.call_deferred("rotate_matchs", -1)
+			Query.call_deferred("rotate_matches", -1)
 		elif event.is_action_pressed("arrow_reset_node"):
 			Inspector.Tab.Node.call_deferred("reset_inspection")
 		elif event.is_action_pressed("arrow_update_node"):
