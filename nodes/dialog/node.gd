@@ -19,6 +19,8 @@ const OUT_SLOT_COLOR_LEFT   = OUT_SLOT_COLOR
 const LINE_SLOT_ALIGN = Label.ALIGN_RIGHT
 
 const ANONYMOUS_CHARACTER = DialogSharedClass.ANONYMOUS_CHARACTER
+const PLAYABLE_STATUS_MESSAGE = "Playable"
+const AUTOPLAY_STATUS_MESSAGE = "Auto"
 
 var _node_id
 var _node_resource
@@ -75,7 +77,7 @@ func set_character_anonymous() -> void:
 	pass
 
 func set_playable(enabled:bool = true) -> void:
-	Playable.set_pressed(enabled)
+	Playable.set_text( PLAYABLE_STATUS_MESSAGE if enabled else AUTOPLAY_STATUS_MESSAGE )
 	pass
 
 func _update_node(data:Dictionary) -> void:

@@ -21,34 +21,39 @@ __meta__ = {
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 145.0
-margin_bottom = 85.0
+margin_bottom = 75.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Head"]
 margin_right = 129.0
-margin_bottom = 24.0
+margin_bottom = 14.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Head/HBoxContainer"]
-margin_top = 5.0
 margin_right = 40.0
-margin_bottom = 19.0
+margin_bottom = 14.0
 text = "Dialog"
 
-[node name="Playable" type="CheckBox" parent="Head/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Head/HBoxContainer"]
 margin_left = 44.0
-margin_right = 125.0
-margin_bottom = 24.0
-disabled = true
-pressed = true
-button_mask = 0
-text = "Playable"
+margin_right = 45.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Playable" type="Label" parent="Head/HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = 49.0
+margin_right = 129.0
+margin_bottom = 14.0
+size_flags_vertical = 8
+text = "{play-status}"
 
 [node name="CharacterProfile" type="HBoxContainer" parent="Head"]
-margin_top = 28.0
+margin_top = 18.0
 margin_right = 129.0
-margin_bottom = 42.0
+margin_bottom = 32.0
 
 [node name="Color" type="ColorRect" parent="Head/CharacterProfile"]
 margin_right = 15.0
@@ -66,7 +71,7 @@ size_flags_stretch_ratio = 8.0
 text = "{character-name}"
 
 [node name="MarginContainer" type="MarginContainer" parent="Head"]
-margin_top = 46.0
+margin_top = 36.0
 margin_right = 129.0
-margin_bottom = 61.0
+margin_bottom = 51.0
 rect_min_size = Vector2( 0, 15 )
