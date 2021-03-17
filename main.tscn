@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/editor/app_menu.gd" type="Script" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://scripts/editor/panels/about.gd" type="Script" id=21]
 [ext_resource path="res://resources/about_splash.png" type="Texture" id=22]
 [ext_resource path="res://scripts/editor/panels/notification.gd" type="Script" id=23]
+[ext_resource path="res://scripts/editor/new_release_check.gd" type="Script" id=24]
 [ext_resource path="res://scripts/editor/panels/console.gd" type="Script" id=33]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -3096,6 +3097,15 @@ flat = false
 items = [ "Note: Items are set by script", null, 0, false, false, 0, 0, null, "", false ]
 script = ExtResource( 2 )
 
+[node name="NewReleaseCheck" type="Button" parent="Editor/Top/Toolbar"]
+visible = false
+margin_left = 73.0
+margin_right = 253.0
+margin_bottom = 34.0
+mouse_default_cursor_shape = 2
+text = "{new version message}"
+script = ExtResource( 24 )
+
 [node name="ProjectTitle" type="Label" parent="Editor/Top/Toolbar"]
 margin_left = 93.0
 margin_right = 810.0
@@ -3285,7 +3295,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="QueryInput" type="LineEdit" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_right = 316.0
+margin_right = 308.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
@@ -3294,8 +3304,8 @@ clear_button_enabled = true
 placeholder_text = "Query"
 
 [node name="How" type="OptionButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 320.0
-margin_right = 395.0
+margin_left = 312.0
+margin_right = 387.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 75, 0 )
 text = "{ how }"
@@ -3303,21 +3313,21 @@ items = [ "{ how }", null, false, 0, null ]
 selected = 0
 
 [node name="Search" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 399.0
-margin_right = 417.0
+margin_left = 391.0
+margin_right = 409.0
 margin_bottom = 26.0
 hint_tooltip = "Query (Ctrl + Q)"
 text = "?"
 
 [node name="PreviousMatch" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 421.0
-margin_right = 461.0
+margin_left = 413.0
+margin_right = 453.0
 margin_bottom = 26.0
 hint_tooltip = "Locate Previous Match (Ctrl + 1)"
 text = "Prev"
 
 [node name="Matches" type="MenuButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 465.0
+margin_left = 457.0
 margin_right = 551.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
