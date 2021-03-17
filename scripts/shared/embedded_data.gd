@@ -89,26 +89,4 @@ const Data = {
 			"characters": {},
 		}
 	}
-	# Project Data Structure
-		#
-		# Projects are made of resources, each identified with a unique integer id (UID).
-		# Resources are of the types:
-		#       scenes, macros, nodes, variables & characters.
-		# All the resources are sorted by type and UDI under `resources` tree:
-		#	{
-		#       scenes & macros : { <uid>: { name:string<display-name>, entry:int<entry-node-uid> map:{ <child-node-uid>:int { offset:[x,y], skip:bool'optional, io:[ [<from_uid>int, <from_slot>int, <to_uid>int, <to_slot>int], ...] ], macro:bool'optional }, ... ] }
-		#       nodes : { <uid>:int { type:string, name:string<display-name>, skip: bool'optional, data: { <depends-on-node-type> }, notes:string'optional }, ... }
-		#       characters : { <uid>:int { name:string<display-name>, color:string<emphasis-color-code> }, ... }
-		#       variables : { <uid>:int { type:string<num, str, bool>, name:<display-name>, init:variant<initial-value> }, ...}
-		#	}
-		# There can be an optional `use` array for each resource, indicating which other resources rely on this one.
-		# `ref` property complements `use` by listing all the used resources for any dependent resource.
-		# `use` and `ref` are implemented to safeguard continuities during operations such as node removals.
-		#
-		# Notes:
-		#       At least one scene and one entry-node shall exist in every valid project, so the editor/interpreter knows where to start.
-		#       UIDs are set by Arrow and shall not be edited (unless you really know what you're doing)
-		#       Projects shall be JSON-COMPATIBLE, so data types such as Color or Vector2 must be converted (e.g. Vector2(x,y) <-> [x,y])
-		#		Generally, only one side of each graph connection (between nodes on the grid,) needs to keep the `io` data.
-		#		Macros are scenes with `macro = true` property, which enjoy special tretments by the editor and runtimes.
 }
