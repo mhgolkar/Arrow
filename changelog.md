@@ -1,10 +1,29 @@
 # Arrow: Changelog
 
 
+## v1.0.2
+
++ Better `New Blank Project` Handling
+    > When the new (blank) project is *modified and unsaved*,
+    > if user tries to create another blank project, open a saved project or close the app,
+    > a heads-up will be shown.
+    >> Importing a project won't affect the state of the open (new) project.
+
++ New Release Checker
+    > A button linked to the archive of releases shows up,
+    > indicating availability of a new release
+    + Updating third-party license to comply with the [MBedTLS](https://tls.mbed.org/) Apache license
+
++ Other Minor Changes
+    + Comment cleanup, in favor of more detailed wiki
+    + Fix typos with word 'match' and its plurals
+    + `playable|auto` indicator for dialog nodes
+
+
 ## v1.0.1
 
-+ Clarification for Project File Path and Work Directory
-    + *Fix* The `Browse` button opens the current work directory
++ Clarification on Project File Path and Work Directory
+    + *Fix:* The `Browse` button opens the current work directory
     + Absolute file path is shown for new projects (on prompt)
     + Heads-up when the selected filename is already used and will be renamed
 
@@ -22,4 +41,6 @@
 
 
 ## v1.0.0
+
 + First Release
+
