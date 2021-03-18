@@ -91,7 +91,7 @@ class Mind :
 		load_node_types()
 		load_projects_list()
 		# and finally, create a new blank project
-		open_new_blank_project()
+		open_new_blank_project(true)
 		pass
 	
 	func register_connections() -> void:
@@ -257,16 +257,52 @@ class Mind :
 		_SELECTED_NODES_IDS.clear()
 		pass
 
-	func open_new_blank_project() -> void:
-		var new_untitled = ProMan.hold_untitled_project()
-		load_project( new_untitled, true )
+	func open_new_blank_project(forced:bool = false) -> void:
+		if forced || ProMan.is_project_saved():
+			var new_untitled = ProMan.hold_untitled_project()
+			load_project( new_untitled, true )
+		else:
+			# heads-up ...
+			Notifier.call_deferred(
+				"show_notification",
+				"Discarding New Project ?",
+				(
+					(
+						"`%s` is modified. " +
+						"Creating a new blank project will discard all the unsaved data."
+					) % _PROJECT.title
+				),
+				[ # options :
+					{ "label": "OK, Proceed Anyway", "callee": Main.Mind, "method": "open_new_blank_project", "arguments": [true] }
+					# `Dismiss` button will be added by default
+				],
+				Settings.WARNING_COLOR
+			)
 		pass
 	
-	func open_project(project_id:int) -> void:
-		var project_data = ProMan.hold_project_by_id(project_id)
-		if project_data is Dictionary:
-			load_project(project_data)
-			self.call_deferred("take_snapshot", "Point Start - v")
+	func open_project(project_id:int, forced:bool = false) -> void:
+		if forced || ProMan.is_project_saved():
+			var project_data = ProMan.hold_project_by_id(project_id)
+			if project_data is Dictionary:
+				load_project(project_data)
+				self.call_deferred("take_snapshot", "Point Start - v")
+		else:
+			Notifier.call_deferred(
+				"show_notification",
+				"Overriding Unsaved Project ?",
+				(
+					(
+						"Editor is holding modifications for `%s`. " +
+						"Opening another project will discard these unsaved data. " +
+						"Would you like to proceed anyway?"
+					) % _PROJECT.title
+				),
+				[ # options :
+					{ "label": "Yes, Open", "callee": Main.Mind, "method": "open_project", "arguments": [project_id, true] }
+					# `Dismiss` button will be added by default
+				],
+				Settings.WARNING_COLOR
+			)
 		pass
 	
 	func close_project(close_anyway:bool = false, try_quit_app:bool = false) -> bool:
@@ -274,7 +310,7 @@ class Mind :
 		if ProMan.is_project_saved() || close_anyway == true :
 			deactivate_project_properties()
 			clean_snapshots_all()
-			open_new_blank_project()
+			open_new_blank_project(true)
 			project_closed = true
 		else:
 			# give users a heads-up ...

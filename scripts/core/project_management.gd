@@ -86,7 +86,7 @@ class ProjectManager :
 	
 	func hold_untitled_project() -> Dictionary:
 		_ACTIVE_PROJECT_UID = -1
-		_IS_ACTIVE_PROJECT_SAVED = false
+		_IS_ACTIVE_PROJECT_SAVED = true
 		var untitled_project = Embedded.Data.Untitled_Project.duplicate(true)
 		return untitled_project
 	
