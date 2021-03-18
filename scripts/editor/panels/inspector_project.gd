@@ -120,3 +120,8 @@ func list_snapshot(snapshot_details:Dictionary, is_local:bool) -> void:
 	if is_local:
 		LocalProjectProperties.list_snapshot(snapshot_details)
 	pass
+
+func unlist_snapshot(snapshot_index:int, is_local:bool) -> void:
+	if is_local:
+		LocalProjectProperties.unlist_snapshot_by_idx(snapshot_index)
+	pass

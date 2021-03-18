@@ -32,6 +32,7 @@ onready var SnapshotsList = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT
 onready var SnapshotsPreview = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.VERSIONING.SNAPSHOT_TOOLS.PREVIEW_BUTTON)
 onready var SnapshotsTakeNew = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.VERSIONING.SNAPSHOT_TOOLS.TAKE_NEW_BUTTON)
 onready var SnapshotsRestore = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.VERSIONING.SNAPSHOT_TOOLS.RESTORE_BUTTON)
+onready var SnapshotsRemove = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.VERSIONING.SNAPSHOT_TOOLS.REMOVE_BUTTON)
 
 var _CURRENT_TITLE:String
 var _CURRENT_META:Dictionary
@@ -59,6 +60,7 @@ func register_connections() -> void:
 	SnapshotsPreview.connect("toggled", self, "set_preview_mode", [], CONNECT_DEFERRED)
 	SnapshotsTakeNew.connect("pressed", self, "request_mind_by_relay", ["take_snapshot"], CONNECT_DEFERRED)
 	SnapshotsRestore.connect("pressed", self, "restore_snapshot", [], CONNECT_DEFERRED)
+	SnapshotsRemove.connect("pressed", self, "remove_snapshot", [], CONNECT_DEFERRED)
 	RevertLastSaveButton.connect("pressed", self, "request_mind_by_relay", ["revert_project"], CONNECT_DEFERRED)
 	SnapshotsList.connect("item_selected", self, "refresh_snapshot_tools_view", [], CONNECT_DEFERRED)
 	SnapshotsList.connect("nothing_selected", self, "_on_snapshots_list_nothing_selected", [], CONNECT_DEFERRED)
@@ -108,10 +110,11 @@ func refresh_fields(project_title:String, project_meta:Dictionary) -> void:
 	pass
 
 func refresh_snapshot_tools_view(_x=null) -> void:
-	var _there_is_snapshots = (SnapshotsList.get_item_count() > 0)
+	var there_are_snapshots = (SnapshotsList.get_item_count() > 0)
 	var snapshot_is_selected = (SnapshotsList.get_selected_items().size() > 0)
 	SnapshotsPreview.set_disabled( ! snapshot_is_selected )
 	SnapshotsRestore.set_disabled( ! snapshot_is_selected )
+	SnapshotsRemove.set_disabled( ! ( there_are_snapshots && snapshot_is_selected ) )
 	pass
 
 func clear_snapshots_list() -> void:
@@ -181,16 +184,40 @@ func _on_snapshots_list_nothing_selected() -> void:
 	refresh_snapshot_tools_view()
 	pass
 
+func get_selected_snapshot_idx() -> int:
+	var selection = SnapshotsList.get_selected_items()
+	if selection.size() > 0 :
+		var the_snapshot_list_idx = selection[0]
+		return SnapshotsList.get_item_metadata(the_snapshot_list_idx)
+	else:
+		return -1
+	pass
+
 func restore_snapshot(snapshot_idx:int = -1) -> void:
 	if _IS_IN_PREVIEW_MODE:
 		set_preview_mode(false)
 	if snapshot_idx < 0 :
-		var selection = SnapshotsList.get_selected_items()
-		if selection.size() > 0 :
-			var the_snapshot_list_idx = selection[0]
-			snapshot_idx = SnapshotsList.get_item_metadata(the_snapshot_list_idx)
+		snapshot_idx = get_selected_snapshot_idx()
 	if snapshot_idx >= 0:
 		request_mind_by_relay("restore_snapshot", snapshot_idx)
+	pass
+
+func remove_snapshot(snapshot_idx:int = -1) -> void:
+	if _IS_IN_PREVIEW_MODE:
+		set_preview_mode(false)
+	if snapshot_idx < 0 :
+		snapshot_idx = get_selected_snapshot_idx()
+	if snapshot_idx >= 0:
+		request_mind_by_relay("remove_snapshot", snapshot_idx)
+	pass
+
+func unlist_snapshot_by_idx(snapshot_idx:int) -> void:
+	var list_item_idx = ListHelpers.get_list_item_idx_from_meta_data(SnapshotsList, snapshot_idx)
+	print_debug("Removing Snapshot from List: ", snapshot_idx, list_item_idx)
+	if list_item_idx >= 0:
+		SnapshotsList.remove_item(list_item_idx)
+	else:
+		printerr("Unexpected Behavior! Trying to remove a snapshot from the list with nonexistent index: ", snapshot_idx)
 	pass
 
 func prompt_for_save(dialog_options:Dictionary, extra_arguments:Array = []) -> void:

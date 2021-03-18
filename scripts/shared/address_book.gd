@@ -128,6 +128,7 @@ const INSPECTOR = {
 					"RESTORE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools/Restore",
 					"TAKE_NEW_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools/Take",
 					"PREVIEW_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools/Preview",
+					"REMOVE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools/Remove",
 				}
 			}
 		}

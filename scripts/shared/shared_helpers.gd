@@ -309,6 +309,13 @@ class ListHelpers:
 		for idx in range(0, list.get_item_count()):
 			list.set_item_disabled(idx, true if (enable_all == false && idx != item_index) else false)
 		pass
+	
+	static func get_list_item_idx_from_meta_data(list:ItemList, target_meta_data) -> int:
+		for idx in range(0, list.get_item_count()):
+			if target_meta_data == list.get_item_metadata(idx):
+				return idx
+		return -1
+		pass
 
 class Vector2d:
 	

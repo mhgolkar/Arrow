@@ -1435,25 +1435,25 @@ __meta__ = {
 }
 
 [node name="LocalProjectConfigTitle" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties"]
-margin_right = 253.0
+margin_right = 254.0
 margin_bottom = 24.0
 
 [node name="Title" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/LocalProjectConfigTitle"]
-margin_right = 217.0
+margin_right = 218.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "{project Title}"
 
 [node name="Set" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/LocalProjectConfigTitle"]
-margin_left = 221.0
-margin_right = 253.0
+margin_left = 222.0
+margin_right = 254.0
 margin_bottom = 24.0
 text = "Set"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties"]
 margin_top = 28.0
-margin_right = 253.0
+margin_right = 254.0
 margin_bottom = 48.0
 alignment = 2
 
@@ -1464,27 +1464,27 @@ margin_bottom = 24.0
 text = "RTL"
 
 [node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
-margin_right = 153.0
+margin_right = 147.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="LocalProjectMoreTools" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
-margin_left = 157.0
-margin_right = 202.0
+margin_left = 151.0
+margin_right = 203.0
 margin_bottom = 20.0
 text = "Export"
 flat = false
 items = [ "{ more tools }", null, 0, false, false, 0, 0, null, "", false ]
 
 [node name="LocalProjectClose" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
-margin_left = 206.0
-margin_right = 253.0
+margin_left = 207.0
+margin_right = 254.0
 margin_bottom = 20.0
 text = "Close"
 
 [node name="DraftManagement" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties"]
 margin_top = 52.0
-margin_right = 253.0
+margin_right = 254.0
 margin_bottom = 356.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1493,77 +1493,88 @@ size_flags_stretch_ratio = 3.0
 [node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 246.0
+margin_right = 247.0
 margin_bottom = 297.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LastSaveLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
-margin_right = 239.0
+margin_right = 240.0
 margin_bottom = 14.0
 text = "Last Save"
 
 [node name="LastSave" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
 margin_top = 18.0
-margin_right = 239.0
+margin_right = 240.0
 margin_bottom = 42.0
 
 [node name="Timestamp" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/LastSave"]
-margin_right = 182.0
+margin_right = 183.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 editable = false
 
 [node name="Revert" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/LastSave"]
-margin_left = 186.0
-margin_right = 239.0
+margin_left = 187.0
+margin_right = 240.0
 margin_bottom = 24.0
 hint_tooltip = "Revert to Last Saved File"
 text = "Revert"
 
 [node name="SnapshotLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
 margin_top = 46.0
-margin_right = 239.0
+margin_right = 240.0
 margin_bottom = 60.0
 text = "Snapshots"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
 margin_top = 64.0
-margin_right = 239.0
+margin_right = 240.0
 margin_bottom = 266.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SnapshotsList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/ScrollContainer"]
-margin_right = 239.0
+margin_right = 240.0
 margin_bottom = 202.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SnapshotTools" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
 margin_top = 270.0
-margin_right = 239.0
+margin_right = 240.0
 margin_bottom = 290.0
 
-[node name="Restore" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
-margin_right = 61.0
-margin_bottom = 20.0
-text = "Restore"
-
 [node name="Take" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
-margin_left = 65.0
-margin_right = 168.0
+margin_right = 41.0
 margin_bottom = 20.0
 hint_tooltip = "Create Restore Point (Ctrl + D)"
-text = "Take Snapshot"
+size_flags_horizontal = 3
+text = "Take"
+
+[node name="Restore" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
+margin_left = 45.0
+margin_right = 106.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Restore"
 
 [node name="Preview" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
-margin_left = 172.0
-margin_right = 234.0
+margin_left = 110.0
+margin_right = 172.0
 margin_bottom = 20.0
+size_flags_horizontal = 3
 toggle_mode = true
 text = "Preview"
+
+[node name="Remove" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
+margin_left = 176.0
+margin_right = 240.0
+margin_bottom = 20.0
+hint_tooltip = "Create Restore Point (Ctrl + D)"
+size_flags_horizontal = 3
+text = "Rem"
 
 [node name="ProjectListModes" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project"]
 anchor_right = 1.0

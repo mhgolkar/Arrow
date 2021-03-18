@@ -185,16 +185,7 @@ class Mind :
 			"close_project":
 				close_project()
 			"revert_project":
-				Notifier.call_deferred(
-					"show_notification",
-					"Are you sure ?!",
-					(
-						"You're about to revert current project to the last physically saved state. " +
-						"This operation will drop any change in memory and re-open the project from the saved file."
-					),
-					[ { "label": "Revert; I'm Sure", "callee": Main.Mind, "method": "revert_project", "arguments": [] }, ],
-					Settings.WARNING_COLOR
-				)
+				confirm_revert_project()
 			"set_project_title":
 				reset_project_title(args)
 			"take_snapshot":
@@ -205,24 +196,9 @@ class Mind :
 				else:
 					return_to_master_project()
 			"restore_snapshot":
-				if (args is int) && args >= 0 && _SNAPSHOTS.size() > args :
-					var snapshot_version = _SNAPSHOTS[args].version
-					Notifier.call_deferred(
-						"show_notification",
-						"Are you sure ?!",
-						(
-							(
-								"You're about to restore snapshot `%s`. " +
-								"This operation will override current state of the project in memory, " +
-								"but the file (unless saved afterwards) or other snapshots won't budge. " +
-								"If you may need the very current state later, make sure to take another snapshot first."
-							) % snapshot_version
-						),
-						[ { "label": "Restore; I'm Sure", "callee": Main.Mind, "method": "restore_snapshot", "arguments": [args] },],
-						Settings.CAUTION_COLOR
-					)
-				else:
-					printerr("Unexpected Behavior! Invalid snapshot index: ", args)
+				try_restore_snapshot(args)
+			"remove_snapshot":
+				try_remove_snapshot(args)
 			"prompt_path_for_requester":
 				prompt_path_to(
 					(args.callback_host if args.has("callback_host") else _tx_node),
@@ -339,7 +315,20 @@ class Mind :
 	
 	func revert_project() -> void:
 		clean_snapshots_all()
-		open_project( ProMan.get_active_project_id() )
+		open_project( ProMan.get_active_project_id(), true )
+		pass
+	
+	func confirm_revert_project() -> void:
+		Notifier.call_deferred(
+			"show_notification",
+			"Are you sure ?!",
+			(
+				"You're about to revert current project to the last physically saved state. " +
+				"This operation will drop any change in memory and re-open the project from the saved file."
+			),
+			[ { "label": "Revert; I'm Sure", "callee": Main.Mind, "method": "revert_project", "arguments": [] }, ],
+			Settings.WARNING_COLOR
+		)
 		pass
 	
 	func load_project(project_data:Dictionary, is_blank:bool = false, do_not_drop:bool = false) -> void:
@@ -1642,7 +1631,36 @@ class Mind :
 			_SNAPSHOT_INDEX_OF_PREVIEW = -1
 			print_debug("Project Snapshot Restored: ", snapshot_idx)
 		pass
-		
+	
+	func try_restore_snapshot(index) -> void:
+		if (index is int) && index >= 0 && _SNAPSHOTS.size() > index :
+			var snapshot_version = _SNAPSHOTS[index].version
+			Notifier.call_deferred(
+				"show_notification",
+				"Are you sure ?!",
+				(
+					(
+						"You're about to restore snapshot `%s`. " +
+						"This operation will override current state of the project in memory, " +
+						"but the file (unless saved afterwards) or other snapshots won't budge. " +
+						"If you may need the very current state later, make sure to take another snapshot first."
+					) % snapshot_version
+				),
+				[ { "label": "Restore; I'm Sure", "callee": Main.Mind, "method": "restore_snapshot", "arguments": [index] },],
+				Settings.CAUTION_COLOR
+			)
+		else:
+			printerr("Unexpected Behavior! Invalid snapshot index on restore: ", index)
+		pass
+	
+	func try_remove_snapshot(index) -> void:
+		if (index is int) && index >= 0 && _SNAPSHOTS.size() > index :
+			_SNAPSHOTS[index] = null # don't erase it to keep indices the same
+			Inspector.Tab.Project.call_deferred("unlist_snapshot", index, is_project_local())
+		else:
+			printerr("Unexpected Behavior! Invalid snapshot index on remove: ", index)
+		pass
+	
 	func clean_snapshots_all() -> void:
 		_SNAPSHOTS.clear()
 		_SNAPSHOTS_COUNT_PURE_ONES = -1
