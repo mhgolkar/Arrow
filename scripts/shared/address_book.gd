@@ -46,8 +46,8 @@ const EDITOR = {
 	},
 	# Bottom
 	"OPEN_SCENE_TITLE": "/root/Main/Editor/Bottom/BreadCrumb/OpenSceneTitle",
-	"AUTO_INSPECT_SWITCH": "/root/Main/Editor/Bottom/Switchs/AutoInspectSwitch",
-	"INSPECTOR_VIEW_TOGGLE": "/root/Main/Editor/Bottom/Switchs/InspectorViewToggle",
+	"QUICK_PREFERENCES_MENU_BUTTON": "/root/Main/Editor/Bottom/QuickSwitches/HBoxContainer/QuickPreferences",
+	"INSPECTOR_VIEW_TOGGLE": "/root/Main/Editor/Bottom/QuickSwitches/HBoxContainer/InspectorViewToggle",
 }
 
 const PATH_DIALOGUE = "/root/Main/BlockingLayer/Container/PathDialog"

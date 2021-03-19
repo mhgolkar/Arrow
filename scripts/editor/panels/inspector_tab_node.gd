@@ -136,7 +136,7 @@ func read_and_validate_node_name():
 				validated_name = updated
 	return validated_name
 
-func read_and_update_inspected_node() -> void:
+func read_and_update_inspected_node(auto:bool = false) -> void:
 	# the central mind may call this (e.g. on key-shortcuts) even when inspector is hidden,
 	# so we shall first check ... 
 	if _CURRENT_INSPECTED_NODE_RESOURCE_ID >= 0 && _LAST_OPEN_SUB_INSPECTOR:
@@ -158,8 +158,16 @@ func read_and_update_inspected_node() -> void:
 				resource_updater.modification["notes"] = notes
 		elif _CURRENT_INSPECTED_NODE.has("notes"): 
 			resource_updater.modification["notes"] = null # means drop/erase notes
+		# is it an auto update request
+		if auto == true:
+			resource_updater["auto"] = true
 		# send update request
 		self.emit_signal("relay_request_mind", "update_resource", resource_updater)
+	pass
+
+func try_auto_node_update(next_node_id:int = -1) -> void:
+	if next_node_id != _CURRENT_INSPECTED_NODE_RESOURCE_ID:
+		read_and_update_inspected_node(true)
 	pass
 
 # Note: this function might be called by scripts or due to ui signals

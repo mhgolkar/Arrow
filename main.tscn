@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/editor/app_menu.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://resources/about_splash.png" type="Texture" id=22]
 [ext_resource path="res://scripts/editor/panels/notification.gd" type="Script" id=23]
 [ext_resource path="res://scripts/editor/new_release_check.gd" type="Script" id=24]
+[ext_resource path="res://scripts/editor/quick_preferences.gd" type="Script" id=25]
 [ext_resource path="res://scripts/editor/panels/console.gd" type="Script" id=33]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -3130,17 +3131,17 @@ valign = 1
 
 [node name="ProjectSaveStatus" type="Label" parent="Editor/Top/Toolbar"]
 visible = false
-margin_left = 764.0
+margin_left = 629.0
 margin_top = 10.0
-margin_right = 868.0
+margin_right = 733.0
 margin_bottom = 24.0
 custom_colors/font_color = Color( 0.815686, 0.0588235, 0.956863, 1 )
 text = "% save status %"
 
 [node name="AutoLocalSaveSwitch" type="CheckButton" parent="Editor/Top/Toolbar"]
 visible = false
-margin_left = 688.0
-margin_right = 868.0
+margin_left = 539.0
+margin_right = 719.0
 margin_bottom = 40.0
 text = "Auto Local Save"
 
@@ -3211,7 +3212,7 @@ color = Color( 0.74902, 0.121569, 0.54902, 1 )
 [node name="Center" type="Control" parent="Editor"]
 margin_top = 38.0
 margin_right = 1010.0
-margin_bottom = 542.0
+margin_bottom = 544.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -3227,7 +3228,7 @@ margin_left = -5.96046e-08
 size_flags_horizontal = 3
 size_flags_vertical = 3
 right_disconnects = true
-scroll_offset = Vector2( -5.96046e-08, 0 )
+scroll_offset = Vector2( -5.96046e-08, -14 )
 snap_distance = 10
 script = ExtResource( 5 )
 __meta__ = {
@@ -3260,7 +3261,7 @@ __meta__ = {
 }
 
 [node name="Bottom" type="HBoxContainer" parent="Editor"]
-margin_top = 546.0
+margin_top = 548.0
 margin_right = 1010.0
 margin_bottom = 586.0
 size_flags_horizontal = 3
@@ -3271,14 +3272,14 @@ __meta__ = {
 }
 
 [node name="BreadCrumb" type="MarginContainer" parent="Editor/Bottom"]
-margin_right = 152.0
-margin_bottom = 40.0
+margin_right = 156.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="OpenSceneTitle" type="Label" parent="Editor/Bottom/BreadCrumb"]
-margin_right = 152.0
-margin_bottom = 40.0
+margin_right = 156.0
+margin_bottom = 38.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -3289,9 +3290,9 @@ autowrap = true
 clip_text = true
 
 [node name="QueryPanel" type="PanelContainer" parent="Editor/Bottom"]
-margin_left = 156.0
-margin_right = 767.0
-margin_bottom = 40.0
+margin_left = 160.0
+margin_right = 785.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 script = ExtResource( 16 )
@@ -3299,15 +3300,15 @@ script = ExtResource( 16 )
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/Bottom/QueryPanel"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 604.0
-margin_bottom = 33.0
+margin_right = 618.0
+margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="QueryInput" type="LineEdit" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_right = 308.0
-margin_bottom = 26.0
+margin_right = 322.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
 align = 1
@@ -3315,64 +3316,66 @@ clear_button_enabled = true
 placeholder_text = "Query"
 
 [node name="How" type="OptionButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 312.0
-margin_right = 387.0
-margin_bottom = 26.0
+margin_left = 326.0
+margin_right = 401.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 75, 0 )
 text = "{ how }"
 items = [ "{ how }", null, false, 0, null ]
 selected = 0
 
 [node name="Search" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 391.0
-margin_right = 409.0
-margin_bottom = 26.0
+margin_left = 405.0
+margin_right = 423.0
+margin_bottom = 24.0
 hint_tooltip = "Query (Ctrl + Q)"
 text = "?"
 
 [node name="PreviousMatch" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 413.0
-margin_right = 453.0
-margin_bottom = 26.0
+margin_left = 427.0
+margin_right = 467.0
+margin_bottom = 24.0
 hint_tooltip = "Locate Previous Match (Ctrl + 1)"
 text = "Prev"
 
 [node name="Matches" type="MenuButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 457.0
-margin_right = 551.0
-margin_bottom = 26.0
+margin_left = 471.0
+margin_right = 565.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 text = "c : t Matches"
 items = [ "Scence Abx / s1n1act : Action / 3 - ... queried part sample ...", null, 0, false, false, 0, 0, null, "", false, "Scence Abx / s1n3 : Change Var / Note - ... query....", null, 0, false, false, 1, 0, null, "", false ]
 
 [node name="NextMatch" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 555.0
-margin_right = 597.0
-margin_bottom = 26.0
+margin_left = 569.0
+margin_right = 611.0
+margin_bottom = 24.0
 hint_tooltip = "Locate Next Match (Ctrl + 2)"
 text = "Next"
 
-[node name="Switchs" type="HBoxContainer" parent="Editor/Bottom"]
-margin_left = 771.0
-margin_right = 1010.0
-margin_bottom = 40.0
-size_flags_vertical = 5
-alignment = 2
+[node name="QuickSwitches" type="PanelContainer" parent="Editor/Bottom"]
+margin_left = 789.0
+margin_right = 1009.0
+margin_bottom = 38.0
 
-[node name="AutoInspectSwitch" type="CheckButton" parent="Editor/Bottom/Switchs"]
-margin_right = 162.0
-margin_bottom = 40.0
-hint_tooltip = "Switch Auto-inspection (Ctrl + U)"
-size_flags_horizontal = 3
-size_flags_vertical = 5
-pressed = true
-text = "Auto Inspect"
+[node name="HBoxContainer" type="HBoxContainer" parent="Editor/Bottom/QuickSwitches"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 213.0
+margin_bottom = 31.0
 
-[node name="InspectorViewToggle" type="Button" parent="Editor/Bottom/Switchs"]
-margin_left = 166.0
-margin_right = 239.0
-margin_bottom = 40.0
-hint_tooltip = "Toggle Inspector Panel (Ctrl + I)"
+[node name="InspectorViewToggle" type="Button" parent="Editor/Bottom/QuickSwitches/HBoxContainer"]
+margin_right = 73.0
+margin_bottom = 24.0
+hint_tooltip = "Toggle Inspector Panel (Ctrl + P)"
 toggle_mode = true
 pressed = true
 text = "Inspector"
+
+[node name="QuickPreferences" type="MenuButton" parent="Editor/Bottom/QuickSwitches/HBoxContainer"]
+margin_left = 77.0
+margin_right = 206.0
+margin_bottom = 24.0
+text = "Quick Preferences"
+flat = false
+script = ExtResource( 25 )

@@ -12,8 +12,7 @@ const BLOCKING_PANELS:Array = Settings.BLOCKING_PANELS
 const BLOCKING_OVERLAY_PATH = Addressbook.BLOCKING_OVERLAY
 const MAIN_UI_PATHS = {
 	"app_menu": Addressbook.EDITOR.APP_MENU,
-#	"auto_local_save_switch": Addressbook.EDITOR.AUTO_LOCAL_SAVE_SWITCH,
-	"auto_inspect_switch": Addressbook.EDITOR.AUTO_INSPECT_SWITCH,
+	"quick_preferences": Addressbook.EDITOR.QUICK_PREFERENCES_MENU_BUTTON,
 	"inspector_view_toggle": Addressbook.EDITOR.INSPECTOR_VIEW_TOGGLE,
 }
 
@@ -45,8 +44,7 @@ class UiManager :
 	func register_connections():
 		TheTree.connect("screen_resized", self, "_on_screen_resized")
 		MAIN_UI.inspector_view_toggle.connect("toggled", self, "_on_inspector_view_toggle", [], CONNECT_DEFERRED)
-		MAIN_UI.auto_inspect_switch.connect("toggled", self, "_on_quick_preferences_toggled", ["auto_inspect"], CONNECT_DEFERRED)
-	#	MAIN_UI.auto_local_save_switch.connect("toggled", self, "_on_quick_preferences_toggled", ["auto_local_save"], CONNECT_DEFERRED)
+		MAIN_UI.quick_preferences.connect("quick_preference", self, "_on_quick_preference", [], CONNECT_DEFERRED)
 		PANELS.preferences.connect("preference_modifications_done", Main.Configs, "_on_preference_modifications_done", [], CONNECT_DEFERRED)
 		PANELS.preferences.connect("preference_modified", Main.Configs, "_on_preference_modified", [], CONNECT_DEFERRED)
 		pass
@@ -58,19 +56,17 @@ class UiManager :
 		update_quick_preferences_switchs_view() # ... to the defaults
 		pass
 	
-	func _on_quick_preferences_toggled(new_state:bool, command:String) -> void:
-		print_debug(command, ":", new_state)
-		Main.set_quick_preferences(command, new_state, false)
-		# Note: it doesn't need to update the view, because it's called by a view interaction itself
-		pass
-	
 	func _on_inspector_view_toggle(new_state:bool) -> void:
 		set_panel_visibility("inspector", new_state)
 		pass
 	
+	func _on_quick_preference(new_state:bool, command:String) -> void:
+		print_debug(command, ":", new_state)
+		Main.set_quick_preferences(command, new_state, true)
+		pass
+	
 	func update_quick_preferences_switchs_view() -> void:
-#		MAIN_UI.auto_local_save_switch.set_deferred("pressed", Main._AUTO_LOCAL_SAVE)
-		MAIN_UI.auto_inspect_switch.set_deferred("pressed", Main._AUTO_INSPECT)
+		MAIN_UI.quick_preferences.call_deferred("refresh_quick_preferences_menu_view")
 		pass
 	
 	func set_panel_visibility(panel:String, visibility:bool) -> void:

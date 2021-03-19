@@ -182,14 +182,19 @@ arrow_unselect_nodes_all={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
  ]
 }
-arrow_switch_auto_inspection={
+arrow_switch_auto_node_update={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":85,"unicode":0,"echo":false,"script":null)
  ]
 }
-arrow_toggle_inspector_panel_view={
+arrow_switch_auto_inspection={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":73,"unicode":0,"echo":false,"script":null)
+ ]
+}
+arrow_toggle_inspector_panel_view={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":80,"unicode":0,"echo":false,"script":null)
  ]
 }
 arrow_play_from_project_entry={

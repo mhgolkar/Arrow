@@ -18,6 +18,7 @@ onready var Mind = CentralMind.Mind.new(self)
 
 # Quick Preferences (defaults)
 export var _AUTO_INSPECT:bool = true
+export var _AUTO_NODE_UPDATE:bool = true
 
 func _ready() -> void:
 	# print startup messages
@@ -79,8 +80,8 @@ func set_quick_preferences(preference:String, new_state:bool, refresh_view:bool 
 	match preference:
 		"auto_inspect":
 			_AUTO_INSPECT = new_state
-#		"other_quick_pref":
-#			_OTHER_QUICK_PREF = new_state
+		"auto_node_update":
+			_AUTO_NODE_UPDATE = new_state
 	if refresh_view != false :
 		UI.update_quick_preferences_switchs_view()
 	pass
@@ -90,8 +91,8 @@ func toggle_quick_preferences(preference:String, refresh_view:bool = true):
 	match preference:
 		"auto_inspect":
 			new_state = ( ! _AUTO_INSPECT )
-#		"other_quick_pref":
-#			new_state = ( ! _OTHER_QUICK_PREF )
+		"auto_node_update":
+			new_state = ( ! _AUTO_NODE_UPDATE )
 	if new_state != null:
 		set_quick_preferences(preference, new_state, refresh_view)
 	return new_state

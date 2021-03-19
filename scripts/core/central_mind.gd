@@ -144,7 +144,7 @@ class Mind :
 			"insert_node":
 				create_insert_nodes(args.nodes, args.offset)
 			"update_resource":
-				update_resource(args.id, args.modification, args.field)
+				update_resource(args.id, args.modification, args.field, (args.has('auto') && args.auto == true))
 			"remove_resource":
 				remove_resource(args.id, args.field)
 			"update_node_map":
@@ -621,13 +621,18 @@ class Mind :
 	
 	func inspector_reaction_to_selection_change(force:bool = false) -> void:
 		var selection_size = _SELECTED_NODES_IDS.size()
+		var block_inspector = true
+		# first pull modifications, in case
+		if Main._AUTO_NODE_UPDATE == true:
+			Inspector.Tab.Node.call("try_auto_node_update")
+		# ...
 		if force == true || Main._AUTO_INSPECT == true:
 			if selection_size == 1:
 				inspect_node( _SELECTED_NODES_IDS[0] )
-			else:
-				# nothing or multiple? block node inspector
-				Inspector.Tab.Node.call_deferred("block_node_tab")
-		# else: do nothing
+				block_inspector = false
+		if block_inspector:
+			Inspector.Tab.Node.call_deferred("block_node_tab")
+		# ...
 		# Note: inspector keeps the last opened node's resource id so inspector sends the right resource id,
 		# in case of updating a node while selecting another one on the grid (auto-inspection off) 
 		pass
@@ -647,6 +652,10 @@ class Mind :
 			if scene_id >= 0:
 				var the_node_map = _PROJECT.resources.scenes[scene_id].map[node_id]
 				if the_node is Dictionary && the_node_map is Dictionary:
+					if Main._AUTO_NODE_UPDATE == true:
+						# ... ask inspector::node to send up modifications of the previously inspected node
+						Inspector.Tab.Node.call("try_auto_node_update", node_id)
+						# ... then we can push the new one
 					Inspector.Tab.Node.call_deferred("update_node_tab", node_id, the_node, the_node_map)
 					Inspector.call_deferred("show_tab_of_title", "Node")
 		pass
@@ -959,7 +968,7 @@ class Mind :
 		pass
 	
 	# updates existing resource. To create one use `write_resource`
-	func update_resource(resource_uid:int, modification:Dictionary, field:String = "") -> void:
+	func update_resource(resource_uid:int, modification:Dictionary, field:String = "", is_auto_update:bool = false) -> void:
 		var validated_field = find_resource_field(resource_uid, field)
 		var the_resource = lookup_resource(resource_uid, validated_field, false) # duplicate = false ...
 		# ... so we can directrly update the resource 
@@ -1005,7 +1014,7 @@ class Mind :
 					if _PROJECT.resources.scenes[_CURRENT_OPEN_SCENE_ID].map.has(usecase_id):
 						Grid.call_deferred("update_grid_node_box", usecase_id, _PROJECT.resources.nodes[usecase_id])
 			# print_debug("Update resource call: ", modification, the_resource, lookup_resource(resource_uid, field, false))
-		else:
+		elif is_auto_update != true: # inspector may try to auto update a recently deleted node automatically
 			print_stack()
 			printerr("Unexpected Behaviour! Trying to update resource = %s which is not Dictionary!" % resource_uid)
 		pass
@@ -1795,6 +1804,8 @@ class Mind :
 			force_unsellect_all()
 		elif event.is_action_pressed("arrow_switch_auto_inspection"):
 			Main.call_deferred("toggle_quick_preferences", "auto_inspect", true)
+		elif event.is_action_pressed("arrow_switch_auto_node_update"):
+			Main.call_deferred("toggle_quick_preferences", "auto_node_update", true)
 		elif event.is_action_pressed("arrow_toggle_inspector_panel_view"):
 			Main.UI.call_deferred("toggle_panel_visibility", "inspector")
 		elif event.is_action_pressed("arrow_play_from_scene_entry"):
