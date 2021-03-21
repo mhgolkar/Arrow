@@ -138,7 +138,10 @@ class UserInput {
                     if ( node_resource.hasOwnProperty('data') ){
                         // Prompt Message:
                         if ( node_resource.data.hasOwnProperty('prompt') ){
-                            this.prompt_element = create_element("p", node_resource.data.prompt);
+                            this.prompt_element = create_element(
+                                "p",
+                                format(node_resource.data.prompt, VARS_NAME_VALUE_PAIR),
+                            );
                             this.html.appendChild(this.prompt_element);
                         }
                         // Input

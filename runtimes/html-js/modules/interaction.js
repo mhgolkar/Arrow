@@ -58,7 +58,11 @@ class Interaction {
             this.html.setAttribute('data-played', true);
             // then emphasize the played action
             if ( Number.isInteger(slot_idx) && slot_idx >= 0 && slot_idx < this.actions.length ){
-                this.played_action = create_element(PLAYED_ACTION_TAG, this.actions[slot_idx], { class: 'interaction-played-action' });
+                this.played_action = create_element(
+                    PLAYED_ACTION_TAG,
+                    format(this.actions[slot_idx], VARS_NAME_VALUE_PAIR),
+                    { class: 'interaction-played-action' }
+                );
                 this.html.appendChild(this.played_action);
             } else {
                 throw new Error("Unable to set `Interaction` played: The played slot doesn't exist: ", slot_idx);
@@ -92,7 +96,10 @@ class Interaction {
             if ( ("appendChild" in actions_holder) == false ) actions_holder = null;
             var action_elements = [];
             for ( var idx = 0; idx < actions_array.length; idx++ ) {
-                var action_element = create_element(ACTION_ELEMENT_TAG, actions_array[idx]);
+                var action_element = create_element(
+                    ACTION_ELEMENT_TAG,
+                    format(actions_array[idx], VARS_NAME_VALUE_PAIR)
+                );
                 if ( listen ){
                     // Each action has its own slot in the same order, so...
                     action_element.addEventListener(_CLICK, this.play_forward_from.bind(_self, idx));

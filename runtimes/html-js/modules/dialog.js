@@ -66,7 +66,11 @@ class Dialog {
             this.html.setAttribute('data-played', true);
             // then emphasize the played line
             if ( Number.isInteger(slot_idx) && slot_idx >= 0 && slot_idx < this.lines.length ){
-                this.played_line = create_element(PLAYED_LINE_TAG, this.lines[slot_idx], { class: 'dialog-played-line' });
+                this.played_line = create_element(
+                    PLAYED_LINE_TAG,
+                    format(this.lines[slot_idx], VARS_NAME_VALUE_PAIR),
+                    { class: 'dialog-played-line' }
+                );
                 this.html.appendChild(this.played_line);
             } else {
                 throw new Error("Unable to set `Dialog` played: The played slot doesn't exist: ", slot_idx);
@@ -106,7 +110,10 @@ class Dialog {
             if ( ("appendChild" in lines_holder) == false ) lines_holder = null;
             var line_elements = [];
             for ( var idx = 0; idx < lines_array.length; idx++ ) {
-                var line_element = create_element(LINE_ELEMENT_TAG, lines_array[idx]);
+                var line_element = create_element(
+                    LINE_ELEMENT_TAG,
+                    format(lines_array[idx], VARS_NAME_VALUE_PAIR)
+                );
                 if ( listen ){
                     // Each line has its own slot in the same order, so...
                     line_element.addEventListener(_CLICK, this.play_forward_from.bind(_self, idx));
