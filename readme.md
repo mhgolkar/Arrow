@@ -67,10 +67,6 @@ including:
 
 [Quick Start Guide][wiki-quick-start-guide]
 
-[Keyboard & Mouse Shortcuts][wiki-shortcuts]
-
-[CLI Arguments][wiki-cli-arguments]
-
 [Build from Source][wiki-build-from-source]
 
 [Contribution][wiki-contribution]
@@ -81,7 +77,8 @@ including:
 Copyright (c) 2021 Mor. H. Golkar and contributors
 
 Unless otherwise specified, Arrow and files in this repository are
-available under `MIT` license. See [license][license-file] file for more information.
+available under `MIT` license.
+See [license][license-file] file for more information.
 
 
 Have a Good Time
@@ -89,16 +86,14 @@ Have a Good Time
 
 <!-- download -->
 [releases]: https://github.com/mhgolkar/Arrow/releases
-[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.2/Arrow-v1.0.2-linux-x86_64.tar.gz
-[linux-x11-x86-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.2/Arrow-v1.0.2-linux-x86.tar.gz
-[win-32-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.2/Arrow-v1.0.2-win.32.zip
-[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.0.2/Arrow-v1.0.2-win.64.zip
+[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.1.0/Arrow-v1.1.0-linux-x86_64.tar.gz
+[linux-x11-x86-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.1.0/Arrow-v1.1.0-linux-x86.tar.gz
+[win-32-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.1.0/Arrow-v1.1.0-win.32.zip
+[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.1.0/Arrow-v1.1.0-win.64.zip
 <!-- wiki -->
 [wiki-home]: https://github.com/mhgolkar/Arrow/wiki/
-[wiki-build-from-source]: https://github.com/mhgolkar/Arrow/wiki/build-from-source
 [wiki-quick-start-guide]: https://github.com/mhgolkar/Arrow/wiki/quick-start-guide
-[wiki-shortcuts]: https://github.com/mhgolkar/Arrow/wiki/shortcuts
-[wiki-cli-arguments]: https://github.com/mhgolkar/Arrow/wiki/cli-arguments
+[wiki-build-from-source]: https://github.com/mhgolkar/Arrow/wiki/build-from-source
 [wiki-contribution]: https://github.com/mhgolkar/Arrow/wiki/contribution
 <!-- rel -->
 [runtime-html-js]: ./runtimes/html-js/

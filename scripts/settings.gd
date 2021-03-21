@@ -6,10 +6,10 @@
 # Other scripts use this class as a centralized set of configurations
 class_name Settings
 
-const ARROW_VERSION = "1.0.2"
+const ARROW_VERSION = "1.1.0"
 const ARROW_WEBSITE = "https://github.com/mhgolkar/Arrow"
 
-const CURRENT_RELEASE_TAG = "v1.0.2"
+const CURRENT_RELEASE_TAG = "v1.1.0"
 const ARROW_RELEASES_ARCHIVE = "https://github.com/mhgolkar/Arrow/releases/"
 const LATEST_RELEASE_CHECK_API = "https://api.github.com/repos/mhgolkar/Arrow/releases/latest"
 
@@ -217,8 +217,18 @@ const PATH_DIALOG_PROPERTIES = {
 }
 
 # Clipboard
+
 # Don't need to change these unless you're developing new features.
 const CLIPBOARD_MODE = { "EMPTY":0, "COPY":1, "CUT":2 }
+
+# Automatics
+
+const TAKE_INITIAL_SNAPSHOT = true
+
+const SKIP_INITIAL_COPY_TRACK_FOR_NODE_TYPE = [
+	"condition", "macro_use", "user_input", "variable_update"
+]
+const MAXIMUM_HISTORY_SIZE_PER_NODE = 7
 
 # Runtimes
 

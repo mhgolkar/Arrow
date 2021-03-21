@@ -161,7 +161,7 @@ class Mind :
 			"create_scene":
 				create_new_scene(args)
 			"inspect_node":
-				inspect_node(args)
+				inspect_node(args, -1, true)
 			"query_nodes":
 				query_nodes(args)
 			"remove_selected_nodes":
@@ -261,7 +261,8 @@ class Mind :
 			var project_data = ProMan.hold_project_by_id(project_id)
 			if project_data is Dictionary:
 				load_project(project_data)
-				self.call_deferred("take_snapshot", "Point Start - v")
+				if Settings.TAKE_INITIAL_SNAPSHOT == true:
+					self.call_deferred("take_snapshot", "Point Start - v")
 		else:
 			Notifier.call_deferred(
 				"show_notification",
@@ -286,6 +287,7 @@ class Mind :
 		if ProMan.is_project_saved() || close_anyway == true :
 			deactivate_project_properties()
 			clean_snapshots_all()
+			clean_inspector_tabs()
 			open_new_blank_project(true)
 			project_closed = true
 		else:
@@ -389,10 +391,15 @@ class Mind :
 #		Main.call_deferred("set_quick_preferences", "auto_local_save", auto_save_last_state, true)
 #		pass
 	
+	func clean_inspector_tabs(keep_history:bool = false) -> void:
+		Inspector.Tab.Node.call("total_clean_up", keep_history)
+		pass
+	
 	func initialize_inspector() -> void:
 		Inspector.call_deferred("initialize_tabs")
 		# and create sub-inspector panels for each node type
 		Inspector.Tab.Node.call_deferred("setup_node_type_sub_inspectors", NODE_TYPES_LIST)
+		clean_inspector_tabs(true)
 		pass
 	
 	func load_where_user_left_last_time() -> void:
@@ -621,25 +628,22 @@ class Mind :
 	
 	func inspector_reaction_to_selection_change(force:bool = false) -> void:
 		var selection_size = _SELECTED_NODES_IDS.size()
-		var block_inspector = true
 		# first pull modifications, in case
 		if Main._AUTO_NODE_UPDATE == true:
 			Inspector.Tab.Node.call("try_auto_node_update")
 		# ...
 		if force == true || Main._AUTO_INSPECT == true:
 			if selection_size == 1:
-				inspect_node( _SELECTED_NODES_IDS[0] )
-				block_inspector = false
-		if block_inspector:
-			Inspector.Tab.Node.call_deferred("block_node_tab")
-		# ...
+				inspect_node( _SELECTED_NODES_IDS[0], -1, Main._AUTO_INSPECT)
+			else:
+				Inspector.Tab.Node.call_deferred("block_node_tab")
 		# Note: inspector keeps the last opened node's resource id so inspector sends the right resource id,
 		# in case of updating a node while selecting another one on the grid (auto-inspection off) 
 		pass
 	
 	# cleans and opens node parameters in the node tab of the inspector panel
 	# `scene_id = -1` means current open scene
-	func inspect_node(node_id:int, scene_id:int = -1) -> void:
+	func inspect_node(node_id:int, scene_id:int = -1, switch_tab:bool = false) -> void:
 		if _PROJECT.resources.nodes.has(node_id):
 			# get ...
 			var the_node = _PROJECT.resources.nodes[node_id]
@@ -657,7 +661,8 @@ class Mind :
 						Inspector.Tab.Node.call("try_auto_node_update", node_id)
 						# ... then we can push the new one
 					Inspector.Tab.Node.call_deferred("update_node_tab", node_id, the_node, the_node_map)
-					Inspector.call_deferred("show_tab_of_title", "Node")
+					if switch_tab == true:
+						Inspector.call_deferred("show_tab_of_title", "Node")
 		pass
 	
 	func jump_to_node(node_id:int, select:bool = false) -> void:
@@ -964,7 +969,7 @@ class Mind :
 	
 	func update_inspector_if_node_open(node_id:int) -> void:
 		if node_id >= 0 && Inspector.Tab.Node._CURRENT_INSPECTED_NODE_RESOURCE_ID == node_id:
-			inspect_node(node_id)
+			inspect_node(node_id, -1, false)
 		pass
 	
 	# updates existing resource. To create one use `write_resource`
@@ -1044,6 +1049,9 @@ class Mind :
 				# ... then, removal precautions and recursive clean-ups
 				match field:
 					"nodes":
+						# block the inspector in case
+						if resource_uid == Inspector.Tab.Node._CURRENT_INSPECTED_NODE_RESOURCE_ID:
+							Inspector.Tab.Node.call_deferred("block_node_tab")
 						# update the grid view
 						Grid.call_deferred("clean_node_off", resource_uid)
 						# Note: `Grid` will call for `map::io` updates on the other or both side(s)
@@ -1207,7 +1215,7 @@ class Mind :
 			print_debug("Update node map call: ", modification, _PROJECT.resources.scenes[scene_id].map[node_id])
 		else:
 			print_stack()
-			printerr("Unexpected Behavior! Trying to update node = %s map which doesn't exist in any scene!" % node_id)
+			print_debug("Task Ignored! Trying to update node = %s map which doesn't exist in any scene!" % node_id)
 		pass
 	
 	func list_all_resource_ids_by_name_of(field:String) -> Dictionary:

@@ -37,10 +37,10 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 	# ... then update parameters, and set defaults if node doesn't provide the right data
 	if node.has("data") && node.data is Dictionary:
 		# Title
-		if node.data.has("title") && node.data.title is String && node.data.title.length() > 0 :
-			Title.set_deferred("text", node.data.title)
-		else:
-			Title.set_deferred("text", DEFAULT_NODE_DATA.title)
+		var title
+		if node.data.has("title"):
+			title = String(node.data.title)
+		Title.set_deferred("text", (title if (title is String && title.length() > 0) else DEFAULT_NODE_DATA.title))
 		# Content
 		if node.data.has("content") && node.data.content is String && node.data.content.length() > 0 :
 			Content.set_deferred("text", node.data.content)

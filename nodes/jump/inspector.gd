@@ -108,10 +108,11 @@ func _on_suggestion_item_activated(item_idx:int) -> void:
 	set_suggestion_view(false)
 	pass
 
-func _update_parameters(node_id:int, node:Dictionary) -> void:
-	# first cache the node
-	_OPEN_NODE_ID = node_id
-	_OPEN_NODE = node
+func _update_parameters(node_id:int, node:Dictionary, do_cache:bool = true) -> void:
+	# first cache the node (if it's not a history point being restored)
+	if do_cache:
+		_OPEN_NODE_ID = node_id
+		_OPEN_NODE = node
 	# ... then update parameters
 	Destination.clear()
 	Reason.clear()

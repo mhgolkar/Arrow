@@ -29,9 +29,9 @@ const NO_VARIABLE_TEXT = "No Variable Available"
 const NO_VARIABLE_ID = -1
 
 # will be customized by `_setup_new`
-const DEFAULT_NODE_DATA = {
+var DEFAULT_NODE_DATA = {
 	"variable": NO_VARIABLE_ID, # uid of the target variable to be updated
-	"operator": null, # update operation
+	"operator": UPDATE_OPERATORS[NO_VARIABLE_VAR_TYPE].keys()[0], # update operation
 	"with": [PARAMETER_MODES_ENUM_CODE.value, null] # [PARAMETER_MODES_ENUM_CODE::value/variable, value/variable_id]
 }
 
@@ -233,8 +233,13 @@ func read_the_parameter_with() -> Array:
 	return [mode_enum, the_value]
 
 func _read_parameters() -> Dictionary:
+	# if there is no variable out there
+	if _PROJECT_VARIABLES_CACHE.size() == 0:
+		# we can only accept unset parameters, so ...
+		return _create_new()
+	# otherwise ...
 	var parameters = {
-		"variable": (Variables.get_selected_id() if (_PROJECT_VARIABLES_CACHE.size() > 0) else NO_VARIABLE_ID),
+		"variable": Variables.get_selected_id(),
 		"operator": _OPERATORS_LISTED_BY_ITEM_ID[ Operators.get_selected_id() ],
 		"with": read_the_parameter_with()
 	}

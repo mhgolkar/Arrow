@@ -171,7 +171,7 @@ class Utils:
 			else:
 				return ERR_CANT_ACQUIRE_RESOURCE
 		else:
-			ERR_INVALID_PARAMETER
+			return ERR_INVALID_PARAMETER
 		pass
 	
 	static func read_and_parse_variant_file(path:String):
@@ -233,6 +233,43 @@ class Utils:
 				val = val / 36
 		return result
 	
+	static func objects_differ(left, right) -> bool:
+		if typeof(left) == typeof(right):
+			if left is Dictionary:
+				# `hash` is expected to be faster
+				# and most of the times this function is called with identical objects so:
+				if left.hash() == right.hash():
+					return false
+				# yet dictionaries with the same keys/values but in a different order will have a different hash.
+				# we don't care about their order in this comparison, so we shall double-check
+				else:
+					if left.size() == right.size():
+						for property in left:
+							if right.has(property):
+								if objects_differ(left[property], right[property]) == true:
+									return true
+							else:
+								return true
+						return false
+					else:
+						return true
+			elif left is Array:
+				if left.hash() == right.hash():
+					return false
+				# though we care about order in Arrays, but arrays may contain dictionares
+				# so we need to recursively check for items all
+				else:
+					if left.size() == right.size():
+						for i in range(0, left.size()):
+							if objects_differ(left[i], right[i]) == true:
+								return true
+						return false
+					return true
+			else:
+				return (! (left == right) )
+		else:
+			return true
+	
 	static func recursively_update_dictionary(original:Dictionary, modification:Dictionary, ignore_new_and_strange_pairs:bool = true, updates_to_null_is_erase:bool = false, duplication:bool = false) -> Dictionary:
 		var updatee = ( original if (duplication != true) else original.duplicate(true) )
 		for key in modification:
@@ -253,8 +290,9 @@ class Utils:
 	static func recursively_convert_numbers_to_int(data):
 		if data is float:
 			data = int(data)
-		elif data is String && String(int(data)) == data:
-			data = int(data)
+		# stringified numbers in data may be a number-only title or str value, so let's keep them
+		#elif data is String && String(int(data)) == data:
+		#	data = int(data)
 		elif data is Array:
 			for index in range(0, data.size()):
 				data[index] = recursively_convert_numbers_to_int( data[index] )
@@ -319,7 +357,7 @@ class ListHelpers:
 
 class Vector2d:
 	
-	static func limit_vector2_y(vec:Vector2, by:Vector2, limit_down:bool = true, limit_padding:int = 0) -> Vector2:
+	static func limit_vector2_y(vec:Vector2, by:Vector2, limit_down:bool = true, limit_padding:float = 0) -> Vector2:
 		var limited = vec
 		var padded_y_limit = (by.y - limit_padding)
 		if limited.y > padded_y_limit:
@@ -328,7 +366,7 @@ class Vector2d:
 			limited.y = limit_padding
 		return limited
 		
-	static func limit_vector2_x(vec:Vector2, by:Vector2, limit_down:bool = true, limit_padding:int = 0) -> Vector2:
+	static func limit_vector2_x(vec:Vector2, by:Vector2, limit_down:bool = true, limit_padding:float = 0) -> Vector2:
 		var limited = vec
 		var padded_x_limit = (by.x - limit_padding)
 		if limited.x > padded_x_limit:

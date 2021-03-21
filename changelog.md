@@ -1,6 +1,23 @@
 # Arrow: Changelog
 
 
+## v1.1.0
+
++ New Features:
+
+    + New *quick preference*: **Auto-Node-Update**
+        + In-memory history of node modifications (fairly stable)
+        + UI & keybindings `Ctrl + I|U|P`
+
+    + Variable parsing in playable exports
+        > Variable parsing existed in the Arrow's console but,
+        > was missed from the official HTML-JS runtime
+
+    + We can now remove snapshots (usefull for huge projects)
+
++ Some other minor fixes
+
+
 ## v1.0.2
 
 + Better `New Blank Project` Handling

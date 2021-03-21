@@ -144,9 +144,11 @@ const INSPECTOR = {
 			"NODE_USECASES_MENU_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState/NodeUseCases",
 			"SUB_INSPECTOR_HOLDER": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/VSplitContainer/SubInspectorHolder",
 			"NODE_NOTES_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/VSplitContainer/NodeNotes/Edit",
+			"FOCUS_NODE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState/ShowFocusNode",
 			"NODE_TOOLS": {
-				"FOCUS_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer/ShowFocusNode",
 				"RESET_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer/ResetNodeParams",
+				"HISTORY_BACK": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer/NodeHistoryBack",
+				"HISTORY_FORE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer/NodeHistoryFore",
 				"UPDATE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer/UpdateNode",
 			},
 		},

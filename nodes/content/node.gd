@@ -25,8 +25,8 @@ onready var Title = get_node("./VBoxContainer/Title")
 #	pass
 
 func _update_node(data:Dictionary) -> void:
-	if data.has("title") && data.title is String && data.title.length() > 0 :
-		Title.set_deferred("text", data.title)
-	else:
-		Title.set_deferred("text", TITLE_UNSET_MESSAGE)
+	var title
+	if data.has("title"):
+		title = String(data.title)
+	Title.set_deferred("text", (title if (title is String && title.length() > 0) else TITLE_UNSET_MESSAGE))
 	pass

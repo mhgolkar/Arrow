@@ -29,6 +29,9 @@ var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 onready var MarkerName:Label = get_node("./MarkerPlay/Head/MarkerName")
 onready var MarkerLabel:Button = get_node("./MarkerPlay/MarkerLabel")
 
+const LABEL_UNSET_MESSAGE = "Unlabeled"
+const LABEL_UNSET_SELF_MODULATION_COLOR  = Color(1, 1, 1, 0.30)
+
 const NO_NOTES_MESSAGE = "Marker Has No Extra Information."
 
 func _ready() -> void:
@@ -54,7 +57,11 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 
 func setup_view() -> void:
 	MarkerName.set_text(_NODE_RESOURCE.name)
-	MarkerLabel.set_text(_NODE_RESOURCE.data.label)
+	if _NODE_RESOURCE.data.label.length() > 0:
+		MarkerLabel.set_text(_NODE_RESOURCE.data.label)
+	else:
+		MarkerLabel.set_text(LABEL_UNSET_MESSAGE)
+		MarkerLabel.set_deferred("self_modulate", LABEL_UNSET_SELF_MODULATION_COLOR)
 	MarkerLabel.set("hint_tooltip", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else NO_NOTES_MESSAGE))
 	self.set("self_modulate", Color(_NODE_RESOURCE.data.color))
 	pass
