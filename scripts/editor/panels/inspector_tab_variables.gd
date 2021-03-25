@@ -197,24 +197,24 @@ func update_usage_pagination(variable_id:int) -> void:
 	# sort,
 	var the_variable = _LISTED_VARIABLES_BY_ID[variable_id]
 	if the_variable.has("use"):
-		for usecase_id in the_variable.use:
-			if Grid._DRAWN_NODES_BY_ID.has(usecase_id):
-				_SELECTED_VARIABLE_USE_CASES_IN_THE_SCENE_BY_ID.append(usecase_id)
+		for referrer_id in the_variable.use:
+			if Grid._DRAWN_NODES_BY_ID.has(referrer_id):
+				_SELECTED_VARIABLE_USE_CASES_IN_THE_SCENE_BY_ID.append(referrer_id)
 		count.total = the_variable.use.size()
 		count.here = _SELECTED_VARIABLE_USE_CASES_IN_THE_SCENE_BY_ID.size()
 	# update ...
 	VariableAppearanceIndication.set_text( VARIABLE_APPEARANCE_INDICATION_TEMPLATE.format(count) )
 	if count.here > 0 :
-		for usecase_id in _SELECTED_VARIABLE_USE_CASES_IN_THE_SCENE_BY_ID:
+		for referrer_id in _SELECTED_VARIABLE_USE_CASES_IN_THE_SCENE_BY_ID:
 			VariableAppearanceGoToButtonPopup.add_item(
-				Grid._DRAWN_NODES_BY_ID[usecase_id]._node_resource.name,
-				usecase_id
+				Grid._DRAWN_NODES_BY_ID[referrer_id]._node_resource.name,
+				referrer_id
 			)
 	VariableAppearanceGoToButton.set_disabled( ! (count.here > 0) )
 	pass
 
-func _on_go_to_menu_button_popup_id_pressed(usecase_id:int) -> void:
-	Grid.call_deferred("go_to_offset_by_node_id", usecase_id, true)
+func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
+	Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
 	pass
 
 func submit_variable_modification() -> void:

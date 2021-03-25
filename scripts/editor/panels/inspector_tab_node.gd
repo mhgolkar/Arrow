@@ -21,13 +21,13 @@ var _CURRENT_NODE_HISTORY_ROTATION_ID = -1
 var _CURRENT_INSPECTED_NODE_RESOURCE_ID:int = -1
 var _CURRENT_INSPECTED_NODE
 var _CURRENT_INSPECTED_NODE_MAP
-var _CURRENT_INSPECTED_NODE_USECASES
+var _CURRENT_INSPECTED_NODE_REFERRERS
 
 var SUB_INSPCETORS
 var _LAST_OPEN_SUB_INSPECTOR
 var _CURRENT_STATE_OF_SUB_INSPECTOR_BLOCKER = true
 
-var USECASES_MENU_BUTTON_TEXT_TEMPLATE = "%s Usecase(s)"
+var REFERRERS_MENU_BUTTON_TEXT_TEMPLATE = "%s Referrer(s)"
 
 onready var SubInspcetorBlockerMessage = get_node(Addressbook.INSPECTOR.NODE.SUB_INSPECTOR_BLOCKER_MESSAGE)
 # properties
@@ -35,9 +35,9 @@ onready var InspectorNodeProperties = get_node(Addressbook.INSPECTOR.NODE.PROPER
 	# head
 onready var NodeTypeLabel = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_TYPE_LABEL)
 onready var NodeUidEdit = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_UID_EDIT)
-onready var NodeIsSkipedCheck = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_IS_SKIPED_CHECK)
-onready var NodeUseCasesList = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_USECASES_MENU_BUTTON)
-onready var NodeUseCasesListPopUp = NodeUseCasesList.get_popup()
+onready var NodeIsSkippedCheck = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_IS_SKIPPED_CHECK)
+onready var NodeReferrersList = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_REFERRERS_MENU_BUTTON)
+onready var NodeReferrersListPopUp = NodeReferrersList.get_popup()
 	# body
 onready var SubInspectorHolder =  get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.SUB_INSPECTOR_HOLDER)
 	# notes
@@ -54,11 +54,11 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	NodeIsSkipedCheck.connect("toggled", self, "toggle_node_skip", [], CONNECT_DEFERRED)
+	NodeIsSkippedCheck.connect("toggled", self, "toggle_node_skip", [], CONNECT_DEFERRED)
 	UpdateNodeButton.connect("pressed", self, "read_and_update_inspected_node", [], CONNECT_DEFERRED)
 	ResetNodeParamsButton.connect("pressed", self, "reset_inspection", [], CONNECT_DEFERRED)
 	FocusNodeButton.connect("pressed", self, "focus_grid_on_inspected", [], CONNECT_DEFERRED)
-	NodeUseCasesListPopUp.connect("id_pressed", self, "_request_locating_node_by_id", [], CONNECT_DEFERRED)
+	NodeReferrersListPopUp.connect("id_pressed", self, "_request_locating_node_by_id", [], CONNECT_DEFERRED)
 	NodeHistoryBackButton.connect("pressed", self, "rotate_node_history", [true], CONNECT_DEFERRED)
 	NodeHistoryForeButton.connect("pressed", self, "rotate_node_history", [false], CONNECT_DEFERRED)
 	pass
@@ -102,7 +102,7 @@ func total_clean_up(keep_history:bool = false) -> void:
 	_CURRENT_INSPECTED_NODE_RESOURCE_ID = -1
 	_CURRENT_INSPECTED_NODE = null
 	_CURRENT_INSPECTED_NODE_MAP = null
-	_CURRENT_INSPECTED_NODE_USECASES = null
+	_CURRENT_INSPECTED_NODE_REFERRERS = null
 	_LAST_OPEN_SUB_INSPECTOR = null
 	_CURRENT_NODE_HISTORY_ROTATION_POSE = -1
 	_CURRENT_NODE_HISTORY_ROTATION_ID = -1
@@ -123,7 +123,7 @@ func update_node_tab(node_id:int, node:Dictionary, node_map:Dictionary, reset_hi
 	_CURRENT_INSPECTED_NODE_MAP = node_map
 	_CURRENT_INSPECTED_NODE_RESOURCE_ID = node_id
 	# inspect the node
-	update_usecases_list()
+	update_referrers_list()
 	var the_sub_inspector = SUB_INSPCETORS[node.type]
 	update_parameters(node_id, node, node_map, the_sub_inspector)
 	# keep track of the last open sub-inspector
@@ -210,8 +210,8 @@ func try_auto_node_update(next_node_id:int = -1) -> void:
 # Note: this function might be called by scripts or due to ui signals
 func toggle_node_skip(change:bool, send_request:bool = false) -> void:
 	# update ui ?
-	if change != NodeIsSkipedCheck.is_pressed():
-		NodeIsSkipedCheck.set_pressed(change)
+	if change != NodeIsSkippedCheck.is_pressed():
+		NodeIsSkippedCheck.set_pressed(change)
 	# send update request ?
 	elif send_request == true || ((_CURRENT_INSPECTED_NODE_MAP.has("skip") && _CURRENT_INSPECTED_NODE_MAP.skip != change) || (_CURRENT_INSPECTED_NODE_MAP.has("skip") == false && change == true)):
 		self.emit_signal("relay_request_mind", "update_node_map", { "id": _CURRENT_INSPECTED_NODE_RESOURCE_ID, "skip": change })
@@ -230,18 +230,18 @@ func focus_grid_on_inspected() -> void:
 		Grid.call_deferred("go_to_offset_by_node_id", _CURRENT_INSPECTED_NODE_RESOURCE_ID, true)
 	pass
 
-func update_usecases_list(node_id:int = _CURRENT_INSPECTED_NODE_RESOURCE_ID) -> void:
-	NodeUseCasesListPopUp.clear()
-	_CURRENT_INSPECTED_NODE_USECASES = Main.Mind.list_usecases(node_id)
-	var usecases_size = _CURRENT_INSPECTED_NODE_USECASES.size()
-	if usecases_size > 0 :
-		NodeUseCasesList.set_visible(true)
-		NodeUseCasesList.set_text(USECASES_MENU_BUTTON_TEXT_TEMPLATE % usecases_size)
-		for user_node_id in _CURRENT_INSPECTED_NODE_USECASES:
-			var user_node_name = _CURRENT_INSPECTED_NODE_USECASES[user_node_id]
-			NodeUseCasesListPopUp.add_item(user_node_name, user_node_id)
+func update_referrers_list(node_id:int = _CURRENT_INSPECTED_NODE_RESOURCE_ID) -> void:
+	NodeReferrersListPopUp.clear()
+	_CURRENT_INSPECTED_NODE_REFERRERS = Main.Mind.list_referrers(node_id)
+	var referrers_size = _CURRENT_INSPECTED_NODE_REFERRERS.size()
+	if referrers_size > 0 :
+		NodeReferrersList.set_visible(true)
+		NodeReferrersList.set_text(REFERRERS_MENU_BUTTON_TEXT_TEMPLATE % referrers_size)
+		for user_node_id in _CURRENT_INSPECTED_NODE_REFERRERS:
+			var user_node_name = _CURRENT_INSPECTED_NODE_REFERRERS[user_node_id]
+			NodeReferrersListPopUp.add_item(user_node_name, user_node_id)
 	else:
-		NodeUseCasesList.set_visible(false)
+		NodeReferrersList.set_visible(false)
 	pass
 
 func _request_locating_node_by_id(node_id:int) -> void:

@@ -954,7 +954,7 @@ class Mind :
 				Inspector.Tab.Characters.call_deferred("refresh_tab")
 		pass
 	
-	func list_usecases(resource_uid:int = -1, priority_field:String = "") -> Dictionary:
+	func list_referrers(resource_uid:int = -1, priority_field:String = "") -> Dictionary:
 		var use_cases_id_to_name_list = {}
 		if resource_uid >= 0:
 			var the_resource = lookup_resource(resource_uid, priority_field, false)
@@ -1015,9 +1015,9 @@ class Mind :
 					Inspector.Tab.Characters.call_deferred("list_characters", { resource_uid: the_resource })
 			# ... also update any node that uses this resource
 			if the_resource.has("use"):
-				for usecase_id in the_resource.use:
-					if _PROJECT.resources.scenes[_CURRENT_OPEN_SCENE_ID].map.has(usecase_id):
-						Grid.call_deferred("update_grid_node_box", usecase_id, _PROJECT.resources.nodes[usecase_id])
+				for referrer_id in the_resource.use:
+					if _PROJECT.resources.scenes[_CURRENT_OPEN_SCENE_ID].map.has(referrer_id):
+						Grid.call_deferred("update_grid_node_box", referrer_id, _PROJECT.resources.nodes[referrer_id])
 			# print_debug("Update resource call: ", modification, the_resource, lookup_resource(resource_uid, field, false))
 		elif is_auto_update != true: # inspector may try to auto update a recently deleted node automatically
 			print_stack()
@@ -1121,7 +1121,7 @@ class Mind :
 			if check_only != true:
 				# let's sort dropees first, to make sure user-resources will be removed first
 				for __ in range(0, drop.size()):
-					drop.sort_custom(self, "resource_usecase_custom_sorter")
+					drop.sort_custom(self, "resource_referrer_custom_sorter")
 				print_debug("Batch removal: ", drop)
 				for idx in range(0, drop.size()):
 					remove_resource(drop[idx][0], field)
@@ -1132,13 +1132,13 @@ class Mind :
 					"Unsafe Operation Discarded.",
 					(
 						"At least one the resources you want to remove is used by another resource(s) or node(s). " +
-						"We can't proceed this operation, unless you remove usecases as well. \nUsed one(s) are: %s"
+						"We can't proceed this operation, unless you remove referrers as well. \nUsed one(s) are: %s"
 					) % nopee_names
 				)
 				printerr("Batch remove operation discarded due to existing use cases: ", nope)
 			return false
 	
-	static func resource_usecase_custom_sorter(a, b) -> bool:
+	static func resource_referrer_custom_sorter(a, b) -> bool:
 		# true means earlier, so...
 		# if no use at all
 		if a[1].size() == 0:

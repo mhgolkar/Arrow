@@ -13,7 +13,7 @@
         > Variable parsing existed in the Arrow's console but,
         > was missed from the official HTML-JS runtime
 
-    + We can now remove snapshots (usefull for huge projects)
+    + We can now remove snapshots (useful for huge projects)
 
 + Some other minor fixes
 

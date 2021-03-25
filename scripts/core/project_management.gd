@@ -376,7 +376,7 @@ class ProjectManager :
 	# Playable Exports
 	
 	func print_play_ready_project(project: Dictionary) -> String:
-		if Settings.PURGE_DEVELOPEMENT_DATA_FROM_PLAYABLES == true:
+		if Settings.PURGE_DEVELOPMENT_DATA_FROM_PLAYABLES == true:
 			var duplicated_project = project.duplicate(true)
 			if Settings.DATA_TO_BE_PURGED_FROM_PLAYABLE_METADATA is Array && project.has('meta'):
 				for key in Settings.DATA_TO_BE_PURGED_FROM_PLAYABLE_METADATA:

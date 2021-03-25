@@ -241,18 +241,18 @@ func update_instance_pagination(macro_id:int = -1) -> void:
 		}
 		var the_macro = _LISTED_MACROS_BY_ID[macro_id]
 		if the_macro.has("use"):
-			for usecase_id in the_macro.use:
-				if Grid._DRAWN_NODES_BY_ID.has(usecase_id):
-					_SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID.append(usecase_id)
+			for referrer_id in the_macro.use:
+				if Grid._DRAWN_NODES_BY_ID.has(referrer_id):
+					_SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID.append(referrer_id)
 			count.total = the_macro.use.size()
 			count.here = _SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID.size()
 		# update stuff
 		MacroInstanceIndication.set_text( MACRO_INSTANCE_INDICATION_TEMPLATE.format(count) )
 		if count.here > 0 :
-			for usecase_id in _SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID:
+			for referrer_id in _SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID:
 				MacroInstanceGoToButtonPopup.add_item(
-					Grid._DRAWN_NODES_BY_ID[usecase_id]._node_resource.name,
-					usecase_id
+					Grid._DRAWN_NODES_BY_ID[referrer_id]._node_resource.name,
+					referrer_id
 				)
 		MacroInstanceGoToButton.set_disabled( ! (count.here > 0) )
 		MacroInstancePanel.set("visible", true)
@@ -260,8 +260,8 @@ func update_instance_pagination(macro_id:int = -1) -> void:
 		MacroInstancePanel.set("visible", false)
 	pass
 
-func _on_go_to_menu_button_popup_id_pressed(usecase_id:int) -> void:
-	Grid.call_deferred("go_to_offset_by_node_id", usecase_id, true)
+func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
+	Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
 	pass
 
 func submit_macro_modification() -> void:

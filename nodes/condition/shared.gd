@@ -121,7 +121,7 @@ class Statement :
 	# also it may compare two real strings (str variables) so we shall
 	# detect what user have had in mind:
 	func smart_length_parse(string:String) -> int:
-		# if string is only a number inputed as string, it will be parsed as length
+		# if string is only a number inputted as string, it will be parsed as length
 		# otherwise length of the string is the result
 		return (int(string) if ( string == String(int(string)) ) else string.length())
 	

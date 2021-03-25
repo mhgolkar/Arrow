@@ -1989,7 +1989,7 @@ margin_top = 332.0
 margin_right = 253.0
 margin_bottom = 356.0
 
-[node name="NodeIsSkiped" type="CheckBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState"]
+[node name="NodeIsSkipped" type="CheckBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState"]
 margin_right = 54.0
 margin_bottom = 24.0
 text = "Skip"
@@ -2000,11 +2000,11 @@ margin_right = 103.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
-[node name="NodeUseCases" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState"]
+[node name="NodeReferrers" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState"]
 margin_left = 107.0
 margin_right = 200.0
 margin_bottom = 24.0
-text = "0 Usecase(s)"
+text = "0 Referrer(s)"
 
 [node name="ShowFocusNode" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState"]
 margin_left = 204.0
@@ -2209,7 +2209,7 @@ margin_right = 239.0
 margin_bottom = 20.0
 text = "Locate"
 flat = false
-items = [ "{ usecases by name }", null, 0, false, false, 0, 0, null, "", false ]
+items = [ "{ referrers by name }", null, 0, false, false, 0, 0, null, "", false ]
 
 [node name="MacroTools" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
 margin_top = 322.0
@@ -2306,11 +2306,11 @@ margin_top = 7.0
 margin_right = 232.0
 margin_bottom = 27.0
 
-[node name="UsecasesLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
+[node name="ReferrersLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
 margin_top = 3.0
 margin_right = 69.0
 margin_bottom = 17.0
-text = "Usecase(s)"
+text = "Referrer(s)"
 
 [node name="Indication" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
 margin_left = 73.0
@@ -2329,7 +2329,7 @@ margin_right = 225.0
 margin_bottom = 20.0
 text = "Locate"
 flat = false
-items = [ "{ usecases by name }", null, 0, false, false, 0, 0, null, "", false ]
+items = [ "{ referrers by name }", null, 0, false, false, 0, 0, null, "", false ]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer"]
 margin_top = 38.0
@@ -2556,7 +2556,7 @@ margin_right = 225.0
 margin_bottom = 20.0
 text = "Locate"
 flat = false
-items = [ "{ usecases by name }", null, 0, false, false, 0, 0, null, "", false ]
+items = [ "{ referrers by name }", null, 0, false, false, 0, 0, null, "", false ]
 
 [node name="CharacterCreate" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer"]
 margin_top = 322.0

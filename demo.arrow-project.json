@@ -1283,7 +1283,7 @@
 					"content": "New here?\nI'm a Content node, one of the node-types you will use a lot.\nWould you like to know more about us?",
 					"clear": true
 				},
-				"notes": "BTW, You can wtite whatever you want here. These `Node Notes` are like metadata and won't affect the narrative."
+				"notes": "BTW, You can write whatever you want here. These `Node Notes` are like metadata and won't affect the narrative."
 			},
 			"8": {
 				"type": "content",
@@ -1436,7 +1436,7 @@
 				"name": "S22NtCnt",
 				"data": {
 					"title": "Operators",
-					"content": "Condition nodes compare current state of a target variable using an operator.\nAvailable operators depend on type of the target variable. For example a number can be checked if it's lesser or equal to another number, etc.",
+					"content": "Condition nodes compare current state of their target variables using type-specific operators.\nFor example a number can be checked if it's lesser or equal to another number, etc.",
 					"clear": false
 				}
 			},
@@ -1445,7 +1445,7 @@
 				"name": "S22NuCnt",
 				"data": {
 					"title": "",
-					"content": "There are many operators available. It's recommended to have fun with them. But remember that only variables and values of the same type can be compared to each other (type-casting is not supported.)",
+					"content": "But remember that only variables and values of the same type can be compared to each other (type-casting is not supported.)",
 					"clear": false
 				}
 			},
@@ -1495,7 +1495,7 @@
 				"name": "S31N11Cnt",
 				"data": {
 					"title": "",
-					"content": "User Input nodes replace current value of their target nodes with the input they get from the player.\nThis is why a Content node like me knows you have replied with `{player_likes_red}` ...",
+					"content": "User Input nodes replace current value of their target variable with the input they get from the player.\nThis is why a Content node like me knows you have replied with `{player_likes_red}` ...",
 					"clear": false
 				}
 			},
@@ -1519,7 +1519,7 @@
 				"name": "S31N14Cnt",
 				"data": {
 					"title": "",
-					"content": "... therefore I'm not going to show you any more [color=green]red[/color].",
+					"content": "... therefore I'm not going to show you anymore [color=green]red[/color].",
 					"clear": false
 				}
 			},
@@ -1579,7 +1579,7 @@
 				"name": "S31N1aCnt",
 				"data": {
 					"title": "",
-					"content": "I'll increase the number you've inputed, by 2, using an `Update Variable` node.\nYour number ({lucky_number}) is going to change ... ",
+					"content": "I'll increase the number you've inputted, by 2, using an `Update Variable` node.\nYour number ({lucky_number}) is going to change ... ",
 					"clear": false
 				}
 			},
@@ -1708,7 +1708,7 @@
 				"name": "S59N1pCnt",
 				"data": {
 					"title": "Plot Management",
-					"content": "Plot Management is the process of deviding your story/play to smaller scenes and/or sub-plots.\nThe way you do it, depends on your storytelling style and narrative preferences.\nGenerally we recommend to keep scenes independent and small as possible.\nYou may also have a main scene, serving as an overall map or an interactive table of contents.",
+					"content": "Plot Management is the process of dividing your story/play to smaller scenes and/or sub-plots.\nThe way you do it, depends on your storytelling style and narrative preferences.\nGenerally we recommend to keep scenes independent and small as possible.\nYou may also have a main scene, serving as an overall map or an interactive table of contents.",
 					"clear": true
 				}
 			},
@@ -1717,7 +1717,7 @@
 				"name": "S59N1qCnt",
 				"data": {
 					"title": "Navigation",
-					"content": "Navigation is another concept you may care about. It's the way you pass your players (the audience) through different plots and sub-plots so they can enjoy interactive experience of your play/narrative.\n",
+					"content": "Navigation is another concept you may care about. It's the way you pass your players (the audience) through different plots and sub-plots, so they can enjoy interactive experience of your play/narrative.\n",
 					"clear": false
 				}
 			},
@@ -1778,7 +1778,7 @@
 				"name": "S59N1wCnt",
 				"data": {
 					"title": "",
-					"content": "Besides getting variable inputs and updating them, there are some other ways to introduce interactivity to your narrative.\n`Interaction` and `Dialog` nodes are the most important ones. They are quite similar. They both give a set of options to the players so they can decide where the story shall take us. Dialog nodes in addition, relate to a character and can be playable by users or displayed as a random reply (NPC).\nHere one character bumps to another one ...",
+					"content": "Besides getting variable inputs and updating them, there are some other ways to introduce interactivity to your narrative.\n`Interaction` and `Dialog` nodes are the most important ones. They are quite similar. They both give a set of options to the players, so they can decide where the story shall take us. Dialog nodes in addition, relate to a character and can be playable by users or displayed as a random reply (NPC).\nHere one character bumps to another one ...",
 					"clear": false
 				},
 				"use": [
@@ -1805,7 +1805,7 @@
 				"name": "S59N1yCnt",
 				"data": {
 					"title": "",
-					"content": "... You played `Mr. X`, but `Mis. Y` was played by the machine because the Dialog node(s) are none-playable (i.e. randomized.)",
+					"content": "... You played `Mr. X`, but `Ms. Y` was played by the machine because the Dialog node(s) are none-playable (i.e. randomized.)",
 					"clear": false
 				}
 			},
@@ -1922,7 +1922,7 @@
 				"name": "S59N2bCnt",
 				"data": {
 					"title": "",
-					"content": "... and after another automatic reply from `Mis. Y` (NPC,) the plot ends with a `Marker` node which you might not see depending on how you run your project.",
+					"content": "... and after another automatic reply from `Ms. Y` (NPC,) the plot ends with a `Marker` node which you might not see depending on how you run your project.",
 					"clear": false
 				}
 			},
@@ -1933,14 +1933,14 @@
 					"label": "Just a Marker!",
 					"color": "ff00ff1c"
 				},
-				"notes": "Markers are colorful and easily found on the graph. You may use them to mark parts of the narrative which need more attention (ToDo) or devide sub-plots virtually."
+				"notes": "Markers are colorful and easily found on the graph. You may use them to mark parts of the narrative which need more attention (ToDo) or divide sub-plots virtually."
 			},
 			"85": {
 				"type": "content",
 				"name": "S59N2dCnt",
 				"data": {
 					"title": "",
-					"content": "... and after another automatic reply from `Mis. Y` (NPC,) we'll have an Interaction node, which lets us decide to ...",
+					"content": "... and after another automatic reply from `Ms. Y` (NPC,) we'll have an Interaction node, which lets us decide to ...",
 					"clear": false
 				}
 			},
@@ -2199,7 +2199,7 @@
 				]
 			},
 			"72": {
-				"name": "Mis. Y",
+				"name": "Ms. Y",
 				"color": "1dff00",
 				"use": [
 					73,

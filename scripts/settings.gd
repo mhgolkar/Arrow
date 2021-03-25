@@ -76,7 +76,7 @@ const NODE_TYPE_NODE_FILE_NAME = "node.tscn"
 const NODE_TYPE_INSPECTOR_FILE_NAME = "inspector.tscn"
 const NODE_TYPE_CONSOLE_FILE_NAME = "console.tscn"
 # 	Note: If you plan to use a custom node type and export your project with default runtime(s) such as built-in 'html-js',
-# 	... you may also checkout `res://runtimes` and do some developements there as well.
+# 	... you may also checkout `res://runtimes` and do some developments there as well.
 const GRID_NODE_SLOT = {
 	"DEFAULT": {
 		"IN": { "TYPE": 0, "COLOR": Color.white },
@@ -170,7 +170,7 @@ const NOTIFICATION_COLOR_BAND_DEFAULT_COLOR = INFO_COLOR
 # Console
 
 const CONSOLE_MESSAGE_DEFAULT_COLOR = INFO_COLOR
-# ... and modulation color for skiped nodes
+# ... and modulation color for skipped nodes
 const CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_ON = Color.darkgray
 const CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_OFF = Color( 1, 1, 1, 1 )
 
@@ -234,7 +234,7 @@ const MAXIMUM_HISTORY_SIZE_PER_NODE = 7
 
 const HTML_JS_SINGLE_FILE_TEMPLATE_PATH = 'res://runtimes/html-js.arrow-runtime'
 
-const PURGE_DEVELOPEMENT_DATA_FROM_PLAYABLES = true
+const PURGE_DEVELOPMENT_DATA_FROM_PLAYABLES = true
 const DATA_TO_BE_PURGED_FROM_PLAYABLE_METADATA:Array = [
 	'offline', 'remote', 'last_save', 'arrow_editor_version'
 ]

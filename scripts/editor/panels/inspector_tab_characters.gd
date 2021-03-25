@@ -171,24 +171,24 @@ func update_appearance_pagination(character_id:int) -> void:
 	}
 	var the_character = _LISTED_CHARACTERS_BY_ID[character_id]
 	if the_character.has("use"):
-		for usecase_id in the_character.use:
-			if Grid._DRAWN_NODES_BY_ID.has(usecase_id):
-				_SELECTED_CHARACTER_USE_CASES_IN_THE_SCENE_BY_ID.append(usecase_id)
+		for referrer_id in the_character.use:
+			if Grid._DRAWN_NODES_BY_ID.has(referrer_id):
+				_SELECTED_CHARACTER_USE_CASES_IN_THE_SCENE_BY_ID.append(referrer_id)
 		count.total = the_character.use.size()
 		count.here = _SELECTED_CHARACTER_USE_CASES_IN_THE_SCENE_BY_ID.size()
 	# update stuff
 	CharacterAppearanceIndication.set_text( CHARACTER_APPEARANCE_INDICATION_TEMPLATE.format(count) )
 	if count.here > 0 :
-		for usecase_id in _SELECTED_CHARACTER_USE_CASES_IN_THE_SCENE_BY_ID:
+		for referrer_id in _SELECTED_CHARACTER_USE_CASES_IN_THE_SCENE_BY_ID:
 			CharacterAppearanceGoToButtonPopup.add_item(
-				Grid._DRAWN_NODES_BY_ID[usecase_id]._node_resource.name,
-				usecase_id
+				Grid._DRAWN_NODES_BY_ID[referrer_id]._node_resource.name,
+				referrer_id
 			)
 	CharacterAppearanceGoToButton.set_disabled( ! (count.here > 0) )
 	pass
 	
-func _on_go_to_menu_button_popup_id_pressed(usecase_id:int) -> void:
-	Grid.call_deferred("go_to_offset_by_node_id", usecase_id, true)
+func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
+	Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
 	pass
 	
 func submit_character_modification() -> void:
