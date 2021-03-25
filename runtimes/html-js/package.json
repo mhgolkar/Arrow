@@ -1,6 +1,6 @@
 {
   "name": "arrow-html-js-runtime",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Arrow (Game Narrative Design Tool) HTML-JS Runtime",
   "main": "index.js",
   "scripts": {

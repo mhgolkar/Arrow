@@ -231,7 +231,7 @@ class ConditionStatement {
             } else if ( typeof input == 'string' ) {
                 var parsed_input = parseInt(input);
                 if ( parsed_input.toString() == input ){
-                    // if input is only a number inputed as string, it will be returned as the length (parsed)
+                    // if input is only a number inputted as string, it will be returned as the length (parsed)
                     return parsed_input;
                 } else { //  otherwise ...
                     //... the length of the string is the result

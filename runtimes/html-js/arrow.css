@@ -34,7 +34,6 @@
 	color: var(--color-2);
 	font-size: 16px;
 	font-weight: 400;
-	--font-weight-headings: 300;
 	--font-weight-emphasis: 500;
 	--font-weight-buttons: 700;
 	--font-weight-buttons-secondary: 400;
@@ -75,31 +74,27 @@ body {
 body > :first-child {
 	margin-top: 1rem !important;
 }
-h1 {
-	font-size: 2.5rem;
-	font-weight: var(--font-weight-headings);
-	margin: 2rem 0;
-}
-h2 {
-	font-size: 1.5rem;
-	margin: 1.5rem 0;
-	font-weight: var(--font-weight-headings);
-}
-h2 span {
-	font-size: 0.75em;
-	vertical-align: top;
-}
 p, pre {
 	overflow: visible;
 	white-space: pre-wrap;
 	overflow-wrap: break-word;
-	font-size: 1rem;
+	font-size: 1.124rem;
 	line-height: 1.5em;
 }
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	margin: 1em 0 0.1em 0;
+}
+h1 { font-size: 1.5em; }
+h2 { font-size: 1.4em; }
+h3 { font-size: 1.3em; }
+h4 { font-size: 1.2em; }
+h5 { font-size: 1.1em; }
+h6 { font-size: 1.0em; }
 a {
 	color: var(--color-2);
 	background-color: transparent;
-	text-decoration: none;
+	text-decoration: underline;
 	cursor: pointer;
 }
 form, fieldset, div {
@@ -214,6 +209,15 @@ input[type="number"] {
 	/* text-align: center; */
 	-moz-appearance: textfield;
 }
+em {
+	font-style: italic;
+}
+u {
+	text-decoration: underline;
+}
+strong {
+	font-weight: bolder;
+}
 
 /* Header */
 
@@ -221,6 +225,20 @@ header {
 	padding-bottom: 1rem;
 	margin-bottom: 1rem;
 	border-bottom: solid var(--border-width-normal) var(--border-color-normal);
+}
+header > h1 {
+	font-size: 2.5rem;
+	font-weight: 300;
+	margin: 2rem 0;
+}
+header > h2 {
+	font-size: 1.5rem;
+	margin: 1.5rem 0;
+	font-weight: 300;
+}
+header > h2 span {
+	font-size: 0.75em;
+	vertical-align: top;
 }
 
 /* Main */
@@ -269,6 +287,7 @@ footer {
 }
 footer a {
 	color: var(--color-3);
+	text-decoration: none;
 }
 footer a:hover {
 	color: var(--color-5);

@@ -64,7 +64,7 @@ class MacroUse {
                 if ( 'get_element' in node_instance ){
                     this.holder.appendChild( node_instance.get_element() ); 
                 } else {
-                    throw new Error("Invalid Instance! Unable to get_element from the inputed instance.");
+                    throw new Error("Invalid Instance! Unable to get_element from the inputted instance.");
                 }
             } else {
                 throw new Error("Unexpected Behavior! The holder element of the macro is not ready.");

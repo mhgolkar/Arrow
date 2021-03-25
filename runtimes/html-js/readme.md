@@ -59,7 +59,7 @@ To change the runtime's locale, change `_LOCALE` constant
 in `./arrow.js` file to any supported locale.
 
 
-## Removing the *Back* button
+## Removing the *Back* Button
 
 If you don't intend to let players go backwards in the play,
 find and remove the line
@@ -76,7 +76,7 @@ from `index.html` or exported `.html` file of your project.
 > Therefor we recommend leaving it as is.
 
 
-## Styling helpers
+## CSS Styling Helpers
 
 To style node types, you can edit `arrow.css` file, where you can find corresponding placeholder blocks.
 
@@ -111,5 +111,59 @@ Other style helper data-attributes are:
     ```
 
 
-Feel free to have fun with this runtime,  
+## Hybrid Styling Options
+
+Arrow and this runtime support `BBCode` for styling `content` nodes as well.
+This is specially useful when you want to use playable exports directly from Arrow.
+The HTML-JS runtime supports
+`[b]`, `[i]`, `[u]`, `[h1-6]`, `[color]`, `[size]`, `[img]`, `[url]`, `[p]`
+and few more blocks out of the box.
+
+But the most exciting part is that you can combine power of CSS
+(and optionally the [styling helpers](#styling-helpers))
+with the `[attr]` custom BBcode.
+`[attr]` will add a data-attribute to the finally created HTML block,
+so you can style inner parts of your content.
+
+As an example, following line in a content node:
+
+```BBCode
+[attr=data-place value=home] Look at this place! [/attr]
+```
+
+will be translated to
+
+```HTML
+<span data-place="home"> Look at this place! </span>
+```
+
+so we can style it like this:
+
+```CSS
+[data-place="home"]{
+    color: green;
+}
+```
+
+Another option is the custom BBCode `[style]`:
+
+```BBCode
+I'm a brave [style=font-size:3rem; font-weight:bold; color:brown;] Big [/style] bear!
+```
+
+This quick-and-dirty style block, will be translated to
+*inline css* for the final HTML created in runtime:
+
+```HTML
+I'm a brave <span style="font-size:3rem; font-weight:bold; color:brown;"> Big </span> bear!
+```
+
+This method is specially useful when you don't intend to modify or rebuild the runtime template.
+
+> Hybrid styling options are supported by Arrow's official runtime,
+> but may or may not behave the exact same way in other runtimes or in the console.
+
+
+Feel free to experiment with this runtime,  
 and make it work for you.
+
