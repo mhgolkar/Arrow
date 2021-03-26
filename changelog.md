@@ -1,6 +1,19 @@
 # Arrow: Changelog
 
 
+## v1.1.1
+
++ New Feature:
+    + Official HTML-JS Runtime: Hybrid Styling
+
++ Enhancements:
+    + New project filename validation and suggestion
+    + Snapshot editing feature is back
+
++ Documentation (wiki) revision
++ Other minor fixes
+
+
 ## v1.1.0
 
 + New Features:
