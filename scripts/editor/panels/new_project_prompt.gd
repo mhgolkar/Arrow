@@ -25,7 +25,7 @@ func _ready() -> void:
 func register_connections() -> void:
 	CreatePorjectButton.connect("pressed", self, "request_mind_register_project_and_save_from_open", [], CONNECT_DEFERRED)
 	DismissButton.connect("pressed", self, "close_this_prompt", [], CONNECT_DEFERRED)
-	NewProjectTitle.connect("text_changed", self, "validate_fields", [], CONNECT_DEFERRED)
+	NewProjectTitle.connect("text_changed", self, "_on_project_title_changed", [], CONNECT_DEFERRED)
 	NewProjectFileName.connect("text_changed", self, "validate_fields", [], CONNECT_DEFERRED)
 	pass
 
@@ -85,4 +85,11 @@ func reset_new_project_path(filename:String) -> void:
 		filename +
 		Settings.PROJECT_FILE_EXTENSION
 	)
+	pass
+
+func _on_project_title_changed(new_text:String) -> void:
+	NewProjectFileName.set_text(
+		Utils.valid_filename(new_text, true)
+	)
+	validate_fields()
 	pass

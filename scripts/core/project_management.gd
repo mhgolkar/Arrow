@@ -10,6 +10,8 @@ const PROJECT_LIST_FILE_NAME = Settings.PROJECT_LIST_FILE_NAME
 class ProjectManager :
 	
 	var Utils = Helpers.Utils
+	var Generators = Helpers.Generators
+	var PROJECT_FILE_EXTENSION_WITHOUT_DOT = Settings.PROJECT_FILE_EXTENSION.replacen(".", "")
 	
 	var _ALDP # app local/work directory path (ends with `/`)
 	var _PROJECT_LIST # by UIDs (check out `Embedded::Data::Blank_Project_List`)
@@ -281,6 +283,16 @@ class ProjectManager :
 		return the_new_seed_uid
 	
 	func valid_unique_project_filename_from(suggestion:String) -> String:
+		# we don't want our extension in the file name
+		suggestion = suggestion.replacen(PROJECT_FILE_EXTENSION_WITHOUT_DOT, "")
+		# and though it might be valid, let's avoid dots too
+		suggestion = suggestion.replacen(".", "_")
+		if suggestion.length() == 0 || suggestion == "_":
+			# blank suggestion?! let's suggest a random one
+			suggestion = (
+				Settings.RANDOM_PROJECT_NAME_PREFIX +
+				Generators.create_random_string( Settings.RANDOM_PROJECT_NAME_AFFIX_LENGTH )
+			)
 		var result = Utils.valid_filename(suggestion, false)
 		var all_project_filenames = []
 		for project_id in _PROJECT_LIST.projects:
