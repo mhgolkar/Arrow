@@ -120,7 +120,7 @@ The HTML-JS runtime supports
 and few more blocks out of the box.
 
 But the most exciting part is that you can combine power of CSS
-(and optionally the [styling helpers](#styling-helpers))
+(and optionally the [styling helpers](#css-styling-helpers))
 with the `[attr]` custom BBcode.
 `[attr]` will add a data-attribute to the finally created HTML block,
 so you can style inner parts of your content.
