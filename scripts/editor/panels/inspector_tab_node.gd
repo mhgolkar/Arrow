@@ -69,15 +69,10 @@ func initialize_tab() -> void:
 
 func refresh_tab() -> void:
 	refresh_sub_inspector_for_current_node()
-	snapshot_preview_mode_precautions()
 	pass
 
 func is_snapshot_preview() -> bool:
 	return ( Main.Mind._SNAPSHOT_INDEX_OF_PREVIEW >= 0 )
-
-func snapshot_preview_mode_precautions() -> void:
-	UpdateNodeButton.set_disabled( is_snapshot_preview() )
-	pass
 
 func setup_node_type_sub_inspectors(node_type_list:Dictionary) -> void:
 	NODE_TYPES_LIST_CACHE = node_type_list
@@ -171,35 +166,34 @@ func read_and_validate_node_name():
 	return validated_name
 
 func read_and_update_inspected_node(auto:bool = false) -> void:
-	if is_snapshot_preview() == false : # No update in snapshot preview mode
-		# the central mind may call this (e.g. on key-shortcuts) even when inspector is hidden,
-		# so we shall first check ... 
-		if _CURRENT_INSPECTED_NODE_RESOURCE_ID >= 0 && _LAST_OPEN_SUB_INSPECTOR:
-			var resource_updater = {
-				"id": _CURRENT_INSPECTED_NODE_RESOURCE_ID, 
-				"modification": {
-					"data": _LAST_OPEN_SUB_INSPECTOR._read_parameters()
-				},
-				"field": "nodes"
-			}
-			# name change ?
-			var valid_updated_name = read_and_validate_node_name()
-			if valid_updated_name is String && valid_updated_name.length() > 0:
-				resource_updater.modification["name"] = valid_updated_name
-			# note change ?
-			var notes = NodeNotesEdit.get_text()
-			if notes.length() > 0:
-				if _CURRENT_INSPECTED_NODE.has("notes") == false || notes != _CURRENT_INSPECTED_NODE.notes:
-					resource_updater.modification["notes"] = notes
-			elif _CURRENT_INSPECTED_NODE.has("notes"): 
-				resource_updater.modification["notes"] = null # means drop/erase notes
-			# is it an auto update request
-			if auto == true:
-				resource_updater["auto"] = true
-			# before pushing the modifications which will change the current state (original,) 
-			track_node_modification(_CURRENT_INSPECTED_NODE_RESOURCE_ID, resource_updater.modification)
-			# then send update request
-			self.emit_signal("relay_request_mind", "update_resource", resource_updater)
+	# the central mind may call this (e.g. on key-shortcuts) even when inspector is hidden,
+	# so we shall first check ... 
+	if _CURRENT_INSPECTED_NODE_RESOURCE_ID >= 0 && _LAST_OPEN_SUB_INSPECTOR:
+		var resource_updater = {
+			"id": _CURRENT_INSPECTED_NODE_RESOURCE_ID, 
+			"modification": {
+				"data": _LAST_OPEN_SUB_INSPECTOR._read_parameters()
+			},
+			"field": "nodes"
+		}
+		# name change ?
+		var valid_updated_name = read_and_validate_node_name()
+		if valid_updated_name is String && valid_updated_name.length() > 0:
+			resource_updater.modification["name"] = valid_updated_name
+		# note change ?
+		var notes = NodeNotesEdit.get_text()
+		if notes.length() > 0:
+			if _CURRENT_INSPECTED_NODE.has("notes") == false || notes != _CURRENT_INSPECTED_NODE.notes:
+				resource_updater.modification["notes"] = notes
+		elif _CURRENT_INSPECTED_NODE.has("notes"): 
+			resource_updater.modification["notes"] = null # means drop/erase notes
+		# is it an auto update request
+		if auto == true:
+			resource_updater["auto"] = true
+		# before pushing the modifications which will change the current state (original,) 
+		track_node_modification(_CURRENT_INSPECTED_NODE_RESOURCE_ID, resource_updater.modification)
+		# then send update request
+		self.emit_signal("relay_request_mind", "update_resource", resource_updater)
 	pass
 
 func try_auto_node_update(next_node_id:int = -1) -> void:

@@ -219,7 +219,7 @@ class Mind :
 			"show_error":
 				show_error(
 					args.heading, args.message,
-					(args.color if args.has("color") else Settings.INFO_COLOR),
+					(args.color if args.has("color") else Settings.WARNING_COLOR),
 					(args.actions if args.has("actions") else [])
 				)
 		if SAVED_MODIFIER_EVENTS.has(request):
@@ -316,6 +316,7 @@ class Mind :
 		return (_PROJECT.has("offline") == true && _PROJECT.offline == true) || (_PROJECT.has("remote") == false)
 	
 	func revert_project() -> void:
+		clean_inspector_tabs()
 		clean_snapshots_all()
 		open_project( ProMan.get_active_project_id(), true )
 		pass
@@ -1572,9 +1573,14 @@ class Mind :
 					close_project(false, try_quit_app)
 				load_projects_list()
 		else:
-			printerr(
-				"Operation Discarded! You can't save project in snapshot preview mode. " +
-				"You may restore the open snapshot as the master branch or take another snapshot of it including changes."
+			show_error(
+				"Invalid Operation!",
+				(
+					"We can not save projects in snapshot preview mode.\r\n" +
+					"If you intend to keep the snapshot, take another snapshot of it to keep modifications in memory, " +
+					"or restore the open snapshot as the working draft and save it.\r\n" +
+					"You can also export any previewed snapshot and reimport it as a new project."
+				)
 			)
 		pass
 	
@@ -1642,6 +1648,7 @@ class Mind :
 	
 	func restore_snapshot(snapshot_idx:int) -> void:
 		if snapshot_idx >= 0 && _SNAPSHOTS.size() > snapshot_idx :
+			clean_inspector_tabs()
 			load_project( _SNAPSHOTS[snapshot_idx].project.duplicate(true), false, true )
 			reset_project_save_status(false)
 			_MASTER_PROJECT_SAFE.clear()
@@ -1659,8 +1666,9 @@ class Mind :
 					(
 						"You're about to restore snapshot `%s`. " +
 						"This operation will override current state of the project in memory, " +
-						"but the file (unless saved afterwards) or other snapshots won't budge. " +
-						"If you may need the very current state later, make sure to take another snapshot first."
+						"but the file (unless saved afterwards) or other snapshots won't budge.\r\n" +
+						"If you intend to use current draft later, " +
+						"make sure to close preview and take a snapshot, before restoring this one."
 					) % snapshot_version
 				),
 				[ { "label": "Restore; I'm Sure", "callee": Main.Mind, "method": "restore_snapshot", "arguments": [index] },],
@@ -1784,7 +1792,7 @@ class Mind :
 					Grid.call_deferred("go_to_offset_by_node_id", node_id, hightlight)
 		pass
 
-	func show_error(heading:String = "Error!", message:String = "Something's going wrong. Check stdout for more information", color:Color = Settings.INFO_COLOR, actions:Array = []) -> void:
+	func show_error(heading:String = "Error!", message:String = "Something's going wrong. Check stdout for more information", color:Color = Settings.WARNING_COLOR, actions:Array = []) -> void:
 		Notifier.call_deferred("show_notification", heading, message, actions, color)
 		pass
 

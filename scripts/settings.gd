@@ -55,6 +55,14 @@ const PROJECT_FILE_EXTENSION = ".arrow-project" # CAUTION! change `PATH_DIALOG_P
 # Mind
 
 const SNAPSHOT_VERSION_PREFIX = "v"
+const TAKE_INITIAL_SNAPSHOT = true
+
+# History
+
+const MAXIMUM_HISTORY_SIZE_PER_NODE = 7
+const SKIP_INITIAL_COPY_TRACK_FOR_NODE_TYPE = [
+	"condition", "macro_use", "user_input", "variable_update"
+]
 
 # Grid
 
@@ -220,15 +228,6 @@ const PATH_DIALOG_PROPERTIES = {
 
 # Don't need to change these unless you're developing new features.
 const CLIPBOARD_MODE = { "EMPTY":0, "COPY":1, "CUT":2 }
-
-# Automatics
-
-const TAKE_INITIAL_SNAPSHOT = true
-
-const SKIP_INITIAL_COPY_TRACK_FOR_NODE_TYPE = [
-	"condition", "macro_use", "user_input", "variable_update"
-]
-const MAXIMUM_HISTORY_SIZE_PER_NODE = 7
 
 # Runtimes
 
