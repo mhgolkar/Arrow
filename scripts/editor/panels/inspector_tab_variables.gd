@@ -217,6 +217,11 @@ func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
 	Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
 	pass
 
+func exposure_safe_vriable_name(var_name: String) -> String:
+	for restricted_char in ["{", "}", ".", " ", "\t"]:
+		var_name = var_name.replace(restricted_char, "_")
+	return var_name
+
 func submit_variable_modification() -> void:
 	var the_variable_original = _LISTED_VARIABLES_BY_ID[ _SELECTED_VARIABLE_BEING_EDITED_ID ]
 	var resource_updater = {
@@ -227,6 +232,7 @@ func submit_variable_modification() -> void:
 	var mod_name = VariableEditorName.get_text()
 	var mod_initial_value = get_variable_initial_value_sub_editor(the_variable_original.type)
 	if mod_name.length() > 0 && mod_name != the_variable_original.name: # name is changed
+		mod_name = exposure_safe_vriable_name(mod_name)
 		# force using unique names ?
 		if Settings.FORCE_UNIQUE_NAMES_FOR_VARIABLES == false || _LISTED_VARIABLES_BY_NAME.has(mod_name) == false:
 			resource_updater.modification["name"] = mod_name

@@ -945,14 +945,10 @@ class Mind :
 		# and because "ref" is an optional field, we will remove it to optimize for size ...
 		if the_user_resource_original.ref.size() == 0:
 			the_user_resource_original.erase("ref")
-		# post job updates
-		# if priority field is valid and set, update that field
-		match lookup_priority_field:
-			# these are the ones which might be affected
-			"variables":
-				Inspector.Tab.Variables.call_deferred("refresh_tab")
-			"characters":
-				Inspector.Tab.Characters.call_deferred("refresh_tab")
+		# force update tabs because references may have changed
+		# (`_use` command may be sent with different resource types / fields at the same time, so we refresh both)
+		Inspector.Tab.Variables.call_deferred("refresh_tab")
+		Inspector.Tab.Characters.call_deferred("refresh_tab")
 		pass
 	
 	func list_referrers(resource_uid:int = -1, priority_field:String = "") -> Dictionary:
@@ -973,10 +969,31 @@ class Mind :
 			inspect_node(node_id, -1, false)
 		pass
 	
+	func revise_variable_exposure(referrers_list:Array, old_name:String, new_name:String) -> void:
+		var old_exposure = "{%s}" % old_name
+		var new_exposure = "{%s}" % new_name
+		for referer_resource_id in referrers_list:
+			var referrer_original = lookup_resource(referer_resource_id, "nodes", false) # only nodes can expose variables
+			if referrer_original.has("data") && referrer_original.data is Dictionary:
+				var data_modification = { "data": {} }
+				for property in referrer_original.data:
+					var value = referrer_original.data[property]
+					if value is String && value.find(old_exposure) != -1:
+						data_modification.data[property] = value.replace(old_exposure, new_exposure)
+					elif value is Array: # mainly for dialogs and interactions
+						data_modification.data[property] = value.duplicate(true)
+						for i in range(0, value.size()):
+							if value[i] is String && value[i].find(old_exposure) != -1:
+								data_modification.data[property][i] = value[i].replace(old_exposure, new_exposure)
+				if data_modification.data.size() > 0:
+					update_resource(referer_resource_id, data_modification, "nodes")
+		pass
+	
 	# updates existing resource. To create one use `write_resource`
 	func update_resource(resource_uid:int, modification:Dictionary, field:String = "", is_auto_update:bool = false) -> void:
 		var validated_field = find_resource_field(resource_uid, field)
 		var the_resource = lookup_resource(resource_uid, validated_field, false) # duplicate = false ...
+		var the_recource_old_name = the_resource.name if the_resource.has("name") else null
 		# ... so we can directrly update the resource 
 		if the_resource is Dictionary:
 			# handing special command/parameters (_use, _as_entry, ...?)
@@ -1012,6 +1029,10 @@ class Mind :
 					update_inspector_if_node_open(resource_uid)
 				"variables":
 					Inspector.Tab.Variables.call_deferred("list_variables", { resource_uid: the_resource })
+					if the_resource.name != the_recource_old_name : # name update means we need to,
+						# update all exposures of this variable in other referrer nodes
+						if the_resource.has("use") && the_resource.use is Array :
+							revise_variable_exposure(the_resource.use, the_recource_old_name, the_resource.name)
 				"characters":
 					Inspector.Tab.Characters.call_deferred("list_characters", { resource_uid: the_resource })
 			# ... also update any node that uses this resource

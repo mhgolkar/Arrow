@@ -1,6 +1,14 @@
 # Arrow: Changelog
 
 
+## v1.2.0
+
++ Enhanced Continuum Safety
+    > Now Arrow takes care of continuum safety
+    > for exposed/parsed variables in content-oriented nodes as well.
+    >> Caution! We can't use curly brackets, dots or spaces in variable names anymore.
+
+
 ## v1.1.1
 
 + New Feature:
