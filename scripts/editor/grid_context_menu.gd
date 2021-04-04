@@ -15,10 +15,14 @@ onready var Grid = get_node(Addressbook.GRID)
 # (where user has right-clicked and probably wants the node to be placed)
 var _CLICK_POINT_POSITION:Vector2
 var _CLICK_POINT_OFFSET:Vector2
+var _QUICK_INSERT_MODE:bool = false
+var _QUICK_INSERT_TARGET = null
 
+onready var NodeInsertFilterForm = get_node(Addressbook.GRID_CONTEXT_MENU.NODE_INSERT_FILTER_FORM)
 onready var NodeInsertFilterInput = get_node(Addressbook.GRID_CONTEXT_MENU.NODE_INSERT_FILTER_INPUT)
 onready var NodeInsertList = get_node(Addressbook.GRID_CONTEXT_MENU.NODE_INSERT_LIST)
 onready var InsertNodesButton = get_node(Addressbook.GRID_CONTEXT_MENU.INSERT_BUTTON)
+onready var EditToolBox = get_node(Addressbook.GRID_CONTEXT_MENU.EDIT_TOOLS_BOX)
 onready var CleanClipboardButton = get_node(Addressbook.GRID_CONTEXT_MENU.CLEAN_CLIPBOARD_BUTTON)
 onready var CopyNodesButton = get_node(Addressbook.GRID_CONTEXT_MENU.COPY_BUTTON)
 onready var CutNodesButton = get_node(Addressbook.GRID_CONTEXT_MENU.CUT_BUTTON)
@@ -38,6 +42,7 @@ func register_connections() -> void:
 	Main.connect("mind_initialized", self, "try_cache_node_type_list_from_mind", [true], CONNECT_ONESHOT)
 	NodeInsertFilterInput.connect("text_changed", self, "filter_node_insert_list_items_view", [], CONNECT_DEFERRED)
 	NodeInsertList.connect("multi_selected", self, "_on_node_insert_list_selection_altered", [], CONNECT_DEFERRED)
+	NodeInsertList.connect("item_selected", self, "_on_node_insert_list_selection_altered", [null], CONNECT_DEFERRED)
 	NodeInsertList.connect("item_activated", self, "_on_node_insert_list_item_activated", [], CONNECT_DEFERRED)
 	InsertNodesButton.connect("pressed", self, "_on_node_insert_selected_type_button_pressed", [], CONNECT_DEFERRED)
 	RemoveNodesButton.connect("pressed", self, "request_mind", ["remove_selected_nodes", null, true], CONNECT_DEFERRED)
@@ -55,10 +60,11 @@ func try_cache_node_type_list_from_mind(refresh_list:bool = true):
 		filter_node_insert_list_items_view()
 	pass
 
-func show_up(position:Vector2, offset:Vector2) -> void:
+func show_up(position:Vector2, offset:Vector2, quick_insertion = null) -> void:
 	_CLICK_POINT_POSITION = position
 	_CLICK_POINT_OFFSET = offset
 	disable_insert_button_if_nothing_is_there()
+	set_quick_insert_mode(quick_insertion)
 	self.set_position(position)
 	self.popup()
 	pass
@@ -68,11 +74,26 @@ func disable_insert_button_if_nothing_is_there(force_disabled:bool = false) -> v
 	if force_disabled == true :
 		disable = force_disabled
 	else:
-		if (NodeInsertList.get_selected_items()).size() == 0 || NodeInsertList.get_item_count() == 0:
-			disable = true
-		else:
-			disable = false
+		disable = (
+			NodeInsertList.get_selected_items().size() == 0 ||
+			NodeInsertList.get_item_count() == 0
+		)
 	InsertNodesButton.set_disabled(disable)
+	pass
+
+func set_quick_insert_mode(target = null) -> void:
+	_QUICK_INSERT_MODE = (target is Array && target.size() == 3)
+	_QUICK_INSERT_TARGET = (target if _QUICK_INSERT_MODE else null)
+	NodeInsertFilterForm.set_visible( ! _QUICK_INSERT_MODE )
+	EditToolBox.set_visible( ! _QUICK_INSERT_MODE )
+	NodeInsertList.set_select_mode( ItemList.SELECT_SINGLE if _QUICK_INSERT_MODE else ItemList.SELECT_MULTI )
+	NodeInsertList.set_default_cursor_shape(
+		CURSOR_POINTING_HAND
+		if
+		( _QUICK_INSERT_MODE && Settings.QUICK_INSERT_NODES_ON_SINGLE_CLICK )
+		else
+		CURSOR_ARROW
+	)
 	pass
 
 func reset_quick_edit_buttons():
@@ -131,6 +152,8 @@ func clear_node_insert_list() -> void :
 
 func _on_node_insert_list_selection_altered(_index, _selected) -> void:
 	disable_insert_button_if_nothing_is_there()
+	if _QUICK_INSERT_MODE && Settings.QUICK_INSERT_NODES_ON_SINGLE_CLICK != false:
+		insert_selected_nodes_from_list()
 	pass
 
 func _on_node_insert_list_item_activated(item_index:int) -> void:
@@ -144,11 +167,18 @@ func _on_node_insert_selected_type_button_pressed() -> void:
 func insert_selected_nodes_from_list() -> void:
 	var items_indices = NodeInsertList.get_selected_items()
 	if items_indices.size() > 0 :
-		var item_types = []
-		for item_index in items_indices:
-			var item_type = NodeInsertList.get_item_metadata(item_index).type
-			item_types.push_back(item_type)
-		request_mind("insert_node", { "nodes": item_types, "offset": _CLICK_POINT_OFFSET }, true )
+		if _QUICK_INSERT_MODE:
+			request_mind("quick_insert_node", {
+				"node": NodeInsertList.get_item_metadata(items_indices[0]).type,
+				"offset": _CLICK_POINT_OFFSET,
+				"connection": _QUICK_INSERT_TARGET
+			}, true )
+		else:
+			var item_types = []
+			for item_index in items_indices:
+				var item_type = NodeInsertList.get_item_metadata(item_index).type
+				item_types.push_back(item_type)
+			request_mind("insert_node", { "nodes": item_types, "offset": _CLICK_POINT_OFFSET }, true )
 	pass
 
 func request_clipboard_pull() -> void:
@@ -161,4 +191,3 @@ func request_mind(req:String, args, hide_menu:bool = false) -> void:
 	if hide_menu:
 		self.hide()
 	pass
-

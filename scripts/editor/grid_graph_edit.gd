@@ -44,6 +44,8 @@ func _ready() -> void:
 
 func register_connections() -> void:
 	self.connect("popup_request", self, "_on_popup_request", [], CONNECT_DEFERRED)
+	self.connect("connection_to_empty", self, "_on_connection_with_empty", [true], CONNECT_DEFERRED )
+	self.connect("connection_from_empty", self, "_on_connection_with_empty", [false], CONNECT_DEFERRED )
 	self.connect("node_selected", self, "_on_node_selection", [], CONNECT_DEFERRED)
 	self.connect("node_unselected", self, "_on_node_unselection", [], CONNECT_DEFERRED)
 	self.connect("connection_request", self, "_on_connection_request", [], CONNECT_DEFERRED )
@@ -78,6 +80,14 @@ func offset_from_position(position:Vector2) -> Vector2:
 # (right-click on the grid)
 func _on_popup_request(position:Vector2) -> void:
 	GridContextMenu.call_deferred("show_up", position, offset_from_position(position))
+	pass
+
+func _on_connection_with_empty(node_name:String, slot:int, release_position:Vector2, outgoing:bool) -> void:
+	GridContextMenu.call_deferred(
+		"show_up",
+		release_position, offset_from_position(release_position),
+		[node_name.to_int(), slot, outgoing]
+	)
 	pass
 
 func _on_node_selection(node) -> void:

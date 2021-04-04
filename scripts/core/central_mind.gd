@@ -116,6 +116,7 @@ class Mind :
 	const SAVED_MODIFIER_EVENTS = [
 		# CAUTION! list any request to the central mind that modifies content of the active project here
 		"insert_node",
+		"quick_insert_node",
 		"update_resource",
 		"remove_resource",
 		"update_node_map",
@@ -143,6 +144,8 @@ class Mind :
 				track_nodes_selection(args, false)
 			"insert_node":
 				create_insert_nodes(args.nodes, args.offset)
+			"quick_insert_node":
+				quick_insert_node(args.node, args.offset, (args.connection if args.has("connection") else null))
 			"update_resource":
 				update_resource(args.id, args.modification, args.field, (args.has('auto') && args.auto == true))
 			"remove_resource":
@@ -802,6 +805,25 @@ class Mind :
 				create_insert_node(type, offset, scene_id, draw, name_prefix)
 				# the next node in the batch will be a little moved, so won't mask the previously inserted ones
 				offset += Settings.BATCH_NODE_INSERTION_POSITION_ADJUSTMENT_VECTOR2
+		pass
+	
+	func quick_insert_node(node_type:String, offset:Vector2, connection = null) -> void:
+		var new_node_id = create_insert_node(node_type, offset)
+		if connection is Array && connection.size() == 3:
+			if connection[2] is bool:
+				var full_connection = null
+				if connection[2] == true:
+					if Settings.INVALID_QUICK_CONNECTION.TO.has(node_type) == false:
+						full_connection = [ connection[0], connection[1], new_node_id, 0 ]
+				else:
+					if Settings.INVALID_QUICK_CONNECTION.FROM.has(node_type) == false:
+						full_connection = [ new_node_id, 0, connection[0], connection[1] ]
+				if full_connection != null:
+					update_node_map(full_connection[0], {
+						"id": full_connection[0],
+						"io": { "push": [ full_connection ] } 
+					})
+					Grid.call_deferred("draw_connections_batch", [ full_connection ])
 		pass
 	
 	# -1 means current open scene

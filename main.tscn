@@ -2998,7 +2998,7 @@ __meta__ = {
 
 [node name="NodeInsert" type="PanelContainer" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer"]
 margin_right = 196.0
-margin_bottom = 160.0
+margin_bottom = 168.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -3006,32 +3006,32 @@ size_flags_vertical = 3
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 189.0
-margin_bottom = 153.0
+margin_bottom = 161.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer"]
 margin_right = 182.0
-margin_bottom = 112.0
+margin_bottom = 126.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="NodeInsertList" type="ItemList" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer/ScrollContainer"]
 margin_right = 182.0
-margin_bottom = 112.0
+margin_bottom = 126.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "% will be set by code %", null, false ]
 select_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer"]
-margin_top = 116.0
+margin_top = 130.0
 margin_right = 182.0
-margin_bottom = 146.0
+margin_bottom = 154.0
 
 [node name="NodeInsertFilterInput" type="LineEdit" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer/HBoxContainer"]
-margin_right = 126.0
-margin_bottom = 30.0
+margin_right = 128.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 clear_button_enabled = true
 placeholder_text = "Filter"
@@ -3040,14 +3040,14 @@ __meta__ = {
 }
 
 [node name="Insert" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer/HBoxContainer"]
-margin_left = 130.0
+margin_left = 132.0
 margin_right = 182.0
-margin_bottom = 30.0
+margin_bottom = 24.0
 size_flags_horizontal = 8
 text = "Insert"
 
 [node name="EditTools" type="HBoxContainer" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer"]
-margin_top = 164.0
+margin_top = 172.0
 margin_right = 196.0
 margin_bottom = 192.0
 size_flags_horizontal = 3
@@ -3062,28 +3062,28 @@ text = "Rst"
 
 [node name="Copy" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
 margin_right = 46.0
-margin_bottom = 28.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Cp"
 
 [node name="Cut" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
 margin_left = 50.0
 margin_right = 96.0
-margin_bottom = 28.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Ct"
 
 [node name="Paste" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
 margin_left = 100.0
 margin_right = 146.0
-margin_bottom = 28.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "pst"
 
 [node name="Remove" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
 margin_left = 150.0
 margin_right = 196.0
-margin_bottom = 28.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Del"
 

@@ -236,8 +236,10 @@ const GRID = "/root/Main/Editor/Center/GridGraphEdit"
 const GRID_CONTEXT_MENU = {
 	"itself": "/root/Main/FloatToolsLayer/Container/GridContextMenu",
 	"NODE_INSERT_LIST": "/root/Main/FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer/ScrollContainer/NodeInsertList",
+	"NODE_INSERT_FILTER_FORM": "/root/Main/FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer/HBoxContainer/",
 	"NODE_INSERT_FILTER_INPUT": "/root/Main/FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer/HBoxContainer/NodeInsertFilterInput",
 	"INSERT_BUTTON": "/root/Main/FloatToolsLayer/Container/GridContextMenu/VBoxContainer/NodeInsert/VBoxContainer/HBoxContainer/Insert",
+	"EDIT_TOOLS_BOX": "/root/Main/FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools",
 	"CLEAN_CLIPBOARD_BUTTON": "/root/Main/FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools/CleanClipboard",
 	"COPY_BUTTON": "/root/Main/FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools/Copy",
 	"CUT_BUTTON": "/root/Main/FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools/Cut",

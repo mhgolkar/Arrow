@@ -73,6 +73,12 @@ const GRID_GO_TO_AUTO_ADJUSTMENT_FACTOR = Vector2(0.5, 0.5) # it moves view offs
 const NODE_HIGHLIGHT_FADE_TIME_OUT = 0.35 # Seconds
 const MOUSE_WHEEL_ZOOM_ENHANCEMENT_FACTOR = 0.124
 
+const QUICK_INSERT_NODES_ON_SINGLE_CLICK = false
+const INVALID_QUICK_CONNECTION = {
+	"TO":   ["entry"],
+	"FROM": ["jump"]
+}
+
 # [ Modular Node Type System ]
 # NodeTypes
 
