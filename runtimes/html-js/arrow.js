@@ -20,8 +20,7 @@ var VARS_NAME_TO_ID_TABLE = {};
 // Characters List
 var CHARS = {};
 
-var OPEN_NODES = {}; // list of open node instances by resource-uid
-var OPEN_NODES_ORDER = [];
+var OPEN_NODES_BY_ORDER = [];
 var OPEN_NODES_REFORMATTED_NAMES = []; // names-lowercased-with-whitespaces-replaced-by-dashes
 
 // Adjusting document to the project settings
@@ -41,6 +40,7 @@ const NODE_CLASSES_BY_TYPE = {
     "content": Content,
     "dialog": Dialog,
     "entry": Entry,
+    "generator": Generator,
     "hub": Hub,
     "interaction": Interaction,
     "jump": Jump,
@@ -269,15 +269,24 @@ function update_ui_open_nodes_list(new_child_name, clean_previous_ones){
 
 // Clears view by removing all the appended nodes before the one with resource-uid passed as `the_last_one_id`.
 function clear_up(the_last_one_id){
-    var last_idx = OPEN_NODES_ORDER.lastIndexOf(the_last_one_id);
+    var last_idx = 0;
+    for(var l = OPEN_NODES_BY_ORDER.length - 1; l >= 0; l--){
+        if ( OPEN_NODES_BY_ORDER[l].id == the_last_one_id ){
+            last_idx = l;
+            break;
+        }
+    }
     if ( last_idx > 0 ){
         OPEN_NODES_REFORMATTED_NAMES.splice(0, last_idx);
-        var removed_ones = OPEN_NODES_ORDER.splice(0, last_idx);
-        for (var id of removed_ones) {
-            OPEN_NODES[id].remove_element();
-            delete OPEN_NODES[id];
+        var removed_ones = OPEN_NODES_BY_ORDER.splice(0, last_idx);
+        for (var node of removed_ones) {
+            node.instance.remove_element();
         }
         update_ui_open_nodes_list();
+        if ( OPEN_NODES_BY_ORDER.length == 1){ // there is only one remained node!
+            // make sure it's playable (Note: currently only content nodes clear up)
+            OPEN_NODES_BY_ORDER[0].instance.step_back();
+        }
     } else {
         throw new Error(`The annotated node (${the_last_one_id}) is not open or is the first one. We can only clean view from a node backward.`);
     }
@@ -304,8 +313,10 @@ function play_node(node_id, _playing_in_slot){
             instance = new NODE_CLASSES_BY_TYPE[node_resource.type](
                 node_id, node_resource, node_map, _playing_in_slot
             );
-            OPEN_NODES[node_id] = instance;
-            OPEN_NODES_ORDER.push(node_id);
+            OPEN_NODES_BY_ORDER.push({
+                id: node_id,
+                instance: instance
+            });
             update_ui_open_nodes_list(node_resource.name);
             var new_node_element = instance.get_element();
             // Macros need special treatments
@@ -375,7 +386,7 @@ function handle_status(status_code, the_player_node_instance){
 
 function play_back(steps, default_throw_error){
     var error = null;
-    var open_nodes_count = OPEN_NODES_ORDER.length;
+    var open_nodes_count = OPEN_NODES_BY_ORDER.length;
     if ( open_nodes_count > 1 ){
         if ( Number.isInteger(steps) == false || steps < 1 || steps >= open_nodes_count ){
             steps = 1;
@@ -384,15 +395,13 @@ function play_back(steps, default_throw_error){
         // Now we step back
         var remove_threshold = ( open_nodes_count - steps );
         OPEN_NODES_REFORMATTED_NAMES.splice(remove_threshold);
-        var removed_ones = OPEN_NODES_ORDER.splice(remove_threshold);
-        for (var id of removed_ones) {
-            OPEN_NODES[id].remove_element();
-            delete OPEN_NODES[id];
+        var removed_ones = OPEN_NODES_BY_ORDER.splice(remove_threshold);
+        for (var node of removed_ones) {
+            node.instance.remove_element();
         }
         update_ui_open_nodes_list();
         // we also need to make the last open node manually playable, so:
-        var last_open_node_id = OPEN_NODES_ORDER[remove_threshold - 1];
-        OPEN_NODES[ last_open_node_id ].step_back();
+        OPEN_NODES_BY_ORDER[ remove_threshold - 1 ].instance.step_back();
     } else {
         error = "There is only one remained open node! We can't step back anymore.";
     }

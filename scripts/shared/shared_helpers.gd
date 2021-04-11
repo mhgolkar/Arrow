@@ -493,3 +493,31 @@ class Generators:
 		if random_string.length() > length && or_longer == false:
 			random_string = random_string.substr(0, length)
 		return random_string
+	
+	static func random_boolean() -> bool:
+		return ( randi() % 2 == 0 )
+	
+	static func advance_random_integer(
+		from:int = 0, to:int = 0,
+		negative:bool = false, even:bool = false, odd:bool = false
+	) -> int:
+		var result = null
+		if from >= to:
+			result = from
+		if (to - from) <= 1:
+			# we need at least one odd and one even number in the possibilities
+			to += 1
+		while result == null:
+			result = int( rand_range( float(from), float(to) ) )
+			if even != odd : # to be either odd or even
+				# (both true or both false means ignore)
+				var is_even = (result % 2 == 0)
+				if is_even && even == false:
+					result = null
+				if is_even == false && odd == false:
+					result = null
+		if negative is bool && negative == true: # negative
+			result = (result * (-1))
+		print_debug("random: ", from, to, negative, even, odd, " -- result --> ", result)
+		return result
+	

@@ -392,6 +392,12 @@ footer button:not(:first-of-type) {
 .node[data-type='entry'][data-played='true']{ display: none; }
 .node[data-type='entry'] button {}
 
+/* generator */
+.node[data-type='generator']{}
+.node[data-type='generator'][data-played='true']{ display: none; }
+.node[data-type='generator'] /*code*/.expression {}
+.node[data-type='generator'] button { margin: 0.5rem; }
+
 /* hub */
 .node[data-type='hub']{}
 .node[data-type='hub'][data-played='true']{ display: none; }

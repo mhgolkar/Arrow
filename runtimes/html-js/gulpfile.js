@@ -26,6 +26,7 @@ const SCRIPT_CONCATNATION_LIST = [
     './modules/content.js',
     './modules/dialog.js',
     './modules/entry.js',
+    './modules/generator.js',
     './modules/hub.js',
     './modules/interaction.js',
     './modules/jump.js',

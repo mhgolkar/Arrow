@@ -61,7 +61,7 @@ const TAKE_INITIAL_SNAPSHOT = true
 
 const MAXIMUM_HISTORY_SIZE_PER_NODE = 7
 const SKIP_INITIAL_COPY_TRACK_FOR_NODE_TYPE = [
-	"condition", "macro_use", "user_input", "variable_update"
+	"condition", "macro_use", "user_input", "variable_update", "generator"
 ]
 
 # Grid

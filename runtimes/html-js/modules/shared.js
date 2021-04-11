@@ -160,7 +160,7 @@ function capitalize(string){
     }
 }
 
-const inclusiveRandInt = function(_min, _max, base) {
+const inclusiveRandInt = function(_min, _max, base, negative, even, odd) {
     if( arguments.length < 2 ){
         _max = _min;
 		_min = 0;
@@ -169,7 +169,16 @@ const inclusiveRandInt = function(_min, _max, base) {
     _max = ( Number.isFinite( _max ) ? Math.floor(_max) : 0 );
     var max = Math.max(_min, _max);
     var min = Math.min(_min, _max);
-	let result = Math.floor(Math.random() * (max - min + 1)) + min;
+	let result = null;
+    do {
+        result = Math.floor(Math.random() * (max - min + 1)) + min;
+        if ( even != odd ){
+            let is_even = ((result % 2) == 0);
+            if ( is_even && even == false ) result = null;
+            if ( is_even == false && odd == false ) result = null;
+        }
+    } while (result == null);
+    if ( negative === true ) result = (result * (-1));
 	if ( Number.isInteger(base) && base >= 2 && base <= 36  ){
         return result.toString(base);
     } else {

@@ -23,6 +23,9 @@ const _TRANSLATION_TABLE = {
   evaluate:{
     en: "Evaluate",
   },
+  generate:{
+    en: "Generate",
+  },
   end_of_play: {
     en: "The End !",
   },

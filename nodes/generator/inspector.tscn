@@ -1,0 +1,216 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/generator/inspector.gd" type="Script" id=1]
+
+[node name="GeneratorType" type="ScrollContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 207.0
+margin_bottom = 187.0
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Generate" type="VBoxContainer" parent="."]
+margin_right = 200.0
+margin_bottom = 180.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="For" type="Label" parent="Generate"]
+margin_right = 200.0
+margin_bottom = 14.0
+text = "For"
+
+[node name="Variables" type="OptionButton" parent="Generate"]
+margin_top = 18.0
+margin_right = 200.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+
+[node name="GenerateValue" type="Label" parent="Generate"]
+margin_top = 42.0
+margin_right = 200.0
+margin_bottom = 56.0
+text = "Generate"
+
+[node name="Methods" type="OptionButton" parent="Generate"]
+margin_top = 60.0
+margin_right = 200.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+
+[node name="Arguments" type="PanelContainer" parent="Generate"]
+visible = false
+margin_top = 84.0
+margin_right = 188.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+
+[node name="RandomInt" type="VBoxContainer" parent="Generate/Arguments"]
+visible = false
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 181.0
+margin_bottom = 91.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Range" type="VBoxContainer" parent="Generate/Arguments/RandomInt"]
+margin_right = 174.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="From" type="HBoxContainer" parent="Generate/Arguments/RandomInt/Range"]
+margin_right = 174.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Generate/Arguments/RandomInt/Range/From"]
+margin_top = 5.0
+margin_right = 33.0
+margin_bottom = 19.0
+text = "From"
+
+[node name="Value" type="SpinBox" parent="Generate/Arguments/RandomInt/Range/From"]
+margin_left = 37.0
+margin_right = 174.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+allow_greater = true
+
+[node name="To" type="HBoxContainer" parent="Generate/Arguments/RandomInt/Range"]
+margin_top = 28.0
+margin_right = 174.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Generate/Arguments/RandomInt/Range/To"]
+margin_top = 5.0
+margin_right = 31.0
+margin_bottom = 19.0
+text = "    To"
+
+[node name="Value" type="SpinBox" parent="Generate/Arguments/RandomInt/Range/To"]
+margin_left = 35.0
+margin_right = 174.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 2.0
+value = 100.0
+allow_greater = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Generate/Arguments/RandomInt"]
+margin_top = 56.0
+margin_right = 174.0
+margin_bottom = 56.0
+
+[node name="Modifiers" type="HBoxContainer" parent="Generate/Arguments/RandomInt"]
+margin_top = 60.0
+margin_right = 174.0
+margin_bottom = 84.0
+
+[node name="Negative" type="CheckBox" parent="Generate/Arguments/RandomInt/Modifiers"]
+margin_right = 53.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "Neg"
+
+[node name="Even" type="CheckBox" parent="Generate/Arguments/RandomInt/Modifiers"]
+margin_left = 57.0
+margin_right = 115.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+pressed = true
+text = "Even"
+
+[node name="Odd" type="CheckBox" parent="Generate/Arguments/RandomInt/Modifiers"]
+margin_left = 119.0
+margin_right = 174.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+pressed = true
+text = "Odd"
+
+[node name="RandomAscii" type="VBoxContainer" parent="Generate/Arguments"]
+visible = false
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 193.0
+margin_bottom = 59.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Pool" type="HBoxContainer" parent="Generate/Arguments/RandomAscii"]
+margin_right = 186.0
+margin_bottom = 24.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Generate/Arguments/RandomAscii/Pool"]
+margin_top = 5.0
+margin_right = 60.0
+margin_bottom = 19.0
+text = "Char Pool"
+
+[node name="String" type="LineEdit" parent="Generate/Arguments/RandomAscii/Pool"]
+margin_left = 64.0
+margin_right = 186.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "or En Alphanumeric"
+
+[node name="Length" type="HBoxContainer" parent="Generate/Arguments/RandomAscii"]
+margin_top = 28.0
+margin_right = 186.0
+margin_bottom = 52.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Generate/Arguments/RandomAscii/Length"]
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 19.0
+text = "Length"
+
+[node name="Value" type="SpinBox" parent="Generate/Arguments/RandomAscii/Length"]
+margin_left = 47.0
+margin_right = 186.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+allow_greater = true
+
+[node name="FromStrSet" type="VBoxContainer" parent="Generate/Arguments"]
+visible = false
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 194.0
+margin_bottom = 91.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Generate/Arguments/FromStrSet"]
+margin_right = 187.0
+margin_bottom = 14.0
+text = "Pool of Strings"
+
+[node name="StrSetPool" type="TextEdit" parent="Generate/Arguments/FromStrSet"]
+margin_top = 18.0
+margin_right = 187.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Hint" type="Label" parent="Generate/Arguments/FromStrSet"]
+self_modulate = Color( 0.5, 0.5, 0.5, 1 )
+margin_top = 70.0
+margin_right = 187.0
+margin_bottom = 84.0
+text = "* Separate with `{delimiter}`"
+align = 2
