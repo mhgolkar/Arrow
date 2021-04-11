@@ -230,7 +230,7 @@ func listen_to_playing_node(node:Node, node_uid:int = -1) -> void:
 	for the_signal in POSSIBLE_SIGNALS_FROM_PLAYING_NODES:
 		var the_method = POSSIBLE_SIGNALS_FROM_PLAYING_NODES[the_signal]
 		if node.is_connected(the_signal, self, the_method) == false:
-			node.connect(the_signal, self, the_method, [node], CONNECT_ONESHOT)
+			node.connect(the_signal, self, the_method, [node], CONNECT_DEFERRED)
 	# 'console' lets users to double click on a playing node and jump to the respective node on the gird,
 	# so we listen for that too ...
 	if node.is_connected("gui_input", self, "_on_playing_node_gui_input") == false:
@@ -382,7 +382,6 @@ func play_step_back(how_many:int = 1) -> void:
 			# normal nodes
 			else:
 				now_playing_node.call_deferred("step_back")
-				listen_to_playing_node(now_playing_node)
 				reset_node_skippness_view(now_playing_node, false) # make sure it's visible even skipped
 			self.call_deferred("update_scroll_to_v_max")
 		self.call_deferred("refresh_variables_list")

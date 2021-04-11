@@ -41,6 +41,7 @@ size_flags_horizontal = 3
 margin_right = 219.0
 margin_bottom = 24.0
 allow_greater = true
+allow_lesser = true
 
 [node name="Boolean" type="OptionButton" parent="UserInputPlay/Input"]
 margin_right = 219.0

@@ -145,6 +145,7 @@ class VariableUpdateExpression {
                 "rem": { "text": "Remainder", "sign": "%=" },
                 "mul": { "text": "Multipication", "sign": "*=" },
                 "exp": { "text": "Exponentiation", "sign": "^=" },
+                "abs": { "text": "Absolute", "sign": "=||" },
             },
             "str": {
                 "set": { "text": "Set", "sign": "=" },
@@ -255,6 +256,9 @@ class VariableUpdateExpression {
                         break;
                     case "exp": // Exponentiation (^=)
                         result = Math.pow(left, right);
+                        break;
+                    case "abs": // Absolute (=||)
+                        result = Math.abs(right);
                         break;
                 }
                 return ( Number.isFinite(result) ? Math.round(result) : null );

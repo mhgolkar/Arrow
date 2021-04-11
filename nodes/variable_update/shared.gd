@@ -24,6 +24,7 @@ const UPDATE_OPERATORS = {
 		"rem": { "text": "Remainder", "sign": "%=" },
 		"mul": { "text": "Multipication", "sign": "*=" },
 		"exp": { "text": "Exponentiation", "sign": "^=" },
+		"abs": { "text": "Absolute", "sign": "=||" },
 	},
 	"str": {
 		"set": { "text": "Set", "sign": "=" },
@@ -113,15 +114,22 @@ class expression :
 			"sub": # Subtraction (-=)
 				result = (left - right)
 			"div": # Division (/=)
-				result = (left / right)
+				if right != 0: # no support for infinity
+					result = (left / right)
 			"rem": # Remainder (%=)
-				result = (left % right)
+				if right != 0: # no support for NAN
+					result = (left % right)
 			"mul": # Multipication (*=)
 				result = (left * right)
 			"exp": # Exponentiation (^=)
 				result = pow(left, right)
+			"abs": # Absolute (=||)
+				result = abs(right)
 		return (
+			# rounds to the nearest whole number 2.9 -> 3 not 2
 			int ( round ( result ) )
+			if result != null
+			else null
 		)
 		
 	func evaluate_str_update(left:String, operation:String, right:String):

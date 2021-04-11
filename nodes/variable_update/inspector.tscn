@@ -48,17 +48,17 @@ text = "with/to"
 [node name="With" type="PanelContainer" parent="Update"]
 margin_top = 102.0
 margin_right = 239.0
-margin_bottom = 140.0
+margin_bottom = 136.0
 
 [node name="Parameter" type="HBoxContainer" parent="Update/With"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 232.0
-margin_bottom = 31.0
+margin_bottom = 27.0
 
 [node name="Type" type="OptionButton" parent="Update/With/Parameter"]
 margin_right = 67.0
-margin_bottom = 24.0
+margin_bottom = 20.0
 text = "{type}"
 items = [ "{type}", null, false, 0, null ]
 selected = 0
@@ -66,12 +66,12 @@ selected = 0
 [node name="Mode" type="MarginContainer" parent="Update/With/Parameter"]
 margin_left = 71.0
 margin_right = 225.0
-margin_bottom = 24.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="Value" type="MarginContainer" parent="Update/With/Parameter/Mode"]
 margin_right = 154.0
-margin_bottom = 24.0
+margin_bottom = 20.0
 
 [node name="String" type="LineEdit" parent="Update/With/Parameter/Mode/Value"]
 visible = false
@@ -80,13 +80,15 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="Number" type="SpinBox" parent="Update/With/Parameter/Mode/Value"]
+visible = false
 margin_right = 154.0
 margin_bottom = 24.0
 allow_greater = true
+allow_lesser = true
 
 [node name="Boolean" type="OptionButton" parent="Update/With/Parameter/Mode/Value"]
 margin_right = 154.0
-margin_bottom = 24.0
+margin_bottom = 20.0
 text = "True"
 items = [ "True", null, false, 1, null, "False", null, false, 0, null ]
 selected = 0
@@ -94,5 +96,5 @@ selected = 0
 [node name="Variable" type="OptionButton" parent="Update/With/Parameter/Mode"]
 visible = false
 margin_right = 154.0
-margin_bottom = 24.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
