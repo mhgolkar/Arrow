@@ -30,6 +30,7 @@ func _ready() -> void:
 
 func register_connections() -> void:
 	ScenesList.connect("item_selected", self, "_on_scenes_list_item_selected", [], CONNECT_DEFERRED)
+	ScenesList.connect("item_activated", self, "request_scene_editorial_open", [], CONNECT_DEFERRED)
 	ScenesList.connect("nothing_selected", self, "_on_scenes_list_nothing_selected", [], CONNECT_DEFERRED)
 	ScenesNewButton.connect("pressed", self, "request_new_scene_creation", [], CONNECT_DEFERRED)
 	ScenesRemoveButton.connect("pressed", self, "request_remove_scene", [], CONNECT_DEFERRED)
@@ -154,7 +155,10 @@ func smartly_update_tools(selected_scene_id:int = -1) -> void:
 			var the_scene = _LISTED_SCENES_BY_ID[selected_scene_id]
 			# you can't remove the last existing scene or the one including the project's entry point
 			var the_project_entry = Main.Mind.get_project_entry()
-			if _LISTED_SCENES_BY_ID.size() <= 1 || the_scene.map.has(the_project_entry) || selected_scene_id == _SELECTED_SCENE_BEING_EDITED_ID:
+			if (
+				_LISTED_SCENES_BY_ID.size() <= 1 || the_scene.map.has(the_project_entry) ||
+				selected_scene_id == _SELECTED_SCENE_BEING_EDITED_ID
+			):
 				selected_scene_is_removable = false
 			else:
 				selected_scene_is_removable = true
@@ -176,11 +180,36 @@ func request_remove_scene(resource_id:int = -1) -> void:
 			if resource_id == _SELECTED_SCENE_BEING_EDITED_ID:
 				printerr("Unable to remove open scene!")
 			else:
-				self.call_deferred("emit_signal", "relay_request_mind", "remove_resource", { "id": resource_id, "field": "scenes" })
+				prompt_to_request_scene_removal(resource_id)
 	ScenesList.unselect_all()
 	pass
 
-func request_scene_editorial_open() -> void:
+func prompt_to_request_scene_removal(scene_id:int = -1) -> void:
+	if scene_id >= 0:
+		var scene_name = _LISTED_SCENES_BY_ID[scene_id].name
+		Main.Mind.Notifier.call_deferred(
+			"show_notification",
+			"Are you sure ?",
+			(
+				"You're removing the scene `%s`, permanently.\r\n" % scene_name +
+				"Would you like to proceed?"
+			),
+			[
+				{ 
+					"label": "Yes, Remove",
+					"callee": self,
+					"method": "emit_signal",
+					"arguments": [
+						"relay_request_mind", "remove_resource",
+						{ "id": scene_id, "field": "scenes" }
+					]
+				},
+			],
+			Settings.WARNING_COLOR
+		)
+	pass
+
+func request_scene_editorial_open(_x = null) -> void:
 	var scene_id = get_selected_scene_id()
 	if scene_id >= 0 :
 		emit_signal("relay_request_mind", "switch_scene", scene_id)

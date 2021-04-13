@@ -30,10 +30,11 @@ func _ready() -> void:
 
 func register_connections() -> void:
 	for part in REQUESTING_RELAY_PARTS:
-		part.connect("relay_request_mind", self, "request_mind_relay", [part], 0)
-	RemoveLocalProject.connect("pressed", self, "request_removing_project", [], 0)
-	OpenLocalProject.connect("pressed", self, "request_opening_project", [], 0)
+		part.connect("relay_request_mind", self, "request_mind_relay", [part], CONNECT_DEFERRED)
+	RemoveLocalProject.connect("pressed", self, "request_removing_project", [], CONNECT_DEFERRED)
+	OpenLocalProject.connect("pressed", self, "request_opening_project", [], CONNECT_DEFERRED)
 	LocalProjectsList.connect("item_selected", self, "refresh_local_project_list_tools_buttons", [], CONNECT_DEFERRED)
+	LocalProjectsList.connect("item_activated", self, "request_opening_project", [], CONNECT_DEFERRED)
 	LocalProjectsList.connect("nothing_selected", self, "_on_local_projects_list_nothing_selected", [], CONNECT_DEFERRED)
 	pass
 
@@ -79,8 +80,8 @@ func request_removing_project() -> void:
 		request_mind_relay("remove_local_project", project_id)
 	pass
 
-func request_opening_project() -> void:
-	var selected = LocalProjectsList.get_selected_items()
+func request_opening_project(selected_idx:int = -1) -> void:
+	var selected = ([selected_idx] if selected_idx >= 0 else LocalProjectsList.get_selected_items())
 	if selected.size() >= 1:
 		var project_id = LocalProjectsList.get_item_metadata(selected[0])
 		request_mind_relay("open_local_project", project_id)

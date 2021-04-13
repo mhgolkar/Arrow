@@ -969,8 +969,8 @@ class Mind :
 			the_user_resource_original.erase("ref")
 		# force update tabs because references may have changed
 		# (`_use` command may be sent with different resource types / fields at the same time, so we refresh both)
-		Inspector.Tab.Variables.call_deferred("refresh_tab")
-		Inspector.Tab.Characters.call_deferred("refresh_tab")
+		for tab in ['Variables', 'Characters', 'Macros']:
+			Inspector.Tab[tab].call_deferred("refresh_tab")
 		pass
 	
 	func list_referrers(resource_uid:int = -1, priority_field:String = "") -> Dictionary:
@@ -1070,26 +1070,32 @@ class Mind :
 	
 	# this will remove a resource by id in any field it resides, the argument `field` is just for optimization
 	# WON'T REMOVE USED RESOURCES and warns in those cases
-	func remove_resource(resource_uid:int, field:String = "") -> bool:
+	func remove_resource(resource_uid:int, field:String = "", forced:bool = false) -> bool:
 		# make sure the field is right, or find the right one
 		field = find_resource_field(resource_uid, field)
 		if field.length() > 0: # if empty ("") field is returned, there is no such resource
 			var the_resource = _PROJECT.resources[field][resource_uid]
 			# make sure target resource is not used by other resources
 			var is_removable:bool = (
-					the_resource.has("use") == false || (the_resource.use is Array) == false || the_resource.use.size() == 0
+					the_resource.has("use") == false || (the_resource.use is Array) == false ||
+					the_resource.use.size() == 0
 				)
+			var none_removables
 			if field == "scenes":
 				# check if we can remove all nodes in the scene
-				is_removable = batch_remove_resources(the_resource.map.keys(), "nodes", false, true) # check-only
+				# returns list
+				none_removables = batch_remove_resources(the_resource.map.keys(), "nodes", false, true, true)
+				is_removable = (none_removables.ids.size() == 0)
 			# for other resources:
-			if is_removable == true :
+			if is_removable == true || forced == true:
 				# this resource might be *user* of other nodes/resources, so...
 				if the_resource.has("ref") && (the_resource.ref is Array) && the_resource.ref.size() > 0:
 					handle_use_command_parameter(resource_uid, {
 						# drop all the resources (`ref`erences) this resource is using
 						"drop": the_resource.ref.duplicate(true)
 					})
+				if is_removable == false && forced == true:
+					print_debug("Forced removal of resource %s: " % resource_uid, the_resource)
 				# ... then, removal precautions and recursive clean-ups
 				match field:
 					"nodes":
@@ -1127,13 +1133,27 @@ class Mind :
 				return true # ... removed
 			else:
 				# resource is used, so can't be deleted:
-				show_error("Unsafe Operation Discarded!", "The resource can not be removed, because it's used by other resource(s) such as nodes.")
+				show_error(
+					"Unsafe Operation Discarded!",
+					"The resource can not be removed, because some other nodes or resources rely on this one. " +
+					(
+						"For example, one of the child nodes of the scene might be referenced by a jump in another scene."
+						if field == "scenes" else ""
+					) +
+					(
+						"\nReferenced resources are: \n\n\t" + PoolStringArray(none_removables.names).join(", ")
+						if none_removables is Dictionary else ""
+					)
+				)
 		else:
 			print_stack()
 			printerr("Unexpected Behavior! Trying to remove nonexistent resource=%s ."% resource_uid)
 		return false # if we reach here, it means nothing's removed
 	
-	func batch_remove_resources(resource_id_list:Array, field:String = "", duplicate_list_before_use:bool = false, check_only:bool = false) -> bool:
+	func batch_remove_resources(
+		resource_id_list:Array, field:String = "", duplicate_list_before_use:bool = false,
+		check_only:bool = false, return_non_removables_list:bool = false
+	):
 		var list = (resource_id_list.duplicate(true) if duplicate_list_before_use else resource_id_list)
 		var drop = [] # [[<res_id>, [<user_id, ...>]], ...]
 		var nope = []
@@ -1141,9 +1161,10 @@ class Mind :
 		var scene_entry = get_scene_entry(-1)
 		var project_entry = get_project_entry()
 		for res_id in list:
-			# we may only remove those resources which are not used by any other,
-			# or all of their usages are going to be removed as well, so list the resource to remove ...
+			# we may only remove resources which are not referred by any other,
+			# or together with all of their referrers, so let's list the resources to remove ...
 			if res_id != project_entry && res_id != scene_entry:
+				field = find_resource_field(res_id, field) # make sure the field is right
 				var res = lookup_resource(res_id, field, false)
 				if res.has("use") == false || (res.use is Array == false) || res.use.size() == 0 :
 					drop.append([res_id, []])
@@ -1161,6 +1182,7 @@ class Mind :
 						drop.append([res_id, res.use])
 			else:
 				nope.append([res_id, "Scene or Project Entry!"])
+		var check_result
 		if nope.size() == 0:
 			if check_only != true:
 				# let's sort dropees first, to make sure user-resources will be removed first
@@ -1168,19 +1190,27 @@ class Mind :
 					drop.sort_custom(self, "resource_referrer_custom_sorter")
 				print_debug("Batch removal: ", drop)
 				for idx in range(0, drop.size()):
-					remove_resource(drop[idx][0], field)
-			return true
+					remove_resource(drop[idx][0], field, true)
+			check_result = true
 		else:
 			if check_only != true:
 				show_error(
 					"Unsafe Operation Discarded.",
 					(
-						"At least one the resources you want to remove is used by another resource(s) or node(s). " +
+						"At least one the resources you want to remove is used by another resource or node. " +
 						"We can't proceed this operation, unless you remove referrers as well. \nUsed one(s) are: %s"
 					) % nopee_names
 				)
 				printerr("Batch remove operation discarded due to existing use cases: ", nope)
-			return false
+			check_result = false
+		return (
+			{
+				"ids"  : nope,
+				"names": nopee_names
+			}
+			if return_non_removables_list
+			else check_result
+		)
 	
 	static func resource_referrer_custom_sorter(a, b) -> bool:
 		# true means earlier, so...

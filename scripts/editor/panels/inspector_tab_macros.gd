@@ -43,6 +43,7 @@ func _ready() -> void:
 
 func register_connections() -> void:
 	MacrosList.connect("item_selected", self, "_on_macros_list_item_selected", [], CONNECT_DEFERRED)
+	MacrosList.connect("item_activated", self, "request_macro_editorial_open", [], CONNECT_DEFERRED)
 	MacrosList.connect("nothing_selected", self, "_on_macros_list_nothing_selected", [], CONNECT_DEFERRED)
 	MacrosNewButton.connect("pressed", self, "request_new_macro_creation", [], CONNECT_DEFERRED)
 	MacrosRemoveButton.connect("pressed", self, "request_remove_macro", [], CONNECT_DEFERRED)
@@ -167,11 +168,14 @@ func smartly_update_tools(selected_macro_id:int = -1) -> void:
 			selected_macro_id = get_selected_macro_id()
 		if _LISTED_MACROS_BY_ID.has(selected_macro_id):
 			var the_macro = _LISTED_MACROS_BY_ID[selected_macro_id]
-			if the_macro.has("use") && the_macro.use is Array && the_macro.use.size() > 0:
+			if (
+				the_macro.has("use") && the_macro.use is Array && the_macro.use.size() > 0 ||
+				selected_macro_id == _SELECTED_MACRO_BEING_EDITED_ID
+			):
 				selected_macro_is_removable = false
 			else:
 				selected_macro_is_removable = true
-	MacrosEditButton.set_disabled( (! a_macro_is_selected) )
+	MacrosEditButton.set_disabled( (! a_macro_is_selected) || (selected_macro_id == _SELECTED_MACRO_BEING_EDITED_ID) )
 	MacrosRemoveButton.set_disabled( (!a_macro_is_selected) || (!selected_macro_is_removable) )
 	update_instance_pagination(selected_macro_id)
 	pass
@@ -188,11 +192,36 @@ func request_remove_macro(resource_id:int = -1) -> void:
 	if _LISTED_MACROS_BY_ID.has(resource_id):
 		if resource_id == _SELECTED_MACRO_BEING_EDITED_ID:
 			request_macro_editorial_close()
-		self.call_deferred("emit_signal", "relay_request_mind", "remove_resource", { "id": resource_id, "field": "scenes" })
+		prompt_to_request_macro_removal(resource_id)
 	MacrosList.unselect_all()
 	pass
 
-func request_macro_editorial_open() -> void:
+func prompt_to_request_macro_removal(macro_id:int = -1) -> void:
+	if macro_id >= 0:
+		var macro_name = _LISTED_MACROS_BY_ID[macro_id].name
+		Main.Mind.Notifier.call_deferred(
+			"show_notification",
+			"Are you sure ?",
+			(
+				"You're removing the macro `%s`, permanently.\r\n" % macro_name +
+				"Would you like to proceed?"
+			),
+			[
+				{ 
+					"label": "Yes, Remove",
+					"callee": self,
+					"method": "emit_signal",
+					"arguments": [
+						"relay_request_mind", "remove_resource",
+						{ "id": macro_id, "field": "scenes" }
+					]
+				},
+			],
+			Settings.WARNING_COLOR
+		)
+	pass
+
+func request_macro_editorial_open(_x = null) -> void:
 	var macro_id = get_selected_macro_id()
 	if macro_id >= 0 :
 		emit_signal("relay_request_mind", "switch_scene", macro_id)
@@ -224,6 +253,7 @@ func update_macro_editorial_state(macro_id:int = -1) -> void:
 	else:
 		_SELECTED_MACRO_BEING_EDITED_ID = -1
 		MacroEditorPanel.set("visible", false)
+	smartly_update_tools()
 	pass
 
 func request_macro_editorial_close() -> void:
@@ -231,8 +261,17 @@ func request_macro_editorial_close() -> void:
 		emit_signal("relay_request_mind", "switch_scene", -1)
 	pass
 
+func refresh_macro_cache_by_id(macro_id:int = -1) -> void:
+	if macro_id >= 0 :
+		var the_macro = Main.Mind.lookup_resource(macro_id, "scenes", true)
+		if the_macro is Dictionary:
+			_LISTED_MACROS_BY_ID[macro_id] = the_macro
+			_LISTED_MACROS_BY_NAME[the_macro.name] = _LISTED_MACROS_BY_ID[macro_id]
+	pass
+
 func update_instance_pagination(macro_id:int = -1) -> void:
 	if macro_id >= 0 && _LISTED_MACROS_BY_ID.has(macro_id):
+		refresh_macro_cache_by_id(macro_id)
 		_SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID.clear()
 		MacroInstanceGoToButtonPopup.clear()
 		var count = {
