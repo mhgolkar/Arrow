@@ -1,6 +1,21 @@
 # Arrow: Changelog
 
 
+## v1.3.0
+
++ New Features:
+    + Quick Node Insertion
+    + Generator (New Built-in Node Type)
+
++ Enhancements:
+    + Better negative number handling
+        + New `Absoulute` operator for `Variable_Update`
+    + Query scope option
+        > Now you can set if you want to search within the open scene or project-wide.
+
++ Other minor improvements
+
+
 ## v1.2.0
 
 + Enhanced Continuum Safety
