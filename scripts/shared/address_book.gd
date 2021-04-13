@@ -254,6 +254,7 @@ const QUERY = {
 	"QUERY_INPUT": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/QueryInput",
 	"SEARCH_BUTTON": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/Search",
 	"HOW_OPTIONS": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/How",
+	"PROJECT_WIDE": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/ProjectWide",
 	"PREVIOUS_BUTTON": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/PreviousMatch",
 	"MATCHES_OPTION_BUTTON": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/Matches",
 	"NEXT_BUTTON": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/NextMatch",
