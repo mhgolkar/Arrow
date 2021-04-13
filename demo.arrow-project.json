@@ -10,28 +10,28 @@
 		"last_save": {
 			"utc": {
 				"year": 2021,
-				"month": 3,
-				"day": 6,
-				"weekday": 6,
+				"month": 4,
+				"day": 12,
+				"weekday": 1,
 				"dst": false,
-				"hour": 6,
-				"minute": 30,
-				"second": 0
+				"hour": 10,
+				"minute": 20,
+				"second": 30
 			},
 			"local": {
 				"year": 2021,
-				"month": 3,
-				"day": 6,
-				"weekday": 6,
+				"month": 4,
+				"day": 12,
+				"weekday": 1,
 				"dst": false,
-				"hour": 6,
-				"minute": 30,
-				"second": 0
+				"hour": 10,
+				"minute": 20,
+				"second": 30
 			}
 		},
 		"arrow_editor_version": "1.0.0"
 	},
-	"next_resource_seed": 112,
+	"next_resource_seed": 123,
 	"resources": {
 		"scenes": {
 			"0": {
@@ -226,46 +226,6 @@
 								20,
 								0
 							]
-						]
-					},
-					"108": {
-						"offset": [
-							1030,
-							260
-						],
-						"io": [
-							[
-								108,
-								0,
-								109,
-								0
-							]
-						]
-					},
-					"109": {
-						"offset": [
-							1070,
-							370
-						],
-						"io": [
-							[
-								109,
-								0,
-								108,
-								0
-							],
-							[
-								109,
-								1,
-								110,
-								0
-							]
-						]
-					},
-					"110": {
-						"offset": [
-							1140,
-							470
 						]
 					}
 				}
@@ -678,15 +638,57 @@
 							[
 								47,
 								0,
-								49,
+								120,
 								0
 							]
 						]
 					},
 					"49": {
 						"offset": [
-							1500,
-							620
+							1830,
+							600
+						]
+					},
+					"120": {
+						"offset": [
+							1640,
+							370
+						],
+						"io": [
+							[
+								120,
+								0,
+								121,
+								0
+							]
+						]
+					},
+					"121": {
+						"offset": [
+							1760,
+							360
+						],
+						"io": [
+							[
+								121,
+								0,
+								122,
+								0
+							]
+						]
+					},
+					"122": {
+						"offset": [
+							1850,
+							480
+						],
+						"io": [
+							[
+								122,
+								0,
+								49,
+								0
+							]
 						]
 					}
 				}
@@ -1160,7 +1162,7 @@
 							[
 								99,
 								0,
-								102,
+								105,
 								0
 							]
 						],
@@ -1168,8 +1170,8 @@
 					},
 					"101": {
 						"offset": [
-							490,
-							110
+							400,
+							200
 						],
 						"io": [
 							[
@@ -1180,38 +1182,10 @@
 							]
 						]
 					},
-					"102": {
-						"offset": [
-							200,
-							230
-						],
-						"io": [
-							[
-								102,
-								0,
-								104,
-								0
-							]
-						]
-					},
-					"104": {
-						"offset": [
-							310,
-							230
-						],
-						"io": [
-							[
-								104,
-								0,
-								105,
-								0
-							]
-						]
-					},
 					"105": {
 						"offset": [
-							420,
-							230
+							260,
+							100
 						],
 						"io": [
 							[
@@ -1224,8 +1198,8 @@
 					},
 					"106": {
 						"offset": [
-							580,
-							230
+							490,
+							290
 						],
 						"io": [
 							[
@@ -1238,8 +1212,8 @@
 					},
 					"107": {
 						"offset": [
-							690,
-							230
+							570,
+							100
 						],
 						"io": [
 							[
@@ -1252,8 +1226,8 @@
 					},
 					"111": {
 						"offset": [
-							740,
-							350
+							730,
+							200
 						]
 					}
 				},
@@ -1261,6 +1235,128 @@
 				"use": [
 					108
 				]
+			},
+			"112": {
+				"name": "Using Macros",
+				"entry": 113,
+				"map": {
+					"113": {
+						"offset": [
+							100,
+							100
+						],
+						"io": [
+							[
+								113,
+								0,
+								114,
+								0
+							]
+						]
+					},
+					"110": {
+						"offset": [
+							760,
+							510
+						]
+					},
+					"109": {
+						"offset": [
+							660,
+							400
+						],
+						"io": [
+							[
+								109,
+								0,
+								108,
+								0
+							],
+							[
+								109,
+								1,
+								110,
+								0
+							]
+						]
+					},
+					"108": {
+						"offset": [
+							660,
+							280
+						],
+						"io": [
+							[
+								108,
+								0,
+								109,
+								0
+							]
+						]
+					},
+					"114": {
+						"offset": [
+							150,
+							200
+						],
+						"io": [
+							[
+								114,
+								0,
+								102,
+								0
+							]
+						]
+					},
+					"117": {
+						"offset": [
+							660,
+							150
+						]
+					},
+					"104": {
+						"offset": [
+							390,
+							200
+						],
+						"io": [
+							[
+								104,
+								0,
+								119,
+								0
+							]
+						]
+					},
+					"102": {
+						"offset": [
+							270,
+							200
+						],
+						"io": [
+							[
+								102,
+								0,
+								104,
+								0
+							]
+						]
+					},
+					"119": {
+						"offset": [
+							510,
+							200
+						],
+						"io": [
+							[
+								119,
+								0,
+								117,
+								0
+							]
+						]
+					}
+				}
 			}
 		},
 		"nodes": {
@@ -1270,10 +1366,7 @@
 				"data": {
 					"plaque": "Start"
 				},
-				"notes": "Every project, scene and macro starts with an Entry node.\nThis one is the Entry node for the project and the scene it resides in.",
-				"use": [
-					89
-				]
+				"notes": "Every project, scene and macro starts with an Entry node.\nThis one is the Entry node for the project and the scene it resides in."
 			},
 			"2": {
 				"type": "content",
@@ -1588,9 +1681,12 @@
 				"name": "S31N1bCnt",
 				"data": {
 					"title": "",
-					"content": "... and it's now `{lucky_number}`",
+					"content": "... and it's now `{lucky_number}`.",
 					"clear": false
-				}
+				},
+				"ref": [
+					95
+				]
 			},
 			"49": {
 				"type": "jump",
@@ -1966,7 +2062,7 @@
 				"name": "S59N2gCnt",
 				"data": {
 					"title": "",
-					"content": "... and jump back to the main scene.",
+					"content": "... and jump to another scene, where you can find out more about Macros.",
 					"clear": false
 				}
 			},
@@ -1974,11 +2070,11 @@
 				"type": "jump",
 				"name": "S59N2hJmp",
 				"data": {
-					"target": 1,
+					"target": 113,
 					"reason": ""
 				},
 				"ref": [
-					1
+					113
 				]
 			},
 			"90": {
@@ -2060,8 +2156,8 @@
 				"type": "content",
 				"name": "M98N2uCnt",
 				"data": {
-					"title": "Macro!",
-					"content": "`Macro` nodes are reusable scenes. They do whatever a scene can do but you can re-use them in the other scenes.",
+					"title": "",
+					"content": "They may be re-used via `Macro_Use` nodes, wherever you need to replay a set of nodes without repeating them.",
 					"clear": false
 				}
 			},
@@ -2070,7 +2166,7 @@
 				"name": "M98N2wCnt",
 				"data": {
 					"title": "",
-					"content": "When a Macro is done, it can jump to another node, or just leave its last node disconnected. In the latter case, the parent scene will continue to the next node (connected to the Macro node's outgoing slot.)",
+					"content": "When a Macro is done, it can jump to another scene, or just leave its last node disconnected. In the latter case, the parent scene will continue to the next node (connected to the Macro_Use node's outgoing slot.)",
 					"clear": false
 				}
 			},
@@ -2090,14 +2186,17 @@
 					"title": "",
 					"content": "So I know you have played this macro {counter} time(s.)",
 					"clear": false
-				}
+				},
+				"ref": [
+					100
+				]
 			},
 			"107": {
 				"type": "content",
 				"name": "M98N2zCnt",
 				"data": {
 					"title": "",
-					"content": "Because the macro doesn't jump, it is up to the parent scene to continue or end its plot-line.",
+					"content": "Because this macro doesn't jump, it is up to the parent scene to continue or end its plot-line.",
 					"clear": false
 				}
 			},
@@ -2109,6 +2208,9 @@
 				},
 				"ref": [
 					98
+				],
+				"use": [
+					117
 				]
 			},
 			"109": {
@@ -2136,6 +2238,84 @@
 					"label": "Macro Itself Ends Here",
 					"color": "ff69c85d"
 				}
+			},
+			"113": {
+				"type": "entry",
+				"name": "S112N35Ent",
+				"data": {
+					"plaque": "Using Macros"
+				},
+				"use": [
+					89
+				]
+			},
+			"114": {
+				"type": "content",
+				"name": "S112N36Cnt",
+				"data": {
+					"title": "Macro!",
+					"content": "`Macro`s are reusable scenes. They do whatever a scene can do but you can re-use them in any other scene.",
+					"clear": true
+				}
+			},
+			"117": {
+				"type": "jump",
+				"name": "S112N39Jmp",
+				"data": {
+					"target": 108,
+					"reason": ""
+				},
+				"ref": [
+					108
+				]
+			},
+			"119": {
+				"type": "content",
+				"name": "S112N3bCnt",
+				"data": {
+					"title": "",
+					"content": "Let's run a simple Macro here..",
+					"clear": false
+				}
+			},
+			"120": {
+				"type": "content",
+				"name": "S31N3cCnt",
+				"data": {
+					"title": "",
+					"content": "There is yet another way to modify a variable.\n`Generator` nodes can create and set value for any variable in the runtime.\nHere we make a random even integer in a range from 0 up to 100 ...",
+					"clear": false
+				}
+			},
+			"121": {
+				"type": "generator",
+				"name": "S31N3dGnr",
+				"data": {
+					"variable": 95,
+					"method": "randi",
+					"arguments": [
+						0,
+						100,
+						false,
+						true,
+						false
+					]
+				},
+				"ref": [
+					95
+				]
+			},
+			"122": {
+				"type": "content",
+				"name": "S31N3eCnt",
+				"data": {
+					"title": "",
+					"content": "... the result is `{lucky_number}`.",
+					"clear": false
+				},
+				"ref": [
+					95
+				]
 			}
 		},
 		"variables": {
@@ -2178,7 +2358,10 @@
 				"init": 7,
 				"use": [
 					45,
-					43
+					43,
+					47,
+					121,
+					122
 				]
 			},
 			"100": {
@@ -2186,7 +2369,8 @@
 				"type": "num",
 				"init": 0,
 				"use": [
-					101
+					101,
+					106
 				]
 			}
 		},
