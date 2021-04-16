@@ -9,6 +9,7 @@ signal request_mind
 
 onready var TheTree = get_tree() 
 onready var Main = TheTree.get_root().get_child(0)
+onready var TheViewport = get_viewport()
 onready var GridContextMenu = get_node(Addressbook.GRID_CONTEXT_MENU.itself)
 
 onready var Minimap = get_node(Addressbook.MINIMAP)
@@ -24,6 +25,7 @@ var DEFAULT_ZOOM:float;
 
 var _DRAWN_NODES_BY_ID = {}
 var _CONNECTION_RELATIONS = {}
+var _CONNECTION_RELATIONS_BY_ID_DIR_SLOT = {}
 
 var _CONNECTION_DRAWING_QUEUE = []
 
@@ -82,12 +84,85 @@ func _on_popup_request(position:Vector2) -> void:
 	GridContextMenu.call_deferred("show_up", position, offset_from_position(position))
 	pass
 
+func get_node_under_cursor(return_id:bool = false):
+	var mouse_position = TheViewport.get_mouse_position()
+	for node_id in _DRAWN_NODES_BY_ID:
+		var node = _DRAWN_NODES_BY_ID[node_id]
+		if (
+			is_instance_valid(node) &&
+			node.get_global_rect().has_point(mouse_position)
+		):
+			return (
+				node_id
+				if return_id == true
+				else
+				{ "id": node_id, "node": node }
+			)
+	return null
+
+func slot_is_available(node_id:int, slot_idx:int, in_else_out:bool = true) -> bool:
+	if _CONNECTION_RELATIONS_BY_ID_DIR_SLOT.has(node_id):
+		return (
+			_CONNECTION_RELATIONS_BY_ID_DIR_SLOT[node_id][
+			"in" if in_else_out else "out"
+			].has(slot_idx) == false
+		)
+	return true
+
+func get_node_slot_count(node_id:int = -1) -> int:
+	if _DRAWN_NODES_BY_ID.has(node_id):
+		var the_node = _DRAWN_NODES_BY_ID[node_id]
+		var dynamic_count = (
+			the_node._node_resource.data.slots
+			if the_node._node_resource.data.has("slots")
+			else 0
+		)
+		var static_count = the_node.get_child_count()
+		return int( max(dynamic_count, static_count) )
+	return 0
+
+func get_first_available_slot(node_id:int, incoming:bool) -> int:
+	if node_id >= 0 && _DRAWN_NODES_BY_ID.has(node_id):
+		var drawn_node = _DRAWN_NODES_BY_ID[node_id]
+		var slot_availability_map = []
+		var slot_count = get_node_slot_count(node_id)
+		if slot_count > 0:
+			for idx in range(0, slot_count):
+				var rel_slot_idx = slot_availability_map.size()
+				if incoming:
+					if drawn_node.is_slot_enabled_left(idx):
+						slot_availability_map.push_back(
+							slot_is_available(node_id, rel_slot_idx, true)
+						)
+				else:
+					if drawn_node.is_slot_enabled_right(idx):
+						slot_availability_map.push_back(
+							slot_is_available(node_id, rel_slot_idx, false)
+						)
+			# print_debug("assisted connection availability map: ", slot_availability_map, " of ", slot_count)
+			return slot_availability_map.find(true)
+	return -1
+
+func try_assisted_connection(outgoing:bool, first_side_slot:int, first_side_name:String) -> bool:
+	var target = get_node_under_cursor()
+	if target != null:
+		if target.node.name != first_side_name:
+			var target_slot = get_first_available_slot(target.id, outgoing) # = incoming for the other side
+			if target_slot >= 0 :
+				if outgoing:
+					_on_connection_request(first_side_name, first_side_slot, target.node.name, target_slot)
+				else:
+					_on_connection_request(target.node.name, target_slot, first_side_name, first_side_slot)
+		return true
+	return false
+
 func _on_connection_with_empty(node_name:String, slot:int, release_position:Vector2, outgoing:bool) -> void:
-	GridContextMenu.call_deferred(
-		"show_up",
-		release_position, offset_from_position(release_position),
-		[node_name.to_int(), slot, outgoing]
-	)
+	if try_assisted_connection(outgoing, slot, node_name) == false:
+		GridContextMenu.call_deferred(
+			"show_up",
+			release_position, offset_from_position(release_position),
+			[node_name.to_int(), slot, outgoing]
+		)
 	pass
 
 func _on_node_selection(node) -> void:
@@ -281,22 +356,28 @@ func keep_relationship(from_id:int, from_out_slot:int, to_id:int, to_in_slot:int
 	# outputer
 	if _CONNECTION_RELATIONS.has(from_id) == false:
 		_CONNECTION_RELATIONS[from_id] = { "in" : {}, "out": {} }
+		_CONNECTION_RELATIONS_BY_ID_DIR_SLOT[from_id] = { "in" : {}, "out": {} }
 	if _CONNECTION_RELATIONS[from_id]["out"].has(to_id) == false:
 		_CONNECTION_RELATIONS[from_id]["out"][to_id] = []
 	_CONNECTION_RELATIONS[from_id]["out"][to_id].append( [from_id, from_out_slot, to_id, to_in_slot] )
+	_CONNECTION_RELATIONS_BY_ID_DIR_SLOT[from_id]["out"][from_out_slot] = [to_id, to_in_slot]
 	# inputer
 	if _CONNECTION_RELATIONS.has(to_id) == false:
 		_CONNECTION_RELATIONS[to_id] = { "in" : {}, "out": {} }
+		_CONNECTION_RELATIONS_BY_ID_DIR_SLOT[to_id] = { "in" : {}, "out": {} }
 	if _CONNECTION_RELATIONS[to_id]["in"].has(from_id) == false:
 		_CONNECTION_RELATIONS[to_id]["in"][from_id] = []
 	_CONNECTION_RELATIONS[to_id]["in"][from_id].append( [from_id, from_out_slot, to_id, to_in_slot] )
+	_CONNECTION_RELATIONS_BY_ID_DIR_SLOT[to_id]["in"][to_in_slot] = [from_id, from_out_slot]
 	pass
 
 func unkeep_relationship(from_id:int, from_out_slot:int, to_id:int, to_in_slot:int) -> void:
 	if _CONNECTION_RELATIONS.has(from_id) && _CONNECTION_RELATIONS[from_id]["out"].has(to_id):
 		_CONNECTION_RELATIONS[from_id]["out"][to_id].erase( [from_id, from_out_slot, to_id, to_in_slot] )
+		_CONNECTION_RELATIONS_BY_ID_DIR_SLOT[from_id]["out"].erase(from_out_slot)
 	if _CONNECTION_RELATIONS.has(to_id) && _CONNECTION_RELATIONS[to_id]["in"].has(from_id):
 		_CONNECTION_RELATIONS[to_id]["in"][from_id].erase( [from_id, from_out_slot, to_id, to_in_slot] )
+		_CONNECTION_RELATIONS_BY_ID_DIR_SLOT[to_id]["in"].erase(to_in_slot)
 	pass
 
 func draw_connections_batch(connections_batch:Array) -> void:
@@ -325,14 +406,6 @@ func queue_drawing_connection(connection:Array) -> void:
 		_CONNECTION_DRAWING_QUEUE.push_back(connection)
 	pass
 
-func slot_is_free(node_id:int, the_slot_idx:int) -> bool:
-	if _CONNECTION_RELATIONS.has(node_id):
-		for outsider in _CONNECTION_RELATIONS[node_id]["out"] :
-			for connection in _CONNECTION_RELATIONS[node_id]["out"][outsider]:
-				if connection[1] == the_slot_idx:
-					return false
-	return true
-
 func _on_connection_request(from_name:String, from_slot:int, to_name:String, to_slot:int) -> void:
 	if from_name != to_name: # ... to avoid loops by connecting from and to the same point
 		# Note: the signal connected to this handler uses the `Node::name` property (different than `<node-resource>.name`)
@@ -340,7 +413,7 @@ func _on_connection_request(from_name:String, from_slot:int, to_name:String, to_
 		# so to get the id from name property we just need to extract the integer part of the name
 		var the_from_id = from_name.to_int()
 		var the_to_id = to_name.to_int()
-		if slot_is_free(the_from_id, from_slot) || Settings.RESTRICT_OUT_SLOTS_TO_ONE_CONNECTION == false: # only from side has outgoing slot
+		if slot_is_available(the_from_id, from_slot, false) || Settings.RESTRICT_OUT_SLOTS_TO_ONE_CONNECTION == false: # only from side has outgoing slot
 			connect_node(from_name, from_slot, to_name, to_slot)
 			var mind_update_node_map_job = {
 				"id": the_from_id, # the keeper side of the connection 
