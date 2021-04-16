@@ -15,10 +15,13 @@ onready var TheTree:SceneTree = self.get_tree()
 onready var UI = MainUserInterface.UiManager.new(self)
 onready var Configs = Configuration.ConfigHandler.new(self)
 onready var Mind = CentralMind.Mind.new(self)
+onready var Grid = get_node(Addressbook.GRID)
 
 # Quick Preferences (defaults)
 export var _AUTO_INSPECT:bool = true
 export var _AUTO_NODE_UPDATE:bool = true
+export var _QUICK_NODE_INSERTION:bool = true
+export var _CONNECTION_ASSIST:bool = true
 
 func _ready() -> void:
 	# print startup messages
@@ -82,6 +85,12 @@ func set_quick_preferences(preference:String, new_state:bool, refresh_view:bool 
 			_AUTO_INSPECT = new_state
 		"auto_node_update":
 			_AUTO_NODE_UPDATE = new_state
+		"quick_node_insertion":
+			_QUICK_NODE_INSERTION = new_state
+			Grid._ALLOW_QUICK_NODE_INSERTION = new_state
+		"connection_assist":
+			_CONNECTION_ASSIST = new_state
+			Grid._ALLOW_ASSISTED_CONNECTION = new_state
 	if refresh_view != false :
 		UI.update_quick_preferences_switchs_view()
 	pass
@@ -93,6 +102,10 @@ func toggle_quick_preferences(preference:String, refresh_view:bool = true):
 			new_state = ( ! _AUTO_INSPECT )
 		"auto_node_update":
 			new_state = ( ! _AUTO_NODE_UPDATE )
+		"quick_node_insertion":
+			new_state = ( ! _QUICK_NODE_INSERTION )
+		"connection_assist":
+			new_state = ( ! _CONNECTION_ASSIST )
 	if new_state != null:
 		set_quick_preferences(preference, new_state, refresh_view)
 	return new_state

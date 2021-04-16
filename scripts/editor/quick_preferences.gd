@@ -14,6 +14,8 @@ onready var QuickPreferencesPopup = self.get_popup()
 const QUICK_PREFERENCES_MENU = {
 	0: { "label": "Auto Inspection", "is_checkbox": true , "preference": "_AUTO_INSPECT", "command": "auto_inspect" },
 	1: { "label": "Auto Node Update", "is_checkbox": true , "preference": "_AUTO_NODE_UPDATE", "command": "auto_node_update" },
+	2: { "label": "Quick Node Insertion", "is_checkbox": true , "preference": "_QUICK_NODE_INSERTION", "command": "quick_node_insertion" },
+	3: { "label": "Connection Assist", "is_checkbox": true , "preference": "_CONNECTION_ASSIST", "command": "connection_assist" },
 }
 
 func _ready() -> void:
@@ -38,7 +40,8 @@ func load_quick_preferences_menu() -> void:
 
 func refresh_quick_preferences_menu_view() -> void:
 	for item_id in QUICK_PREFERENCES_MENU:
-		QuickPreferencesPopup.set_item_checked( item_id, Main[ QUICK_PREFERENCES_MENU[item_id].preference ] )
+		if QUICK_PREFERENCES_MENU[item_id] != null:
+			QuickPreferencesPopup.set_item_checked( item_id, Main[ QUICK_PREFERENCES_MENU[item_id].preference ] )
 	pass
 
 func _on_quick_preferences_popup_item_id_pressed(id) -> void:

@@ -21,7 +21,9 @@ var Utils = Helpers.Utils
 
 const NODE_NAME_FROM_ID_PREFIX = "GRID_GRAPH_NODE_WITH_ID_"
 
-var DEFAULT_ZOOM:float;
+var DEFAULT_ZOOM:float
+var _ALLOW_ASSISTED_CONNECTION = true
+var _ALLOW_QUICK_NODE_INSERTION = true
 
 var _DRAWN_NODES_BY_ID = {}
 var _CONNECTION_RELATIONS = {}
@@ -144,25 +146,27 @@ func get_first_available_slot(node_id:int, incoming:bool) -> int:
 	return -1
 
 func try_assisted_connection(outgoing:bool, first_side_slot:int, first_side_name:String) -> bool:
-	var target = get_node_under_cursor()
-	if target != null:
-		if target.node.name != first_side_name:
-			var target_slot = get_first_available_slot(target.id, outgoing) # = incoming for the other side
-			if target_slot >= 0 :
-				if outgoing:
-					_on_connection_request(first_side_name, first_side_slot, target.node.name, target_slot)
-				else:
-					_on_connection_request(target.node.name, target_slot, first_side_name, first_side_slot)
-		return true
+	if _ALLOW_ASSISTED_CONNECTION:
+		var target = get_node_under_cursor()
+		if target != null:
+			if target.node.name != first_side_name:
+				var target_slot = get_first_available_slot(target.id, outgoing) # = incoming for the other side
+				if target_slot >= 0 :
+					if outgoing:
+						_on_connection_request(first_side_name, first_side_slot, target.node.name, target_slot)
+					else:
+						_on_connection_request(target.node.name, target_slot, first_side_name, first_side_slot)
+			return true
 	return false
 
 func _on_connection_with_empty(node_name:String, slot:int, release_position:Vector2, outgoing:bool) -> void:
 	if try_assisted_connection(outgoing, slot, node_name) == false:
-		GridContextMenu.call_deferred(
-			"show_up",
-			release_position, offset_from_position(release_position),
-			[node_name.to_int(), slot, outgoing]
-		)
+		if _ALLOW_QUICK_NODE_INSERTION:
+			GridContextMenu.call_deferred(
+				"show_up",
+				release_position, offset_from_position(release_position),
+				[node_name.to_int(), slot, outgoing]
+			)
 	pass
 
 func _on_node_selection(node) -> void:

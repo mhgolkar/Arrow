@@ -1895,6 +1895,10 @@ class Mind :
 			Main.call_deferred("toggle_quick_preferences", "auto_inspect", true)
 		elif event.is_action_pressed("arrow_switch_auto_node_update"):
 			Main.call_deferred("toggle_quick_preferences", "auto_node_update", true)
+		elif event.is_action_pressed("arrow_switch_quick_node_insertion"):
+			Main.call_deferred("toggle_quick_preferences", "quick_node_insertion", true)
+		elif event.is_action_pressed("arrow_switch_connection_assist"):
+			Main.call_deferred("toggle_quick_preferences", "connection_assist", true)
 		elif event.is_action_pressed("arrow_toggle_inspector_panel_view"):
 			Main.UI.call_deferred("toggle_panel_visibility", "inspector")
 		elif event.is_action_pressed("arrow_play_from_scene_entry"):
