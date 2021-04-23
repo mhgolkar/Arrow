@@ -1,6 +1,19 @@
 # Arrow: Changelog
 
 
+## v1.4.0
+
++ New Features:
+    + Connection Assist
+
++ Enhancements:
+    + UI Retouch
+    + New Quick Preferences
+        > ... for `connection assist` and `quick node insertion`
+
++ Updated License
+
+
 ## v1.3.0
 
 + New Features:
