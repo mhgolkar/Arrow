@@ -39,7 +39,7 @@ wrap_enabled = true
 margin_top = 93.0
 margin_right = 239.0
 margin_bottom = 107.0
-text = "Direct user input to variable"
+text = "Direct user input to"
 
 [node name="DirectToVariable" type="OptionButton" parent="UserInput"]
 margin_top = 111.0

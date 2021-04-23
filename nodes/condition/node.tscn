@@ -28,11 +28,12 @@ __meta__ = {
 }
 
 [node name="False" type="Label" parent="."]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 92.0
 margin_bottom = 38.0
-text = "False"
+text = "False "
 align = 2
 
 [node name="Condition" type="Label" parent="."]
@@ -43,9 +44,10 @@ margin_bottom = 53.0
 text = "{statement}"
 
 [node name="True" type="Label" parent="."]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_left = 16.0
 margin_top = 54.0
 margin_right = 92.0
 margin_bottom = 68.0
-text = "True"
+text = "True "
 align = 2

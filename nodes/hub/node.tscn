@@ -20,10 +20,11 @@ __meta__ = {
 [node name="Head" type="VBoxContainer" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 42.0
+margin_right = 46.0
 margin_bottom = 38.0
 
 [node name="Label" type="Label" parent="Head"]
-margin_right = 26.0
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_right = 30.0
 margin_bottom = 14.0
-text = "Hub"
+text = " Hub"

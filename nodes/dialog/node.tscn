@@ -20,39 +20,40 @@ __meta__ = {
 [node name="Head" type="VBoxContainer" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 145.0
+margin_right = 148.0
 margin_bottom = 75.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Head"]
-margin_right = 129.0
+margin_right = 132.0
 margin_bottom = 14.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Head/HBoxContainer"]
-margin_right = 40.0
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_right = 44.0
 margin_bottom = 14.0
-text = "Dialog"
+text = " Dialog"
 
 [node name="MarginContainer" type="MarginContainer" parent="Head/HBoxContainer"]
-margin_left = 44.0
-margin_right = 45.0
+margin_left = 48.0
+margin_right = 48.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Playable" type="Label" parent="Head/HBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.501961 )
-margin_left = 49.0
-margin_right = 129.0
+margin_left = 52.0
+margin_right = 132.0
 margin_bottom = 14.0
 size_flags_vertical = 8
 text = "{play-status}"
 
 [node name="CharacterProfile" type="HBoxContainer" parent="Head"]
 margin_top = 18.0
-margin_right = 129.0
+margin_right = 132.0
 margin_bottom = 32.0
 
 [node name="Color" type="ColorRect" parent="Head/CharacterProfile"]
@@ -64,7 +65,7 @@ color = Color( 0.0588235, 0.407843, 0.956863, 0.435294 )
 
 [node name="Name" type="Label" parent="Head/CharacterProfile"]
 margin_left = 19.0
-margin_right = 129.0
+margin_right = 132.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
@@ -72,6 +73,6 @@ text = "{character-name}"
 
 [node name="MarginContainer" type="MarginContainer" parent="Head"]
 margin_top = 36.0
-margin_right = 129.0
+margin_right = 132.0
 margin_bottom = 51.0
 rect_min_size = Vector2( 0, 15 )

@@ -79,6 +79,12 @@ func reset_match_statistics_text() -> void:
 	)
 	pass
 
+func set_match_locator_controls_status(enabled:bool) -> void:
+	QueryMatchesOptionButton.set_disabled( !enabled )
+	QueryNextButton.set_disabled( !enabled )
+	QueryPreviousButton.set_disabled( !enabled )
+	pass
+
 func cleanup_query() -> void:
 	_QUERIED_NODES_BY_ID.clear()
 	_QUERIED_NODES_IDS_LIST.clear()
@@ -88,7 +94,7 @@ func cleanup_query() -> void:
 	_STATISTICS.current = 0
 	reset_match_statistics_text()
 	QueryMatchesOptionButtonPopup.clear()
-	QueryMatchesOptionButton.set_disabled(true)
+	set_match_locator_controls_status(false)
 	pass
 
 func update_query_results(nodes_dataset:Dictionary = {}) -> void:
@@ -98,7 +104,8 @@ func update_query_results(nodes_dataset:Dictionary = {}) -> void:
 	_STATISTICS.total = nodes_dataset.size()
 	_QUERIED_NODES_ROTATION_SIZE = _STATISTICS.total
 	if _STATISTICS.total > 0:
-		QueryMatchesOptionButton.set_disabled(false) # ... to activate menu back after `cleanup_query`
+		# ... to activate match finder menu back after `cleanup_query`
+		set_match_locator_controls_status(true)
 		# update match button
 		for node_id in _QUERIED_NODES_BY_ID:
 			var the_node = _QUERIED_NODES_BY_ID[node_id]

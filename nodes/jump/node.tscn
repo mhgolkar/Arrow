@@ -26,9 +26,10 @@ size_flags_horizontal = 7
 size_flags_vertical = 7
 
 [node name="Label" type="Label" parent="Slot"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_right = 82.0
 margin_bottom = 14.0
-text = "Jump to"
+text = " Jump to"
 
 [node name="Destination" type="Label" parent="Slot"]
 margin_top = 18.0

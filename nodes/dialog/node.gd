@@ -19,8 +19,8 @@ const OUT_SLOT_COLOR_LEFT   = OUT_SLOT_COLOR
 const LINE_SLOT_ALIGN = Label.ALIGN_RIGHT
 
 const ANONYMOUS_CHARACTER = DialogSharedClass.ANONYMOUS_CHARACTER
-const PLAYABLE_STATUS_MESSAGE = "Playable"
-const AUTOPLAY_STATUS_MESSAGE = "Auto"
+const PLAYABLE_STATUS_MESSAGE = " Playable"
+const AUTOPLAY_STATUS_MESSAGE = " Auto"
 
 var _node_id
 var _node_resource

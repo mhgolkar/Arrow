@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/editor/app_menu.gd" type="Script" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://scripts/editor/panels/notification.gd" type="Script" id=23]
 [ext_resource path="res://scripts/editor/new_release_check.gd" type="Script" id=24]
 [ext_resource path="res://scripts/editor/quick_preferences.gd" type="Script" id=25]
+[ext_resource path="res://resources/themes/godot_default.tres" type="Theme" id=26]
 [ext_resource path="res://scripts/editor/panels/console.gd" type="Script" id=33]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -39,6 +40,7 @@ height = 25
 [node name="Main" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 26 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -51,6 +53,7 @@ layer = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+theme = ExtResource( 26 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -70,10 +73,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -250.0
-margin_top = -200.0
-margin_right = 250.0
-margin_bottom = 140.0
+margin_left = -350.0
+margin_top = -220.0
+margin_right = 350.0
+margin_bottom = 130.0
 script = ExtResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -82,20 +85,20 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/AboutApp"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 493.0
-margin_bottom = 346.0
+margin_right = 693.0
+margin_bottom = 388.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer"]
-margin_right = 486.0
-margin_bottom = 339.0
+margin_right = 686.0
+margin_bottom = 381.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ArrowLogo" type="TextureRect" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer"]
-margin_right = 192.0
-margin_bottom = 339.0
+margin_right = 272.0
+margin_bottom = 381.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
@@ -104,9 +107,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Information" type="PanelContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer"]
-margin_left = 196.0
-margin_right = 486.0
-margin_bottom = 339.0
+margin_left = 276.0
+margin_right = 686.0
+margin_bottom = 381.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
@@ -114,61 +117,61 @@ size_flags_stretch_ratio = 6.0
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 283.0
-margin_bottom = 332.0
+margin_right = 403.0
+margin_bottom = 374.0
 
 [node name="AppName" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_right = 276.0
-margin_bottom = 14.0
+margin_right = 396.0
+margin_bottom = 17.0
 text = "Arrow"
 
 [node name="Version" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 18.0
-margin_right = 276.0
-margin_bottom = 32.0
+margin_top = 21.0
+margin_right = 396.0
+margin_bottom = 38.0
 
 [node name="MarginContainer1" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 36.0
-margin_right = 276.0
-margin_bottom = 36.0
+margin_top = 42.0
+margin_right = 396.0
+margin_bottom = 42.0
 size_flags_vertical = 3
 
 [node name="Description" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 40.0
-margin_right = 276.0
-margin_bottom = 88.0
+margin_top = 46.0
+margin_right = 396.0
+margin_bottom = 103.0
 text = "Arrow is a free and open-source game narrative design tool.
 For more information check out:"
 autowrap = true
 
 [node name="InfoLinks" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 92.0
-margin_right = 276.0
-margin_bottom = 124.0
+margin_top = 107.0
+margin_right = 396.0
+margin_bottom = 145.0
 
 [node name="MarginLeft" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks"]
-margin_right = 27.0
-margin_bottom = 32.0
+margin_right = 39.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks"]
-margin_left = 31.0
-margin_right = 276.0
-margin_bottom = 32.0
+margin_left = 43.0
+margin_right = 396.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
 
 [node name="Source" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
-margin_right = 245.0
-margin_bottom = 14.0
+margin_right = 353.0
+margin_bottom = 17.0
 text = "Git Repository"
 
 [node name="Docs" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
-margin_top = 18.0
-margin_right = 245.0
-margin_bottom = 32.0
+margin_top = 21.0
+margin_right = 353.0
+margin_bottom = 38.0
 text = "Online Documentation"
 
 [node name="Reditt" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
@@ -179,23 +182,23 @@ margin_bottom = 50.0
 text = "r/arrow"
 
 [node name="MarginContainer2" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 128.0
-margin_right = 276.0
-margin_bottom = 128.0
+margin_top = 149.0
+margin_right = 396.0
+margin_bottom = 149.0
 size_flags_vertical = 3
 
 [node name="AskDonation" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 132.0
-margin_right = 276.0
-margin_bottom = 197.0
+margin_top = 153.0
+margin_right = 396.0
+margin_bottom = 230.0
 text = "Please show your support by spreading the word if you enjoy Arrow.
 I'll be grateful if you consider donation as well. Ethereum Wallet Address:"
 autowrap = true
 
 [node name="EthWalletAddress" type="TextEdit" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 201.0
-margin_right = 276.0
-margin_bottom = 261.0
+margin_top = 234.0
+margin_right = 396.0
+margin_bottom = 294.0
 rect_min_size = Vector2( 0, 60 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -207,9 +210,9 @@ virtual_keyboard_enabled = false
 wrap_enabled = true
 
 [node name="MarginContainer3" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 265.0
-margin_right = 276.0
-margin_bottom = 265.0
+margin_top = 298.0
+margin_right = 396.0
+margin_bottom = 298.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
@@ -221,35 +224,35 @@ margin_bottom = 221.0
 text = "Developed by:"
 
 [node name="Developer" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 269.0
-margin_right = 276.0
-margin_bottom = 283.0
+margin_top = 302.0
+margin_right = 396.0
+margin_bottom = 319.0
 
 [node name="Account" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Developer"]
-margin_right = 92.0
-margin_bottom = 14.0
+margin_right = 112.0
+margin_bottom = 17.0
 text = "Mor. H. Golkar"
 
 [node name="Copyright" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Developer"]
-margin_left = 96.0
-margin_right = 144.0
-margin_bottom = 14.0
+margin_left = 116.0
+margin_right = 164.0
+margin_bottom = 17.0
 text = "© 2021"
 
 [node name="Made" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 287.0
-margin_right = 276.0
-margin_bottom = 301.0
+margin_top = 323.0
+margin_right = 396.0
+margin_bottom = 340.0
 
 [node name="WithLove" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made"]
-margin_right = 75.0
-margin_bottom = 14.0
-text = "with Love &"
+margin_right = 88.0
+margin_bottom = 17.0
+text = "with Love & "
 
 [node name="Godot" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made"]
-margin_left = 79.0
-margin_right = 164.0
-margin_bottom = 14.0
+margin_left = 92.0
+margin_right = 188.0
+margin_bottom = 17.0
 text = "Godot Engine"
 
 [node name="More" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made"]
@@ -260,15 +263,15 @@ margin_bottom = 14.0
 text = "."
 
 [node name="Buttons" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 305.0
-margin_right = 276.0
-margin_bottom = 325.0
+margin_top = 344.0
+margin_right = 396.0
+margin_bottom = 367.0
 alignment = 2
 
 [node name="OK" type="Button" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Buttons"]
-margin_left = 226.0
-margin_right = 276.0
-margin_bottom = 20.0
+margin_left = 346.0
+margin_right = 396.0
+margin_bottom = 23.0
 rect_min_size = Vector2( 50, 0 )
 text = "OK"
 
@@ -951,6 +954,7 @@ text = "{action}"
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+theme = ExtResource( 26 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -980,17 +984,20 @@ __meta__ = {
 
 [node name="Titlebar" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer"]
 margin_right = 256.0
-margin_bottom = 20.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
 
 [node name="DragPoint" type="Control" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/Titlebar"]
 margin_right = 232.0
-margin_bottom = 20.0
+margin_bottom = 24.0
 mouse_default_cursor_shape = 6
 size_flags_horizontal = 3
 
 [node name="InspectorLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/Titlebar/DragPoint"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+rect_min_size = Vector2( 0, 24 )
 size_flags_vertical = 1
-text = "Inspector"
+text = "  Inspector"
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -999,14 +1006,28 @@ __meta__ = {
 [node name="ResizePoint" type="Control" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/Titlebar"]
 margin_left = 236.0
 margin_right = 256.0
-margin_bottom = 20.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 20, 20 )
 mouse_default_cursor_shape = 11
 size_flags_horizontal = 9
 size_flags_vertical = 9
 
+[node name="Label" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/Titlebar/ResizePoint"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "ﬕ"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TabContainer" type="TabContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer"]
-margin_top = 24.0
+margin_top = 28.0
 margin_right = 256.0
 margin_bottom = 416.0
 size_flags_horizontal = 3
@@ -1020,7 +1041,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 35.0
 margin_right = -4.0
 margin_bottom = -4.0
 script = ExtResource( 17 )
@@ -1573,7 +1594,7 @@ text = "Preview"
 margin_left = 176.0
 margin_right = 240.0
 margin_bottom = 20.0
-hint_tooltip = "Create Restore Point (Ctrl + D)"
+hint_tooltip = "Remove Selected Restore Point"
 size_flags_horizontal = 3
 text = "Rem"
 
@@ -1768,7 +1789,7 @@ text = "Local"
 
 [node name="LocalMode" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes"]
 margin_right = 248.0
-margin_bottom = 356.0
+margin_bottom = 349.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -1779,7 +1800,7 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 241.0
-margin_bottom = 349.0
+margin_bottom = 342.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -1788,26 +1809,26 @@ __meta__ = {
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects"]
 margin_right = 234.0
-margin_bottom = 318.0
+margin_bottom = 308.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ListedProjects" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/ScrollContainer"]
 margin_right = 234.0
-margin_bottom = 318.0
+margin_bottom = 308.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "{ local projects }", null, false ]
 
 [node name="LocalProjectsActions" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects"]
-margin_top = 322.0
+margin_top = 312.0
 margin_right = 234.0
-margin_bottom = 342.0
+margin_bottom = 335.0
 alignment = 1
 
 [node name="NewLocalProjectMenu" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions"]
 margin_right = 75.0
-margin_bottom = 20.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "New"
 flat = false
@@ -1816,7 +1837,7 @@ script = ExtResource( 7 )
 [node name="OpenLocalProject" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions"]
 margin_left = 79.0
 margin_right = 154.0
-margin_bottom = 20.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 disabled = true
 text = "Open"
@@ -1824,7 +1845,7 @@ text = "Open"
 [node name="RemoveLocalProject" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions"]
 margin_left = 158.0
 margin_right = 234.0
-margin_bottom = 20.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 disabled = true
 text = "Remove"
@@ -1834,7 +1855,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 35.0
 margin_right = -4.0
 margin_bottom = -4.0
 script = ExtResource( 11 )
@@ -1954,8 +1975,9 @@ alignment = 1
 [node name="NodeHistoryBack" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer"]
 margin_right = 20.0
 margin_bottom = 20.0
-hint_tooltip = "Update Node (Ctrl + Shift + Plus)"
-text = "<"
+rect_min_size = Vector2( 30, 0 )
+hint_tooltip = "Previous Modification"
+text = "社"
 
 [node name="ResetNodeParams" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer"]
 margin_left = 24.0
@@ -1968,8 +1990,9 @@ text = "Reset"
 margin_left = 76.0
 margin_right = 96.0
 margin_bottom = 20.0
-hint_tooltip = "Update Node (Ctrl + Shift + Plus)"
-text = ">"
+rect_min_size = Vector2( 30, 0 )
+hint_tooltip = "Next Modification"
+text = "漏"
 
 [node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTools/HBoxContainer"]
 margin_left = 100.0
@@ -2018,7 +2041,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 35.0
 margin_right = -4.0
 margin_bottom = -4.0
 script = ExtResource( 14 )
@@ -2110,7 +2133,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 35.0
 margin_right = -4.0
 margin_bottom = -4.0
 script = ExtResource( 13 )
@@ -2250,7 +2273,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 35.0
 margin_right = -4.0
 margin_bottom = -4.0
 script = ExtResource( 10 )
@@ -2372,7 +2395,7 @@ size_flags_horizontal = 3
 
 [node name="String" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableInitial/VariableInitialValue"]
 margin_right = 194.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 placeholder_text = "Initial Value"
 __meta__ = {
@@ -2382,7 +2405,7 @@ __meta__ = {
 [node name="Number" type="SpinBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableInitial/VariableInitialValue"]
 visible = false
 margin_right = 194.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 allow_greater = true
 allow_lesser = true
@@ -2393,7 +2416,7 @@ __meta__ = {
 [node name="Boolean" type="OptionButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableInitial/VariableInitialValue"]
 visible = false
 margin_right = 194.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 text = "True"
 items = [ "True", null, false, 1, null, "False", null, false, 0, null ]
 selected = 0
@@ -2453,7 +2476,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 35.0
 margin_right = -4.0
 margin_bottom = -4.0
 script = ExtResource( 12 )
@@ -2614,44 +2637,44 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer"]
 margin_right = 261.0
-margin_bottom = 28.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 alignment = 2
 
 [node name="LobbyLabel" type="Label" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/HBoxContainer"]
-margin_right = 82.0
-margin_bottom = 28.0
+margin_right = 90.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 text = "Lobby"
 valign = 1
 
 [node name="CloseLobby" type="Button" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/HBoxContainer"]
-margin_left = 86.0
-margin_right = 177.0
-margin_bottom = 28.0
+margin_left = 94.0
+margin_right = 183.0
+margin_bottom = 20.0
 text = "Close Lobby"
 
 [node name="DistractionFreeLobby" type="Button" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/HBoxContainer"]
-margin_left = 181.0
-margin_right = 205.0
-margin_bottom = 28.0
+margin_left = 187.0
+margin_right = 209.0
+margin_bottom = 20.0
 text = "D"
 
 [node name="ResizeLobby" type="Button" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/HBoxContainer"]
-margin_left = 209.0
-margin_right = 231.0
-margin_bottom = 28.0
+margin_left = 213.0
+margin_right = 233.0
+margin_bottom = 20.0
 text = "R"
 
 [node name="MoveLobby" type="Button" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/HBoxContainer"]
-margin_left = 235.0
+margin_left = 237.0
 margin_right = 261.0
-margin_bottom = 28.0
+margin_bottom = 20.0
 text = "M"
 
 [node name="PanelContainer" type="PanelContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer"]
-margin_top = 32.0
+margin_top = 24.0
 margin_right = 261.0
 margin_bottom = 398.0
 size_flags_horizontal = 3
@@ -2661,18 +2684,18 @@ size_flags_vertical = 3
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 254.0
-margin_bottom = 359.0
+margin_bottom = 367.0
 
 [node name="LobbyChatMessagesContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat"]
 margin_right = 247.0
-margin_bottom = 263.0
+margin_bottom = 279.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer"]
 margin_right = 247.0
-margin_bottom = 263.0
+margin_bottom = 279.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -2739,9 +2762,9 @@ text = "Lurep ipsum my message outgoing."
 autowrap = true
 
 [node name="LobbyChatMessageInput" type="VBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat"]
-margin_top = 275.0
+margin_top = 291.0
 margin_right = 247.0
-margin_bottom = 352.0
+margin_bottom = 360.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -2757,21 +2780,21 @@ wrap_enabled = true
 [node name="LobbyChatMessageSend" type="HBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessageInput"]
 margin_top = 49.0
 margin_right = 247.0
-margin_bottom = 77.0
+margin_bottom = 69.0
 size_flags_horizontal = 3
 alignment = 2
 
 [node name="LobbyChatMessageBroadcast" type="Button" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessageInput/LobbyChatMessageSend"]
-margin_left = 113.0
-margin_right = 190.0
-margin_bottom = 28.0
+margin_left = 117.0
+margin_right = 192.0
+margin_bottom = 20.0
 size_flags_horizontal = 9
 text = "Broadcast"
 
 [node name="LobbyChatMessageDirect" type="MenuButton" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessageInput/LobbyChatMessageSend"]
-margin_left = 194.0
+margin_left = 196.0
 margin_right = 247.0
-margin_bottom = 28.0
+margin_bottom = 20.0
 text = "Direct"
 flat = false
 items = [ "User-X (Offline)", SubResource( 2 ), 0, false, true, 0, 0, null, "", false, "User-Y", null, 0, false, false, 1, 0, null, "", false ]
@@ -2818,9 +2841,12 @@ mouse_default_cursor_shape = 6
 size_flags_horizontal = 3
 
 [node name="ConsoleLabel" type="Label" parent="FloatToolsLayer/Container/Console/VBoxContainer/Titlebar/DragPoint"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_right = 40.0
 margin_bottom = 14.0
-text = "Console"
+rect_min_size = Vector2( 0, 24 )
+text = "   Console"
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2832,10 +2858,24 @@ margin_bottom = 20.0
 rect_min_size = Vector2( 20, 20 )
 mouse_default_cursor_shape = 11
 
+[node name="Label" type="Label" parent="FloatToolsLayer/Container/Console/VBoxContainer/Titlebar/ResizePoint"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "ﬕ"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="PanelContainer" type="PanelContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer"]
 margin_top = 24.0
 margin_right = 261.0
-margin_bottom = 391.0
+margin_bottom = 388.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -2843,13 +2883,13 @@ size_flags_vertical = 3
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 254.0
-margin_bottom = 360.0
+margin_bottom = 357.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer"]
 margin_right = 247.0
-margin_bottom = 353.0
+margin_bottom = 350.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -2857,13 +2897,14 @@ size_flags_vertical = 3
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 240.0
-margin_bottom = 346.0
+margin_bottom = 343.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+scroll_horizontal_enabled = false
 
 [node name="ConsoleTerminal" type="VBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/PanelContainer/ScrollContainer"]
 margin_right = 233.0
-margin_bottom = 339.0
+margin_bottom = 336.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -2899,7 +2940,7 @@ size_flags_horizontal = 3
 
 [node name="String" type="LineEdit" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer/CurrentValue"]
 margin_right = 171.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -2908,7 +2949,7 @@ __meta__ = {
 [node name="Number" type="SpinBox" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer/CurrentValue"]
 visible = false
 margin_right = 171.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 allow_greater = true
 allow_lesser = true
@@ -2919,7 +2960,7 @@ __meta__ = {
 [node name="Boolean" type="OptionButton" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer/CurrentValue"]
 visible = false
 margin_right = 171.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 text = "True"
 items = [ "True", null, false, 1, null, "False", null, false, 0, null ]
 selected = 0
@@ -2931,44 +2972,44 @@ margin_bottom = 24.0
 text = "Update"
 
 [node name="Toolbar" type="HBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer"]
-margin_top = 395.0
+margin_top = 392.0
 margin_right = 261.0
 margin_bottom = 415.0
 size_flags_horizontal = 3
 
 [node name="ConsoleSettings" type="MenuButton" parent="FloatToolsLayer/Container/Console/VBoxContainer/Toolbar"]
-margin_right = 63.0
-margin_bottom = 20.0
+margin_right = 76.0
+margin_bottom = 23.0
 size_flags_horizontal = 8
 text = "Settings"
 flat = false
 items = [ "{ settings }", null, 1, true, false, 0, 0, null, "", false ]
 
 [node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/Toolbar"]
-margin_left = 67.0
-margin_right = 116.0
-margin_bottom = 20.0
+margin_left = 80.0
+margin_right = 101.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Close" type="Button" parent="FloatToolsLayer/Container/Console/VBoxContainer/Toolbar"]
-margin_left = 120.0
-margin_right = 167.0
-margin_bottom = 20.0
+margin_left = 105.0
+margin_right = 157.0
+margin_bottom = 23.0
 hint_tooltip = "Hides Console"
 text = "Close"
 
 [node name="Clear" type="Button" parent="FloatToolsLayer/Container/Console/VBoxContainer/Toolbar"]
-margin_left = 171.0
-margin_right = 215.0
-margin_bottom = 20.0
+margin_left = 161.0
+margin_right = 213.0
+margin_bottom = 23.0
 hint_tooltip = "Clears Console & State of Play"
 text = "Clear"
 
 [node name="PlayStepBack" type="Button" parent="FloatToolsLayer/Container/Console/VBoxContainer/Toolbar"]
-margin_left = 219.0
+margin_left = 217.0
 margin_right = 261.0
-margin_bottom = 20.0
+margin_bottom = 23.0
 text = "Back"
 
 [node name="GridContextMenu" type="PopupPanel" parent="FloatToolsLayer/Container"]
@@ -3059,35 +3100,40 @@ alignment = 1
 visible = false
 margin_right = 32.0
 margin_bottom = 20.0
+hint_tooltip = "Clean Clipboard"
 size_flags_horizontal = 3
-text = "Rst"
+text = " ﳠ "
 
 [node name="Copy" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
 margin_right = 46.0
 margin_bottom = 20.0
+hint_tooltip = "Copy Node(s)"
 size_flags_horizontal = 3
-text = "Cp"
+text = "  "
 
 [node name="Cut" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
 margin_left = 50.0
 margin_right = 96.0
 margin_bottom = 20.0
+hint_tooltip = "Cut Node(s)"
 size_flags_horizontal = 3
-text = "Ct"
+text = "  "
 
 [node name="Paste" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
 margin_left = 100.0
 margin_right = 146.0
 margin_bottom = 20.0
+hint_tooltip = "Paste Node(s)"
 size_flags_horizontal = 3
-text = "pst"
+text = "  "
 
 [node name="Remove" type="Button" parent="FloatToolsLayer/Container/GridContextMenu/VBoxContainer/EditTools"]
 margin_left = 150.0
 margin_right = 196.0
 margin_bottom = 20.0
+hint_tooltip = "Remove Node(s)"
 size_flags_horizontal = 3
-text = "Del"
+text = "  "
 
 [node name="Editor" type="VBoxContainer" parent="."]
 margin_left = 7.0
@@ -3102,7 +3148,7 @@ __meta__ = {
 
 [node name="Top" type="HBoxContainer" parent="Editor"]
 margin_right = 1010.0
-margin_bottom = 34.0
+margin_bottom = 37.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -3110,16 +3156,24 @@ __meta__ = {
 
 [node name="Toolbar" type="HBoxContainer" parent="Editor/Top"]
 margin_right = 1010.0
-margin_bottom = 34.0
+margin_bottom = 37.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 alignment = 1
 
-[node name="AppMenu" type="MenuButton" parent="Editor/Top/Toolbar"]
-margin_right = 89.0
-margin_bottom = 34.0
-size_flags_horizontal = 7
+[node name="AppControls" type="PanelContainer" parent="Editor/Top/Toolbar"]
+margin_right = 80.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 80, 0 )
+size_flags_vertical = 3
+
+[node name="AppMenu" type="MenuButton" parent="Editor/Top/Toolbar/AppControls"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 73.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Arrow"
 flat = false
@@ -3136,9 +3190,9 @@ text = "{new version message}"
 script = ExtResource( 24 )
 
 [node name="ProjectTitle" type="Label" parent="Editor/Top/Toolbar"]
-margin_left = 93.0
-margin_right = 810.0
-margin_bottom = 34.0
+margin_left = 84.0
+margin_right = 732.0
+margin_bottom = 37.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 8.0
@@ -3163,59 +3217,72 @@ margin_bottom = 40.0
 text = "Auto Local Save"
 
 [node name="PlayModes" type="PanelContainer" parent="Editor/Top/Toolbar"]
-margin_left = 814.0
-margin_right = 951.0
-margin_bottom = 34.0
+margin_left = 736.0
+margin_right = 916.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 180, 0 )
+size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/Top/Toolbar/PlayModes"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 130.0
-margin_bottom = 27.0
+margin_right = 173.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+alignment = 1
 
 [node name="PlayFromProjectEntry" type="Button" parent="Editor/Top/Toolbar/PlayModes/HBoxContainer"]
-margin_right = 27.0
-margin_bottom = 20.0
+margin_right = 38.0
+margin_bottom = 23.0
 hint_tooltip = "Play from Project Entry (F4)"
-text = "PE"
+size_flags_horizontal = 3
+text = ""
 
 [node name="PlayFromSceneEntry" type="Button" parent="Editor/Top/Toolbar/PlayModes/HBoxContainer"]
-margin_left = 31.0
-margin_right = 58.0
-margin_bottom = 20.0
+margin_left = 42.0
+margin_right = 81.0
+margin_bottom = 23.0
 hint_tooltip = "Play from Scene Entry (F5)"
-text = "PS"
+size_flags_horizontal = 3
+text = ""
 
 [node name="PlayFromLeftConsole" type="Button" parent="Editor/Top/Toolbar/PlayModes/HBoxContainer"]
-margin_left = 62.0
-margin_right = 89.0
-margin_bottom = 20.0
+margin_left = 85.0
+margin_right = 123.0
+margin_bottom = 23.0
 hint_tooltip = "Show Console (F6)"
-text = "CL"
+size_flags_horizontal = 3
+text = ""
 
 [node name="PlayFromSelectedNode" type="Button" parent="Editor/Top/Toolbar/PlayModes/HBoxContainer"]
-margin_left = 93.0
-margin_right = 123.0
-margin_bottom = 20.0
+margin_left = 127.0
+margin_right = 166.0
+margin_bottom = 23.0
 hint_tooltip = "Play Selected Node (F7)"
-text = "PN"
+size_flags_horizontal = 3
+text = ""
 
 [node name="EditQuickTools" type="PanelContainer" parent="Editor/Top/Toolbar"]
-margin_left = 955.0
+margin_left = 920.0
 margin_right = 1010.0
-margin_bottom = 34.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 90, 0 )
+size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/Top/Toolbar/EditQuickTools"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 48.0
-margin_bottom = 27.0
+margin_right = 83.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+alignment = 1
 
 [node name="SaveProject" type="Button" parent="Editor/Top/Toolbar/EditQuickTools/HBoxContainer"]
-margin_right = 41.0
-margin_bottom = 20.0
+margin_right = 76.0
+margin_bottom = 23.0
 hint_tooltip = "Save Project (Ctrl + S)"
-text = "Save"
+size_flags_horizontal = 3
+text = "Save "
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -3227,9 +3294,9 @@ anchor_bottom = 1.0
 color = Color( 0.74902, 0.121569, 0.54902, 1 )
 
 [node name="Center" type="Control" parent="Editor"]
-margin_top = 38.0
+margin_top = 41.0
 margin_right = 1010.0
-margin_bottom = 544.0
+margin_bottom = 541.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -3278,7 +3345,7 @@ __meta__ = {
 }
 
 [node name="Bottom" type="HBoxContainer" parent="Editor"]
-margin_top = 548.0
+margin_top = 545.0
 margin_right = 1010.0
 margin_bottom = 586.0
 size_flags_horizontal = 3
@@ -3289,14 +3356,14 @@ __meta__ = {
 }
 
 [node name="BreadCrumb" type="MarginContainer" parent="Editor/Bottom"]
-margin_right = 156.0
-margin_bottom = 38.0
+margin_right = 152.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="OpenSceneTitle" type="Label" parent="Editor/Bottom/BreadCrumb"]
-margin_right = 156.0
-margin_bottom = 38.0
+margin_right = 152.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -3307,9 +3374,9 @@ autowrap = true
 clip_text = true
 
 [node name="QueryPanel" type="PanelContainer" parent="Editor/Bottom"]
-margin_left = 160.0
-margin_right = 785.0
-margin_bottom = 38.0
+margin_left = 156.0
+margin_right = 764.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 script = ExtResource( 16 )
@@ -3317,15 +3384,15 @@ script = ExtResource( 16 )
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/Bottom/QueryPanel"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 618.0
-margin_bottom = 31.0
+margin_right = 601.0
+margin_bottom = 34.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="QueryInput" type="LineEdit" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_right = 282.0
-margin_bottom = 24.0
+margin_right = 240.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
 align = 1
@@ -3333,73 +3400,81 @@ clear_button_enabled = true
 placeholder_text = "Query"
 
 [node name="How" type="OptionButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 286.0
-margin_right = 361.0
-margin_bottom = 24.0
+margin_left = 244.0
+margin_right = 329.0
+margin_bottom = 27.0
 rect_min_size = Vector2( 75, 0 )
+size_flags_horizontal = 3
 text = "{ how }"
 items = [ "{ how }", null, false, 0, null ]
 selected = 0
 
-[node name="ProjectWide" type="CheckBox" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 365.0
-margin_right = 401.0
-margin_bottom = 24.0
+[node name="ProjectWide" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
+margin_left = 333.0
+margin_right = 363.0
+margin_bottom = 27.0
 hint_tooltip = "Search Project Wide (otherwise only in the current open scene)"
-text = "P"
+size_flags_horizontal = 3
+toggle_mode = true
+text = ""
 
 [node name="Search" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 405.0
-margin_right = 423.0
-margin_bottom = 24.0
+margin_left = 367.0
+margin_right = 401.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 34, 0 )
 hint_tooltip = "Query (Ctrl + Q)"
-text = "?"
+size_flags_horizontal = 3
+text = ""
 
 [node name="PreviousMatch" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 427.0
-margin_right = 467.0
-margin_bottom = 24.0
+margin_left = 405.0
+margin_right = 435.0
+margin_bottom = 27.0
 hint_tooltip = "Locate Previous Match (Ctrl + 1)"
-text = "Prev"
+size_flags_horizontal = 3
+text = ""
 
 [node name="Matches" type="MenuButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 471.0
-margin_right = 565.0
-margin_bottom = 24.0
+margin_left = 439.0
+margin_right = 559.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
 text = "c : t Matches"
 items = [ "Scence Abx / s1n1act : Action / 3 - ... queried part sample ...", null, 0, false, false, 0, 0, null, "", false, "Scence Abx / s1n3 : Change Var / Note - ... query....", null, 0, false, false, 1, 0, null, "", false ]
 
 [node name="NextMatch" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 569.0
-margin_right = 611.0
-margin_bottom = 24.0
+margin_left = 563.0
+margin_right = 594.0
+margin_bottom = 27.0
 hint_tooltip = "Locate Next Match (Ctrl + 2)"
-text = "Next"
+size_flags_horizontal = 3
+text = ""
 
 [node name="QuickSwitches" type="PanelContainer" parent="Editor/Bottom"]
-margin_left = 789.0
-margin_right = 1009.0
-margin_bottom = 38.0
+margin_left = 768.0
+margin_right = 1010.0
+margin_bottom = 41.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/Bottom/QuickSwitches"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 213.0
-margin_bottom = 31.0
+margin_right = 235.0
+margin_bottom = 34.0
 
 [node name="InspectorViewToggle" type="Button" parent="Editor/Bottom/QuickSwitches/HBoxContainer"]
-margin_right = 73.0
-margin_bottom = 24.0
+margin_right = 100.0
+margin_bottom = 27.0
 hint_tooltip = "Toggle Inspector Panel (Ctrl + P)"
 toggle_mode = true
 pressed = true
-text = "Inspector"
+text = "  Inspect."
 
 [node name="QuickPreferences" type="MenuButton" parent="Editor/Bottom/QuickSwitches/HBoxContainer"]
-margin_left = 77.0
-margin_right = 206.0
-margin_bottom = 24.0
-text = "Quick Preferences"
+margin_left = 104.0
+margin_right = 228.0
+margin_bottom = 27.0
+text = "  Quick Pref."
 flat = false
 script = ExtResource( 25 )

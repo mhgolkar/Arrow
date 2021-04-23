@@ -22,9 +22,10 @@ margin_right = 108.0
 margin_bottom = 56.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_right = 92.0
 margin_bottom = 14.0
-text = "Content"
+text = " Content"
 
 [node name="Title" type="Label" parent="VBoxContainer"]
 margin_top = 18.0

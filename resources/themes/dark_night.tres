@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=28 format=2]
+[gd_resource type="Theme" load_steps=29 format=2]
+
+[ext_resource path="res://resources/fonts/dejavu_sans_mono_nerdfont_dynfont.tres" type="DynamicFont" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.188235, 0.188235, 0.188235, 0.498039 )
@@ -330,6 +332,7 @@ expand_margin_top = 24.0
 expand_margin_bottom = 5.0
 
 [resource]
+default_font = ExtResource( 1 )
 Button/colors/font_color = Color( 0, 1, 0.766667, 1 )
 Button/colors/font_color_disabled = Color( 0.231373, 0.545098, 0.47451, 1 )
 Button/colors/font_color_hover = Color( 0.117647, 0.117647, 0.117647, 1 )

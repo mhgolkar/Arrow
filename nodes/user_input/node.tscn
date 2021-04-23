@@ -22,9 +22,10 @@ margin_right = 199.0
 margin_bottom = 92.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_right = 183.0
 margin_bottom = 14.0
-text = "Ask :"
+text = "﬍ Ask :"
 
 [node name="Prompt" type="Label" parent="VBoxContainer"]
 margin_top = 18.0
@@ -33,6 +34,7 @@ margin_bottom = 32.0
 text = "{the prompt question}"
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_top = 36.0
 margin_right = 183.0
 margin_bottom = 50.0

@@ -29,7 +29,7 @@ const THEME_ADJUSTMENT_LAYERS = [
 const EDITOR = {
 	"itself": "/root/Main/Editor",
 	# Top
-	"APP_MENU": "/root/Main/Editor/Top/Toolbar/AppMenu",
+	"APP_MENU": "/root/Main/Editor/Top/Toolbar/AppControls/AppMenu",
 	"PROJECT_TITLE": "/root/Main/Editor/Top/Toolbar/ProjectTitle",
 	#	Reserved for possible vcs integration in the future:
 	#		"AUTO_LOCAL_SAVE_SWITCH": "/root/Main/Editor/Top/Toolbar/AutoLocalSaveSwitch",
