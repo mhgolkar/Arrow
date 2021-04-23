@@ -78,7 +78,7 @@ Copyright (c) 2021 Mor. H. Golkar and contributors
 
 Unless otherwise specified, Arrow and files in this repository are
 available under `MIT` license.
-See [license][license-file] file for more information.
+See [license][license-file] & [copyright][copyright-file] files for more information.
 
 
 Have a Good Time
@@ -98,6 +98,7 @@ Have a Good Time
 <!-- rel -->
 [runtime-html-js]: ./runtimes/html-js/
 [license-file]: ./license
+[copyright-file]: ./copyright
 <!-- resources -->
 [arrow-logo]: ./icon.png
 [arrow-screenshot]: ./.screenshot.png

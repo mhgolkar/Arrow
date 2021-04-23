@@ -1,0 +1,28 @@
+Copyright Information & Thirdparty Licenses
+
+This software uses [Godot Engine](https://godotengine.org/), available under the
+[MIT](https://github.com/godotengine/godot/blob/master/LICENSE.txt) license.
+Copyright (c) 2007-2021 Juan Linietsky, Ariel Manzur.
+Copyright (c) 2014-2021 Godot Engine contributors.
+
+Godot Engine uses FreeType to render fonts, therefore:
+
+    Portions of this software are copyright © 2021 The FreeType Project (www.freetype.org).
+    All rights reserved.
+
+Godot Engine uses MBedTLS for secure HTTPS requests.
+Arrow uses HTTPS to check if new releases are available,
+therefore the MBedTLS Apache license needs to be complied:
+
+    Copyright The Mbed TLS Contributors
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and limitations under the License.
+
+Fonts used in this project may be available under different licenses.
+For more information, please check out `resources/fonts/.info` file.
+
