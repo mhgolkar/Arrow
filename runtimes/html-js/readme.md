@@ -16,28 +16,33 @@ exported with all defaults, ready to play.
 
 ### The Other Way 
 
-If you want to customize how the runtime plays your project, you have the source and here is the path.
+If you want to customize how the runtime plays your project, you have the source and here is the way:
 
-1. Make your project ready.
+0. Get a copy of this runtime
 
-    This runtime needs to have an Arrow project (object/dictionary)
-    as a global constant called `PROJECT`, and following is the quickest way to make it:
+    > The runtime is bundled into the source and releases of Arrow,
+    > but we only need files under the path `<Arrow>/runtimes/html-js/` for the purpose.
 
-    + Export your project as `.json` via `Inspector (Panel) > Project (Tab) > Export (Menu) > ...`.
-    + Copy the exported file to the runtime directory (where `index.html` file is.)
-    + Rename the `.json` file to `project.js`,
+1. Make your project ready:
+
+    > This runtime needs to have an Arrow project (object/dictionary)
+    > as a global constant called `PROJECT`, and following is the quickest way to make it:
+
+    + Export your project as `JSON` via `Inspector (Panel) > Project (Tab) > Export (Menu) > ...`.
     + Edit the `.json` file using a text editor:
         - add `const PROJECT = ` before everything else
         - and a semicolon `;` after all the text.
+    + Rename this altered `.json` file to `project.js`.
+    + Put this `project.js` file into your copy of the runtime (adjacent to the `index.html` file.)
     
-    > Unlike the [quick recommended way](#quick-export), exporting `.json`
+    > Unlike the [quick standard way](#quick-export), exporting `.json`
     > won't clean up the extra node notes and metadata.
     > You might want to take care of them yourself,
     > if the project is going to be distributed or the data includes business secrets!
 
 2. You might want to replace tags like `{{project_title}}` and `{{project_last_save}}` in the `./index.html` file.
 3. Customize the `css` and `js` files as you wish.
-4. You're Done. Now you can open `index.html` file to play the project.
+4. You're Done. Open the `index.html` file to play your project.
 
 
 ## Building Customized Runtime Template
