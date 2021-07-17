@@ -14,7 +14,8 @@ onready var GridContextMenu = get_node(Addressbook.GRID_CONTEXT_MENU.itself)
 
 onready var Minimap = get_node(Addressbook.MINIMAP)
 onready var MinimapBox = Minimap.get_parent()
-const USE_ARROW_MINIMAP:bool = ( Settings.MINIMAP_ENABLED && ( ! Settings.MINIMAP_USE_GODOT_BUILT_IN_ONLY ) )
+const USE_ARROW_MINIMAP:bool = Settings.CLASSIC_MINIMAP_ENABLED
+
 const CLIPBOARD_MODE = Settings.CLIPBOARD_MODE
 
 var Utils = Helpers.Utils
@@ -40,10 +41,12 @@ func _ready() -> void:
 	DEFAULT_ZOOM = self.get('zoom')
 	register_connections()
 	setup_valid_connection_types()
-	# minimap ?
-	MinimapBox.set_visible(USE_ARROW_MINIMAP)
-	if 'minimap_enabled' in self:
-		self.set('minimap_enabled', (Settings.MINIMAP_ENABLED && ( ! USE_ARROW_MINIMAP )))
+	# classic minimap ?
+	if USE_ARROW_MINIMAP :
+		MinimapBox.set_visible( ! self.is_minimap_enabled() )
+	else:
+		self.set_minimap_enabled(true)
+	resize_native_minimap()
 	pass
 
 func register_connections() -> void:
@@ -518,6 +521,16 @@ func shrink_to_fit(resizing_node:Node) -> void:
 		resizing_node.set_size(real_fit)
 	pass
 
+func resize_native_minimap() -> void:
+	# to make sure the native minimap is not masked by inspector
+	self.set_minimap_size(
+		Vector2(
+			self.get_size().x,
+			(self.get_size().y / 4)
+		)
+	)
+	pass
+
 func update_zoom(magnitude: float, direction: bool) -> void:
 	var current_zoom = self.get("zoom");
 	var zoom_direction = ( 1 if direction else -1 )
@@ -575,4 +588,9 @@ func _gui_input(event: InputEvent) -> void:
 						update_zoom(1, false)
 					KEY_KP_0:
 						self.set("zoom", DEFAULT_ZOOM)
+	pass
+
+func _process(delta):
+	# Because there is no event for godot built-in minimap being activated
+	MinimapBox.set_visible( ! self.is_minimap_enabled() )
 	pass
