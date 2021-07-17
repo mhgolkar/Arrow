@@ -518,25 +518,32 @@ func shrink_to_fit(resizing_node:Node) -> void:
 		resizing_node.set_size(real_fit)
 	pass
 
+func update_zoom(magnitude: float, direction: bool) -> void:
+	var current_zoom = self.get("zoom");
+	var zoom_direction = ( 1 if direction else -1 )
+	var new_zoom = current_zoom + (
+		magnitude * zoom_direction *
+		Settings.ZOOM_ENHANCEMENT_FACTOR
+	)
+	if new_zoom != current_zoom:
+		self.set("zoom", new_zoom)
+	pass
+
 # Scroll to Zoom
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventWithModifiers:
 		if event.get_control():
-			# zoom
+			# zoom with mouse-wheel
 			if event is InputEventMouseButton:
 				if event.button_index == BUTTON_WHEEL_UP || event.button_index == BUTTON_WHEEL_DOWN:
-					var current_zoom = self.get("zoom");
 					var mouse_wheel_factor:float = ( event.factor if event.factor != 0 else 1.0 )
-					var mouse_wheel_direction = ( 1 if event.button_index == BUTTON_WHEEL_UP else -1 )
-					var new_zoom = current_zoom + (
-						mouse_wheel_factor * mouse_wheel_direction *
-						Settings.MOUSE_WHEEL_ZOOM_ENHANCEMENT_FACTOR
+					update_zoom(
+						mouse_wheel_factor,
+						(event.button_index == BUTTON_WHEEL_UP)
 					)
-					if new_zoom != current_zoom:
-						self.set("zoom", new_zoom)
 				elif event.button_index == BUTTON_MIDDLE:
 					self.set("zoom", DEFAULT_ZOOM)
-			# node cut/copy/paste
+			# shortcuts (cut, copy, paste, etc.) and zoom with keyboard
 			elif event is InputEventKey && event.is_echo() == false && event.is_pressed() == true :
 				match event.get_scancode():
 					KEY_C:
@@ -554,4 +561,18 @@ func _gui_input(event: InputEvent) -> void:
 						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
 							if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
 								request_mind("remove_selected_nodes", null)
+					KEY_KP_ADD:
+						update_zoom(1, true)
+					KEY_KP_SUBTRACT:
+						update_zoom(1, false)
+					KEY_0:
+						self.set("zoom", DEFAULT_ZOOM)
+					KEY_EQUAL:
+						update_zoom(1, true)
+					KEY_PLUS:
+						update_zoom(1, true)
+					KEY_MINUS:
+						update_zoom(1, false)
+					KEY_KP_0:
+						self.set("zoom", DEFAULT_ZOOM)
 	pass
