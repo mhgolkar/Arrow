@@ -15,7 +15,7 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 214.0
-margin_bottom = 93.0
+margin_bottom = 112.0
 mouse_filter = 2
 alignment = 1
 
@@ -25,10 +25,20 @@ margin_bottom = 14.0
 text = "{ Title }"
 align = 1
 
-[node name="Content" type="RichTextLabel" parent="ContentPlay"]
+[node name="Brief" type="RichTextLabel" parent="ContentPlay"]
 margin_top = 18.0
 margin_right = 207.0
-margin_bottom = 48.0
+margin_bottom = 33.0
+mouse_filter = 2
+bbcode_enabled = true
+bbcode_text = "{ Rich text with [color=green] BBCode[/color] brief }"
+text = "{ Rich text with  BBCode brief }"
+fit_content_height = true
+
+[node name="Content" type="RichTextLabel" parent="ContentPlay"]
+margin_top = 37.0
+margin_right = 207.0
+margin_bottom = 67.0
 mouse_filter = 2
 bbcode_enabled = true
 bbcode_text = "{ Rich text with [color=yellow] BBCode[/color] content }"
@@ -36,16 +46,16 @@ text = "{ Rich text with  BBCode content }"
 fit_content_height = true
 
 [node name="Margin" type="MarginContainer" parent="ContentPlay"]
-margin_top = 52.0
+margin_top = 71.0
 margin_right = 207.0
-margin_bottom = 62.0
+margin_bottom = 81.0
 rect_min_size = Vector2( 0, 10 )
 mouse_filter = 2
 
 [node name="Continue" type="Button" parent="ContentPlay"]
 margin_left = 138.0
-margin_top = 66.0
+margin_top = 85.0
 margin_right = 207.0
-margin_bottom = 86.0
+margin_bottom = 105.0
 size_flags_horizontal = 8
 text = "Continue"

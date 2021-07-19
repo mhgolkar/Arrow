@@ -12,32 +12,39 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Content" type="VBoxContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 margin_right = 239.0
 margin_bottom = 150.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TitleLabel" type="Label" parent="Content"]
-margin_right = 239.0
+[node name="Content" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 227.0
+margin_bottom = 274.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TitleLabel" type="Label" parent="ScrollContainer/Content"]
+margin_right = 227.0
 margin_bottom = 14.0
 text = "Title"
 
-[node name="Title" type="LineEdit" parent="Content"]
+[node name="Title" type="LineEdit" parent="ScrollContainer/Content"]
 margin_top = 18.0
-margin_right = 239.0
+margin_right = 227.0
 margin_bottom = 42.0
 
-[node name="ContentLabel" type="Label" parent="Content"]
+[node name="BriefLabel" type="Label" parent="ScrollContainer/Content"]
 margin_top = 46.0
-margin_right = 239.0
+margin_right = 227.0
 margin_bottom = 60.0
-text = "Content"
+text = "Brief"
 
-[node name="Content" type="TextEdit" parent="Content"]
+[node name="Brief" type="TextEdit" parent="ScrollContainer/Content"]
 margin_top = 64.0
-margin_right = 239.0
-margin_bottom = 122.0
+margin_right = 227.0
+margin_bottom = 124.0
+rect_min_size = Vector2( 0, 60 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 breakpoint_gutter = true
@@ -45,8 +52,27 @@ fold_gutter = true
 wrap_enabled = true
 minimap_width = 25
 
-[node name="ClearPage" type="CheckBox" parent="Content"]
-margin_top = 126.0
-margin_right = 239.0
-margin_bottom = 150.0
+[node name="ContentLabel" type="Label" parent="ScrollContainer/Content"]
+margin_top = 128.0
+margin_right = 227.0
+margin_bottom = 142.0
+text = "Content"
+
+[node name="Content" type="TextEdit" parent="ScrollContainer/Content"]
+margin_top = 146.0
+margin_right = 227.0
+margin_bottom = 246.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+breakpoint_gutter = true
+fold_gutter = true
+wrap_enabled = true
+minimap_width = 25
+
+[node name="ClearPage" type="CheckBox" parent="ScrollContainer/Content"]
+margin_top = 250.0
+margin_right = 227.0
+margin_bottom = 274.0
 text = "Print on Clear Page"

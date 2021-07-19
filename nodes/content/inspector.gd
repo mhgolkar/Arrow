@@ -10,6 +10,7 @@ onready var Main = get_tree().get_root().get_child(0)
 const DEFAULT_NODE_DATA = {
 	"title": "",
 	"content": "",
+	"brief": "",
 	"clear": false
 }
 
@@ -24,9 +25,10 @@ var _PROJECT_VARIABLES_CACHE_NAME_TO_ID:Dictionary
 
 var This = self
 
-onready var Title = get_node("./Content/Title")
-onready var Content = get_node("./Content/Content")
-onready var ClearPage = get_node("./Content/ClearPage")
+onready var Title = get_node("./ScrollContainer/Content/Title")
+onready var Brief = get_node("./ScrollContainer/Content/Brief")
+onready var Content = get_node("./ScrollContainer/Content/Content")
+onready var ClearPage = get_node("./ScrollContainer/Content/ClearPage")
 
 #func _ready() -> void:
 #	register_connections()
@@ -52,6 +54,11 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 			Content.set_deferred("text", node.data.content)
 		else:
 			Content.set_deferred("text", DEFAULT_NODE_DATA.content)
+		# Brief
+		if node.data.has("brief") && node.data.brief is String && node.data.brief.length() > 0 :
+			Brief.set_deferred("text", node.data.brief)
+		else:
+			Brief.set_deferred("text", DEFAULT_NODE_DATA.brief)
 		# Clear (print on a clear console)
 		if node.data.has("clear") && node.data.clear is bool :
 			ClearPage.set_deferred("pressed", node.data.clear)
@@ -89,7 +96,7 @@ func find_exposed_variables(parameters:Dictionary, fields:Array, return_ids:bool
 func create_use_command(parameters:Dictionary) -> Dictionary:
 	var use = { "drop": [], "refer": [], "field": "variables" }
 	# reference for any parsed variables ?
-	var exposed_variable_ids = find_exposed_variables(parameters, ["title", "content"], true)
+	var exposed_variable_ids = find_exposed_variables(parameters, ["title", "content", "brief"], true)
 	# print_debug( "Exposed Variables in %s: " % _OPEN_NODE.name, exposed_variable_ids )
 	# remove the reference if any variable is not exposed anymore
 	if _OPEN_NODE.has("ref") && _OPEN_NODE.ref is Array:
@@ -108,6 +115,7 @@ func _read_parameters() -> Dictionary:
 	var parameters = {
 		"title"  : Title.get_text(),
 		"content": Content.get_text(),
+		"brief"  : Brief.get_text(),
 		"clear"  : ClearPage.is_pressed(),
 	}
 	# does it rely on any other resource ?

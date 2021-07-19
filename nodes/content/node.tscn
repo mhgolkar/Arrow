@@ -19,7 +19,7 @@ __meta__ = {
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 108.0
-margin_bottom = 56.0
+margin_bottom = 105.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
@@ -32,3 +32,13 @@ margin_top = 18.0
 margin_right = 92.0
 margin_bottom = 32.0
 text = "{Content Title}"
+
+[node name="Brief" type="RichTextLabel" parent="VBoxContainer"]
+margin_top = 36.0
+margin_right = 92.0
+margin_bottom = 81.0
+mouse_filter = 2
+bbcode_enabled = true
+bbcode_text = "{ Rich text with [color=green] BBCode[/color] brief }"
+text = "{ Rich text with  BBCode brief }"
+fit_content_height = true

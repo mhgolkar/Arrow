@@ -13,6 +13,7 @@ class Content {
         
         const TITLE_TAG = "h2";
         const CONTENT_TAG = "pre";
+        const BRIEF_TAG = "pre";
 
         this.get_element = function () {
             return this.html;
@@ -87,6 +88,10 @@ class Content {
                         if ( node_resource.data.hasOwnProperty("title") ){
                             this.title = create_element(TITLE_TAG, format(node_resource.data.title, VARS_NAME_VALUE_PAIR));
                             this.html.appendChild(this.title);
+                        }
+                        if ( node_resource.data.hasOwnProperty("brief") ){
+                            this.brief = create_element(BRIEF_TAG, parse_bbcode( format(node_resource.data.brief, VARS_NAME_VALUE_PAIR) ) );
+                            this.html.appendChild(this.brief);
                         }
                         if ( node_resource.data.hasOwnProperty("content") ){
                             this.content = create_element(CONTENT_TAG, parse_bbcode( format(node_resource.data.content, VARS_NAME_VALUE_PAIR) ) );
