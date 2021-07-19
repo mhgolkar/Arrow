@@ -86,7 +86,8 @@ func offset_from_position(position:Vector2) -> Vector2:
 
 # (right-click on the grid)
 func _on_popup_request(position:Vector2) -> void:
-	GridContextMenu.call_deferred("show_up", position, offset_from_position(position))
+	var relative_click_position = self.get_local_mouse_position()
+	GridContextMenu.call_deferred("show_up", position, offset_from_position(relative_click_position))
 	pass
 
 func get_node_under_cursor(return_id:bool = false):
