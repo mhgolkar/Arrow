@@ -1458,26 +1458,26 @@ __meta__ = {
 }
 
 [node name="LocalProjectConfigTitle" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties"]
-margin_right = 254.0
-margin_bottom = 24.0
+margin_right = 248.0
+margin_bottom = 27.0
 
 [node name="Title" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/LocalProjectConfigTitle"]
-margin_right = 218.0
-margin_bottom = 24.0
+margin_right = 208.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "{project Title}"
 
 [node name="Set" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/LocalProjectConfigTitle"]
-margin_left = 222.0
-margin_right = 254.0
-margin_bottom = 24.0
+margin_left = 212.0
+margin_right = 248.0
+margin_bottom = 27.0
 text = "Set"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties"]
-margin_top = 28.0
-margin_right = 254.0
-margin_bottom = 48.0
+margin_top = 31.0
+margin_right = 248.0
+margin_bottom = 54.0
 alignment = 2
 
 [node name="LocalProjectConfigRTL" type="CheckBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
@@ -1487,28 +1487,28 @@ margin_bottom = 24.0
 text = "RTL"
 
 [node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
-margin_right = 147.0
-margin_bottom = 20.0
+margin_right = 128.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 
 [node name="LocalProjectMoreTools" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
-margin_left = 151.0
-margin_right = 203.0
-margin_bottom = 20.0
+margin_left = 132.0
+margin_right = 192.0
+margin_bottom = 23.0
 text = "Export"
 flat = false
 items = [ "{ more tools }", null, 0, false, false, 0, 0, null, "", false ]
 
 [node name="LocalProjectClose" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
-margin_left = 207.0
-margin_right = 254.0
-margin_bottom = 20.0
+margin_left = 196.0
+margin_right = 248.0
+margin_bottom = 23.0
 text = "Close"
 
 [node name="DraftManagement" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties"]
-margin_top = 52.0
-margin_right = 254.0
-margin_bottom = 356.0
+margin_top = 58.0
+margin_right = 248.0
+margin_bottom = 349.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
@@ -1516,85 +1516,85 @@ size_flags_stretch_ratio = 3.0
 [node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 247.0
-margin_bottom = 297.0
+margin_right = 241.0
+margin_bottom = 284.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LastSaveLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
-margin_right = 240.0
-margin_bottom = 14.0
+margin_right = 234.0
+margin_bottom = 17.0
 text = "Last Save"
 
 [node name="LastSave" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
-margin_top = 18.0
-margin_right = 240.0
-margin_bottom = 42.0
+margin_top = 21.0
+margin_right = 234.0
+margin_bottom = 48.0
 
 [node name="Timestamp" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/LastSave"]
-margin_right = 183.0
-margin_bottom = 24.0
+margin_right = 170.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 editable = false
 
 [node name="Revert" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/LastSave"]
-margin_left = 187.0
-margin_right = 240.0
-margin_bottom = 24.0
+margin_left = 174.0
+margin_right = 234.0
+margin_bottom = 27.0
 hint_tooltip = "Revert to Last Saved File"
 text = "Revert"
 
 [node name="SnapshotLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
-margin_top = 46.0
-margin_right = 240.0
-margin_bottom = 60.0
+margin_top = 52.0
+margin_right = 234.0
+margin_bottom = 69.0
 text = "Snapshots"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
-margin_top = 64.0
-margin_right = 240.0
-margin_bottom = 266.0
+margin_top = 73.0
+margin_right = 234.0
+margin_bottom = 250.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SnapshotsList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/ScrollContainer"]
-margin_right = 240.0
-margin_bottom = 202.0
+margin_right = 234.0
+margin_bottom = 177.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SnapshotTools" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer"]
-margin_top = 270.0
-margin_right = 240.0
-margin_bottom = 290.0
+margin_top = 254.0
+margin_right = 234.0
+margin_bottom = 277.0
 
 [node name="Take" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
-margin_right = 41.0
-margin_bottom = 20.0
+margin_right = 44.0
+margin_bottom = 23.0
 hint_tooltip = "Create Restore Point (Ctrl + D)"
 size_flags_horizontal = 3
 text = "Take"
 
 [node name="Restore" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
-margin_left = 45.0
-margin_right = 106.0
-margin_bottom = 20.0
+margin_left = 48.0
+margin_right = 116.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "Restore"
 
 [node name="Preview" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
-margin_left = 110.0
-margin_right = 172.0
-margin_bottom = 20.0
+margin_left = 120.0
+margin_right = 188.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 toggle_mode = true
 text = "Preview"
 
 [node name="Remove" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/DraftManagement/VBoxContainer/SnapshotTools"]
-margin_left = 176.0
-margin_right = 240.0
-margin_bottom = 20.0
+margin_left = 192.0
+margin_right = 234.0
+margin_bottom = 23.0
 hint_tooltip = "Remove Selected Restore Point"
 size_flags_horizontal = 3
 text = "Rem"
@@ -2055,77 +2055,95 @@ __meta__ = {
 }
 
 [node name="OpenSceneConfigs" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer"]
-margin_right = 253.0
-margin_bottom = 38.0
+margin_right = 248.0
+margin_bottom = 41.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 31.0
+margin_right = 241.0
+margin_bottom = 34.0
 
 [node name="SceneName" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer"]
-margin_right = 239.0
-margin_bottom = 24.0
+margin_right = 234.0
+margin_bottom = 27.0
 
 [node name="Edit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer/SceneName"]
-margin_right = 203.0
-margin_bottom = 24.0
+margin_right = 194.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 placeholder_text = "Scene's Unique Title"
 
 [node name="Set" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer/SceneName"]
-margin_left = 207.0
-margin_right = 239.0
-margin_bottom = 24.0
+margin_left = 198.0
+margin_right = 234.0
+margin_bottom = 27.0
 text = "Set"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer"]
-margin_top = 42.0
-margin_right = 253.0
-margin_bottom = 318.0
-rect_min_size = Vector2( 0, 50 )
+[node name="VSplitContainer" type="VSplitContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer"]
+margin_top = 45.0
+margin_right = 248.0
+margin_bottom = 308.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="ScenesList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/ScrollContainer"]
-margin_right = 253.0
-margin_bottom = 276.0
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/VSplitContainer"]
+margin_right = 248.0
+margin_bottom = 263.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="ScenesList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/VSplitContainer/ScrollContainer"]
+margin_right = 248.0
+margin_bottom = 263.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "Scene Abc", null, false, "Scene Xyz [Entry, Current]", null, false ]
 
+[node name="SceneEntryNote" type="RichTextLabel" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/VSplitContainer"]
+visible = false
+margin_top = 216.0
+margin_right = 248.0
+margin_bottom = 263.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "{ selected scene's notes from the [color=red]entry node[/color] }"
+text = "{ selected scene's notes from the entry node }"
+
 [node name="SceneActions" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer"]
-margin_top = 322.0
-margin_right = 253.0
-margin_bottom = 356.0
+margin_top = 312.0
+margin_right = 248.0
+margin_bottom = 349.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/SceneActions"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 27.0
+margin_right = 241.0
+margin_bottom = 30.0
 alignment = 1
 
 [node name="NewScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/SceneActions/HBoxContainer"]
-margin_right = 77.0
-margin_bottom = 20.0
+margin_right = 75.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "New"
 
 [node name="RemoveScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/SceneActions/HBoxContainer"]
-margin_left = 81.0
-margin_right = 158.0
-margin_bottom = 20.0
+margin_left = 79.0
+margin_right = 154.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "Remove"
 
 [node name="OpenSceneToEdit" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/SceneActions/HBoxContainer"]
-margin_left = 162.0
-margin_right = 239.0
-margin_bottom = 20.0
+margin_left = 158.0
+margin_right = 234.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "Open"
 
@@ -2147,31 +2165,31 @@ __meta__ = {
 }
 
 [node name="OpenMacroConfigs" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
-margin_right = 253.0
-margin_bottom = 38.0
+margin_right = 248.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 31.0
+margin_right = 241.0
+margin_bottom = 34.0
 
 [node name="MacroName" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer"]
-margin_right = 239.0
-margin_bottom = 24.0
+margin_right = 234.0
+margin_bottom = 27.0
 alignment = 2
 
 [node name="Edit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/MacroName"]
-margin_right = 203.0
-margin_bottom = 24.0
+margin_right = 194.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 placeholder_text = "Macro's Unique Identifier"
 
 [node name="Set" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/MacroName"]
-margin_left = 207.0
-margin_right = 239.0
-margin_bottom = 24.0
+margin_left = 198.0
+margin_right = 234.0
+margin_bottom = 27.0
 text = "Set"
 
 [node name="CloseMacro" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer"]
@@ -2182,44 +2200,63 @@ margin_bottom = 48.0
 size_flags_horizontal = 0
 text = "Close"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
-margin_top = 42.0
-margin_right = 253.0
-margin_bottom = 280.0
+[node name="VSplitContainer" type="VSplitContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
+margin_top = 45.0
+margin_right = 248.0
+margin_bottom = 267.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/VSplitContainer"]
+margin_right = 248.0
+margin_bottom = 222.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 
-[node name="MacrosList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ScrollContainer"]
-margin_right = 253.0
-margin_bottom = 238.0
+[node name="MacrosList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/VSplitContainer/ScrollContainer"]
+margin_right = 248.0
+margin_bottom = 222.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "{ macros }", null, false ]
 allow_reselect = true
 
+[node name="MacroEntryNote" type="RichTextLabel" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/VSplitContainer"]
+visible = false
+margin_top = 183.0
+margin_right = 248.0
+margin_bottom = 222.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "{ selected macro's notes from the [color=green]entry node[/color] }"
+text = "{ selected macro's notes from the entry node }"
+
 [node name="MacroInstances" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
-margin_top = 284.0
-margin_right = 253.0
-margin_bottom = 318.0
+margin_top = 271.0
+margin_right = 248.0
+margin_bottom = 308.0
 size_flags_horizontal = 3
 
 [node name="MacroInstancesPagination" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 27.0
+margin_right = 241.0
+margin_bottom = 30.0
 
 [node name="InstancesLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
 margin_top = 3.0
-margin_right = 70.0
-margin_bottom = 17.0
+margin_right = 88.0
+margin_bottom = 20.0
 text = "Instance(s)"
 
 [node name="Indication" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
-margin_left = 74.0
-margin_right = 181.0
-margin_bottom = 20.0
+margin_left = 92.0
+margin_right = 170.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "0:0"
@@ -2228,43 +2265,43 @@ valign = 1
 clip_text = true
 
 [node name="GoToInstance" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
-margin_left = 185.0
-margin_right = 239.0
-margin_bottom = 20.0
+margin_left = 174.0
+margin_right = 234.0
+margin_bottom = 23.0
 text = "Locate"
 flat = false
 items = [ "{ referrers by name }", null, 0, false, false, 0, 0, null, "", false ]
 
 [node name="MacroTools" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
-margin_top = 322.0
-margin_right = 253.0
-margin_bottom = 356.0
+margin_top = 312.0
+margin_right = 248.0
+margin_bottom = 349.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroTools"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 27.0
+margin_right = 241.0
+margin_bottom = 30.0
 alignment = 1
 
 [node name="NewMacro" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroTools/HBoxContainer"]
-margin_right = 77.0
-margin_bottom = 20.0
+margin_right = 75.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "New"
 
 [node name="RemoveMacro" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroTools/HBoxContainer"]
-margin_left = 81.0
-margin_right = 158.0
-margin_bottom = 20.0
+margin_left = 79.0
+margin_right = 154.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "Remove"
 
 [node name="OpenMacroToEdit" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroTools/HBoxContainer"]
-margin_left = 162.0
-margin_right = 239.0
-margin_bottom = 20.0
+margin_left = 158.0
+margin_right = 234.0
+margin_bottom = 23.0
 hint_tooltip = "Open Macro to Edit"
 size_flags_horizontal = 3
 text = "Open"

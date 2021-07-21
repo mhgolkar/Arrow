@@ -21,6 +21,7 @@ var _SELECTED_MACRO_BEING_EDITED_ID = -1
 var _SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID = []
 
 onready var MacrosList = get_node(Addressbook.INSPECTOR.MACROS.MACROS_LIST)
+onready var MacroEntryNote = get_node(Addressbook.INSPECTOR.MACROS.MACRO_ENTRY_NOTE)
 
 onready var MacrosNewButton = get_node(Addressbook.INSPECTOR.MACROS.TOOLS.NEW_BUTTON)
 onready var MacrosRemoveButton = get_node(Addressbook.INSPECTOR.MACROS.TOOLS.REMOVE_BUTTON)
@@ -72,6 +73,7 @@ func refresh_macros_list(list:Dictionary = {}) -> void:
 	list_macros(list)
 	MacrosList.unselect_all()
 	smartly_update_tools()
+	update_macro_notes()
 	pass
 
 # appends a list of macros to the existing ones
@@ -145,11 +147,13 @@ func update_macro_list_item(macro_id:int, the_macro:Dictionary) -> void:
 func _on_macros_list_item_selected(idx:int) -> void:
 	var macro_id = MacrosList.get_item_metadata(idx)
 	smartly_update_tools(macro_id)
+	update_macro_notes(macro_id)
 	pass
 
 func _on_macros_list_nothing_selected() -> void:
 	MacrosList.unselect_all()
 	smartly_update_tools()
+	update_macro_notes()
 	pass
 	
 func get_selected_macro_id() -> int:
@@ -178,6 +182,23 @@ func smartly_update_tools(selected_macro_id:int = -1) -> void:
 	MacrosEditButton.set_disabled( (! a_macro_is_selected) || (selected_macro_id == _SELECTED_MACRO_BEING_EDITED_ID) )
 	MacrosRemoveButton.set_disabled( (!a_macro_is_selected) || (!selected_macro_is_removable) )
 	update_instance_pagination(selected_macro_id)
+	pass
+
+func update_macro_notes(macro_id: int = -1) -> void:
+	MacroEntryNote.set_visible(false)
+	if macro_id < 0:
+		if MacrosList.is_anything_selected():
+			macro_id = get_selected_macro_id()
+	if macro_id >= 0:
+		var the_scene = Main.Mind.lookup_resource(macro_id, "scenes", false)
+		if the_scene is Dictionary && the_scene.has("entry"):
+			var the_entry = Main.Mind.lookup_resource(the_scene.entry, "nodes", false)
+			if the_entry is Dictionary && the_entry.has("notes"):
+				if the_entry.notes is String && the_entry.notes.length() > 0:
+					MacroEntryNote.clear()
+					if MacroEntryNote.append_bbcode(the_entry.notes) != OK:
+						MacroEntryNote.set_text(the_entry.notes)
+					MacroEntryNote.set_deferred("visible", true)
 	pass
 
 func request_new_macro_creation() -> void:
@@ -254,6 +275,7 @@ func update_macro_editorial_state(macro_id:int = -1) -> void:
 		_SELECTED_MACRO_BEING_EDITED_ID = -1
 		MacroEditorPanel.set("visible", false)
 	smartly_update_tools()
+	update_macro_notes()
 	pass
 
 func request_macro_editorial_close() -> void:

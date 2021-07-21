@@ -15,6 +15,7 @@ var _LISTED_SCENES_BY_NAME = {}
 var _SELECTED_SCENE_BEING_EDITED_ID = -1
 
 onready var ScenesList = get_node(Addressbook.INSPECTOR.SCENES.SCENES_LIST)
+onready var SceneEntryNote = get_node(Addressbook.INSPECTOR.SCENES.SCENE_ENTRY_NOTES)
 
 onready var ScenesNewButton = get_node(Addressbook.INSPECTOR.SCENES.TOOLS.NEW_BUTTON)
 onready var ScenesRemoveButton = get_node(Addressbook.INSPECTOR.SCENES.TOOLS.REMOVE_BUTTON)
@@ -57,6 +58,7 @@ func refresh_scenes_list(list:Dictionary = {}) -> void:
 	list_scenes(list)
 	ScenesList.unselect_all()
 	smartly_update_tools()
+	update_scene_notes()
 	pass
 
 # appends a list of scenes to the existing ones
@@ -130,11 +132,13 @@ func update_scene_list_item(scene_id:int, the_scene:Dictionary) -> void:
 func _on_scenes_list_item_selected(idx:int) -> void:
 	var scene_id = ScenesList.get_item_metadata(idx)
 	smartly_update_tools(scene_id)
+	update_scene_notes(scene_id)
 	pass
 
 func _on_scenes_list_nothing_selected() -> void:
 	ScenesList.unselect_all()
 	smartly_update_tools()
+	update_scene_notes()
 	pass
 	
 func get_selected_scene_id() -> int:
@@ -164,6 +168,23 @@ func smartly_update_tools(selected_scene_id:int = -1) -> void:
 				selected_scene_is_removable = true
 	ScenesEditButton.set_disabled( (! a_scene_is_selected) || (selected_scene_id == _SELECTED_SCENE_BEING_EDITED_ID) )
 	ScenesRemoveButton.set_disabled( (!a_scene_is_selected) || (!selected_scene_is_removable) )
+	pass
+
+func update_scene_notes(scene_id: int = -1) -> void:
+	SceneEntryNote.set_visible(false)
+	if scene_id < 0:
+		if ScenesList.is_anything_selected():
+			scene_id = get_selected_scene_id()
+	if scene_id >= 0:
+		var the_scene = Main.Mind.lookup_resource(scene_id, "scenes", false)
+		if the_scene is Dictionary && the_scene.has("entry"):
+			var the_entry = Main.Mind.lookup_resource(the_scene.entry, "nodes", false)
+			if the_entry is Dictionary && the_entry.has("notes"):
+				if the_entry.notes is String && the_entry.notes.length() > 0:
+					SceneEntryNote.clear()
+					if SceneEntryNote.append_bbcode(the_entry.notes) != OK:
+						SceneEntryNote.set_text(the_entry.notes)
+					SceneEntryNote.set_deferred("visible", true)
 	pass
 
 func request_new_scene_creation() -> void:
@@ -242,6 +263,7 @@ func update_scene_editorial_state(scene_id:int = -1) -> void:
 		_SELECTED_SCENE_BEING_EDITED_ID = -1
 		SceneEditorPanel.set("visible", false)
 	smartly_update_tools()
+	update_scene_notes()
 	pass
 
 func request_scene_editorial_close() -> void:

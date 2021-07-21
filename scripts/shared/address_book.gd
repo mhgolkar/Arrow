@@ -155,7 +155,8 @@ const INSPECTOR = {
 	},
 	"SCENES":{
 		"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes",
-		"SCENES_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/ScrollContainer/ScenesList",
+		"SCENES_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/VSplitContainer/ScrollContainer/ScenesList",
+		"SCENE_ENTRY_NOTES": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/VSplitContainer/SceneEntryNote",
 		"TOOLS":{
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/SceneActions",
 			"NEW_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/SceneActions/HBoxContainer/NewScene",
@@ -170,7 +171,8 @@ const INSPECTOR = {
 	},
 	"MACROS":{
 		"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros",
-		"MACROS_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ScrollContainer/MacrosList",
+		"MACROS_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/VSplitContainer/ScrollContainer/MacrosList",
+		"MACRO_ENTRY_NOTE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/VSplitContainer/MacroEntryNote",
 		"EDIT":{
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs",
 			"NAME_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/MacroName/Edit",
