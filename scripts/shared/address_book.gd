@@ -101,7 +101,8 @@ const INSPECTOR = {
 		"PROJECT_LIST_MODES":{
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes",
 			"LOCAL_MODE": {
-				"LISTED_PROJECTS_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/ScrollContainer/ListedProjects",
+				"LISTED_PROJECTS_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/VSplitContainer/ScrollContainer/ListedProjects",
+				"SELECTED_PROJECT_DESCRIPTION": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/VSplitContainer/ProjectDescription",
 				"TOOLS": {
 					"NEW_MENU_BUTTON" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions/NewLocalProjectMenu",
 					"REMOVE_LOCAL_PROJECT_BUTTON" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions/RemoveLocalProject",

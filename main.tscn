@@ -1808,18 +1808,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects"]
+[node name="VSplitContainer" type="VSplitContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects"]
 margin_right = 234.0
 margin_bottom = 308.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
 
-[node name="ListedProjects" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/ScrollContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/VSplitContainer"]
+margin_right = 234.0
+margin_bottom = 308.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="ListedProjects" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/VSplitContainer/ScrollContainer"]
 margin_right = 234.0
 margin_bottom = 308.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "{ local projects }", null, false ]
+
+[node name="ProjectDescription" type="RichTextLabel" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/VSplitContainer"]
+visible = false
+margin_top = 252.0
+margin_right = 234.0
+margin_bottom = 308.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "{ [color=yellow]project description[/color] from the notes on the [color=yellow]entry node[/color] of the selected one }"
+text = "{ project description from the notes on the entry node of the selected one }"
 
 [node name="LocalProjectsActions" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects"]
 margin_top = 312.0

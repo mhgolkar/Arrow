@@ -13,6 +13,7 @@ onready var ProjectListModes = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LI
 onready var LocalProjectProperties = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.itself)
 
 onready var LocalProjectsList = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.LISTED_PROJECTS_LIST)
+onready var SelectedProjectDescription = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.SELECTED_PROJECT_DESCRIPTION)
 onready var NewLocalProjectMenu = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.TOOLS.NEW_MENU_BUTTON)
 onready var RemoveLocalProject = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.TOOLS.REMOVE_LOCAL_PROJECT_BUTTON)
 onready var OpenLocalProject = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.TOOLS.OPEN_LOCAL_PROJECT_BUTTON)
@@ -33,7 +34,7 @@ func register_connections() -> void:
 		part.connect("relay_request_mind", self, "request_mind_relay", [part], CONNECT_DEFERRED)
 	RemoveLocalProject.connect("pressed", self, "request_removing_project", [], CONNECT_DEFERRED)
 	OpenLocalProject.connect("pressed", self, "request_opening_project", [], CONNECT_DEFERRED)
-	LocalProjectsList.connect("item_selected", self, "refresh_local_project_list_tools_buttons", [], CONNECT_DEFERRED)
+	LocalProjectsList.connect("item_selected", self, "_on_local_projects_list_item_selected", [], CONNECT_DEFERRED)
 	LocalProjectsList.connect("item_activated", self, "request_opening_project", [], CONNECT_DEFERRED)
 	LocalProjectsList.connect("nothing_selected", self, "_on_local_projects_list_nothing_selected", [], CONNECT_DEFERRED)
 	pass
@@ -43,22 +44,44 @@ func initialize_tab() -> void:
 	pass
 
 func refresh_tab() -> void:
-	refresh_local_project_list_tools_buttons()
+	refresh_local_project_list_tools()
 	pass
 
 func request_mind_relay(req:String, args=null, _the_part=null):
 	emit_signal("relay_request_mind", req, args)
 	pass
 
-func refresh_local_project_list_tools_buttons(_x=null) -> void:
-	var local_project_is_selected = ( LocalProjectsList.get_selected_items().size() > 0 )
-	RemoveLocalProject.set_disabled( ! local_project_is_selected )
-	OpenLocalProject.set_disabled( ! local_project_is_selected )
+func _on_local_projects_list_item_selected(_selected=null) -> void:
+	refresh_local_project_list_tools()
 	pass
 
 func _on_local_projects_list_nothing_selected() -> void:
 	LocalProjectsList.unselect_all()
+	refresh_local_project_list_tools()
+	pass
+
+func refresh_local_project_list_tools() -> void:
+	refresh_project_description()
 	refresh_local_project_list_tools_buttons()
+	pass
+
+func refresh_project_description() -> void:
+	SelectedProjectDescription.set_visible(false)
+	var selected = LocalProjectsList.get_selected_items()
+	if selected.size() >= 1:
+		var project_id = LocalProjectsList.get_item_metadata(selected[0])
+		var description = Main.Mind.ProMan.get_project_description(project_id)
+		if description is String && description.length() > 0:
+			SelectedProjectDescription.clear()
+			if SelectedProjectDescription.append_bbcode(description) != OK:
+				SelectedProjectDescription.set_text(description)
+			SelectedProjectDescription.set_deferred("visible", true)
+	pass
+
+func refresh_local_project_list_tools_buttons() -> void:
+	var local_project_is_selected = ( LocalProjectsList.get_selected_items().size() > 0 )
+	RemoveLocalProject.set_disabled( ! local_project_is_selected )
+	OpenLocalProject.set_disabled( ! local_project_is_selected )
 	pass
 
 # <list>{ <project_uid>:int { title:string<project_title>, filename:string<filename-without-extension>}, ... }

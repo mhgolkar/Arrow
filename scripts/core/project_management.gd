@@ -256,6 +256,12 @@ class ProjectManager :
 					return _PROJECT_LIST.projects[project_uid].last_open_scene
 		return -1
 	
+	func get_project_description(project_uid:int = -1):
+		if is_project_listed(project_uid):
+			if _PROJECT_LIST.projects[project_uid].has("description"):
+				return _PROJECT_LIST.projects[project_uid].description
+		return null
+	
 	func set_project_last_view_offset(offset = [0, 0], scene_uid:int = 0, project_uid:int = -1) -> void:
 		if (offset is Vector2):
 			offset = Utils.vector2_to_array(offset)
@@ -321,14 +327,35 @@ class ProjectManager :
 		save_project_list_file()
 		return new_seed_uid
 	
-	func update_listed_title(project_uid:int = -1, new_project_title:String = "", save_list:bool = true) -> void:
+	func update_listed_title(project_uid:int = -1, new_project_title:String = "", save_list:bool = true) -> bool:
+		var updated = false
 		if project_uid < 0:
 			project_uid = _ACTIVE_PROJECT_UID
 		if is_project_listed(project_uid) && new_project_title.length() > 0:
 			_PROJECT_LIST.projects[project_uid].title = valid_unique_project_title_from(new_project_title)
+			updated = true
 		if save_list == true:
 			save_project_list_file()
-		pass
+		return updated
+	
+	func try_update_listed_description(project_uid:int = -1, project_data:Dictionary = {}, save_list:bool = true) -> bool:
+		var updated = false
+		if project_uid < 0:
+			project_uid = _ACTIVE_PROJECT_UID
+		if is_project_listed(project_uid) && project_data.has("entry"):
+			var entry = project_data.entry
+			var entry_node = project_data.resources.nodes[entry]
+			if entry_node.has("notes"):
+				var description = String(entry_node.notes)
+				if (
+					_PROJECT_LIST.projects[project_uid].has("description") == false ||
+					_PROJECT_LIST.projects[project_uid].description != description
+				):
+					_PROJECT_LIST.projects[project_uid].description = description
+					updated = true
+		if save_list == true:
+			save_project_list_file()
+		return updated
 	
 	func unlist_project(project_uid:int, remove_file_too:bool = false):
 		if project_uid != _ACTIVE_PROJECT_UID:
@@ -363,9 +390,18 @@ class ProjectManager :
 		if is_project_listed(project_uid):
 			var full_project_file_path = get_project_file_path(project_uid)
 			var ready_project_data = (project_data.duplicate(true) if duplicate else project_data)
+			# shall we update our listing ?
+			var is_title_updated:bool
+			var is_description_updated:bool
 			# if project title is changed during edit ...
 			if ready_project_data.title != _PROJECT_LIST.projects[project_uid].title:
-				update_listed_title(project_uid, ready_project_data.title, true)
+				is_title_updated = update_listed_title(project_uid, ready_project_data.title, false)
+			# and ...
+			is_description_updated = try_update_listed_description(project_uid, ready_project_data, false)
+			# then ...
+			if is_title_updated || is_description_updated:
+				save_project_list_file()
+			# Finally, we can save the project
 			var done = save_project_native_file(ready_project_data, full_project_file_path, textual)
 			return done
 		else:

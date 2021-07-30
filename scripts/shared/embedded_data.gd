@@ -82,7 +82,7 @@ const Data = {
 				},
 			},
 			"nodes": {
-				1: { "type": "entry", "name":"S0N0Ent", "data": { "plaque": "Start" }, "notes": "The initial Entry point" },
+				1: { "type": "entry", "name":"S0N0Ent", "data": { "plaque": "Start" } },
 				2: { "type": "content", "name":"S0N1Cnt", "data": { "title": "Hello World!", "content": "I'm the very first step to a great adventure.", "clear": true }  },
 			},
 			"variables": {},
