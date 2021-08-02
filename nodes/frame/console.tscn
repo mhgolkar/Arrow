@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/frame/console.gd" type="Script" id=1]
+
+[node name="Frame" type="PanelContainer"]
+self_modulate = Color( 0.815686, 0.0588235, 0.956863, 1 )
+margin_top = 202.0
+margin_right = 233.0
+margin_bottom = 222.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FramePlay" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 226.0
+margin_bottom = 45.0
+mouse_filter = 2
+
+[node name="Head" type="HBoxContainer" parent="FramePlay"]
+margin_right = 219.0
+margin_bottom = 14.0
+mouse_filter = 2
+
+[node name="Icon" type="Label" parent="FramePlay/Head"]
+margin_right = 33.0
+margin_bottom = 14.0
+size_flags_vertical = 1
+text = "[Frm]"
+align = 1
+valign = 1
+
+[node name="FrameName" type="Label" parent="FramePlay/Head"]
+margin_left = 37.0
+margin_right = 219.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "{ frame name }"
+align = 2
+valign = 1
+
+[node name="FrameLabel" type="Button" parent="FramePlay"]
+margin_top = 18.0
+margin_right = 219.0
+margin_bottom = 38.0
+mouse_filter = 1
+size_flags_horizontal = 3
+text = "{ frame label }"
+flat = true

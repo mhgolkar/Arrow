@@ -1,0 +1,87 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://nodes/frame/node.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_bottom = 0.0
+bg_color = Color( 0, 0, 0, 0 )
+draw_center = false
+border_width_left = 2
+border_width_top = 36
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 1 )
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_bottom = 0.0
+bg_color = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
+border_width_left = 2
+border_width_top = 36
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 1 )
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+
+[sub_resource type="Theme" id=3]
+GraphNode/colors/close_color = Color( 0, 0, 0, 1 )
+GraphNode/colors/resizer_color = Color( 0, 0, 0, 1 )
+GraphNode/colors/title_color = Color( 0, 0, 0, 1 )
+GraphNode/constants/close_offset = 18
+GraphNode/constants/port_offset = 3
+GraphNode/constants/separation = 1
+GraphNode/constants/title_offset = 20
+GraphNode/fonts/title_font = null
+GraphNode/icons/close = null
+GraphNode/icons/port = null
+GraphNode/icons/resizer = null
+GraphNode/styles/breakpoint = null
+GraphNode/styles/comment = null
+GraphNode/styles/commentfocus = null
+GraphNode/styles/defaultfocus = null
+GraphNode/styles/defaultframe = null
+GraphNode/styles/frame = SubResource( 1 )
+GraphNode/styles/position = null
+GraphNode/styles/selectedframe = SubResource( 4 )
+
+[node name="FrameNode" type="GraphNode"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+mouse_filter = 1
+size_flags_horizontal = 7
+size_flags_vertical = 7
+theme = SubResource( 3 )
+resizable = true
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 1
+slot/0/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 2.0
+margin_top = 36.0
+margin_right = 126.0
+margin_bottom = 68.0
+size_flags_horizontal = 7
+size_flags_vertical = 7
+
+[node name="NodeLabel" type="Label" parent="VBoxContainer"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_right = 124.0
+margin_bottom = 14.0
+text = " Frame"
+
+[node name="FrameLabel" type="Label" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 124.0
+margin_bottom = 32.0
+text = "{Frame Label}"

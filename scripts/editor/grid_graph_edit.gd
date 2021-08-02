@@ -90,7 +90,8 @@ func _on_popup_request(position:Vector2) -> void:
 	GridContextMenu.call_deferred("show_up", position, offset_from_position(relative_click_position))
 	pass
 
-func get_node_under_cursor(return_id:bool = false):
+func get_nodes_under_cursor(return_id:bool = false, return_first:bool = false) -> Array:
+	var nodes_there = []
 	var mouse_position = TheViewport.get_mouse_position()
 	for node_id in _DRAWN_NODES_BY_ID:
 		var node = _DRAWN_NODES_BY_ID[node_id]
@@ -98,13 +99,15 @@ func get_node_under_cursor(return_id:bool = false):
 			is_instance_valid(node) &&
 			node.get_global_rect().has_point(mouse_position)
 		):
-			return (
+			nodes_there.append(
 				node_id
 				if return_id == true
 				else
 				{ "id": node_id, "node": node }
 			)
-	return null
+			if return_first:
+				return nodes_there
+	return nodes_there
 
 func slot_is_available(node_id:int, slot_idx:int, in_else_out:bool = true) -> bool:
 	if _CONNECTION_RELATIONS_BY_ID_DIR_SLOT.has(node_id):
@@ -151,16 +154,21 @@ func get_first_available_slot(node_id:int, incoming:bool) -> int:
 
 func try_assisted_connection(outgoing:bool, first_side_slot:int, first_side_name:String) -> bool:
 	if _ALLOW_ASSISTED_CONNECTION:
-		var target = get_node_under_cursor()
-		if target != null:
-			if target.node.name != first_side_name:
-				var target_slot = get_first_available_slot(target.id, outgoing) # = incoming for the other side
-				if target_slot >= 0 :
-					if outgoing:
-						_on_connection_request(first_side_name, first_side_slot, target.node.name, target_slot)
-					else:
-						_on_connection_request(target.node.name, target_slot, first_side_name, first_side_slot)
-			return true
+		var nodes_there = get_nodes_under_cursor()
+		if nodes_there.size() > 0:
+			# We try to coonect to the first target ...
+			for target in nodes_there:
+				# in all the nodes under the cursor,
+				if target.node.name != first_side_name: # which is not the first side,
+					var target_slot = get_first_available_slot(target.id, outgoing) # = incoming for the other side
+					# and has at least one slot:
+					if target_slot >= 0 :
+						if outgoing:
+							_on_connection_request(first_side_name, first_side_slot, target.node.name, target_slot)
+						else:
+							_on_connection_request(target.node.name, target_slot, first_side_name, first_side_slot)
+						# Return early and break the loop
+						return true
 	return false
 
 func _on_connection_with_empty(node_name:String, slot:int, release_position:Vector2, outgoing:bool) -> void:

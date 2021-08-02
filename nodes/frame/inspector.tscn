@@ -1,0 +1,82 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/frame/inspector.gd" type="Script" id=1]
+
+[node name="FrameType" type="ScrollContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 246.0
+margin_bottom = 157.0
+scroll_horizontal_enabled = false
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Frame" type="VBoxContainer" parent="."]
+margin_right = 227.0
+margin_bottom = 186.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorLabel" type="Label" parent="Frame"]
+margin_right = 227.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Color"
+
+[node name="ColorPicker" type="ColorPickerButton" parent="Frame"]
+margin_top = 18.0
+margin_right = 227.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 50, 30 )
+size_flags_horizontal = 7
+size_flags_vertical = 5
+color = Color( 0.0588235, 0.796078, 0.956863, 1 )
+edit_alpha = false
+
+[node name="LabelLabel" type="Label" parent="Frame"]
+margin_top = 52.0
+margin_right = 227.0
+margin_bottom = 66.0
+size_flags_horizontal = 3
+text = "Label"
+
+[node name="LabelEdit" type="LineEdit" parent="Frame"]
+margin_top = 70.0
+margin_right = 227.0
+margin_bottom = 94.0
+
+[node name="SizeXLabel" type="Label" parent="Frame"]
+margin_top = 98.0
+margin_right = 227.0
+margin_bottom = 112.0
+size_flags_horizontal = 3
+text = "Width"
+
+[node name="SizeX" type="SpinBox" parent="Frame"]
+margin_top = 116.0
+margin_right = 227.0
+margin_bottom = 140.0
+min_value = 128.0
+max_value = 256.0
+value = 256.0
+rounded = true
+allow_greater = true
+
+[node name="SizeYLabel" type="Label" parent="Frame"]
+margin_top = 144.0
+margin_right = 227.0
+margin_bottom = 158.0
+size_flags_horizontal = 3
+text = "Height"
+
+[node name="SizeY" type="SpinBox" parent="Frame"]
+margin_top = 162.0
+margin_right = 227.0
+margin_bottom = 186.0
+min_value = 128.0
+max_value = 256.0
+value = 256.0
+rounded = true
+allow_greater = true
