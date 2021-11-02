@@ -125,17 +125,17 @@ func toggle_opacity(force = null):
 	pass
 
 func _on_gui_input(event:InputEvent) -> void:
-	if event is InputEventMouseButton:
-		handle_mouse_gui_inputs(event)
+	if event is InputEventMouseButton || event is InputEventMouseMotion:
+		handle_mouse_gui_inputs(event.get_position())
 	pass
 
-func handle_mouse_gui_inputs(input:InputEventMouseButton) -> void:
-	if input.is_pressed():
-		var is_left_click = (input.get_button_index() == BUTTON_LEFT )
-		var is_right_click = (input.get_button_index() == BUTTON_RIGHT )
+func handle_mouse_gui_inputs(mouse_position:Vector2) -> void:
+	var is_left_click = (Input.is_mouse_button_pressed(BUTTON_LEFT) )
+	var is_right_click = (Input.is_mouse_button_pressed(BUTTON_RIGHT) )
+	
+	if is_left_click || is_right_click: # (we don't want this on scroll (middle button))
+		var offset_from_click = (mouse_position / _GRID_TO_MINIMAP_RATIO) + _CORNER_ADJUSTMENT
 		# ask grid to go to the offset respective to the point selected on the minimap
-		if is_left_click || is_right_click: # (we don't want this on scroll (middle button))
-			var offset_from_click = (input.get_position() / _GRID_TO_MINIMAP_RATIO) + _CORNER_ADJUSTMENT
-			Grid.call_deferred("got_to_offset", offset_from_click, (input.get_button_index() == BUTTON_LEFT)) # jump point will be enhanced/centered on left-click
-			self.call_deferred("set_crosshair")
+		Grid.call_deferred("got_to_offset", offset_from_click, is_left_click) # jump point will be enhanced/centered on left-click
+		self.call_deferred("set_crosshair")
 	pass
