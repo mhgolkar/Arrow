@@ -549,9 +549,11 @@ func _gui_input(event: InputEvent) -> void:
 							request_mind("clipboard_push_selection", CLIPBOARD_MODE.CUT)
 					KEY_V:
 						request_mind("clipboard_pull", offset_from_position( self.get_local_mouse_position() ) )
-					KEY_DELETE:
-						request_mind("clean_clipboard", null)
-						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
-							if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
-								request_mind("remove_selected_nodes", null)
+	# delete selected node
+	if event is InputEventKey && event.is_echo() == false && event.is_pressed() == true :
+		if event.get_scancode() == KEY_DELETE:
+			request_mind("clean_clipboard", null)
+			if _ALREADY_SELECTED_NODE_IDS.size() != 0:
+				if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
+					request_mind("remove_selected_nodes", null)
 	pass
