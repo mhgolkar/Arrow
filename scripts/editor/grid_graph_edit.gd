@@ -549,6 +549,13 @@ func _gui_input(event: InputEvent) -> void:
 							request_mind("clipboard_push_selection", CLIPBOARD_MODE.CUT)
 					KEY_V:
 						request_mind("clipboard_pull", offset_from_position( self.get_local_mouse_position() ) )
+					KEY_D:
+						request_mind("clean_clipboard", null)
+						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
+							request_mind("clipboard_push_selection", CLIPBOARD_MODE.COPY)
+						
+						request_mind("clipboard_pull", offset_from_position( self.get_local_mouse_position() ) )
+						request_mind("clean_clipboard", null)
 					KEY_DELETE:
 						request_mind("clean_clipboard", null)
 						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
