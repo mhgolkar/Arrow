@@ -555,34 +555,25 @@ func update_zoom(magnitude: float, direction: bool) -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventWithModifiers:
 		if event.get_control():
-			# zoom with mouse-wheel
-			if event is InputEventMouseButton:
-				if event.button_index == BUTTON_WHEEL_UP || event.button_index == BUTTON_WHEEL_DOWN:
-					var mouse_wheel_factor:float = ( event.factor if event.factor != 0 else 1.0 )
-					update_zoom(
-						mouse_wheel_factor,
-						(event.button_index == BUTTON_WHEEL_UP)
-					)
-				elif event.button_index == BUTTON_MIDDLE:
-					self.set("zoom", DEFAULT_ZOOM)
-			# shortcuts (cut, copy, paste, etc.) and zoom with keyboard
-			elif event is InputEventKey && event.is_echo() == false && event.is_pressed() == true :
+			if event is InputEventKey:
+				if event.is_echo() == false && event.is_pressed() == true:
+					match event.get_scancode():
+						KEY_C:
+							request_mind("clean_clipboard", null)
+							if _ALREADY_SELECTED_NODE_IDS.size() != 0:
+								request_mind("clipboard_push_selection", CLIPBOARD_MODE.COPY)
+						KEY_X:
+							request_mind("clean_clipboard", null)
+							if _ALREADY_SELECTED_NODE_IDS.size() != 0:
+								request_mind("clipboard_push_selection", CLIPBOARD_MODE.CUT)
+						KEY_V:
+							request_mind("clipboard_pull", offset_from_position( self.get_local_mouse_position() ) )
+						KEY_DELETE:
+							request_mind("clean_clipboard", null)
+							if _ALREADY_SELECTED_NODE_IDS.size() != 0:
+								if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
+									request_mind("remove_selected_nodes", null)
 				match event.get_scancode():
-					KEY_C:
-						request_mind("clean_clipboard", null)
-						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
-							request_mind("clipboard_push_selection", CLIPBOARD_MODE.COPY)
-					KEY_X:
-						request_mind("clean_clipboard", null)
-						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
-							request_mind("clipboard_push_selection", CLIPBOARD_MODE.CUT)
-					KEY_V:
-						request_mind("clipboard_pull", offset_from_position( self.get_local_mouse_position() ) )
-					KEY_DELETE:
-						request_mind("clean_clipboard", null)
-						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
-							if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
-								request_mind("remove_selected_nodes", null)
 					KEY_KP_ADD:
 						update_zoom(1, true)
 					KEY_KP_SUBTRACT:
