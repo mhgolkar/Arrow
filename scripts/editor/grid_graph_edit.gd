@@ -81,7 +81,7 @@ func offset_from_position(position:Vector2) -> Vector2:
 	var scroll_offset = self.get_scroll_ofs()
 	# position is also relative to the top left corner of the parent (visible part)
 	# therefore : 
-	var grid_offset_of_position = (scroll_offset + position)
+	var grid_offset_of_position = (scroll_offset + position) / self.get_zoom()
 	return grid_offset_of_position
 
 # (right-click on the grid)
