@@ -26,6 +26,15 @@ const REASON_TEXT_UNSET_MESSAGE = "No Reason"
 #	# e.g. SOME_CHILD.connect("the_signal", self, "the_handler_on_self", [], CONNECT_DEFERRED)
 #	pass
 
+func _gui_input(event) -> void:
+	if event is InputEventMouseButton:
+		if event.is_doubleclick():
+			if _node_resource.has("data"):
+				var data = _node_resource.data
+				if data.has("target") && (data.target is int) && data.target >= 0:
+					Main.Mind.call_deferred("locate_node_on_grid", data.target)
+	pass
+
 func _update_node(data:Dictionary) -> void:
 	var target_text = JUMP_TARGET_FAILED_MESSAGE
 	if data.has("target") && (data.target is int) && data.target >= 0:
