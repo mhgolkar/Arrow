@@ -28,6 +28,17 @@ const MACRO_TARGET_FAILED_MESSAGE = "No Macro"
 #	# e.g. SOME_CHILD.connect("the_signal", self, "the_handler_on_self", [], CONNECT_DEFERRED)
 #	pass
 
+func _gui_input(event) -> void:
+	if event is InputEventMouseButton:
+		if event.is_doubleclick():
+			if _node_resource.has("data"):
+				var data = _node_resource.data
+				if data.has("macro") && (data.macro is int) && data.macro >= 0:
+					var the_macro = Main.Mind.lookup_resource(data.macro, "scenes")
+					if the_macro.has("entry"):
+						Main.Mind.call_deferred("locate_node_on_grid", the_macro.entry)
+	pass
+
 func _update_node(data:Dictionary) -> void:
 	var the_macro_name_text = MACRO_TARGET_FAILED_MESSAGE
 	if data.has("macro") && (data.macro is int) && data.macro >= 0:
