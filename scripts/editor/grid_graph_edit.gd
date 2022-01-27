@@ -109,6 +109,31 @@ func get_nodes_under_cursor(return_id:bool = false, return_first:bool = false) -
 				return nodes_there
 	return nodes_there
 
+func get_nodes_in(boundry: Rect2, return_id:bool = false, return_first:bool = false) -> Array:
+	var nodes_in_boundry = []
+	for node_id in _DRAWN_NODES_BY_ID:
+		var node = _DRAWN_NODES_BY_ID[node_id]
+		if (
+			is_instance_valid(node) &&
+			boundry.encloses( node.get_global_rect() )
+		):
+			nodes_in_boundry.append(
+				node_id
+				if return_id == true
+				else
+				{ "id": node_id, "node": node }
+			)
+			if return_first:
+				return nodes_in_boundry
+	return nodes_in_boundry
+
+func sellect_all_in(boundry: Rect2) -> void:
+	var nodes_in_boundry = get_nodes_in(boundry)
+	for each in nodes_in_boundry:
+		each.node.set_deferred("selected", true)
+		self.call_deferred("_on_node_selection", each.node)
+	pass
+
 func slot_is_available(node_id:int, slot_idx:int, in_else_out:bool = true) -> bool:
 	if _CONNECTION_RELATIONS_BY_ID_DIR_SLOT.has(node_id):
 		return (

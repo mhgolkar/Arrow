@@ -44,19 +44,18 @@ func _on_resize_request(new_min_size) -> void:
 
 func _gui_input(event) -> void:
 	if event is InputEventMouseButton:
-		if event.is_pressed():
+		if event.is_doubleclick():
+			event.set_pressed(false)
 			var nodes_there = Grid.get_nodes_under_cursor()
 			if nodes_there.size() > 1:
+				self.set_deferred("selected", false)
+				Grid.call_deferred("_on_node_unselection", self)
 				for each in nodes_there:
-					if each.node != self:
-						TheTree.set_input_as_handled()
-						yield(TheTree, "idle_frame")
-						self.set_selected(false)
-						yield(TheTree, "idle_frame")
+					if each.id != self._node_id:
 						each.node.set_deferred("selected", true)
-						Grid.call_deferred("_on_node_unselection", self)
 						Grid.call_deferred("_on_node_selection", each.node)
-						break
+			else:
+				Grid.call_deferred("sellect_all_in", self.get_global_rect())
 	pass
 
 func _update_node(data:Dictionary) -> void:
