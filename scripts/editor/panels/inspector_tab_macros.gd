@@ -224,7 +224,7 @@ func prompt_to_request_macro_removal(macro_id:int = -1) -> void:
 			"show_notification",
 			"Are you sure ?",
 			(
-				"You're removing the macro `%s`, permanently.\r\n" % macro_name +
+				"You're removing the macro `%s`, permanently.\n" % macro_name +
 				"Would you like to proceed?"
 			),
 			[

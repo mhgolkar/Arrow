@@ -1495,6 +1495,7 @@ size_flags_horizontal = 3
 margin_left = 132.0
 margin_right = 192.0
 margin_bottom = 23.0
+hint_tooltip = "Use `Ctrl+E` to quickly re-export your project with path and format of the latest export."
 text = "Export"
 flat = false
 items = [ "{ more tools }", null, 0, false, false, 0, 0, null, "", false ]

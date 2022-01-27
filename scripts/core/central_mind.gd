@@ -1649,9 +1649,9 @@ class Mind :
 			show_error(
 				"Invalid Operation!",
 				(
-					"We can not save projects in snapshot preview mode.\r\n" +
+					"We can not save projects in snapshot preview mode.\n" +
 					"If you intend to keep the snapshot, take another snapshot of it to keep modifications in memory, " +
-					"or restore the open snapshot as the working draft and save it.\r\n" +
+					"or restore the open snapshot as the working draft and save it.\n" +
 					"You can also export any previewed snapshot and reimport it as a new project."
 				)
 			)
@@ -1739,7 +1739,7 @@ class Mind :
 					(
 						"You're about to restore snapshot `%s`. " +
 						"This operation will override current state of the project in memory, " +
-						"but the file (unless saved afterwards) or other snapshots won't budge.\r\n" +
+						"but the file (unless saved afterwards) or other snapshots won't budge.\n" +
 						"If you intend to use current draft later, " +
 						"make sure to close preview and take a snapshot, before restoring this one."
 					) % snapshot_version
@@ -1797,6 +1797,21 @@ class Mind :
 			printerr("Invalid Project File! The file selected is not of a supported format or is corrupted.")
 		pass
 	
+	var _QUICK_EXPORT_FORMAT: String
+	var _QUICK_EXPORT_FILENAME: String
+	var _QUICK_EXPORT_BASE_DIR: String
+	func quick_re_export() -> void:
+		if _QUICK_EXPORT_FORMAT.length() > 0 && _QUICK_EXPORT_FILENAME.length() > 0 && _QUICK_EXPORT_BASE_DIR.length() > 0:
+			export_project_as(_QUICK_EXPORT_FORMAT, _QUICK_EXPORT_FILENAME, _QUICK_EXPORT_BASE_DIR)
+		else:
+			show_error(
+				"Quick Re-Export Not Available!",
+				"You have not yet exported your project in current session.\n" +
+				"This shortcut allows re-exporting project with path and format of the latest export.\n" +
+				"Please export your project first from `Inspector panel > Project tab > Export`."
+			)
+		pass
+	
 	func export_project_as(format, filename:String, base_directory:String) -> void:
 		if filename.is_valid_filename() && Utils.is_abs_or_rel_path(base_directory):
 			if format is String && format.length() > 0:
@@ -1807,15 +1822,19 @@ class Mind :
 					"json":
 						ProMan.save_project_native_file(_PROJECT, full_export_file_path, true)
 					"html":
-						if ProMan.export_playable_html(full_export_file_path, _PROJECT) == OK :
-							# TODO: prompt user
+						var html_creation_state = ProMan.export_playable_html(full_export_file_path, _PROJECT)
+						if html_creation_state == OK :
 							OS.shell_open(full_export_file_path)
 						else:
-							printerr('Unable to Read template or Write to the file!', full_export_file_path)
+							printerr('Unable to Read template or Write to the file!', full_export_file_path, html_creation_state)
 							show_error(
 								"Operation Failed!",
 								"We are not able to write to the path. Please check out if arrow has Write Permission to the destination."
 							)
+				# cache quick re-export data
+				_QUICK_EXPORT_FORMAT = format
+				_QUICK_EXPORT_FILENAME = filename
+				_QUICK_EXPORT_BASE_DIR = base_directory
 			else:
 				# format is not specified so use native project format
 				var full_export_file_path = (Utils.normalize_dir_path(base_directory) + filename + Settings.PROJECT_FILE_EXTENSION)
@@ -1911,6 +1930,8 @@ class Mind :
 			play_from("selected_node")
 		elif event.is_action_pressed("arrow_take_snapshot"):
 			take_snapshot()
+		elif event.is_action_pressed("arrow_quick_re_export"):
+			quick_re_export()
 		else:
 			handled = false
 		return handled

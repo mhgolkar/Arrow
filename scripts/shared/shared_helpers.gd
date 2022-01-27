@@ -154,9 +154,11 @@ class Utils:
 	static func create_from_template_file(template_path:String, save_path:String, replacements:Dictionary = {}):
 		if is_a_file_path(template_path) && is_a_file_path(save_path):
 			var tmpl_file = File.new()
-			if tmpl_file.open(template_path, File.READ) == OK:
+			var tmpl_access_state = tmpl_file.open(template_path, File.READ)
+			if tmpl_access_state == OK:
 				var new_file = File.new()
-				if new_file.open(save_path, File.WRITE) == OK:
+				var new_file_write_access_state = new_file.open(save_path, File.WRITE)
+				if new_file_write_access_state == OK:
 					# Copy the template line by line, replacing the tags
 					var the_content_line:String
 					while tmpl_file.eof_reached() == false:
@@ -168,8 +170,10 @@ class Utils:
 					new_file.close()
 					tmpl_file.close()
 					return OK
+				else:
+					return new_file_write_access_state
 			else:
-				return ERR_CANT_ACQUIRE_RESOURCE
+				return tmpl_access_state
 		else:
 			return ERR_INVALID_PARAMETER
 		pass

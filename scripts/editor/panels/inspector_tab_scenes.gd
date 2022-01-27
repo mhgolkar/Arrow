@@ -212,7 +212,7 @@ func prompt_to_request_scene_removal(scene_id:int = -1) -> void:
 			"show_notification",
 			"Are you sure ?",
 			(
-				"You're removing the scene `%s`, permanently.\r\n" % scene_name +
+				"You're removing the scene `%s`, permanently.\n" % scene_name +
 				"Would you like to proceed?"
 			),
 			[

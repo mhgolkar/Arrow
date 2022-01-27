@@ -255,5 +255,6 @@ func proceed_export(path:String, format = null) -> void:
 			"base_directory": path.get_base_dir()
 		})
 	else:
-		printerr("Invalid Filename! We need a valid filename of at least 1 char length!")
+		printerr("Invalid export filename:", path, pure_filename)
+		Main.Mind.show_error("Invalid Filename!", "Please choose a filename of at-least 1 character length length.")
 	pass
