@@ -1,6 +1,19 @@
 # Arrow: Changelog
 
 
+## v1.5.0
+
++ New built-in `Frame` node
++ New shortcuts with some existent ones being remapped, including:
+    + `CTRL+E` for quick re-export
+    + Node removal with `Del` instead of `CTRL+Del`
+    + Moving selected nodes on focused grid using `CTRL+Arrow-Keys`
++ Tracking and restore window state from configuration file
++ Revising project regarding recent Godot updates
++ Jumping to target nodes or underlying macros by double-clicking on `Jump` or `Macro_Use` nodes.
++ More fixed issues and minor improvements
+
+
 ## v1.4.0
 
 + New Features:
