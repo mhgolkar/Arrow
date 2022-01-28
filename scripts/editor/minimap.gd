@@ -125,17 +125,19 @@ func toggle_opacity(force = null):
 	pass
 
 func _on_gui_input(event:InputEvent) -> void:
-	if event is InputEventMouseButton:
-		handle_mouse_gui_inputs(event)
+	if event is InputEventMouseButton || event is InputEventMouseMotion:
+		handle_seek(event)
 	pass
 
-func handle_mouse_gui_inputs(input:InputEventMouseButton) -> void:
-	if input.is_pressed():
-		var is_left_click = (input.get_button_index() == BUTTON_LEFT )
-		var is_right_click = (input.get_button_index() == BUTTON_RIGHT )
-		# ask grid to go to the offset respective to the point selected on the minimap
-		if is_left_click || is_right_click: # (we don't want this on scroll (middle button))
-			var offset_from_click = (input.get_position() / _GRID_TO_MINIMAP_RATIO) + _CORNER_ADJUSTMENT
-			Grid.call_deferred("got_to_offset", offset_from_click, (input.get_button_index() == BUTTON_LEFT)) # jump point will be enhanced/centered on left-click
-			self.call_deferred("set_crosshair")
+func handle_seek(event:InputEventMouse) -> void:
+	var exact = (Input.is_mouse_button_pressed(BUTTON_RIGHT))
+	var adjusted = (Input.is_mouse_button_pressed(BUTTON_LEFT) || Input.is_key_pressed(KEY_ALT))
+	# ask grid to go to the offset respective to the point selected on the minimap
+	if exact || adjusted:
+		var mouse_position = event.get_position()
+		var offset_from_click = (mouse_position / _GRID_TO_MINIMAP_RATIO) + _CORNER_ADJUSTMENT
+		# jump point will be enhanced/centered on adjusted mode
+		# and we don't reset zoom anyway to have a smoother seek
+		Grid.call_deferred("got_to_offset", offset_from_click, adjusted, false)
+		self.call_deferred("set_crosshair")
 	pass

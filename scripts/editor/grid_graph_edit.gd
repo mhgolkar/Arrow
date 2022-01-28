@@ -269,12 +269,13 @@ func clean_grid() -> void:
 	# this is why we did it manually here.
 	pass
 
-func got_to_offset(destination, auto_adjust:bool = false) -> void:
+func got_to_offset(destination, auto_adjust:bool = false, reset_zoom:bool = true) -> void:
 	if destination is Array:
 		destination = Utils.array_to_vector2(destination)
 	if destination is Vector2:
 		if auto_adjust:
-			self.set_zoom(1)
+			if reset_zoom:
+				self.set_zoom(1)
 			var adjustment = ( self.get_size() * Settings.GRID_GO_TO_AUTO_ADJUSTMENT_FACTOR )
 			destination = (destination - adjustment).floor()
 		self.call_deferred("set_scroll_ofs", destination)
@@ -559,7 +560,7 @@ func resize_native_minimap() -> void:
 	# to make sure the native minimap is not masked by inspector
 	self.set_minimap_size(
 		Vector2(
-			self.get_size().x,
+			self.get_size().x - 10, # (with a gap to make sure the resize handle is visible)
 			(self.get_size().y / 4)
 		)
 	)
