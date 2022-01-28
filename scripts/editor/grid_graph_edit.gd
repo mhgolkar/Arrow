@@ -587,7 +587,18 @@ func update_zoom(magnitude: float, direction: bool) -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventKey:
+		# Without Modifiers
+		# > Press
+		if event.is_echo() == false && event.is_pressed() == true:
+			match event.get_scancode():
+				KEY_DELETE:
+					request_mind("clean_clipboard", null)
+					if _ALREADY_SELECTED_NODE_IDS.size() != 0:
+						if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
+							request_mind("remove_selected_nodes", null)
+		# With Modifiers
 		if event.get_control():
+			# > Press
 			if event.is_echo() == false && event.is_pressed() == true:
 				match event.get_scancode():
 					KEY_C:
@@ -600,11 +611,7 @@ func _gui_input(event: InputEvent) -> void:
 							request_mind("clipboard_push_selection", CLIPBOARD_MODE.CUT)
 					KEY_V:
 						request_mind("clipboard_pull", offset_from_position( self.get_local_mouse_position() ) )
-					KEY_DELETE:
-						request_mind("clean_clipboard", null)
-						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
-							if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
-								request_mind("remove_selected_nodes", null)
+			# > Echo
 			match event.get_scancode():
 				KEY_KP_ADD:
 					update_zoom(1, true)
