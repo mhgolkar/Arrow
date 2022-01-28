@@ -512,6 +512,14 @@ func _on_node_move_end() -> void:
 		Minimap.call_deferred("refresh")
 	pass
 
+func update_sellected_nodes_offset(direction:Vector2, speed: float = (self.snap_distance / 2)) -> void:
+	var movement = direction * speed
+	for node_id in _ALREADY_SELECTED_NODES_BY_ID:
+		var current_offset = _ALREADY_SELECTED_NODES_BY_ID[node_id].get_offset()
+		_ALREADY_SELECTED_NODES_BY_ID[node_id].set_offset(current_offset + movement)
+	_on_node_move_end()
+	pass
+
 func clean_node_off(node_id:int = -1):
 	if _DRAWN_NODES_BY_ID.has(node_id):
 		# first remove connections
@@ -578,41 +586,48 @@ func update_zoom(magnitude: float, direction: bool) -> void:
 	pass
 
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventWithModifiers:
+	if event is InputEventKey:
 		if event.get_control():
-			if event is InputEventKey:
-				if event.is_echo() == false && event.is_pressed() == true:
-					match event.get_scancode():
-						KEY_C:
-							request_mind("clean_clipboard", null)
-							if _ALREADY_SELECTED_NODE_IDS.size() != 0:
-								request_mind("clipboard_push_selection", CLIPBOARD_MODE.COPY)
-						KEY_X:
-							request_mind("clean_clipboard", null)
-							if _ALREADY_SELECTED_NODE_IDS.size() != 0:
-								request_mind("clipboard_push_selection", CLIPBOARD_MODE.CUT)
-						KEY_V:
-							request_mind("clipboard_pull", offset_from_position( self.get_local_mouse_position() ) )
-						KEY_DELETE:
-							request_mind("clean_clipboard", null)
-							if _ALREADY_SELECTED_NODE_IDS.size() != 0:
-								if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
-									request_mind("remove_selected_nodes", null)
+			if event.is_echo() == false && event.is_pressed() == true:
 				match event.get_scancode():
-					KEY_KP_ADD:
-						update_zoom(1, true)
-					KEY_KP_SUBTRACT:
-						update_zoom(1, false)
-					KEY_KP_0:
-						self.set("zoom", DEFAULT_ZOOM)
-					KEY_0:
-						self.set("zoom", DEFAULT_ZOOM)
-					KEY_EQUAL:
-						update_zoom(1, true)
-					KEY_PLUS:
-						update_zoom(1, true)
-					KEY_MINUS:
-						update_zoom(1, false)
+					KEY_C:
+						request_mind("clean_clipboard", null)
+						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
+							request_mind("clipboard_push_selection", CLIPBOARD_MODE.COPY)
+					KEY_X:
+						request_mind("clean_clipboard", null)
+						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
+							request_mind("clipboard_push_selection", CLIPBOARD_MODE.CUT)
+					KEY_V:
+						request_mind("clipboard_pull", offset_from_position( self.get_local_mouse_position() ) )
+					KEY_DELETE:
+						request_mind("clean_clipboard", null)
+						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
+							if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
+								request_mind("remove_selected_nodes", null)
+			match event.get_scancode():
+				KEY_KP_ADD:
+					update_zoom(1, true)
+				KEY_KP_SUBTRACT:
+					update_zoom(1, false)
+				KEY_KP_0:
+					self.set("zoom", DEFAULT_ZOOM)
+				KEY_0:
+					self.set("zoom", DEFAULT_ZOOM)
+				KEY_EQUAL:
+					update_zoom(1, true)
+				KEY_PLUS:
+					update_zoom(1, true)
+				KEY_MINUS:
+					update_zoom(1, false)
+				KEY_UP:
+					update_sellected_nodes_offset(Vector2.UP)
+				KEY_DOWN:
+					update_sellected_nodes_offset(Vector2.DOWN)
+				KEY_LEFT:
+					update_sellected_nodes_offset(Vector2.LEFT)
+				KEY_RIGHT:
+					update_sellected_nodes_offset(Vector2.RIGHT)
 	pass
 
 func _process(delta):
