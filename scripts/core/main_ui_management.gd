@@ -170,7 +170,37 @@ class UiManager :
 			factor = factor / Settings.SCALE_RANGE_CENTER
 		# TODO: currently there is no satisfying way to scale UI, may be a better time.
 		return factor
-
+	
+	func read_window_state() -> Dictionary:
+		return {
+			"position": OS.get_window_position(),
+			"size": OS.get_window_size(),
+			"full_screen": OS.is_window_fullscreen(),
+			"always_on_top": OS.is_window_always_on_top(),
+			"maximized": OS.is_window_maximized(),
+			# "borderless": OS.get_borderless_window(),
+		}
+		pass
+	
+	func restore_window(state:Dictionary) -> void:
+		print_debug("restoring window state: ", state)
+		for tracked in state:
+			var condition = state[tracked]
+			match tracked:
+				"position":
+					OS.call_deferred("set_window_position", condition)
+				"size":
+					OS.call_deferred("set_window_size", condition)
+				"full_screen":
+					OS.call_deferred("set_window_fullscreen", condition)
+				"always_on_top":
+					OS.call_deferred("set_window_always_on_top", condition)
+				"maximized":
+					OS.call_deferred("set_window_maximized", condition)
+				# "borderless":
+					# OS.call_deferred("set_borderless_window", condition)
+		pass
+	
 	# updates view partially or fully depending on the `configuration`
 	func update_view_from_configuration(configuration:Dictionary) -> void:
 		print_debug("View updated:", configuration)
@@ -183,4 +213,7 @@ class UiManager :
 					reset_theme( cfg )
 				"language":
 					reset_language( cfg )
+				"window":
+					if cfg is Dictionary:
+						restore_window(cfg)
 		pass

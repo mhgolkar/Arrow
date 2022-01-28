@@ -30,7 +30,8 @@ class ConfigHandler :
 		"appearance_theme": 0,
 		"language": 0,
 		"app_local_dir_path": "user://",
-		"textual_save_data": ( Settings.USE_JSON_FOR_PROJECT_FILES != false )
+		"textual_save_data": ( Settings.USE_JSON_FOR_PROJECT_FILES != false ),
+		"window": null,
 	}
 	# active configurations
 	var TEMPORARY = {} # middle/preview state (active but not confiremd yet)
