@@ -577,7 +577,6 @@ func update_zoom(magnitude: float, direction: bool) -> void:
 		self.set("zoom", new_zoom)
 	pass
 
-# Scroll to Zoom
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventWithModifiers:
 		if event.get_control():
@@ -604,6 +603,8 @@ func _gui_input(event: InputEvent) -> void:
 						update_zoom(1, true)
 					KEY_KP_SUBTRACT:
 						update_zoom(1, false)
+					KEY_KP_0:
+						self.set("zoom", DEFAULT_ZOOM)
 					KEY_0:
 						self.set("zoom", DEFAULT_ZOOM)
 					KEY_EQUAL:
@@ -612,8 +613,6 @@ func _gui_input(event: InputEvent) -> void:
 						update_zoom(1, true)
 					KEY_MINUS:
 						update_zoom(1, false)
-					KEY_KP_0:
-						self.set("zoom", DEFAULT_ZOOM)
 	pass
 
 func _process(delta):
