@@ -14,14 +14,17 @@ class ConfigHandler :
 
 	var Utils = Helpers.Utils
 	
-	func _init(main) -> void:
-		Main = main
-		pass
-	
 	# base directory path to the config file being used
 	# Note: it's NOT necessarily the same as `_ALDP` (app local/work directory path)
 	# `--config-dir <path>` cli argument overrides this variable
 	var _CONFIG_FILE_BASE_DIR = null
+	
+	func _init(main) -> void:
+		Main = main
+		# For HTML5 exports, we need to override the configuration base to the only writable path:
+		if Html5Helpers.Utils.is_browser():
+			_CONFIG_FILE_BASE_DIR = "user://"
+		pass
 	
 	# default configurations
 	# CAUTION! this is the CONSTANT default configuration, used in config file generation, resets, etc.
@@ -29,7 +32,7 @@ class ConfigHandler :
 		"ui_scale": Settings.SCALE_RANGE_CENTER,
 		"appearance_theme": 0,
 		"language": 0,
-		"app_local_dir_path": "user://",
+		"app_local_dir_path": "user://", # (IMPORTANT: Only `user://` works in `HTML5` exports)
 		"textual_save_data": ( Settings.USE_JSON_FOR_PROJECT_FILES != false ),
 		"window": null,
 	}

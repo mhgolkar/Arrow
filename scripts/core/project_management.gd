@@ -208,7 +208,17 @@ class ProjectManager :
 				if validate_project_data(project_file_data) == true:
 					return project_file_data
 		return null
-		
+	
+	func read_browsed_project_content(json: String):
+		var parsed: JSONParseResult = JSON.parse(json)
+		if parsed.error == OK:
+			var parsed_project_file_data = parsed.get_result()
+			if parsed_project_file_data is Dictionary:
+				var project_file_data = refactore_parsed_json_project_data(parsed_project_file_data)
+				if validate_project_data(project_file_data) == true:
+					return project_file_data
+		return null
+	
 	func hold_project_by_id(project_uid:int = -1):
 		if is_project_listed(project_uid) == true:
 			# read project file

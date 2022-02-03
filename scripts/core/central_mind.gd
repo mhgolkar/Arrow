@@ -69,6 +69,8 @@ class Mind :
 		"DATA": null
 	}
 	
+	var _BROWSER_READER_HELPER = Html5Helpers.Reader.new()
+	
 	func _init(main) -> void:
 		Main = main
 		pass
@@ -137,7 +139,10 @@ class Mind :
 					"from_current":
 						save_project()
 					"from_file":
-						prompt_path_to(self, "import_project_from_file", [-2], Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.OPEN)
+						if Html5Helpers.Utils.is_browser():
+							_BROWSER_READER_HELPER.read_file_then(self, "import_project_from_browsed")
+						else:
+							prompt_path_to(self, "import_project_from_file", [-2], Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.OPEN)
 			"node_selection":
 				track_nodes_selection(args, true)
 			"node_unselection":
@@ -1794,7 +1799,26 @@ class Mind :
 			ProMan.save_project_into(target_registered_uid_to_save_into, importing_data, false, Main.Configs.CONFIRMED.textual_save_data)
 			load_projects_list()
 		else:
-			printerr("Invalid Project File! The file selected is not of a supported format or is corrupted.")
+			printerr("Invalid Project File! The selected file is not of a supported format or is corrupted.")
+		pass
+	
+	func import_project_from_browsed(json: String, filename: String) -> void:
+		var importing_data = ProMan.read_browsed_project_content(json)
+		# project manager will return `null` if anything goes wrong
+		if importing_data is Dictionary:
+			print_debug("valid project file browsed: ", filename)
+			var pure_filename = filename.replacen(".json", "").replacen(Settings.PROJECT_FILE_EXTENSION, "")
+			var target_registered_uid_to_save_into = ProMan.register_project(importing_data.title, pure_filename, false)
+			ProMan.save_project_into(target_registered_uid_to_save_into, importing_data, false, Main.Configs.CONFIRMED.textual_save_data)
+			load_projects_list()
+		else:
+			show_error(
+				"Invalid Project File!",
+				(
+					"The file selected is not of a supported format or is corrupted.\n" +
+					"We can only accept textual save files (Json) in this context."
+				)
+			)
 		pass
 	
 	var _QUICK_EXPORT_FORMAT: String

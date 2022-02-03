@@ -29,6 +29,7 @@ const CONFIG_FILES_SUB_PATH_DIR_PRIORITY = ["user://", "res://"]
 # A custom base-directory path for the configuration file also be set using `--config-dir` cli argument:
 # $ arrow --config-dir '/home/user/.config'
 # The work (or project management) directory may also be overridden using `--work-dir` cli argument.
+# Note that in `HTML5` exports, only `user://` is writable, so this process will not apply. 
 
 # MainUserInterface
 

@@ -55,6 +55,11 @@ _global_script_classes=[ {
 "path": "res://scripts/shared/shared_helpers.gd"
 }, {
 "base": "Reference",
+"class": "Html5Helpers",
+"language": "GDScript",
+"path": "res://scripts/shared/html5_helpers.gd"
+}, {
+"base": "Reference",
 "class": "HubSharedClass",
 "language": "GDScript",
 "path": "res://nodes/hub/shared.gd"
@@ -99,6 +104,7 @@ _global_script_class_icons={
 "Embedded": "",
 "GeneratorSharedClass": "",
 "Helpers": "",
+"Html5Helpers": "",
 "HubSharedClass": "",
 "MainUserInterface": "",
 "NodeTypes": "",
