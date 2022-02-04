@@ -23,6 +23,17 @@ class Utils:
 		window().alert(msg)
 		pass
 	
+	static func refresh_window() -> void:
+		JavaScript.get_interface("location").reload()
+		pass
+	
+	static func clear_browser_storage() -> void:
+		JavaScript.get_interface("localStorage").clear()
+		JavaScript.get_interface("sessionStorage").clear()
+		JavaScript.get_interface("indexedDB").deleteDatabase("/userfs")
+		refresh_window()
+		pass
+	
 # HTML5 File Reader Helper
 # This allows opening project files with permissioned access to the user's device file-system
 class Reader:
