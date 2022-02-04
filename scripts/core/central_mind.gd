@@ -298,6 +298,7 @@ class Mind :
 			deactivate_project_properties()
 			clean_snapshots_all()
 			clean_inspector_tabs()
+			clean_quick_re_export()
 			open_new_blank_project(true)
 			project_closed = true
 		else:
@@ -1826,8 +1827,17 @@ class Mind :
 	var _QUICK_EXPORT_FORMAT: String
 	var _QUICK_EXPORT_FILENAME: String
 	var _QUICK_EXPORT_BASE_DIR: String
+	
+	func clean_quick_re_export() -> void:
+		_QUICK_EXPORT_FORMAT = ""
+		_QUICK_EXPORT_FILENAME = ""
+		_QUICK_EXPORT_BASE_DIR = ""
+		pass
+	
 	func quick_re_export() -> void:
-		if _QUICK_EXPORT_FORMAT.length() > 0 && _QUICK_EXPORT_FILENAME.length() > 0 && _QUICK_EXPORT_BASE_DIR.length() > 0:
+		if Html5Helpers.Utils.is_browser() && _QUICK_EXPORT_FORMAT.length() > 0:
+			export_project_from_browser(_QUICK_EXPORT_FORMAT)
+		elif _QUICK_EXPORT_FORMAT.length() > 0 && _QUICK_EXPORT_FILENAME.length() > 0 && _QUICK_EXPORT_BASE_DIR.length() > 0:
 			export_project_as(_QUICK_EXPORT_FORMAT, _QUICK_EXPORT_FILENAME, _QUICK_EXPORT_BASE_DIR)
 		else:
 			show_error(
@@ -1881,6 +1891,7 @@ class Mind :
 						JavaScript.download_buffer(html.to_utf8(), suggested_filename + ".html")
 					else:
 						printerr("Unable to parse_playable_html", html)
+			_QUICK_EXPORT_FORMAT = format
 		else:
 			printerr("Trying to export_project_from_browser out of the context!")
 		pass
