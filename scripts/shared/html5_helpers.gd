@@ -2,7 +2,7 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Shared helper classes
+# Shared helper classes for browser (i.e. HTML5 export)
 class_name Html5Helpers
 
 # Classes

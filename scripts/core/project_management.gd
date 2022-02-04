@@ -452,17 +452,28 @@ class ProjectManager :
 			return JSON.print(project)
 		pass
 	
-	func export_playable_html(full_export_file_path:String, project:Dictionary):
+	func tag_replacements_from(project: Dictionary) -> Dictionary:
+		return {
+			'{{project_title}}':     project.title,
+			'{{project_json}}':      print_play_ready_project(project),
+			'{{project_last_save}}': Utils.parse_time_stamp_dict(project.meta.last_save.utc, true),
+			'{{arrow_website}}':     Settings.ARROW_WEBSITE,
+			'{{arrow_version}}':     Settings.ARROW_VERSION
+		}
+	
+	func save_playable_html(full_export_file_path:String, project:Dictionary):
 		# use official html-js runtime template to make playable html (single page) export
-		return Utils.create_from_template_file (
+		return Utils.save_from_template_file (
 				Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH,
 				full_export_file_path,
-				{
-					'{{project_title}}':     project.title,
-					'{{project_json}}':      print_play_ready_project(project),
-					'{{project_last_save}}': Utils.parse_time_stamp_dict(project.meta.last_save.utc, true),
-					'{{arrow_website}}':     Settings.ARROW_WEBSITE,
-					'{{arrow_version}}':     Settings.ARROW_VERSION
-				}
+				tag_replacements_from(project)
 		)
 		pass
+	
+	func parse_playable_html(project:Dictionary):
+		return Utils.parse_template(
+				Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH,
+				tag_replacements_from(project)
+		)
+		pass
+	

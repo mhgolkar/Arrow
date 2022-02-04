@@ -238,11 +238,17 @@ func request_save_a_copy_file() -> void:
 	pass
 
 func request_json_export() -> void:
-	prompt_for_save( Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.EXPORT_JSON, ["json"] )
+	if Html5Helpers.Utils.is_browser():
+		emit_signal("relay_request_mind", "export_project_from_browser", "json")
+	else:
+		prompt_for_save( Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.EXPORT_JSON, ["json"] )
 	pass
 
 func request_html_export() -> void:
-	prompt_for_save( Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.EXPORT_HTML, ["html"] )
+	if Html5Helpers.Utils.is_browser():
+		emit_signal("relay_request_mind", "export_project_from_browser", "html")
+	else:
+		prompt_for_save( Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.EXPORT_HTML, ["html"] )
 	pass
 
 func proceed_export(path:String, format = null) -> void:

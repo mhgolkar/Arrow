@@ -128,6 +128,9 @@ class Utils:
 					return parsed.get_result()
 		return null
 	
+	static func stringify_json(data, indent:String = Settings.PROJECT_FILE_JSON_DEFAULT_IDENT, sort_keys:bool = false) -> String:
+		return JSON.print(data, indent, sort_keys)
+	
 	static func save_data_as_json_file(data, path:String, indent:String = "", sort_keys:bool = false):
 		var data_stringified = JSON.print(data, indent, sort_keys)
 		if data_stringified is String:
@@ -151,7 +154,7 @@ class Utils:
 				return true
 		return false
 	
-	static func create_from_template_file(template_path:String, save_path:String, replacements:Dictionary = {}):
+	static func save_from_template_file(template_path:String, save_path:String, replacements:Dictionary = {}):
 		if is_a_file_path(template_path) && is_a_file_path(save_path):
 			var tmpl_file = File.new()
 			var tmpl_access_state = tmpl_file.open(template_path, File.READ)
@@ -172,6 +175,28 @@ class Utils:
 					return OK
 				else:
 					return new_file_write_access_state
+			else:
+				return tmpl_access_state
+		else:
+			return ERR_INVALID_PARAMETER
+		pass
+	
+	static func parse_template(template_path:String, replacements:Dictionary = {}):
+		if is_a_file_path(template_path):
+			var tmpl_file = File.new()
+			var tmpl_access_state = tmpl_file.open(template_path, File.READ)
+			if tmpl_access_state == OK:
+				var parsed: String
+				# Copy the template line by line, replacing the tags
+				var the_content_line:String
+				while tmpl_file.eof_reached() == false:
+					the_content_line = tmpl_file.get_line()
+					for tag in replacements:
+						the_content_line = the_content_line.replace( tag, replacements[tag] )
+					parsed = parsed + the_content_line
+				# ...
+				tmpl_file.close()
+				return parsed
 			else:
 				return tmpl_access_state
 		else:

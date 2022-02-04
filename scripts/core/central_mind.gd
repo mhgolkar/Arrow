@@ -214,6 +214,8 @@ class Mind :
 				)
 			"export_project":
 				export_project_as(args.format, args.filename, args.base_directory)
+			"export_project_from_browser":
+				export_project_from_browser(args)
 			"console_play_from":
 				play_from(args)
 			"console_clear":
@@ -1846,7 +1848,7 @@ class Mind :
 					"json":
 						ProMan.save_project_native_file(_PROJECT, full_export_file_path, true)
 					"html":
-						var html_creation_state = ProMan.export_playable_html(full_export_file_path, _PROJECT)
+						var html_creation_state = ProMan.save_playable_html(full_export_file_path, _PROJECT)
 						if html_creation_state == OK :
 							OS.shell_open(full_export_file_path)
 						else:
@@ -1864,6 +1866,23 @@ class Mind :
 				var full_export_file_path = (Utils.normalize_dir_path(base_directory) + filename + Settings.PROJECT_FILE_EXTENSION)
 				ProMan.save_project_native_file(_PROJECT, full_export_file_path, Main.Configs.CONFIRMED.textual_save_data)
 				print_debug("Saving a Copy of the Project as `%s` to: "% (filename + Settings.PROJECT_FILE_EXTENSION), base_directory )
+		pass
+	
+	func export_project_from_browser(format: String) -> void:
+		if Html5Helpers.Utils.is_browser():
+			var suggested_filename = Utils.valid_filename(_PROJECT.title)
+			match format.to_lower():
+				"json":
+					var json = Utils.stringify_json(_PROJECT)
+					JavaScript.download_buffer(json.to_utf8(), suggested_filename + ".json")
+				"html":
+					var html = ProMan.parse_playable_html(_PROJECT)
+					if html is String:
+						JavaScript.download_buffer(html.to_utf8(), suggested_filename + ".html")
+					else:
+						printerr("Unable to parse_playable_html", html)
+		else:
+			printerr("Trying to export_project_from_browser out of the context!")
 		pass
 	
 	# plays the project in console
