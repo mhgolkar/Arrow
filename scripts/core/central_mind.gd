@@ -139,10 +139,10 @@ class Mind :
 					"from_current":
 						save_project()
 					"from_file":
+						prompt_path_to(self, "import_project_from_file", [-2], Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.OPEN)
+					"from_browsed":
 						if Html5Helpers.Utils.is_browser():
 							_BROWSER_READER_HELPER.read_file_then(self, "import_project_from_browsed")
-						else:
-							prompt_path_to(self, "import_project_from_file", [-2], Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.OPEN)
 			"node_selection":
 				track_nodes_selection(args, true)
 			"node_unselection":

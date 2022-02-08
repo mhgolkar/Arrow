@@ -11,12 +11,13 @@ onready var Main = get_tree().get_root().get_child(0)
 
 onready var popup = self.get_popup()
 
-var _MENU_ITEMS = ["NEW_BLANK", "USE_CURRENT", null, "IMPORT_FILE"]
+var _MENU_ITEMS = ["NEW_BLANK", "USE_CURRENT", null, "IMPORT_FILE", "BROWSE_FILE"]
 var _MENU_ITEMS_DATA = [
 	{ "text": "New Blank Project", "request": "new_project", "arguments": "blank"},
 	{ "text": "Save Current & Continue", "request": "new_project", "arguments": "from_current"},
 	null,
-	{ "text": "Import Project File", "request": "new_project", "arguments": "from_file"}
+	{ "text": "Load Project", "request": "new_project", "arguments": "from_file"},
+	{ "html5": true, "text": "Import Project File", "request": "new_project", "arguments": "from_browsed"}
 ]
 # items listed by key to ...
 var _IDX = {} # index
@@ -30,12 +31,18 @@ func _ready() -> void:
 
 func create_menu_items() -> void:
 	popup.clear()
+	var being_in_browser = Html5Helpers.Utils.is_browser()
 	var item_id = 0; # here, id is the same as order of the item
 	for item in _MENU_ITEMS:
 		if item != null:
 			_ID[item] = item_id
-			popup.add_item(_MENU_ITEMS_DATA[item_id].text, item_id)
-			_IDX[item] = popup.get_item_index(item_id)
+			var the_item = _MENU_ITEMS_DATA[item_id];
+			if (
+				the_item.has("html5") == false || # (is always available)
+				(the_item.html5 == being_in_browser) # (depending on the environment)
+			):
+				popup.add_item(the_item.text, item_id)
+				_IDX[item] = popup.get_item_index(item_id)
 		else:
 			popup.add_separator();
 		item_id += 1
