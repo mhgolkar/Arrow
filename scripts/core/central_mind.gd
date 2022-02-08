@@ -1855,19 +1855,20 @@ class Mind :
 				var formated_filename = (filename + "." + format)
 				var full_export_file_path = (Utils.normalize_dir_path(base_directory) + formated_filename)
 				print_debug("Saving a Copy of the Project as `%s` to: "% (formated_filename), base_directory )
+				var saved;
 				match format.to_lower():
 					"json":
-						ProMan.save_project_native_file(_PROJECT, full_export_file_path, true)
+						saved = ProMan.save_play_ready_json(full_export_file_path, _PROJECT)
 					"html":
-						var html_creation_state = ProMan.save_playable_html(full_export_file_path, _PROJECT)
-						if html_creation_state == OK :
+						saved = ProMan.save_playable_html(full_export_file_path, _PROJECT)
+						if saved == OK :
 							OS.shell_open(full_export_file_path)
-						else:
-							printerr('Unable to Read template or Write to the file!', full_export_file_path, html_creation_state)
-							show_error(
-								"Operation Failed!",
-								"We are not able to write to the path. Please check out if arrow has Write Permission to the destination."
-							)
+				if saved != OK:
+					printerr('Unable to Read template or Write to the file!', full_export_file_path, saved)
+					show_error(
+						"Operation Failed!",
+						"We are not able to write to the path. Please check out if arrow has Write Permission to the destination."
+					)
 				# cache quick re-export data
 				_QUICK_EXPORT_FORMAT = format
 				_QUICK_EXPORT_FILENAME = filename
@@ -1883,9 +1884,13 @@ class Mind :
 		if Html5Helpers.Utils.is_browser():
 			var suggested_filename = Utils.valid_filename(_PROJECT.title)
 			match format.to_lower():
+				"full-copy":
+					var full_json = Utils.stringify_json(_PROJECT)
+					JavaScript.download_buffer(full_json.to_utf8(), suggested_filename + Settings.PROJECT_FILE_EXTENSION)
 				"json":
-					var json = Utils.stringify_json(_PROJECT)
-					JavaScript.download_buffer(json.to_utf8(), suggested_filename + ".json")
+					var play_ready = ProMan.revise_play_ready(_PROJECT);
+					var play_json = Utils.stringify_json(play_ready)
+					JavaScript.download_buffer(play_json.to_utf8(), suggested_filename + ".json")
 				"html":
 					var html = ProMan.parse_playable_html(_PROJECT)
 					if html is String:

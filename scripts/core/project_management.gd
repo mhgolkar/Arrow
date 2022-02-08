@@ -433,9 +433,9 @@ class ProjectManager :
 	
 	# Playable Exports
 	
-	func print_play_ready_project(project: Dictionary) -> String:
+	func revise_play_ready(project: Dictionary) -> Dictionary:
+		var duplicated_project = project.duplicate(true)
 		if Settings.PURGE_DEVELOPMENT_DATA_FROM_PLAYABLES == true:
-			var duplicated_project = project.duplicate(true)
 			if Settings.DATA_TO_BE_PURGED_FROM_PLAYABLE_METADATA is Array && project.has('meta'):
 				for key in Settings.DATA_TO_BE_PURGED_FROM_PLAYABLE_METADATA:
 					duplicated_project.meta.erase(key)
@@ -447,15 +447,23 @@ class ProjectManager :
 							for res in duplicated_project.resources[dataset]:
 								for key in Settings.DATA_TO_BE_PURGED_FROM_PLAYABLE_RESOURCES[dataset]:
 									duplicated_project.resources[dataset][res].erase(key);
-			return JSON.print(duplicated_project)
-		else:
-			return JSON.print(project)
-		pass
+		return duplicated_project
+	
+	func save_play_ready_json(full_export_file_path:String, project:Dictionary):
+		var play_ready_project = revise_play_ready(project)
+		var done = Utils.save_data_as_json_file(
+			play_ready_project, full_export_file_path, Settings.PROJECT_FILE_JSON_DEFAULT_IDENT, false
+		)
+		return done
+	
+	func print_play_ready(project: Dictionary) -> String:
+		var play_ready = revise_play_ready(project)
+		return JSON.print(play_ready)
 	
 	func tag_replacements_from(project: Dictionary) -> Dictionary:
 		return {
 			'{{project_title}}':     project.title,
-			'{{project_json}}':      print_play_ready_project(project),
+			'{{project_json}}':      print_play_ready(project),
 			'{{project_last_save}}': Utils.parse_time_stamp_dict(project.meta.last_save.utc, true),
 			'{{arrow_website}}':     Settings.ARROW_WEBSITE,
 			'{{arrow_version}}':     Settings.ARROW_VERSION

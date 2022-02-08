@@ -34,11 +34,6 @@ If you want to customize how the runtime plays your project, you have the source
         - and a semicolon `;` after all the text.
     + Rename this altered `.json` file to `project.js`.
     + Put this `project.js` file into your copy of the runtime (adjacent to the `index.html` file.)
-    
-    > Unlike the [quick standard way](#quick-export), exporting `.json`
-    > won't clean up the extra node notes and metadata.
-    > You might want to take care of them yourself,
-    > if the project is going to be distributed or the data includes business secrets!
 
 2. You might want to replace tags like `{{project_title}}` and `{{project_last_save}}` in the `./index.html` file.
 3. Customize the `css` and `js` files as you wish.

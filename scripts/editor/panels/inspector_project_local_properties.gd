@@ -41,9 +41,10 @@ var _IS_IN_PREVIEW_MODE:bool = false
 
 const MORE_TOOLS_MENU_BUTTON_POPUP = {
 	0: { "label": "Save a Copy", "action": "request_save_a_copy_file" },
-	1: null, # separator
-	2: { "label": "Export JSON", "action": "request_json_export" },
-	3: { "label": "Export HTML (Play)", "action": "request_html_export" },
+	1: { "html5": true, "label": "Download a Copy", "action": "request_copy_export" },
+	2: null, # separator
+	3: { "label": "Export JSON", "action": "request_json_export" },
+	4: { "label": "Export HTML", "action": "request_html_export" },
 }
 var _MORE_TOOLS_ITEM_INDEX_BY_ACTION = {}
 
@@ -69,13 +70,18 @@ func register_connections() -> void:
 	
 func load_more_tools_menu() -> void:
 	MoreToolsPopup.clear()
+	var being_in_browser = Html5Helpers.Utils.is_browser()
 	for item_id in MORE_TOOLS_MENU_BUTTON_POPUP:
 		var item = MORE_TOOLS_MENU_BUTTON_POPUP[item_id]
 		if item == null: # separator
 			MoreToolsPopup.add_separator()
 		else:
-			MoreToolsPopup.add_item(item.label, item_id)
-			_MORE_TOOLS_ITEM_INDEX_BY_ACTION[item.action] = MoreToolsPopup.get_item_index(item_id)
+			if (
+				item.has("html5") == false || # (is always available)
+				(item.html5 == being_in_browser) # (depending on the environment)
+			):
+				MoreToolsPopup.add_item(item.label, item_id)
+				_MORE_TOOLS_ITEM_INDEX_BY_ACTION[item.action] = MoreToolsPopup.get_item_index(item_id)
 	pass
 
 func _on_more_tools_popup_menu_id_pressed(pressed_item_id:int) -> void:
@@ -235,6 +241,13 @@ func prompt_for_save(dialog_options:Dictionary, extra_arguments:Array = []) -> v
 
 func request_save_a_copy_file() -> void:
 	prompt_for_save( Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.SAVE )
+	pass
+
+func request_copy_export() -> void:
+	if Html5Helpers.Utils.is_browser():
+		emit_signal("relay_request_mind", "export_project_from_browser", "full-copy")
+	else:
+		printerr("Trying to download project copy out of browser context.")
 	pass
 
 func request_json_export() -> void:
