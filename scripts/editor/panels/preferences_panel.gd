@@ -22,7 +22,6 @@ const FIELDS_VALUE_PROPERTY = {
 	"appearance_theme": "selected",
 	"language": "selected",
 	"app_local_dir_path": "text",
-	"textual_save_data": "pressed"
 }
 
 const LANGUAGE_ITEM_TEXT_TEMPLATE = "{name} ({code})"
@@ -39,7 +38,6 @@ func get_the_ui_nodes_all() -> void:
 		ACTIONS[button] = get_node( Addressbook.PREF_PANEL_ACTION_BUTTONS[button] )
 	for field in Addressbook.PREF_PANEL_FIELDS:
 		FIELDS[field] = get_node( Addressbook.PREF_PANEL_FIELDS[field] )
-	FIELDS.textual_save_data.set_deferred('visible', (Settings.USE_JSON_FOR_PROJECT_FILES == null))
 	pass
 
 func refresh_appearance_theme_options() -> void:
@@ -65,7 +63,6 @@ func register_connections() -> void:
 	FIELDS.language.connect("item_selected", self, "preprocess_and_emit_modification_signal", ["language"], CONNECT_DEFERRED)
 	FIELDS.app_local_dir_browse.connect("pressed", self, "prompt_local_dir_path", [], CONNECT_DEFERRED)
 	FIELDS.app_local_dir_reset_menu.connect("item_selected_value", self, "_on_app_local_dir_reset_menu_item_selected", [], CONNECT_DEFERRED)
-	FIELDS.textual_save_data.connect("toggled", self, "_on_textual_save_data_checkbox_toggled", [], CONNECT_DEFERRED)
 	pass
 
 func refresh_fields_view(preferences:Dictionary) -> void:
@@ -117,8 +114,4 @@ func prompt_local_dir_path() -> void:
 		"arguments": [],
 		"options": options_adjusted
 	})
-	pass
-
-func _on_textual_save_data_checkbox_toggled(pressed) -> void:
-	emit_signal("preference_modified", "textual_save_data", pressed)
 	pass

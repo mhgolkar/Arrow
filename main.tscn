@@ -531,13 +531,6 @@ margin_right = 336.0
 margin_bottom = 14.0
 text = "Local Data Security & Backups"
 
-[node name="TextualSaveData" type="CheckBox" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer"]
-margin_top = 46.0
-margin_right = 358.0
-margin_bottom = 70.0
-pressed = true
-text = "Prefer Textual Save"
-
 [node name="LoadingSpinner" type="PanelContainer" parent="BlockingLayer/Container"]
 visible = false
 anchor_left = 0.5

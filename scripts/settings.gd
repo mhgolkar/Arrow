@@ -46,12 +46,14 @@ const TIME_STAMP_TEMPLATE_UTC_MARK = " UTC"
 # ProjectManagement
 
 const PROJECT_LIST_FILE_NAME = "projects.arrow"
-const USE_JSON_FOR_PROJECT_FILES = null
-	# null  : auto-detect and comply with the user preference
-	# true  : auto-detect on open, always save as JSON (converts binary in-place)
-	# false : works with Godot variants
-const PROJECT_FILE_JSON_DEFAULT_IDENT = "\t"
+# ...
 const PROJECT_FILE_EXTENSION = ".arrow-project" # CAUTION! change `PATH_DIALOG_PROPERTIES` respectively.
+const PROJECT_FILE_JSON_DEFAULT_IDENT = "\t"
+# NOTE:
+# Binary save files are deprecated.
+# You can open and automatically (re-)save them in textual format; 
+# But if you still need to save your projects as binary, set this setting to `true`:
+const USE_DEPRECATED_BIN_SAVE = false
 
 # Mind
 

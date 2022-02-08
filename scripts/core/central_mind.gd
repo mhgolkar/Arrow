@@ -1628,7 +1628,7 @@ class Mind :
 			reset_project_title(project_title) # just registered, no need for re-updating ProMan's list
 			reset_project_last_save_time()
 			# then saves it
-			ProMan.save_project(_PROJECT, false, Main.Configs.CONFIRMED.textual_save_data)
+			ProMan.save_project(_PROJECT, false, (Settings.USE_DEPRECATED_BIN_SAVE != true))
 			# and update current view
 			reset_project_save_status()
 			load_projects_list()
@@ -1648,7 +1648,7 @@ class Mind :
 					# then calls `register_and_save_project`
 			else:
 				reset_project_last_save_time()
-				ProMan.save_project(_PROJECT, false, Main.Configs.CONFIRMED.textual_save_data)
+				ProMan.save_project(_PROJECT, false, (Settings.USE_DEPRECATED_BIN_SAVE != true))
 				reset_project_save_status()
 				if try_close_project:
 					close_project(false, try_quit_app)
@@ -1799,7 +1799,7 @@ class Mind :
 				var pure_filename = filename.replacen(("." + extension), "")
 				target_registered_uid_to_save_into = ProMan.register_project(importing_data.title, pure_filename, false)
 			# finally writing data
-			ProMan.save_project_into(target_registered_uid_to_save_into, importing_data, false, Main.Configs.CONFIRMED.textual_save_data)
+			ProMan.save_project_into(target_registered_uid_to_save_into, importing_data, false, (Settings.USE_DEPRECATED_BIN_SAVE != true))
 			load_projects_list()
 		else:
 			printerr("Invalid Project File! The selected file is not of a supported format or is corrupted.")
@@ -1812,14 +1812,15 @@ class Mind :
 			print_debug("valid project file browsed: ", filename)
 			var pure_filename = filename.replacen(".json", "").replacen(Settings.PROJECT_FILE_EXTENSION, "")
 			var target_registered_uid_to_save_into = ProMan.register_project(importing_data.title, pure_filename, false)
-			ProMan.save_project_into(target_registered_uid_to_save_into, importing_data, false, Main.Configs.CONFIRMED.textual_save_data)
+			ProMan.save_project_into(target_registered_uid_to_save_into, importing_data, false, (Settings.USE_DEPRECATED_BIN_SAVE != true))
 			load_projects_list()
 		else:
 			show_error(
 				"Invalid Project File!",
 				(
-					"The file selected is not of a supported format or is corrupted.\n" +
-					"We can only accept textual save files (Json) in this context."
+					"Imported file is not of supported format or is corrupted.\n" +
+					"Note also that binary save files are deprecated. " +
+					"You can use offline releases of Arrow to re-save them in textual format."
 				)
 			)
 		pass
@@ -1874,7 +1875,7 @@ class Mind :
 			else:
 				# format is not specified so use native project format
 				var full_export_file_path = (Utils.normalize_dir_path(base_directory) + filename + Settings.PROJECT_FILE_EXTENSION)
-				ProMan.save_project_native_file(_PROJECT, full_export_file_path, Main.Configs.CONFIRMED.textual_save_data)
+				ProMan.save_project_native_file(_PROJECT, full_export_file_path, (Settings.USE_DEPRECATED_BIN_SAVE != true))
 				print_debug("Saving a Copy of the Project as `%s` to: "% (filename + Settings.PROJECT_FILE_EXTENSION), base_directory )
 		pass
 	

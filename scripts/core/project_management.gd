@@ -197,7 +197,7 @@ class ProjectManager :
 		if is_project_file_accessible(full_project_file_path):
 			var project_file_data = null
 			var parsed_project_file_data = null
-			if Settings.USE_JSON_FOR_PROJECT_FILES != false || try_json == true:
+			if Settings.USE_DEPRECATED_BIN_SAVE != true || try_json == true:
 				parsed_project_file_data = Utils.read_and_parse_json_file(full_project_file_path)
 			if parsed_project_file_data is Dictionary:
 				project_file_data = refactore_parsed_json_project_data(parsed_project_file_data)

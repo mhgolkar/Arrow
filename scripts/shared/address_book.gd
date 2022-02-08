@@ -67,7 +67,6 @@ const PREF_PANEL_FIELDS = {
 	"app_local_dir_path": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer/PreferencesAppDirPath",
 	"app_local_dir_browse": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer/PreferencesAppDirPathBrowse",
 	"app_local_dir_reset_menu": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer/PreferencesAppDirPathResetMenu",
-	"textual_save_data": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/TextualSaveData"
 }
 
 const ABOUT_PANEL = {
