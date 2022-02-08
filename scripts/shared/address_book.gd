@@ -15,6 +15,7 @@ const PANELS = {
 	"new_project_prompt":  "/root/Main/BlockingLayer/Container/NewProjectPrompt",
 	"console": "/root/Main/FloatToolsLayer/Container/Console",
 	"about": "/root/Main/BlockingLayer/Container/AboutApp",
+	"welcome": "/root/Main/BlockingLayer/Container/Welcome",
 	"notification": "/root/Main/BlockingLayer/Container/Notification",
 }
 
@@ -77,6 +78,17 @@ const ABOUT_PANEL = {
 		"SOURCE": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/Source",
 		"DOCS": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/Docs",
 		"GODOT": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made/Godot",
+	}
+}
+
+const WELCOME_PANEL = {
+	"itself": "/root/Main/BlockingLayer/Container/Welcome",
+	"VERSION_CODE": "/root/Main/BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/Version",
+	"OK_BUTTON": "/root/Main/BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/Buttons/OK",
+	"LINKS": {
+		"RELEASES": "/root/Main/BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/Releases",
+		"DOCS": "/root/Main/BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/Docs",
+		"SOURCE": "/root/Main/BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/Source",
 	}
 }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/editor/app_menu.gd" type="Script" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://scripts/editor/new_release_check.gd" type="Script" id=24]
 [ext_resource path="res://scripts/editor/quick_preferences.gd" type="Script" id=25]
 [ext_resource path="res://resources/themes/godot_default.tres" type="Theme" id=26]
+[ext_resource path="res://scripts/editor/panels/welcome.gd" type="Script" id=27]
 [ext_resource path="res://scripts/editor/panels/console.gd" type="Script" id=33]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -66,6 +67,168 @@ color = Color( 0.03742, 0.0228, 0.04, 0.498039 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Welcome" type="PanelContainer" parent="BlockingLayer/Container"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -350.0
+margin_top = -220.0
+margin_right = 350.0
+margin_bottom = 130.0
+script = ExtResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Welcome"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 693.0
+margin_bottom = 343.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer"]
+margin_right = 686.0
+margin_bottom = 336.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ArrowLogo" type="TextureRect" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer"]
+margin_right = 272.0
+margin_bottom = 336.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+texture = ExtResource( 22 )
+expand = true
+stretch_mode = 6
+
+[node name="Information" type="PanelContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer"]
+margin_left = 276.0
+margin_right = 686.0
+margin_bottom = 336.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 403.0
+margin_bottom = 329.0
+
+[node name="AppName" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_right = 396.0
+margin_bottom = 17.0
+text = "Arrow"
+
+[node name="Version" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 21.0
+margin_right = 396.0
+margin_bottom = 38.0
+
+[node name="MarginContainer1" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 42.0
+margin_right = 396.0
+margin_bottom = 45.0
+size_flags_vertical = 3
+
+[node name="Greeting" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 49.0
+margin_right = 396.0
+margin_bottom = 66.0
+text = "Howdy, Adventurer!"
+autowrap = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 70.0
+margin_right = 396.0
+margin_bottom = 73.0
+size_flags_vertical = 3
+
+[node name="Description" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 77.0
+margin_right = 396.0
+margin_bottom = 154.0
+text = "Arrow is a free, open-source, and feature-rich game narrative design, and interactive non-linear storytelling tool.
+For more information check out:"
+autowrap = true
+
+[node name="InfoLinks" type="HBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 158.0
+margin_right = 396.0
+margin_bottom = 217.0
+
+[node name="MarginLeft" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks"]
+margin_right = 39.0
+margin_bottom = 59.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks"]
+margin_left = 43.0
+margin_right = 396.0
+margin_bottom = 59.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 9.0
+
+[node name="Releases" type="LinkButton" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
+margin_right = 353.0
+margin_bottom = 17.0
+focus_mode = 2
+text = "Downlaod App"
+
+[node name="Docs" type="LinkButton" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
+margin_top = 21.0
+margin_right = 353.0
+margin_bottom = 38.0
+focus_mode = 2
+text = "Online Documentation"
+
+[node name="Source" type="LinkButton" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
+margin_top = 42.0
+margin_right = 353.0
+margin_bottom = 59.0
+focus_mode = 2
+text = "Source: Git Repository"
+
+[node name="MarginContainer3" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 221.0
+margin_right = 396.0
+margin_bottom = 224.0
+size_flags_vertical = 3
+
+[node name="MoreInfo" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 228.0
+margin_right = 396.0
+margin_bottom = 285.0
+text = "This web-app release of Arrow uses your browser storage to manage projects. To clean up, try: `Arrow (menu button; top-left) > Clear`"
+autowrap = true
+
+[node name="MarginContainer4" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 289.0
+margin_right = 396.0
+margin_bottom = 295.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Buttons" type="HBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 299.0
+margin_right = 396.0
+margin_bottom = 322.0
+alignment = 2
+
+[node name="OK" type="Button" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/Buttons"]
+margin_left = 346.0
+margin_right = 396.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 50, 0 )
+text = "OK"
 
 [node name="AboutApp" type="PanelContainer" parent="BlockingLayer/Container"]
 visible = false

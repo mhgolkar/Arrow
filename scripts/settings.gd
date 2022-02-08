@@ -34,7 +34,7 @@ const CONFIG_FILES_SUB_PATH_DIR_PRIORITY = ["user://", "res://"]
 # MainUserInterface
 
 const PANELS_OPEN_BY_DEFAULT = ["inspector"]
-const BLOCKING_PANELS = ["preferences", "new_project_prompt", "about", "notification"]
+const BLOCKING_PANELS = ["preferences", "new_project_prompt", "about", "welcome", "notification"]
 
 # Helpers::Utils
 

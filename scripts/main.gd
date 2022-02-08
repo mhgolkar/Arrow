@@ -36,6 +36,9 @@ func _ready() -> void:
 	Mind.post_initialization()
 	self.emit_signal("mind_initialized")
 	self.set_process_input(true)
+	# show welcome panel for browser version
+	if Html5Helpers.Utils.is_browser():
+		toggle_welcome()
 	# and finally, report app state
 	print("Sandbox: ", ("ON" if _SANDBOX else "OFF"))
 	pass
@@ -112,6 +115,10 @@ func toggle_quick_preferences(preference:String, refresh_view:bool = true):
 
 func toggle_about() -> void:
 	UI.toggle_panel_visibility("about")
+	pass
+
+func toggle_welcome() -> void:
+	UI.toggle_panel_visibility("welcome")
 	pass
 
 func store_window_state() -> void:
