@@ -11,9 +11,9 @@ onready var OkButton = get_node(Addressbook.WELCOME_PANEL.OK_BUTTON)
 onready var AppVersion = get_node(Addressbook.WELCOME_PANEL.VERSION_CODE)
 
 const LINKS = [
-	[Addressbook.WELCOME_PANEL.LINKS.RELEASES, "https://github.com/mhgolkar/Arrow/releases"],
-	[Addressbook.WELCOME_PANEL.LINKS.DOCS, "https://github.com/mhgolkar/Arrow/wiki"],
 	[Addressbook.WELCOME_PANEL.LINKS.SOURCE, "https://github.com/mhgolkar/Arrow"],
+	[Addressbook.WELCOME_PANEL.LINKS.DOCS, "https://github.com/mhgolkar/Arrow/wiki"],
+	[Addressbook.WELCOME_PANEL.LINKS.RELEASES, "https://github.com/mhgolkar/Arrow/releases"],
 ]
 
 func _ready() -> void:

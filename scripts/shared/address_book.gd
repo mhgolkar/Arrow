@@ -77,6 +77,7 @@ const ABOUT_PANEL = {
 	"LINKS": {
 		"SOURCE": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/Source",
 		"DOCS": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/Docs",
+		"WEB_APP": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/WebApp",
 		"GODOT": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made/Godot",
 	}
 }

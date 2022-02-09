@@ -13,6 +13,7 @@ onready var AppVersion = get_node(Addressbook.ABOUT_PANEL.VERSION_CODE)
 const LINKS = [
 	[Addressbook.ABOUT_PANEL.LINKS.SOURCE, "https://github.com/mhgolkar/Arrow"],
 	[Addressbook.ABOUT_PANEL.LINKS.DOCS, "https://github.com/mhgolkar/Arrow/wiki"],
+	[Addressbook.ABOUT_PANEL.LINKS.WEB_APP, "https://mhgolkar.github.io/Arrow/"],
 	[Addressbook.ABOUT_PANEL.LINKS.GODOT, "https://godotengine.org/"]
 ]
 

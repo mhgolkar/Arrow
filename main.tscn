@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/editor/app_menu.gd" type="Script" id=2]
@@ -28,11 +28,6 @@
 [ext_resource path="res://resources/themes/godot_default.tres" type="Theme" id=26]
 [ext_resource path="res://scripts/editor/panels/welcome.gd" type="Script" id=27]
 [ext_resource path="res://scripts/editor/panels/console.gd" type="Script" id=33]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.0627451, 0.0588235, 0.0588235, 1 )
-border_width_top = 10
-border_color = Color( 0.0627451, 0.0588235, 0.0588235, 1 )
 
 [sub_resource type="NoiseTexture" id=2]
 width = 25
@@ -74,10 +69,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -350.0
-margin_top = -220.0
-margin_right = 350.0
-margin_bottom = 130.0
+margin_left = -305.0
+margin_top = -180.0
+margin_right = 305.0
+margin_bottom = 94.0
 script = ExtResource( 27 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -86,31 +81,31 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Welcome"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 693.0
-margin_bottom = 343.0
+margin_right = 603.0
+margin_bottom = 267.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer"]
-margin_right = 686.0
-margin_bottom = 336.0
+margin_right = 596.0
+margin_bottom = 260.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ArrowLogo" type="TextureRect" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer"]
-margin_right = 272.0
-margin_bottom = 336.0
+margin_right = 197.0
+margin_bottom = 260.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 4.0
+size_flags_stretch_ratio = 3.0
 texture = ExtResource( 22 )
 expand = true
 stretch_mode = 6
 
 [node name="Information" type="PanelContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer"]
-margin_left = 276.0
-margin_right = 686.0
-margin_bottom = 336.0
+margin_left = 201.0
+margin_right = 596.0
+margin_bottom = 260.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
@@ -118,114 +113,129 @@ size_flags_stretch_ratio = 6.0
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 403.0
-margin_bottom = 329.0
+margin_right = 388.0
+margin_bottom = 253.0
 
 [node name="AppName" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_right = 396.0
+margin_right = 381.0
 margin_bottom = 17.0
 text = "Arrow"
 
 [node name="Version" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
 margin_top = 21.0
-margin_right = 396.0
+margin_right = 381.0
 margin_bottom = 38.0
 
 [node name="MarginContainer1" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
 margin_top = 42.0
-margin_right = 396.0
-margin_bottom = 45.0
+margin_right = 381.0
+margin_bottom = 48.0
 size_flags_vertical = 3
 
 [node name="Greeting" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 49.0
-margin_right = 396.0
-margin_bottom = 66.0
+margin_top = 52.0
+margin_right = 381.0
+margin_bottom = 69.0
 text = "Howdy, Adventurer!"
 autowrap = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 70.0
-margin_right = 396.0
-margin_bottom = 73.0
+margin_top = 73.0
+margin_right = 381.0
+margin_bottom = 80.0
 size_flags_vertical = 3
 
-[node name="Description" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 77.0
-margin_right = 396.0
-margin_bottom = 154.0
-text = "Arrow is a free, open-source, and feature-rich game narrative design, and interactive non-linear storytelling tool.
-For more information check out:"
+[node name="ScrollContainer" type="ScrollContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 84.0
+margin_right = 381.0
+margin_bottom = 145.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 9.0
+scroll_horizontal_enabled = false
+
+[node name="Tips" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/ScrollContainer"]
+margin_right = 381.0
+margin_bottom = 137.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Providing full functionality, Arrow web-app uses browser storage to manage projects.
+Your data is all and only on this device.
+To export projects or grab a copy of them use:
+`Inspector (panel) > Project (tab) > Export`
+To clean up app storage try:
+`Arrow (menu button; top-left) > Clear`"
+autowrap = true
+
+[node name="MarginContainer3" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 149.0
+margin_right = 381.0
+margin_bottom = 156.0
+size_flags_vertical = 3
+
+[node name="Explore" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 160.0
+margin_right = 381.0
+margin_bottom = 177.0
+text = "Explore more at:"
 autowrap = true
 
 [node name="InfoLinks" type="HBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 158.0
-margin_right = 396.0
-margin_bottom = 217.0
+margin_top = 181.0
+margin_right = 381.0
+margin_bottom = 219.0
 
 [node name="MarginLeft" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks"]
-margin_right = 39.0
-margin_bottom = 59.0
+margin_right = 37.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks"]
-margin_left = 43.0
-margin_right = 396.0
-margin_bottom = 59.0
+margin_left = 41.0
+margin_right = 381.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
 
-[node name="Releases" type="LinkButton" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
-margin_right = 353.0
+[node name="Source" type="LinkButton" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
+margin_right = 340.0
 margin_bottom = 17.0
 focus_mode = 2
-text = "Downlaod App"
+text = "Source: Git Repository"
 
 [node name="Docs" type="LinkButton" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
 margin_top = 21.0
-margin_right = 353.0
+margin_right = 340.0
 margin_bottom = 38.0
 focus_mode = 2
 text = "Online Documentation"
 
-[node name="Source" type="LinkButton" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
+[node name="Releases" type="LinkButton" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
+visible = false
 margin_top = 42.0
-margin_right = 353.0
+margin_right = 333.0
 margin_bottom = 59.0
 focus_mode = 2
-text = "Source: Git Repository"
-
-[node name="MarginContainer3" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 221.0
-margin_right = 396.0
-margin_bottom = 224.0
-size_flags_vertical = 3
-
-[node name="MoreInfo" type="Label" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 228.0
-margin_right = 396.0
-margin_bottom = 285.0
-text = "This web-app release of Arrow uses your browser storage to manage projects. To clean up, try: `Arrow (menu button; top-left) > Clear`"
-autowrap = true
+text = "Downlaod App"
 
 [node name="MarginContainer4" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 289.0
-margin_right = 396.0
-margin_bottom = 295.0
+visible = false
+margin_top = 222.0
+margin_right = 381.0
+margin_bottom = 229.0
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 
 [node name="Buttons" type="HBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 299.0
-margin_right = 396.0
-margin_bottom = 322.0
+margin_top = 223.0
+margin_right = 381.0
+margin_bottom = 246.0
 alignment = 2
 
 [node name="OK" type="Button" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/Buttons"]
-margin_left = 346.0
-margin_right = 396.0
+margin_left = 331.0
+margin_right = 381.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 50, 0 )
 text = "OK"
@@ -236,10 +246,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -350.0
-margin_top = -220.0
-margin_right = 350.0
-margin_bottom = 130.0
+margin_left = -300.0
+margin_top = -190.0
+margin_right = 300.0
+margin_bottom = 110.0
 script = ExtResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -248,20 +258,20 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/AboutApp"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 693.0
-margin_bottom = 388.0
+margin_right = 593.0
+margin_bottom = 305.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer"]
-margin_right = 686.0
-margin_bottom = 381.0
+margin_right = 586.0
+margin_bottom = 298.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ArrowLogo" type="TextureRect" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer"]
-margin_right = 272.0
-margin_bottom = 381.0
+margin_right = 232.0
+margin_bottom = 298.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
@@ -270,9 +280,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Information" type="PanelContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer"]
-margin_left = 276.0
-margin_right = 686.0
-margin_bottom = 381.0
+margin_left = 236.0
+margin_right = 586.0
+margin_bottom = 298.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
@@ -280,116 +290,97 @@ size_flags_stretch_ratio = 6.0
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 403.0
-margin_bottom = 374.0
+margin_right = 343.0
+margin_bottom = 291.0
 
 [node name="AppName" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_right = 396.0
+margin_right = 336.0
 margin_bottom = 17.0
 text = "Arrow"
 
 [node name="Version" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
 margin_top = 21.0
-margin_right = 396.0
+margin_right = 336.0
 margin_bottom = 38.0
 
 [node name="MarginContainer1" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
 margin_top = 42.0
-margin_right = 396.0
+margin_right = 336.0
 margin_bottom = 42.0
 size_flags_vertical = 3
 
 [node name="Description" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
 margin_top = 46.0
-margin_right = 396.0
-margin_bottom = 103.0
-text = "Arrow is a free and open-source game narrative design tool.
-For more information check out:"
+margin_right = 336.0
+margin_bottom = 123.0
+text = "Arrow is a free, open-source and feature-rich tool for game narrative design, and interactive nonlinear storytelling."
 autowrap = true
 
+[node name="MarginContainer2" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 127.0
+margin_right = 336.0
+margin_bottom = 127.0
+size_flags_vertical = 3
+
+[node name="Explore" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 131.0
+margin_right = 336.0
+margin_bottom = 148.0
+text = "Explore more at:"
+
 [node name="InfoLinks" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 107.0
-margin_right = 396.0
-margin_bottom = 145.0
+margin_top = 152.0
+margin_right = 336.0
+margin_bottom = 211.0
 
 [node name="MarginLeft" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks"]
-margin_right = 39.0
-margin_bottom = 38.0
+margin_right = 33.0
+margin_bottom = 59.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks"]
-margin_left = 43.0
-margin_right = 396.0
-margin_bottom = 38.0
+margin_left = 37.0
+margin_right = 336.0
+margin_bottom = 59.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
 
 [node name="Source" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
-margin_right = 353.0
+margin_right = 299.0
 margin_bottom = 17.0
-text = "Git Repository"
+text = "Source: Git Repository"
 
 [node name="Docs" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
 margin_top = 21.0
-margin_right = 353.0
+margin_right = 299.0
 margin_bottom = 38.0
 text = "Online Documentation"
 
-[node name="Reditt" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
-visible = false
-margin_top = 36.0
-margin_right = 245.0
-margin_bottom = 50.0
-text = "r/arrow"
-
-[node name="MarginContainer2" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 149.0
-margin_right = 396.0
-margin_bottom = 149.0
-size_flags_vertical = 3
-
-[node name="AskDonation" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 153.0
-margin_right = 396.0
-margin_bottom = 230.0
-text = "Please show your support by spreading the word if you enjoy Arrow.
-I'll be grateful if you consider donation as well. Ethereum Wallet Address:"
-autowrap = true
-
-[node name="EthWalletAddress" type="TextEdit" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 234.0
-margin_right = 396.0
-margin_bottom = 294.0
-rect_min_size = Vector2( 0, 60 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/read_only = SubResource( 1 )
-custom_colors/font_color_readonly = Color( 1, 1, 1, 1 )
-text = "0xA594b3d7E844060eD253E6269F12ece8Dc1c6B37"
-readonly = true
-virtual_keyboard_enabled = false
-wrap_enabled = true
+[node name="WebApp" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
+margin_top = 42.0
+margin_right = 299.0
+margin_bottom = 59.0
+text = "Web App"
 
 [node name="MarginContainer3" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 298.0
-margin_right = 396.0
-margin_bottom = 298.0
+margin_top = 215.0
+margin_right = 336.0
+margin_bottom = 215.0
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 
 [node name="DevevlopedByLabel" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
 visible = false
-margin_top = 207.0
-margin_right = 276.0
-margin_bottom = 221.0
-text = "Developed by:"
-
-[node name="Developer" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
 margin_top = 302.0
 margin_right = 396.0
 margin_bottom = 319.0
+text = "Developed by:"
+
+[node name="Developer" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+margin_top = 219.0
+margin_right = 336.0
+margin_bottom = 236.0
 
 [node name="Account" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Developer"]
 margin_right = 112.0
@@ -400,40 +391,47 @@ text = "Mor. H. Golkar"
 margin_left = 116.0
 margin_right = 164.0
 margin_bottom = 17.0
-text = "© 2021"
+text = "© 2021 - 2022"
 
 [node name="Made" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 323.0
-margin_right = 396.0
-margin_bottom = 340.0
+margin_top = 240.0
+margin_right = 336.0
+margin_bottom = 257.0
 
 [node name="WithLove" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made"]
-margin_right = 88.0
+margin_right = 96.0
 margin_bottom = 17.0
 text = "with Love & "
 
 [node name="Godot" type="LinkButton" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made"]
-margin_left = 92.0
-margin_right = 188.0
+margin_left = 100.0
+margin_right = 196.0
 margin_bottom = 17.0
 text = "Godot Engine"
 
 [node name="More" type="Label" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Made"]
 visible = false
-margin_left = 169.0
-margin_right = 173.0
-margin_bottom = 14.0
+margin_left = 200.0
+margin_right = 208.0
+margin_bottom = 17.0
 text = "."
 
+[node name="MarginContainer4" type="MarginContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
+visible = false
+margin_top = 215.0
+margin_right = 336.0
+margin_bottom = 215.0
+size_flags_vertical = 3
+
 [node name="Buttons" type="HBoxContainer" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
-margin_top = 344.0
-margin_right = 396.0
-margin_bottom = 367.0
+margin_top = 261.0
+margin_right = 336.0
+margin_bottom = 284.0
 alignment = 2
 
 [node name="OK" type="Button" parent="BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Buttons"]
-margin_left = 346.0
-margin_right = 396.0
+margin_left = 286.0
+margin_right = 336.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 50, 0 )
 text = "OK"
@@ -2903,14 +2901,14 @@ margin_bottom = 367.0
 
 [node name="LobbyChatMessagesContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat"]
 margin_right = 247.0
-margin_bottom = 279.0
+margin_bottom = 276.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat/LobbyChatMessagesContainer"]
 margin_right = 247.0
-margin_bottom = 279.0
+margin_bottom = 276.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -2977,7 +2975,7 @@ text = "Lurep ipsum my message outgoing."
 autowrap = true
 
 [node name="LobbyChatMessageInput" type="VBoxContainer" parent="FloatToolsLayer/Container/Lobby/VBoxContainer/PanelContainer/LobbyChat"]
-margin_top = 291.0
+margin_top = 288.0
 margin_right = 247.0
 margin_bottom = 360.0
 size_flags_horizontal = 3
@@ -3576,13 +3574,13 @@ __meta__ = {
 }
 
 [node name="BreadCrumb" type="MarginContainer" parent="Editor/Bottom"]
-margin_right = 152.0
+margin_right = 150.0
 margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="OpenSceneTitle" type="Label" parent="Editor/Bottom/BreadCrumb"]
-margin_right = 152.0
+margin_right = 150.0
 margin_bottom = 41.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
@@ -3594,8 +3592,8 @@ autowrap = true
 clip_text = true
 
 [node name="QueryPanel" type="PanelContainer" parent="Editor/Bottom"]
-margin_left = 156.0
-margin_right = 764.0
+margin_left = 154.0
+margin_right = 754.0
 margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
@@ -3604,14 +3602,14 @@ script = ExtResource( 16 )
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/Bottom/QueryPanel"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 601.0
+margin_right = 593.0
 margin_bottom = 34.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="QueryInput" type="LineEdit" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_right = 240.0
+margin_right = 236.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
@@ -3620,8 +3618,8 @@ clear_button_enabled = true
 placeholder_text = "Query"
 
 [node name="How" type="OptionButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 244.0
-margin_right = 329.0
+margin_left = 240.0
+margin_right = 325.0
 margin_bottom = 27.0
 rect_min_size = Vector2( 75, 0 )
 size_flags_horizontal = 3
@@ -3630,8 +3628,8 @@ items = [ "{ how }", null, false, 0, null ]
 selected = 0
 
 [node name="ProjectWide" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 333.0
-margin_right = 363.0
+margin_left = 329.0
+margin_right = 358.0
 margin_bottom = 27.0
 hint_tooltip = "Search Project Wide (otherwise only in the current open scene)"
 size_flags_horizontal = 3
@@ -3639,8 +3637,8 @@ toggle_mode = true
 text = ""
 
 [node name="Search" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 367.0
-margin_right = 401.0
+margin_left = 362.0
+margin_right = 396.0
 margin_bottom = 27.0
 rect_min_size = Vector2( 34, 0 )
 hint_tooltip = "Query (Ctrl + Q)"
@@ -3648,16 +3646,16 @@ size_flags_horizontal = 3
 text = ""
 
 [node name="PreviousMatch" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 405.0
-margin_right = 435.0
+margin_left = 400.0
+margin_right = 430.0
 margin_bottom = 27.0
 hint_tooltip = "Locate Previous Match (Ctrl + 1)"
 size_flags_horizontal = 3
 text = ""
 
 [node name="Matches" type="MenuButton" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 439.0
-margin_right = 559.0
+margin_left = 434.0
+margin_right = 552.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
@@ -3665,26 +3663,26 @@ text = "c : t Matches"
 items = [ "Scence Abx / s1n1act : Action / 3 - ... queried part sample ...", null, 0, false, false, 0, 0, null, "", false, "Scence Abx / s1n3 : Change Var / Note - ... query....", null, 0, false, false, 1, 0, null, "", false ]
 
 [node name="NextMatch" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
-margin_left = 563.0
-margin_right = 594.0
+margin_left = 556.0
+margin_right = 586.0
 margin_bottom = 27.0
 hint_tooltip = "Locate Next Match (Ctrl + 2)"
 size_flags_horizontal = 3
 text = ""
 
 [node name="QuickSwitches" type="PanelContainer" parent="Editor/Bottom"]
-margin_left = 768.0
+margin_left = 758.0
 margin_right = 1010.0
 margin_bottom = 41.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Editor/Bottom/QuickSwitches"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 235.0
+margin_right = 245.0
 margin_bottom = 34.0
 
 [node name="InspectorViewToggle" type="Button" parent="Editor/Bottom/QuickSwitches/HBoxContainer"]
-margin_right = 100.0
+margin_right = 106.0
 margin_bottom = 27.0
 hint_tooltip = "Toggle Inspector Panel (Ctrl + P)"
 toggle_mode = true
@@ -3692,8 +3690,8 @@ pressed = true
 text = "  Inspect."
 
 [node name="QuickPreferences" type="MenuButton" parent="Editor/Bottom/QuickSwitches/HBoxContainer"]
-margin_left = 104.0
-margin_right = 228.0
+margin_left = 110.0
+margin_right = 238.0
 margin_bottom = 27.0
 text = "  Quick Pref."
 flat = false
