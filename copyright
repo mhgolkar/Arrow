@@ -2,12 +2,12 @@ Copyright Information & Thirdparty Licenses
 
 This software uses [Godot Engine](https://godotengine.org/), available under the
 [MIT](https://github.com/godotengine/godot/blob/master/LICENSE.txt) license.
-Copyright (c) 2007-2021 Juan Linietsky, Ariel Manzur.
-Copyright (c) 2014-2021 Godot Engine contributors.
+Copyright (c) 2007-2022 Juan Linietsky, Ariel Manzur.
+Copyright (c) 2014-2022 Godot Engine contributors.
 
 Godot Engine uses FreeType to render fonts, therefore:
 
-    Portions of this software are copyright © 2021 The FreeType Project (www.freetype.org).
+    Portions of this software are copyright © 2022 The FreeType Project (www.freetype.org).
     All rights reserved.
 
 Godot Engine uses MBedTLS for secure HTTPS requests.

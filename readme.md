@@ -1,22 +1,26 @@
-![Arrow's logo][arrow-logo]
+<!-- Arrow Logo -->
+<div style="padding: 1rem 0; margin: 0;">
+    <img src="./icon.png" style="height: 64px; width: 64px;" alt="">
+</div>
+
 
 # Arrow
 ***Game Narrative Design Tool***
 
-[Download](#download) | [Support](#support-arrow) | [Runtimes](#runtimes) | [Guides](#guides)
+[Download](#download) | [Contribution](#contribution-to-arrow) | [Runtimes](#runtimes) | [Guides](#guides)
 
-Arrow is a handy, free, open-source and feature-rich tool to
-design **game narrative**, develop **text-adventures**,
-or create any other kind of **nonlinear interactive storytelling** document.
+Arrow is the free, open-source and feature-rich tool for
+**game narrative** design, **text-adventures** development,
+and creation of **nonlinear interactive storytelling** documents.
 
 ![Arrow's Overall Look][arrow-screenshot]
 
 Notable Features:
 
 + 100% Visual Development
-+ Free as in Freedom: No royalty, no strings attached
++ Free as in Freedom
 + Customizable Node System
-+ Adequate number of Built-in Node-types including:
++ with Built-in Node-types including:
     + Content,
     + Dialog,
     + Conditional,
@@ -24,9 +28,10 @@ Notable Features:
     + User Input,
     + Macro (reusables,)
     + and more.
-+ One-Click *Playable Export*
++ Easy Scene Management and Navigation
++ One-Click **Playable Export**
 + JSON Export and Import
-+ VCS Friendly
++ VCS Friendly Save Files
 
 
 ## Download
@@ -43,22 +48,32 @@ Windows [32-bit][win-32-latest] | [64-bit][win-64-latest]
 > Mac users may kindly and *easily* [build Arrow from source][wiki-build-from-source].
 
 
-## Support Arrow
+## Web App
 
-Please show your support by spreading the word if you enjoy Arrow.
+Arrow is also available as [Progressive Web App][web-app].
 
-Arrow, my other open-source projects and me will be
-highly grateful if you consider donation as well:
+This web-app provides full features as the latest downloadable releases.
 
-***Ethereum Wallet Address:***  
-```
-0xA594b3d7E844060eD253E6269F12ece8Dc1c6B37
-```
+**It stores project data and configurations in your browser.**  
+Convenience import/export options are available to ease working with file-system of devices as well.
+
+The experience is optimized for desktop (mode/) screens and requires browser to have
+`WebGl` and `Canvas` element support, `Web Storage` available and `Java-Script` enabled
+(in other words: any *modern browser* by default.)
 
 
 ## Runtimes
 
 + Official (Bundled) [HTML-JS Runtime][runtime-html-js]
+
+
+## Contribution to Arrow
+
+Contributions are very welcome and appreciated.  
+Please browse [Contribution][wiki-contribution] wiki page,
+to find where you could help Arrow most.  
+
+Thank you in advance.
 
 
 ## Guides
@@ -70,12 +85,10 @@ including:
 
 [Build from Source][wiki-build-from-source]
 
-[Contribution][wiki-contribution]
-
 
 ## Licenses
 
-Copyright (c) 2021 Mor. H. Golkar and contributors
+Copyright (c) 2021-2022 Mor. H. Golkar and contributors
 
 Unless otherwise specified, Arrow and files in this repository are
 available under `MIT` license.
@@ -91,6 +104,8 @@ Have a Good Time
 [linux-x11-x86-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.5.0/Arrow-v1.5.0-linux-x86.tar.gz
 [win-32-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.5.0/Arrow-v1.5.0-win.32.zip
 [win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v1.5.0/Arrow-v1.5.0-win.64.zip
+<!-- pwa -->
+[web-app]: https://mhgolkar.github.io/Arrow/
 <!-- wiki -->
 [wiki-home]: https://github.com/mhgolkar/Arrow/wiki/
 [wiki-quick-start-guide]: https://github.com/mhgolkar/Arrow/wiki/quick-start-guide
@@ -101,5 +116,5 @@ Have a Good Time
 [license-file]: ./license
 [copyright-file]: ./copyright
 <!-- resources -->
-[arrow-logo]: ./icon.png
+<!-- [arrow-logo]: ./icon.png -->
 [arrow-screenshot]: ./.screenshot.png
