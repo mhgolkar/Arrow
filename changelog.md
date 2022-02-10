@@ -1,6 +1,21 @@
 # Arrow: Changelog
 
 
+## v1.6.0
+
++ Binary saving is **deprecated**
+    > Now both `.json` exports and `.arrow-project` save files have the same JSON format.
+    > But the `.json` files are exported as purged (without editor's meta-data and nodes' developer notes,)
+    > which makes them more suitable for distribution purposes.
+    + All existent (binary) save files can still be opened and will be converted to textual format on save.
+    > If you need binary saves anyway, it's still revivable for custom builds by `USE_DEPRECATED_BIN_SAVE` setting.
++ Progressive Web App
+    > From this version forward we'll support `HTML5` (web-app) export as well.
+    > You can try this new release online in your browser. Find the link in the repo.
+    >> The official build is intended to be optimized for desktop (-mode/ and) screen size.
+    + Full import and export support.
+
+
 ## v1.5.0
 
 + New built-in `Frame` node
