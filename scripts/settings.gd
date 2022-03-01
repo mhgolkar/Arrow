@@ -34,7 +34,7 @@ const CONFIG_FILES_SUB_PATH_DIR_PRIORITY = ["user://", "res://"]
 # MainUserInterface
 
 const PANELS_OPEN_BY_DEFAULT = ["inspector"]
-const BLOCKING_PANELS = ["preferences", "new_project_prompt", "about", "welcome", "notification"]
+const BLOCKING_PANELS = ["preferences", "authors", "new_project_prompt", "about", "welcome", "notification"]
 
 # Helpers::Utils
 
@@ -49,6 +49,7 @@ const PROJECT_LIST_FILE_NAME = "projects.arrow"
 # ...
 const PROJECT_FILE_EXTENSION = ".arrow-project" # CAUTION! change `PATH_DIALOG_PROPERTIES` respectively.
 const PROJECT_FILE_JSON_DEFAULT_IDENT = "\t"
+const ANONYMOUS_AUTHOR_INFO = "Anonymous Contributor"
 # NOTE:
 # Binary save files are deprecated.
 # You can open and automatically (re-)save them in textual format; 
@@ -59,6 +60,7 @@ const USE_DEPRECATED_BIN_SAVE = false
 
 const SNAPSHOT_VERSION_PREFIX = "v"
 const TAKE_INITIAL_SNAPSHOT = true
+const ALWAYS_USE_REALTIME_IDS = true
 
 # History
 
@@ -110,9 +112,9 @@ const RESTRICT_OUT_SLOTS_TO_ONE_CONNECTION = true
 #	`hub` and `randomizer` nodes are designed to manage it, and this setting is to make sure UI code restricts make of abnormal connections.
 #	Yet it's all ok for two connection to one incoming, it's just like a hub, so the other side doesn't have a setting to be restricted.
 
-const NODE_INITIAL_NAME_TEMPLATE = "{prefix}N{node_id_base36}{type_abbreviation}" # and/or {node_id} (int)
-const NODE_INITIAL_NAME_PREFIX_FOR_SCENES = "S"
-const NODE_INITIAL_NAME_PREFIX_FOR_MACROS = "M"
+const NODE_INITIAL_NAME_TEMPLATE = "{node_id_base36}" # You can also use {node_id}, {prefix} and {type_abbreviation}
+const NODE_INITIAL_NAME_PREFIX_FOR_SCENES = "S" # (+ base36 scene-id if node is in a scene)
+const NODE_INITIAL_NAME_PREFIX_FOR_MACROS = "M" # (+ base36 macro-id ...)
 const MINIMUM_TYPE_ABBREVIATION_LENGTH = 3 # used to make name of a node type shorter for use in plot node naming.
 
 # Every new scene (or macro) needs a node as the first one to be run and start a specific narrative plot-line.

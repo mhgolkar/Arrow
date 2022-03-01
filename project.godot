@@ -45,6 +45,11 @@ _global_script_classes=[ {
 "path": "res://scripts/shared/embedded_data.gd"
 }, {
 "base": "Reference",
+"class": "Flake",
+"language": "GDScript",
+"path": "res://scripts/shared/flake_id_helpers.gd"
+}, {
+"base": "Reference",
 "class": "GeneratorSharedClass",
 "language": "GDScript",
 "path": "res://nodes/generator/shared.gd"
@@ -102,6 +107,7 @@ _global_script_class_icons={
 "Configuration": "",
 "DialogSharedClass": "",
 "Embedded": "",
+"Flake": "",
 "GeneratorSharedClass": "",
 "Helpers": "",
 "Html5Helpers": "",

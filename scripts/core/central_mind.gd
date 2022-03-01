@@ -16,6 +16,7 @@ const NEW_PROJECT_PROMPT = Addressbook.PANELS.new_project_prompt
 const PATH_DIALOGE = Addressbook.PATH_DIALOGUE
 const CONSOLE = Addressbook.CONSOLE.itself
 const NOTIFIER = Addressbook.NOTIFICATION.itself
+const AUTHORS = Addressbook.AUTHORS.itself
 
 # nodes which may send `request_mind` signal
 const TRANSMITTERS = [
@@ -24,7 +25,8 @@ const TRANSMITTERS = [
 	GRID, GRID_CONTEXT_MENU,
 	INSPECTOR, QUERY,
 	NEW_PROJECT_PROMPT,
-	CONSOLE
+	CONSOLE,
+	AUTHORS,
 ]
 
 const NODE_INITIAL_NAME_TEMPLATE = Settings.NODE_INITIAL_NAME_TEMPLATE
@@ -45,6 +47,8 @@ class Mind :
 	var PathDialog
 	var Console
 	var Notifier
+	var Flaker
+	var Authors
 	
 	var ProMan # ProjectManager
 	
@@ -88,6 +92,7 @@ class Mind :
 		PathDialog = Main.get_node(PATH_DIALOGE)
 		Console = Main.get_node(CONSOLE)
 		Notifier = Main.get_node(NOTIFIER)
+		Authors = Main.get_node(AUTHORS)
 		# then ...
 		register_connections()
 		load_node_types()
@@ -128,6 +133,8 @@ class Mind :
 		"remove_selected_nodes",
 		"set_project_title",
 		"restore_snapshot",
+		"update_author",
+		"remove_author",
 	]
 	func central_event_dispatcher(request:String, args=null, _t_address=null, _tx_node=null) -> void:
 		print_debug("Mind:: Request : ", request, " (", args, ") ")
@@ -196,6 +203,10 @@ class Mind :
 				confirm_revert_project()
 			"set_project_title":
 				reset_project_title(args)
+			"update_author":
+				update_project_author(args.id, args.info, args.active)
+			"remove_author":
+				remove_project_author(args)
 			"take_snapshot":
 				take_snapshot()
 			"toggle_snapshot_preview":
@@ -351,6 +362,7 @@ class Mind :
 			drop_current_project()
 		# holding the project/snapshot data as the active one
 		_PROJECT = project_data
+		reset_node_id_generator()
 		# ... loading project in the editor
 		reset_project_title()
 		reset_project_save_status()
@@ -362,6 +374,7 @@ class Mind :
 		# if it's blank we want to stay where we are (most likely at the projects-list)
 		if is_blank == false && ProMan.is_project_listed():
 			activate_project_properties()
+			reset_project_authors_list(true)
 		# clean up and close console
 		console( -1, true, false )
 		pass
@@ -402,6 +415,63 @@ class Mind :
 #		var auto_save_last_state = ProMan.get_project_auto_save_state() # no-parameter: get the active one's
 #		Main.call_deferred("set_quick_preferences", "auto_local_save", auto_save_last_state, true)
 #		pass
+	
+	func reset_active_author(id:int) -> void:
+		ProMan.set_project_active_author(id)
+		if Flaker is Flake.Generator: # (when flaker is defined)
+			Flaker.reset_producer(id)
+		pass
+	
+	func reset_node_id_generator() -> void:
+		if _PROJECT.has("next_resource_seed"): # (Backward-compatibility)
+			Flaker = null
+			print(
+				"CAUTION! You're using an old project structure with single-producer node-IDs. Next ID: ",
+				_PROJECT.next_resource_seed,
+				"This is *Not Recommended*, specially for new projects."
+			)
+		else:
+			# We expect projects to have at least one (even 0-Anonymous) author.
+			var active_author = ProMan.get_project_active_author() # (current record in projects list or null)
+			if (active_author is int) == false || _PROJECT.meta.authors.has(active_author) == false:
+				if _PROJECT.meta.authors.size() == 0:
+					active_author = 0
+					_PROJECT.meta.authors[0] = Settings.ANONYMOUS_AUTHOR_INFO
+				else:
+					active_author = _PROJECT.meta.authors.keys()[0] # (the first author-id)
+				reset_active_author(active_author)
+				print(
+					"Contributor reset! Active author of this document is now: ",
+					active_author, " = ", _PROJECT.meta.authors[active_author]
+				)
+			Flaker = Flake.Generator.new(_PROJECT.meta.epoch, active_author)
+		pass
+	
+	func reset_project_authors_list(auto_select:bool = false) -> void:
+		Authors.call_deferred("reset_authors", _PROJECT.meta.authors, ProMan.get_project_active_author(), auto_select)
+		pass
+	
+	func update_project_author(id:int, info:String, is_active:bool) -> void:
+		_PROJECT.meta.authors[id] = info if info.length() > 0 else Settings.ANONYMOUS_AUTHOR_INFO
+		if is_active:
+			reset_active_author(id)
+		reset_project_authors_list()
+		pass
+	
+	func remove_project_author(id:int) -> void:
+		if _PROJECT.meta.authors.has(id):
+			if _PROJECT.meta.authors.size() > 1: # (at least one author is required)
+				_PROJECT.meta.authors.erase(id)
+				# reset the active author if the one remove was the one in charge:
+				if ProMan.get_project_active_author() == id:
+					var new_active_author = _PROJECT.meta.authors.keys()[0] # (the first author-id)
+					reset_active_author(new_active_author)
+				reset_project_authors_list()
+			else:
+				printerr("Trying to remove the only author of the document! Authors: ", _PROJECT.meta.authors)
+		else:
+			printerr("Trying to remove non-existent author: ", id, " from: ", _PROJECT.meta.authors)
+		pass
 	
 	func clean_inspector_tabs(keep_history:bool = false) -> void:
 		Inspector.Tab.Node.call("total_clean_up", keep_history)
@@ -692,9 +762,16 @@ class Mind :
 		pass
 		
 	func create_new_resource_id() -> int:
-		var the_new_seed_uid = _PROJECT.next_resource_seed
-		_PROJECT.next_resource_seed +=1
-		return the_new_seed_uid
+		if _PROJECT.has("next_resource_seed"): # legacy
+			var the_new_seed_uid = _PROJECT.next_resource_seed
+			_PROJECT.next_resource_seed +=1
+			return the_new_seed_uid
+		else:
+			if Settings.ALWAYS_USE_REALTIME_IDS:
+				return Flaker.realtime_next()
+			else:
+				return Flaker.lazy_next()
+		pass
 	
 	var _CHACED_COMPILED_REGEXES = {}
 	func compiled_regex_from(pattern:String) -> RegEx:
@@ -779,7 +856,7 @@ class Mind :
 		if name_prefix.length() == 0:
 			var open_scene_is_macro = is_scene_macro(_CURRENT_OPEN_SCENE_ID)
 			var scene_type_prefix = (NODE_INITIAL_NAME_PREFIX_FOR_MACROS if open_scene_is_macro else NODE_INITIAL_NAME_PREFIX_FOR_SCENES)
-			name_prefix = (scene_type_prefix + String(_CURRENT_OPEN_SCENE_ID))
+			name_prefix = (scene_type_prefix + Utils.int_to_base36(_CURRENT_OPEN_SCENE_ID).to_lower())
 		if type in NODE_TYPES_LIST:
 			return {
 				"type": type,
@@ -1327,7 +1404,7 @@ class Mind :
 		return list
 	
 	func create_variable_name_from_id(id:int) -> String:
-		var the_name = ("new_variable_" + Utils.int_to_base36(id))
+		var the_name = ("var_" + Utils.int_to_base36(id).to_lower())
 		if Settings.FORCE_UNIQUE_NAMES_FOR_VARIABLES:
 			var all_variable_names = list_all_resource_ids_by_name_of("variables")
 			while all_variable_names.has(the_name):
@@ -1348,7 +1425,7 @@ class Mind :
 		pass
 	
 	func create_character_name_from_id(id:int) -> String:
-		var the_name = ("new_character_" + Utils.int_to_base36(id))
+		var the_name = ("char_" + Utils.int_to_base36(id).to_lower())
 		if Settings.FORCE_UNIQUE_NAMES_FOR_CHARACTERS:
 			var all_character_names = list_all_resource_ids_by_name_of("characters")
 			while all_character_names.has(the_name):
@@ -1368,7 +1445,7 @@ class Mind :
 	func create_new_scene(is_macro:bool = false):
 		var new_scene_seed_id = create_new_resource_id()
 		var the_new_scene = {
-			"name": ("macro_" if is_macro else "scene_") + String(new_scene_seed_id),
+			"name": ("macro_" if is_macro else "scene_") + Utils.int_to_base36(new_scene_seed_id).to_lower(),
 			"entry": null, # will be updated later
 			"map": {}
 		}

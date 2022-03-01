@@ -18,7 +18,7 @@ var ListHelpers = Helpers.ListHelpers
 # configs
 onready var LocalProjectTitle = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.TITLE_CONFIGURATION.TITLE_EDIT)
 onready var SetLocalProjectTitleButton = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.TITLE_CONFIGURATION.SET_BUTTON)
-onready var RtlCheckbox = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.RTL_CONFIGURATION_CHECKBOX)
+onready var AuthorsConfiguration = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.AUTHORS_CONFIGURATION)
 # tools
 onready var CloseButton = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.CLOSE)
 # more Tools Menu Button
@@ -56,7 +56,7 @@ func _ready() -> void:
 
 func register_connections() -> void:
 	SetLocalProjectTitleButton.connect("pressed", self, "request_title_change", [], CONNECT_DEFERRED)
-	RtlCheckbox.connect("toggled", self, "toggle_rtl_config", [], CONNECT_DEFERRED)
+	AuthorsConfiguration.connect("pressed", self, "open_authors_config", [], CONNECT_DEFERRED)
 	CloseButton.connect("pressed", self, "request_mind_by_relay", ["close_project"], CONNECT_DEFERRED)
 	SnapshotsPreview.connect("toggled", self, "set_preview_mode", [], CONNECT_DEFERRED)
 	SnapshotsTakeNew.connect("pressed", self, "request_mind_by_relay", ["take_snapshot"], CONNECT_DEFERRED)
@@ -104,15 +104,12 @@ func refresh_fields(project_title:String, project_meta:Dictionary) -> void:
 		LocalProjectTitle.set_text(project_title)
 	else:
 		LocalProjectTitle.clear()
-	# rtl
-	if project_meta.has("rtl") && project_meta.rtl is bool:
-		RtlCheckbox.set_pressed(project_meta.rtl)
-	else:
-		RtlCheckbox.set_pressed(false)
 	# last save time
 	if project_meta.has("last_save") && project_meta is Dictionary:
 		var parsed_time_stamp = Utils.parse_time_stamp_dict(project_meta.last_save.local)
 		LastSaveTimeStamp.set_text(parsed_time_stamp)
+	# making sure older (legacy) projects won't mess up with node identifiers by adding authors
+	AuthorsConfiguration.set_visible( project_meta.has("authors") )
 	pass
 
 func refresh_snapshot_tools_view(_x=null) -> void:
@@ -157,9 +154,8 @@ func request_title_change() -> void:
 		printerr("Projects title is required!")
 	pass
 
-func toggle_rtl_config(pressed:bool) -> void:
-	# TODO ...
-	print_debug("Modifying RTL Configuration !! NOT IMPLEMENTED YET !!", pressed)
+func open_authors_config() -> void:
+	Main.call_deferred("toggle_authors")
 	pass
 
 func set_preview_mode(to_active:bool) -> void:

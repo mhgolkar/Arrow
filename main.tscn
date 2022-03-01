@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/editor/app_menu.gd" type="Script" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://scripts/editor/quick_preferences.gd" type="Script" id=25]
 [ext_resource path="res://resources/themes/godot_default.tres" type="Theme" id=26]
 [ext_resource path="res://scripts/editor/panels/welcome.gd" type="Script" id=27]
+[ext_resource path="res://scripts/editor/panels/authors.gd" type="Script" id=28]
 [ext_resource path="res://scripts/editor/panels/console.gd" type="Script" id=33]
 
 [sub_resource type="NoiseTexture" id=2]
@@ -692,6 +693,154 @@ margin_right = 336.0
 margin_bottom = 14.0
 text = "Local Data Security & Backups"
 
+[node name="Authors" type="PanelContainer" parent="BlockingLayer/Container"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -180.0
+margin_right = 200.0
+margin_bottom = 180.0
+script = ExtResource( 28 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Authors"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 393.0
+margin_bottom = 353.0
+
+[node name="Header" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer"]
+margin_right = 386.0
+margin_bottom = 23.0
+
+[node name="AuthorsLabel" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/Header"]
+margin_top = 3.0
+margin_right = 56.0
+margin_bottom = 20.0
+text = "Authors"
+
+[node name="MarginContainer" type="MarginContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/Header"]
+margin_left = 60.0
+margin_right = 330.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+
+[node name="Close" type="Button" parent="BlockingLayer/Container/Authors/VBoxContainer/Header"]
+margin_left = 334.0
+margin_right = 386.0
+margin_bottom = 23.0
+text = "Close"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BlockingLayer/Container/Authors/VBoxContainer"]
+margin_top = 27.0
+margin_right = 386.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AuthorsList" type="ItemList" parent="BlockingLayer/Container/Authors/VBoxContainer/ScrollContainer"]
+margin_right = 386.0
+margin_bottom = 173.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "* {id} : {information}", null, false ]
+allow_reselect = true
+
+[node name="AuthorEdit" type="PanelContainer" parent="BlockingLayer/Container/Authors/VBoxContainer"]
+margin_top = 204.0
+margin_right = 386.0
+margin_bottom = 346.0
+size_flags_horizontal = 3
+
+[node name="AuthorData" type="VBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 379.0
+margin_bottom = 135.0
+
+[node name="UniqueIdentifier" type="PanelContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData"]
+margin_right = 372.0
+margin_bottom = 101.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 365.0
+margin_bottom = 94.0
+
+[node name="Identifier" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer"]
+margin_right = 358.0
+margin_bottom = 27.0
+
+[node name="Label" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier"]
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = 22.0
+text = "AUID:"
+
+[node name="AuthorIdentifier" type="SpinBox" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier"]
+margin_left = 44.0
+margin_right = 166.0
+margin_bottom = 27.0
+max_value = 63.0
+rounded = true
+align = 1
+
+[node name="Description" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier"]
+margin_left = 170.0
+margin_top = 5.0
+margin_right = 314.0
+margin_bottom = 22.0
+text = "(Author Unique ID)"
+
+[node name="Information" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer"]
+margin_top = 31.0
+margin_right = 358.0
+margin_bottom = 58.0
+
+[node name="InfoLabel" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Information"]
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = 22.0
+text = "Info:"
+
+[node name="AuthorInfo" type="LineEdit" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Information"]
+margin_left = 44.0
+margin_right = 358.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "J. Doe (contributor@project.tld)"
+
+[node name="AuthorActive" type="CheckBox" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer"]
+margin_top = 62.0
+margin_right = 358.0
+margin_bottom = 87.0
+hint_tooltip = "If checked, selected author will be considered the contributor for next edits."
+text = "This is Me, the Active Contributor"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData"]
+margin_top = 105.0
+margin_right = 372.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="AuthorRemove" type="Button" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer"]
+margin_left = 264.0
+margin_right = 324.0
+margin_bottom = 23.0
+text = "Remove"
+
+[node name="AuthorSave" type="Button" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer"]
+margin_left = 328.0
+margin_right = 372.0
+margin_bottom = 23.0
+text = "Apply"
+
 [node name="LoadingSpinner" type="PanelContainer" parent="BlockingLayer/Container"]
 visible = false
 anchor_left = 0.5
@@ -970,6 +1119,7 @@ margin_left = -300.0
 margin_top = -200.0
 margin_right = 300.0
 margin_bottom = 200.0
+rect_min_size = Vector2( 180, 63 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 window_title = "{ title by options }"
@@ -1634,13 +1784,14 @@ margin_right = 248.0
 margin_bottom = 54.0
 alignment = 2
 
-[node name="LocalProjectConfigRTL" type="CheckBox" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
-visible = false
-margin_right = 50.0
-margin_bottom = 24.0
-text = "RTL"
+[node name="LocalProjectConfigAuthors" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
+margin_right = 60.0
+margin_bottom = 23.0
+hint_tooltip = "Manage Author(s) of the Project"
+text = "Authors"
 
 [node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer"]
+margin_left = 64.0
 margin_right = 128.0
 margin_bottom = 23.0
 size_flags_horizontal = 3

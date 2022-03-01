@@ -49,6 +49,7 @@ const Data = {
 					# filename:string (filename or path relative to the app local directory),
 					# last_view_offset { <scene-uid>:[x,y] }, (offset of the graph editor (grid) where user has left the scene or macro.)
 					# last_open_scene:int<uid>
+					# active_author: 0
 				# }
 		},
 		"next_project_seed": 0, # next integer to be used as a listed project UID
@@ -60,16 +61,20 @@ const Data = {
 		"title": "Untitled Adventure",
 		"entry": 1, # resource-id of the project's main (active) entry node
 		"meta": {
-			# Arrow has a revision-friendly project structure (i.e. unique & never-reused resource-ids, 'json' exports, etc.)
+			"authors": {
+				0: Settings.ANONYMOUS_AUTHOR_INFO,
+			},
+			"epoch": null, # will be set to current unix time (in microseconds) on creation of the project
+			"last_save": null, # <time objects> { utc: OS.get_time(true), local: OS.get_time(false) }
+			"arrow_editor_version": Settings.ARROW_VERSION, # for future version compatibility checks.
+			# ...
+			# Arrow has a vcs-friendly project structure (i.e. unique & never-reused resource-ids, 'json' exports, etc.)
 			# so you can easily use your favorite revisioning system, such as git.
 			# `offline` and `remote` properties are reserved for possible vcs integration in the future.
 			"offline": true,
 			"remote": {},
-			"rtl": false, # right-to-left (i18n)
-			"last_save": null, # <time objects> { utc: OS.get_time(true), local: OS.get_time(false) }
-			"arrow_editor_version": Settings.ARROW_VERSION, # for future version compatibility checks.
 		},
-		"next_resource_seed": 3, # to have the next available resource UID ready
+		# "next_resource_seed": 3, # if exists in a project, nodes will be identified by an incremental serial.
 		"resources": {
 			"scenes": {
 				0: {
@@ -82,8 +87,8 @@ const Data = {
 				},
 			},
 			"nodes": {
-				1: { "type": "entry", "name":"S0N0Ent", "data": { "plaque": "Start" } },
-				2: { "type": "content", "name":"S0N1Cnt", "data": { "title": "Hello World!", "content": "I'm the very first step to a great adventure.", "clear": true }  },
+				1: { "type": "entry", "name":"1st", "data": { "plaque": "Start" } },
+				2: { "type": "content", "name":"2nd", "data": { "title": "Hello World!", "content": "I'm the very first step to a great adventure.", "clear": true }  },
 			},
 			"variables": {},
 			"characters": {},

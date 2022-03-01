@@ -12,6 +12,7 @@ class_name Addressbook
 const PANELS = {
 	"inspector": "/root/Main/FloatToolsLayer/Container/Inspector",
 	"preferences": "/root/Main/BlockingLayer/Container/Preferences",
+	"authors": "/root/Main/BlockingLayer/Container/Authors",
 	"new_project_prompt":  "/root/Main/BlockingLayer/Container/NewProjectPrompt",
 	"console": "/root/Main/FloatToolsLayer/Container/Console",
 	"about": "/root/Main/BlockingLayer/Container/AboutApp",
@@ -52,8 +53,6 @@ const EDITOR = {
 }
 
 const PATH_DIALOGUE = "/root/Main/BlockingLayer/Container/PathDialog"
-
-# Preferences Panel
 
 const PREF_PANEL_ACTION_BUTTONS = {
 	"dismiss": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/HBoxContainer/PreferencesDismiss",
@@ -102,6 +101,17 @@ const NOTIFICATION = {
 	"CUSTOM_BUTTONS_HOLDER": "/root/Main/BlockingLayer/Container/Notification/NotificationPanel/HBoxContainer/PanelContainer/VBoxContainer/Buttons/Custom",
 }
 
+const AUTHORS = {
+	"itself": "/root/Main/BlockingLayer/Container/Authors",
+	"CLOSE_BUTTON": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/Header/Close",
+	"LIST": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/ScrollContainer/AuthorsList",
+	"ID_SPINBOX": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier/AuthorIdentifier",
+	"INFO_EDIT": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Information/AuthorInfo",
+	"ACTIVE_CHECKBOX": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/AuthorActive",
+	"EDIT_REMOVE": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer/AuthorRemove",
+	"EDIT_SAVE": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer/AuthorSave",
+}
+
 const INSPECTOR = {
 	"itself": "/root/Main/FloatToolsLayer/Container/Inspector",
 	"drag_point": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/Titlebar/DragPoint",
@@ -128,7 +138,7 @@ const INSPECTOR = {
 				"TITLE_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/LocalProjectConfigTitle/Title",
 				"SET_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/LocalProjectConfigTitle/Set"
 			},
-			"RTL_CONFIGURATION_CHECKBOX": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer/LocalProjectConfigRTL",
+			"AUTHORS_CONFIGURATION": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer/LocalProjectConfigAuthors",
 			"CLOSE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer/LocalProjectClose",
 			"MORE_TOOLS_MENU_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/LocalProjectProperties/HBoxContainer/LocalProjectMoreTools",
 			"VERSIONING": {

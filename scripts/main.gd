@@ -121,6 +121,10 @@ func toggle_welcome() -> void:
 	UI.toggle_panel_visibility("welcome")
 	pass
 
+func toggle_authors() -> void:
+	UI.toggle_panel_visibility("authors")
+	pass
+
 func store_window_state() -> void:
 	var window_state = UI.read_window_state()
 	Configs.TEMPORARY.window = window_state
