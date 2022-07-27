@@ -87,25 +87,21 @@ func setup_view() -> void:
 		Title.set_deferred("self_modulate", TITLE_UNSET_SELF_MODULATION_COLOR)
 	# Content
 	if resource_has_valid_string_data("content"):
-		# print formated content:
-		# firstly, by replacing `{variable_name}` tags with respective [current] value
+		# print formatted content (using bbcode support,)
+		# after replacing `{variable_name}` tags with their respective [current] values:
 		var reformatted_content = _NODE_RESOURCE.data.content.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
-		# then because this node type supports BBCode ...
-		Content.clear() # clean up and try to set bbcode
-		if Content.append_bbcode(reformatted_content) != OK:
-			# or normal text if there was problem parsing it
-			Content.set_text(reformatted_content)
+		Content.set_deferred("bbcode_text", reformatted_content)
 	else:
-		Content.set_deferred("text", CONTENT_UNSET_MESSAGE)
+		Content.set_deferred("bbcode_text", CONTENT_UNSET_MESSAGE)
 	# Brief
 	if resource_has_valid_string_data("brief"):
 		# ditto ...
 		var reformatted_brief = _NODE_RESOURCE.data.brief.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
-		Brief.clear()
-		if Brief.append_bbcode(reformatted_brief) != OK:
-			Brief.set_text(reformatted_brief)
+		Brief.set_deferred("bbcode_text", reformatted_brief)
+		Brief.set_deferred("visible", true)
 	else:
-		Brief.set_deferred("text", BRIEF_UNSET_MESSAGE)
+		Brief.set_deferred("bbcode_text", BRIEF_UNSET_MESSAGE)
+		Brief.set_deferred("visible", false)
 	# ask for console clearance ...
 	if content_wants_clearance():
 		emit_signal("clear_up")

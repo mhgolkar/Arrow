@@ -76,14 +76,10 @@ func show_notification(heading:String, rich_text_message:String, actions:Array =
 	clear_up_notification()
 	# set up fields
 	if heading.length() > 0 && rich_text_message.length() > 0 :
-		# update heading
+		# including heading and rich text message:
 		Heading.set_text(heading)
-		# message supports BBCode ...
-		Message.clear() # clean up and try to set bbcode first
-		if Message.append_bbcode(rich_text_message) != OK: # if unsuccessful
-			# set as normal text
-			Message.set_text(rich_text_message)
-		# in case of custom actions (buttons) ...
+		Message.set_bbcode(rich_text_message)
+		# and in case of custom actions (buttons:)
 		var has_custom_buttons:bool = false
 		if actions.size() > 0 :
 			for action in actions:

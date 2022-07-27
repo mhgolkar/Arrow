@@ -72,9 +72,7 @@ func refresh_project_description() -> void:
 		var project_id = LocalProjectsList.get_item_metadata(selected[0])
 		var description = Main.Mind.ProMan.get_project_description(project_id)
 		if description is String && description.length() > 0:
-			SelectedProjectDescription.clear()
-			if SelectedProjectDescription.append_bbcode(description) != OK:
-				SelectedProjectDescription.set_text(description)
+			SelectedProjectDescription.set_deferred("bbcode_text", description)
 			SelectedProjectDescription.set_deferred("visible", true)
 	pass
 

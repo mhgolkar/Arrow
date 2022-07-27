@@ -43,9 +43,6 @@ func _update_node(data:Dictionary) -> void:
 	if data.has("brief"):
 		brief = String(data.brief)
 		if brief is String && brief.length() > 0:
-			Brief.clear() # clean up and try to set bbcode
-			if Brief.append_bbcode(brief) != OK:
-				# or normal text if there was problem parsing it
-				Brief.set_text(brief)
+			Brief.set_bbcode(brief)
 			Brief.set_visible(true)
 	pass
