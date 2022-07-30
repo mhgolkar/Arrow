@@ -40,6 +40,9 @@ func _on_resize_request(new_min_size) -> void:
 		"nodes",
 		true
 	)
+	# Because we are updating resource out of signal hierarchy,
+	# we need to manually toggle the save status as well:
+	Mind.reset_project_save_status(false)
 	pass
 
 func _gui_input(event) -> void:
