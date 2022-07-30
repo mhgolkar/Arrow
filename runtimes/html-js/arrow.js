@@ -124,7 +124,7 @@ function refresh_console_attribute_of(var_name, new_value){
 }
 
 // Project Validation
-const PROJECT_DATA_MANDATORY_FIELDS = [ "title", "entry", "meta", "next_resource_seed", "resources" ];
+const PROJECT_DATA_MANDATORY_FIELDS = [ "title", "entry", "meta", "resources" ];
 const PROJECT_DATA_RESOURCES_MANDATORY_SETS = [ "scenes", "nodes", "variables", "characters" ];
 const DATASET_ITEM_MANDATORY_FIELDS_FOR_SET = {
     "scenes": [ "name", "entry", "map" ],
@@ -139,8 +139,6 @@ function validate_project_data(project){
         if ( object_has_keys_all(project, PROJECT_DATA_MANDATORY_FIELDS ) ) {
             if ( object_has_keys_all(project.resources, PROJECT_DATA_RESOURCES_MANDATORY_SETS ) ){
                 if (
-                    // Note: A valid project requires `next_resource_seed` but it's not necessary for this runtime to work, so ...
-                    // Number.isInteger(project.next_resource_seed) && project.next_resource_seed >= 0 &&
                     Number.isInteger(project.entry) && project.resources.nodes.hasOwnProperty(project.entry)
                 ){
                     for ( const set in project.resources ){
