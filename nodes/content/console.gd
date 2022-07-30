@@ -94,8 +94,9 @@ func setup_view() -> void:
 	else:
 		Content.set_deferred("bbcode_text", CONTENT_UNSET_MESSAGE)
 	# Brief
+	# > Textual (legacy) brief is deprecated;
+	# > Yet for backward compatibility we show it if the node is still using the old structure:
 	if resource_has_valid_string_data("brief"):
-		# ditto ...
 		var reformatted_brief = _NODE_RESOURCE.data.brief.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
 		Brief.set_deferred("bbcode_text", reformatted_brief)
 		Brief.set_deferred("visible", true)

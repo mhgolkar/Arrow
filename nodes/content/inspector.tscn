@@ -5,63 +5,41 @@
 [node name="ContentType" type="ScrollContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 157.0
+margin_right = 223.0
+margin_bottom = 262.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 150.0
+[node name="Content" type="VBoxContainer" parent="."]
+margin_right = 216.0
+margin_bottom = 255.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Content" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 227.0
-margin_bottom = 274.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TitleLabel" type="Label" parent="ScrollContainer/Content"]
-margin_right = 227.0
+[node name="TitleLabel" type="Label" parent="Content"]
+margin_right = 216.0
 margin_bottom = 14.0
+size_flags_horizontal = 3
 text = "Title"
 
-[node name="Title" type="LineEdit" parent="ScrollContainer/Content"]
+[node name="Title" type="LineEdit" parent="Content"]
 margin_top = 18.0
-margin_right = 227.0
+margin_right = 216.0
 margin_bottom = 42.0
-
-[node name="BriefLabel" type="Label" parent="ScrollContainer/Content"]
-margin_top = 46.0
-margin_right = 227.0
-margin_bottom = 60.0
-text = "Brief"
-
-[node name="Brief" type="TextEdit" parent="ScrollContainer/Content"]
-margin_top = 64.0
-margin_right = 227.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 0, 60 )
 size_flags_horizontal = 3
-size_flags_vertical = 3
-breakpoint_gutter = true
-fold_gutter = true
-wrap_enabled = true
-minimap_width = 25
 
-[node name="ContentLabel" type="Label" parent="ScrollContainer/Content"]
-margin_top = 128.0
-margin_right = 227.0
-margin_bottom = 142.0
+[node name="ContentLabel" type="Label" parent="Content"]
+margin_top = 46.0
+margin_right = 216.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
 text = "Content"
 
-[node name="Content" type="TextEdit" parent="ScrollContainer/Content"]
-margin_top = 146.0
-margin_right = 227.0
-margin_bottom = 246.0
+[node name="Content" type="TextEdit" parent="Content"]
+margin_top = 64.0
+margin_right = 216.0
+margin_bottom = 199.0
 rect_min_size = Vector2( 0, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -71,8 +49,32 @@ fold_gutter = true
 wrap_enabled = true
 minimap_width = 25
 
-[node name="ClearPage" type="CheckBox" parent="ScrollContainer/Content"]
-margin_top = 250.0
-margin_right = 227.0
-margin_bottom = 274.0
+[node name="Brief" type="HBoxContainer" parent="Content"]
+margin_top = 203.0
+margin_right = 216.0
+margin_bottom = 227.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Content/Brief"]
+margin_top = 5.0
+margin_right = 34.0
+margin_bottom = 19.0
+text = "Brief:"
+
+[node name="Length" type="SpinBox" parent="Content/Brief"]
+margin_left = 38.0
+margin_right = 216.0
+margin_bottom = 24.0
+hint_tooltip = "Length of the brief display of this content on the grid.
+`-1` previews all the content."
+size_flags_horizontal = 3
+min_value = -1.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="ClearPage" type="CheckBox" parent="Content"]
+margin_top = 231.0
+margin_right = 216.0
+margin_bottom = 255.0
 text = "Print on Clear Page"

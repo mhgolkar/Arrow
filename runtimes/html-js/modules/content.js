@@ -89,7 +89,8 @@ class Content {
                             this.title = create_element(TITLE_TAG, format(node_resource.data.title, VARS_NAME_VALUE_PAIR));
                             this.html.appendChild(this.title);
                         }
-                        if ( node_resource.data.hasOwnProperty("brief") ){
+                        if ( node_resource.data.hasOwnProperty("brief") && typeof node_resource.data.brief == 'string'){
+                            // Textual (legacy) brief support:
                             this.brief = create_element(BRIEF_TAG, parse_bbcode( format(node_resource.data.brief, VARS_NAME_VALUE_PAIR) ) );
                             this.html.appendChild(this.brief);
                         }
