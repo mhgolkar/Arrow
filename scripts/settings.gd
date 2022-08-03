@@ -155,9 +155,15 @@ const VARIABLE_TYPES_ENUM = {
 }
 
 # Unique Naming
-# Arrow can handle using the same name for different nodes or scenes,
-# yet it's much more convenient not to share names (so users can find a node easier when linking them via `jump`s.)
-# A postfix will be added to the names that are used already.
+#
+# Arrow can handle identical names for different resources;
+# Newly created resource names are direct representation
+# of their underlying UIDs and consequently unique;
+# But users can rename resources.
+# Following settings can force name uniqueness (default,)
+# by adding a postfix to any duplicate name.
+# > Note that name uniqueness is limited to the scope of each resource type
+# > and *is case-sensitive*.
 
 const FORCE_UNIQUE_NAMES_FOR_VARIABLES = true
 const REUSED_VARIABLE_NAMES_AUTO_POSTFIX = "_"
@@ -170,6 +176,9 @@ const REUSED_MACRO_NAMES_AUTO_POSTFIX = "_"
 
 const FORCE_UNIQUE_NAMES_FOR_SCENES = true
 const REUSED_SCENE_NAMES_AUTO_POSTFIX = "_"
+
+const FORCE_UNIQUE_NAMES_FOR_NODES = true
+const REUSED_NODE_NAMES_AUTO_POSTFIX = "_"
 
 const NONE_UNIQUE_FILENAME_AUTO_POSTFIX = "_"
 

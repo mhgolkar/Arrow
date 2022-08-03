@@ -885,13 +885,36 @@ class Mind :
 					_chached_type_abbreviations_by_name[type_name] = type_abbreviation
 		return type_abbreviation
 	
+	# Unlike `query_nodes_by_name`, it works for any resource and detects only the one with identical name.
+	# Returns the resource as a dictionary (i.e. `{ UID: Resource }`) or null if field or resource do not exist.
+	func fetch_resource_by_exact_name(res_name: String, field: String):
+		if _PROJECT.resources.has(field) && _PROJECT.resources[field] is Dictionary:
+			for resource_id in _PROJECT.resources[field]:
+				if _PROJECT.resources[field][resource_id] is Dictionary && _PROJECT.resources[field][resource_id].has("name"):
+					if _PROJECT.resources[field][resource_id].name == res_name:
+						return { resource_id: _PROJECT.resources[field][resource_id] }
+		else:
+			printerr("Trying to fetch resource by name from non-existent field: ", field)
+		return null
+
+	func is_node_name_duplicate(name: String) -> bool:
+		var fetched = fetch_resource_by_exact_name(name, "nodes")
+		if fetched != null && fetched is Dictionary && fetched.size() > 0:
+			print_debug("duplicate node name detected: ", fetched)
+			return true
+		return false
+
 	func make_node_name_from(prefix:String, node_id:int, type_name:String) -> String:
-		return NODE_INITIAL_NAME_TEMPLATE.format({
+		var node_name = NODE_INITIAL_NAME_TEMPLATE.format({
 			"node_id":  node_id,
 			"node_id_base36":  Utils.int_to_base36(node_id).to_lower(),
 			"prefix": prefix,
 			"type_abbreviation": get_type_name_abbreviation(type_name)
 		})
+		if Settings.FORCE_UNIQUE_NAMES_FOR_NODES:
+			while is_node_name_duplicate(node_name):
+				node_name += Settings.REUSED_NODE_NAMES_AUTO_POSTFIX
+		return node_name
 	
 	func write_resource(field:String, resource:Dictionary, resource_id:int = -1, deep_clone:bool = true) -> int:
 		if resource_id < 0 :
@@ -1023,13 +1046,6 @@ class Mind :
 			print_stack()
 			printerr("Unexpected Behavior! The function `find_scene_owner_of_node` is called with resource id < 0")
 		return the_owner_scene_id
-	
-	func is_node_name_available(name:String) -> bool:
-		var matches = query_nodes_by_name(name, -2) # -2 means all the nodes in the dataset
-		# `matches` is a dictionary of all identically named nodes by id (case-insensitive)
-		if matches.size() == 0 :
-			return true
-		return false
 	
 	func update_scene_entry(node_id:int) -> void:
 		var the_owner_scene_id = find_scene_owner_of_node(node_id)

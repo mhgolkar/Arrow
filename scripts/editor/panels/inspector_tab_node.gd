@@ -161,8 +161,10 @@ func read_and_validate_node_name():
 		var already = _CURRENT_INSPECTED_NODE.name
 		var updated = NodeUidEdit.get_text()
 		if updated != already:
-			if Main.Mind.is_node_name_available(updated) == true:
-				validated_name = updated
+			validated_name = updated
+			if Settings.FORCE_UNIQUE_NAMES_FOR_NODES:
+				while Main.Mind.is_node_name_duplicate(validated_name):
+					validated_name += Settings.REUSED_NODE_NAMES_AUTO_POSTFIX
 	return validated_name
 
 func read_and_update_inspected_node(auto:bool = false) -> void:
