@@ -715,14 +715,7 @@ margin_bottom = 353.0
 margin_right = 386.0
 margin_bottom = 23.0
 
-[node name="AuthorsLabel" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/Header"]
-margin_top = 3.0
-margin_right = 56.0
-margin_bottom = 20.0
-text = "Authors"
-
 [node name="MarginContainer" type="MarginContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/Header"]
-margin_left = 60.0
 margin_right = 330.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
@@ -733,113 +726,162 @@ margin_right = 386.0
 margin_bottom = 23.0
 text = "Close"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="BlockingLayer/Container/Authors/VBoxContainer"]
+[node name="AuthorsPanel" type="PanelContainer" parent="BlockingLayer/Container/Authors/VBoxContainer"]
 margin_top = 27.0
 margin_right = 386.0
-margin_bottom = 200.0
+margin_bottom = 301.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="AuthorsList" type="ItemList" parent="BlockingLayer/Container/Authors/VBoxContainer/ScrollContainer"]
-margin_right = 386.0
-margin_bottom = 173.0
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 379.0
+margin_bottom = 267.0
+
+[node name="AuthorsLabel" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer"]
+margin_right = 372.0
+margin_bottom = 17.0
+text = "Authors"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer"]
+margin_top = 21.0
+margin_right = 372.0
+margin_bottom = 143.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AuthorsList" type="ItemList" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/ScrollContainer"]
+margin_right = 372.0
+margin_bottom = 122.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "* {id} : {information}", null, false ]
 allow_reselect = true
 
-[node name="AuthorEdit" type="PanelContainer" parent="BlockingLayer/Container/Authors/VBoxContainer"]
-margin_top = 204.0
-margin_right = 386.0
-margin_bottom = 346.0
+[node name="AuthorEdit" type="PanelContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer"]
+margin_top = 147.0
+margin_right = 372.0
+margin_bottom = 260.0
 size_flags_horizontal = 3
 
-[node name="AuthorData" type="VBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 379.0
-margin_bottom = 135.0
-
-[node name="UniqueIdentifier" type="PanelContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData"]
-margin_right = 372.0
-margin_bottom = 101.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier"]
+[node name="AuthorData" type="VBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 365.0
-margin_bottom = 94.0
+margin_bottom = 106.0
 
-[node name="Identifier" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer"]
+[node name="UniqueIdentifier" type="PanelContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData"]
 margin_right = 358.0
+margin_bottom = 72.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 351.0
+margin_bottom = 65.0
+
+[node name="Identifier" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer"]
+margin_right = 344.0
 margin_bottom = 27.0
 
-[node name="Label" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier"]
+[node name="Label" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier"]
 margin_top = 5.0
 margin_right = 40.0
 margin_bottom = 22.0
 text = "AUID:"
 
-[node name="AuthorIdentifier" type="SpinBox" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier"]
+[node name="AuthorIdentifier" type="SpinBox" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier"]
 margin_left = 44.0
 margin_right = 166.0
 margin_bottom = 27.0
+hint_tooltip = "Author Unique IDs acting as resource UID namespaces, allow multiple contributors to work on the same document simultaneously."
 max_value = 63.0
 rounded = true
 align = 1
 
-[node name="Description" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier"]
+[node name="AuthorActive" type="CheckBox" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier"]
 margin_left = 170.0
-margin_top = 5.0
-margin_right = 314.0
-margin_bottom = 22.0
-text = "(Author Unique ID)"
+margin_right = 342.0
+margin_bottom = 27.0
+hint_tooltip = "If checked, selected author will be considered the contributor for next edits."
+text = "Active Contributor"
 
-[node name="Information" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer"]
+[node name="Information" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer"]
 margin_top = 31.0
-margin_right = 358.0
+margin_right = 344.0
 margin_bottom = 58.0
 
-[node name="InfoLabel" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Information"]
+[node name="InfoLabel" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Information"]
 margin_top = 5.0
 margin_right = 40.0
 margin_bottom = 22.0
 text = "Info:"
 
-[node name="AuthorInfo" type="LineEdit" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Information"]
+[node name="AuthorInfo" type="LineEdit" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Information"]
 margin_left = 44.0
-margin_right = 358.0
+margin_right = 344.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 placeholder_text = "J. Doe (contributor@project.tld)"
 
-[node name="AuthorActive" type="CheckBox" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer"]
-margin_top = 62.0
+[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData"]
+margin_top = 76.0
 margin_right = 358.0
-margin_bottom = 87.0
-hint_tooltip = "If checked, selected author will be considered the contributor for next edits."
-text = "This is Me, the Active Contributor"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData"]
-margin_top = 105.0
-margin_right = 372.0
-margin_bottom = 128.0
+margin_bottom = 99.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 2
 
-[node name="AuthorRemove" type="Button" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer"]
-margin_left = 264.0
-margin_right = 324.0
+[node name="AuthorRemove" type="Button" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer"]
+margin_left = 242.0
+margin_right = 302.0
 margin_bottom = 23.0
 text = "Remove"
 
-[node name="AuthorSave" type="Button" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer"]
-margin_left = 328.0
-margin_right = 372.0
+[node name="AuthorSave" type="Button" parent="BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer"]
+margin_left = 306.0
+margin_right = 358.0
 margin_bottom = 23.0
 text = "Apply"
+
+[node name="ChapterPanel" type="PanelContainer" parent="BlockingLayer/Container/Authors/VBoxContainer"]
+margin_top = 305.0
+margin_right = 386.0
+margin_bottom = 346.0
+
+[node name="Chapter" type="HBoxContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/ChapterPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 379.0
+margin_bottom = 34.0
+
+[node name="Label" type="Label" parent="BlockingLayer/Container/Authors/VBoxContainer/ChapterPanel/Chapter"]
+margin_top = 5.0
+margin_right = 72.0
+margin_bottom = 22.0
+text = "Chapter: "
+
+[node name="ChapterID" type="SpinBox" parent="BlockingLayer/Container/Authors/VBoxContainer/ChapterPanel/Chapter"]
+margin_left = 76.0
+margin_right = 198.0
+margin_bottom = 27.0
+hint_tooltip = "Chapter is a unique identifier for each document to avoid resource UID collision when a project is divided to multiple files."
+max_value = 511.0
+rounded = true
+
+[node name="MarginContainer" type="MarginContainer" parent="BlockingLayer/Container/Authors/VBoxContainer/ChapterPanel/Chapter"]
+margin_left = 202.0
+margin_right = 286.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+
+[node name="UpdateChapter" type="Button" parent="BlockingLayer/Container/Authors/VBoxContainer/ChapterPanel/Chapter"]
+margin_left = 290.0
+margin_right = 372.0
+margin_bottom = 27.0
+text = " Update"
 
 [node name="LoadingSpinner" type="PanelContainer" parent="BlockingLayer/Container"]
 visible = false
@@ -1127,8 +1169,6 @@ mode_overrides_title = false
 mode = 2
 access = 1
 show_hidden_files = true
-current_dir = "user://"
-current_path = "user://"
 script = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -3672,7 +3712,6 @@ anchor_left = 0.000882049
 anchor_top = -0.00178896
 anchor_right = 1.00088
 anchor_bottom = 0.998211
-margin_left = -5.96046e-08
 size_flags_horizontal = 3
 size_flags_vertical = 3
 right_disconnects = true
@@ -3683,9 +3722,6 @@ zoom_step = 1.1
 show_zoom_label = true
 minimap_enabled = false
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MinimapBox" type="Panel" parent="Editor/Center"]
 visible = false

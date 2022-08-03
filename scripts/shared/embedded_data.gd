@@ -61,20 +61,37 @@ const Data = {
 		"title": "Untitled Adventure",
 		"entry": 1, # resource-id of the project's main (active) entry node
 		"meta": {
+			# Native distributed incremental (default) UID metas:
+			# > For larger projects which are devided into multiple documents,
+			# > setting different chapter IDs per sub-project guarantees global uniqueness of resource UIDs.
+			# > Up to 512 chapters _represented as 1st 9-bit in each UID_ can exist.
+			"chapter": 0, # (0 - 512; Order is optional.)
+			# > Arrow uses an incremental seed tracker for each author to guarantee resource UID uniqueness
+			# > when multiple users work on the same document simultaneously.
 			"authors": {
-				0: Settings.ANONYMOUS_AUTHOR_INFO,
+				# (Up to 64 authors _represented as 2nd 6-bit in each UID_ can work on the same document.)
+				0: [Settings.ANONYMOUS_AUTHOR_INFO, 3] # [Author info, and incremental seed for the next UID]
 			},
-			"epoch": null, # will be set to current unix time (in microseconds) on creation of the project
+			# ...
+			# Time-based distributed UID epoch:
+			# > This field is unix time (in microseconds) on creation of the project.
+			# > If you set it, you'll get 64-bit timebased distributed IDs inspired by Snowflake-IDs.
+			# > This method is not recommended; For most of the projects the default method is a better choice.
+			# "epoch": null,
+			# ...
 			"last_save": null, # <time objects> { utc: OS.get_time(true), local: OS.get_time(false) }
 			"arrow_editor_version": Settings.ARROW_VERSION, # for future version compatibility checks.
 			# ...
 			# Arrow has a vcs-friendly project structure (i.e. unique & never-reused resource-ids, 'json' exports, etc.)
 			# so you can easily use your favorite revisioning system, such as git.
-			# `offline` and `remote` properties are reserved for possible vcs integration in the future.
+			# `offline` and `remote` properties are reserved for possible editor vcs integration in the future.
 			"offline": true,
 			"remote": {},
 		},
+		# ...
+		# Local incremental (legacy) UID tracker:
 		# "next_resource_seed": 3, # if exists in a project, nodes will be identified by an incremental serial.
+		# ...
 		"resources": {
 			"scenes": {
 				0: {
@@ -87,8 +104,8 @@ const Data = {
 				},
 			},
 			"nodes": {
-				1: { "type": "entry", "name":"1st", "data": { "plaque": "Start" } },
-				2: { "type": "content", "name":"2nd", "data": { "title": "Hello World!", "content": "I'm the very first step to a great adventure.", "clear": true }  },
+				1: { "type": "entry", "name":"1", "data": { "plaque": "Start" } },
+				2: { "type": "content", "name":"2", "data": { "title": "Hello World!", "content": "I'm the very first step to a great adventure.", "clear": false }  },
 			},
 			"variables": {},
 			"characters": {},

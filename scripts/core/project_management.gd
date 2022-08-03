@@ -35,7 +35,6 @@ class ProjectManager :
 		pass
 	
 	func validate_project_list_data(content):
-		# TODO: `arrow_editor_version` compatibility checks and updates in case
 		if content is Dictionary:
 			var expected_keys = Embedded.Data.Blank_Project_List.keys()
 			if content.has_all(expected_keys):
@@ -90,8 +89,9 @@ class ProjectManager :
 		_ACTIVE_PROJECT_UID = -1
 		_IS_ACTIVE_PROJECT_SAVED = true
 		var untitled_project = Embedded.Data.Untitled_Project.duplicate(true)
-		untitled_project.meta.epoch = Flake.Generator._unsafe_unix_now_millisecond()
-		print_debug("holding untitle (blank) project; epoch: ", untitled_project.meta.epoch)
+		if Settings.FORCE_SNOWFLAKE_UID_FOR_NEW_PROJECTS == true:
+			untitled_project.meta.epoch = Flake.Snow._unsafe_unix_now_millisecond()
+		print_debug("holding untitle (blank) project: ", untitled_project.meta)
 		return untitled_project
 	
 	func is_project_listed(project_uid:int = _ACTIVE_PROJECT_UID) -> bool:
@@ -124,12 +124,22 @@ class ProjectManager :
 			printerr("Unexpected Behavior! Trying to check existance of none-listed project = %s !" % project_file_path)
 		return false
 	
-	func is_valid_authors_dictionery(checked) -> bool:
+	func is_authors_dictionary_valid(checked) -> bool:
 		if (checked is Dictionary) == false:
 			return false
 		else:
 			for key in checked:
-				if ( (key is int) && (checked[key] is String) ) == false:
+				if (
+					key is int && # Has author ID
+					( # and the author meta data
+						checked[key] is String || # in old format (only info)
+						(
+							# or new format including info and resource seed (always -1 if snowflakes are used)
+							checked[key] is Array && checked[key].size() >= 2 &&
+							checked[key][0] is String && checked[key][1] is int
+						)
+					)
+				) == false:
 					return false
 		return true
 	
@@ -148,14 +158,23 @@ class ProjectManager :
 			if project.has_all( PROJECT_DATA_MANDATORY_FIELDS ):
 				if project.resources.has_all( PROJECT_DATA_RESOURCES_MANDATORY_SETS ):
 					if (
-						(
-							( # Old (legacy) project:
+						( # Projects need to have minimum meta data necessary for resource UID management
+							( # in old (legacy) format with local (none-distributed) incremental tracker,
 								project.has("next_resource_seed") &&
 								(project.next_resource_seed is int) && project.next_resource_seed >= 0
-							) || # or
-							( # new multi-contributor project:
-								project.meta.has("epoch") && (project.meta.epoch is int) && project.meta.epoch > 0 &&
-								project.meta.has("authors") && is_valid_authors_dictionery(project.meta.authors)
+							) ||
+							( # or new distributed formats with multiple contributors
+								project.meta.has("authors") && is_authors_dictionary_valid(project.meta.authors) &&
+								# using either
+								(
+									# time-based (Snowflake) method
+									( project.meta.has("epoch") && project.meta.epoch is int && project.meta.epoch > 0 ) ||
+									# or native (recommended) method with support for chapters
+									(
+										project.meta.has("chapter") && project.meta.chapter is int &&
+										project.meta.chapter >= 0 && project.meta.chapter < Flake.Native.CHAPTER_ID_EXCLUSIVE_LIMIT
+									)
+								)
 							)
 						) && # anyway they need to have valid `entry` node:
 						(project.entry is int) && project.resources.nodes.has(project.entry)
@@ -325,10 +344,7 @@ class ProjectManager :
 	func set_project_active_author(active_author:int, project_uid:int = -1) -> void:
 		project_uid = valid_project_uid_or_default(project_uid)
 		if is_project_listed(project_uid):
-			if (active_author >= 0 && active_author < Flake.MAX_POSSIBLE_AUTHOR_ID):
-				_PROJECT_LIST.projects[project_uid].active_author = active_author
-			else:
-				printerr("Invalid active author ID to be tracked in project lists: ", active_author)
+			_PROJECT_LIST.projects[project_uid].active_author = active_author
 		else:
 			print_debug("project not listed; setting active author ignored.")
 		pass
@@ -430,7 +446,7 @@ class ProjectManager :
 	
 	func save_project_native_file(project_data:Dictionary, full_path:String, prefer_json = null):
 		var done
-		if prefer_json == true || ( prefer_json != false && Settings.USE_JSON_FOR_PROJECT_FILES != false ) :
+		if prefer_json == true || ( prefer_json != false && Settings.USE_DEPRECATED_BIN_SAVE != true ) :
 			done = Utils.save_data_as_json_file(project_data, full_path, Settings.PROJECT_FILE_JSON_DEFAULT_IDENT, false)
 		else:
 			done = Utils.save_data_as_variant_file(project_data, full_path)

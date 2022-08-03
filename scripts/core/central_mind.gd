@@ -135,6 +135,7 @@ class Mind :
 		"restore_snapshot",
 		"update_author",
 		"remove_author",
+		"update_chapter",
 	]
 	func central_event_dispatcher(request:String, args=null, _t_address=null, _tx_node=null) -> void:
 		print_debug("Mind:: Request : ", request, " (", args, ") ")
@@ -207,6 +208,8 @@ class Mind :
 				update_project_author(args.id, args.info, args.active)
 			"remove_author":
 				remove_project_author(args)
+			"update_chapter":
+				upate_project_chapter(args)
 			"take_snapshot":
 				take_snapshot()
 			"toggle_snapshot_preview":
@@ -366,7 +369,7 @@ class Mind :
 		# ... loading project in the editor
 		reset_project_title()
 		reset_project_save_status()
-#		reset_auto_save_quick_preference()
+		#reset_auto_save_quick_preference()
 		# ... inspector tabs
 		initialize_inspector()
 		# ... grid
@@ -374,7 +377,7 @@ class Mind :
 		# if it's blank we want to stay where we are (most likely at the projects-list)
 		if is_blank == false && ProMan.is_project_listed():
 			activate_project_properties()
-			reset_project_authors_list(true)
+		reset_project_authors_list(true)
 		# clean up and close console
 		console( -1, true, false )
 		pass
@@ -417,13 +420,30 @@ class Mind :
 #		pass
 	
 	func reset_active_author(id:int) -> void:
+		# Track the active author for the next time project is opened
 		ProMan.set_project_active_author(id)
-		if Flaker is Flake.Generator: # (when flaker is defined)
+		# ...
+		if Flaker is Flake.Native:
+			Flaker.reset_active_author(id)
+		if Flaker is Flake.Snow:
+			# (when time-based flaker is defined) we need to change
 			Flaker.reset_producer(id)
 		pass
 	
+	func standardize_authors_list() -> void:
+		if _PROJECT.meta.has("authors") == false || (_PROJECT.meta.authors is Dictionary) == false:
+			_PROJECT.meta.authors = {}
+		# Following part of standardization, is currently supposed to impact projects with snowflake/epoch method only:
+		var zero_seed = (-1) if (_PROJECT.meta.has("epoch") && _PROJECT.meta.epoch is int && _PROJECT.meta.epoch > 0) else 0;
+		for key in _PROJECT.meta.authors:
+			if _PROJECT.meta.authors[key] is String:
+				_PROJECT.meta.authors[key] = [_PROJECT.meta.authors[key], zero_seed]
+		pass
+
 	func reset_node_id_generator() -> void:
-		if _PROJECT.has("next_resource_seed"): # (Backward-compatibility)
+		# (with backward-compatibility)
+		if _PROJECT.has("next_resource_seed"):
+			# Legacy local incremental UID method:
 			Flaker = null
 			print(
 				"CAUTION! You're using an old project structure with single-producer node-IDs. Next ID: ",
@@ -431,46 +451,85 @@ class Mind :
 				"This is *Not Recommended*, specially for new projects."
 			)
 		else:
+			# One of the distributed UID management methods:
+			standardize_authors_list() # (automatic compatiblity update)
 			# We expect projects to have at least one (even 0-Anonymous) author.
 			var active_author = ProMan.get_project_active_author() # (current record in projects list or null)
 			if (active_author is int) == false || _PROJECT.meta.authors.has(active_author) == false:
 				if _PROJECT.meta.authors.size() == 0:
 					active_author = 0
-					_PROJECT.meta.authors[0] = Settings.ANONYMOUS_AUTHOR_INFO
+					var zero_seed = (-1) if (_PROJECT.meta.has("epoch") && _PROJECT.meta.epoch is int && _PROJECT.meta.epoch > 0) else 0;
+					_PROJECT.meta.authors[0] = [ Settings.ANONYMOUS_AUTHOR_INFO, zero_seed ]
 				else:
 					active_author = _PROJECT.meta.authors.keys()[0] # (the first author-id)
-				reset_active_author(active_author)
 				print(
 					"Contributor reset! Active author of this document is now: ",
 					active_author, " = ", _PROJECT.meta.authors[active_author]
 				)
-			Flaker = Flake.Generator.new(_PROJECT.meta.epoch, active_author)
+			# ...
+			# + Time-based (Snowflake) UID:
+			if _PROJECT.meta.has("epoch") && _PROJECT.meta.epoch is int && _PROJECT.meta.epoch > 0:
+				Flaker = Flake.Snow.new(_PROJECT.meta.epoch, active_author)
+			# + Default (native, recommended) UID:
+			else:
+				Flaker = Flake.Native.new(_PROJECT.meta, active_author)
+			# ...
+			reset_active_author(active_author)
 		pass
 	
 	func reset_project_authors_list(auto_select:bool = false) -> void:
-		Authors.call_deferred("reset_authors", _PROJECT.meta.authors, ProMan.get_project_active_author(), auto_select)
+		Authors.call_deferred(
+			"reset_authors", _PROJECT.meta, ProMan.get_project_active_author(), auto_select
+		)
 		pass
 	
 	func update_project_author(id:int, info:String, is_active:bool) -> void:
-		_PROJECT.meta.authors[id] = info if info.length() > 0 else Settings.ANONYMOUS_AUTHOR_INFO
+		var author_info = (info if info.length() > 0 else Settings.ANONYMOUS_AUTHOR_INFO)
+		if _PROJECT.meta.authors.has(id): # existent
+			_PROJECT.meta.authors[id][0] = author_info
+		else: # new author
+			_PROJECT.meta.authors[id] = [author_info, 0]
 		if is_active:
 			reset_active_author(id)
 		reset_project_authors_list()
 		pass
 	
-	func remove_project_author(id:int) -> void:
+	func remove_project_author(id:int, forced: bool = false) -> void:
 		if _PROJECT.meta.authors.has(id):
-			if _PROJECT.meta.authors.size() > 1: # (at least one author is required)
-				_PROJECT.meta.authors.erase(id)
-				# reset the active author if the one remove was the one in charge:
-				if ProMan.get_project_active_author() == id:
-					var new_active_author = _PROJECT.meta.authors.keys()[0] # (the first author-id)
-					reset_active_author(new_active_author)
-				reset_project_authors_list()
+			if _PROJECT.meta.authors.size() > 1: # ( At least one author sould remain in the list, and
+				# the removed author better not to have any UID created yet.)
+				if _PROJECT.meta.authors[id][1] <= 0 || forced == true:
+					_PROJECT.meta.authors.erase(id)
+					# reset the active author if the one remove was the one in charge:
+					if ProMan.get_project_active_author() == id:
+						var new_active_author = _PROJECT.meta.authors.keys()[0] # (the first author-id)
+						reset_active_author(new_active_author)
+					reset_project_authors_list()
+				else:
+					printerr("Trying to remove author with positive seed! Ignored to obsessively avoid future UID conflicts.")
 			else:
 				printerr("Trying to remove the only author of the document! Authors: ", _PROJECT.meta.authors)
 		else:
 			printerr("Trying to remove non-existent author: ", id, " from: ", _PROJECT.meta.authors)
+		pass
+	
+	func upate_project_chapter(id: int, quick: bool = false) -> void:
+		if quick:
+			_PROJECT.meta.chapter = id
+		else:
+			Notifier.call_deferred(
+				"show_notification",
+				"Are you sure ?!",
+				(
+					"A new Chapter ID will change resource UID namespace for this project file.\n" +
+					"You only need this operation if your project is divided into multiple documents, " +
+					"and you want to avoid identifier collision by assigning a unique namespace to each one. \n" +
+					"Also note that this update will only affect new resource UIDs (i.e. new nodes, scenes, etc.) " +
+					"Previously created resources (including default nodes) will keep their current UIDs."
+				),
+				[ { "label": "OK; I'm Sure", "callee": Main.Mind, "method": "upate_project_chapter", "arguments": [id, true] },],
+				Settings.CAUTION_COLOR
+			)
 		pass
 	
 	func clean_inspector_tabs(keep_history:bool = false) -> void:
@@ -762,24 +821,30 @@ class Mind :
 		pass
 		
 	func create_new_resource_id() -> int:
-		if _PROJECT.has("next_resource_seed"): # legacy
+		if _PROJECT.has("next_resource_seed"): # Local (legacy)
 			var the_new_seed_uid = _PROJECT.next_resource_seed
-			_PROJECT.next_resource_seed +=1
+			_PROJECT.next_resource_seed += 1
 			return the_new_seed_uid
-		else:
-			if Settings.ALWAYS_USE_REALTIME_IDS:
-				return Flaker.realtime_next()
+		else: # Distributed
+			if Flaker is Flake.Native:
+				return Flaker.next()
+			if Flaker is Flake.Snow:
+				if Settings.ALWAYS_USE_REALTIME_IDS:
+					return Flaker.realtime_next()
+				else:
+					return Flaker.lazy_next()
 			else:
-				return Flaker.lazy_next()
+				printerr("Invalid state of Flaker!")
+				return -888
 		pass
 	
-	var _CHACED_COMPILED_REGEXES = {}
+	var _CACHED_COMPILED_REGEXES = {}
 	func compiled_regex_from(pattern:String) -> RegEx:
-		if _CHACED_COMPILED_REGEXES.has(pattern) == false:
+		if _CACHED_COMPILED_REGEXES.has(pattern) == false:
 			var the_regex = RegEx.new()
 			the_regex.compile(pattern) 
-			_CHACED_COMPILED_REGEXES[pattern] = the_regex
-		return _CHACED_COMPILED_REGEXES[pattern]
+			_CACHED_COMPILED_REGEXES[pattern] = the_regex
+		return _CACHED_COMPILED_REGEXES[pattern]
 
 	# creation and caching of the node type name abbreviations (on demand) to use on new node naming
 	var _chached_type_abbreviations_by_name = {}
@@ -787,6 +852,7 @@ class Mind :
 	const ALL_VOWELS_BUT_FIRST_CHAR_REGEX_PATTERN = "(\\B[AaEeYyUuIiOo]|\\W|_)*" # ~ /\B[AaEeYyUuIiOo]*/ all vovels other than the character
 	const WHITE_SPACE_REGEX_PATTERN = "_"
 	const ABBREVIATION_WHITE_SPACE_REPLACEMENT = "_"
+	
 	func get_type_name_abbreviation(type_name:String) -> String:
 		var type_abbreviation
 		# we have made abbreviation already? return from cache
@@ -1710,6 +1776,7 @@ class Mind :
 			reset_project_save_status()
 			load_projects_list()
 			activate_project_properties()
+			reset_project_authors_list(true)
 		else:
 			print_debug("Unexpected Behavior! Calling register_and_save_project with wrong data. ", [project_title, project_filename] )
 		pass

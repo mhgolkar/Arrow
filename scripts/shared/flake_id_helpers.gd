@@ -2,9 +2,89 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-## Distributed Unique ID helpers
+class_name Flake
+
+## Native distributed incremental (default) UID helpers
+# Arrow's native flake generator guarantees uniqueness of resource IDs
+# while multiple authors can work simultaneously on the same project
+# by assigning each author a unique ID and an incremental seed bucket.
+# These values will be mixed together with a chapter ID
+# which can be unique to each document for projects devided into multiple ones,
+# and shape a 53-bit UID for each resource. In other words:
+# +  9 bit chapter ID (0 - 512; Optional, default `0`)
+# +  6 bit author ID (0 - 64; At least one author with `0` ID)
+# + 38 bit for more than 274 billion resources per author per chapter.
+# These UIDs are fast, minimal (specially for single author projects,)
+# and fit into a double-precision floating-point representation
+# (allowing easier integration of Arrow projects in many languages such as JS.)
+class Native:
+
+	## Maximum Chapter ID
+	# With 9 bits dedicated to unique chapter-id we can have maximum `2^9` sub-projects (including `0`.)
+	const CHAPTER_ID_EXCLUSIVE_LIMIT = 512
+	
+	## Maximum Number of Authors
+	# With 6 bits dedicated to unique author-id we can have maximum `2^6` authors (including `0`)
+	# working on the same project at the same time, which sounds reasonable.
+	const AUTHOR_ID_EXCLUSIVE_LIMITT = 64
+
+	## Maximum number of resource IDs per author per chapter (2^38 including `0`)
+	const RESOURCE_SEED_EXCLUSIVE_LIMIT = 274_877_906_944
+
+	# A reference to the active project meta data to directly manage incremental seeds per authors
+	var _PROJECT_META: Dictionary
+
+	# ID of the author currently producing the UIDs
+	var _ACTIVE_AUTHOR_ID: int
+
+	func _init(project_meta: Dictionary, active_author: int) -> void:
+		_ACTIVE_AUTHOR_ID = active_author
+		_PROJECT_META = project_meta
+		print_debug(
+			"native flake generator (re-)initialized with authors: ",
+			_PROJECT_META.authors, "; active: ", _ACTIVE_AUTHOR_ID
+		)
+		pass
+	
+	func reset_active_author(id: int) -> void:
+		_ACTIVE_AUTHOR_ID = id
+		print_debug("native flake generator active author changed: ", _ACTIVE_AUTHOR_ID)
+		pass
+	
+	static func _calculate_unchecked(chapter: int, author: int, next_seed: int) -> int:
+		return (
+			# > Godot `int` is i64 so we can directly shift them (not using first few bits.)
+			(chapter << 44) # 🡠 44 bits left shift for 6-bit Author ID and 38-bit resource Seed, then
+			| (author << 38) # 🡠 38 bits left shift for resource seed,
+			| next_seed # which fills up the rest of bits
+		)
+	
+	## Next Flake
+	# Simply generates an integer flake from tracked values.
+	# returns null if any of the values is out of bound.
+	func next() -> int:
+		var chapter: int = _PROJECT_META.chapter
+		var active_author: int = _ACTIVE_AUTHOR_ID
+		var their_next_seed: int = _PROJECT_META.authors[active_author][1]
+		if (
+			chapter < CHAPTER_ID_EXCLUSIVE_LIMIT &&
+			active_author < AUTHOR_ID_EXCLUSIVE_LIMITT &&
+			their_next_seed < RESOURCE_SEED_EXCLUSIVE_LIMIT
+		):
+			var next_uid = _calculate_unchecked(chapter, active_author, their_next_seed)
+			_PROJECT_META.authors[active_author][1] = (their_next_seed + 1)
+			return next_uid
+		else:
+			printerr(
+				"Native flake generator internal state failed: ",
+				_PROJECT_META.authors, " active: ", active_author, " chapter: ", chapter
+			)
+			return -999
+
+
+## Time-based Distributed Unique ID helpers
 # We use our custom distributed unique resource IDs
-# inspired by Twitter's Snowflake, to make sure that
+# inspired by Twitter's *Snowflake*, to make sure that
 # multiple authors can work on the same project, at the same time,
 # and never create resources with identical IDs, which means they can later
 # merge their works (using VCS tools such as Git) with minimum effort.
@@ -13,23 +93,18 @@
 # + 6  bits for unique author (producer/machine) identifier and the rest of
 # + 16 bits for an index (sequence-number) to make multiple IDs in the same millisecond.
 # Each flake will use 63 bits which allows them to fit in `i64` (signed 64-bit integer.)
-class_name Flake
-
-## Maximum Number of Authors
-# With 6 bits dedicated to unique author-id we can have maximum `2^6` authors (including `0`)
-# working on the same project at the same time, which sounds reasonable.
-const MAX_POSSIBLE_AUTHOR_ID = 64
-
-## Sequense Size per Millisecond
-# Using a sequence number we can produce multiple IDs in each millisecond.
-# The size of sequence (so the higher index limit) is `2^16`.
-const SEQUENCE_SIZE = 65_536
-
-## Flake Generator
-# This class helps generating unique distributed resource IDs,
-# to make sure they never overlap even when multiple authors contribute to the same project.
-class Generator:
+class Snow:
 	
+	## Maximum Number of Authors
+	# With 6 bits dedicated to unique author-id we can have maximum `2^6` authors (including `0`)
+	# working on the same project at the same time, which sounds reasonable.
+	const AUTHOR_ID_EXCLUSIVE_LIMITT = 64
+
+	## Sequense Size per Millisecond
+	# Using a sequence number we can produce multiple IDs in each millisecond.
+	# The size of sequence (so the higher index limit) is `2^16`.
+	const SEQUENCE_SIZE_EXCLUSIVE_LIMIT = 65_536
+
 	# Epoch since which we calculate the 41 time-stamp bits of the flake
 	var _EPOCH: int
 
@@ -44,14 +119,14 @@ class Generator:
 
 	func _init(epoch:int, producer:int) -> void:
 		_EPOCH = epoch
-		_UNIQUE_PRODUCER = producer % MAX_POSSIBLE_AUTHOR_ID
+		_UNIQUE_PRODUCER = producer % AUTHOR_ID_EXCLUSIVE_LIMITT
 		_TIME_SPAN = _unsafe_unix_now_millisecond()
-		_SEQUENCE_IDX = SEQUENCE_SIZE - 1 # (so the first `...next` call will reset timer) 
-		print_debug("flake generator (re-)initialized with epoch: ", _EPOCH, " and producer: ", _UNIQUE_PRODUCER)
+		_SEQUENCE_IDX = SEQUENCE_SIZE_EXCLUSIVE_LIMIT - 1 # (so the first `...next` call will reset timer) 
+		print_debug("snowflake generator (re-)initialized with epoch: ", _EPOCH, " and producer: ", _UNIQUE_PRODUCER)
 		pass
 	
 	func reset_producer(producer:int) -> void:
-		_UNIQUE_PRODUCER = producer % MAX_POSSIBLE_AUTHOR_ID
+		_UNIQUE_PRODUCER = producer % AUTHOR_ID_EXCLUSIVE_LIMITT
 		print_debug("flake generator updated with epoch: ", _EPOCH, " and producer: ", _UNIQUE_PRODUCER)
 		pass
 	
@@ -109,7 +184,7 @@ class Generator:
 		# or still in the same millisecond timestamp:
 		else: # (now <= _TIME_SPAN)
 			# where we should use the next index in the sequence:
-			_SEQUENCE_IDX = (_SEQUENCE_IDX + 1) % SEQUENCE_SIZE
+			_SEQUENCE_IDX = (_SEQUENCE_IDX + 1) % SEQUENCE_SIZE_EXCLUSIVE_LIMIT
 			# But if we have already used all the indices,
 			if _SEQUENCE_IDX == 0:
 				# it's necessary to wait for the next timestamp and update internals
@@ -125,7 +200,7 @@ class Generator:
 	# This method is faster, but not real-time.
 	func lazy_next() -> int:
 		# We try the next index for the sequence number
-		_SEQUENCE_IDX = (_SEQUENCE_IDX + 1) % SEQUENCE_SIZE
+		_SEQUENCE_IDX = (_SEQUENCE_IDX + 1) % SEQUENCE_SIZE_EXCLUSIVE_LIMIT
 		# If it's zero, we have produced all the possible IDs in the millisecond,
 		if _SEQUENCE_IDX == 0:
 			# so we should update the production time span:

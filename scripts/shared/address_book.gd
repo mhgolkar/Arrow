@@ -104,12 +104,17 @@ const NOTIFICATION = {
 const AUTHORS = {
 	"itself": "/root/Main/BlockingLayer/Container/Authors",
 	"CLOSE_BUTTON": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/Header/Close",
-	"LIST": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/ScrollContainer/AuthorsList",
-	"ID_SPINBOX": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier/AuthorIdentifier",
-	"INFO_EDIT": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Information/AuthorInfo",
-	"ACTIVE_CHECKBOX": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/AuthorActive",
-	"EDIT_REMOVE": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer/AuthorRemove",
-	"EDIT_SAVE": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer/AuthorSave",
+	# Authors
+	"LIST": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/ScrollContainer/AuthorsList",
+	"AUTHOR_ID": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier/AuthorIdentifier",
+	"INFO_EDIT": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Information/AuthorInfo",
+	"ACTIVE_CHECKBOX": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/UniqueIdentifier/VBoxContainer/Identifier/AuthorActive",
+	"EDIT_REMOVE": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer/AuthorRemove",
+	"EDIT_SAVE": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/AuthorsPanel/VBoxContainer/AuthorEdit/AuthorData/HBoxContainer/AuthorSave",
+	# Chapter
+	"CHAPTER_PANEL": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/ChapterPanel",
+	"CHAPTER_ID": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/ChapterPanel/Chapter/ChapterID",
+	"UPTADE_CHAPTER": "/root/Main/BlockingLayer/Container/Authors/VBoxContainer/ChapterPanel/Chapter/UpdateChapter",
 }
 
 const INSPECTOR = {

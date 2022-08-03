@@ -10,66 +10,87 @@ onready var Main = get_tree().get_root().get_child(0)
 
 onready var CloseButton = get_node(Addressbook.AUTHORS.CLOSE_BUTTON)
 onready var AuthorsList = get_node(Addressbook.AUTHORS.LIST)
-onready var AuthorsIDSpinBox = get_node(Addressbook.AUTHORS.ID_SPINBOX)
+onready var AuthorsIdSpinBox = get_node(Addressbook.AUTHORS.AUTHOR_ID)
 onready var AuthorsInfoEdit = get_node(Addressbook.AUTHORS.INFO_EDIT)
 onready var AuthorActiveCheckbox = get_node(Addressbook.AUTHORS.ACTIVE_CHECKBOX)
 onready var AuthorEditRemove = get_node(Addressbook.AUTHORS.EDIT_REMOVE)
 onready var AuthorEditSave = get_node(Addressbook.AUTHORS.EDIT_SAVE)
+onready var ChapterPanel = get_node(Addressbook.AUTHORS.CHAPTER_PANEL)
+onready var ChapterIdSpinBox = get_node(Addressbook.AUTHORS.CHAPTER_ID)
+onready var UptadeChapter = get_node(Addressbook.AUTHORS.UPTADE_CHAPTER)
 
 const ACTIVE_AUTHOR_MARKER = "[✓] "
 
 func _ready() -> void:
-	AuthorsIDSpinBox.set_deferred("max_value", Flake.MAX_POSSIBLE_AUTHOR_ID - 1)
 	register_connections()
 	pass
 
 func register_connections() -> void:
 	CloseButton.connect("pressed", self, "_toggle", [], CONNECT_DEFERRED)
 	AuthorsList.connect("item_selected", self, "_on_item_selected", [], CONNECT_DEFERRED)
-	AuthorsIDSpinBox.connect("value_changed", self, "_on_edit_id_value_changed", [], CONNECT_DEFERRED)
+	AuthorsIdSpinBox.connect("value_changed", self, "_on_edit_id_value_changed", [], CONNECT_DEFERRED)
 	AuthorEditSave.connect("pressed", self, "_on_save_author", [], CONNECT_DEFERRED)
 	AuthorEditRemove.connect("pressed", self, "_on_remove_author", [], CONNECT_DEFERRED)
+	UptadeChapter.connect("pressed", self, "_on_update_chapter", [], CONNECT_DEFERRED)
 	pass
 
 func _toggle() -> void:
 	Main.call_deferred("toggle_authors")
+	if _PROJECT_META.size() > 0:
+		reset_authors(_PROJECT_META, _ACTIVE_AUTHOR, true)
 	pass
 
-var _AUTHORS_CACHE: Dictionary;
+var _PROJECT_META: Dictionary;
+var _AUTHORS_LIST: Dictionary;
 var _ACTIVE_AUTHOR: int;
 
-func reset_authors(list:Dictionary, active_one:int, auto_select:bool = false) -> void:
+func reset_authors(project_meta:Dictionary, active_one = null, auto_select:bool = false) -> void:
 	AuthorsList.clear()
-	print_debug("authors listed: ", list)
-	var all_ids = list.keys()
-	if all_ids.has(active_one) == false:
-		active_one = 0
+	print_debug("authors listed: ", project_meta.authors)
+	var is_snow_flaker = (project_meta.has("epoch") && project_meta.epoch is int && project_meta.epoch > 0)
+	var author_id_limit = (Flake.Snow.AUTHOR_ID_EXCLUSIVE_LIMITT if is_snow_flaker else Flake.Native.AUTHOR_ID_EXCLUSIVE_LIMITT);
+	var all_ids = project_meta.authors.keys()
+	if (active_one is int) == false || all_ids.has(active_one) == false:
+		active_one = all_ids[0]
 	for index in range(0, all_ids.size()):
 		var author_id = all_ids[index]
-		if (author_id is int) && author_id < Flake.MAX_POSSIBLE_AUTHOR_ID:
-			if list[author_id] is String:
-				var author_info = list[author_id]
+		if (author_id is int) && author_id < author_id_limit:
+			if project_meta.authors[author_id] is Array && project_meta.authors[author_id].size() >= 2:
+				var author_info = project_meta.authors[author_id][0]
+				var author_seed = project_meta.authors[author_id][1]
 				var author_item = (
 					(ACTIVE_AUTHOR_MARKER if author_id == active_one else "") +
-					String(author_id) + ": " + author_info
+					String(author_id) + ": " + author_info + " (" + String(author_seed) + ")"
 				)
 				AuthorsList.call_deferred("add_item", author_item)
 				AuthorsList.call_deferred("set_item_metadata", index, author_id)
 				if auto_select && author_id == active_one:
 					AuthorsList.call_deferred("select", index, true)
 					self.call_deferred("_on_item_selected", index)
-	_AUTHORS_CACHE = list
+		else:
+			printerr("invalid author! with out of bound ID: ", author_id)
+	# ...
+	if project_meta.has("chapter"):
+		ChapterIdSpinBox.set_deferred("value", int(project_meta.chapter))
+	# ...
+	_PROJECT_META = project_meta
+	_AUTHORS_LIST = project_meta.authors
 	_ACTIVE_AUTHOR = active_one
+	# ...
+	AuthorsIdSpinBox.set_deferred("max_value", author_id_limit - 1)
+	ChapterIdSpinBox.set_deferred("max_value", Flake.Native.CHAPTER_ID_EXCLUSIVE_LIMIT - 1)
+	ChapterPanel.set_deferred("visible", is_snow_flaker != true)
 	pass
 
 func reset_author_editor(author_id:int = -1) -> bool:
-	var existent = _AUTHORS_CACHE.has(author_id)
+	var existent = _AUTHORS_LIST.has(author_id)
 	var is_active = (_ACTIVE_AUTHOR == author_id)
-	var only_one = (_AUTHORS_CACHE.size() <= 1)
-	AuthorsIDSpinBox.set_value(author_id)
+	var only_one = (_AUTHORS_LIST.size() <= 1)
+	var positive_seed = (existent && _AUTHORS_LIST[author_id][1] > 0)
+	AuthorsIdSpinBox.set_value(author_id)
 	AuthorActiveCheckbox.set_pressed(is_active)
-	AuthorsInfoEdit.set_text(_AUTHORS_CACHE[author_id] if existent else "")
-	AuthorEditRemove.set_disabled( existent == false || only_one )
+	AuthorsInfoEdit.set_text(_AUTHORS_LIST[author_id][0] if existent else "")
+	AuthorEditRemove.set_disabled( existent == false || only_one || positive_seed )
 	AuthorActiveCheckbox.set_disabled( (only_one && existent) || is_active )
 	return false
 
@@ -83,15 +104,23 @@ func _on_edit_id_value_changed(value:float) -> void:
 	pass
 
 func _on_save_author() -> void:
-	var author_id = int( AuthorsIDSpinBox.get_value() )
+	var author_id = int( AuthorsIdSpinBox.get_value() )
 	var author_info = AuthorsInfoEdit.get_text()
 	var is_active = AuthorActiveCheckbox.is_pressed()
 	request_update_author(author_id, author_info, is_active)
 	pass
 
 func _on_remove_author() -> void:
-	var author_id = int( AuthorsIDSpinBox.get_value() )
+	var author_id = int( AuthorsIdSpinBox.get_value() )
 	request_remove_author(author_id)
+	pass
+	
+func _on_update_chapter() -> void:
+	var chapter_id = int( ChapterIdSpinBox.get_value() )
+	if chapter_id < Flake.Native.CHAPTER_ID_EXCLUSIVE_LIMIT:
+		request_update_chapter(chapter_id)
+	else:
+		printerr("Chapter ID out of bound! i.e. < ", Flake.Native.CHAPTER_ID_EXCLUSIVE_LIMIT)
 	pass
 
 func request_update_author(id:int, info: String, active:bool) -> void:
@@ -104,4 +133,8 @@ func request_update_author(id:int, info: String, active:bool) -> void:
 	
 func request_remove_author(id:int) -> void:
 	emit_signal("request_mind", "remove_author", id)
+	pass
+
+func request_update_chapter(id:int) -> void:
+	emit_signal("request_mind", "update_chapter", id)
 	pass

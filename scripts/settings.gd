@@ -49,18 +49,27 @@ const PROJECT_LIST_FILE_NAME = "projects.arrow"
 # ...
 const PROJECT_FILE_EXTENSION = ".arrow-project" # CAUTION! change `PATH_DIALOG_PROPERTIES` respectively.
 const PROJECT_FILE_JSON_DEFAULT_IDENT = "\t"
-const ANONYMOUS_AUTHOR_INFO = "Anonymous Contributor"
-# NOTE:
+# ...
 # Binary save files are deprecated.
 # You can open and automatically (re-)save them in textual format; 
 # But if you still need to save your projects as binary, set this setting to `true`:
 const USE_DEPRECATED_BIN_SAVE = false
 
+# UID Management
+
+const ANONYMOUS_AUTHOR_INFO = "Anonymous Contributor"
+# ...
+# Arrow uses a custom (native) distributed UID generation (as recommended default) method.
+# You can still force use of time-base (Snowflake) IDs for your new projects if you prefer them.
+# Note also that you may remove default nodes created in new projects to avoid possible conflicts.
+# This method does not support chapters as well.
+const FORCE_SNOWFLAKE_UID_FOR_NEW_PROJECTS = false
+const ALWAYS_USE_REALTIME_IDS = true # Only if the Snowflake IDs are forced (above)
+
 # Mind
 
 const SNAPSHOT_VERSION_PREFIX = "v"
 const TAKE_INITIAL_SNAPSHOT = true
-const ALWAYS_USE_REALTIME_IDS = true
 
 # History
 

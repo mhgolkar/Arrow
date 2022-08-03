@@ -25,9 +25,10 @@ onready var SuggestionList = get_node("./Jump/Suggestion/List")
 # the function `query_nodes_by_name` uses `matchn`,
 # so we add asterisks (*) to make auto-suggestion query more user-friendly
 const NODE_NAME_QUERY_REFACTORING = "*%s*"
-const MINIMUM_QUERY_STRING_LENGTH_TO_REFRESH_SUGGESTIONS = 4 # 2 asterisks + 2 min characters
+const MINIMUM_QUERY_STRING_LENGTH_TO_REFRESH_SUGGESTIONS = 3 # 2 asterisks (automatically added) + 1 min characters
+const DO_NOT_SHOW_EXATC_MATCH_AS_SUGGESTION = true
 
-const SUGGESTION_ITEM_TEMPLATE = "{name} - {capitalized_type}"
+const SUGGESTION_ITEM_TEMPLATE = "{name} - {capitalized_type} ({id})"
 
 func _ready() -> void:
 	register_connections()
@@ -74,6 +75,7 @@ func refresh_suggestions(query:String = "") -> void:
 		for node_id in _SUGGESTION_NODES:
 			var the_node = _SUGGESTION_NODES[node_id]
 			var item_text = SUGGESTION_ITEM_TEMPLATE.format({
+					"id": node_id,
 					"name": the_node.name,
 					"capitalized_type": the_node.type.capitalize()
 				})
@@ -84,9 +86,9 @@ func refresh_suggestions(query:String = "") -> void:
 		# show suggestions by default
 		var show_suggestions = true
 		if similar_nodes_count > 0:
-			if similar_nodes_count == 1: # but if there is only one and ...
+			if similar_nodes_count == 1:
 				var the_one_found =  _SUGGESTION_NODES[ _SUGGESTION_NODES.keys()[0] ]
-				if the_one_found.name.matchn( Destination.text ): # ... that one is exactly the entered destination
+				if DO_NOT_SHOW_EXATC_MATCH_AS_SUGGESTION && the_one_found.name.matchn( Destination.text ):
 					show_suggestions = false
 		else: # ... or there is no suggestion
 			show_suggestions = false
