@@ -52,12 +52,14 @@ var _SUGGESTION_NODE_ID_LIST_BY_NAME = {}
 # because item texts may differ from item names and the list may be sorted so,
 # ... to get the node-uid of the selected node we can't use item-index, therefore we remap:
 var _SUGGESTION_NODE_ID_LIST_BY_ITEM_TEXT = {}
+var _ACTIVATED_SUGGESTION_NODE_ID = null
 
 func clear_suggestions() -> void:
 	SuggestionList.clear()
 	_SUGGESTION_NODES.clear()
 	_SUGGESTION_NODE_ID_LIST_BY_NAME.clear()
 	_SUGGESTION_NODE_ID_LIST_BY_ITEM_TEXT.clear()
+	_ACTIVATED_SUGGESTION_NODE_ID = null
 	pass
 
 func is_valid_query_string(query:String) -> bool:
@@ -72,6 +74,7 @@ func refresh_suggestions(query:String = "") -> void:
 	clear_suggestions()
 	if is_valid_query_string(query):
 		_SUGGESTION_NODES = Main.Mind.query_nodes_by_name(query, -2, true) # -2 means all the nodes in all the scenes
+		var suggestion_item_idx = 0
 		for node_id in _SUGGESTION_NODES:
 			var the_node = _SUGGESTION_NODES[node_id]
 			var item_text = SUGGESTION_ITEM_TEMPLATE.format({
@@ -82,14 +85,18 @@ func refresh_suggestions(query:String = "") -> void:
 			_SUGGESTION_NODE_ID_LIST_BY_NAME[the_node.name] = node_id
 			_SUGGESTION_NODE_ID_LIST_BY_ITEM_TEXT[item_text] = node_id
 			SuggestionList.add_item(item_text)
+			SuggestionList.set_item_metadata(suggestion_item_idx, node_id)
+			suggestion_item_idx += 1
 		var similar_nodes_count = _SUGGESTION_NODES.size()
 		# show suggestions by default
 		var show_suggestions = true
 		if similar_nodes_count > 0:
 			if similar_nodes_count == 1:
-				var the_one_found =  _SUGGESTION_NODES[ _SUGGESTION_NODES.keys()[0] ]
-				if DO_NOT_SHOW_EXATC_MATCH_AS_SUGGESTION && the_one_found.name.matchn( Destination.text ):
+				var only_one_id = _SUGGESTION_NODES.keys()[0]
+				var the_one_found =  _SUGGESTION_NODES[ only_one_id ]
+				if DO_NOT_SHOW_EXATC_MATCH_AS_SUGGESTION && the_one_found.name == Destination.text:
 					show_suggestions = false
+					_ACTIVATED_SUGGESTION_NODE_ID = only_one_id
 		else: # ... or there is no suggestion
 			show_suggestions = false
 		SuggestionList.sort_items_by_text()
@@ -104,10 +111,19 @@ func _on_destination_text_input(new_text:String) -> void:
 	pass
 
 func _on_suggestion_item_activated(item_idx:int) -> void:
+	var selected_item_metadata_id = SuggestionList.get_item_metadata(item_idx)
 	var selected_item_text = SuggestionList.get_item_text(item_idx)
-	var selected_node = _SUGGESTION_NODES[ _SUGGESTION_NODE_ID_LIST_BY_ITEM_TEXT[selected_item_text] ]
+	var selected_node_id_from_text = _SUGGESTION_NODE_ID_LIST_BY_ITEM_TEXT[selected_item_text]
+	var selected_node = _SUGGESTION_NODES[ selected_node_id_from_text ]
+	_ACTIVATED_SUGGESTION_NODE_ID = selected_item_metadata_id
 	Destination.set_text( selected_node.name )
 	set_suggestion_view(false)
+	# ...
+	if selected_item_metadata_id != selected_node_id_from_text:
+		printerr(
+			"jump selected node-id expected to be identical; ",
+			selected_item_text, " : ", selected_item_metadata_id, " != ", selected_node_id_from_text
+		)
 	pass
 
 func _update_parameters(node_id:int, node:Dictionary, do_cache:bool = true) -> void:
@@ -143,7 +159,16 @@ func _read_parameters() -> Dictionary:
 	if target_name.length() > 0 && _SUGGESTION_NODE_ID_LIST_BY_NAME.has(target_name):
 		# there is a valid node name
 		# get node_id for it
-		var new_target_id = _SUGGESTION_NODE_ID_LIST_BY_NAME[target_name]
+		var new_target_id = _ACTIVATED_SUGGESTION_NODE_ID # it's either cached from suggestion list
+		if new_target_id == null: # or
+			# typed by the user directly (no selection from suggestion list)
+			new_target_id = _SUGGESTION_NODE_ID_LIST_BY_NAME[target_name]
+		# (if cached, node-id is expected to related to the same name)
+		if _SUGGESTION_NODES[new_target_id].name != target_name:
+			printerr(
+				"unexpected behavior! jump target node id from name differes from cache: ",
+				target_name, " - ", _SUGGESTION_NODE_ID_LIST_BY_NAME[target_name], " -x-> ", new_target_id
+			)
 		# and to avoid loopers check it for ...
 		if new_target_id != _OPEN_NODE_ID: # no jump to the jump itself
 			# and no jump to the jump that jumps back!
