@@ -897,8 +897,8 @@ class Mind :
 			printerr("Trying to fetch resource by name from non-existent field: ", field)
 		return null
 
-	func is_node_name_duplicate(name: String) -> bool:
-		var fetched = fetch_resource_by_exact_name(name, "nodes")
+	func is_resource_name_duplicate(name: String, field: String) -> bool:
+		var fetched = fetch_resource_by_exact_name(name, field)
 		if fetched != null && fetched is Dictionary && fetched.size() > 0:
 			print_debug("duplicate node name detected: ", fetched)
 			return true
@@ -912,7 +912,7 @@ class Mind :
 			"type_abbreviation": get_type_name_abbreviation(type_name)
 		})
 		if Settings.FORCE_UNIQUE_NAMES_FOR_NODES:
-			while is_node_name_duplicate(node_name):
+			while is_resource_name_duplicate(node_name, "nodes"):
 				node_name += Settings.REUSED_NODE_NAMES_AUTO_POSTFIX
 		return node_name
 	
@@ -1486,10 +1486,12 @@ class Mind :
 		return list
 	
 	func create_variable_name_from_id(id:int) -> String:
-		var the_name = ("var_" + Utils.int_to_base36(id).to_lower())
+		var the_name = (
+			Settings.VARIABLE_NAMES_PREFIX +
+			Utils.int_to_base36(id).to_lower()
+		)
 		if Settings.FORCE_UNIQUE_NAMES_FOR_VARIABLES:
-			var all_variable_names = list_all_resource_ids_by_name_of("variables")
-			while all_variable_names.has(the_name):
+			while is_resource_name_duplicate(the_name, "variables"):
 				the_name += Settings.REUSED_VARIABLE_NAMES_AUTO_POSTFIX
 		return the_name
 	
@@ -1507,10 +1509,12 @@ class Mind :
 		pass
 	
 	func create_character_name_from_id(id:int) -> String:
-		var the_name = ("char_" + Utils.int_to_base36(id).to_lower())
+		var the_name = (
+			Settings.CHARACTER_NAMES_PREFIX +
+			Utils.int_to_base36(id).to_lower()
+		)
 		if Settings.FORCE_UNIQUE_NAMES_FOR_CHARACTERS:
-			var all_character_names = list_all_resource_ids_by_name_of("characters")
-			while all_character_names.has(the_name):
+			while is_resource_name_duplicate(the_name, "characters"):
 				the_name += Settings.REUSED_CHARACTER_NAMES_AUTO_POSTFIX
 		return the_name
 	

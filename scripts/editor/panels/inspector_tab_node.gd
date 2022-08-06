@@ -163,7 +163,7 @@ func read_and_validate_node_name():
 		if updated != already:
 			validated_name = updated
 			if Settings.FORCE_UNIQUE_NAMES_FOR_NODES:
-				while Main.Mind.is_node_name_duplicate(validated_name):
+				while Main.Mind.is_resource_name_duplicate(validated_name, "nodes"):
 					validated_name += Settings.REUSED_NODE_NAMES_AUTO_POSTFIX
 	return validated_name
 
