@@ -1,8 +1,4 @@
-// Arrow
-// HTML-JS Runtime
-// Mor. H. Golkar
-
-// NodeType (Module) Boilerplate
+// Arrow HTML-JS Runtime: Node-Type (module) boilerplate
 
 class NodeType {
 

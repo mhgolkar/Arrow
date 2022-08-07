@@ -1,1 +1,3508 @@
-<!DOCTYPE html> <html> <head> <title>{{project_title}}</title> <meta charset="utf-8"> <meta name="color-scheme"content="dark light"> <meta name="keywords"content="Arrow,adventure,{{project_title}}"> <meta name="description"content="{{project_title}}: An adventure made with Arrow"> <script type="text/javascript"> const PROJECT = {{project_json}}; const t=["en"],e={continue:{en:"Continue"},false:{en:"False"},true:{en:"True"},defaultCheckboxClickableLabelText:{en:"Positive!"},evaluate:{en:"Evaluate"},generate:{en:"Generate"},end_of_play:{en:"The End !"}};function i(i,s){if(false==t.includes(s)){s=v}if(e.hasOwnProperty(i)){if(e[i].hasOwnProperty(s)){return e[i][s]}else{throw new Error(`Incomplete Translation Table: value for the selected locale doesn't exist! _TRANSLATION_TABLE[${i}][${s}]`)}}else{throw new Error(`I18n translation table doesn't include the string id: ${i} `)}}const s={'\\[br\\]':'<br>','\\[b\\](.+?)\\[/b\\]':'<strong>$1</strong>','\\[i\\](.+?)\\[/i\\]':'<em>$1</em>','\\[u\\](.+?)\\[/u\\]':'<u>$1</u>','\\[h1\\](.+?)\\[/h1\\]':'<h1>$1</h1>','\\[h2\\](.+?)\\[/h2\\]':'<h2>$1</h2>','\\[h3\\](.+?)\\[/h3\\]':'<h3>$1</h3>','\\[h4\\](.+?)\\[/h4\\]':'<h4>$1</h4>','\\[h5\\](.+?)\\[/h5\\]':'<h5>$1</h5>','\\[h6\\](.+?)\\[/h6\\]':'<h6>$1</h6>','\\[p\\](.+?)\\[/p\\]':'<p>$1</p>','\\[color=(.+?)\\](.+?)\\[/color\\]':'<span style="color:$1">$2</span>','\\[size=([0-9]+)\\](.+?)\\[/size\\]':'<span style="font-size:$1px">$2</span>','\\[img\\](.+?)\\[/img\\]':'<img src="$1">','\\[img=(.+?)\\]':'<img src="$1">','\\[email\\](.+?)\\[/email\\]':'<a href="mailto:$1">$1</a>','\\[email=(.+?)\\](.+?)\\[/email\\]':'<a href="mailto:$1">$2</a>','\\[url\\](.+?)\\[/url\\]':'<a href="$1">$1</a>','\\[url=(.+?)\\|onclick\\](.+?)\\[/url\\]':'<a onclick="$1">$2</a>','\\[url=(.+?)\\starget=(.+?)\\](.+?)\\[/url\\]':'<a href="$1" target="$2">$3</a>','\\[url=(.+?)\\](.+?)\\[/url\\]':'<a href="$1">$2</a>','\\[a=(.+?)\\](.+?)\\[/a\\]':'<a href="$1" name="$1">$2</a>','\\[list\\](.+?)\\[/list\\]':'<ul>$1</ul>','\\[\\*\\](.+?)\\[/\\*\\]':'<li>$1</li>','\\[attr=(.+?)\\svalue=(.+?)\\](.+?)\\[/attr\\]':'<span $1="$2">$3</span>','\\[attr=(.+?)\\](.+?)\\[/attr\\]':'<span $1>$2</span>','\\[style=(.+?)\\](.+?)\\[/style\\]':'<span style="$1">$2</span>'};class BBCodeParser{constructor(t){this.codes=[];this.setCodes(t)}parse(t){return this.codes.reduce((t,e)=>t.replace(e.regexp,e.replacement),t)}add(t,e){this.codes.push({regexp:new RegExp(t,'igm'),replacement:e});return this}setCodes(t){this.codes=Object.keys(t).map(function(e){const i=t[e];return{regexp:new RegExp(e,'igm'),replacement:i}},this);return this}}const a=new BBCodeParser(s);function r(t,e,i){if(false==Number.isInteger(e)&&true!==i){e=-1}var s=parseInt(t);s=Number.isInteger(s)?s:e;return s}function n(t){var e=null;if('boolean'!=typeof t){if('string'==typeof t){t=t.toLowerCase();if("true"===t){e=true}else if("false"===t){e=false}}}else{e=t}if(null===e){e=!!t}return e}function o(t,e){for(const i of e){if(false==t.hasOwnProperty(i)){return false}}return true}function l(t,e){if('object'==typeof t&&'number'==typeof e&&e>=0){var i=[];if(t.hasOwnProperty("io")&&Array.isArray(t.io)){for(const s of t.io){if(s.length>=4&&s[0]==e){i[s[1]]={"id":s[2],"slot":s[3]}}}}return i}else{throw new Error("Unable to remap connections for slots: Called with wrong arguments.")}}function h(t,e,i){var s=document.createElement(i||'div');s.className='node';s.setAttribute('data-type',e.type);s.setAttribute('data-name',e.name);s.setAttribute('data-uid',t.toString());return s}function p(t,e,i){var s=document.createElement(t);if(e){if('string'==typeof e){s.innerHTML=e}else if(e instanceof Element){s.appendChild(e)}}if('object'==typeof i){for(const t in i){if(i.hasOwnProperty(t)){s.setAttribute(t,i[t])}}}return s}function d(t,e,i){if('string'==typeof t&&'object'==typeof e){for(const s in e){if(e.hasOwnProperty(s)){const a='{'+s+'}',r=new RegExp(a,true===i?'gi':'g'),n=e[s];t=t.replace(r,n)}}return t}else{throw new Error("Unable to format text: Called with wrong arguments.")}}function u(t,e){if('string'==typeof t){return a.parse(t)}else if(false===e){throw new Error("Unable to parse BBCode: Called with wrong arguments.")}else{return""}}function c(t,e){if('string'==typeof t&&'string'==typeof e){return 0==t.indexOf(e)}else{throw new Error("Called with Wrong Arguments: Expected two strings.")}}function f(t,e){if('string'==typeof t&&'string'==typeof e){var i=t.lastIndexOf(e);return i>=0&&i===t.length-e.length}else{throw new Error("Called with Wrong Arguments: Expected two strings.")}}function _(t){if('string'==typeof t){for(var e=t.replace(/_/gi," "),i="",s=0;s<e.length;s++){var a=e.charAt(s),r=a.toUpperCase();i+=" "!=a&&a==r?` ${a}`:a}i=i.split(" ");for(var n=0;n<i.length;n++){var o=i[n].toLowerCase();i[n]=o.charAt(0).toUpperCase()+o.substring(1)}i=i.join(" ");return i}else{throw new Error("Called with Wrong Arguments: Expected string.")}}const m=function(t,e,i,s,a,r){if(arguments.length<2){e=t;t=0}t=Number.isFinite(t)?Math.ceil(t):0;e=Number.isFinite(e)?Math.floor(e):0;var n=Math.max(t,e),o=Math.min(t,e);let l=null;do{l=Math.floor(Math.random()*(n-o+1))+o;if(a!=r){let t=l%2==0;if(t&&false==a){l=null}if(false==t&&false==r){l=null}}}while(null==l);if(true===s){l*=-1}if(Number.isInteger(i)&&i>=2&&i<=36){return l.toString(i)}else{return l}};class Condition{constructor(t,e,s,a){const r=this,n=0,o=1,d="Condition unset or invalid!";this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_from=function(t){t=parseInt(t);if(false==Number.isFinite(t)||t<0||t>1){t=n}if(this.slots_map.hasOwnProperty(t)){var e=this.slots_map[t];K(e.id,e.slot)}else{X(Q.END_EDGE,r)}this.set_view_played(t)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);if(this.slots_map.hasOwnProperty(n)){this.play_forward_from(n)}else{this.play_forward_from(o)}};this.set_view_played=function(){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){this.set_view_unplayed()};this.evaluation_and_play=function(){var t=null;if(this.condition_statement){t=this.condition_statement.evaluate()}if('boolean'!=typeof t){t=false;if(b){console.warn(`Evaluation of Condition (${this.node_resource.name}) Failed, therefore considered as 'False'.`)}}this.play_forward_from(true==t?o:n)};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else{this.evaluation_and_play()}};if(t>=0){if('object'==typeof e&&'object'==typeof s){this.node_id=t;this.node_resource=e;this.node_map=s;this.slots_map=l(s||{},t);this.condition_statement=null;if(this.node_resource.hasOwnProperty("data")){try{this.condition_statement=new ConditionStatement(this.node_resource.data,k)}catch(t){if(b){console.warn('Unable to Parse Condition. Error:'+t)}}}this.html=h(t,e);if(this.condition_statement){var u=this.condition_statement.parse()||d;this.parsed_statement=p("code",u,{"class":"statement"});this.html.appendChild(this.parsed_statement)}this.false_button=p("button",i("false"),{"value":"false"});this.false_button.addEventListener(y,this.play_forward_from.bind(r,n));this.html.appendChild(this.false_button);this.true_button=p("button",i("true"),{"value":"true"});this.true_button.addEventListener(y,this.play_forward_from.bind(r,o));this.html.appendChild(this.true_button)}return this}throw new Error("Unable to construct `Condition`")}}class ConditionStatement{constructor(t,e){const i=this;this.data=null;this.variable=null;const s={0:"value",1:"variable"},a={"value":0,"variable":1},l={"num":{"eq":{"text":"is Equal","sign":"=="},"nq":{"text":"is Not Equal","sign":"!="},"gt":{"text":"is Greater","sign":">"},"gte":{"text":"is Greater or Equal","sign":">="},"ls":{"text":"is Lesser","sign":"<"},"lse":{"text":"is Lesser or Equa)","sign":"<="}},"str":{"rgx":{"text":"Matches RegEx Pattern","sign":"~="},"ct":{"text":"Contains Substring","sign":"%~"},"cts":{"text":"Contains Substring (Case-Sensitive)","sign":"%="},"bgn":{"text":"Begins with","sign":"^="},"end":{"text":"Ends with","sign":"=^"},"eql":{"text":"Has Equal Length","sign":"#="},"lng":{"text":"Is Longer","sign":"#>"},"shr":{"text":"Is Shorter","sign":"#<"}},"bool":{"eq":{"text":"Conforms","sign":"=="},"nq":{"text":"Doesn't Conform","sign":"!="}}},h=["variable","operator","with"],p="{ident} {operator_sign} {parameter}",u="Self (Intial Value)",_="`%s`";this.parse=function(){var t=null;if(this.variable&&this.data){this.statement={"ident":null,"operator_sign":null,"parameter":null};this.statement.ident=this.variable.name;if(l[this.variable.type].hasOwnProperty(this.data.operator)){this.statement.operator_sign=l[this.variable.type][this.data.operator].sign}switch(this.data.with[0]){case a.value:if("str"==this.variable.type){this.statement.parameter=_.replace("%s",this.data.with[1])}else{this.statement.parameter=this.data.with[1]}break;case a.variable:if(this.data.with[1]==this.data.variable){this.statement.parameter=u}else if(k.hasOwnProperty(this.data.with[1])){var e=k[this.data.with[1]];this.statement.parameter=e.name}break}for(const t in this.statement){if(this.statement.hasOwnProperty(t)){if(null===this.statement[t]){this.statement=null;break}}}t=this.statement?d(p,this.statement):null}return t};this.smart_length_parse=function(t){if('number'==typeof t){return r(t,0)}else if('string'==typeof t){var e=parseInt(t);if(e.toString()==t){return e}else{return t.length}}else{return 0}};this.evalutors={"str":function(t,e,s){var a=null;switch(e){case"rgx":try{var r=new RegExp(s);a=t.search(r)>=0}catch(t){if(b){console.warn(`Evaluation Failed! Bad RegEx Match Operation: `+t);console.warn(arguments)}}break;case"ct":var n=t.toLowerCase(),o=s.toLowerCase();a=n.indexOf(o)>=0;break;case"cts":a=t.indexOf(s)>=0;break;case"eql":a=t.length==i.smart_length_parse(s);break;case"lng":a=t.length>i.smart_length_parse(s);break;case"shr":a=t.length<i.smart_length_parse(s);break;case"bgn":a=c(t,s);break;case"end":a=f(t,s);break}return a},"num":function(t,e,i){var s=null;switch(e){case"eq":s=t==i;break;case"nq":s=t!=i;break;case"gt":s=t>i;break;case"gte":s=t>=i;break;case"ls":s=t<i;break;case"lse":s=t<=i;break}return s},"bool":function(t,e,i){var s=null;switch(e){case"eq":s=t==i;break;case"nq":s=t!=i;break}return s}};this.evaluate=function(){var t=null;if(this.variable){var e=this.variable.type,i=this.variable.value,s;switch(this.data.with[0]){case a.value:s=this.data.with[1];break;case a.variable:var o=this.data.with[1];if(k.hasOwnProperty(o)){if(o==this.data.variable){s=k[o].init}else{s=k[o].value}}break}if(null!==s){if("str"==e&&'string'!=typeof s){s=s.toString()}else if("num"==e&&'number'!=typeof s){s=r(s,0)}else if("bool"==e&&'boolean'!=typeof s){s=n(s)}if(l[e].hasOwnProperty(this.data.operator)){t=this.evalutors[e](i,this.data.operator,s)}}}return t};if(o(t,h)&&Array.isArray(t.with)&&2==t.with.length){this.data=t;var m=r(t.variable);if(k.hasOwnProperty(m)){this.variable=k[t.variable]}}else{throw new Error("Invalid Condition! Some of required data is missing: "+h.join(", "))}}}class Content{constructor(t,e,s,a){const n=this,o=-1,c=0,f="h2",_="pre";this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_from=function(t){t=r(t);if(false==Number.isFinite(t)||t<0){t=o}if(this.slots_map.hasOwnProperty(t)){var e=this.slots_map[t];K(e.id,e.slot)}else{X(Q.END_EDGE,n)}this.set_view_played(t)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);this.play_forward_from(o>=0?o:c)};this.set_view_played=function(){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){this.set_view_unplayed()};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else if(o>=0){this.play_forward_from(o)}if(this.node_resource.data.hasOwnProperty('clear')&&'boolean'==typeof this.node_resource.data.clear){if(true===this.node_resource.data.clear){H(this.node_id)}}};if(t>=0){if('object'==typeof e&&'object'==typeof s){this.node_id=t;this.node_resource=e;this.node_map=s;this.slots_map=l(s||{},t);this.html=h(t,e);this.continue_button=p("button",i("continue"));this.continue_button.addEventListener(y,this.play_forward_from.bind(n,c));if(e.hasOwnProperty("data")){if(e.data.hasOwnProperty("title")){this.title=p(f,d(e.data.title,E));this.html.appendChild(this.title)}if(e.data.hasOwnProperty("brief")&&'string'==typeof e.data.brief){this.brief=p(_,u(d(e.data.brief,E)));this.html.appendChild(this.brief)}if(e.data.hasOwnProperty("content")){this.content=p(_,u(d(e.data.content,E)));this.html.appendChild(this.content)}}this.html.appendChild(this.continue_button)}return this}throw new Error("Unable to construct `Content`")}}class Dialog{constructor(t,e,i,s){const a=this,n={"name":"Anonymous","color":"ffffff"},o=-1,u='ol',c='li',f='p';this.lines=null;this.line_elements=null;this.played_line=null;this.character_profile=null;this.character_profile_element=null;this.character_name_element=null;this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_from=function(t){t=r(t);if(false==Number.isFinite(t)||t<0){t=o}if(this.slots_map.hasOwnProperty(t)){var e=this.slots_map[t];K(e.id,e.slot)}else{X(Q.END_EDGE,a)}this.set_view_played(t)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);var t=0;if(this.slots_map.length>=1){var e=Object.keys(this.slots_map);e.sort();t=e[0]}this.play_forward_from(t)};this.set_view_played=function(t){this.html.setAttribute('data-played',true);if(Number.isInteger(t)&&t>=0&&t<this.lines.length){this.played_line=p(f,d(this.lines[t],E),{class:'dialog-played-line'});this.html.appendChild(this.played_line)}else{throw new Error("Unable to set `Dialog` played: The played slot doesn't exist: ",t)}};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false);if(this.played_line){this.played_line.remove();this.played_line=null}};this.step_back=function(){this.set_view_unplayed()};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else if(o>=0){this.play_forward_from(o)}else if(this.node_resource.data.hasOwnProperty('playable')&&false===this.node_resource.data.playable){this.html.setAttribute('none-playable','true');this.random_play_none_playable_dialogs()}};this.create_line_elements=function(t,e,i){if("appendChild"in e==false){e=null}for(var s=[],r=0;r<t.length;r++){var n=p(c,d(t[r],E));if(i){n.addEventListener(y,this.play_forward_from.bind(a,r))}if(e){e.appendChild(n)}s.push(n)}return s};this.random_play_none_playable_dialogs=function(){var t=m(this.lines.length-1);this.play_forward_from(t)};this.update_character_profile=function(t){if('object'==typeof t&&t.hasOwnProperty("color")&&t.hasOwnProperty("name")){if(null==this.character_profile_element){this.character_name_element=p("div",t.name,{class:'character-name'});this.character_profile_element=p("div",this.character_name_element,{class:'character-profile',style:`--character-color: #${t.color};`,"data-name":t.name});this.html.appendChild(this.character_profile_element)}else{this.character_profile_element.setAttribute('style',`--character-color: #${t.color};`);this.character_name_element.innerHTML=t.name}}else{if(b){console.error(t)}throw new Error("Unable to Update Character Profile: Lack of required object keys, `name` and/or `color`.")}};if(t>=0){if('object'==typeof e&&'object'==typeof i){this.node_id=t;this.node_resource=e;this.node_map=i;this.slots_map=l(i||{},t);this.html=h(t,e);var _=null;if(e.hasOwnProperty('data')){if(e.data.hasOwnProperty('character')){var v=r(e.data.character);this.update_character_profile(P.hasOwnProperty(v)?P[v]:n)}if(e.data.hasOwnProperty('lines')&&Array.isArray(e.data.lines)&&e.data.lines.length>0){this.lines_holder=p(u,null,{class:"dialog-lines"});this.lines=e.data.lines;this.line_elements=this.create_line_elements(e.data.lines,this.lines_holder,true);this.html.appendChild(this.lines_holder)}else{_="No `lines` exist!"}}else{_="The resource doesn't own the required `data`."}if(_){throw new Error("Unable to create `Dialog` node! "+_)}}return this}throw new Error("Unable to construct `Dialog`")}}class Entry{constructor(t,e,i,s){const a=this,n=0;this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_from=function(t){t=r(t);if(false==Number.isFinite(t)||t<0){t=n}if(this.slots_map.hasOwnProperty(t)){var e=this.slots_map[t];K(e.id,e.slot)}else{X(Q.END_EDGE,a)}this.set_view_played(t)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);this.play_forward_from(n)};this.set_view_played=function(){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){this.set_view_unplayed()};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else if(n>=0){this.play_forward_from(n)}};if(t>=0){if('object'==typeof e&&'object'==typeof i){this.node_id=t;this.node_resource=e;this.node_map=i;this.slots_map=l(i||{},t);this.html=h(t,e);this.entry_button=p("button",e.name);this.entry_button.addEventListener(y,this.play_forward_from.bind(a,n));this.html.appendChild(this.entry_button)}return this}throw new Error("Unable to construct `Entry`")}}class Generator{constructor(t,e,s,a){const n=this,o=0,d="Parameters unset or invalid!",u="|",c="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz123456789",f={"num":{"randi":{"title":"Random Integer","func":function(t){var e=null;if(Array.isArray(t)&&5==t.length){if(Number.isInteger(t[0])&&t[0]>=0&&Number.isInteger(t[1])&&t[1]>=2){e=m(t[0],t[1]-1,void 0,t[2],t[3],t[4])}else if(b){console.warn("Unexpected Behavior! Bad range for `randi` generator: ",t)}}else if(b){console.warn("Unexpected Behavior! Wrong arguments for `randi` generator: ",t)}if(null===e){e=m(0,100)}return e}}},"str":{"ascii":{"title":"Random ASCII String","func":function(t){var e="";if(2==t.length){var i="string"==typeof t[0]&&t[0].length>0?t[0]:c,s=i.length,a="number"==typeof t[1]&&t[1]>=1?Math.floor(t[1]):s;while(e.length<a){let t=m(0,s-1);console.log(t);e+=i[t]}}return e}},"strst":{"title":"From Set of Strings","func":function(t){var e="";if("string"==typeof t&&t.length>0){var i=t.split(u).filter(t=>t.length>0);if(i.length>0){e=i[m(0,i.length-1)]}}return e}}},"bool":{"rnbln":{"title":"Random Boolean","func":function(t){return Math.floor(10*Math.random())%2==0}}}};this.the_variable=null;this.the_variable_id=null;this.previous_variable_value=null;this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward=function(){if(this.slots_map.hasOwnProperty(o)){var t=this.slots_map[o];K(t.id,t.slot)}else{X(Q.END_EDGE,n)}this.set_view_played(o)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);this.play_forward()};this.set_view_played=function(){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){if(this.the_variable&&null!==this.previous_variable_value){D(this.the_variable_id,this.previous_variable_value)}this.set_view_unplayed()};this.generate_and_play=function(){var t=null;if(this.valid_generator){t=this.valid_generator.func.call(null,this.node_resource.data.hasOwnProperty("arguments")?this.node_resource.data.arguments:null)}if(null!==t&&this.the_variable){D(this.the_variable_id,t);this.play_forward()}else{console.error(`Unable to run the generator (${this.node_resource.name}.) Skipped forward.`);this.skip_play()}};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else{this.generate_and_play()}};if(t>=0){if('object'==typeof e&&'object'==typeof s){this.node_id=t;this.node_resource=e;this.node_map=s;this.slots_map=l(s||{},t);this.valid_generator=null;if(this.node_resource.hasOwnProperty("data")&&this.node_resource.data.hasOwnProperty("variable")){this.the_variable_id=r(this.node_resource.data.variable);if(k.hasOwnProperty(this.the_variable_id)){this.the_variable=k[this.the_variable_id];this.previous_variable_value=this.the_variable.value;if(this.node_resource.data.hasOwnProperty("method")&&this.the_variable.hasOwnProperty("type")&&f.hasOwnProperty(this.the_variable.type)&&f[this.the_variable.type].hasOwnProperty(this.node_resource.data.method)){this.valid_generator=f[this.the_variable.type][this.node_resource.data.method]}}else if(b){console.warn("Invalid Generator Node! The node has nonexistent UID as the target variable:",this.the_variable_id,this.node_resource)}}else if(b){console.warn("Invalid Generator Node! The node has no data set or target variable.",this.node_resource)}this.html=h(t,e);var _=this.valid_generator?`${this.valid_generator.title} => ${this.the_variable.name}`:d;this.parsed_expression=p("code",_,{"class":"expression"});this.html.appendChild(this.parsed_expression);this.eval_button=p("button",i("generate"));this.eval_button.addEventListener(y,this.generate_and_play.bind(n));this.html.appendChild(this.eval_button)}return this}throw new Error("Unable to construct `VariableUpdate`")}}class Hub{constructor(t,e,i,s){const a=this,n=0;this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_from=function(t){t=r(t);if(false==Number.isFinite(t)||t<0){t=n}if(this.slots_map.hasOwnProperty(t)){var e=this.slots_map[t];K(e.id,e.slot)}else{X(Q.END_EDGE,a)}this.set_view_played(t)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);this.play_forward_from(n)};this.set_view_played=function(t){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){this.set_view_unplayed()};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else if(n>=0){this.play_forward_from(n)}};if(t>=0){if('object'==typeof e&&'object'==typeof i){this.node_id=t;this.node_resource=e;this.node_map=i;this.slots_map=l(i||{},t);this.html=h(t,e);this.hub_button=p("button",e.name);this.hub_button.addEventListener(y,this.play_forward_from.bind(a,n));this.html.appendChild(this.hub_button)}return this}throw new Error("Unable to construct `Hub`")}}class Interaction{constructor(t,e,i,s){const a=this,n=-1,o='ol',u='li',c='p';this.actions=null;this.action_elements=null;this.played_action=null;this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_from=function(t){t=r(t);if(false==Number.isFinite(t)||t<0){t=n}if(this.slots_map.hasOwnProperty(t)){var e=this.slots_map[t];K(e.id,e.slot)}else{X(Q.END_EDGE,a)}this.set_view_played(t)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);var t=0;if(this.slots_map.length>=1){var e=Object.keys(this.slots_map);e.sort();t=e[0]}this.play_forward_from(t)};this.set_view_played=function(t){this.html.setAttribute('data-played',true);if(Number.isInteger(t)&&t>=0&&t<this.actions.length){this.played_action=p(c,d(this.actions[t],E),{class:'interaction-played-action'});this.html.appendChild(this.played_action)}else{throw new Error("Unable to set `Interaction` played: The played slot doesn't exist: ",t)}};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false);if(this.played_action){this.played_action.remove();this.played_action=null}};this.step_back=function(){this.set_view_unplayed()};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else if(n>=0){this.play_forward_from(n)}};this.create_action_elements=function(t,e,i){if("appendChild"in e==false){e=null}for(var s=[],r=0;r<t.length;r++){var n=p(u,d(t[r],E));if(i){n.addEventListener(y,this.play_forward_from.bind(a,r))}if(e){e.appendChild(n)}s.push(n)}return s};if(t>=0){if('object'==typeof e&&'object'==typeof i){this.node_id=t;this.node_resource=e;this.node_map=i;this.slots_map=l(i||{},t);this.html=h(t,e);var f=null;if(e.hasOwnProperty('data')){if(e.data.hasOwnProperty('actions')&&Array.isArray(e.data.actions)&&e.data.actions.length>0){this.actions_holder=p(o,null,{class:'interaction-actions'});this.actions=e.data.actions;this.action_elements=this.create_action_elements(e.data.actions,this.actions_holder,true);this.html.appendChild(this.actions_holder)}else{f="No `actions` exist!"}}else{f="The resource doesn't own the required `data`."}if(f){throw new Error("Unable to create `Interaction` node! "+f)}}return this}throw new Error("Unable to construct `Interaction`")}}class Jump{constructor(t,e,i,s){const a=this;this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_the_jump=function(){if(this.node_resource.hasOwnProperty("data")&&this.node_resource.data.hasOwnProperty("target")&&Number.isInteger(this.node_resource.data.target)&&this.node_resource.data.target>=0){K(this.node_resource.data.target,0)}else{X(Q.END_EDGE,a)}this.set_view_played()};this.skip_play=function(){this.html.setAttribute('data-skipped',true);X(Q.NO_DEFAULT,a)};this.set_view_played=function(){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){this.set_view_unplayed()};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else{this.play_forward_the_jump()}};if(t>=0){if('object'==typeof e&&'object'==typeof i){this.node_id=t;this.node_resource=e;this.node_map=i;this.slots_map=l(i||{},t);this.html=h(t,e);if(e.hasOwnProperty("data")&&e.data.hasOwnProperty("reason")&&'string'==typeof e.data.reason&&e.data.reason.length>0){this.reason=p("p",e.data.reason);this.html.appendChild(this.reason)}this.jump_button=p("button",e.name);this.jump_button.addEventListener(y,this.play_forward_the_jump.bind(a));this.html.appendChild(this.jump_button)}return this}throw new Error("Unable to construct `Jump`")}}class MacroUse{constructor(t,e,i,s){const a=this;this.holder=null;this.nodes_list=null;this.entry=null;const n=0;this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_from=function(t){t=r(t);if(false==Number.isFinite(t)||t<0){t=n}if(this.slots_map.hasOwnProperty(t)){var e=this.slots_map[t];K(e.id,e.slot)}else{X(Q.END_EDGE,a)}this.set_view_played(t)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);X(Q.NO_DEFAULT,a)};this.play_self_forward=function(){this.play_forward_from(n)};this.owns_node=function(t){if(this.nodes_list){t=r(t);return this.nodes_list.includes(t)}else if(b){console.warn("Unexpected Behavior! The `macro_use` instance has no valid `nodes_list`.")}return false};this.append_instance=function(t){if(this.holder&&'appendChild'in this.holder){if('get_element'in t){this.holder.appendChild(t.get_element())}else{throw new Error("Invalid Instance! Unable to get_element from the inputted instance.")}}else{throw new Error("Unexpected Behavior! The holder element of the macro is not ready.")}};this.set_view_played=function(t){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){this.set_view_unplayed()};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else if(Number.isInteger(this.entry)&&this.entry>=0){K(this.entry)}};if(t>=0){if('object'==typeof e&&'object'==typeof i){this.node_id=t;this.node_resource=e;this.node_map=i;this.slots_map=l(i||{},t);this.html=h(t,e);this.holder=p("div");this.html.appendChild(this.holder);if(e.hasOwnProperty('data')&&e.data.hasOwnProperty('macro')){this.macro_id=r(e.data.macro);if(this.macro_id>=0){this.macro=F(this.macro_id,'scenes');if(this.macro){if(this.macro.hasOwnProperty('map')&&'object'==typeof this.macro.map){this.nodes_list=Object.keys(this.macro.map).map(r)}if(this.macro.hasOwnProperty("entry")){this.entry=r(this.macro.entry)}}else{throw new Error(`Corrupt Project Data! Node ${e.name} (macro_use) links to no valid macro (scene) resource.`)}}}if(false==Array.isArray(this.nodes_list)||0==this.nodes_list.length||false==this.nodes_list.includes(this.entry)){console.warn("Unset or invalid macro_use: ",t,e," -> Set to be skipped.");this.node_map.skip=true}}return this}throw new Error("Unable to construct `MacroUse`")}}class Marker{constructor(t,e,i,s){const a=this,n=0;this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_from=function(t){t=r(t);if(false==Number.isFinite(t)||t<0){t=n}if(this.slots_map.hasOwnProperty(t)){var e=this.slots_map[t];K(e.id,e.slot)}else{X(Q.END_EDGE,a)}this.set_view_played(t)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);this.play_forward_from(n)};this.set_view_played=function(t){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){this.set_view_unplayed()};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else if(n>=0){this.play_forward_from(n)}};if(t>=0){if('object'==typeof e&&'object'==typeof i){this.node_id=t;this.node_resource=e;this.node_map=i;this.slots_map=l(i||{},t);this.html=h(t,e);if(e.hasOwnProperty("data")&&e.data.hasOwnProperty("label")&&'string'==typeof e.data.label&&e.data.label.length>0){var o=e.data.hasOwnProperty("color")?{style:`--marker-color: #${e.data.color}; `}:void 0;this.label=p("p",e.data.label,o);this.html.appendChild(this.label)}this.marker_button=p("button",e.name);this.marker_button.addEventListener(y,this.play_forward_from.bind(a,n));this.html.appendChild(this.marker_button)}return this}throw new Error("Unable to construct `Marker`")}}class Randomizer{constructor(t,e,i,s){const a=this,n=true,o=false;this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_from=function(t){t=r(t);if(this.slots_map.hasOwnProperty(t)){var e=this.slots_map[t];K(e.id,e.slot)}else{X(Q.END_EDGE,a)}this.set_view_played(t)};this.play_forward_randomly=function(){var t=-1;if(true!==o&&this.node_resource.hasOwnProperty("data")&&this.node_resource.data.hasOwnProperty("slots")){t=r(this.node_resource.data.slots)}if(t<0){t=Object.keys(this.slots_map).length}var e=m(0,t-1);this.play_forward_from(e)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);this.play_forward_randomly()};this.set_view_played=function(t){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){this.set_view_unplayed()};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else if(n){this.play_forward_randomly()}};if(t>=0){if('object'==typeof e&&'object'==typeof i){this.node_id=t;this.node_resource=e;this.node_map=i;this.slots_map=l(i||{},t);this.html=h(t,e);this.randomizer_button=p("button",e.name);this.randomizer_button.addEventListener(y,this.play_forward_randomly.bind(a));this.html.appendChild(this.randomizer_button)}return this}throw new Error("Unable to construct `Randomizer`")}}class UserInput{constructor(t,e,s,a){const n=this;this.the_variable_id=null;this.the_variable=null;this.previous_variable_value=null;const o=0,u=true,c=true,f='change',_={'str':'text','num':'number','bool':'checkbox'},m=i('defaultCheckboxClickableLabelText');this.read_and_parse_value=function(){if(this.the_variable&&this.input_element){switch(this.the_variable.type){case'str':return this.input_element.value;case'num':return r(this.input_element.value,Number.NEGATIVE_INFINITY,true);case'bool':return this.input_element.checked}}else{throw new Error("Invalid Call! There is no variable or input element!")}};this.str_validator=function(t,e){var i=true,s=this.read_and_parse_value();if(true===c&&0==s.length){i=false}return i};this.num_validator=function(t,e){var i=true,s=this.read_and_parse_value();if(s==Number.NEGATIVE_INFINITY){s='';i=false}if(false!=e){this.input_element.value=s}return i};this.bool_validator=function(t){return'boolean'==typeof this.read_and_parse_value()};this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward_from=function(){if(false===u||true==this.is_input_valid()){if(this.slots_map.hasOwnProperty(o)){if(this.the_variable){D(this.the_variable_id,this.read_and_parse_value())}var t=this.slots_map[o];K(t.id,t.slot)}else{X(Q.END_EDGE,n)}this.set_view_played(o)}};this.skip_play=function(){this.html.setAttribute('data-skipped',true);this.play_forward_from(o)};this.set_view_played=function(t){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){if(this.the_variable&&null!==this.previous_variable_value){D(this.the_variable_id,this.previous_variable_value)}this.set_view_unplayed()};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}};if(t>=0){if('object'==typeof e&&'object'==typeof s){this.node_id=t;this.node_resource=e;this.node_map=s;this.slots_map=l(s||{},t);this.html=h(t,e);var b=null;if(e.hasOwnProperty('data')){if(e.data.hasOwnProperty('prompt')){this.prompt_element=p("p",d(e.data.prompt,E));this.html.appendChild(this.prompt_element)}if(e.data.hasOwnProperty('variable')){this.the_variable_id=r(e.data.variable);if(k.hasOwnProperty(this.the_variable_id)){this.the_variable=k[this.the_variable_id];this.previous_variable_value=this.the_variable.value;var v=_[this.the_variable.type],w=`${e.name}_input`;this.input_element=p("input",null,{id:w,type:v});this.is_input_valid=n[`${this.the_variable.type}_validator`].bind(n);this.input_element.addEventListener(f,this.is_input_valid);this.html.appendChild(this.input_element);if('checkbox'==v){var g=p('label',m,{for:w});this.html.appendChild(g)}}else{b="Invalid target variable id."}}this.continue_button=p("button",i('continue'));this.continue_button.addEventListener(y,this.play_forward_from.bind(n));this.html.appendChild(this.continue_button)}if(b){console.error(`Corrupt user_input node (${e.name}) resource data: `,b,'\nNode set to be skipped.');this.node_map.skip=true}}return this}throw new Error("Unable to construct `UserInput`")}}class VariableUpdate{constructor(t,e,s,a){const n=this,o=0,d="Parameters unset or invalid!";this.the_variable=null;this.the_variable_id=null;this.previous_variable_value=null;this.get_element=function(){return this.html};this.remove_element=function(){this.html.remove()};this.play_forward=function(){if(this.slots_map.hasOwnProperty(o)){var t=this.slots_map[o];K(t.id,t.slot)}else{X(Q.END_EDGE,n)}this.set_view_played(o)};this.skip_play=function(){this.html.setAttribute('data-skipped',true);this.play_forward()};this.set_view_played=function(){this.html.setAttribute('data-played',true)};this.set_view_unplayed=function(){this.html.setAttribute('data-played',false)};this.step_back=function(){if(this.the_variable&&null!==this.previous_variable_value){D(this.the_variable_id,this.previous_variable_value)}this.set_view_unplayed()};this.evaluation_and_play=function(){var t=null;if(this.update_expression){t=this.update_expression.evaluate()}if(null!==t&&this.the_variable){D(this.the_variable_id,t);this.play_forward()}else{console.error(`Unable to evaluate the variable_update (${this.node_resource.name}) expression. Skipped forward.`);this.skip_play()}};this.proceed=function(){if(this.node_map.hasOwnProperty("skip")&&true==this.node_map.skip){this.skip_play()}else{this.evaluation_and_play()}};if(t>=0){if('object'==typeof e&&'object'==typeof s){this.node_id=t;this.node_resource=e;this.node_map=s;this.slots_map=l(s||{},t);this.update_expression=null;if(this.node_resource.hasOwnProperty("data")&&this.node_resource.data.hasOwnProperty("variable")){this.the_variable_id=r(this.node_resource.data.variable);try{this.update_expression=new VariableUpdateExpression(this.node_resource.data,k);this.the_variable=this.update_expression.variable;this.previous_variable_value=this.the_variable.value}catch(t){if(b){console.warn('Invalid Variable_Update Expression. Error:'+t)}}}this.html=h(t,e);if(this.update_expression){var u=this.update_expression.parse()||d;this.parsed_expression=p("code",u,{"class":"expression"});this.html.appendChild(this.parsed_expression)}this.eval_button=p("button",i("evaluate"));this.eval_button.addEventListener(y,this.evaluation_and_play.bind(n));this.html.appendChild(this.eval_button)}return this}throw new Error("Unable to construct `VariableUpdate`")}}class VariableUpdateExpression{constructor(t,e){const i=this;this.data=null;this.variable=null;const s={0:"value",1:"variable"},a={"value":0,"variable":1},l={"num":{"set":{"text":"Set Equel","sign":"="},"add":{"text":"Addition","sign":"+="},"sub":{"text":"Subtraction","sign":"-="},"div":{"text":"Division","sign":"/="},"rem":{"text":"Remainder","sign":"%="},"mul":{"text":"Multipication","sign":"*="},"exp":{"text":"Exponentiation","sign":"^="},"abs":{"text":"Absolute","sign":"=||"}},"str":{"set":{"text":"Set","sign":"="},"stc":{"text":"Set Capitalized","sign":"C="},"stl":{"text":"Set Lowercased","sign":"l="},"stu":{"text":"Set Uppercased","sign":"U="},"ins":{"text":"End Insertion","sign":"=+"},"inb":{"text":"Begining Insertion","sign":"+="}},"bool":{"set":{"text":"Set","sign":"="},"neg":{"text":"Set Negative","sign":"=!"}}},h=["variable","operator","with"],p="{ident} {operator_sign} {parameter}",u="Self (Intial Value)",c="`%s`";this.parse=function(){var t=null;if(this.variable&&this.data){this.expression={"ident":null,"operator_sign":null,"parameter":null};this.expression.ident=this.variable.name;if(l[this.variable.type].hasOwnProperty(this.data.operator)){this.expression.operator_sign=l[this.variable.type][this.data.operator].sign}switch(this.data.with[0]){case a.value:if("str"==this.variable.type){this.expression.parameter=c.replace("%s",this.data.with[1])}else{this.expression.parameter=this.data.with[1]}break;case a.variable:if(this.data.with[1]==this.data.variable){this.expression.parameter=u}else if(k.hasOwnProperty(this.data.with[1])){var e=k[this.data.with[1]];this.expression.parameter=e.name}break}for(const t in this.expression){if(this.expression.hasOwnProperty(t)){if(null===this.expression[t]){this.expression=null;break}}}t=this.expression?d(p,this.expression):null}return t};this.evalutors={"str":function(t,e,i){var s=null;switch(e){case"set":s=i;break;case"stc":s=_(i);break;case"stl":s=i.toLowerCase();break;case"stu":s=i.toUpperCase();break;case"ins":s=t+i;break;case"inb":s=i+t;break}return s},"num":function(t,e,i){var s=null;switch(e){case"set":s=i;break;case"add":s=t+i;break;case"sub":s=t-i;break;case"div":s=t/i;break;case"rem":s=t%i;break;case"mul":s=t*i;break;case"exp":s=Math.pow(t,i);break;case"abs":s=Math.abs(i);break}return Number.isFinite(s)?Math.round(s):null},"bool":function(t,e,i){var s=null;switch(e){case"set":s=i;break;case"neg":s=!i;break}return s}};this.evaluate=function(){var t=null;if(this.variable){var e=this.variable.type,i=this.variable.value,s;switch(this.data.with[0]){case a.value:s=this.data.with[1];break;case a.variable:var o=this.data.with[1];if(k.hasOwnProperty(o)){if(o==this.data.variable){s=k[o].init}else{s=k[o].value}}break}if(null!==s){if("str"==e&&'string'!=typeof s){s=s.toString()}else if("num"==e&&'number'!=typeof s){s=r(s,0)}else if("bool"==e&&'boolean'!=typeof s){s=n(s)}if(l[e].hasOwnProperty(this.data.operator)){t=this.evalutors[e](i,this.data.operator,s)}}}return t};if(o(t,h)&&Array.isArray(t.with)&&2==t.with.length){this.data=t;var f=r(t.variable);if(k.hasOwnProperty(f)){this.variable=k[t.variable]}}else{throw new Error("Invalid VariableUpdate! Some of the required data is missing: "+h.join(", "))}}}const b=true,y='click',v='en',w=true;var g={},k={},E={},O={},P={},C=[],x=[];const A=document.getElementsByTagName('html')[0];if(PROJECT.meta.hasOwnProperty("rtl")&&true==PROJECT.meta.rtl){A.setAttribute("dir","rtl")}console.log(`\nHello and welcome to,\n    '${PROJECT.title}'\nMade with Arrow\n`);const N={"condition":Condition,"content":Content,"dialog":Dialog,"entry":Entry,"generator":Generator,"hub":Hub,"interaction":Interaction,"jump":Jump,"macro_use":MacroUse,"marker":Marker,"randomizer":Randomizer,"user_input":UserInput,"variable_update":VariableUpdate},$=["name","color"];function U(){var t=PROJECT.resources.characters;for(const e in t){if(t.hasOwnProperty(e)){if(o(t[e],$)){P[e]=t[e]}else{throw new Error(`Unable to sort characters! The character '${e}' resource doesn't include required data! ${$.join(", ")}`)}}}}const I=["name","type","init"],T=["num","str","bool"];function j(){var t=PROJECT.resources.variables;for(const e in t){if(t.hasOwnProperty(e)){if(o(t[e],I)&&T.includes(t[e].type)){k[e]=t[e];k[e].value=t[e].init;O[t[e].name]=e;E[t[e].name]=k[e].value;S(t[e].name,k[e].value)}else{throw new Error(`Unable to sort global variables! The variable '${e}' resource doesn't include required data! ${I.join(", ")}`)}}}}function D(t,e){if(k.hasOwnProperty(t)){var i=k[t].type;if('str'==i&&'string'==typeof e||'num'==i&&Number.isInteger(e)||'bool'==i&&'boolean'==typeof e){var s=k[t].name;E[s]=e;k[t].value=e;S(s,e);if(b){console.log("Variable Updated: ",s,"=",e)}}else{throw new Error(`Unable to Update Global Variable! Type Inconsistency: new value ${e}<${typeof e}> for ${t}<${i}>`)}}else{throw new Error(`Unable to Update Global Variable by ID: No variable with ID '${t}'`)}}function L(t,e){if(O.hasOwnProperty(t)){D(O[t],e)}else{throw new Error(`Unable to Update Global Variable by Name: No variable with name '${t}'`)}}function S(t,e){g.CONSOLE.setAttribute(`data-${V(t)}`,'string'==typeof e?e:e.toString())}const R=["title","entry","meta","resources"],G=["scenes","nodes","variables","characters"],M={"scenes":["name","entry","map"],"nodes":["type","name","data"],"variables":["name","type","init"],"characters":["name","color"]};function q(t){if(!t){t=PROJECT}if('object'==typeof t){if(o(t,R)){if(o(t.resources,G)){if(Number.isInteger(t.entry)&&t.resources.nodes.hasOwnProperty(t.entry)){for(const e in t.resources){if(t.resources.hasOwnProperty(e)){for(const i in t.resources[e]){if(t.resources[e].hasOwnProperty(i)){if(r(i,-1)<0||'object'!=typeof t.resources[e][i]||true!=o(t.resources[e][i],M[e])){return false}else{switch(e){case"scenes":for(const s in t.resources[e][i].map){if(r(s,-1)<0||'object'!=typeof t.resources[e][i].map[s]){return false}}break;case"nodes":if('object'!=typeof t.resources[e][i].data){return false}break;case"variables":break;case"characters":break}}}}}}return true}}}}return false}function F(t,e){var i=null;if("string"!=typeof e||0==e.length||false==PROJECT.resources.hasOwnProperty(e)){e="nodes"}if(PROJECT.resources[e].hasOwnProperty(t)){i=PROJECT.resources[e][t]}else{for(const e in PROJECT.resources){if(PROJECT.resources.hasOwnProperty(e)){if(PROJECT.resources[e].hasOwnProperty(t)){i=PROJECT.resources[e][t]}}}}return i}function B(t,e){var i=PROJECT.resources.scenes;for(const s in i){if(i.hasOwnProperty(s)){if(i[s].map.hasOwnProperty(t)){if(true===e){return s}return i[s]}}}return null}function J(t){var e=B(t);if(e){if(e.hasOwnProperty("map")&&e.map.hasOwnProperty(t)){return e.map[t]}else{return null}}else{throw new Error(`Unable to get node (${t}) map: It belongs to no scene!`)}}function V(t){if('string'==typeof t&&t.length>0){return t.toLowerCase().replace(/\W/gi,"-")}else{throw new Error("Unable to scape the name. It must be a string longer than 0 chars.")}}function z(t,e){if(true===e){x=[]}if(t&&'string'==typeof t){x.push(V(t))}g.CONTENT.setAttribute("data-open-nodes",x.join(' '))}function H(t){for(var e=0,i=C.length-1;i>=0;i--){if(C[i].id==t){e=i;break}}if(e>0){x.splice(0,e);var s=C.splice(0,e);for(var a of s){a.instance.remove_element()}z();if(1==C.length){C[0].instance.step_back()}}else{throw new Error(`The annotated node (${t}) is not open or is the first one. We can only clean view from a node backward.`)}}function W(t){(t||document.activeElement).scrollIntoView({behavior:'smooth',block:'center',inline:'center'})}var Y=null;function K(t,e){var i,s,a,n;t=r(t);e=r(e);s=F(t);a=J(t);if(t>=0){if(N.hasOwnProperty(s.type)){n=new N[s.type](t,s,a,e);C.push({id:t,instance:n});z(s.name);var o=n.get_element(),l=false;if(Y){if(Y.owns_node(t)){Y.append_instance(n);l=true}else{Y.set_view_played();Y=null}}if(false==l){g.CONTENT.appendChild(o)}if('macro_use'==s.type){Y=n}n.proceed();W(o)}else{i="Node Instancing Failed! The node type might be invalid."}}else{i="Invalid Node Resource!"}if(i){if(b){console.error(t,s)}throw new Error(i+` Unable to play the node (${t}.)`)}}const Q={"END_EDGE":0,"NO_DEFAULT":1};function X(t,e){switch(t){case Q.END_EDGE:if(Y){Y.play_self_forward();Y=null}else{if(true!==w){g.CONTENT.appendChild(p('div',i('end_of_play'),{class:'end-message'}))}console.log("End of Play!")}break;case Q.NO_DEFAULT:if("macro_use"==e.node_resource.type){Y.play_self_forward();Y=null}if(b){console.log(`NO Action! The node ${e.node_resource.name} has taken no special or default action.\nCheck if parameters are unset or the node is skipped.`)}break}}function Z(t,e){var i=null,s=C.length;if(s>1){if(false==Number.isInteger(t)||t<1||t>=s){t=1;if(b){console.warn("Unset or too many steps back. Reset to 1.")}}var a=s-t;x.splice(a);var r=C.splice(a);for(var n of r){n.instance.remove_element()}z();C[a-1].instance.step_back()}else{i="There is only one remained open node! We can't step back anymore."}if(i&&false!=e){throw new Error(i)}}var tt=false;function et(t){tt='boolean'===typeof t?t:!tt;A.setAttribute('data-theme',tt?'dark':'light');window.localStorage['_arrow_runtime_darkmode']=tt}const it=function(){g.CONSOLE=document.getElementById("console");g.CONTENT=document.getElementById("content");if(false==t.includes(v)){throw new Error(`The set _LOCALE (${v}) is not supported! To add a new one, edit i18n module.`)}var e=null;if("object"==typeof PROJECT&&true===q()){j();U();K(PROJECT.entry);if(b){console.log(`Project Validation [OK]. Running from the project's entry node (${PROJECT.entry}) ...`)}}else{e="Project Data seems Corrupt !!"}if(e){throw new Error("Unable to Run the Project: "+e)}try{const t=document.getElementById('switch-dark-mode');if(t){t.addEventListener(y,et);if(window.localStorage&&'_arrow_runtime_darkmode'in window.localStorage){et('true'===window.localStorage._arrow_runtime_darkmode||true===window.localStorage._arrow_runtime_darkmode?true:false)}}}catch(t){if(b){console.warn("Dark-mode is Not Available! The `#switch-dark-mode` button is missing.")}}try{const t=document.getElementById('play-back');if(t){t.addEventListener(y,Z.bind(null,1,false))}}catch(t){if(b){console.warn("Play-Back is Not Available! The `#play-back` button is missing.")}}};window.addEventListener("load",it); </script> <style> :root{--color-0:rgb(255, 255, 255);--color-1:rgb(249, 249, 250);--color-2:rgb(26, 0, 52);--color-3:rgb(0, 21, 41);--color-4:rgb(230, 230, 230);--color-5:rgb(0, 98, 128);--color-6:rgb(90, 90, 90);--color-7:rgb(170, 170, 170)}:root[data-theme^=dark]{--color-0:rgb(0, 0, 0);--color-1:rgb(30, 30, 30);--color-2:rgb(255, 252, 222);--color-3:rgb(255, 206, 97);--color-4:rgb(49, 49, 49);--color-5:rgb(18, 226, 176);--color-6:rgb(181, 181, 181);--color-7:rgb(142, 117, 64)}:root{--font:monospace,sans-serif;font-family:var(--font);background-color:var(--color-1);color:var(--color-2);font-size:16px;font-weight:400;--font-weight-emphasis:500;--font-weight-buttons:700;--font-weight-buttons-secondary:400;width:100vw;line-height:1.15;--transition-time-medium:0.5s;--border-width-normal:1px;--border-color-normal:var(--color-4)}:root{scrollbar-color:var(--color-7) var(--color-4);scrollbar-width:auto}:root::-webkit-scrollbar{height:100%;width:.75rem}:root::-webkit-scrollbar-track-piece{background-color:var(--color-4)}:root::-webkit-scrollbar-thumb{background-color:var(--color-7)}body{padding:0;margin:0;font-family:var(--font);width:95vw;margin:0 2.5vw;overflow-x:hidden;box-sizing:border-box;border:none;outline:0;padding:.25rem 1rem}body>:first-child{margin-top:1rem!important}p,pre{overflow:visible;white-space:pre-wrap;overflow-wrap:break-word;font-size:1.124rem;line-height:1.5em}h1,h2,h3,h4,h5,h6{font-weight:400;margin:1em 0 .1em 0}h1{font-size:1.5em}h2{font-size:1.4em}h3{font-size:1.3em}h4{font-size:1.2em}h5{font-size:1.1em}h6{font-size:1em}a{color:var(--color-2);background-color:transparent;text-decoration:underline;cursor:pointer}div,fieldset,form{width:100%;box-sizing:border-box;border-color:var(--color-6);border-width:1px;margin:.5rem 0}button,input{overflow:visible;text-transform:none;font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{margin:.25rem 0;box-sizing:content-box}input,input::placeholder{font-family:var(--font)}input[type=text]::placeholder{color:var(--color-7)}input[type=number],input[type=text]{border:solid 2px var(--color-6);padding:.25rem .5rem;letter-spacing:.125rem;vertical-align:middle;border-radius:.25rem;text-align:center}input[type=number],input[type=text],input[type=text]::placeholder{height:2rem;font-size:1rem}input[type=number],input[type=text]{border-color:var(--color-4);background-color:var(--color-0);color:var(--color-3)}button,input[type=button],input[type=submit]{font-size:1rem;font-weight:var(--font-weight-buttons);height:1.75rem;padding:.25rem .75rem;border-radius:.25rem;border:none;background-color:var(--color-4);color:var(--color-5);cursor:pointer;outline:0}button::-moz-focus-inner,button:active,input[type=button]::-moz-focus-inner,input[type=button]:active,input[type=submit]::-moz-focus-inner,input[type=submit]:active{border-style:none;border:none;padding:.25rem .75rem;outline:0}button:hover,input[type=button]:hover,input[type=submit]:hover{color:var(--color-3)}button:active,input[type=button]:active,input[type=submit]:active{color:var(--color-0);background-color:var(--color-5)}textarea{display:block;width:100%;height:16vh;font-family:inherit;line-height:1.15;font-size:.9rem;margin:.25rem 0;padding:1rem;box-sizing:border-box;border:solid 1px var(--color-6);background-color:var(--color-0);color:var(--color-3);resize:vertical;margin-bottom:.75rem;overflow:auto}fieldset{display:block;box-sizing:border-box;margin-top:.75rem;border-color:var(--color-6);padding:.35em .75em .625em}legend{text-align:left;color:var(--color-6);box-sizing:border-box;display:table;max-width:100%;font-size:.9em;padding:0 .25em;white-space:normal}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}em{font-style:italic}u{text-decoration:underline}strong{font-weight:bolder}header{padding-bottom:1rem;margin-bottom:1rem;border-bottom:solid var(--border-width-normal) var(--border-color-normal)}header>h1{font-size:2.5rem;font-weight:300;margin:2rem 0}header>h2{font-size:1.5rem;margin:1.5rem 0;font-weight:300}header>h2 span{font-size:.75em;vertical-align:top}#content .end-message{margin-top:2rem;color:var(--color-7)}footer{border-top:solid var(--border-width-normal) var(--border-color-normal);font-size:.8rem;margin-top:5rem;margin-bottom:5rem;padding-top:.25em}footer a{color:var(--color-3);text-decoration:none}footer a:hover{color:var(--color-5)}footer a:active{color:var(--color-3)}footer p{font-size:.9rem;padding:.25em 0;margin:0}footer p:first-of-type{margin-top:1rem}footer button:not(:first-of-type){margin:0 .5rem}.node{--mark-node-read-opacity:1;--shown-skipped-node-opacity:0.7;transition:filter var(--transition-time-medium) ease-in-out}.node[data-type=content][data-played=true]{filter:opacity( var(--mark-node-read-opacity) )}.node[data-type=content][data-played=true] button{display:none}.node[data-type=content][data-played=false][data-skipped=true]>:not(button){filter:opacity( var(--shown-skipped-node-opacity) )}.node[data-type=content][data-played=true][data-skipped=true]{display:none}.node[data-type=condition][data-played=true]{display:none}.node[data-type=condition] button{margin:.5rem}.node[data-type=dialog] .character-name::before{content:"";display:inline-block;width:.75rem;height:.75rem;vertical-align:middle;margin:.5rem;border:solid .125rem var(--color-7);transform:translateY(calc(-.125rem / 2));border-radius:100%;background-color:var(--character-color)}.node[data-type=dialog] .character-name::after{content:":"}.node[data-type=dialog] .dialog-lines{list-style:none;padding:0;margin:0}.node[data-type=dialog] .dialog-lines li{margin:.5rem 2rem;border-left:dashed .125rem var(--color-5);padding-left:1rem;cursor:pointer;font-weight:var(--font-weight-buttons);text-decoration:underline;font-size:1.125em}.node[data-type=dialog] .dialog-lines li:hover{color:var(--color-5)}.node[data-type=dialog] .dialog-played-line{font-size:1.1em;font-weight:var(--font-weight-emphasis);border-left:solid .125rem var(--color-6);padding:.75em;margin:.5rem 2rem}.node[data-type=dialog][data-played=true]{filter:opacity( var(--mark-node-read-opacity) )}.node[data-type=dialog][data-played=true] .dialog-lines{display:none}.node[data-type=entry][data-played=true]{display:none}.node[data-type=generator][data-played=true]{display:none}.node[data-type=generator] button{margin:.5rem}.node[data-type=hub][data-played=true]{display:none}.node[data-type=interaction] .interaction-actions{list-style:none;padding:0;margin:0}.node[data-type=interaction] .interaction-actions li{margin:.5rem 0;border-left:dashed .125rem var(--color-5);padding-left:1rem;cursor:pointer;font-weight:var(--font-weight-buttons);text-decoration:underline;font-size:1.125em}.node[data-type=interaction] .interaction-actions li:hover{color:var(--color-5)}.node[data-type=interaction] .interaction-played-action{font-size:1.1em;font-weight:var(--font-weight-emphasis);border-left:solid .125rem var(--color-6);padding:.75em;margin:.5rem 0}.node[data-type=interaction][data-played=true]{filter:opacity( var(--mark-node-read-opacity) )}.node[data-type=interaction][data-played=true] .interaction-actions{display:none}.node[data-type=jump][data-played=true]{display:none}.node[data-type=macro_use]{margin:2.5rem;width:calc(95vw - 5rem)}.node[data-type=macro_use][data-played=true]{filter:opacity( var(--mark-node-read-opacity) )}.node[data-type=marker] p{color:var(--marker-color)}.node[data-type=marker][data-played=true] p{filter:opacity( .5 )}.node[data-type=marker][data-played=true] button{display:none}.node[data-type=randomizer][data-played=true]{display:none}.node[data-type=user_input] input{margin-right:1rem}.node[data-type=user_input] label{margin-right:1rem;cursor:pointer;font-weight:var(--font-weight-buttons)}.node[data-type=user_input]:not([data-played=true]) label:hover{color:var(--color-5)}.node[data-type=user_input][data-played=true] input,.node[data-type=user_input][data-played=true] label{pointer-events:none}.node[data-type=user_input][data-played=true] button{display:none}.node[data-type=variable_update][data-played=true]{display:none}.node[data-type=variable_update] button{margin:.5rem} </style> </head> <body> <header> <h1>{{project_title}}</h1> </header> <main> <section id="console"> <article id="content"> </article> </section> </main> <footer> <button id="switch-dark-mode">Switch Dark Mode</button> <button id="play-back">Back</button> <p> <time>{{project_last_save}}</time> </p> <p> Made with <a href="{{arrow_website}}"target="_blank">Arrow v{{arrow_version}}</a> </p> </footer> </body> </html> 
+<!DOCTYPE html>
+<html>
+    <!--
+        Arrow
+        HTML-JS Runtime
+        Mor. H. Golkar
+    -->
+    <head>
+        <title>{{project_title}}</title>
+        <meta charset="utf-8">
+        <meta name="color-scheme" content="dark light">
+        <meta name="keywords" content="Arrow,adventure,{{project_title}}">
+        <meta name="description" content="{{project_title}}: An adventure made with Arrow">
+        <!-- @inline -->
+        <script>
+/*project.js*/
+
+// Arrow HTML-JS Runtime: Project (JSON) data
+
+const PROJECT = {/*project_json*/};
+
+</script>
+        <script>
+/*./modules/shared-i18n.js*/
+
+// Arrow HTML-JS Runtime: i18n (internationalization) module
+
+const _SUPPORTED_LOCALES = ["en"];
+
+const _TRANSLATION_TABLE = {
+    continue: {
+        en: "Continue",
+    },
+    false: {
+        en: "False",
+    },
+    true: {
+        en: "True",
+    },
+    defaultCheckboxClickableLabelText:{
+        en: "Positive!",
+    },
+    evaluate:{
+        en: "Evaluate",
+    },
+    generate:{
+        en: "Generate",
+    },
+    end_of_play: {
+        en: "The End !",
+    },
+};
+
+function i18n(string_id, lang){
+    // default to `_LOCALE` if the target `lang` is not annotated or supported 
+    if ( _SUPPORTED_LOCALES.includes(lang) == false ) lang = _LOCALE;
+    if ( _TRANSLATION_TABLE.hasOwnProperty(string_id) ) {
+        if ( _TRANSLATION_TABLE[string_id].hasOwnProperty(lang) ) {
+            return _TRANSLATION_TABLE[string_id][lang];
+        } else {
+            throw new Error(`Incomplete Translation Table: value for the selected locale doesn't exist! _TRANSLATION_TABLE[${string_id}][${lang}]`);
+        }
+    } else {
+        throw new Error(`I18n translation table doesn't include the string id: ${string_id} `);
+    }
+}
+
+</script>
+        <script>
+/*./modules/shared-bbcode-parser.js*/
+
+// Arrow HTML-JS Runtime: BBCode parser module
+
+// This parser is a modified fork of
+// [JS BBCode Parser v3.0.4 - License: MIT](https://github.com/DasRed/js-bbcode-parser)
+
+const DEFAULT_BBCODE_MAPPING = {
+
+    '\\[br\\]': '<br>',
+
+    '\\[b\\](.+?)\\[/b\\]': '<strong>$1</strong>',
+    '\\[i\\](.+?)\\[/i\\]': '<em>$1</em>',
+    '\\[u\\](.+?)\\[/u\\]': '<u>$1</u>',
+
+    '\\[h1\\](.+?)\\[/h1\\]': '<h1>$1</h1>',
+    '\\[h2\\](.+?)\\[/h2\\]': '<h2>$1</h2>',
+    '\\[h3\\](.+?)\\[/h3\\]': '<h3>$1</h3>',
+    '\\[h4\\](.+?)\\[/h4\\]': '<h4>$1</h4>',
+    '\\[h5\\](.+?)\\[/h5\\]': '<h5>$1</h5>',
+    '\\[h6\\](.+?)\\[/h6\\]': '<h6>$1</h6>',
+
+    '\\[p\\](.+?)\\[/p\\]': '<p>$1</p>',
+
+    '\\[color=(.+?)\\](.+?)\\[/color\\]':  '<span style="color:$1">$2</span>',
+    '\\[size=([0-9]+)\\](.+?)\\[/size\\]': '<span style="font-size:$1px">$2</span>',
+
+    '\\[img\\](.+?)\\[/img\\]': '<img src="$1">',
+    '\\[img=(.+?)\\]':          '<img src="$1">',
+
+    '\\[email\\](.+?)\\[/email\\]':       '<a href="mailto:$1">$1</a>',
+    '\\[email=(.+?)\\](.+?)\\[/email\\]': '<a href="mailto:$1">$2</a>',
+
+    '\\[url\\](.+?)\\[/url\\]':                      '<a href="$1">$1</a>',
+    '\\[url=(.+?)\\|onclick\\](.+?)\\[/url\\]':      '<a onclick="$1">$2</a>',
+    '\\[url=(.+?)\\starget=(.+?)\\](.+?)\\[/url\\]': '<a href="$1" target="$2">$3</a>',
+    '\\[url=(.+?)\\](.+?)\\[/url\\]':                '<a href="$1">$2</a>',
+
+    '\\[a=(.+?)\\](.+?)\\[/a\\]': '<a href="$1" name="$1">$2</a>',
+
+    '\\[list\\](.+?)\\[/list\\]': '<ul>$1</ul>',
+    '\\[\\*\\](.+?)\\[/\\*\\]':   '<li>$1</li>',
+
+    '\\[attr=(.+?)\\svalue=(.+?)\\](.+?)\\[/attr\\]': '<span $1="$2">$3</span>',
+    '\\[attr=(.+?)\\](.+?)\\[/attr\\]':               '<span $1>$2</span>',
+    
+    '\\[style=(.+?)\\](.+?)\\[/style\\]': '<span style="$1">$2</span>',
+
+};
+
+class BBCodeParser {
+
+    constructor(codes) {
+        this.codes = [];
+        this.setCodes(codes);
+    }
+
+    parse(text) {
+        return this.codes.reduce((text, code) => text.replace(code.regexp, code.replacement), text);
+    }
+
+    add(regex, replacement) {
+        this.codes.push({
+            regexp: new RegExp(regex, 'igm'),
+            replacement: replacement
+        });
+        return this;
+    }
+
+    setCodes(codes) {
+        this.codes = Object.keys(codes).map(function (regex) {
+            const replacement = codes[regex];
+            return {
+                regexp: new RegExp(regex, 'igm'),
+                replacement: replacement
+            };
+        }, this);
+        return this;
+    }
+
+}
+
+const DEFAULT_BBCODE_PARSER = new BBCodeParser(DEFAULT_BBCODE_MAPPING); 
+
+</script>
+        <script>
+/*./modules/shared.js*/
+
+// Arrow HTML-JS Runtime: Shared utility (static) functions
+
+function safeInt(maybe_number, replacement, allow_none_integer_replacement) {
+    if ( Number.isInteger(replacement) == false && allow_none_integer_replacement !== true ) replacement = (-1);
+    var result = parseInt(maybe_number);
+        result = ( Number.isInteger(result) ? result : replacement );
+    return result;
+}
+
+function safeBool(maybe_bool){
+    var result = null;
+    if ( typeof maybe_bool != 'boolean' ){
+        if ( typeof maybe_bool == 'string' ){
+            maybe_bool = maybe_bool.toLowerCase();
+            if ( maybe_bool === "true" ){
+                result = true;
+            } else if ( maybe_bool === "false" ){
+                result = false;
+            }
+        }
+    } else {
+        result = maybe_bool;
+    }
+    if ( result === null ){
+        result = ( !!(maybe_bool) );
+    }
+    return result;
+}
+
+function object_has_keys_all(object, expected_keys_array) {
+    for (const object_key of expected_keys_array) {
+        if ( object.hasOwnProperty(object_key) == false ){
+            return false;
+        }
+    }
+    return true;
+}
+
+function remap_connections_for_slots(map, owner_node_id){
+    if ( typeof map == 'object' && typeof owner_node_id == 'number' && owner_node_id >=0 ){
+        var remap_for_slots = [];
+        if ( map.hasOwnProperty("io") && Array.isArray(map.io) ){
+            for (const connection of map.io) {
+                // <connection>[ from_id, from_slot, to_id, to_slot ]
+               if ( connection.length >= 4 && connection[0] == owner_node_id ){
+                    remap_for_slots[ connection[1] ] = { "id": connection[2], "slot": connection[3] };
+               }
+            }
+        }
+        return remap_for_slots;
+    } else {
+        throw new Error("Unable to remap connections for slots: Called with wrong arguments.");
+    }
+}
+
+function create_node_base_html(node_id, node_resource, tag){
+    var html = document.createElement(tag || 'div');
+        html.className = 'node';
+        html.setAttribute('data-type',  node_resource.type);
+        html.setAttribute('data-name',  node_resource.name);
+        html.setAttribute('data-uid',   node_id.toString());
+    return html;
+}
+
+function create_element(tag, inner, attributes){
+    var element = document.createElement(tag);
+    if ( inner ){
+        if ( typeof inner == 'string' ){
+            element.innerHTML = inner;
+        } else if ( inner instanceof Element ){
+            element.appendChild(inner);
+        }
+    }
+    if (typeof attributes == 'object') {
+        for (const attr in attributes) {
+            if (attributes.hasOwnProperty(attr)) {
+                element.setAttribute(attr, attributes[attr]);
+            }
+        }
+    }
+    return element;
+}
+
+function format(text, pairs, case_insensetive){
+    // replacing every `{tag}` in `text` with value of `pairs[tag]`
+    if ( typeof text == 'string' && typeof pairs == 'object' ){
+        for (const key in pairs) {
+            if (pairs.hasOwnProperty(key)) {
+                const tag = '{' + key + '}';
+                const pattern = new RegExp(tag, (case_insensetive === true ? 'gi' : 'g')); // i.e. `g`lobally search for every key
+                const replacement = pairs[key];
+                text = text.replace( pattern , replacement );
+            }
+        }
+        return text;
+    } else {
+        throw new Error("Unable to format text: Called with wrong arguments.");
+    }
+}
+
+function parse_bbcode(text, return_text_anyway){
+    // returns `text/html`
+    if (typeof text == 'string'){
+        return DEFAULT_BBCODE_PARSER.parse(text);
+    } else {
+        // ... or if the input is not what expected
+        if (return_text_anyway === false){ // error
+            throw new Error("Unable to parse BBCode: Called with wrong arguments.");
+        } else { // or by default an empty string ''
+            return "";
+        }
+    }
+}
+
+function string_begins_with(string, rhs){
+    if ( typeof string == 'string' && typeof rhs == 'string'){
+        return ( string.indexOf(rhs) == 0 );
+    } else {
+        throw new Error("Called with Wrong Arguments: Expected two strings.");
+    }
+}
+
+function string_ends_with(string, rhs){
+    if ( typeof string == 'string' && typeof rhs == 'string'){
+        var last_index_of_rhs = string.lastIndexOf(rhs);
+        return ( last_index_of_rhs >= 0 && last_index_of_rhs === ( string.length - rhs.length ) );
+    } else {
+        throw new Error("Called with Wrong Arguments: Expected two strings.");
+    }
+}
+
+// Replicates `Godot[v3.2.x]::String::capitalize`:
+// For `capitalize camelCase mixed_with_underscores`, it will return `Capitalize Camel Case Mixed With Underscores`.
+function capitalize(string){
+    if ( typeof string == 'string' ){
+        // Replaces underscores with spaces
+        var replaced = string.replace(/_/gi, " ");
+        // adds spaces before in-word uppercase characters
+        var result = "";
+        for ( var cidx = 0; cidx < replaced.length; cidx++ ){
+            var chr = replaced.charAt(cidx);
+            var chr_upper = chr.toUpperCase();
+            result += ( chr != " " && chr == chr_upper ? ` ${chr}` : chr );
+        }
+        // converts all letters to lowercase
+        // then capitalizes the first letter and every letter following a space character.
+        result = result.split(" ");
+        for( var widx = 0; widx < result.length; widx++ ){
+            var low_word = result[widx].toLowerCase();
+            result[widx] = ( low_word.charAt(0).toUpperCase() + low_word.substring(1) );
+        }
+        result = result.join(" ");
+        return result;
+    } else {
+        throw new Error("Called with Wrong Arguments: Expected string.");
+    }
+}
+
+const inclusiveRandInt = function(_min, _max, base, negative, even, odd) {
+    if( arguments.length < 2 ){
+        _max = _min;
+		_min = 0;
+	}
+    _min = ( Number.isFinite( _min ) ? Math.ceil(_min) : 0 );
+    _max = ( Number.isFinite( _max ) ? Math.floor(_max) : 0 );
+    var max = Math.max(_min, _max);
+    var min = Math.min(_min, _max);
+	let result = null;
+    do {
+        result = Math.floor(Math.random() * (max - min + 1)) + min;
+        if ( even != odd ){
+            let is_even = ((result % 2) == 0);
+            if ( is_even && even == false ) result = null;
+            if ( is_even == false && odd == false ) result = null;
+        }
+    } while (result == null);
+    if ( negative === true ) result = (result * (-1));
+	if ( Number.isInteger(base) && base >= 2 && base <= 36  ){
+        return result.toString(base);
+    } else {
+        return result;
+    }
+};
+
+</script>
+        <script>
+/*./modules/condition.js*/
+
+// Arrow HTML-JS Runtime: Condition node module
+
+class Condition {
+
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+        
+        const FALSE_SLOT = 0;
+        const TRUE_SLOT  = 1;
+        
+        const UNSET_CONDITION_MESSAGE = "Condition unset or invalid!";
+
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_from = function(slot_idx){
+            slot_idx = parseInt(slot_idx);
+            if ( Number.isFinite(slot_idx) == false || slot_idx < 0 || slot_idx > 1 ){
+                // We default to `false` anytime something is wrong but we can continue
+                slot_idx = FALSE_SLOT; 
+            }
+            if ( this.slots_map.hasOwnProperty(slot_idx) ) {
+                var next = this.slots_map[slot_idx];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(slot_idx);
+        };
+        
+        this.skip_play = function() {            
+            // Skipped? The convention is to ...
+            this.html.setAttribute('data-skipped', true);
+            // ... react by playing the *False Slot First*
+            if ( this.slots_map.hasOwnProperty(FALSE_SLOT) ){ // if false slot is connected
+                this.play_forward_from(FALSE_SLOT);
+            }
+            else { // otherwise playing the *Only Remained [Possibly Connected] True Slot*
+                this.play_forward_from(TRUE_SLOT); // which ...
+            } // ... will naturally end the plot line if the true slot is not connected
+        };
+        
+        this.set_view_played = function(){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            this.set_view_unplayed();
+        };
+
+        this.evaluation_and_play = function(){
+            var evaluation = null;
+            if ( this.condition_statement ) {
+                evaluation = this.condition_statement.evaluate();
+                // ... It may result in `null` (e.g. if the statement is unset.)
+            }
+            if ( typeof evaluation != 'boolean' ) {
+                evaluation = false; // reset to default `false` if there is no valid evaluation ...
+                if (_VERBOSE) console.warn(`Evaluation of Condition (${this.node_resource.name}) Failed, therefore considered as 'False'.`);
+            }
+            this.play_forward_from(
+                ( evaluation == true) ? TRUE_SLOT : FALSE_SLOT
+            );
+        };
+        
+        this.proceed = function(){
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            } else {
+                this.evaluation_and_play();
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Statement
+                this.condition_statement = null;
+                if ( this.node_resource.hasOwnProperty("data") ){
+                    try {
+                        this.condition_statement = new ConditionStatement(this.node_resource.data, VARS);
+                    } catch(err){
+                        if (_VERBOSE) console.warn('Unable to Parse Condition. Error:' + err);
+                    }
+                }
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    // Parsed Condition Statement:
+                    if ( this.condition_statement ){
+                        var parsed_condition_statement = (this.condition_statement.parse() || UNSET_CONDITION_MESSAGE);
+                        this.parsed_statement = create_element("code", parsed_condition_statement, {"class": "statement"});
+                        this.html.appendChild(this.parsed_statement);
+                    }
+                    // False:
+                    this.false_button = create_element("button", i18n("false"), { "value": "false" });
+                    this.false_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, FALSE_SLOT) );
+                    this.html.appendChild(this.false_button);
+                    // True:
+                    this.true_button = create_element("button", i18n("true"), { "value": "true" });
+                    this.true_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, TRUE_SLOT) );
+                    this.html.appendChild(this.true_button);
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `Condition`");
+    }
+
+}
+
+class ConditionStatement {
+
+    /*  Note:
+        (convention)
+        length comparisons can get a str(int) as `with` value or a str(string)
+        in the first case the stringified integer will be parsed as the length of the right-hand-side,
+        and in the latter case, the `.length()` of the string will be used in the comparison.
+    */
+
+    constructor(data, variables){
+
+        const _self = this;
+
+        this.data = null;
+        this.variable = null;
+
+        const PARAMETER_MODES_ENUM = {
+            0: "value",
+            1: "variable"
+        };
+        const PARAMETER_MODES_ENUM_CODE = {
+            "value": 0,
+            "variable": 1
+        };
+        
+        const COMPARISON_OPERATORS = {
+            "num": {
+                "eq": { "text": "is Equal", "sign": "==" },
+                "nq": { "text": "is Not Equal", "sign": "!=" },
+                "gt": { "text": "is Greater", "sign": ">" },
+                "gte": { "text": "is Greater or Equal", "sign": ">=" },
+                "ls": { "text": "is Lesser", "sign": "<" },
+                "lse": { "text": "is Lesser or Equa)", "sign": "<=" },
+            },
+            "str": {
+                "rgx":{ "text": "Matches RegEx Pattern", "sign": "~=" },
+                "ct":{ "text": "Contains Substring", "sign": "%~" },
+                "cts":{ "text": "Contains Substring (Case-Sensitive)", "sign": "%=" },
+                "bgn":{ "text": "Begins with", "sign": "^=" },
+                "end":{ "text": "Ends with", "sign": "=^" },
+                "eql":{ "text": "Has Equal Length", "sign": "#=" },
+                "lng":{ "text": "Is Longer", "sign": "#>" },
+                "shr":{ "text": "Is Shorter", "sign": "#<" },
+            },
+            "bool": {
+                "eq": { "text": "Conforms", "sign": "=="},
+                "nq": { "text": "Doesn't Conform", "sign": "!="},
+            },
+        };
+
+        const KEYS_NEEDED_TO_PARSE = ["variable", "operator", "with"];
+        
+        const STATEMENT_TEMPLATE = "{ident} {operator_sign} {parameter}";
+        const COMPARED_TO_SELF_INITIAL_RIGHT_SIDE = "Self (Intial Value)";
+        
+        const STRING_VALUE_FORMATING_TEMPLATE = "`%s`";
+    
+        this.parse = function(){
+            var parsed = null;
+            if ( this.variable && this.data ) {
+                this.statement = { "ident": null, "operator_sign": null, "parameter": null };
+                this.statement.ident = this.variable.name;
+                if ( COMPARISON_OPERATORS[this.variable.type].hasOwnProperty(this.data.operator) ){
+                    this.statement.operator_sign = COMPARISON_OPERATORS[this.variable.type][this.data.operator].sign;
+                }
+                switch ( this.data.with[0] ){
+                    case PARAMETER_MODES_ENUM_CODE.value:
+                        if (this.variable.type == "str"){
+                            this.statement.parameter = STRING_VALUE_FORMATING_TEMPLATE.replace("%s", this.data.with[1]);
+                        } else {
+                            this.statement.parameter = this.data.with[1];
+                        }
+                        break;
+                    case PARAMETER_MODES_ENUM_CODE.variable:
+                        if ( this.data.with[1] == this.data.variable) { // the variable is compared to self (initial value)
+                            this.statement.parameter = COMPARED_TO_SELF_INITIAL_RIGHT_SIDE;
+                        } else { // or another variable
+                            if ( VARS.hasOwnProperty(this.data.with[1]) ) {
+                                var parameter_var = VARS[ this.data.with[1] ];
+                                this.statement.parameter = parameter_var.name;
+                            }
+                        }
+                        break;
+                }
+                for (const key in this.statement) {
+                    if ( this.statement.hasOwnProperty(key) ) {
+                        if ( this.statement[key] === null ){
+                            this.statement = null;
+                            break;
+                        }
+                    }
+                }
+                parsed = (this.statement ? format(STATEMENT_TEMPLATE, this.statement) : null );
+            }
+            return parsed;
+        };
+
+        //  `evaluate_str_comparison` can give a number as input, but it comes from a textual input
+        //  also it may compare two real strings (str variables) so we shall
+        //  detect what user have had in mind:
+        this.smart_length_parse = function(input){
+            if ( typeof input == 'number' ){
+                return safeInt(input, 0);
+            } else if ( typeof input == 'string' ) {
+                var parsed_input = parseInt(input);
+                if ( parsed_input.toString() == input ){
+                    // if input is only a number inputted as string, it will be returned as the length (parsed)
+                    return parsed_input;
+                } else { //  otherwise ...
+                    //... the length of the string is the result
+                    return input.length;
+                }
+            } else {
+                return 0;
+            }
+        };
+            
+        this.evalutors = {
+            "str": function(left, operation, right){ 
+                var result = null;
+                switch (operation) {
+                    case "rgx": // Matches RegEx Pattern
+                        try {
+                            var regex = new RegExp(right);
+                            result = ( left.search(regex) >= 0);
+                        } catch(err) {
+                            if (_VERBOSE){
+                                console.warn(`Evaluation Failed! Bad RegEx Match Operation: ` + err);
+                                console.warn(arguments);
+                            }
+                        }
+                        break;                    
+                    case "ct": // Contains Substring
+                        var l = left.toLowerCase();
+                        var r = right.toLowerCase();
+                        result = (l.indexOf(r) >= 0);
+                        break;
+                    case "cts": // Contains Substring (Case-Sensitive)
+                        result = (left.indexOf(right) >= 0);
+                        break;
+                    case "eql": // Has Equal Length
+                        result = (left.length == _self.smart_length_parse(right));
+                        break;
+                    case "lng": // Is Longer
+                        result = (left.length > _self.smart_length_parse(right));
+                        break;
+                    case "shr": // Is Shorter
+                        result = (left.length < _self.smart_length_parse(right));
+                        break;
+                    case "bgn": // Begins with
+                        result = string_begins_with(left, right);
+                        break;
+                    case "end": // Ends with
+                        result = string_ends_with(left, right);
+                        break;
+                }
+                return result;
+            },
+            "num": function(left, operation, right){
+                var result = null;
+                switch (operation) {
+                    case "eq": // is Equal
+                        result = ( left == right);
+                        break;
+                    case "nq": // is Not Equal
+                        result = ( left != right);
+                        break;
+                    case "gt": // is Greater
+                        result = ( left > right);
+                        break;
+                    case "gte": // is Greater or Equal
+                        result = ( left >= right);
+                        break;
+                    case "ls": // is Lesser
+                        result = ( left < right);
+                        break;
+                    case "lse": // is Lesser or Equal
+                        result = ( left <= right);
+                        break;
+                }
+                return result;
+            },
+            "bool": function(left, operation, right){
+                var result = null;
+                switch (operation){
+                    case "eq":
+                        result = (left == right);
+                        break;
+                    case "nq":
+                        result = (left != right);
+                        break;
+                }
+                return result;
+            }
+        };
+
+        this.evaluate = function(){
+            var result = null;
+            if ( this.variable ){
+                var type  = this.variable.type;
+                var value = this.variable.value;
+                var with_value;
+                switch ( this.data.with[0] ) {
+                    case PARAMETER_MODES_ENUM_CODE.value:
+                        with_value = this.data.with[1];
+                        break;
+                    case PARAMETER_MODES_ENUM_CODE.variable:
+                        var the_second_variable_id = this.data.with[1];
+                        if ( VARS.hasOwnProperty(the_second_variable_id) ){
+                            if (the_second_variable_id == this.data.variable){
+                                // compared to itself (self initial value)
+                                with_value = VARS[the_second_variable_id].init;
+                            } else {
+                                with_value = VARS[the_second_variable_id].value;
+                            }
+                        }
+                        break;
+                }
+                // now we have whatever we need, just make sure the comparee value is right
+                if ( with_value !== null ) {
+                    if ( type == "str" && ( typeof with_value != 'string') ){
+                        with_value = with_value.toString();
+                    } else if ( type == "num" && (typeof with_value != 'number') ){
+                        with_value= safeInt(with_value, 0);
+                    } else if ( type == "bool" && (typeof with_value != 'boolean') ){
+                        with_value= safeBool(with_value);
+                    }
+                    // lets evaluate for the type
+                    if ( COMPARISON_OPERATORS[type].hasOwnProperty(this.data.operator) ){
+                        result = this.evalutors[type]( value, this.data.operator, with_value );
+                    }
+                }
+            }
+            return result;
+        };
+
+        if (
+            object_has_keys_all(data, KEYS_NEEDED_TO_PARSE) && 
+            Array.isArray(data.with) && data.with.length == 2  // with<array>[parameter_mode, parameter_value]
+        ){
+            this.data = data;
+            var target_variable_id = safeInt(data.variable);
+            if ( VARS.hasOwnProperty(target_variable_id) ){
+                this.variable = VARS[data.variable];
+            }
+        } else {
+            throw new Error( "Invalid Condition! Some of required data is missing: " + KEYS_NEEDED_TO_PARSE.join(", ") );
+        }
+        
+    }
+    
+}
+
+</script>
+        <script>
+/*./modules/content.js*/
+
+// Arrow HTML-JS Runtime: Content node module
+
+class Content {
+
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+        
+        const _self = this;
+        
+        const AUTO_PLAY_SLOT = -1;
+        const CONTINUE_PLAY_SLOT = 0;
+        
+        const TITLE_TAG = "h2";
+        const CONTENT_TAG = "pre";
+        const BRIEF_TAG = "pre";
+
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_from = function(slot_idx){
+            slot_idx = safeInt(slot_idx);
+            if ( Number.isFinite(slot_idx) == false || slot_idx < 0 ){
+                slot_idx = AUTO_PLAY_SLOT;
+            }
+            if ( this.slots_map.hasOwnProperty(slot_idx) ) {
+                var next = this.slots_map[slot_idx];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(slot_idx);
+        };
+        
+        this.skip_play = function() {
+            // a skipped content node is not displayed ...
+            this.html.setAttribute('data-skipped', true);
+            // ...  so there is no continue button and we shall play forward anyway
+            this.play_forward_from((AUTO_PLAY_SLOT >= 0 ? AUTO_PLAY_SLOT : CONTINUE_PLAY_SLOT));
+        };
+        
+        this.set_view_played = function(){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            this.set_view_unplayed();
+        };
+        
+        this.proceed = function(){
+            // ... auto-plays anyway
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                this.play_forward_from(AUTO_PLAY_SLOT);
+            }
+            // View Clearance ?
+            // `content` nodes can force the page to get cleaned before they step in
+            if ( this.node_resource.data.hasOwnProperty('clear') &&  typeof this.node_resource.data.clear == 'boolean' ){
+                if ( this.node_resource.data.clear === true ){
+                    clear_up(this.node_id);
+                }
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    this.continue_button = create_element("button", i18n("continue"));
+                    this.continue_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, CONTINUE_PLAY_SLOT) );
+                    if ( node_resource.hasOwnProperty("data") ){
+                        if ( node_resource.data.hasOwnProperty("title") ){
+                            this.title = create_element(TITLE_TAG, format(node_resource.data.title, VARS_NAME_VALUE_PAIR));
+                            this.html.appendChild(this.title);
+                        }
+                        if ( node_resource.data.hasOwnProperty("brief") && typeof node_resource.data.brief == 'string'){
+                            // Textual (legacy) brief support:
+                            this.brief = create_element(BRIEF_TAG, parse_bbcode( format(node_resource.data.brief, VARS_NAME_VALUE_PAIR) ) );
+                            this.html.appendChild(this.brief);
+                        }
+                        if ( node_resource.data.hasOwnProperty("content") ){
+                            this.content = create_element(CONTENT_TAG, parse_bbcode( format(node_resource.data.content, VARS_NAME_VALUE_PAIR) ) );
+                            this.html.appendChild(this.content);
+                        }
+                    }
+                    this.html.appendChild(this.continue_button);
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `Content`");
+    }
+    
+}
+
+</script>
+        <script>
+/*./modules/dialog.js*/
+
+// Arrow HTML-JS Runtime: Dialog node module
+
+class Dialog {
+    
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+        
+        const ANONYMOUS_CHARACTER = {
+            "name": "Anonymous" ,
+            "color": "ffffff",
+        };
+
+        const AUTO_PLAY_SLOT = -1;
+        
+        const LINES_HOLDER_TAG = 'ol';
+        const LINE_ELEMENT_TAG = 'li';
+        const PLAYED_LINE_TAG = 'p';
+        
+        this.lines = null;
+        this.line_elements = null;
+        this.played_line = null;
+        this.character_profile = null;
+        this.character_profile_element = null;
+        this.character_name_element = null;
+
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_from = function(slot_idx){
+            slot_idx = safeInt(slot_idx);
+            if ( Number.isFinite(slot_idx) == false || slot_idx < 0 ){
+                slot_idx = AUTO_PLAY_SLOT;
+            }
+            if ( this.slots_map.hasOwnProperty(slot_idx) ) {
+                var next = this.slots_map[slot_idx];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(slot_idx);
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            // Plays the first *connected* slot (dialog) 
+            // or just the first[0] slot if there is no connected one which means end edge
+            var first_connected_slot = 0;
+            if (this.slots_map.length >= 1) {
+                var all_connected_slots = Object.keys(this.slots_map);
+                all_connected_slots.sort();
+                first_connected_slot = all_connected_slots[0];
+            }
+            this.play_forward_from(first_connected_slot);
+        };
+        
+        this.set_view_played = function(slot_idx){
+            // set the famous attribute,
+            this.html.setAttribute('data-played', true);
+            // then emphasize the played line
+            if ( Number.isInteger(slot_idx) && slot_idx >= 0 && slot_idx < this.lines.length ){
+                this.played_line = create_element(
+                    PLAYED_LINE_TAG,
+                    format(this.lines[slot_idx], VARS_NAME_VALUE_PAIR),
+                    { class: 'dialog-played-line' }
+                );
+                this.html.appendChild(this.played_line);
+            } else {
+                throw new Error("Unable to set `Dialog` played: The played slot doesn't exist: ", slot_idx);
+            }
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+            // ... and remove the element for the emphasized played line
+            if ( this.played_line ){
+                this.played_line.remove();
+                this.played_line = null;
+            }
+        };
+        
+        this.step_back = function(){
+            this.set_view_unplayed();
+        };
+        
+        this.proceed = function(){
+            // handle skip in case,
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            // otherwise auto-play if set (which is not normal)
+            } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                this.play_forward_from(AUTO_PLAY_SLOT);
+            // or handle the none-playable dialog in case ...
+            } else if ( this.node_resource.data.hasOwnProperty('playable') &&  this.node_resource.data.playable === false ){
+                this.html.setAttribute('none-playable', 'true');
+                this.random_play_none_playable_dialogs();
+            }
+            // ... and finally for normal playable dialogs,
+            // we'll wait for the user to take action and play a line.
+        };
+
+        this.create_line_elements = function(lines_array, lines_holder, listen){
+            if ( ("appendChild" in lines_holder) == false ) lines_holder = null;
+            var line_elements = [];
+            for ( var idx = 0; idx < lines_array.length; idx++ ) {
+                var line_element = create_element(
+                    LINE_ELEMENT_TAG,
+                    format(lines_array[idx], VARS_NAME_VALUE_PAIR)
+                );
+                if ( listen ){
+                    // Each line has its own slot in the same order, so...
+                    line_element.addEventListener(_CLICK, this.play_forward_from.bind(_self, idx));
+                }
+                if ( lines_holder ) lines_holder.appendChild(line_element);
+                line_elements.push(line_element);
+            }
+            return line_elements;
+        };
+
+        this.random_play_none_playable_dialogs = function(){
+            var random_played_line_idx = inclusiveRandInt( this.lines.length - 1);
+            this.play_forward_from(random_played_line_idx);
+        };
+
+        this.update_character_profile = function(character){
+            if ( typeof character == 'object' && character.hasOwnProperty("color") && character.hasOwnProperty("name") ){
+                if ( this.character_profile_element == null ){
+                    this.character_name_element = create_element( "div", character.name, { class: 'character-name' } );
+                    this.character_profile_element = create_element( "div",
+                        this.character_name_element,
+                        {
+                            class: 'character-profile',
+                            style: `--character-color: #${character.color};`,
+                            "data-name": character.name,
+                        }
+                    );
+                    this.html.appendChild(this.character_profile_element);
+                } else {
+                    this.character_profile_element.setAttribute('style', `--character-color: #${character.color};`);
+                    this.character_name_element.innerHTML = character.name;
+                }
+            } else {
+                if (_VERBOSE) console.error(character);
+                throw new Error("Unable to Update Character Profile: Lack of required object keys, `name` and/or `color`.");
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    var error = null;
+                    if ( node_resource.hasOwnProperty('data') ){
+                        // Character profile:
+                        if ( node_resource.data.hasOwnProperty('character') ){
+                            var character_id = safeInt(node_resource.data.character);
+                            this.update_character_profile( CHARS.hasOwnProperty(character_id) ? CHARS[character_id] : ANONYMOUS_CHARACTER );
+                        }
+                        // Lines:
+                        if ( node_resource.data.hasOwnProperty('lines') && Array.isArray(node_resource.data.lines) && node_resource.data.lines.length > 0 ){
+                            // + holder
+                            this.lines_holder = create_element(LINES_HOLDER_TAG, null, { class: "dialog-lines"});
+                                // + lines
+                                this.lines = node_resource.data.lines;
+                                this.line_elements = this.create_line_elements(node_resource.data.lines, this.lines_holder, true);
+                            this.html.appendChild(this.lines_holder);
+                        } else {
+                            error = "No `lines` exist!";
+                        }
+                    } else {
+                        error = "The resource doesn't own the required `data`.";
+                    }
+                    if (error)  throw new Error("Unable to create `Dialog` node! " + error );
+
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `Dialog`");
+    }
+    
+}
+
+</script>
+        <script>
+/*./modules/entry.js*/
+
+// Arrow HTML-JS Runtime: Entry node module
+
+class Entry {
+    
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+        
+        const AUTO_PLAY_SLOT = 0;
+        
+        this.get_element = function () {
+            return this.html;
+        };
+
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_from = function(slot_idx){
+            slot_idx = safeInt(slot_idx);
+            if ( Number.isFinite(slot_idx) == false || slot_idx < 0 ){
+                slot_idx = AUTO_PLAY_SLOT;
+            }
+            if ( this.slots_map.hasOwnProperty(slot_idx) ) {
+                var next = this.slots_map[slot_idx];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(slot_idx);
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            // continue the only and natural path even if the node is skipped
+            this.play_forward_from(AUTO_PLAY_SLOT);
+        };
+        
+        this.set_view_played = function(){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            this.set_view_unplayed();
+        };
+
+        this.proceed = function(){
+            // ... auto-plays anyway
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                this.play_forward_from(AUTO_PLAY_SLOT);
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    this.entry_button = create_element("button", node_resource.name);
+                    // + possible user interaction
+                    this.entry_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, AUTO_PLAY_SLOT) );
+                    this.html.appendChild(this.entry_button);
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `Entry`");
+    }
+
+}
+
+</script>
+        <script>
+/*./modules/generator.js*/
+
+// Arrow HTML-JS Runtime: Generator node module
+
+class Generator {
+
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+        
+        const ONLY_PLAY_SLOT = 0;
+        
+        const UNSET_EXPRESSION_MESSAGE = "Parameters unset or invalid!";
+
+        const STRING_SET_DELIMITER = "|";
+        const DEFAULT_CHARACTER_POOL = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz123456789";
+
+        const VALID_GENERATORS = {
+            "num": {
+                "randi": {
+                    "title": "Random Integer",
+                    "func": function(args){
+                        var result = null;
+                        if (
+                            Array.isArray(args) &&
+                            args.length == 5
+                        ){
+                            if (
+                                Number.isInteger(args[0]) && args[0] >= 0 &&
+                                Number.isInteger(args[1]) && args[1] >= 2
+                            ){
+                                result = inclusiveRandInt(
+                                    args[0],        // from
+                                    (args[1] - 1), // to (exclusive)
+                                    undefined,    // undefined base = 2
+                                    args[2],     // negative,
+                                    args[3],     // even
+                                    args[4]     // odd
+                                );
+                            } else{
+                                if (_VERBOSE) console.warn("Unexpected Behavior! Bad range for `randi` generator: ", args );
+                            }
+                        } else {
+                            if (_VERBOSE) console.warn("Unexpected Behavior! Wrong arguments for `randi` generator: ", args );
+                        }
+                        if (result === null) {
+                            result = inclusiveRandInt(0, 100); // so returns even on corrupt arguments
+                        }
+                        return result;
+                    },
+                },
+            },
+            "str": {
+                "ascii": {
+                    "title": "Random ASCII String",
+                    "func": function(args){
+                        var result = "";
+                        if (args.length == 2){
+                            var char_pool = (typeof args[0] == "string" && args[0].length > 0) ? args[0] : DEFAULT_CHARACTER_POOL;
+                            var char_pool_length = char_pool.length;
+                            var desired_length = (typeof args[1] == "number" && args[1] >= 1) ? Math.floor(args[1]) : char_pool_length;
+                            while (result.length < desired_length){
+                                let char_pos = inclusiveRandInt(0, char_pool_length - 1);
+                                console.log(char_pos);
+                                result = ( result + char_pool[ char_pos ] );
+                            }
+                        }
+                        return result;
+                    },
+                },
+                "strst": {
+                    "title": "From Set of Strings",
+                    "func": function(stringified_set){
+                        var result = "";
+                        if (typeof stringified_set == "string" && stringified_set.length > 0){
+                            var string_set = stringified_set
+                                            .split(STRING_SET_DELIMITER)
+                                            .filter( (part) => { return part.length > 0; } );
+                            if (string_set.length > 0){
+                                result = string_set[ inclusiveRandInt(0, (string_set.length - 1)) ];
+                            }
+                        }
+                        return result;
+                    },
+                },
+            },
+            "bool": {
+                "rnbln": {
+                    "title": "Random Boolean",
+                    "func": function(_null){
+                        return (
+                            Math.floor( Math.random() * 10 ) % 2 == 0
+                        );
+                    },
+                },
+            },
+        };
+
+        this.the_variable = null;
+        this.the_variable_id = null;
+        this.previous_variable_value = null;
+
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward = function(){
+            if ( this.slots_map.hasOwnProperty(ONLY_PLAY_SLOT) ) {
+                var next = this.slots_map[ONLY_PLAY_SLOT];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(ONLY_PLAY_SLOT);
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            // when skipped it *doesn't modify* the variable
+            this.play_forward();
+        };
+        
+        this.set_view_played = function(){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            // reverse any variable update
+            if ( this.the_variable && this.previous_variable_value !== null ){
+                update_global_variable_by_id(this.the_variable_id, this.previous_variable_value);
+            }
+            this.set_view_unplayed();
+        };
+
+        this.generate_and_play = function(){
+            var new_value = null;
+            if ( this.valid_generator ) {
+                new_value = this.valid_generator.func.call(
+                    null,
+                    this.node_resource.data.hasOwnProperty("arguments") ? this.node_resource.data.arguments : null
+                );
+                // ... It may result in `null` (e.g. if the expression is unset.)
+            }
+            if ( new_value !== null && this.the_variable ){
+                update_global_variable_by_id(this.the_variable_id, new_value);
+                this.play_forward();
+            } else {
+                console.error(`Unable to run the generator (${this.node_resource.name}.) Skipped forward.`);
+                this.skip_play();
+            }
+        };
+        
+        this.proceed = function(){
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            } else {
+                this.generate_and_play();
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Expression
+                this.valid_generator = null;
+                if ( this.node_resource.hasOwnProperty("data") && this.node_resource.data.hasOwnProperty("variable") ){
+                    this.the_variable_id = safeInt(this.node_resource.data.variable);
+                    if ( VARS.hasOwnProperty(this.the_variable_id) ) {
+                        this.the_variable = VARS[ this.the_variable_id ];
+                        this.previous_variable_value = this.the_variable.value;
+                        if (
+                            this.node_resource.data.hasOwnProperty("method") &&
+                            this.the_variable.hasOwnProperty("type") &&
+                            VALID_GENERATORS.hasOwnProperty(this.the_variable.type) &&
+                            VALID_GENERATORS[this.the_variable.type].hasOwnProperty(this.node_resource.data.method)
+                        ){
+                            this.valid_generator = VALID_GENERATORS[this.the_variable.type][this.node_resource.data.method];
+                        }
+                    } else {
+                        if (_VERBOSE) console.warn(
+                            "Invalid Generator Node! The node has nonexistent UID as the target variable:",
+                            this.the_variable_id,
+                            this.node_resource
+                        );
+                    }
+                } else {
+                    if (_VERBOSE) console.warn(
+                        "Invalid Generator Node! The node has no data set or target variable.",
+                        this.node_resource
+                    );
+                }
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    // Parsed VariableUpdate Expression:
+                    var parsed_valid_generator = (
+                        this.valid_generator ?
+                        `${this.valid_generator.title} => ${this.the_variable.name}`
+                        : UNSET_EXPRESSION_MESSAGE
+                    );
+                    this.parsed_expression = create_element("code", parsed_valid_generator, { "class": "expression" });
+                    this.html.appendChild(this.parsed_expression);
+                    // Manual Evaluation Button:
+                    this.eval_button = create_element("button", i18n("generate"));
+                    this.eval_button.addEventListener( _CLICK, this.generate_and_play.bind(_self) );
+                    this.html.appendChild(this.eval_button);
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `VariableUpdate`");
+    }
+
+}
+
+</script>
+        <script>
+/*./modules/hub.js*/
+
+// Arrow HTML-JS Runtime: Hub node module
+
+class Hub {
+
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+
+        // Hubs are to merge edges,
+        // so there is only one outgoing slot which is always auto-played
+        const AUTO_PLAY_SLOT = 0;
+        
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_from = function(slot_idx){
+            slot_idx = safeInt(slot_idx);
+            if ( Number.isFinite(slot_idx) == false || slot_idx < 0 ){
+                slot_idx = AUTO_PLAY_SLOT;
+            }
+            if ( this.slots_map.hasOwnProperty(slot_idx) ) {
+                var next = this.slots_map[slot_idx];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(slot_idx);
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            // continue the only and natural path even if the node is skipped
+            this.play_forward_from(AUTO_PLAY_SLOT);
+        };
+        
+        this.set_view_played = function(slot_idx){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            // ditto
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            this.set_view_unplayed();
+        };
+        
+        this.proceed = function(){
+            // ... auto-plays anyway
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                this.play_forward_from(AUTO_PLAY_SLOT);
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    this.hub_button = create_element("button", node_resource.name);
+                    this.hub_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, AUTO_PLAY_SLOT) );
+                    this.html.appendChild(this.hub_button);
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `Hub`");
+    }
+    
+}
+
+</script>
+        <script>
+/*./modules/interaction.js*/
+
+// Arrow HTML-JS Runtime: Interaction node module
+
+class Interaction {
+    
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+        
+        const AUTO_PLAY_SLOT = -1;
+        
+        const ACTIONS_HOLDER_TAG = 'ol';
+        const ACTION_ELEMENT_TAG = 'li';
+        const PLAYED_ACTION_TAG = 'p';
+        
+        this.actions = null;
+        this.action_elements = null;
+        this.played_action = null;
+
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_from = function(slot_idx){
+            slot_idx = safeInt(slot_idx);
+            if ( Number.isFinite(slot_idx) == false || slot_idx < 0 ){
+                slot_idx = AUTO_PLAY_SLOT;
+            }
+            if ( this.slots_map.hasOwnProperty(slot_idx) ) {
+                var next = this.slots_map[slot_idx];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(slot_idx);
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            // Plays the first *connected* slot (interaction)
+            // or just the first[0] slot if there is no connected one which means end edge
+            var first_connected_slot = 0;
+            if (this.slots_map.length >= 1) {
+                var all_connected_slots = Object.keys(this.slots_map);
+                all_connected_slots.sort();
+                first_connected_slot = all_connected_slots[0];
+            }
+            this.play_forward_from(first_connected_slot);
+        };
+        
+        this.set_view_played = function(slot_idx){
+            // set the famous attribute,
+            this.html.setAttribute('data-played', true);
+            // then emphasize the played action
+            if ( Number.isInteger(slot_idx) && slot_idx >= 0 && slot_idx < this.actions.length ){
+                this.played_action = create_element(
+                    PLAYED_ACTION_TAG,
+                    format(this.actions[slot_idx], VARS_NAME_VALUE_PAIR),
+                    { class: 'interaction-played-action' }
+                );
+                this.html.appendChild(this.played_action);
+            } else {
+                throw new Error("Unable to set `Interaction` played: The played slot doesn't exist: ", slot_idx);
+            }
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+            // ... and remove the element for the emphasized played action
+            if ( this.played_action ){
+                this.played_action.remove();
+                this.played_action = null;
+            }
+        };
+        
+        this.step_back = function(){
+            this.set_view_unplayed();
+        };
+        
+        this.proceed = function(){
+            // This is an *interaction* node instance 
+            // so we normally wait for user to take action (AUTO_PLAY_SLOT = -1).
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                this.play_forward_from(AUTO_PLAY_SLOT);
+            }
+        };
+
+        this.create_action_elements = function(actions_array, actions_holder, listen){
+            if ( ("appendChild" in actions_holder) == false ) actions_holder = null;
+            var action_elements = [];
+            for ( var idx = 0; idx < actions_array.length; idx++ ) {
+                var action_element = create_element(
+                    ACTION_ELEMENT_TAG,
+                    format(actions_array[idx], VARS_NAME_VALUE_PAIR)
+                );
+                if ( listen ){
+                    // Each action has its own slot in the same order, so...
+                    action_element.addEventListener(_CLICK, this.play_forward_from.bind(_self, idx));
+                }
+                if ( actions_holder ) actions_holder.appendChild(action_element);
+                action_elements.push(action_element);
+            }
+            return action_elements;
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    var error = null;
+                    if ( node_resource.hasOwnProperty('data') ){
+                        // Actions:
+                        if ( node_resource.data.hasOwnProperty('actions') && Array.isArray(node_resource.data.actions) && node_resource.data.actions.length > 0 ){
+                            // + holder
+                            this.actions_holder = create_element(ACTIONS_HOLDER_TAG, null, { class: 'interaction-actions' });
+                                // + actions
+                                this.actions = node_resource.data.actions;
+                                this.action_elements = this.create_action_elements(node_resource.data.actions, this.actions_holder, true);
+                            this.html.appendChild(this.actions_holder);
+                        } else {
+                            error = "No `actions` exist!";
+                        }
+                    } else {
+                        error = "The resource doesn't own the required `data`.";
+                    }
+                    if (error)  throw new Error("Unable to create `Interaction` node! " + error );
+
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `Interaction`");
+    }
+    
+}
+
+</script>
+        <script>
+/*./modules/jump.js*/
+
+// Arrow HTML-JS Runtime: Jump node module
+
+class Jump {
+    
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+        
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_the_jump = function(){
+            if (this.node_resource.hasOwnProperty("data") && this.node_resource.data.hasOwnProperty("target") && Number.isInteger(this.node_resource.data.target) && this.node_resource.data.target >= 0 ){
+                play_node(this.node_resource.data.target, 0);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played();
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            // `jump`s have no default action when they are skipped
+            handle_status(_CONSOLE_STATUS_CODE.NO_DEFAULT, _self);
+        };
+        
+        this.set_view_played = function(){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            this.set_view_unplayed();
+        };
+        
+        this.proceed = function(){
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            } else {
+                this.play_forward_the_jump();
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    // Reason:
+                    if ( node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("reason") && typeof node_resource.data.reason == 'string' && node_resource.data.reason.length > 0 ) {
+                        this.reason = create_element("p", node_resource.data.reason);
+                        this.html.appendChild(this.reason);
+                    }
+                    // Manual play button:
+                    this.jump_button = create_element("button", node_resource.name);
+                    this.jump_button.addEventListener( _CLICK, this.play_forward_the_jump.bind(_self) );
+                    this.html.appendChild(this.jump_button);
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `Jump`");
+    }
+
+}
+
+</script>
+        <script>
+/*./modules/macro_use.js*/
+
+// Arrow HTML-JS Runtime: Macro-Use node module
+
+class MacroUse {
+
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+        
+        this.holder = null;
+        this.nodes_list = null;
+        this.entry = null;
+
+        const PLAY_FORWARD_SELF_SLOT =  0;
+        
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_from = function(slot_idx){
+            slot_idx = safeInt(slot_idx);
+            if ( Number.isFinite(slot_idx) == false || slot_idx < 0 ){
+                slot_idx = PLAY_FORWARD_SELF_SLOT;
+            }
+            if ( this.slots_map.hasOwnProperty(slot_idx) ) {
+                var next = this.slots_map[slot_idx];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(slot_idx);
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            // `macro_use`s have no default action when they are skipped,
+            // so just give the parent script a heads up
+            handle_status(_CONSOLE_STATUS_CODE.NO_DEFAULT, _self);
+        };
+
+        this.play_self_forward = function() {
+            this.play_forward_from(PLAY_FORWARD_SELF_SLOT);
+        };
+
+        this.owns_node = function(node_id) {
+            if ( this.nodes_list ){
+                node_id = safeInt(node_id);
+                return ( 
+                    this.nodes_list.includes(node_id)
+                );
+            } else{
+                if (_VERBOSE) console.warn("Unexpected Behavior! The `macro_use` instance has no valid `nodes_list`.");
+            }
+            return false;
+        };
+
+        this.append_instance = function(node_instance) {
+            if (this.holder && 'appendChild' in this.holder){
+                if ( 'get_element' in node_instance ){
+                    this.holder.appendChild( node_instance.get_element() ); 
+                } else {
+                    throw new Error("Invalid Instance! Unable to get_element from the inputted instance.");
+                }
+            } else {
+                throw new Error("Unexpected Behavior! The holder element of the macro is not ready.");
+            }
+        };
+
+        
+        this.set_view_played = function(slot_idx){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            this.set_view_unplayed();
+        };
+        
+        this.proceed = function(){
+            // handle skip in case,
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            // otherwise run the macro (sub-nodes), by ...
+            } else if ( Number.isInteger(this.entry) && this.entry >= 0 ){
+                // ... playing its entry node
+                play_node(this.entry);
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and holder element to capsulate sub-nodes
+                    this.holder = create_element("div");
+                    this.html.appendChild(this.holder);
+                // fetch the target macro and its map
+                if ( node_resource.hasOwnProperty('data') && node_resource.data.hasOwnProperty('macro') ){
+                    this.macro_id = safeInt( node_resource.data.macro );
+                    if ( this.macro_id >= 0 ){
+                        this.macro = get_resource_by_id(this.macro_id, 'scenes');
+                        if ( this.macro ){
+                            if ( this.macro.hasOwnProperty('map') && typeof this.macro.map == 'object' ){
+                                this.nodes_list = Object.keys( this.macro.map ).map( safeInt );
+                            }
+                            if ( this.macro.hasOwnProperty("entry") ){
+                                this.entry = safeInt(this.macro.entry);
+                            }
+                        } else {
+                            throw new Error(`Corrupt Project Data! Node ${node_resource.name} (macro_use) links to no valid macro (scene) resource.`);
+                        }
+                    }
+                }
+                if ( Array.isArray(this.nodes_list) == false || this.nodes_list.length == 0 || this.nodes_list.includes(this.entry) == false ){
+                    console.warn("Unset or invalid macro_use: ", node_id, node_resource, " -> Set to be skipped.");
+                    this.node_map.skip = true;
+                }
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `MacroUse`");
+    }
+    
+}
+
+</script>
+        <script>
+/*./modules/marker.js*/
+
+// Arrow HTML-JS Runtime: Marker node module
+
+class Marker {
+
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+        // super();
+
+        const AUTO_PLAY_SLOT = 0;
+        
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_from = function(slot_idx){
+            slot_idx = safeInt(slot_idx);
+            if ( Number.isFinite(slot_idx) == false || slot_idx < 0 ){
+                slot_idx = AUTO_PLAY_SLOT;
+            }
+            if ( this.slots_map.hasOwnProperty(slot_idx) ) {
+                var next = this.slots_map[slot_idx];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(slot_idx);
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            // continue the only and natural path even if the node is skipped
+            this.play_forward_from(AUTO_PLAY_SLOT);
+        };
+        
+        this.set_view_played = function(slot_idx){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            this.set_view_unplayed();
+        };
+        
+        this.proceed = function(){
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play(); // ... also auto-plays forward
+            } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                this.play_forward_from(AUTO_PLAY_SLOT);
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    // Label
+                    if ( node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("label") && typeof node_resource.data.label == 'string' && node_resource.data.label.length > 0 ) {
+                        var attributes = ( node_resource.data.hasOwnProperty("color") ? { style: `--marker-color: #${node_resource.data.color}; ` } :  undefined );
+                        this.label = create_element("p", node_resource.data.label, attributes);
+                        this.html.appendChild(this.label);
+                    }
+                    // Manual play button
+                    this.marker_button = create_element("button", node_resource.name);
+                    this.marker_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, AUTO_PLAY_SLOT) );
+                    this.html.appendChild(this.marker_button);
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `Marker`");
+    }
+
+}
+
+</script>
+        <script>
+/*./modules/randomizer.js*/
+
+// Arrow HTML-JS Runtime: Randomizer node module
+
+class Randomizer {
+
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+
+        const AUTO_PLAY = true;
+        const ONLY_USE_CONNECTED_SLOTS = false;
+        
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_from = function(slot_idx){
+            slot_idx = safeInt(slot_idx);
+            if ( this.slots_map.hasOwnProperty(slot_idx) ) {
+                var next = this.slots_map[slot_idx];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(slot_idx);
+        };
+
+        this.play_forward_randomly = function(){
+            var slots_count = -1;
+            if ( ONLY_USE_CONNECTED_SLOTS !== true && this.node_resource.hasOwnProperty("data") && this.node_resource.data.hasOwnProperty("slots") ){
+                slots_count = safeInt( this.node_resource.data.slots );
+            }
+            if ( slots_count < 0 ){
+                slots_count = Object.keys(this.slots_map).length;
+            }
+            var random_out_slot_idx = inclusiveRandInt(0, (slots_count - 1) );
+            this.play_forward_from(random_out_slot_idx);
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            // Randomizes anyway
+            this.play_forward_randomly();
+        };
+        
+        this.set_view_played = function(slot_idx){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            this.set_view_unplayed();
+        };
+        
+        this.proceed = function(){
+            // Randomly play one of the outgoing slots
+            // whether we are handling skip,
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            // or auto-playing
+            } else if ( AUTO_PLAY ) {
+                this.play_forward_randomly();
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    this.randomizer_button = create_element("button", node_resource.name);
+                    this.randomizer_button.addEventListener( _CLICK, this.play_forward_randomly.bind(_self) );
+                    this.html.appendChild( this.randomizer_button );
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `Randomizer`");
+    }
+    
+}
+
+</script>
+        <script>
+/*./modules/user_input.js*/
+
+// Arrow
+// HTML-JS Runtime
+// Mor. H. Golkar
+
+class UserInput {
+
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+        
+        this.the_variable_id = null;
+        this.the_variable = null;
+        this.previous_variable_value = null;
+
+        const ONLY_PLAY_SLOT = 0;
+        const REQUIRE_VALID_INPUT_TO_CONTINUE = true;
+        const INVALIDATE_EMPTY_STRING = true;
+
+        const INPUT_VALIDATION_EVENT  = 'change';
+        const INPUT_PER_VARIABLE_TYPE = {
+            'str': 'text',
+            'num': 'number',
+            'bool': 'checkbox'
+        };
+        const DEFAULT_CHECKBOX_CLICKABLE_LABEL_TEXT = i18n('defaultCheckboxClickableLabelText');
+
+        this.read_and_parse_value = function(){
+            if (this.the_variable && this.input_element){
+                switch ( this.the_variable.type ){
+                    case 'str':
+                        return this.input_element.value;
+                    case 'num':
+                        return safeInt(this.input_element.value, Number.NEGATIVE_INFINITY, true);
+                    case 'bool':
+                        return this.input_element.checked;
+                }
+            } else {
+                throw new Error("Invalid Call! There is no variable or input element!");
+            }
+        };
+
+        this.str_validator = function(_event, default_reset_value){
+            var is_valid = true;
+            var parsed_value = this.read_and_parse_value();
+            if ( INVALIDATE_EMPTY_STRING === true && parsed_value.length == 0 ){
+                is_valid = false;
+            }
+            return is_valid;
+        };
+
+        this.num_validator = function(_event, default_reset_value){
+            var is_valid = true;
+            var parsed_value = this.read_and_parse_value();
+            if ( parsed_value == Number.NEGATIVE_INFINITY ){
+                parsed_value = '';
+                is_valid = false;
+            }
+            if (default_reset_value != false){
+                this.input_element.value = parsed_value;
+            }
+            return is_valid;
+        };
+
+        this.bool_validator = function(_event){
+            // Note: This one doesn't have `default_reset_value` because
+            // ... it can't have intermediate invalid value. It's either checked (true) or not.
+            return ( typeof this.read_and_parse_value() == 'boolean' );
+        };
+        
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward_from = function(){
+            if (
+                REQUIRE_VALID_INPUT_TO_CONTINUE === false ||
+                this.is_input_valid() == true
+            ){
+                if ( this.slots_map.hasOwnProperty( ONLY_PLAY_SLOT ) ) {
+                    // update variable
+                    if ( this.the_variable ){
+                        update_global_variable_by_id( this.the_variable_id, this.read_and_parse_value() );
+                    }
+                    // then go for the next node
+                    var next = this.slots_map[ONLY_PLAY_SLOT];
+                    play_node(next.id, next.slot);
+                } else {
+                    handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+                }
+                this.set_view_played(ONLY_PLAY_SLOT);
+            }
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            this.play_forward_from(ONLY_PLAY_SLOT);
+        };
+        
+        this.set_view_played = function(slot_idx){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            // reverse any variable update
+            if ( this.the_variable && this.previous_variable_value !== null ){
+                update_global_variable_by_id( this.the_variable_id, this.previous_variable_value );
+            }
+            this.set_view_unplayed();
+        };
+        
+        this.proceed = function(){
+            // `user_input` node type is pure interactive (there is no auto-play or default behavior,)
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                // if skipped, it means we just go to the next node as if this node didn't exist
+                this.skip_play();
+            } // otherwise we shall wait for user interaction
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                // Sort stuff
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    var error = null;
+                    if ( node_resource.hasOwnProperty('data') ){
+                        // Prompt Message:
+                        if ( node_resource.data.hasOwnProperty('prompt') ){
+                            this.prompt_element = create_element(
+                                "p",
+                                format(node_resource.data.prompt, VARS_NAME_VALUE_PAIR),
+                            );
+                            this.html.appendChild(this.prompt_element);
+                        }
+                        // Input
+                        if ( node_resource.data.hasOwnProperty('variable') ){
+                            this.the_variable_id = safeInt( node_resource.data.variable );
+                            if ( VARS.hasOwnProperty( this.the_variable_id ) ){
+                                this.the_variable = VARS[ this.the_variable_id ];
+                                this.previous_variable_value = this.the_variable.value;
+                                var input_html_type = INPUT_PER_VARIABLE_TYPE[ this.the_variable.type ];
+                                var input_element_id = `${node_resource.name}_input`;
+                                this.input_element = create_element("input", null, {
+                                    id: input_element_id,
+                                    type: input_html_type
+                                });
+                                this.is_input_valid = _self[`${this.the_variable.type}_validator`].bind(_self);
+                                this.input_element.addEventListener( INPUT_VALIDATION_EVENT, this.is_input_valid );
+                                this.html.appendChild(this.input_element);
+                                if ( input_html_type == 'checkbox'){
+                                    var check_box_clickable_label = create_element('label', DEFAULT_CHECKBOX_CLICKABLE_LABEL_TEXT, {
+                                        for: input_element_id
+                                    });
+                                    this.html.appendChild(check_box_clickable_label);
+                                }
+                            } else {
+                                error = "Invalid target variable id.";
+                            }
+                        }
+                        // Continue Button
+                        this.continue_button = create_element("button", i18n('continue'));
+                        this.continue_button.addEventListener( _CLICK, this.play_forward_from.bind(_self) );
+                        this.html.appendChild(this.continue_button);
+                    }
+                    if ( error ) {
+                        console.error(`Corrupt user_input node (${node_resource.name}) resource data: `, error, '\nNode set to be skipped.');
+                        this.node_map.skip = true;
+                    }
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `UserInput`");
+    }
+
+}
+
+</script>
+        <script>
+/*./modules/variable_update.js*/
+
+// Arrow
+// HTML-JS Runtime
+// Mor. H. Golkar
+
+class VariableUpdate {
+
+    constructor(node_id, node_resource, node_map, _playing_in_slot) {
+
+        const _self = this;
+        
+        const ONLY_PLAY_SLOT = 0;
+        
+        const UNSET_EXPRESSION_MESSAGE = "Parameters unset or invalid!";
+
+        this.the_variable = null;
+        this.the_variable_id = null;
+        this.previous_variable_value = null;
+
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+        
+        this.play_forward = function(){
+            if ( this.slots_map.hasOwnProperty(ONLY_PLAY_SLOT) ) {
+                var next = this.slots_map[ONLY_PLAY_SLOT];
+                play_node(next.id, next.slot);
+            } else {
+                handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
+            }
+            this.set_view_played(ONLY_PLAY_SLOT);
+        };
+        
+        this.skip_play = function() {
+            this.html.setAttribute('data-skipped', true);
+            // when skipped it *doesn't modify* the variable
+            this.play_forward();
+        };
+        
+        this.set_view_played = function(){
+            this.html.setAttribute('data-played', true);
+        };
+        
+        this.set_view_unplayed = function(){
+            this.html.setAttribute('data-played', false);
+        };
+        
+        this.step_back = function(){
+            // reverse any variable update
+            if ( this.the_variable && this.previous_variable_value !== null ){
+                update_global_variable_by_id(this.the_variable_id, this.previous_variable_value);
+            }
+            this.set_view_unplayed();
+        };
+
+        this.evaluation_and_play = function(){
+            var new_value = null;
+            if ( this.update_expression ) {
+                new_value = this.update_expression.evaluate();
+                // ... It may result in `null` (e.g. if the expression is unset.)
+            }
+            if ( new_value !== null && this.the_variable ){
+                update_global_variable_by_id(this.the_variable_id, new_value);
+                this.play_forward();
+            } else {
+                console.error(`Unable to evaluate the variable_update (${this.node_resource.name}) expression. Skipped forward.`);
+                this.skip_play();
+            }
+        };
+        
+        this.proceed = function(){
+            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                this.skip_play();
+            } else {
+                this.evaluation_and_play();
+            }
+        };
+        
+        if ( node_id >= 0 ){
+            if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
+                this.node_id = node_id;
+                this.node_resource = node_resource;
+                this.node_map = node_map;
+                this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
+                // Expression
+                this.update_expression = null;
+                if ( this.node_resource.hasOwnProperty("data") && this.node_resource.data.hasOwnProperty("variable") ){
+                    this.the_variable_id = safeInt(this.node_resource.data.variable);
+                    try {
+                        this.update_expression = new VariableUpdateExpression(this.node_resource.data, VARS);
+                        this.the_variable = this.update_expression.variable;
+                        this.previous_variable_value = this.the_variable.value;
+                    } catch(err){
+                        if (_VERBOSE) console.warn('Invalid Variable_Update Expression. Error:' + err);
+                    }
+                }
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    // ... and the children
+                    // Parsed VariableUpdate Expression:
+                    if ( this.update_expression ){
+                        var parsed_update_expression = (this.update_expression.parse() || UNSET_EXPRESSION_MESSAGE);
+                        this.parsed_expression = create_element("code", parsed_update_expression, {"class": "expression"});
+                        this.html.appendChild(this.parsed_expression);
+                    }
+                    // Manual Evaluation Button:
+                    this.eval_button = create_element("button", i18n("evaluate"));
+                    this.eval_button.addEventListener( _CLICK, this.evaluation_and_play.bind(_self) );
+                    this.html.appendChild(this.eval_button);
+            }
+            return this;
+        }
+        throw new Error("Unable to construct `VariableUpdate`");
+    }
+}
+
+
+class VariableUpdateExpression {
+    
+    constructor(data, variables){
+
+        const _self = this;
+
+        this.data = null;
+        this.variable = null;
+
+        const PARAMETER_MODES_ENUM = {
+            0: "value",
+            1: "variable"
+        };
+        const PARAMETER_MODES_ENUM_CODE = {
+            "value": 0,
+            "variable": 1
+        };
+
+        const UPDATE_OPERATORS = {
+            "num": {
+                "set": { "text": "Set Equel", "sign": "=" },
+                "add": { "text": "Addition", "sign": "+=" },
+                "sub": { "text": "Subtraction", "sign": "-=" },
+                "div": { "text": "Division", "sign": "/=" },
+                "rem": { "text": "Remainder", "sign": "%=" },
+                "mul": { "text": "Multipication", "sign": "*=" },
+                "exp": { "text": "Exponentiation", "sign": "^=" },
+                "abs": { "text": "Absolute", "sign": "=||" },
+            },
+            "str": {
+                "set": { "text": "Set", "sign": "=" },
+                "stc": { "text": "Set Capitalized", "sign": "C=" },
+                "stl": { "text": "Set Lowercased", "sign": "l=" },
+                "stu": { "text": "Set Uppercased", "sign": "U=" },
+                "ins": { "text": "End Insertion", "sign": "=+" },
+                "inb": { "text": "Begining Insertion", "sign": "+=" },
+            },
+            "bool": {
+                "set": { "text": "Set", "sign": "=" },
+                "neg": { "text": "Set Negative", "sign": "=!" },
+            },
+        };
+
+        const KEYS_NEEDED_TO_PARSE = ["variable", "operator", "with"];
+        
+        const EXPRESSION_TEMPLATE = "{ident} {operator_sign} {parameter}";
+        const UPDATED_WITH_SELF_INITIAL_RIGHT_SIDE = "Self (Intial Value)";
+        
+        const STRING_VALUE_FORMATING_TEMPLATE = "`%s`";
+    
+        this.parse = function(){
+            var parsed = null;
+            if ( this.variable && this.data ) {
+                this.expression = { "ident": null, "operator_sign": null, "parameter": null };
+                this.expression.ident = this.variable.name;
+                if ( UPDATE_OPERATORS[this.variable.type].hasOwnProperty(this.data.operator) ){
+                    this.expression.operator_sign = UPDATE_OPERATORS[this.variable.type][this.data.operator].sign;
+                }
+                switch ( this.data.with[0] ){
+                    case PARAMETER_MODES_ENUM_CODE.value:
+                        if (this.variable.type == "str"){
+                            this.expression.parameter = STRING_VALUE_FORMATING_TEMPLATE.replace("%s", this.data.with[1]);
+                        } else {
+                            this.expression.parameter = this.data.with[1];
+                        }
+                        break;
+                    case PARAMETER_MODES_ENUM_CODE.variable:
+                        if ( this.data.with[1] == this.data.variable) { // the variable is compared to self (initial value)
+                            this.expression.parameter = UPDATED_WITH_SELF_INITIAL_RIGHT_SIDE;
+                        } else { // or another variable
+                            if ( VARS.hasOwnProperty(this.data.with[1]) ) {
+                                var parameter_var = VARS[ this.data.with[1] ];
+                                this.expression.parameter = parameter_var.name;
+                            }
+                        }
+                        break;
+                }
+                for (const key in this.expression) {
+                    if ( this.expression.hasOwnProperty(key) ) {
+                        if ( this.expression[key] === null ){
+                            this.expression = null;
+                            break;
+                        }
+                    }
+                }
+                parsed = (this.expression ? format(EXPRESSION_TEMPLATE, this.expression) : null );
+            }
+            return parsed;
+        };
+            
+        this.evalutors = {
+            "str": function(left, operation, right){ 
+                var result = null;
+                switch (operation) {
+                    case "set": // Set (=)
+                        result = right;
+                        break;
+                    case "stc": // Set Capitalized (C=)
+                        result = capitalize(right);
+                        break;
+                    case "stl": // Set Lowercased (l=)
+                        result = right.toLowerCase();
+                        break;
+                    case "stu": // Set Uppercased (u=)
+                        result = right.toUpperCase();
+                        break;
+                    case "ins": // End Insertion (=+)
+                        result = ( left + right );
+                        break;
+                    case "inb": // Begining Insertion (+=)
+                        result = ( right + left );
+                        break;
+                }
+                return result;
+            },
+            "num": function(left, operation, right){
+                var result = null;
+                switch (operation) {
+                    case "set": // Set Equel (=)
+                        result = right;
+                        break;
+                    case "add": // Addition (+=)
+                        result = (left + right);
+                        break;
+                    case "sub": // Subtraction (-=)
+                        result = (left - right);
+                        break;
+                    case "div": // Division (/=)
+                        result = (left / right);
+                        break;
+                    case "rem": // Remainder (%=)
+                        result = (left % right);
+                        break;
+                    case "mul": // Multipication (*=)
+                        result = (left * right);
+                        break;
+                    case "exp": // Exponentiation (^=)
+                        result = Math.pow(left, right);
+                        break;
+                    case "abs": // Absolute (=||)
+                        result = Math.abs(right);
+                        break;
+                }
+                return ( Number.isFinite(result) ? Math.round(result) : null );
+            },
+            "bool": function(left, operation, right){
+                var result = null;
+                switch (operation){
+                    case "set": // Set (=)
+                        result = right;
+                        break;
+                    case "neg": // Set Negative (=!)
+                        result = ( ! right );
+                        break;
+                }
+                return result;
+            }
+        };
+
+        this.evaluate = function(){
+            var result = null;
+            if ( this.variable ){
+                var type  = this.variable.type;
+                var value = this.variable.value;
+                var with_value;
+                switch ( this.data.with[0] ) {
+                    case PARAMETER_MODES_ENUM_CODE.value:
+                        with_value = this.data.with[1];
+                        break;
+                    case PARAMETER_MODES_ENUM_CODE.variable:
+                        var the_second_variable_id = this.data.with[1];
+                        if ( VARS.hasOwnProperty(the_second_variable_id) ){
+                            if (the_second_variable_id == this.data.variable){
+                                // with its own initial value
+                                with_value = VARS[the_second_variable_id].init;
+                            } else {
+                                with_value = VARS[the_second_variable_id].value;
+                            }
+                        }
+                        break;
+                }
+                if ( with_value !== null ) {
+                    if ( type == "str" && ( typeof with_value != 'string') ){
+                        with_value = with_value.toString();
+                    } else if ( type == "num" && (typeof with_value != 'number') ){
+                        with_value= safeInt(with_value, 0);
+                    } else if ( type == "bool" && (typeof with_value != 'boolean') ){
+                        with_value= safeBool(with_value);
+                    }
+                    if ( UPDATE_OPERATORS[type].hasOwnProperty(this.data.operator) ){
+                        result = this.evalutors[type]( value, this.data.operator, with_value );
+                    }
+                }
+            }
+            return result;
+        };
+
+        if (
+            object_has_keys_all(data, KEYS_NEEDED_TO_PARSE) && 
+            Array.isArray(data.with) && data.with.length == 2  // with<array>[parameter_mode, parameter_value]
+        ){
+            this.data = data;
+            var target_variable_id = safeInt(data.variable);
+            if ( VARS.hasOwnProperty(target_variable_id) ){
+                this.variable = VARS[data.variable];
+            }
+        } else {
+            throw new Error( "Invalid VariableUpdate! Some of the required data is missing: " + KEYS_NEEDED_TO_PARSE.join(", ") );
+        }
+        
+    }
+    
+}
+</script>
+        <script>
+/*arrow.js*/
+
+// Arrow HTML-JS Runtime: Main interpreter script
+
+// Preferences
+const _VERBOSE = true;    // console logging verbosity
+const _CLICK   = 'click'; // default event to be listened for user interactions
+const _LOCALE  = 'en';    // runtime's UI locale (used by `i18n`)
+
+const DO_NOT_PRINT_END_MESSAGE = true;
+
+// Referencing to frequently used DOM Elements
+var DOME = {};
+
+// Global Variables
+var VARS = {};
+var VARS_NAME_VALUE_PAIR = {};
+var VARS_NAME_TO_ID_TABLE = {};
+
+// Characters List
+var CHARS = {};
+
+var OPEN_NODES_BY_ORDER = [];
+var OPEN_NODES_REFORMATTED_NAMES = []; // names-lowercased-with-whitespaces-replaced-by-dashes
+
+if (typeof PROJECT != "object" || PROJECT.hasOwnProperty("entry") == false) {
+    throw new Error("Invalid document data (i.e. `PROJECT` constant.)")
+}
+
+// Adjusting document to the project settings
+const ROOT = document.getElementsByTagName('html')[0];
+
+// Greeting
+console.log(
+    "Hello and welcome to \n\t" +
+    PROJECT.title + "\n" +
+    "Made with Arrow {{arrow_version}} \n" +
+    "{{arrow_website}}"
+);
+
+const NODE_CLASSES_BY_TYPE = {
+    // jshint ignore:start
+    "condition": Condition,
+    "content": Content,
+    "dialog": Dialog,
+    "entry": Entry,
+    "generator": Generator,
+    "hub": Hub,
+    "interaction": Interaction,
+    "jump": Jump,
+    "macro_use": MacroUse,
+    "marker": Marker,
+    "randomizer": Randomizer,
+    "user_input": UserInput,
+    "variable_update": VariableUpdate,
+    // jshint ignore:end
+};
+
+const _CHARS_REQUIRED_KEYS = ["name", "color"];
+function sort_characters(){
+    var characters = PROJECT.resources.characters;
+    for (const char_id in characters) {
+        if ( characters.hasOwnProperty(char_id) ) {
+            if ( object_has_keys_all( characters[char_id], _CHARS_REQUIRED_KEYS ) ){
+                CHARS[char_id] = characters[char_id];
+            } else {
+                throw new Error(`Unable to sort characters! The character '${char_id}' resource doesn't include required data! ${ _CHARS_REQUIRED_KEYS.join(", ") }`);
+            }
+        }
+    }
+}
+
+const _GLOBAL_VARS_REQUIRED_KEYS = ["name", "type", "init"];
+const _SUPPORTED_VARIABLE_TYPES  = ["num", "str", "bool"]; 
+function sort_global_variables(){
+    var variables = PROJECT.resources.variables;
+    for (const var_id in variables) {
+        if ( variables.hasOwnProperty(var_id) ) {
+            if (
+                object_has_keys_all( variables[var_id], _GLOBAL_VARS_REQUIRED_KEYS ) &&
+                _SUPPORTED_VARIABLE_TYPES.includes( variables[var_id].type )
+            ){
+                VARS[var_id] = variables[var_id];
+                VARS[var_id].value = variables[var_id].init; // Make it ready to change
+                VARS_NAME_TO_ID_TABLE[ variables[var_id].name ] = var_id;
+                VARS_NAME_VALUE_PAIR[ variables[var_id].name ] = VARS[var_id].value;
+                refresh_console_attribute_of(variables[var_id].name, VARS[var_id].value);
+            } else {
+                throw new Error(`Unable to sort global variables! The variable '${var_id}' resource doesn't include required data! ${ _GLOBAL_VARS_REQUIRED_KEYS.join(", ") }`);
+            }
+        }
+    }
+}
+
+function update_global_variable_by_id(var_id, new_value){
+    if ( VARS.hasOwnProperty(var_id) ){
+        // Type checking...
+        var var_type = VARS[var_id].type;
+        if (
+            ( var_type == 'str'  && typeof new_value == 'string'  ) ||
+            ( var_type == 'num'  && Number.isInteger(new_value)   ) ||
+            ( var_type == 'bool' && typeof new_value == 'boolean' )
+        ) {
+            // ... then updating
+            var var_name = VARS[var_id].name;
+            VARS_NAME_VALUE_PAIR[ var_name ] = new_value;
+            VARS[var_id].value = new_value;
+            refresh_console_attribute_of(var_name, new_value);
+            if (_VERBOSE) console.log("Variable Updated: ", var_name, "=", new_value);
+        } else {
+            throw new Error(`Unable to Update Global Variable! Type Inconsistency: new value ${new_value}<${typeof new_value}> for ${var_id}<${var_type}>`);
+        }
+    } else {
+        throw new Error(`Unable to Update Global Variable by ID: No variable with ID '${var_id}'`);
+    }
+}
+
+function update_global_variable_by_name(var_name, new_value){
+    if ( VARS_NAME_TO_ID_TABLE.hasOwnProperty(var_name) ){
+        update_global_variable_by_id( VARS_NAME_TO_ID_TABLE[var_name], new_value );
+    } else {
+        throw new Error(`Unable to Update Global Variable by Name: No variable with name '${var_name}'`);
+    }
+}
+
+function refresh_console_attribute_of(var_name, new_value){
+    DOME.CONSOLE.setAttribute( `data-${ escape_name(var_name) }`, ( typeof new_value == 'string' ? new_value : new_value.toString() ) );
+}
+
+// Project Validation
+const PROJECT_DATA_MANDATORY_FIELDS = [ "title", "entry", "meta", "resources" ];
+const PROJECT_DATA_RESOURCES_MANDATORY_SETS = [ "scenes", "nodes", "variables", "characters" ];
+const DATASET_ITEM_MANDATORY_FIELDS_FOR_SET = {
+    "scenes": [ "name", "entry", "map" ],
+    "nodes": [ "type", "name", "data" ],
+    "variables": [ "name", "type", "init" ],
+    "characters": [ "name", "color" ]
+};
+function validate_project_data(project){
+    if ( !project ) project = PROJECT;
+    // Note: only essential validation (node type related checks shall be done by the respective module)
+    if ( typeof project == 'object' ){
+        if ( object_has_keys_all(project, PROJECT_DATA_MANDATORY_FIELDS ) ) {
+            if ( object_has_keys_all(project.resources, PROJECT_DATA_RESOURCES_MANDATORY_SETS ) ){
+                if (
+                    Number.isInteger(project.entry) && project.resources.nodes.hasOwnProperty(project.entry)
+                ){
+                    for ( const set in project.resources ){
+                        if ( project.resources.hasOwnProperty(set) ) {
+                            for ( const uid in project.resources[set] ){
+                                if ( project.resources[set].hasOwnProperty(uid) ){
+                                    if (
+                                        ( safeInt(uid, -1) < 0 ) ||
+                                        ( typeof project.resources[set][uid] != 'object' ) ||
+                                        ( object_has_keys_all( project.resources[set][uid], DATASET_ITEM_MANDATORY_FIELDS_FOR_SET[set] ) != true )
+                                    ){
+                                        // Doesn't pass general dataset checks
+                                        return false;
+                                    } else {
+                                        // Passes? What about dataset special checks?
+                                        switch (set){
+                                            case "scenes":
+                                                for ( const map_uid in project.resources[set][uid].map ){
+                                                    if (
+                                                        ( safeInt(map_uid, -1) < 0 ) ||
+                                                        ( typeof project.resources[set][uid].map[map_uid] != 'object' ) /* ||
+                                                        (
+                                                            // A valid project requires valid offsets but,
+                                                            // offsets are not required for this runtime to work. We can safely ignore them ...
+                                                            project.resources[set][uid].map[map_uid].hasOwnProperty("offset") != true ||
+                                                            Array.isArray(project.resources[set][uid].map[map_uid].offset) != true ||
+                                                            project.resources[set][uid].map[map_uid].offset.length != 2 // [x, y]
+                                                            )
+                                                        */
+                                                    ){
+                                                        return false;
+                                                    }
+                                                }
+                                                break;
+                                            case "nodes":
+                                                if ( typeof project.resources[set][uid].data != 'object'){
+                                                    return false;
+                                                }
+                                                break;
+                                            case "variables":
+                                                // Nothing special at the time
+                                                break;
+                                            case "characters":
+                                                // Ditto
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // Passes all
+                    return true;
+                }
+            }
+        }
+    }
+    // Passes none!
+    return false;
+}
+
+function get_resource_by_id(res_id, priority_field) {
+    var resource = null;
+    // Optimization: Search in the priority_field first, where the resource most likely is
+    // (defaults to `nodes`.)
+    if ( typeof priority_field != "string" || priority_field.length == 0 || PROJECT.resources.hasOwnProperty(priority_field) == false ) priority_field = "nodes";
+    if ( PROJECT.resources[priority_field].hasOwnProperty(res_id) ) {
+        resource = PROJECT.resources[priority_field][res_id];
+    } else {
+        for (const field in PROJECT.resources) {
+            if (PROJECT.resources.hasOwnProperty(field)) {
+                if ( PROJECT.resources[field].hasOwnProperty(res_id) ){
+                    resource = PROJECT.resources[field][res_id];
+                }
+            }
+        }
+    }
+    return resource;
+}
+
+function get_owner_scene_of(node_id, only_return_scene_id){
+    var scenes = PROJECT.resources.scenes;
+    for (const scene_id in scenes) {
+        if (scenes.hasOwnProperty(scene_id)) {
+            if ( scenes[scene_id].map.hasOwnProperty(node_id) ){
+                if ( only_return_scene_id === true ){
+                    return scene_id;
+                }
+                return scenes[scene_id];
+            }
+        }
+    }
+    return null;
+}
+
+function get_node_map_by_id(node_id){
+    var owner_scene = get_owner_scene_of(node_id);
+    if (owner_scene){
+        if ( owner_scene.hasOwnProperty("map") && owner_scene.map.hasOwnProperty(node_id) ){
+         return owner_scene.map[node_id];   
+        } else {
+            return null;
+        }
+    } else {
+        throw new Error(`Unable to get node (${node_id}) map: It belongs to no scene!`);
+    }
+}
+
+function escape_name(name){
+    if ( typeof name == 'string' && name.length > 0 ){
+        return name.toLowerCase().replace(/\W/gi, "-");
+    } else {
+        throw new Error("Unable to scape the name. It must be a string longer than 0 chars.");
+    }
+}
+
+function update_ui_open_nodes_list(new_child_name, clean_previous_ones){
+    if (clean_previous_ones === true){
+        OPEN_NODES_REFORMATTED_NAMES = [];
+    }
+    if (new_child_name && typeof new_child_name == 'string'){
+        OPEN_NODES_REFORMATTED_NAMES.push( escape_name(new_child_name) );
+    }
+    DOME.CONTENT.setAttribute("data-open-nodes", OPEN_NODES_REFORMATTED_NAMES.join(' '));
+}
+
+// Clears view by removing all the appended nodes before the one with resource-uid passed as `the_last_one_id`.
+function clear_up(the_last_one_id){
+    var last_idx = 0;
+    for(var l = OPEN_NODES_BY_ORDER.length - 1; l >= 0; l--){
+        if ( OPEN_NODES_BY_ORDER[l].id == the_last_one_id ){
+            last_idx = l;
+            break;
+        }
+    }
+    if ( last_idx > 0 ){
+        OPEN_NODES_REFORMATTED_NAMES.splice(0, last_idx);
+        var removed_ones = OPEN_NODES_BY_ORDER.splice(0, last_idx);
+        for (var node of removed_ones) {
+            node.instance.remove_element();
+        }
+        update_ui_open_nodes_list();
+        if ( OPEN_NODES_BY_ORDER.length == 1){ // there is only one remained node!
+            // make sure it's playable (Note: currently only content nodes clear up)
+            OPEN_NODES_BY_ORDER[0].instance.step_back();
+        }
+    } else {
+        throw new Error(`The annotated node (${the_last_one_id}) is not open or is the first one. We can only clean view from a node backward.`);
+    }
+}
+
+function scroll_into_view(element){
+    ( element || document.activeElement ).scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center'
+    });
+}
+
+var OPEN_MACRO = null;
+
+function play_node(node_id, _playing_in_slot){
+    var error, node_resource, node_map, instance;
+    node_id = safeInt(node_id);
+    _playing_in_slot = safeInt(_playing_in_slot);
+    node_resource = get_resource_by_id(node_id);
+    node_map = get_node_map_by_id(node_id);
+    if ( node_id >= 0 ){
+        if ( NODE_CLASSES_BY_TYPE.hasOwnProperty(node_resource.type) ){
+            instance = new NODE_CLASSES_BY_TYPE[node_resource.type](
+                node_id, node_resource, node_map, _playing_in_slot
+            );
+            OPEN_NODES_BY_ORDER.push({
+                id: node_id,
+                instance: instance
+            });
+            update_ui_open_nodes_list(node_resource.name);
+            var new_node_element = instance.get_element();
+            // Macros need special treatments
+            var handled_by_macro = false;
+            if ( OPEN_MACRO ){
+                if ( OPEN_MACRO.owns_node(node_id) ){
+                    OPEN_MACRO.append_instance(instance);
+                    handled_by_macro = true;
+                } else { // We must have left the macro by jumping to a node outside, so ...
+                    OPEN_MACRO.set_view_played();
+                    OPEN_MACRO = null;
+                }
+            }
+            if (handled_by_macro== false) {
+                DOME.CONTENT.appendChild( new_node_element );
+            }
+            // Is the new node itself a macro ?
+            if ( node_resource.type == 'macro_use' ) OPEN_MACRO = instance;
+            // Finally, proceed the node to auto-play, skip, etc.
+            instance.proceed();
+            scroll_into_view(new_node_element);
+        } else {
+            error = "Node Instancing Failed! The node type might be invalid.";
+        }
+    } else {
+        error = "Invalid Node Resource!";
+    }
+    if (error){
+        if (_VERBOSE) console.error(node_id, node_resource);
+        throw new Error(error + ` Unable to play the node (${node_id}.)`);
+    }
+}
+
+// More global constants
+const _CONSOLE_STATUS_CODE = {
+    "END_EDGE" : 0, // disconnected outgoing slot
+	"NO_DEFAULT" : 1 // no default action is taken (e.g. due to being skipped)
+};
+function handle_status(status_code, the_player_node_instance){
+    switch (status_code) {
+        case _CONSOLE_STATUS_CODE.END_EDGE:
+            if ( OPEN_MACRO ){
+                // This is most likely the end of a `macro_use` in a scene,
+                // so there might be still more to play on the parent scene:
+                OPEN_MACRO.play_self_forward();
+                OPEN_MACRO = null;
+            } else {
+                if ( DO_NOT_PRINT_END_MESSAGE !== true ){
+                    DOME.CONTENT.appendChild(
+                        create_element('div', i18n('end_of_play'), { class: 'end-message' })
+                    );
+                }
+                console.log("End of Play!");
+            }
+            break;
+        case _CONSOLE_STATUS_CODE.NO_DEFAULT:
+            // `macro_use` nodes may send this (~ skipped) and they need special treatments:
+            if ( the_player_node_instance.node_resource.type == "macro_use" ){
+                OPEN_MACRO.play_self_forward();
+                OPEN_MACRO = null;
+            }
+            // and get dev/user a heads up
+            if (_VERBOSE) console.log(`NO Action! The node ${the_player_node_instance.node_resource.name} has taken no special or default action.\nCheck if parameters are unset or the node is skipped.`);
+            break;
+    }
+}
+
+function play_back(steps, default_throw_error){
+    var error = null;
+    var open_nodes_count = OPEN_NODES_BY_ORDER.length;
+    if ( open_nodes_count > 1 ){
+        if ( Number.isInteger(steps) == false || steps < 1 || steps >= open_nodes_count ){
+            steps = 1;
+            if (_VERBOSE) console.warn("Unset or too many steps back. Reset to 1.");
+        }
+        // Now we step back
+        var remove_threshold = ( open_nodes_count - steps );
+        OPEN_NODES_REFORMATTED_NAMES.splice(remove_threshold);
+        var removed_ones = OPEN_NODES_BY_ORDER.splice(remove_threshold);
+        for (var node of removed_ones) {
+            node.instance.remove_element();
+        }
+        update_ui_open_nodes_list();
+        // we also need to make the last open node manually playable, so:
+        OPEN_NODES_BY_ORDER[ remove_threshold - 1 ].instance.step_back();
+    } else {
+        error = "There is only one remained open node! We can't step back anymore.";
+    }
+    if (error && default_throw_error != false) throw new Error(error);
+}
+
+var DARKMODE = false;
+function switch_dark_mode(force){
+    DARKMODE = ( typeof force === 'boolean' ? force : ( ! DARKMODE ) );
+    ROOT.setAttribute( 'data-theme', ( DARKMODE ? 'dark' : 'light' ) );
+    window.localStorage['_arrow_runtime_darkmode'] = DARKMODE; // jshint ignore: line
+}
+
+// Runtime
+const runtime = function(){
+
+    // Preparation
+        // Making references for dry access
+    DOME.CONSOLE = document.getElementById("console");
+    DOME.CONTENT = document.getElementById("content");
+        // Make sure _LOCALE is supported, otherwise stop running the project with an error
+    if ( _SUPPORTED_LOCALES.includes(_LOCALE) == false ){
+        throw new Error (`The set _LOCALE (${_LOCALE}) is not supported! To add a new one, edit i18n module.`);
+    }
+    // Then trying to run the project from its entry node
+    var error_running = null;
+    if ( typeof PROJECT == "object" && validate_project_data() === true ){
+        sort_global_variables();
+        sort_characters();
+        play_node( PROJECT.entry );
+        if (_VERBOSE) console.log(`Project Validation [OK]. Running from the project's entry node (${PROJECT.entry}) ...`);
+    } else {
+        error_running = "Project Data seems Corrupt !!";
+    }
+    if (error_running) throw new Error("Unable to Run the Project: " + error_running);
+
+    // Control Buttons
+    // Dark-mode
+    try {
+        const DARK_MODE_SWITCH = document.getElementById('switch-dark-mode');
+        if ( DARK_MODE_SWITCH ) {
+            DARK_MODE_SWITCH.addEventListener(_CLICK, switch_dark_mode);
+            if ( window.localStorage && '_arrow_runtime_darkmode' in window.localStorage ){
+                switch_dark_mode(
+                    ( window.localStorage._arrow_runtime_darkmode === 'true' ||
+                      window.localStorage._arrow_runtime_darkmode === true // really ?!
+                    ) ? true : false
+                );
+            }
+        }
+    } catch (error){
+        if (_VERBOSE) console.warn("Dark-mode is Not Available! The `#switch-dark-mode` button is missing.");
+    }
+    // Back
+    try {
+        const PLAY_BACK_BUTTON = document.getElementById('play-back');
+        if ( PLAY_BACK_BUTTON ) {
+            PLAY_BACK_BUTTON.addEventListener( _CLICK, play_back.bind(null, 1, false) );
+        }
+    } catch (error){
+        if (_VERBOSE) console.warn("Play-Back is Not Available! The `#play-back` button is missing.");
+    }
+
+};
+
+// Run the `runtime` function when the page is loaded
+window.addEventListener("load", runtime);
+
+</script>
+        <style>
+/*./arrow.css*/
+
+/* Arrow HTML-JS Runtime: Main style sheet */
+
+/* General */
+
+/* General: Theme Color Schemes */
+:root { /* light theme */
+    --color-0: rgb(255, 255, 255);
+    --color-1: rgb(249, 249, 250);
+    --color-2: rgb(26, 0, 52);
+    --color-3: rgb(0, 21, 41);
+    --color-4: rgb(230, 230, 230);
+    --color-5: rgb(0, 98, 128);
+    --color-6: rgb(90, 90, 90);
+    --color-7: rgb(170, 170, 170);
+}
+:root[data-theme^='dark'] { /* dark theme */
+    --color-0: rgb(0, 0, 0);
+    --color-1: rgb(30, 30, 30);
+    --color-2: rgb(255, 252, 222);
+    --color-3: rgb(255, 206, 97);
+    --color-4: rgb(49, 49, 49);
+    --color-5: rgb(18, 226, 176);
+    --color-6: rgb(181, 181, 181);
+    --color-7: rgb(142, 117, 64);
+}
+
+/* General: Normals */
+:root {
+    --font: monospace, sans-serif;
+    font-family: var(--font);
+    background-color: var(--color-1);
+    color: var(--color-2);
+    font-size: 16px;
+    font-weight: 400;
+    --font-weight-emphasis: 500;
+    --font-weight-buttons: 700;
+    --font-weight-buttons-secondary: 400;
+    width: 100vw;
+    line-height: 1.15; /* Correct the line height in all browsers */
+    /* To prevent adjustments of font size after orientation changes in iOS : */
+    /* -webkit-text-size-adjust: 100%; */
+    --transition-time-medium: 0.5s;
+    --border-width-normal: 1px;
+    --border-color-normal: var(--color-4);
+}
+/* scrollbar */
+:root{ /* firefox */
+    scrollbar-color: var(--color-7) var(--color-4);
+    scrollbar-width: auto; /* or `thin` ? */
+}
+/* chrome */
+:root::-webkit-scrollbar {
+    height: 100%;
+    width: 0.75rem;
+}
+:root::-webkit-scrollbar-track-piece {
+    background-color: var(--color-4);
+}
+:root::-webkit-scrollbar-thumb {
+    background-color: var(--color-7);
+}
+body {
+    padding: 0; margin: 0; /* reset */
+    font-family: var(--font);
+    width: 95vw;
+    margin: 0 2.5vw;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    border: none; outline: none;
+    padding: 0.25rem 1rem;
+}
+body > :first-child {
+    margin-top: 1rem !important;
+}
+p, pre {
+    overflow: visible;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    font-size: 1.124rem;
+    line-height: 1.5em;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    margin: 1em 0 0.1em 0;
+}
+h1 { font-size: 1.5em; }
+h2 { font-size: 1.4em; }
+h3 { font-size: 1.3em; }
+h4 { font-size: 1.2em; }
+h5 { font-size: 1.1em; }
+h6 { font-size: 1.0em; }
+a {
+    color: var(--color-2);
+    background-color: transparent;
+    text-decoration: underline;
+    cursor: pointer;
+}
+form, fieldset, div {
+    width: 100%;
+    box-sizing: border-box;
+    border-color: var(--color-6);
+    border-width: 1px;
+    margin: 0.5rem 0;
+}
+input, button { /* normalize */
+    overflow: visible;
+    text-transform: none;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+}
+input, button {
+    margin: 0.25rem 0;
+    box-sizing: content-box;
+}
+input, input::placeholder {
+    font-family: var(--font);
+}
+input[type='text']::placeholder {
+    color: var(--color-7);
+}
+input[type='text'], input[type='number'] {
+    border: solid 2px var(--color-6);
+    padding: 0.25rem 0.5rem;
+    letter-spacing: 0.125rem;
+    vertical-align: middle;
+    border-radius: 0.25rem;
+    text-align: center;
+}
+input[type='text'], input[type='number'], input[type='text']::placeholder {
+    height: 2rem;
+    font-size: 1rem;
+}
+input[type='text'], input[type='number'] {
+    border-color: var(--color-4);
+    background-color: var(--color-0);
+    color: var(--color-3);
+}
+button, input[type='button'], input[type='submit'] {
+    font-size: 1rem;
+    font-weight: var(--font-weight-buttons);
+    height: 1.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    border: none;
+    background-color: var(--color-4);
+    color: var(--color-5);
+    cursor: pointer;
+    outline: none;
+}
+button::-moz-focus-inner, button:active,
+input[type='button']::-moz-focus-inner, input[type='button']:active,
+input[type='submit']::-moz-focus-inner, input[type='submit']:active { /* reset */
+    border-style: none;
+    border: none;
+    padding: 0.25rem 0.75rem;
+    outline: none;
+}
+button:hover, input[type='button']:hover, input[type='submit']:hover {
+    color: var(--color-3);
+}
+button:active, input[type='button']:active, input[type='submit']:active {
+    color: var(--color-0);
+    background-color: var(--color-5);
+}
+textarea {
+    display: block;
+    width: 100%;
+    height: 16vh;
+    font-family: inherit;
+    line-height: 1.15;
+    font-size: 0.9rem;
+    margin: 0.25rem 0;
+    padding: 1rem;
+    box-sizing: border-box;
+    border: solid 1px var(--color-6);
+    background-color: var(--color-0);
+    color: var(--color-3);
+    resize: vertical;
+    margin-bottom: 0.75rem;
+    overflow: auto; /* remove the default vertical scrollbar in IE 10+ */
+}
+fieldset {
+    display: block;
+    box-sizing: border-box;
+    margin-top: 0.75rem;
+    border-color: var(--color-6);
+    padding: 0.35em 0.75em 0.625em; /* normalize */
+}
+legend {
+    text-align: left;
+    color: var(--color-6);
+    box-sizing: border-box;
+    display: table;
+    max-width: 100%;
+    font-size: 0.9em;
+    padding: 0 0.25em;
+    white-space: normal;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    /* text-align: center; */
+    -moz-appearance: textfield;
+}
+em {
+    font-style: italic;
+}
+u {
+    text-decoration: underline;
+}
+strong {
+    font-weight: bolder;
+}
+
+/* Header */
+
+header {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: solid var(--border-width-normal) var(--border-color-normal);
+}
+header > h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin: 2rem 0;
+}
+header > h2 {
+    font-size: 1.5rem;
+    margin: 1.5rem 0;
+    font-weight: 300;
+}
+header > h2 span {
+    font-size: 0.75em;
+    vertical-align: top;
+}
+
+/* Main */
+
+main {}
+
+#console { /* body > main > #console */
+    /*
+    You can style the content in the #console 
+    based on the play's variables, i.e. `#console[data-<variable-name>] {}`
+    e.g.
+    `#console[data-health_state='critical'] { color: red; }`
+    */
+}
+
+#content { /* body > main > #console > #content */
+    /*
+    Nodes are appended in this element with selectors resembling:
+    `#content .node[data-name][data-type][data-uid]`
+    with a `[data-played='true|false']` to indicate if they are played (automatically or by user interaction.)
+    `#content` itself comes with `[data-open-nodes]`
+    which is set to a list of space-separated node names (lowercased with whitespaces replaced by dashes.)
+    */
+}
+
+/*
+`.end-message` is added automatically by the runtime,
+when users can't play any furthur (no more forward nodes.)
+*/
+#content .end-message {
+    margin-top: 2rem;
+    color: var(--color-7);
+    /* Uncomment following line if you don't want any end message : */
+    /* display: none; */
+}
+
+/* Footer */
+
+footer {
+    border-top: solid var(--border-width-normal) var(--border-color-normal);
+    font-size: 0.8rem;
+    margin-top: 5rem;
+    margin-bottom:5rem;
+    padding-top: 0.25em;
+    /* text-align: center; */
+}
+footer a {
+    color: var(--color-3);
+    text-decoration: none;
+}
+footer a:hover {
+    color: var(--color-5);
+}
+footer a:active{
+    color: var(--color-3);
+}
+footer p {
+    font-size: 0.9rem;
+    padding: 0.25em 0;
+    margin: 0;
+}
+footer p:first-of-type {
+    margin-top: 1rem;
+}
+footer button:not(:first-of-type) {
+    margin: 0 0.5rem;
+}
+
+/* ---------- */
+/* Node Types */
+/* ---------- */
+
+.node {
+    /* Opacity of the visible played nodes ( between 0 and 1 ) */
+    --mark-node-read-opacity: 1; /* 1 = full opacity */
+    --shown-skipped-node-opacity: 0.7;
+    /* General node transition */
+    transition: filter var(--transition-time-medium) ease-in-out;
+}
+
+/* content */
+.node[data-type='content']{}
+.node[data-type='content'][data-played='true']{
+    filter: opacity( var(--mark-node-read-opacity) );
+}
+.node[data-type='content'][data-played='true'] button { display: none; }
+.node[data-type='content'][data-played='false'][data-skipped='true'] > *:not(button) { filter: opacity( var(--shown-skipped-node-opacity) ); }
+.node[data-type='content'][data-played='true'][data-skipped='true'] { display: none; }
+
+/* condition */
+.node[data-type='condition']{}
+.node[data-type='condition'][data-played='true']{ display: none; }
+.node[data-type='condition'] /*code*/.statement {}
+.node[data-type='condition'] button { margin: 0.5rem; }
+
+/* dialog */
+.node[data-type='dialog']{
+    /* It may come with [none-playable='true'] */
+}
+.node[data-type='dialog'] /*div*/.character-profile {
+    /*
+    It comes with `[data-name]`, set to the character name (unescaped),
+    and `--character-color: #<character-hex-color>;` css variable set inline.
+    */
+}
+.node[data-type='dialog'] /*div.character-profile*/.character-name {}
+.node[data-type='dialog'] /*div.character-profile*/.character-name::before {
+    content: "";
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    vertical-align: middle;
+    margin: 0.5rem;
+    border: solid 0.125rem var(--color-7);
+    transform: translateY( calc( -0.125rem / 2 ) );
+    border-radius: 100%;
+    background-color: var(--character-color);
+}
+.node[data-type='dialog'] /*div.character-profile*/.character-name::after {
+    content: ":";
+}
+.node[data-type='dialog'] /*ol*/.dialog-lines {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.node[data-type='dialog'] /*ol*/.dialog-lines li { /* each line */
+    margin: 0.5rem 2rem;
+    border-left: dashed 0.125rem var(--color-5);
+    padding-left: 1rem;
+    cursor: pointer;
+    font-weight: var(--font-weight-buttons);
+    text-decoration: underline;
+    font-size: 1.125em;
+}
+.node[data-type='dialog'] /*ol*/.dialog-lines li:hover {
+    color: var(--color-5);
+}
+.node[data-type='dialog'] /*p*/.dialog-played-line {
+    font-size: 1.1em;
+    font-weight: var(--font-weight-emphasis);
+    border-left: solid 0.125rem var(--color-6);
+    padding: 0.75em;
+    margin: 0.5rem 2rem;
+}
+.node[data-type='dialog'][data-played='true'] { filter: opacity( var(--mark-node-read-opacity) ); }
+.node[data-type='dialog'][data-played='true'] .dialog-lines { display: none; }
+
+/* entry */
+.node[data-type='entry']{}
+.node[data-type='entry'][data-played='true']{ display: none; }
+.node[data-type='entry'] button {}
+
+/* generator */
+.node[data-type='generator']{}
+.node[data-type='generator'][data-played='true']{ display: none; }
+.node[data-type='generator'] /*code*/.expression {}
+.node[data-type='generator'] button { margin: 0.5rem; }
+
+/* hub */
+.node[data-type='hub']{}
+.node[data-type='hub'][data-played='true']{ display: none; }
+.node[data-type='hub'] button {}
+
+/* interaction */
+.node[data-type='interaction']{}
+.node[data-type='interaction'] /*ol*/.interaction-actions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.node[data-type='interaction'] /*ol*/.interaction-actions li { /* each line */
+    margin: 0.5rem 0;
+    border-left: dashed 0.125rem var(--color-5);
+    padding-left: 1rem;
+    cursor: pointer;
+    font-weight: var(--font-weight-buttons);
+    text-decoration: underline;
+    font-size: 1.125em;
+}
+.node[data-type='interaction'] /*ol*/.interaction-actions li:hover {
+    color: var(--color-5);
+}
+.node[data-type='interaction'] /*p*/.interaction-played-action {
+    font-size: 1.1em;
+    font-weight: var(--font-weight-emphasis);
+    border-left: solid 0.125rem var(--color-6);
+    padding: 0.75em;
+    margin: 0.5rem 0;
+}
+.node[data-type='interaction'][data-played='true'] { filter: opacity( var(--mark-node-read-opacity) ); }
+.node[data-type='interaction'][data-played='true'] .interaction-actions { display: none; }
+
+/* jump */
+.node[data-type='jump']{}
+.node[data-type='jump'][data-played='true']{ display: none; }
+.node[data-type='jump'] button {}
+
+/* macro_use */
+.node[data-type='macro_use']{
+    margin: 2.5rem;
+    /* To compensate for the added margin */
+    width: calc(95vw - 5rem); /* body width - left margin - right margin */
+}
+.node[data-type='macro_use'][data-played='true']{ filter: opacity( var(--mark-node-read-opacity) ); }
+
+/* marker */
+.node[data-type='marker']{}
+.node[data-type='marker'] p {
+    /* The marker label. `--marker-color` is set inline. */
+    color: var(--marker-color);
+}
+.node[data-type='marker'][data-played='true'] p {
+    filter: opacity( 0.5 );
+}
+.node[data-type='marker'][data-played='true'] button {
+    display: none;
+}
+
+/* randomizer */
+.node[data-type='randomizer']{}
+.node[data-type='randomizer'][data-played='true']{ display: none; }
+.node[data-type='randomizer'] button {}
+
+/* user_input */
+.node[data-type='user_input']{}
+.node[data-type='user_input'] input {
+    margin-right: 1rem;
+}
+.node[data-type='user_input'] label {
+    margin-right: 1rem;
+    cursor: pointer;
+    font-weight: var(--font-weight-buttons);
+}
+.node[data-type='user_input']:not([data-played='true']) label:hover {
+    color: var(--color-5);
+}
+.node[data-type='user_input'][data-played='true'] input,
+.node[data-type='user_input'][data-played='true'] label {
+    pointer-events: none;
+}
+.node[data-type='user_input'][data-played='true'] button { display: none; }
+
+/* variable_update */
+.node[data-type='variable_update']{}
+.node[data-type='variable_update'][data-played='true']{ display: none; }
+.node[data-type='variable_update'] /*code*/.expression {}
+.node[data-type='variable_update'] button { margin: 0.5rem; }
+
+</style>
+        <!-- @inline-end -->
+    </head>
+    <body>
+        <header>
+            <h1>{{project_title}}</h1>
+        </header>
+        <main>
+            <section id="console">
+                <article id="content">
+                    <!-- Here will be nodes! -->
+                </article>
+            </section>
+        </main>
+        <footer>
+            <button id='switch-dark-mode'>Switch Dark Mode</button>
+            <button id="play-back">Back</button>
+            <p> <time>{{project_last_save}}</time> </p>
+            <p> Made with <a href="{{arrow_website}}" target="_blank">Arrow v{{arrow_version}}</a> </p>
+        </footer>
+    </body>
+</html>

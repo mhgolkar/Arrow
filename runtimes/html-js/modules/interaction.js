@@ -1,6 +1,4 @@
-// Arrow
-// HTML-JS Runtime
-// Mor. H. Golkar
+// Arrow HTML-JS Runtime: Interaction node module
 
 class Interaction {
     

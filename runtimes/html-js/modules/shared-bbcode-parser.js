@@ -1,13 +1,7 @@
-// Arrow
-// HTML-JS Runtime
-// Mor. H. Golkar
+// Arrow HTML-JS Runtime: BBCode parser module
 
-/*
-    This is a fork of
-        * [ JS BBCode Parser ]
-        * https://github.com/DasRed/js-bbcode-parser
-        * v3.0.4 - Licence: MIT
-*/
+// This parser is a modified fork of
+// [JS BBCode Parser v3.0.4 - License: MIT](https://github.com/DasRed/js-bbcode-parser)
 
 const DEFAULT_BBCODE_MAPPING = {
 

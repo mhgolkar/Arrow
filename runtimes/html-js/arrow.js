@@ -1,6 +1,4 @@
-// Arrow
-// HTML-JS Runtime
-// Mor. H. Golkar
+// Arrow HTML-JS Runtime: Main interpreter script
 
 // Preferences
 const _VERBOSE = true;    // console logging verbosity
@@ -31,12 +29,12 @@ if (typeof PROJECT != "object" || PROJECT.hasOwnProperty("entry") == false) {
 const ROOT = document.getElementsByTagName('html')[0];
 
 // Greeting
-console.log(`
-Hello and welcome to,
-    '${PROJECT.title}'
-Made with Arrow {{arrow_version}}
-{{arrow_website}}
-`);
+console.log(
+    "Hello and welcome to \n\t" +
+    PROJECT.title + "\n" +
+    "Made with Arrow {{arrow_version}} \n" +
+    "{{arrow_website}}"
+);
 
 const NODE_CLASSES_BY_TYPE = {
     // jshint ignore:start
@@ -52,7 +50,7 @@ const NODE_CLASSES_BY_TYPE = {
     "marker": Marker,
     "randomizer": Randomizer,
     "user_input": UserInput,
-    "variable_update": VariableUpdate
+    "variable_update": VariableUpdate,
     // jshint ignore:end
 };
 

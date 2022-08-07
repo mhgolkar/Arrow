@@ -1,8 +1,4 @@
-// Arrow
-// HTML-JS Runtime
-// Mor. H. Golkar
-
-// Shared (Static) Functions
+// Arrow HTML-JS Runtime: Shared utility (static) functions
 
 function safeInt(maybe_number, replacement, allow_none_integer_replacement) {
     if ( Number.isInteger(replacement) == false && allow_none_integer_replacement !== true ) replacement = (-1);

@@ -1,36 +1,30 @@
-// Arrow
-// HTML-JS Runtime
-// Mor. H. Golkar
-
-// i18n
-// (internationalization)
+// Arrow HTML-JS Runtime: i18n (internationalization) module
 
 const _SUPPORTED_LOCALES = ["en"];
 
 const _TRANSLATION_TABLE = {
-  continue: {
-    en: "Continue",
-  },
-  false: {
-    en: "False",
-  },
-  true: {
-    en: "True",
-  },
-  defaultCheckboxClickableLabelText:{
-    en: "Positive!",
-  },
-  evaluate:{
-    en: "Evaluate",
-  },
-  generate:{
-    en: "Generate",
-  },
-  end_of_play: {
-    en: "The End !",
-  },
+    continue: {
+        en: "Continue",
+    },
+    false: {
+        en: "False",
+    },
+    true: {
+        en: "True",
+    },
+    defaultCheckboxClickableLabelText:{
+        en: "Positive!",
+    },
+    evaluate:{
+        en: "Evaluate",
+    },
+    generate:{
+        en: "Generate",
+    },
+    end_of_play: {
+        en: "The End !",
+    },
 };
-
 
 function i18n(string_id, lang){
     // default to `_LOCALE` if the target `lang` is not annotated or supported 

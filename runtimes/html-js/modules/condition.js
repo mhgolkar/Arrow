@@ -1,6 +1,4 @@
-// Arrow
-// HTML-JS Runtime
-// Mor. H. Golkar
+// Arrow HTML-JS Runtime: Condition node module
 
 class Condition {
 
@@ -123,7 +121,6 @@ class Condition {
     }
 
 }
-
 
 class ConditionStatement {
 
