@@ -22,6 +22,7 @@ export var _AUTO_INSPECT:bool = true
 export var _AUTO_NODE_UPDATE:bool = true
 export var _QUICK_NODE_INSERTION:bool = true
 export var _CONNECTION_ASSIST:bool = true
+export var _AUTO_REBUILD_RUNTIME_TEMPLATES:bool = false
 
 func _ready() -> void:
 	# print startup messages
@@ -94,6 +95,8 @@ func set_quick_preferences(preference:String, new_state:bool, refresh_view:bool 
 		"connection_assist":
 			_CONNECTION_ASSIST = new_state
 			Grid._ALLOW_ASSISTED_CONNECTION = new_state
+		"auto_rebuild_runtime_templates":
+			_AUTO_REBUILD_RUNTIME_TEMPLATES = new_state
 	if refresh_view != false :
 		UI.update_quick_preferences_switchs_view()
 	pass
@@ -109,6 +112,8 @@ func toggle_quick_preferences(preference:String, refresh_view:bool = true):
 			new_state = ( ! _QUICK_NODE_INSERTION )
 		"connection_assist":
 			new_state = ( ! _CONNECTION_ASSIST )
+		"auto_rebuild_runtime_templates":
+			new_state = ( ! _AUTO_REBUILD_RUNTIME_TEMPLATES )
 	if new_state != null:
 		set_quick_preferences(preference, new_state, refresh_view)
 	return new_state

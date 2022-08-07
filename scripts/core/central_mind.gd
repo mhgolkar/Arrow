@@ -82,7 +82,7 @@ class Mind :
 	func post_initialization() -> void:
 		# instance project manager
 		var _aldp = Main.Configs.CONFIRMED.app_local_dir_path
-		ProMan = ProjectManagement.ProjectManager.new( _aldp )
+		ProMan = ProjectManagement.ProjectManager.new(_aldp, Main)
 		# get references
 		Editor = Main.get_node(EDITOR)
 		Grid = Main.get_node(GRID)
@@ -2030,8 +2030,9 @@ class Mind :
 				if saved != OK:
 					printerr('Unable to Read template or Write to the file!', full_export_file_path, saved)
 					show_error(
-						"Operation Failed!",
-						"We are not able to write to the path. Please check out if arrow has Write Permission to the destination."
+						"IO Operation Failed!",
+						"We are not able to write to the destination path or read from runtime template file(s).\n"+
+						"Please check out if Arrow has proper permissions to read and write data."
 					)
 				# cache quick re-export data
 				_QUICK_EXPORT_FORMAT = format
@@ -2142,6 +2143,8 @@ class Mind :
 			Main.call_deferred("toggle_quick_preferences", "quick_node_insertion", true)
 		elif event.is_action_pressed("arrow_switch_connection_assist"):
 			Main.call_deferred("toggle_quick_preferences", "connection_assist", true)
+		elif event.is_action_pressed("arrow_switch_auto_rebuild_runtime_templates"):
+			Main.call_deferred("toggle_quick_preferences", "auto_rebuild_runtime_templates", true)
 		elif event.is_action_pressed("arrow_toggle_inspector_panel_view"):
 			Main.UI.call_deferred("toggle_panel_visibility", "inspector")
 		elif event.is_action_pressed("arrow_play_from_scene_entry"):

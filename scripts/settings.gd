@@ -264,15 +264,18 @@ const CLIPBOARD_MODE = { "EMPTY":0, "COPY":1, "CUT":2 }
 
 # Runtimes
 
+const HTML_JS_RUNTIME_INDEX = 'res://runtimes/html-js/index.html'
 const HTML_JS_SINGLE_FILE_TEMPLATE_PATH = 'res://runtimes/html-js.arrow-runtime'
 
 const PURGE_DEVELOPMENT_DATA_FROM_PLAYABLES = true
 const DATA_TO_BE_PURGED_FROM_PLAYABLE_METADATA:Array = [
-	'offline', 'remote', 'last_save', 'arrow_editor_version'
+	'offline', 'remote', 'last_save', 'arrow_editor_version',
+	'authors', 'chapter',
 ]
 const DATA_TO_BE_PURGED_FROM_PLAYABLE_RESOURCES:Dictionary = {
 	"nodes": [ 'notes' ]
 }
+const INLINED_JSON_DEFAULT_IDENT = "\t" # e.g. `\t` (tab) for readability or empty string ("") for compression
 
 # App UI
 

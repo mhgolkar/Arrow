@@ -13,13 +13,15 @@ class ProjectManager :
 	var Generators = Helpers.Generators
 	var PROJECT_FILE_EXTENSION_WITHOUT_DOT = Settings.PROJECT_FILE_EXTENSION.replacen(".", "")
 	
+	var _MAIN
 	var _ALDP # app local/work directory path (ends with `/`)
 	var _PROJECT_LIST # by UIDs (check out `Embedded::Data::Blank_Project_List`)
 	
 	var _ACTIVE_PROJECT_UID:int = -1
 	var _IS_ACTIVE_PROJECT_SAVED:bool = false
 
-	func _init(current_app_local_dir:String) -> void:
+	func _init(current_app_local_dir:String, main: Object) -> void:
+		_MAIN = main
 		hold_local_app_dir(current_app_local_dir)
 		pass
 	
@@ -514,19 +516,61 @@ class ProjectManager :
 	
 	func print_play_ready(project: Dictionary) -> String:
 		var play_ready = revise_play_ready(project)
-		return JSON.print(play_ready)
+		return JSON.print(play_ready, Settings.INLINED_JSON_DEFAULT_IDENT, false)
 	
 	func tag_replacements_from(project: Dictionary) -> Dictionary:
 		return {
 			'{{project_title}}':     project.title,
-			'{{project_json}}':      print_play_ready(project),
+			'{/*project_json*/}':    print_play_ready(project),
 			'{{project_last_save}}': Utils.parse_time_stamp_dict(project.meta.last_save.utc, true),
 			'{{arrow_website}}':     Settings.ARROW_WEBSITE,
 			'{{arrow_version}}':     Settings.ARROW_VERSION
 		}
 	
+	func is_html_js_runtime_modified() -> bool:
+		var template_mod_time = Utils.get_modification_time(Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH)
+		var source_index_mod_time = Utils.get_modification_time(Settings.HTML_JS_RUNTIME_INDEX)
+		var source_dir = Utils.safe_base_dir(Settings.HTML_JS_RUNTIME_INDEX)
+		print_debug("html-js source dir:", source_dir)
+		if source_index_mod_time > template_mod_time:
+			print_debug("Runtime index file modified: ", source_index_mod_time)
+			return true
+		var head_imports = Utils.read_html_head_imports(Settings.HTML_JS_RUNTIME_INDEX)
+		if head_imports is Dictionary:
+			for css in head_imports.styles:
+				var css_mod_time = Utils.get_modification_time(source_dir + css.href)
+				if css_mod_time > template_mod_time:
+					print_debug("Style sheet file modified: ", css, " @ ", css_mod_time)
+					return true
+			for js in head_imports.scripts:
+				var js_mod_time = Utils.get_modification_time(source_dir + js.src)
+				if js_mod_time > template_mod_time:
+					print_debug("Script file modified: ", js, " @ ", js_mod_time)
+					return true
+		else:
+			printerr("Failed to read html <head> imports from: ", Settings.HTML_JS_RUNTIME_INDEX)
+		return false
+	
+	func prepare_html_js_template() -> void:
+		var rebuild = (
+			Utils.file_exists(Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH) == false ||
+			( _MAIN._AUTO_REBUILD_RUNTIME_TEMPLATES && is_html_js_runtime_modified() )
+		)
+		if rebuild:
+			var rebuilt_template = Utils.inline_html_head_imports(Settings.HTML_JS_RUNTIME_INDEX)
+			var stored = Utils.write_text_file(Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH, rebuilt_template)
+			if stored == OK:
+				print_debug("HTML-JS runtime is re-built: ", Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH)
+			else:
+				printerr(
+					"Failed to write (re-)built HTML-JS runtime template! We need RW access to `./runtimes` directory. ",
+					stored, Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH
+				)
+		pass
+
 	func save_playable_html(full_export_file_path:String, project:Dictionary):
 		# use official html-js runtime template to make playable html (single page) export
+		prepare_html_js_template()
 		return Utils.save_from_template_file (
 				Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH,
 				full_export_file_path,
@@ -535,6 +579,7 @@ class ProjectManager :
 		pass
 	
 	func parse_playable_html(project:Dictionary):
+		prepare_html_js_template()
 		return Utils.parse_template(
 				Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH,
 				tag_replacements_from(project)

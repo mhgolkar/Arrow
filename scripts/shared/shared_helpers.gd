@@ -106,6 +106,10 @@ class Utils:
 			printerr("Unexpected Behavior! Trying check [mode-", access_type, "] access permission to invalid path: ", path)
 			return false
 	
+	static func file_exists(path: String) -> bool:
+		var file = File.new()
+		return file.file_exists(path)
+	
 	# Caution!
 	# using File.Write or File.WRITE_READ will truncate the file or (re-)create it,
 	# so be carefull about the parameter `mode`
@@ -202,6 +206,91 @@ class Utils:
 		else:
 			return ERR_INVALID_PARAMETER
 		pass
+	
+	static func read_text_file(path: String):
+		var file = File.new()
+		if file.file_exists(path):
+			if file.open(path, File.READ) == OK:
+				var content = file.get_as_text()
+				file.close()
+				return content
+		return null
+	
+	# Returns OK if write is done or File Error
+	static func write_text_file(path: String, content: String):
+		var file = File.new()
+		var file_state = file.open(path, File.WRITE)
+		if file_state == OK:
+			file.store_string(content)
+			file.close()
+		return file_state
+	
+	# Returns last modification time of a file, 0 for non-existent and -1 for error
+	static func get_modification_time(path: String) -> int:
+		var file = File.new()
+		var mod_time = file.get_modified_time(path)
+		return (mod_time if mod_time is int else -1)
+
+	const SCRIPT_REGEX = "<script[a-z1-9\"'\/ =]*?src=['|\"](.*?)[\"|'][a-z1-9\"'\/ =]*?>.*</script>"
+	const STYLE_REGEX = "<link[a-z1-9\"'\/ =]*?href=['|\"](.*?)[\"|'][a-z1-9\"'\/ =]*?>"
+	static func read_html_head_imports(
+		path: String, return_source: bool = false,
+		start_mark: String = "@inline", end_mark: String = "@inline-end"
+	):
+		var file = File.new()
+		if file.file_exists(path) :
+			if file.open(path, File.READ) == OK:
+				var source = file.get_as_text()
+				file.close()
+				var imports = { "styles": [], "scripts": [] }
+				var lookup_start = source.find(start_mark)
+				var lookup_end = source.find(end_mark)
+				# Scripts
+				var scripts_regex = RegEx.new()
+				scripts_regex.compile(SCRIPT_REGEX)
+				var scripts = scripts_regex.search_all(source, lookup_start, lookup_end)
+				for scripts_regex_match in scripts:
+					imports.scripts.append({
+						"block": scripts_regex_match.get_string(0),
+						"src": scripts_regex_match.get_string(1)
+					})
+				# Style sheets
+				var styles_regex = RegEx.new()
+				styles_regex.compile(STYLE_REGEX)
+				var styles = styles_regex.search_all(source, lookup_start, lookup_end)
+				for styles_regex_match in styles:
+					imports.styles.append({
+						"block": styles_regex_match.get_string(0),
+						"href": styles_regex_match.get_string(1)
+					})
+				# ...
+				if return_source:
+					imports["source"] = source
+				return imports
+		return null
+
+	static func inline_html_head_imports(index_path: String) -> String:
+		var source_dir = Utils.safe_base_dir(Settings.HTML_JS_RUNTIME_INDEX)
+		print_debug("inlining index file in source dir:", source_dir)
+		var head_imports = read_html_head_imports(index_path, true)
+		var index_source: String;
+		if head_imports is Dictionary:
+			index_source = head_imports.source
+			for css in head_imports.styles:
+				var css_content = read_text_file(source_dir + css.href)
+				if css_content is String:
+					index_source = index_source.replace(
+						css.block,
+						("<style>\n/*" + css.href + "*/\n\n" + css_content + "\n</style>")
+					)
+			for js in head_imports.scripts:
+				var js_content = read_text_file(source_dir + js.src)
+				if js_content is String:
+					index_source = index_source.replace(
+						js.block,
+						("<script>\n/*" + js.src + "*/\n\n" + js_content + "\n</script>")
+					)
+		return index_source
 	
 	static func read_and_parse_variant_file(path:String):
 		var file = File.new()

@@ -29,8 +29,6 @@ mono_crash.*.json
 .wiki/
 .extra/
 .releases/
-runtimes/html-js/node_modules/
-runtimes/html-js/project.js
 demo.arrow-project
 config.arrow
 projects.arrow

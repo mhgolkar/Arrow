@@ -16,6 +16,7 @@ const QUICK_PREFERENCES_MENU = {
 	1: { "label": "Auto Node Update", "is_checkbox": true , "preference": "_AUTO_NODE_UPDATE", "command": "auto_node_update" },
 	2: { "label": "Quick Node Insertion", "is_checkbox": true , "preference": "_QUICK_NODE_INSERTION", "command": "quick_node_insertion" },
 	3: { "label": "Connection Assist", "is_checkbox": true , "preference": "_CONNECTION_ASSIST", "command": "connection_assist" },
+	4: { "label": "Auto Rebuild Runtime(s)", "is_checkbox": true , "preference": "_AUTO_REBUILD_RUNTIME_TEMPLATES", "command": "auto_rebuild_runtime_templates" },
 }
 
 func _ready() -> void:

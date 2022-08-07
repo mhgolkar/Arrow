@@ -23,15 +23,19 @@ var CHARS = {};
 var OPEN_NODES_BY_ORDER = [];
 var OPEN_NODES_REFORMATTED_NAMES = []; // names-lowercased-with-whitespaces-replaced-by-dashes
 
+if (typeof PROJECT != "object" || PROJECT.hasOwnProperty("entry") == false) {
+    throw new Error("Invalid document data (i.e. `PROJECT` constant.)")
+}
+
 // Adjusting document to the project settings
 const ROOT = document.getElementsByTagName('html')[0];
-if ( PROJECT.meta.hasOwnProperty("rtl") && PROJECT.meta.rtl == true ) ROOT.setAttribute("dir", "rtl");
 
 // Greeting
 console.log(`
 Hello and welcome to,
     '${PROJECT.title}'
-Made with Arrow
+Made with Arrow {{arrow_version}}
+{{arrow_website}}
 `);
 
 const NODE_CLASSES_BY_TYPE = {
