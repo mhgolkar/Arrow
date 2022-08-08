@@ -10,6 +10,8 @@ onready var Main = TheTree.get_root().get_child(0)
 onready var Grid = get_node(Addressbook.GRID)
 onready var MinimapBox = get_parent()
 
+var Utils = Helpers.Utils
+
 const PANEL_OPACITY_MODULATION_COLOR_HIDE = Settings.MINIMAP_PANEL_OPACITY_MODULATION_COLOR_HIDE
 const PANEL_OPACITY_MODULATION_COLOR_SHOW = Settings.MINIMAP_PANEL_OPACITY_MODULATION_COLOR_SHOW
 const DEFAULT_NODE_DRAWING_COLOR = Settings.MINIMAP_DEFAULT_NODE_DRAWING_COLOR
@@ -66,7 +68,7 @@ func refresh() -> void:
 			var node_id = node._node_id
 			var color
 			if node._node_resource.data.has("color") && node._node_resource.data.color is String:
-				color = Color(node._node_resource.data.color)
+				color = Utils.rgba_hex_to_color(node._node_resource.data.color)
 			var size = node.get_size()
 			var offset = node.get_offset()
 			_DRAWING_BY_ID[node_id] = {

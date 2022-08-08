@@ -8,6 +8,7 @@ extends ScrollContainer
 onready var Main = get_tree().get_root().get_child(0)
 
 var Generators = Helpers.Generators # ... for random color
+var Utils = Helpers.Utils
 
 const DEFAULT_NODE_DATA = {
 	"label": "",
@@ -41,7 +42,7 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 		if node.data.has("label") && node.data.label is String:
 			LabelEdit.set_text(node.data.label)
 		if node.data.has("color") && node.data.color is String:
-			var the_color = Color(node.data.color)
+			var the_color = Utils.rgba_hex_to_color(node.data.color)
 			ColorInput.set_pick_color(the_color)
 		else:
 			ColorInput.set_pick_color( Generators.create_random_color() )
@@ -50,12 +51,12 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 func _read_parameters() -> Dictionary:
 	var parameters = {
 		"label": LabelEdit.get_text(),
-		"color": ColorInput.color.to_html()
+		"color": Utils.color_to_rgba_hex(ColorInput.color)
 	}
 	return parameters
 
 func _create_new(new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
-	data.color = Generators.create_random_color().to_html()
+	data.color = Utils.color_to_rgba_hex(Generators.create_random_color())
 	return data
 

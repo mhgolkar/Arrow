@@ -10,6 +10,8 @@ signal relay_request_mind
 onready var Main = get_tree().get_root().get_child(0)
 onready var Grid = get_node(Addressbook.GRID)
 
+var Utils = Helpers.Utils
+
 var _LISTED_CHARACTERS_BY_ID = {}
 var _LISTED_CHARACTERS_BY_NAME = {}
 var _SELECTED_CHARACTER_BEING_EDITED_ID = -1
@@ -120,7 +122,7 @@ func insert_character_list_item(character_id:int, the_character:Dictionary) -> v
 	# the item is added last, so...
 	var item_index = (CharactersList.get_item_count() - 1)
 	CharactersList.set_item_metadata(item_index, character_id)
-	CharactersList.set_item_custom_fg_color(item_index, Color(the_character.color))
+	CharactersList.set_item_custom_fg_color(item_index, Utils.rgba_hex_to_color(the_character.color))
 	# then select and load it in the character editor
 	CharactersList.select(item_index)
 	load_character_in_editor(character_id)
@@ -132,7 +134,7 @@ func update_character_list_item(character_id:int, the_character:Dictionary) -> v
 		if CharactersList.get_item_metadata(idx) == character_id:
 			# found it, update...
 			CharactersList.set_item_text(idx, the_character.name)
-			CharactersList.set_item_custom_fg_color(idx, Color(the_character.color))
+			CharactersList.set_item_custom_fg_color(idx, Utils.rgba_hex_to_color(the_character.color))
 			return
 	printerr("Unexpected Behavior! Trying to update character=%s which is not found in the list!")
 	pass
@@ -155,7 +157,7 @@ func load_character_in_editor(character_id:int) -> void:
 	_SELECTED_CHARACTER_BEING_EDITED_ID = character_id
 	var the_character = _LISTED_CHARACTERS_BY_ID[character_id]
 	CharacterEditorName.set_text(the_character.name)
-	CharacterColorPickerButton.set("color", Color(the_character.color))
+	CharacterColorPickerButton.set("color", Utils.rgba_hex_to_color(the_character.color))
 	# can't it be removed ? not if it's used by other resources
 	CharacterRemoveButton.set_disabled( (the_character.has("use") && the_character.use.size() > 0) )
 	update_appearance_pagination(character_id)
@@ -199,7 +201,7 @@ func submit_character_modification() -> void:
 		"field": "characters"
 	}
 	var mod_name  = CharacterEditorName.get_text()
-	var mod_color = CharacterColorPickerButton.get("color").to_html(false)
+	var mod_color = Utils.color_to_rgba_hex(CharacterColorPickerButton.get("color"), false)
 	if mod_name.length() > 0 && mod_name != the_character_original.name: # name is changed
 		# force using unique name for characters ?
 		if Settings.FORCE_UNIQUE_NAMES_FOR_CHARACTERS == false || _LISTED_CHARACTERS_BY_NAME.has(mod_name) == false:

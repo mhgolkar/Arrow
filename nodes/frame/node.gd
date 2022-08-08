@@ -67,7 +67,7 @@ func _update_node(data:Dictionary) -> void:
 	else:
 		FrameLabel.set_deferred("text", NO_LABEL_MESSAGE)
 	if data.has("color") && (data.color is String):
-		This.set("self_modulate", Color(data.color) )
+		This.set("self_modulate", Utils.rgba_hex_to_color(data.color) )
 	if data.has("rect") && data.rect is Array && data.rect.size() >= 2 :
 		var new_size = Utils.array_to_vector2(data.rect)
 		self.set_deferred("rect_min_size", new_size)

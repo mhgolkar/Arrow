@@ -14,6 +14,8 @@ signal reset_variable
 
 onready var Main = get_tree().get_root().get_child(0)
 
+var Utils = Helpers.Utils
+
 const AUTO_PLAY_SLOT = 0
 
 var _NODE_ID:int
@@ -63,7 +65,7 @@ func setup_view() -> void:
 		FrameLabel.set_text(LABEL_UNSET_MESSAGE)
 		FrameLabel.set_deferred("self_modulate", LABEL_UNSET_SELF_MODULATION_COLOR)
 	FrameLabel.set("hint_tooltip", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else NO_NOTES_MESSAGE))
-	self.set("self_modulate", Color(_NODE_RESOURCE.data.color))
+	self.set("self_modulate", Utils.rgba_hex_to_color(_NODE_RESOURCE.data.color))
 	pass
 	
 func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1, _variables_current:Dictionary={}) -> void:

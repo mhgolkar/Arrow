@@ -1522,7 +1522,7 @@ class Mind :
 		var new_res_seed_id = create_new_resource_id()
 		var the_new_character = {
 			"name": create_character_name_from_id(new_res_seed_id),
-			"color": Generators.create_random_color().to_html()
+			"color": Utils.color_to_rgba_hex(Generators.create_random_color(), false)
 		}
 		write_resource("characters", the_new_character, new_res_seed_id, false)
 		Inspector.Tab.Characters.call_deferred("list_characters", ({ new_res_seed_id: the_new_character }))

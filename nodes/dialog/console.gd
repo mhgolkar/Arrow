@@ -14,6 +14,8 @@ signal reset_variable
 
 onready var Main = get_tree().get_root().get_child(0)
 
+var Utils = Helpers.Utils
+
 const AUTO_PLAY_SLOT = -1
 
 var _NODE_ID:int
@@ -71,7 +73,7 @@ func update_character(profile:Dictionary) -> void:
 	if profile.has("name") && (profile.name is String):
 		CharacterProfileName.set("text", profile.name)
 	if profile.has("color") && (profile.color is String):
-		CharacterProfileColor.set("color", Color(profile.color))
+		CharacterProfileColor.set("color", Utils.rgba_hex_to_color(profile.color))
 	pass
 
 func set_character_anonymous() -> void:
@@ -176,7 +178,7 @@ func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 			PlayedLineLabel.set_text(reformatted_line_text)
 			PlayedLine.set_visible(true)
 			if _CHARACTER_CACHED && _CHARACTER_CACHED.has("color"):
-				PlayedLine.set("self_modulate", Color(_CHARACTER_CACHED.color))
+				PlayedLine.set("self_modulate", Utils.rgba_hex_to_color(_CHARACTER_CACHED.color))
 			else:
 				PlayedLine.set("self_modulate", ANONYMOUS_CHARACTER.played_line_color)
 			PlayableLinesHolder.set_visible(false)

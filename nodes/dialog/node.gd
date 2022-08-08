@@ -7,6 +7,8 @@ extends GraphNode
 
 onready var Main = get_tree().get_root().get_child(0)
 
+var Utils = Helpers.Utils
+
 const OUT_SLOT_COLOR = Settings.GRID_NODE_SLOT.DEFAULT.OUT.COLOR
 # settings for the dynamically generated outgoing slots
 const OUT_SLOT_ENABLE_RIGHT = true
@@ -69,7 +71,7 @@ func update_character(profile:Dictionary) -> void:
 	if profile.has("name") && (profile.name is String):
 		CharacterProfileName.set("text", profile.name)
 	if profile.has("color") && (profile.color is String):
-		CharacterProfileColor.set("color", Color(profile.color))
+		CharacterProfileColor.set("color", Utils.rgba_hex_to_color(profile.color))
 	pass
 
 func set_character_anonymous() -> void:

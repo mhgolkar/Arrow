@@ -352,6 +352,17 @@ class Utils:
 				val = val / 36
 		return result
 	
+	static func color_to_rgba_hex(from: Color, with_alpha: bool = true) -> String:
+		# (Godot considers HTML color to be ARGB but CSS prefers RGBA and it's more common elsewhere.)
+		var argb = from.to_html()
+		var rgba = argb.substr(2, -1) + (argb.substr(0, 2) if with_alpha else "")
+		return rgba.to_lower()
+	
+	static func rgba_hex_to_color(from: String) -> Color:
+		var alpha = from.substr(6, 2) if from.length() >= 8 else "ff"
+		var argb = (alpha + from.substr(0, 6))
+		return Color( argb.to_lower() )
+
 	static func objects_differ(left, right) -> bool:
 		if typeof(left) == typeof(right):
 			if left is Dictionary:
