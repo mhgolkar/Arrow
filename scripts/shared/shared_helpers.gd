@@ -190,14 +190,15 @@ class Utils:
 			var tmpl_file = File.new()
 			var tmpl_access_state = tmpl_file.open(template_path, File.READ)
 			if tmpl_access_state == OK:
-				var parsed: String
+				var parsed: String = ""
 				# Copy the template line by line, replacing the tags
 				var the_content_line:String
 				while tmpl_file.eof_reached() == false:
 					the_content_line = tmpl_file.get_line()
 					for tag in replacements:
 						the_content_line = the_content_line.replace( tag, replacements[tag] )
-					parsed = parsed + the_content_line
+					parsed = parsed + the_content_line + "\n"
+					# (^ It's a line by line append, and `get_line` seems not to keep line-feed so we add it)
 				# ...
 				tmpl_file.close()
 				return parsed
