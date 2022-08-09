@@ -397,9 +397,13 @@ class Mind :
 	
 	func reset_project_last_save_time():
 		_PROJECT.meta.last_save = {
-			"utc"  : OS.get_datetime(true), # UTC:bool = true
-			"local": OS.get_datetime(false)
+			"utc"  : Time.get_datetime_string_from_system(true, true), # UTC:bool = true
+			"local": Time.get_datetime_string_from_system(false, true)
 		}
+		# ...
+		Inspector.Tab.Project.call_deferred(
+			"reset_last_save", _PROJECT.meta.last_save, is_project_local()
+		)
 		pass
 	
 	# force can only unsave the project not falsely mark it as saved
@@ -1847,7 +1851,7 @@ class Mind :
 	
 	func take_snapshot(custom_version_prefix:String = "") -> void:
 		var version:String
-		var now = OS.get_datetime(false) # UTC:bool = false
+		var now = Time.get_datetime_string_from_system(false, true) # UTC:bool = false
 		var to_be_snapshot_index = _SNAPSHOTS.size()
 		if _SNAPSHOT_INDEX_OF_PREVIEW < 0 :
 			_SNAPSHOTS_COUNT_PURE_ONES += 1

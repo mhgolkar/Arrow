@@ -96,6 +96,14 @@ func clean_snapshots_view() -> void:
 	_IS_IN_PREVIEW_MODE = false
 	pass
 
+func reset_last_save(last_save: Dictionary) -> void:
+	if last_save.has("local"):
+		var parsed_time_stamp = Utils.parse_time_stamp(last_save.local, false)
+		LastSaveTimeStamp.set_text(parsed_time_stamp)
+	else:
+		printerr("Unable to set last save time! ", last_save)
+	pass
+
 func refresh_fields(project_title:String, project_meta:Dictionary) -> void:
 	_CURRENT_TITLE = project_title
 	_CURRENT_META  = project_meta
@@ -105,9 +113,8 @@ func refresh_fields(project_title:String, project_meta:Dictionary) -> void:
 	else:
 		LocalProjectTitle.clear()
 	# last save time
-	if project_meta.has("last_save") && project_meta is Dictionary:
-		var parsed_time_stamp = Utils.parse_time_stamp_dict(project_meta.last_save.local)
-		LastSaveTimeStamp.set_text(parsed_time_stamp)
+	if project_meta.has("last_save"):
+		reset_last_save(project_meta.last_save)
 	# making sure older (legacy) projects won't mess up with node identifiers by adding authors
 	AuthorsConfiguration.set_visible( project_meta.has("authors") )
 	pass
@@ -130,7 +137,7 @@ func list_snapshot(snapshot_details:Dictionary) -> void:
 	# list item
 	SnapshotsList.add_item(SNAPSHOT_LIST_ITEM_TEMPLATE.format({
 			"version": snapshot_details.version,
-			"parsed_time": Utils.parse_time_stamp_dict(snapshot_details.time, false, SNAPSHOT_LIST_ITEM_TIME_TEMPLATE)
+			"parsed_time": Utils.parse_time_stamp(snapshot_details.time, false, SNAPSHOT_LIST_ITEM_TIME_TEMPLATE)
 		})
 	)
 	# keep the index of the snapshot as meta data

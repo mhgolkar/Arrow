@@ -316,9 +316,19 @@ class Utils:
 		var dir = Directory.new()
 		return dir.remove(path)
 	
-	static func parse_time_stamp_dict(time:Dictionary, mark_utc:bool = false, custom_template:String = ""):
+	static func parse_time_stamp(time, mark_utc:bool = false, custom_template:String = ""):
+		var time_dictionary: Dictionary
+		if time is Dictionary:
+			time_dictionary = time
+		elif time is String:
+			time_dictionary = Time.get_datetime_dict_from_datetime_string(time, true)
+		elif time is int || time is float:
+			time_dictionary = Time.get_datetime_dict_from_unix_time( int(time) )
+		else:
+			printerr("Unsupported time stamp format to parse! ", time)
+		# ...
 		var template = (custom_template if (custom_template.length() > 0) else Settings.TIME_STAMP_TEMPLATE)
-		var parsed_time_stamp = template.format(time)
+		var parsed_time_stamp = template.format(time_dictionary)
 		if mark_utc:
 			parsed_time_stamp += Settings.TIME_STAMP_TEMPLATE_UTC_MARK
 		return parsed_time_stamp

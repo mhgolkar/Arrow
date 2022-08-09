@@ -132,17 +132,19 @@ class Snow:
 	
 	## Current Unix Time (Unsafe)
 	# It fetches current unix system time in *milliseconds*
-	# but is **unsafe** because `get_unix_time` is not accurate and fast enough,
-	# so when mixed with `get_ticks_usec` that gets wrapped faster, may produce time going backwards.
 	static func _unsafe_unix_now_millisecond():
-		return (
-			(
-				OS.get_unix_time() # seconds
-				* 1_000_000 # as microseconds
-				+ ( OS.get_ticks_usec() ) % 1_000_1000 # plus microticks
-			) / 1000 # converted to milliseconds
-			
-		)
+		# We don't need this hacky timer ...
+		# (Which is very **unsafe** because `OS.get_unix_time` is not accurate and fast enough,
+		# so when mixed with `OS.get_ticks_usec` that gets wrapped faster, may produce time going backwards)
+		# return (
+		# 	(
+		# 		OS.get_unix_time() # seconds
+		# 		* 1_000_000 # as microseconds
+		# 		+ ( OS.get_ticks_usec() ) % 1_000_1000 # plus microticks
+		# 	) / 1000 # converted to milliseconds
+		# )
+		# ... thanks to new `Time` singleton
+		return int( Time.get_unix_time_from_system() * 1000 )
 	
 	func _await_next_millisecond(previous:int) -> int:
 		var next = 0

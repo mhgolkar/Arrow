@@ -522,7 +522,7 @@ class ProjectManager :
 		return {
 			'{{project_title}}':     project.title,
 			'{/*project_json*/}':    print_play_ready(project),
-			'{{project_last_save}}': Utils.parse_time_stamp_dict(project.meta.last_save.utc, true),
+			'{{project_last_save}}': Utils.parse_time_stamp(project.meta.last_save.utc, true),
 			'{{arrow_website}}':     Settings.ARROW_WEBSITE,
 			'{{arrow_version}}':     Settings.ARROW_VERSION
 		}
