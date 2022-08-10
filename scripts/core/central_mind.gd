@@ -195,7 +195,7 @@ class Mind :
 			"register_project_and_save_from_open":
 				register_project_and_save_from_open(args.title, args.filename)
 			"remove_local_project":
-				remove_local_project(args)
+				try_remove_local_project(args)
 			"open_local_project":
 				open_project(args)
 			"close_project":
@@ -1854,11 +1854,36 @@ class Mind :
 			)
 		pass
 	
-	func remove_local_project(project_id) -> void:
+	func try_remove_local_project(project_id) -> void:
+		var project_listed = ProMan.get_project_listing_by_id(project_id)
+		var project_name = ("`%s` " % project_listed.title) if project_listed is Dictionary && project_listed.has("title") else ""
+		Notifier.call_deferred(
+				"show_notification",
+				"Are you sure ?!",
+				(
+					(
+						"You're about to remove listed project " + project_name + ("(#%s.) \n" % project_id) +
+						"If unlisted, the document will remain intact and will only be dropped from the projects list.\n" + 
+						"Deleted files will not be recoverable.\n" + 
+						(
+							( "\nProject file: `" + project_listed.filename + Settings.PROJECT_FILE_EXTENSION + "`\n")
+							if project_listed is Dictionary && project_listed.has("filename") else ""
+						)
+					)
+				),
+				[
+					{ "label": " Delete File", "callee": Main.Mind, "method": "remove_local_project", "arguments": [project_id, true] },
+					{ "label": "Unlist", "callee": Main.Mind, "method": "remove_local_project", "arguments": [project_id, false] },
+				],
+				Settings.WARNING_COLOR
+			)
+		pass
+	
+	func remove_local_project(project_id, remove_file_too: bool = false) -> void:
 		print_debug("Removing project id: ", project_id)
 		# currently, removing an item only unlists it
 		# file won't be removed to avoid accidents
-		ProMan.unlist_project(project_id)
+		ProMan.unlist_project(project_id, remove_file_too)
 		load_projects_list()
 		pass
 	

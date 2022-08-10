@@ -93,6 +93,11 @@ class ProjectManager :
 	
 	func get_projects_listed_by_id() -> Dictionary:
 		return _PROJECT_LIST.projects
+
+	func get_project_listing_by_id(pid: int):
+		if _PROJECT_LIST.projects.has(pid):
+			return _PROJECT_LIST.projects[pid]
+		return null
 		
 	func get_active_project_id() -> int:
 		return _ACTIVE_PROJECT_UID
