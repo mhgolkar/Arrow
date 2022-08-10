@@ -50,8 +50,16 @@ class ProjectManager :
 		var file = File.new()
 		if file.file_exists( project_list_file_path ):
 			file.open(project_list_file_path, File.READ)
-			var file_content = file.get_var(true)
-			var validated_project_list = validate_project_list_data(file_content)
+			var read_list;
+			# First try to open the list as JSON:
+			var file_content = file.get_as_text()
+			var parsed_list = Utils.parse_json(file_content)
+			if parsed_list is Dictionary:
+				read_list = Utils.recursively_convert_numbers_to_int(parsed_list)
+			else:
+				# Try to open the list as stored variant (legacy:)
+				read_list = file.get_var(true)
+			var validated_project_list = validate_project_list_data(read_list)
 			if validated_project_list != null:
 				project_list = validated_project_list
 			else:
@@ -61,7 +69,8 @@ class ProjectManager :
 			project_list = Embedded.Data.Blank_Project_List.duplicate(true)
 			if force_creation == true:
 				if file.open(project_list_file_path, File.WRITE_READ) == OK:
-					file.store_var(project_list)
+					var json_list = Utils.stringify_json(project_list)
+					file.store_string(json_list)
 					file.close()
 					print_debug("New project list file created. ", project_list_file_path)
 				else:
@@ -75,7 +84,8 @@ class ProjectManager :
 		var project_list_file_path = _ALDP + PROJECT_LIST_FILE_NAME
 		var file = File.new()
 		if file.open(project_list_file_path, File.WRITE_READ) == OK:
-			file.store_var(_PROJECT_LIST)
+			var json_list = Utils.stringify_json(_PROJECT_LIST)
+			file.store_string(json_list)
 			file.close()
 		else:
 			printerr("Unexpected Behavior! Can not open project list file to save new data in it! ", project_list_file_path)
@@ -371,7 +381,7 @@ class ProjectManager :
 		var all_project_filenames = []
 		for project_id in _PROJECT_LIST.projects:
 			all_project_filenames.append(_PROJECT_LIST.projects[project_id].filename)
-		while( all_project_filenames.has(result) ):
+		while( all_project_filenames.has(result) || Settings.PROJECT_FILE_RESTRICTED_NAMES.has(result) ):
 			result += Settings.NONE_UNIQUE_FILENAME_AUTO_POSTFIX
 		return result
 		

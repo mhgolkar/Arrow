@@ -33,9 +33,8 @@ If you want to customize how the runtime plays your project, you can work with t
 
 The process of running a project is fairly simple.
 The runtime reads and interprets data from a constant called `PROJECT` in `./project.js` file.
-You can use exported `.json` (purged) file from editor or
-even the `.arrow-project` file (including dev data too)
-directly as the value for the constant.
+You can use content of a `.json` file exported (and purged from dev data) from editor or
+even of a full `.arrow` project document directly as the value for the constant.
 
 Here are the steps for normal scenarios:
 

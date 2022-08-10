@@ -47,7 +47,9 @@ const TIME_STAMP_TEMPLATE_UTC_MARK = " UTC"
 
 const PROJECT_LIST_FILE_NAME = "projects.arrow"
 # ...
-const PROJECT_FILE_EXTENSION = ".arrow-project" # CAUTION! change `PATH_DIALOG_PROPERTIES` respectively.
+const PROJECT_FILE_EXTENSION = ".arrow" # CAUTION! change `PATH_DIALOG_PROPERTIES` respectively.
+const PROJECT_FILE_RESTRICTED_NAMES = [ "projects", "config", "" ]
+# ...
 const PROJECT_FILE_JSON_DEFAULT_IDENT = "\t"
 # ...
 # Binary save files are deprecated.
@@ -164,6 +166,9 @@ const VARIABLE_TYPES_ENUM = {
 # by adding a postfix to any duplicate name.
 # > Note that name uniqueness is limited to the scope of each resource type
 # > and *is case-sensitive*.
+#
+# CAUTION!
+# All Affixes below shall be at least 1 charecter.
 
 const FORCE_UNIQUE_NAMES_FOR_VARIABLES = true
 const REUSED_VARIABLE_NAMES_AUTO_POSTFIX = "_"
@@ -226,13 +231,13 @@ const PATH_DIALOG_PROPERTIES = {
 			"window_title": "Select a Project File",
 			"mode": FileDialog.MODE_OPEN_FILE,
 			"access": FileDialog.ACCESS_FILESYSTEM,
-			"filters": PoolStringArray(["*.arrow-project ; Arrow Project", "*.json ; Exported Arrow Project"])
+			"filters": PoolStringArray(["*.arrow ; Arrow Project", "*.json ; Exported Arrow Project"])
 		},
 		"SAVE": {
 			"window_title": "Save Project as File",
 			"mode": FileDialog.MODE_SAVE_FILE,
 			"access": FileDialog.ACCESS_FILESYSTEM,
-			"filters": PoolStringArray(["*.arrow-project ; Arrow Project"])
+			"filters": PoolStringArray(["*.arrow ; Arrow Project"])
 		},
 		"EXPORT_JSON": {
 			"window_title": "Save Project with JSON Format",

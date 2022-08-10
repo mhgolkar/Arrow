@@ -121,17 +121,22 @@ class Utils:
 				return true
 		return false
 	
+	static func parse_json(text: String):
+		var parsed:JSONParseResult = JSON.parse(text)
+		if parsed.error == OK:
+			return parsed.get_result()
+		return null
+	
 	static func read_and_parse_json_file(path:String):
 		var file = File.new()
 		if file.file_exists(path) :
 			if file.open(path, File.READ) == OK:
 				var json_string = file.get_as_text()
 				file.close()
-				var parsed:JSONParseResult = JSON.parse(json_string)
-				if parsed.error == OK:
-					return parsed.get_result()
+				var parsed_or_null = parse_json(json_string)
+				return parsed_or_null
 		return null
-	
+
 	static func stringify_json(data, indent:String = Settings.PROJECT_FILE_JSON_DEFAULT_IDENT, sort_keys:bool = false) -> String:
 		return JSON.print(data, indent, sort_keys)
 	
