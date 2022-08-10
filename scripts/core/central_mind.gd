@@ -286,7 +286,28 @@ class Mind :
 			if project_data is Dictionary:
 				load_project(project_data)
 				if Settings.TAKE_INITIAL_SNAPSHOT == true:
-					self.call_deferred("take_snapshot", "Point Start - v")
+					self.call_deferred("take_snapshot")
+			else:
+				var expected = ProMan.get_project_listing_by_id(project_id)
+				printerr("Unable to open (hold) project by ID: ", project_id)
+				Notifier.call_deferred(
+					"show_notification",
+					"Lost Project!",
+					(
+						(
+							("We can not find and read selected project (#%s.) \n" % project_id) +
+							"The file might be inaccessible due to lack of proper permission, " +
+							"or lost (i.e. renamed or removed before unlisting.) " +
+							"Manually edited or corrupted projects list files can also cause this issue. \n" +
+							(
+								( "\nExpected file: " + expected.filename + Settings.PROJECT_FILE_EXTENSION + "\n")
+								if expected is Dictionary && expected.has("filename") else ""
+							)
+						) 
+					),
+					[ { "label": "Unlist Project", "callee": Main.Mind, "method": "remove_local_project", "arguments": [project_id] },],
+					Settings.WARNING_COLOR
+				)
 		else:
 			Notifier.call_deferred(
 				"show_notification",
@@ -1970,7 +1991,17 @@ class Mind :
 			ProMan.save_project_into(target_registered_uid_to_save_into, importing_data, false, (Settings.USE_DEPRECATED_BIN_SAVE != true))
 			load_projects_list()
 		else:
-			printerr("Invalid Project File! The selected file is not of a supported format or is corrupted.")
+			printerr("Invalid Project File! The imported file is not of a supported format or is corrupted: ", file_path)
+			Notifier.call_deferred(
+				"show_notification",
+				"Invalid Project File!",
+				(
+					"We are not able to validate and import the selected file.\n" +
+					"The File might not be of a supported format or is corrupted."
+				),
+				[],
+				Settings.CAUTION_COLOR
+			)
 		pass
 	
 	func import_project_from_browsed(json: String, filename: String) -> void:
