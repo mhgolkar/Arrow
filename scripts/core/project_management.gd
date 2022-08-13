@@ -374,9 +374,10 @@ class ProjectManager :
 	func valid_unique_project_filename_from(suggestion:String) -> String:
 		# we don't want our extension in the file name
 		suggestion = suggestion.replacen(PROJECT_FILE_EXTENSION_WITHOUT_DOT, "")
-		# and though it might be valid, let's avoid dots too
-		suggestion = suggestion.replacen(".", "_")
-		if suggestion.length() == 0 || suggestion == "_":
+		# and optionally purge and replace some words from the filename
+		for purge in Settings.PROJECT_FILE_NAME_PURGED_WORDS:
+			suggestion = suggestion.replacen(purge, Settings.PROJECT_FILE_NAME_PURGED_WORDS_REPLACEMENT)
+		if suggestion.length() == 0:
 			# blank suggestion?! let's suggest a random one
 			suggestion = (
 				Settings.RANDOM_PROJECT_NAME_PREFIX +

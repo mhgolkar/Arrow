@@ -48,7 +48,9 @@ const TIME_STAMP_TEMPLATE_UTC_MARK = " UTC"
 const PROJECT_LIST_FILE_NAME = "projects.arrow"
 # ...
 const PROJECT_FILE_EXTENSION = ".arrow" # CAUTION! change `PATH_DIALOG_PROPERTIES` respectively.
-const PROJECT_FILE_RESTRICTED_NAMES = [ "projects", "config", "" ]
+const PROJECT_FILE_NAME_PURGED_WORDS = [] # These words will be automatically replaced in a file name
+const PROJECT_FILE_NAME_PURGED_WORDS_REPLACEMENT = "_"
+const PROJECT_FILE_RESTRICTED_NAMES = ["projects", "config", ""] # Final filenames can not be any of these
 # ...
 const PROJECT_FILE_JSON_DEFAULT_IDENT = "\t"
 # ...
