@@ -13,16 +13,39 @@ class UserInput {
         this.previous_variable_value = null;
 
         const ONLY_PLAY_SLOT = 0;
-        const REQUIRE_VALID_INPUT_TO_CONTINUE = true;
-        const INVALIDATE_EMPTY_STRING = true;
+        const INVALIDATE_EMPTY_STRING = false;
 
-        const INPUT_VALIDATION_EVENT  = 'change';
+        const INPUT_LISTENER_EVENT  = 'input';
+
         const INPUT_PER_VARIABLE_TYPE = {
             'str': 'text',
             'num': 'number',
             'bool': 'checkbox'
         };
-        const DEFAULT_CHECKBOX_CLICKABLE_LABEL_TEXT = i18n('defaultCheckboxClickableLabelText');
+
+        const DEFAULT_INPUT_PROPERTIES = {
+            "str": [undefined, "", ""],
+            "num": [undefined, undefined, 1, 0],
+            "bool": [ i18n('user_input_default_bool_negative'), i18n('user_input_default_bool_positive'), true],
+        };
+
+        this.get_element = function () {
+            return this.html;
+        };
+        
+        this.remove_element = function() {
+            this.html.remove();
+        };
+
+        this.get_input_custom_properties = function() {
+            return (
+                (
+                    this.node_resource.hasOwnProperty("data") &&
+                    this.node_resource.data.hasOwnProperty("custom") &&
+                    Array.isArray(this.node_resource.data.custom)
+                ) ? this.node_resource.data.custom : []
+            );
+        };
 
         this.read_and_parse_value = function(){
             if (this.the_variable && this.input_element){
@@ -39,50 +62,175 @@ class UserInput {
             }
         };
 
-        this.str_validator = function(_event, default_reset_value){
+        this.str_validator = function(){
             var is_valid = true;
-            var parsed_value = this.read_and_parse_value();
-            if ( INVALIDATE_EMPTY_STRING === true && parsed_value.length == 0 ){
+            var value = this.read_and_parse_value();
+            if ( INVALIDATE_EMPTY_STRING === true && value.length == 0 ){
                 is_valid = false;
+            } else {
+                var custom = this.get_input_custom_properties();
+                if (custom.length >= 1){
+                    var pattern = custom[0];
+                    if ( typeof pattern == 'string' ) {
+                        if (pattern.length > 0){ // Blank patterns are ignored (pass everything)
+                            var matches = value.match( new RegExp( pattern, "g" ) )
+                            if (
+                                Array.isArray(matches) == false || matches.length == 0 ||
+                                matches[0] != value
+                            ){
+                                is_valid = false;
+                            }
+                        }
+                    } else {
+                        console.error(
+                            this.node_id, "We can only accept RegExp strings as pattern.", this.node_resource
+                        );
+                        is_valid = false;
+                    }
+                }
             }
             return is_valid;
         };
 
-        this.num_validator = function(_event, default_reset_value){
+        this.num_validator = function(){
             var is_valid = true;
-            var parsed_value = this.read_and_parse_value();
-            if ( parsed_value == Number.NEGATIVE_INFINITY ){
-                parsed_value = '';
+            var value = this.read_and_parse_value();
+            var error = undefined;
+            if ( value == Number.NEGATIVE_INFINITY ){
                 is_valid = false;
+            } else {
+                var custom = this.get_input_custom_properties();
+                if (custom.length >= 3) {
+                    for (var req = 0; req < 3; req++){
+                        if (Number.isInteger(custom[req]) != true){
+                            error = "All required values in custom for `num` [min, max, step, ...] shall be integers.";
+                            is_valid = false;
+                            break;
+                        }
+                    }
+                    if (is_valid) { // (all integers, we can still proceed)
+                        var min = custom[0], max = custom[1], step = custom[2];
+                        if (min <= max) {
+                            if (min == max) {
+                                if (value != min) {
+                                    is_valid = false;
+                                }
+                            } else { // ( min < max)
+                                if (value < min || value > max) {
+                                    is_valid = false;
+                                } else { // is in range but is it stepped properly?
+                                    if (step != 0 && ((value - min) % step) != 0) { // (zero step is ignored)
+                                        is_valid = false;
+                                    }
+                                }
+                            }
+                        } else {
+                            is_valid = false;
+                            error = "`min` custom property shall be less or equal to `max`!";
+                        }
+                    }
+                } else {
+                    error = "We expect at least 3 numeral values [min, max, step, ...] to validate input.";
+                    is_valid = false;
+                }
             }
-            if (default_reset_value != false){
-                this.input_element.value = parsed_value;
-            }
+            if (error) { console.error(this.node_id, error, this.node_resource); };
             return is_valid;
         };
 
-        this.bool_validator = function(_event){
-            // Note: This one doesn't have `default_reset_value` because
-            // ... it can't have intermediate invalid value. It's either checked (true) or not.
+        this.bool_validator = function(){
             return ( typeof this.read_and_parse_value() == 'boolean' );
         };
-        
-        this.get_element = function () {
-            return this.html;
+
+        this.is_input_valid = function(){
+            if (this.the_variable) {
+                switch (this.the_variable.type) {
+                    case 'str':
+                        return this.str_validator();
+                    case 'num':
+                        return this.num_validator();
+                    case 'bool':
+                        return this.bool_validator();
+                    default:
+                        console.error(this.the_variable_id, this.the_variable)
+                        throw new Error('Unsupported variable type!');
+                }
+            } else {
+                // No variable (-1) can not be validated (strictly) and passes only on skip
+                return false
+            }
+        };
+
+        this.set_input_view = function() {
+            if (this.the_variable) {
+                var custom = this.get_input_custom_properties()
+                var length = custom.length
+                switch (this.the_variable.type) {
+                    case 'str': // [pattern, default, extra]
+                        const _STR_FIELDS = ["pattern", "value", "placeholder"]
+                        for (var i = 0; i < _STR_FIELDS.length; i++) {
+                            if (_STR_FIELDS[i] == "pattern" && custom[i].length == 0) {
+                                // unlike html text input we consider blank string no enforced pattern,
+                                // so we do not set the property; otherwise it would only accept blank strings.
+                                continue;
+                            };
+                            if (_STR_FIELDS[i] != undefined) {
+                                this.input_element[_STR_FIELDS[i]] = (
+                                    length >= (i+1) && (typeof custom[i] == 'string')
+                                    ? custom[i] : DEFAULT_INPUT_PROPERTIES["str"][i]
+                                );
+                            }
+                        }
+                        break;
+                    case 'num': // [min, max, step, value]
+                        const _NUM_FIELDS = ["min", "max", "step", "value"]
+                        for (var i = 0; i < _NUM_FIELDS.length; i++) {
+                            if (_NUM_FIELDS[i] != undefined) {
+                                this.input_element[_NUM_FIELDS[i]] = (
+                                    length >= (i+1) && Number.isInteger(custom[i]) ? custom[i] : DEFAULT_INPUT_PROPERTIES["num"][i]
+                                );
+                            }
+                        }
+                        break;
+                    case 'bool': // [negative, positive, default-state]
+                        this.input_element.checked = (length >= 3 ? custom[2] : DEFAULT_INPUT_PROPERTIES["bool"][2])
+                        break;
+                    default:
+                        console.error(this.the_variable_id, this.the_variable)
+                        throw new Error('Unsupported variable type!');
+                }
+                // and to apply:
+                this.on_input_modification()
+            } else {
+                console.warn(`No variable is set for node ${this.node_id}`)
+            }
+        };
+
+        this.reset_validity_state = function(force) {
+            var validity = ((typeof force == 'boolean') ? force : this.is_input_valid());
+            this.html.setAttribute('data-valid', validity);
+            this.continue_button.disabled = (!validity)
+        };
+
+        this.on_input_modification = function() {
+            this.reset_validity_state()
+            // Switch boolean check-box label to current state as well:
+            if (this.input_checkbox_label){
+                var custom = this.get_input_custom_properties()
+                var state_idx = (this.input_element.checked ? 1 : 0);
+                this.input_checkbox_label.innerText = (
+                    custom.length >= (state_idx + 1) && typeof custom[state_idx] == 'string'
+                    ? custom[state_idx] : DEFAULT_INPUT_PROPERTIES["bool"][state_idx]
+                )
+            }
         };
         
-        this.remove_element = function() {
-            this.html.remove();
-        };
-        
-        this.play_forward_from = function(){
-            if (
-                REQUIRE_VALID_INPUT_TO_CONTINUE === false ||
-                this.is_input_valid() == true
-            ){
+        this.play_forward_from = function(_, skip){
+            var valid = this.is_input_valid()
+            if ( skip === true || valid == true ){
                 if ( this.slots_map.hasOwnProperty( ONLY_PLAY_SLOT ) ) {
                     // update variable
-                    if ( this.the_variable ){
+                    if ( this.the_variable && valid && skip != true ){
                         update_global_variable_by_id( this.the_variable_id, this.read_and_parse_value() );
                     }
                     // then go for the next node
@@ -92,12 +240,14 @@ class UserInput {
                     handle_status(_CONSOLE_STATUS_CODE.END_EDGE, _self);
                 }
                 this.set_view_played(ONLY_PLAY_SLOT);
+            } else {
+                this.reset_validity_state(false)
             }
         };
         
         this.skip_play = function() {
             this.html.setAttribute('data-skipped', true);
-            this.play_forward_from(ONLY_PLAY_SLOT);
+            this.play_forward_from(ONLY_PLAY_SLOT, true);
         };
         
         this.set_view_played = function(slot_idx){
@@ -105,6 +255,7 @@ class UserInput {
         };
         
         this.set_view_unplayed = function(){
+            this.set_input_view()
             this.html.setAttribute('data-played', false);
         };
         
@@ -151,19 +302,18 @@ class UserInput {
                                 this.the_variable = VARS[ this.the_variable_id ];
                                 this.previous_variable_value = this.the_variable.value;
                                 var input_html_type = INPUT_PER_VARIABLE_TYPE[ this.the_variable.type ];
-                                var input_element_id = `${node_resource.name}_input`;
+                                var input_element_id = `${node_id}_input`;
                                 this.input_element = create_element("input", null, {
                                     id: input_element_id,
                                     type: input_html_type
                                 });
-                                this.is_input_valid = _self[`${this.the_variable.type}_validator`].bind(_self);
-                                this.input_element.addEventListener( INPUT_VALIDATION_EVENT, this.is_input_valid );
+                                this.input_element.addEventListener( INPUT_LISTENER_EVENT, this.on_input_modification.bind(_self) );
                                 this.html.appendChild(this.input_element);
                                 if ( input_html_type == 'checkbox'){
-                                    var check_box_clickable_label = create_element('label', DEFAULT_CHECKBOX_CLICKABLE_LABEL_TEXT, {
+                                    this.input_checkbox_label = create_element('label', null, {
                                         for: input_element_id
                                     });
-                                    this.html.appendChild(check_box_clickable_label);
+                                    this.html.appendChild(this.input_checkbox_label);
                                 }
                             } else {
                                 error = "Invalid target variable id.";
@@ -173,6 +323,8 @@ class UserInput {
                         this.continue_button = create_element("button", i18n('continue'));
                         this.continue_button.addEventListener( _CLICK, this.play_forward_from.bind(_self) );
                         this.html.appendChild(this.continue_button);
+                        // ...
+                        this.set_view_unplayed()
                     }
                     if ( error ) {
                         console.error(`Corrupt user_input node (${node_resource.name}) resource data: `, error, '\nNode set to be skipped.');

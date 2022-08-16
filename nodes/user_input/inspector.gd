@@ -11,8 +11,19 @@ const NO_VARIABLE_TEXT = "No Variable Available"
 const NO_VARIABLE_ID = -1
 
 const DEFAULT_NODE_DATA = {
+	"prompt": "",
 	"variable": NO_VARIABLE_ID,
-	"prompt": ""
+	#
+	# IMPORTANT:
+	# Console & runtimes depend on the order of elements in `custom` property to run the node properly:
+	# They are per variable type:
+	# + str: [pattern, default, extra] (all strings)
+	# + num: [min, max, step, value] (all integers)
+	# + bool: [negative, positive, default-state] (two strings and a boolean)
+	# Also note that behavior regarding partially stored values (arrays with size other than expected,)
+	# or invalid custom data (e.g. data not complying with the target `variable` type)
+	# may depend on runtime implementation.
+	"custom": [],
 }
 
 var _OPEN_NODE_ID
@@ -28,14 +39,52 @@ var This = self
 
 onready var Prompt = get_node("./UserInput/PromptFor")
 onready var VariablesOption = get_node("./UserInput/DirectToVariable")
+onready var InputProperties = get_node("./UserInput/Customization")
+onready var InputPropertiesByType = {
+	#
+	# CAUTION!
+	# Order of elements in each `fields` property is crutial for each variable type to be stored and run properly.
+	# They should represent the same order in which parameters are stored in the project file (i.e. node data,)
+	# in other words the order console and runtimes depend on, to run the node properly.
+	# Check out `DEFAULT_NODE_DATA` for more information.
+	#
+	"str": {
+		"group": get_node("./UserInput/Customization/PanelContainer/String"),
+		"fields": [
+			# [node, parameter, default-value]
+			[get_node("./UserInput/Customization/PanelContainer/String/Pattern/LineEdit"), "text", ""],
+			[get_node("./UserInput/Customization/PanelContainer/String/Default/LineEdit"), "text", ""],
+			[get_node("./UserInput/Customization/PanelContainer/String/Extra/LineEdit"), "text", ""],
+		]
+	},
+	"num": {
+		"group": get_node("./UserInput/Customization/PanelContainer/Number"),
+		"fields": [
+			[get_node("./UserInput/Customization/PanelContainer/Number/Min/SpinBox"), "value", -100],
+			[get_node("./UserInput/Customization/PanelContainer/Number/Max/SpinBox"), "value", 100],
+			[get_node("./UserInput/Customization/PanelContainer/Number/Step/SpinBox"), "value", 1],
+			[get_node("./UserInput/Customization/PanelContainer/Number/Value/SpinBox"), "value", 0],
+		]
+	},
+	"bool": {
+		"group": get_node("./UserInput/Customization/PanelContainer/Boolean"),
+		"fields": [
+			[get_node("./UserInput/Customization/PanelContainer/Boolean/False/LineEdit"), "text", ""],
+			[get_node("./UserInput/Customization/PanelContainer/Boolean/True/LineEdit"), "text", ""],
+			[get_node("./UserInput/Customization/PanelContainer/Boolean/Default/CheckButton"), "pressed", true],
+		]
+	},
+}
 
-#func _ready() -> void:
-#	register_connections()
-#	pass
+func _ready() -> void:
+	register_connections()
+	pass
 
-#func register_connections() -> void:
-#	# e.g. SOME_CHILD.connect("the_signal", self, "the_handler_on_self", [], CONNECT_DEFERRED)
-#	pass
+func register_connections() -> void:
+	VariablesOption.connect("item_selected", self, "refresh_custom_properties_panel", [], CONNECT_DEFERRED)
+	for num_prop in InputPropertiesByType["num"].fields:
+		num_prop[0].connect("value_changed", self, "_cap_num_custom_prop_values", [], CONNECT_DEFERRED)
+	pass
 
 func a_node_is_open() -> bool :
 	if (
@@ -74,6 +123,37 @@ func referesh_variables_list(select_by_res_id:int = NO_VARIABLE_ID) -> void:
 		VariablesOption.add_item(NO_VARIABLE_TEXT, NO_VARIABLE_ID)
 	pass
 
+func refresh_custom_properties_panel(_x = null) -> void:
+	var show_panel = false
+	var variable_type = null
+	var selected_var_id = VariablesOption.get_selected_id()
+	if _PROJECT_VARIABLES_CACHE.has(selected_var_id):
+		variable_type = _PROJECT_VARIABLES_CACHE[selected_var_id].type
+	# ...
+	for by_type in InputPropertiesByType:
+		var shown = (by_type == variable_type)
+		InputPropertiesByType[by_type].group.set_visible(shown)
+		if shown: # any
+			show_panel = true
+		# Let's also reset value of the custom properties to defaults
+		for field in InputPropertiesByType[by_type].fields:
+			field[0].set(field[1], field[2])
+	InputProperties.set_visible(show_panel)
+	# ...
+	if _OPEN_NODE.has("data") && _OPEN_NODE.data is Dictionary:
+		if _OPEN_NODE.data.has("variable") && _OPEN_NODE.data.variable ==  selected_var_id:
+			if _OPEN_NODE.data.has("custom") && _OPEN_NODE.data.custom is Array:
+				var custom_properties_size = _OPEN_NODE.data.custom.size()
+				for field_index in range(0, InputPropertiesByType[variable_type].fields.size()):
+					var field = InputPropertiesByType[variable_type].fields[field_index]
+					var custom_property = (
+						_OPEN_NODE.data.custom[field_index]
+						if field_index < custom_properties_size
+						else field[2] # Default value
+					)
+					field[0].set(field[1], custom_property)
+	pass
+
 func _update_parameters(node_id:int, node:Dictionary) -> void:
 	# first cache the node
 	_OPEN_NODE_ID = node_id
@@ -87,7 +167,32 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 		if node.data.has("variable") && (node.data.variable is int) && (node.data.variable >= 0) :
 			variable_id_to_select = node.data.variable
 	referesh_variables_list(variable_id_to_select)
+	refresh_custom_properties_panel()
 	pass
+
+func _cap_num_custom_prop_values(_x = null) -> void:
+	var min_value = InputPropertiesByType["num"].fields[0][0].get_value()
+	var max_value = InputPropertiesByType["num"].fields[1][0].get_value()
+	var step_value = InputPropertiesByType["num"].fields[2][0].get_value()
+	# cap range (sorted)
+	if max_value < min_value:
+		InputPropertiesByType["num"].fields[1][0].set_value(min_value)
+	# and step to be positive non-zero
+	InputPropertiesByType["num"].fields[2][0].set_value( int( max( abs(step_value), 1 ) ) )
+	pass
+
+func read_custom_properties():
+	var selected_var_id = VariablesOption.get_selected_id()
+	if _PROJECT_VARIABLES_CACHE.has(selected_var_id):
+		var custom_properties = []
+		var variable_type = _PROJECT_VARIABLES_CACHE[selected_var_id].type
+		for field in InputPropertiesByType[variable_type].fields:
+			var value = field[0].get(field[1])
+			if variable_type == "num":
+				value = int(value)
+			custom_properties.push_back( value )
+		return custom_properties
+	return null
 
 func find_exposed_variables(prompt:String, return_ids:bool = true) -> Array:
 	refresh_variables_cache()
@@ -142,6 +247,9 @@ func _read_parameters() -> Dictionary:
 		"prompt": Prompt.get_text(),
 		"variable": (VariablesOption.get_selected_id() if (_PROJECT_VARIABLES_CACHE.size() > 0) else NO_VARIABLE_ID),
 	}
+	var custom_properties = read_custom_properties()
+	if custom_properties != null:
+		parameters.custom = custom_properties
 	# does it rely on any other resource ?
 	var _use = create_use_command(parameters)
 	if _use.drop.size() > 0 || _use.refer.size() > 0 :

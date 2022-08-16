@@ -12,6 +12,7 @@
     --color-5: rgb(0, 98, 128);
     --color-6: rgb(90, 90, 90);
     --color-7: rgb(170, 170, 170);
+    --color-e: rgb(255, 0, 0);
 }
 :root[data-theme^='dark'] { /* dark theme */
     --color-0: rgb(0, 0, 0);
@@ -22,6 +23,7 @@
     --color-5: rgb(18, 226, 176);
     --color-6: rgb(181, 181, 181);
     --color-7: rgb(142, 117, 64);
+    --color-e: rgb(255, 0, 0);
 }
 
 /* General: Normals */
@@ -163,6 +165,9 @@ button:hover, input[type='button']:hover, input[type='submit']:hover {
 button:active, input[type='button']:active, input[type='submit']:active {
     color: var(--color-0);
     background-color: var(--color-5);
+}
+button:disabled {
+    filter: grayscale(1) opacity(0.5);
 }
 textarea {
     display: block;
@@ -466,6 +471,13 @@ footer button:not(:first-of-type) {
 .node[data-type='user_input'] input {
     margin-right: 1rem;
 }
+.node[data-type='user_input'][data-valid='false'] input {
+    border-color: var(--color-e);
+}
+.node[data-type='user_input'][data-valid='false'] button {
+    filter: grayscale(1) opacity(0.5);
+}
+
 .node[data-type='user_input'] label {
     margin-right: 1rem;
     cursor: pointer;
@@ -478,7 +490,9 @@ footer button:not(:first-of-type) {
 .node[data-type='user_input'][data-played='true'] label {
     pointer-events: none;
 }
-.node[data-type='user_input'][data-played='true'] button { display: none; }
+.node[data-type='user_input'][data-played='true'] button {
+    display: none;
+}
 
 /* variable_update */
 .node[data-type='variable_update']{}

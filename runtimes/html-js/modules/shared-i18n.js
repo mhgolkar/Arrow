@@ -12,8 +12,11 @@ const _TRANSLATION_TABLE = {
     true: {
         en: "True",
     },
-    defaultCheckboxClickableLabelText:{
-        en: "Positive!",
+    user_input_default_bool_negative:{
+        en: "Negative (False)",
+    },
+    user_input_default_bool_positive:{
+        en: "Positive (True)",
     },
     evaluate:{
         en: "Evaluate",

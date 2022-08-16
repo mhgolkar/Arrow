@@ -7,15 +7,12 @@ margin_right = 233.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="UserInputPlay" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 226.0
-margin_bottom = 91.0
+margin_bottom = 105.0
 mouse_filter = 2
 
 [node name="Prompt" type="Label" parent="UserInputPlay"]
@@ -28,7 +25,7 @@ autowrap = true
 [node name="Input" type="MarginContainer" parent="UserInputPlay"]
 margin_top = 18.0
 margin_right = 219.0
-margin_bottom = 42.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 
 [node name="String" type="LineEdit" parent="UserInputPlay/Input"]
@@ -38,28 +35,36 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="Number" type="SpinBox" parent="UserInputPlay/Input"]
+visible = false
 margin_right = 219.0
 margin_bottom = 24.0
+rounded = true
 allow_greater = true
 allow_lesser = true
 
 [node name="Boolean" type="OptionButton" parent="UserInputPlay/Input"]
 margin_right = 219.0
-margin_bottom = 24.0
-text = "Positive (True)"
-items = [ "Positive (True)", null, false, 1, null, "Negative (False)", null, false, 0, null ]
-selected = 0
+margin_bottom = 20.0
+text = "Positive (True) "
+items = [ "Negative (False)", null, false, 0, null, "Positive (True) ", null, false, 1, null ]
+selected = 1
+
+[node name="Invalid" type="Label" parent="UserInputPlay"]
+margin_top = 42.0
+margin_right = 219.0
+margin_bottom = 56.0
+text = "* Invalid input"
 
 [node name="Result" type="Label" parent="UserInputPlay"]
-margin_top = 46.0
+margin_top = 60.0
 margin_right = 219.0
-margin_bottom = 60.0
+margin_bottom = 74.0
 text = "{ result }"
 
 [node name="Enter" type="Button" parent="UserInputPlay"]
 margin_left = 174.0
-margin_top = 64.0
+margin_top = 78.0
 margin_right = 219.0
-margin_bottom = 84.0
+margin_bottom = 98.0
 size_flags_horizontal = 8
 text = "Enter"

@@ -6,27 +6,24 @@
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 246.0
-margin_bottom = 157.0
+margin_bottom = 271.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="UserInput" type="VBoxContainer" parent="."]
 margin_right = 239.0
-margin_bottom = 150.0
+margin_bottom = 264.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="PromptFroLabel" type="Label" parent="UserInput"]
 margin_right = 239.0
 margin_bottom = 14.0
-text = "Ask player"
+text = "Ask player:"
 
 [node name="PromptFor" type="TextEdit" parent="UserInput"]
 margin_top = 18.0
 margin_right = 239.0
-margin_bottom = 89.0
+margin_bottom = 74.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -36,19 +33,258 @@ fold_gutter = true
 wrap_enabled = true
 
 [node name="DirectToLabel" type="Label" parent="UserInput"]
-margin_top = 93.0
+margin_top = 78.0
 margin_right = 239.0
-margin_bottom = 107.0
-text = "Direct user input to"
+margin_bottom = 92.0
+text = "Direct user input to:"
 
 [node name="DirectToVariable" type="OptionButton" parent="UserInput"]
-margin_top = 111.0
+margin_top = 96.0
 margin_right = 239.0
-margin_bottom = 131.0
+margin_bottom = 116.0
+
+[node name="Customization" type="VBoxContainer" parent="UserInput"]
+margin_top = 120.0
+margin_right = 239.0
+margin_bottom = 248.0
+
+[node name="Label" type="Label" parent="UserInput/Customization"]
+margin_right = 239.0
+margin_bottom = 14.0
+text = "Input Properties:"
+
+[node name="PanelContainer" type="PanelContainer" parent="UserInput/Customization"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 128.0
+
+[node name="String" type="VBoxContainer" parent="UserInput/Customization/PanelContainer"]
+visible = false
+margin_left = 7.0
+margin_top = -95.0
+margin_right = 232.0
+margin_bottom = -15.0
+
+[node name="Pattern" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/String"]
+margin_right = 225.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/String/Pattern"]
+margin_top = 5.0
+margin_right = 50.0
+margin_bottom = 19.0
+text = "Pattern:"
+
+[node name="LineEdit" type="LineEdit" parent="UserInput/Customization/PanelContainer/String/Pattern"]
+margin_left = 54.0
+margin_right = 225.0
+margin_bottom = 24.0
+hint_tooltip = "User data shall match this RegEx pattern in order to be input.
+Empty pattern allows any value."
+size_flags_horizontal = 3
+placeholder_text = "Regular Expression"
+
+[node name="Default" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/String"]
+margin_top = 28.0
+margin_right = 225.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/String/Default"]
+margin_top = 5.0
+margin_right = 50.0
+margin_bottom = 19.0
+text = "Default:"
+
+[node name="LineEdit" type="LineEdit" parent="UserInput/Customization/PanelContainer/String/Default"]
+margin_left = 54.0
+margin_right = 225.0
+margin_bottom = 24.0
+hint_tooltip = "Default or preset value for the input.
+Runtime behvaior for values not matching the pattern, depends on implementation."
+size_flags_horizontal = 3
+placeholder_text = "Preset value"
+
+[node name="Extra" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/String"]
+margin_top = 56.0
+margin_right = 225.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/String/Extra"]
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 19.0
+text = "Extra:"
+
+[node name="LineEdit" type="LineEdit" parent="UserInput/Customization/PanelContainer/String/Extra"]
+margin_left = 39.0
+margin_right = 225.0
+margin_bottom = 24.0
+hint_tooltip = "Depending on the runtime implementation, extra can be used as hint, placeholder, tooltip, etc."
+size_flags_horizontal = 3
+placeholder_text = "Placeholder, Hint, etc."
+
+[node name="Number" type="VBoxContainer" parent="UserInput/Customization/PanelContainer"]
+visible = false
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 232.0
+margin_bottom = 115.0
+
+[node name="Min" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Number"]
+margin_right = 225.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Number/Min"]
+margin_top = 5.0
+margin_right = 28.0
+margin_bottom = 19.0
+text = "Min:"
+
+[node name="SpinBox" type="SpinBox" parent="UserInput/Customization/PanelContainer/Number/Min"]
+margin_left = 32.0
+margin_right = 225.0
+margin_bottom = 24.0
+hint_tooltip = "Minimum acceptable value
+(inclusive.)"
+size_flags_horizontal = 3
+min_value = -100.0
+value = -100.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="Max" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Number"]
+margin_top = 28.0
+margin_right = 225.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Number/Max"]
+margin_top = 5.0
+margin_right = 30.0
+margin_bottom = 19.0
+text = "Max:"
+
+[node name="SpinBox" type="SpinBox" parent="UserInput/Customization/PanelContainer/Number/Max"]
+margin_left = 34.0
+margin_right = 225.0
+margin_bottom = 24.0
+hint_tooltip = "Maximum acceptable value
+(inclusive.)"
+size_flags_horizontal = 3
+min_value = -100.0
+value = 100.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="Step" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Number"]
+margin_top = 56.0
+margin_right = 225.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Number/Step"]
+margin_top = 5.0
+margin_right = 32.0
+margin_bottom = 19.0
+text = "Step:"
+
+[node name="SpinBox" type="SpinBox" parent="UserInput/Customization/PanelContainer/Number/Step"]
+margin_left = 36.0
+margin_right = 225.0
+margin_bottom = 24.0
+hint_tooltip = "Non-zero absolute value for input steps."
+size_flags_horizontal = 3
+min_value = -100.0
+value = 1.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="Value" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Number"]
+margin_top = 84.0
+margin_right = 225.0
+margin_bottom = 108.0
+
+[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Number/Value"]
+margin_top = 5.0
+margin_right = 39.0
+margin_bottom = 19.0
+text = "Value:"
+
+[node name="SpinBox" type="SpinBox" parent="UserInput/Customization/PanelContainer/Number/Value"]
+margin_left = 43.0
+margin_right = 225.0
+margin_bottom = 24.0
+hint_tooltip = "Default or preset value.
+Runtime behvaior for values out of bound, depends on implementation."
+size_flags_horizontal = 3
+min_value = -100.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="Boolean" type="VBoxContainer" parent="UserInput/Customization/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 232.0
+margin_bottom = 103.0
+
+[node name="False" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Boolean"]
+margin_right = 225.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Boolean/False"]
+margin_top = 5.0
+margin_right = 37.0
+margin_bottom = 19.0
+text = "False:"
+
+[node name="LineEdit" type="LineEdit" parent="UserInput/Customization/PanelContainer/Boolean/False"]
+margin_left = 41.0
+margin_right = 225.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "Negative"
+
+[node name="True" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Boolean"]
+margin_top = 28.0
+margin_right = 225.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Boolean/True"]
+margin_top = 5.0
+margin_right = 32.0
+margin_bottom = 19.0
+text = "True:"
+
+[node name="LineEdit" type="LineEdit" parent="UserInput/Customization/PanelContainer/Boolean/True"]
+margin_left = 36.0
+margin_right = 225.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "Positive"
+
+[node name="Default" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Boolean"]
+margin_top = 56.0
+margin_right = 225.0
+margin_bottom = 96.0
+
+[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Boolean/Default"]
+margin_top = 13.0
+margin_right = 81.0
+margin_bottom = 27.0
+text = "Preset State:"
+
+[node name="CheckButton" type="CheckButton" parent="UserInput/Customization/PanelContainer/Boolean/Default"]
+margin_left = 85.0
+margin_right = 161.0
+margin_bottom = 40.0
+hint_tooltip = "Whether the False or True case should be selected when input is prompted."
+pressed = true
 
 [node name="MarginContainer" type="MarginContainer" parent="UserInput"]
-margin_top = 135.0
+margin_top = 252.0
 margin_right = 239.0
-margin_bottom = 150.0
+margin_bottom = 264.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
