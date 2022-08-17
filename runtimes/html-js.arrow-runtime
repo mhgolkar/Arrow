@@ -37,17 +37,20 @@ const _TRANSLATION_TABLE = {
     true: {
         en: "True",
     },
-    user_input_default_bool_negative:{
+    generate: {
+        en: "Generate",
+    },
+    dialog_anonymous_character_name: {
+        en: "Anonymous",
+    },
+    user_input_default_bool_negative: {
         en: "Negative (False)",
     },
-    user_input_default_bool_positive:{
+    user_input_default_bool_positive: {
         en: "Positive (True)",
     },
-    evaluate:{
+    evaluate: {
         en: "Evaluate",
-    },
-    generate:{
-        en: "Generate",
     },
     end_of_play: {
         en: "The End !",
@@ -848,7 +851,7 @@ class Dialog {
         const _self = this;
         
         const ANONYMOUS_CHARACTER = {
-            "name": "Anonymous" ,
+            "name": i18n("dialog_anonymous_character_name"),
             "color": "ffffff",
         };
 
@@ -968,7 +971,7 @@ class Dialog {
             this.play_forward_from(random_played_line_idx);
         };
 
-        this.update_character_profile = function(character){
+        this.update_character_profile = function(character_id, character){
             if ( typeof character == 'object' && character.hasOwnProperty("color") && character.hasOwnProperty("name") ){
                 if ( this.character_profile_element == null ){
                     this.character_name_element = create_element( "div", character.name, { class: 'character-name' } );
@@ -977,6 +980,7 @@ class Dialog {
                         {
                             class: 'character-profile',
                             style: `--character-color: #${character.color};`,
+                            "data-id": character_id,
                             "data-name": character.name,
                         }
                     );
@@ -1006,7 +1010,10 @@ class Dialog {
                         // Character profile:
                         if ( node_resource.data.hasOwnProperty('character') ){
                             var character_id = safeInt(node_resource.data.character);
-                            this.update_character_profile( CHARS.hasOwnProperty(character_id) ? CHARS[character_id] : ANONYMOUS_CHARACTER );
+                            this.update_character_profile(
+                                character_id,
+                                CHARS.hasOwnProperty(character_id) ? CHARS[character_id] : ANONYMOUS_CHARACTER,
+                            );
                         }
                         // Lines:
                         if ( node_resource.data.hasOwnProperty('lines') && Array.isArray(node_resource.data.lines) && node_resource.data.lines.length > 0 ){
@@ -1105,8 +1112,16 @@ class Entry {
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
                     // ... and the children
+                    // + plaque:
+                    if ( 
+                        node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("plaque") &&
+                        typeof node_resource.data.plaque == 'string' && node_resource.data.plaque.length > 0
+                    ) {
+                        this.plaque = create_element("em", node_resource.data.plaque, {'class': 'plaque'});
+                        this.html.appendChild(this.plaque);
+                    }
+                    // + possible user interaction (manual play)
                     this.entry_button = create_element("button", node_resource.name);
-                    // + possible user interaction
                     this.entry_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, AUTO_PLAY_SLOT) );
                     this.html.appendChild(this.entry_button);
             }
@@ -1648,7 +1663,7 @@ class Jump {
                     // ... and the children
                     // Reason:
                     if ( node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("reason") && typeof node_resource.data.reason == 'string' && node_resource.data.reason.length > 0 ) {
-                        this.reason = create_element("p", node_resource.data.reason);
+                        this.reason = create_element("em", node_resource.data.reason, {'class': 'reason'});
                         this.html.appendChild(this.reason);
                     }
                     // Manual play button:
@@ -3056,7 +3071,12 @@ function handle_status(status_code, the_player_node_instance){
                 OPEN_MACRO = null;
             }
             // and get dev/user a heads up
-            if (_VERBOSE) console.log(`NO Action! The node ${the_player_node_instance.node_resource.name} has taken no special or default action.\nCheck if parameters are unset or the node is skipped.`);
+            if (_VERBOSE) {
+                console.log(
+                    `Node '${the_player_node_instance.node_resource.name}' has no action and no default!\n`+
+                    'The node may be skipped or has unset/invalid parameters.'
+                );
+            }
             break;
     }
 }
@@ -3468,21 +3488,23 @@ footer button:not(:first-of-type) {
 /* ---------- */
 
 .node {
-    /* Opacity of the visible played nodes ( between 0 and 1 ) */
-    --mark-node-read-opacity: 1; /* 1 = full opacity */
     --shown-skipped-node-opacity: 0.7;
     /* General node transition */
     transition: filter var(--transition-time-medium) ease-in-out;
 }
 
+.node[data-skipped='true'] > *:not(button) {
+    filter: opacity( var(--shown-skipped-node-opacity) );
+}
+
+/* HINT: You can remove this block if you want to display skipped nodes anyway */
+.node[data-played='true'][data-skipped='true'] {
+    display: none;
+}
+
 /* content */
 .node[data-type='content']{}
-.node[data-type='content'][data-played='true']{
-    filter: opacity( var(--mark-node-read-opacity) );
-}
 .node[data-type='content'][data-played='true'] button { display: none; }
-.node[data-type='content'][data-played='false'][data-skipped='true'] > *:not(button) { filter: opacity( var(--shown-skipped-node-opacity) ); }
-.node[data-type='content'][data-played='true'][data-skipped='true'] { display: none; }
 
 /* condition */
 .node[data-type='condition']{}
@@ -3496,7 +3518,7 @@ footer button:not(:first-of-type) {
 }
 .node[data-type='dialog'] /*div*/.character-profile {
     /*
-    It comes with `[data-name]`, set to the character name (unescaped),
+    It comes with `[data-name]` and `[data-id]`, set to the character's name (unescaped) and UID,
     and `--character-color: #<character-hex-color>;` css variable set inline.
     */
 }
@@ -3540,13 +3562,13 @@ footer button:not(:first-of-type) {
     padding: 0.75em;
     margin: 0.5rem 2rem;
 }
-.node[data-type='dialog'][data-played='true'] { filter: opacity( var(--mark-node-read-opacity) ); }
 .node[data-type='dialog'][data-played='true'] .dialog-lines { display: none; }
 
 /* entry */
 .node[data-type='entry']{}
 .node[data-type='entry'][data-played='true']{ display: none; }
-.node[data-type='entry'] button {}
+.node[data-type='entry'] /*em*/.plaque {}
+.node[data-type='entry'] button { margin: 0.75rem; }
 
 /* generator */
 .node[data-type='generator']{}
@@ -3585,13 +3607,13 @@ footer button:not(:first-of-type) {
     padding: 0.75em;
     margin: 0.5rem 0;
 }
-.node[data-type='interaction'][data-played='true'] { filter: opacity( var(--mark-node-read-opacity) ); }
 .node[data-type='interaction'][data-played='true'] .interaction-actions { display: none; }
 
 /* jump */
 .node[data-type='jump']{}
 .node[data-type='jump'][data-played='true']{ display: none; }
-.node[data-type='jump'] button {}
+.node[data-type='jump'] /*em*/.reason {}
+.node[data-type='jump'] button { margin: 0.75rem; }
 
 /* macro_use */
 .node[data-type='macro_use']{
@@ -3599,14 +3621,19 @@ footer button:not(:first-of-type) {
     /* To compensate for the added margin */
     width: calc(95vw - 5rem); /* body width - left margin - right margin */
 }
-.node[data-type='macro_use'][data-played='true']{ filter: opacity( var(--mark-node-read-opacity) ); }
 
 /* marker */
 .node[data-type='marker']{}
 .node[data-type='marker'] p {
     /* The marker label. `--marker-color` is set inline. */
     color: var(--marker-color);
+    border: solid 0.125rem var(--marker-color);
+    border-radius: 1rem;
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+
 }
+.node[data-type='marker'] button { margin: 0.5rem; }
 .node[data-type='marker'][data-played='true'] p {
     filter: opacity( 0.5 );
 }

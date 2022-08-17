@@ -12,17 +12,20 @@ const _TRANSLATION_TABLE = {
     true: {
         en: "True",
     },
-    user_input_default_bool_negative:{
+    generate: {
+        en: "Generate",
+    },
+    dialog_anonymous_character_name: {
+        en: "Anonymous",
+    },
+    user_input_default_bool_negative: {
         en: "Negative (False)",
     },
-    user_input_default_bool_positive:{
+    user_input_default_bool_positive: {
         en: "Positive (True)",
     },
-    evaluate:{
+    evaluate: {
         en: "Evaluate",
-    },
-    generate:{
-        en: "Generate",
     },
     end_of_play: {
         en: "The End !",

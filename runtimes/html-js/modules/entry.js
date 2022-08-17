@@ -67,8 +67,16 @@ class Entry {
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
                     // ... and the children
+                    // + plaque:
+                    if ( 
+                        node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("plaque") &&
+                        typeof node_resource.data.plaque == 'string' && node_resource.data.plaque.length > 0
+                    ) {
+                        this.plaque = create_element("em", node_resource.data.plaque, {'class': 'plaque'});
+                        this.html.appendChild(this.plaque);
+                    }
+                    // + possible user interaction (manual play)
                     this.entry_button = create_element("button", node_resource.name);
-                    // + possible user interaction
                     this.entry_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, AUTO_PLAY_SLOT) );
                     this.html.appendChild(this.entry_button);
             }

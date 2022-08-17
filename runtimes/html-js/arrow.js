@@ -379,7 +379,12 @@ function handle_status(status_code, the_player_node_instance){
                 OPEN_MACRO = null;
             }
             // and get dev/user a heads up
-            if (_VERBOSE) console.log(`NO Action! The node ${the_player_node_instance.node_resource.name} has taken no special or default action.\nCheck if parameters are unset or the node is skipped.`);
+            if (_VERBOSE) {
+                console.log(
+                    `Node '${the_player_node_instance.node_resource.name}' has no action and no default!\n`+
+                    'The node may be skipped or has unset/invalid parameters.'
+                );
+            }
             break;
     }
 }

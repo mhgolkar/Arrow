@@ -61,7 +61,7 @@ class Jump {
                     // ... and the children
                     // Reason:
                     if ( node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("reason") && typeof node_resource.data.reason == 'string' && node_resource.data.reason.length > 0 ) {
-                        this.reason = create_element("p", node_resource.data.reason);
+                        this.reason = create_element("em", node_resource.data.reason, {'class': 'reason'});
                         this.html.appendChild(this.reason);
                     }
                     // Manual play button:

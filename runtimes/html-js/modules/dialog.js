@@ -7,7 +7,7 @@ class Dialog {
         const _self = this;
         
         const ANONYMOUS_CHARACTER = {
-            "name": "Anonymous" ,
+            "name": i18n("dialog_anonymous_character_name"),
             "color": "ffffff",
         };
 
@@ -127,7 +127,7 @@ class Dialog {
             this.play_forward_from(random_played_line_idx);
         };
 
-        this.update_character_profile = function(character){
+        this.update_character_profile = function(character_id, character){
             if ( typeof character == 'object' && character.hasOwnProperty("color") && character.hasOwnProperty("name") ){
                 if ( this.character_profile_element == null ){
                     this.character_name_element = create_element( "div", character.name, { class: 'character-name' } );
@@ -136,6 +136,7 @@ class Dialog {
                         {
                             class: 'character-profile',
                             style: `--character-color: #${character.color};`,
+                            "data-id": character_id,
                             "data-name": character.name,
                         }
                     );
@@ -165,7 +166,10 @@ class Dialog {
                         // Character profile:
                         if ( node_resource.data.hasOwnProperty('character') ){
                             var character_id = safeInt(node_resource.data.character);
-                            this.update_character_profile( CHARS.hasOwnProperty(character_id) ? CHARS[character_id] : ANONYMOUS_CHARACTER );
+                            this.update_character_profile(
+                                character_id,
+                                CHARS.hasOwnProperty(character_id) ? CHARS[character_id] : ANONYMOUS_CHARACTER,
+                            );
                         }
                         // Lines:
                         if ( node_resource.data.hasOwnProperty('lines') && Array.isArray(node_resource.data.lines) && node_resource.data.lines.length > 0 ){
