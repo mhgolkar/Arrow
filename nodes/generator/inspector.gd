@@ -71,6 +71,8 @@ func _ready() -> void:
 func register_connections() -> void:
 	Variables.connect("item_selected", self, "_on_variables_item_selected", [], CONNECT_DEFERRED)
 	Methods.connect("item_selected", self, "_on_method_item_selected", [], CONNECT_DEFERRED)
+	RandomIntRangeFromValue.connect("value_changed", self, "_balance_from_to_for_randi", [], CONNECT_DEFERRED)
+	RandomIntRangeToValue.connect("value_changed", self, "_balance_from_to_for_randi", [], CONNECT_DEFERRED)
 	pass
 
 func update_strset_delimiter_hint() -> void:
@@ -153,6 +155,13 @@ func refresh_view_all() -> void:
 	refresh_methods_list()
 	pass
 
+func _balance_from_to_for_randi(_x = null) -> void:
+	var from = RandomIntRangeFromValue.get_value()
+	var to = RandomIntRangeToValue.get_value()
+	if to - from < 2:
+		RandomIntRangeToValue.set_value(to + (2 - (to - from)))
+	pass
+
 func load_randi_arguments(args = null) -> void:
 	var from = 0 # min from
 	var to = 100 # default value (also in `.tscn`
@@ -170,7 +179,7 @@ func load_randi_arguments(args = null) -> void:
 			even = args[3]
 		if args[4] is bool:
 			odd = args[4]
-	RandomIntRangeFromValue.set_value(0)
+	RandomIntRangeFromValue.set_value(from)
 	RandomIntRangeToValue.set_value(to)
 	RandomIntModifiersNegative.set_pressed(negative)
 	RandomIntModifiersEven.set_pressed(even)
@@ -217,6 +226,7 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 	pass
 
 func read_randi_arguments() -> Array:
+	_balance_from_to_for_randi()
 	return [
 		int( RandomIntRangeFromValue.get_value() ),
 		int( RandomIntRangeToValue.get_value() ),

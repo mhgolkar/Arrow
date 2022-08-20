@@ -23,15 +23,45 @@ const VALID_METHODS_FOR_TYPE = {
 const STRING_SET_DELIMITER = "|"
 const DEFAULT_CHARACTER_POOL = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz123456789"
 
+const MAX_ARGS_PREVIEW_LENGTH = 10
+
+const Generators = Helpers.Generators
+const Utils = Helpers.Utils
+
+# Returns a preview of arguments for easier review or null when it does not need to be shown.
+# Any other value shall be interpreted as invalid state.
+static func render_arguments_message(data: Dictionary):
+	var arguments_str = false # invalid state
+	if data.has("method"):
+		var args = data.arguments if data.has("arguments") else null
+		match data.method:
+			"randi":
+				if args is Array && args.size() == 5:
+					arguments_str = "[{0}, {1}] {2}{3}{4}".format(
+						[args[0], args[1], "N" if args[2] else "", "E" if args[3] else "", "O" if args[4] else ""]
+					)
+			"ascii":
+				if args is Array && args.size() == 2:
+					arguments_str = "{length} of {pool}".format({
+						"length": args[1],
+						"pool": "`" + Utils.ellipsis(
+							args[0] if args[0].length() > 0 else DEFAULT_CHARACTER_POOL,
+							MAX_ARGS_PREVIEW_LENGTH
+						) + "`"
+					})
+			"strst":
+				if args is String && args.length() > 0:
+					arguments_str = "`" + Utils.ellipsis(args, MAX_ARGS_PREVIEW_LENGTH) + "`"
+			"rnbln":
+				arguments_str = null
+	return arguments_str
+
 class generator :
 	
 	const KEYS_NEEDED_TO_PARSE = ["variable", "method"]
 	
 	var Mind
-	
-	# Let's use the Arrow's generator helpers as much as possible
-	var Generators = Helpers.Generators
-	
+		
 	func _init(mind) -> void:
 		Mind = mind
 		pass

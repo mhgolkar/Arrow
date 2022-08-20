@@ -9,6 +9,7 @@ class Generator {
         const ONLY_PLAY_SLOT = 0;
         
         const UNSET_EXPRESSION_MESSAGE = "Parameters unset or invalid!";
+        const MAX_ARGS_PREVIEW_LENGTH = 10;
 
         const STRING_SET_DELIMITER = "|";
         const DEFAULT_CHARACTER_POOL = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz123456789";
@@ -46,6 +47,14 @@ class Generator {
                         }
                         return result;
                     },
+                    "args": function(data) {
+                        if (data.hasOwnProperty("arguments") && Array.isArray(data.arguments) && data.arguments.length == 5){
+                            var args = data.arguments;
+                            return `: [${args[0]}, ${args[1]}] ${args[2] ? "N" : ""}${args[3] ? "E" : ""}${args[4] ? "O": ""}`;
+                        } else {
+                            return "(Invalid)"
+                        }
+                    },
                 },
             },
             "str": {
@@ -65,6 +74,13 @@ class Generator {
                         }
                         return result;
                     },
+                    "args": function(data) {
+                        if (data.hasOwnProperty("arguments") && Array.isArray(data.arguments) && data.arguments.length == 2){
+                            return `: ${data.arguments[1]} of \`${ellipsis(data.arguments[0].length > 0 ? data.arguments[0] : DEFAULT_CHARACTER_POOL, MAX_ARGS_PREVIEW_LENGTH)}\``;
+                        } else {
+                            return "(Invalid)"
+                        }
+                    },
                 },
                 "strst": {
                     "title": "From Set of Strings",
@@ -80,6 +96,13 @@ class Generator {
                         }
                         return result;
                     },
+                    "args": function(data) {
+                        if (data.hasOwnProperty("arguments") && typeof data.arguments == 'string' && data.arguments.length > 0){
+					        return ": `" + ellipsis(data.arguments, MAX_ARGS_PREVIEW_LENGTH) + "`"
+                        } else {
+                            return "(Null/Invalid)"
+                        }
+                    },
                 },
             },
             "bool": {
@@ -89,6 +112,9 @@ class Generator {
                         return (
                             Math.floor( Math.random() * 10 ) % 2 == 0
                         );
+                    },
+                    "args": function(data) {
+                        return "" // No arguments to preview
                     },
                 },
             },
@@ -204,7 +230,7 @@ class Generator {
                     // Parsed VariableUpdate Expression:
                     var parsed_valid_generator = (
                         this.valid_generator ?
-                        `${this.valid_generator.title} => ${this.the_variable.name}`
+                        `${this.the_variable.name} = ${this.valid_generator.title} ${this.valid_generator.args(this.node_resource.data)}`
                         : UNSET_EXPRESSION_MESSAGE
                     );
                     this.parsed_expression = create_element("code", parsed_valid_generator, { "class": "expression" });

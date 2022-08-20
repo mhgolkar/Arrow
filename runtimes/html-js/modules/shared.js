@@ -81,13 +81,17 @@ function create_element(tag, inner, attributes){
     return element;
 }
 
-function format(text, pairs, case_insensetive){
+function ellipsis(text, length) {
+    return text.substr(0, length) + (text.length > length ? "..." : "")
+}
+
+function format(text, pairs, case_insensitive){
     // replacing every `{tag}` in `text` with value of `pairs[tag]`
     if ( typeof text == 'string' && typeof pairs == 'object' ){
         for (const key in pairs) {
             if (pairs.hasOwnProperty(key)) {
                 const tag = '{' + key + '}';
-                const pattern = new RegExp(tag, (case_insensetive === true ? 'gi' : 'g')); // i.e. `g`lobally search for every key
+                const pattern = new RegExp(tag, (case_insensitive === true ? 'gi' : 'g')); // i.e. `g`lobally search for every key
                 const replacement = pairs[key];
                 text = text.replace( pattern , replacement );
             }

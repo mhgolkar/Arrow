@@ -472,6 +472,9 @@ class Utils:
 		else:
 			safe = filename
 		return safe
+	
+	static func ellipsis(text: String, length: int) -> String:
+		return text.substr(0, length) + ("..." if text.length() > length else "")
 
 # List Node Helpers
 class ListHelpers:

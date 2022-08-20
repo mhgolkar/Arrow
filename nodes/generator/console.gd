@@ -30,13 +30,16 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-const UNSET_OR_INVALID_METHOD_MESSAGE = "Unset !"
 const UNSET_OR_INVALID_TARGET_VAR_MESSAGE = "Undefined"
 const TARGET_VARIABLE_MESSAGE_TEMPLATE = "{name} ({type})"
+const UNSET_OR_INVALID_METHOD_MESSAGE = "Unset"
+const UNSET_OR_INVALID_ARGUMENTS_MESSAGE = "Null/Invalid"
+const HIDE_ARGUMENTS_IF_UNSET = true
 
 onready var TheGenerator = GeneratorSharedClass.generator.new(Main.Mind)
 
 onready var Method = get_node("./GeneratorPlay/PanelContainer/VBoxContainer/Method")
+onready var Arguments = get_node("./GeneratorPlay/PanelContainer/VBoxContainer/Arguments")
 onready var Target = get_node("./GeneratorPlay/PanelContainer/VBoxContainer/Target")
 onready var Redo = get_node("./GeneratorPlay/Application/Redo")
 onready var Skip = get_node("./GeneratorPlay/Application/Skip")
@@ -75,6 +78,9 @@ func setup_view() -> void:
 			GeneratorSharedClass.METHODS.has(_NODE_RESOURCE.data.method)
 		):
 			Method.set_deferred( "text", GeneratorSharedClass.METHODS[_NODE_RESOURCE.data.method] )
+			var args_preview = GeneratorSharedClass.render_arguments_message(_NODE_RESOURCE.data)
+			Arguments.set_deferred("text", args_preview if args_preview is String else UNSET_OR_INVALID_ARGUMENTS_MESSAGE)
+			Arguments.set_deferred("visible", args_preview != null)
 			unset = false
 		# cache target variable
 		if _NODE_RESOURCE.data.has("variable") && (_NODE_RESOURCE.data.variable is int) :
@@ -96,6 +102,8 @@ func setup_view() -> void:
 	if unset:
 		Target.set_deferred("text", UNSET_OR_INVALID_METHOD_MESSAGE)
 		Method.set_deferred("text", UNSET_OR_INVALID_TARGET_VAR_MESSAGE)
+		Arguments.set_deferred("text", UNSET_OR_INVALID_ARGUMENTS_MESSAGE)
+		Arguments.set_deferred("visible", (! HIDE_ARGUMENTS_IF_UNSET))
 	set_view_unplayed()
 	pass
 	
