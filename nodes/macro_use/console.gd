@@ -35,7 +35,7 @@ onready var MacroUseLabel = get_node("./MacroUsePlay/MacroUseTitle/Label")
 onready var SkipButton = get_node("./MacroUsePlay/SkipMacro")
 
 const MACRO_USE_LABEL_FORMAT_STRING = (
-	"{user}: {target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_MACROS else "{user}: {target_name} ({target_uid})"
+	"{user}: {target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS else "{user}: {target_name} ({target_uid})"
 )
 
 func _ready() -> void:

@@ -1555,8 +1555,12 @@ class Mind :
 	
 	func create_new_scene(is_macro:bool = false):
 		var new_scene_seed_id = create_new_resource_id()
+		var new_scene_name = ("macro_" if is_macro else "scene_") + Utils.int_to_base36(new_scene_seed_id).to_lower()
+		if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS:
+			while is_resource_name_duplicate(new_scene_name, "scenes"):
+				new_scene_name += Settings.REUSED_SCENE_OR_MACRO_NAMES_AUTO_POSTFIX
 		var the_new_scene = {
-			"name": ("macro_" if is_macro else "scene_") + Utils.int_to_base36(new_scene_seed_id).to_lower(),
+			"name": new_scene_name,
 			"entry": null, # will be updated later
 			"map": {}
 		}

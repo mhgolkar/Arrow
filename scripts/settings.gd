@@ -167,7 +167,7 @@ const VARIABLE_TYPES_ENUM = {
 # which force name uniqueness (default,) by adding a postfix to any duplicate name.
 #
 # Note also that name uniqueness is limited to the scope of each resource type
-# and *is case-sensitive*.
+# and *is case-sensitive*. Scenes and macros share the same scope.
 #
 # CAUTION!
 # All Affixes below shall be at least 1 charecter.
@@ -180,11 +180,8 @@ const FORCE_UNIQUE_NAMES_FOR_CHARACTERS = true
 const REUSED_CHARACTER_NAMES_AUTO_POSTFIX = "_"
 const CHARACTER_NAMES_PREFIX = "char_"
 
-const FORCE_UNIQUE_NAMES_FOR_MACROS = true
-const REUSED_MACRO_NAMES_AUTO_POSTFIX = "_"
-
-const FORCE_UNIQUE_NAMES_FOR_SCENES = true
-const REUSED_SCENE_NAMES_AUTO_POSTFIX = "_"
+const FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS = true
+const REUSED_SCENE_OR_MACRO_NAMES_AUTO_POSTFIX = "_"
 
 const FORCE_UNIQUE_NAMES_FOR_NODES = true
 const REUSED_NODE_NAMES_AUTO_POSTFIX = "_"

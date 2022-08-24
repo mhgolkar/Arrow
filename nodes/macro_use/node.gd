@@ -19,7 +19,7 @@ var This = self
 onready var MacroIdentity = get_node("./VBoxContainer/MacroIdentity")
 
 const MACRO_USE_TARGET_FAILED_MESSAGE = "No Macro"
-const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR_MACROS else "{name} ({uid})"
+const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS else "{name} ({uid})"
 
 #func _ready() -> void:
 #	register_connections()

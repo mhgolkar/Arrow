@@ -125,6 +125,8 @@ func update_scene_list_item(scene_id:int, the_scene:Dictionary) -> void:
 		if ScenesList.get_item_metadata(idx) == scene_id:
 			# found it, update...
 			ScenesList.set_item_text(idx, the_scene.name)
+			if _SELECTED_SCENE_BEING_EDITED_ID == scene_id:
+				SceneEditorName.set_text(the_scene.name)
 			return
 	printerr("Unexpected Behavior! Trying to update scene=%s which is not found in the list!")
 	pass
@@ -279,10 +281,9 @@ func submit_scene_modification() -> void:
 	var mod_name = SceneEditorName.get_text()
 	if mod_name.length() > 0 && mod_name != the_scene_original.name: # name is changed
 		# force using unique names for variables ?
-		if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES == false || _LISTED_SCENES_BY_NAME.has(mod_name) == false:
-			resource_updater.modification["name"] = mod_name
-		else:
-			resource_updater.modification["name"] = ( mod_name + Settings.REUSED_SCENE_NAMES_AUTO_POSTFIX )
+		while Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS && Main.Mind.is_resource_name_duplicate(mod_name, "scenes"):
+			mod_name = ( mod_name + Settings.REUSED_SCENE_OR_MACRO_NAMES_AUTO_POSTFIX )
+		resource_updater.modification["name"] = mod_name
 	if resource_updater.modification.size() > 0 :
 		self.emit_signal("relay_request_mind", "update_resource", resource_updater)
 	pass

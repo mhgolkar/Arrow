@@ -24,7 +24,7 @@ var _OPEN_NODE
 var This = self
 
 onready var MacroOptions = get_node("./Macro/Options")
-const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR_MACROS else "{name} ({uid})" 
+const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS else "{name} ({uid})" 
 
 var _CACHED_MACROS_LIST = {}
 
