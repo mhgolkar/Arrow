@@ -16,9 +16,10 @@ var _node_resource
 
 var This = self
 
-onready var MacroName = get_node("./VBoxContainer/MacroName")
+onready var MacroIdentity = get_node("./VBoxContainer/MacroIdentity")
 
-const MACRO_TARGET_FAILED_MESSAGE = "No Macro"
+const MACRO_USE_TARGET_FAILED_MESSAGE = "No Macro"
+const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR_MACROS else "{name} ({uid})"
 
 #func _ready() -> void:
 #	register_connections()
@@ -40,10 +41,13 @@ func _gui_input(event) -> void:
 	pass
 
 func _update_node(data:Dictionary) -> void:
-	var the_macro_name_text = MACRO_TARGET_FAILED_MESSAGE
+	var the_macro_label = MACRO_USE_TARGET_FAILED_MESSAGE
 	if data.has("macro") && (data.macro is int) && data.macro >= 0:
 		var the_macro = Main.Mind.lookup_resource(data.macro, "scenes")
 		if (the_macro is Dictionary) && the_macro.has("name") && (the_macro.name is String):
-			the_macro_name_text = the_macro.name
-	MacroName.set_deferred("text", the_macro_name_text)
+			the_macro_label = MACRO_IDENTITY_FORMAT_STRING.format({
+				"uid": data.macro,
+				"name": the_macro.name,
+			})
+	MacroIdentity.set_deferred("text", the_macro_label)
 	pass

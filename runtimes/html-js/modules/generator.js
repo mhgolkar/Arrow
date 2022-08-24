@@ -183,10 +183,12 @@ class Generator {
         };
         
         this.proceed = function(){
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else {
-                this.generate_and_play();
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else {
+                    this.generate_and_play();
+                }
             }
         };
         
@@ -239,6 +241,10 @@ class Generator {
                     this.eval_button = create_element("button", i18n("generate"));
                     this.eval_button.addEventListener( _CLICK, this.generate_and_play.bind(_self) );
                     this.html.appendChild(this.eval_button);
+                    // and skip button (used in manual play and step-backs)
+                    this.skip_button = create_element("button", i18n("skip"));
+                    this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );
+                    this.html.appendChild(this.skip_button);
             }
             return this;
         }

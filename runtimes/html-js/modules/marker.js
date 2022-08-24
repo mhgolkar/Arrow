@@ -50,10 +50,12 @@ class Marker {
         };
         
         this.proceed = function(){
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play(); // ... also auto-plays forward
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play(); // ... also auto-plays forward
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                }
             }
         };
         
@@ -68,11 +70,13 @@ class Marker {
                 this.html = create_node_base_html(node_id, node_resource);
                     // ... and the children
                     // Label
-                    if ( node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("label") && typeof node_resource.data.label == 'string' && node_resource.data.label.length > 0 ) {
-                        var attributes = ( node_resource.data.hasOwnProperty("color") ? { style: `--marker-color: #${node_resource.data.color}; ` } :  undefined );
-                        this.label = create_element("p", node_resource.data.label, attributes);
-                        this.html.appendChild(this.label);
-                    }
+                    var label_text = (
+                        node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("label") &&
+                        typeof node_resource.data.label == 'string' && node_resource.data.label.length > 0
+                    ) ? node_resource.data.label : "...";
+                    var attributes = ( node_resource.data.hasOwnProperty("color") ? { style: `--marker-color: #${node_resource.data.color}; ` } :  undefined );
+                    this.label = create_element("p", label_text, attributes);
+                    this.html.appendChild(this.label);
                     // Manual play button
                     this.marker_button = create_element("button", node_resource.name);
                     this.marker_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, AUTO_PLAY_SLOT) );

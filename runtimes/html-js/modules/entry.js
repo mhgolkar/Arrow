@@ -49,11 +49,13 @@ class Entry {
         };
 
         this.proceed = function(){
-            // ... auto-plays anyway
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
+            if (_ALLOW_AUTO_PLAY) {
+                // ... auto-plays anyway
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                }
             }
         };
         

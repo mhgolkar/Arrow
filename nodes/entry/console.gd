@@ -27,9 +27,11 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var EntryName:Button = get_node("./EntryPlay/EntryName")
+onready var EntryLabel:Button = get_node("./EntryPlay/EntryLabel")
 onready var IsSceneEntryIndicator = get_node("./EntryPlay/IsSceneEntryIndicator")
 onready var IsProjectEntryIndicator = get_node("./EntryPlay/IsProjectEntryIndicator")
+
+const ENTRY_LABEL_FORMAT_STRING = "{name}: {plaque}"
 
 func _ready() -> void:
 	register_connections()
@@ -41,7 +43,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	EntryName.connect("pressed", self, "play_forward_from", [AUTO_PLAY_SLOT], CONNECT_DEFERRED)
+	EntryLabel.connect("pressed", self, "play_forward_from", [AUTO_PLAY_SLOT], CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -53,10 +55,13 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 	pass
 
 func setup_view() -> void:
+	var label = { "name": "Invalid", "plaque": "Unset" }
 	if _NODE_RESOURCE.has("name"):
-		EntryName.set_text(_NODE_RESOURCE.name)
-	else:
-		printerr("Node %s data seems corrupt! It lacks `name` key in the resource dictionary." % _NODE_ID)
+		label.name = _NODE_RESOURCE.name
+	if _NODE_RESOURCE.has("data"):
+		if _NODE_RESOURCE.data.has("plaque") && (_NODE_RESOURCE.data.plaque is String) && _NODE_RESOURCE.data.plaque.length() > 0:
+			label.plaque = _NODE_RESOURCE.data.plaque
+	EntryLabel.set_text(ENTRY_LABEL_FORMAT_STRING.format(label))
 	IsSceneEntryIndicator.set_deferred("visible", _NODE_ID == Main.Mind.get_scene_entry())
 	IsProjectEntryIndicator.set_deferred("visible", _NODE_ID == Main.Mind.get_project_entry())
 	pass
@@ -96,13 +101,13 @@ func set_view_played_on_ready(slot_idx:int) -> void:
 	pass
 
 func set_view_unplayed() -> void:
-	EntryName.set_deferred("flat", false)
-	EntryName.set_deferred("disabled", false)
+	EntryLabel.set_deferred("flat", false)
+	EntryLabel.set_deferred("disabled", false)
 	pass
 
 func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
-	EntryName.set_deferred("flat", true)
-	EntryName.set_deferred("disabled", true)
+	EntryLabel.set_deferred("flat", true)
+	EntryLabel.set_deferred("disabled", true)
 	pass
 
 func skip_play() -> void:

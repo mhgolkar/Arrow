@@ -28,7 +28,9 @@ const NODE_NAME_QUERY_REFACTORING = "*%s*"
 const MINIMUM_QUERY_STRING_LENGTH_TO_REFRESH_SUGGESTIONS = 3 # 2 asterisks (automatically added) + 1 min characters
 const DO_NOT_SHOW_EXATC_MATCH_AS_SUGGESTION = true
 
-const SUGGESTION_ITEM_TEMPLATE = "{name} - {capitalized_type} ({id})"
+const SUGGESTION_ITEM_TEMPLATE = (
+	"{name} - {capitalized_type}" if Settings.FORCE_UNIQUE_NAMES_FOR_NODES else "{name} - {capitalized_type} ({id})"
+)
 
 func _ready() -> void:
 	register_connections()

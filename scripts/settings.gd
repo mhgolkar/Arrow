@@ -160,14 +160,14 @@ const VARIABLE_TYPES_ENUM = {
 
 # Unique Naming
 #
-# Arrow can handle identical names for different resources;
-# Newly created resource names are direct representation
-# of their underlying UIDs and consequently unique;
-# But users can rename resources.
-# Following settings can force name uniqueness (default,)
-# by adding a postfix to any duplicate name.
-# > Note that name uniqueness is limited to the scope of each resource type
-# > and *is case-sensitive*.
+# Newly created resource names are direct representation of
+# their underlying UIDs and consequently *unique*.
+# Although Arrow can handle identical names for different resources,
+# it is best practice to use unique names, so to keep following settings as is,
+# which force name uniqueness (default,) by adding a postfix to any duplicate name.
+#
+# Note also that name uniqueness is limited to the scope of each resource type
+# and *is case-sensitive*.
 #
 # CAUTION!
 # All Affixes below shall be at least 1 charecter.

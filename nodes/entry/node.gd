@@ -7,7 +7,7 @@ extends GraphNode
 
 onready var Main = get_tree().get_root().get_child(0)
 
-const INVALID_OR_UNSET_PLAQUE_TEXT = "No Plaque!"
+const INVALID_OR_UNSET_PLAQUE_TEXT = "Unset"
 
 var _node_id
 var _node_resource

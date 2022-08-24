@@ -1,9 +1,22 @@
 // Arrow HTML-JS Runtime: Main interpreter script
 
 // Preferences
+//
+// NOTE: Respecting following preferences depends on each node module.
+//
+
 const _VERBOSE = true;    // console logging verbosity
 const _CLICK   = 'click'; // default event to be listened for user interactions
 const _LOCALE  = 'en';    // runtime's UI locale (used by `i18n`)
+
+// This runtime allows nodes (such as hubs, generators, etc.)
+// to auto-play (or skip) in case no user interaction is normally needed.
+// You can force a fully manual play by disabling following constant.
+// This constant controls auto-skipping as well.
+const _ALLOW_AUTO_PLAY = true;
+
+// Nodes (e.g. `Content`s) can clear up the view from all other nodes before them if allowed:
+const _ALLOW_CLEARANCE = true;
 
 const DO_NOT_PRINT_END_MESSAGE = true;
 

@@ -406,7 +406,8 @@ footer button:not(:first-of-type) {
 /* hub */
 .node[data-type='hub']{}
 .node[data-type='hub'][data-played='true']{ display: none; }
-.node[data-type='hub'] button {}
+.node[data-type='hub'] span {} /* (Hub mark) */
+.node[data-type='hub'] button { margin: 0.75rem; }
 
 /* interaction */
 .node[data-type='interaction']{}
@@ -437,16 +438,19 @@ footer button:not(:first-of-type) {
 .node[data-type='interaction'][data-played='true'] .interaction-actions { display: none; }
 
 /* jump */
-.node[data-type='jump']{}
+.node[data-type='jump']{
+    /* It comes with `[data-target]` set to the destination node's UID. */
+}
 .node[data-type='jump'][data-played='true']{ display: none; }
 .node[data-type='jump'] /*em*/.reason {}
+.node[data-type='jump'] span {} /* (Jump mark if no reason is set) */
 .node[data-type='jump'] button { margin: 0.75rem; }
 
 /* macro_use */
 .node[data-type='macro_use']{
-    margin: 2.5rem;
-    /* To compensate for the added margin */
-    width: calc(95vw - 5rem); /* body width - left margin - right margin */
+    /* It also comes with `[data-macro]` set to the UID of the used macro */
+    border: dashed 0.125rem var(--color-4);
+    padding: 0.5rem 2rem;
 }
 
 /* marker */
@@ -471,7 +475,8 @@ footer button:not(:first-of-type) {
 /* randomizer */
 .node[data-type='randomizer']{}
 .node[data-type='randomizer'][data-played='true']{ display: none; }
-.node[data-type='randomizer'] button {}
+.node[data-type='randomizer'] span {} /* (Randomizer mark) */
+.node[data-type='randomizer'] button { margin: 0.75rem; }
 
 /* user_input */
 .node[data-type='user_input']{}
@@ -481,10 +486,7 @@ footer button:not(:first-of-type) {
 .node[data-type='user_input'][data-valid='false'] input {
     border-color: var(--color-e);
 }
-.node[data-type='user_input'][data-valid='false'] button {
-    filter: grayscale(1) opacity(0.5);
-}
-
+.node[data-type='user_input'] p {}
 .node[data-type='user_input'] label {
     margin-right: 1rem;
     cursor: pointer;
@@ -497,9 +499,14 @@ footer button:not(:first-of-type) {
 .node[data-type='user_input'][data-played='true'] label {
     pointer-events: none;
 }
+.node[data-type='user_input'] button { margin: 0.25rem; } /* two buttons */
 .node[data-type='user_input'][data-played='true'] button {
     display: none;
 }
+.node[data-type='user_input'][data-valid='false'] button:nth-of-type(1) { /* apply/continue */
+    filter: grayscale(1) opacity(0.5);
+}
+.node[data-type='user_input'][data-valid='false'] button:nth-of-type(2) { /* skip */ }
 
 /* variable_update */
 .node[data-type='variable_update']{}

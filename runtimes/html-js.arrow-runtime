@@ -28,6 +28,9 @@ const PROJECT = {/*project_json*/};
 const _SUPPORTED_LOCALES = ["en"];
 
 const _TRANSLATION_TABLE = {
+    skip: {
+        en: "Skip",
+    },
     continue: {
         en: "Continue",
     },
@@ -429,10 +432,12 @@ class Condition {
         };
         
         this.proceed = function(){
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else {
-                this.evaluation_and_play();
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else {
+                    this.evaluation_and_play();
+                }
             }
         };
         
@@ -594,7 +599,7 @@ class ConditionStatement {
             }
         };
             
-        this.evalutors = {
+        this.evaluators = {
             "str": function(left, operation, right){ 
                 var result = null;
                 switch (operation) {
@@ -706,7 +711,7 @@ class ConditionStatement {
                     }
                     // lets evaluate for the type
                     if ( COMPARISON_OPERATORS[type].hasOwnProperty(this.data.operator) ){
-                        result = this.evalutors[type]( value, this.data.operator, with_value );
+                        result = this.evaluators[type]( value, this.data.operator, with_value );
                     }
                 }
             }
@@ -791,17 +796,20 @@ class Content {
         };
         
         this.proceed = function(){
-            // ... auto-plays anyway
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
+            if (_ALLOW_AUTO_PLAY) {   
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                }
             }
             // View Clearance ?
-            // `content` nodes can force the page to get cleaned before they step in
-            if ( this.node_resource.data.hasOwnProperty('clear') &&  typeof this.node_resource.data.clear == 'boolean' ){
-                if ( this.node_resource.data.clear === true ){
-                    clear_up(this.node_id);
+            if (_ALLOW_CLEARANCE) {
+                // `content` nodes can force the page to get cleaned before they step in
+                if ( this.node_resource.data.hasOwnProperty('clear') &&  typeof this.node_resource.data.clear == 'boolean' ){
+                    if ( this.node_resource.data.clear === true ){
+                        clear_up(this.node_id);
+                    }
                 }
             }
         };
@@ -937,19 +945,21 @@ class Dialog {
         };
         
         this.proceed = function(){
-            // handle skip in case,
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            // otherwise auto-play if set (which is not normal)
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
-            // or handle the none-playable dialog in case ...
-            } else if ( this.node_resource.data.hasOwnProperty('playable') &&  this.node_resource.data.playable === false ){
-                this.html.setAttribute('none-playable', 'true');
-                this.random_play_none_playable_dialogs();
+            if (_ALLOW_AUTO_PLAY) {
+                // handle skip in case,
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                // otherwise auto-play if set (which is not normal)
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                // or handle the none-playable dialog in case ...
+                } else if ( this.node_resource.data.hasOwnProperty('playable') &&  this.node_resource.data.playable === false ){
+                    this.html.setAttribute('none-playable', 'true');
+                    this.random_play_none_playable_dialogs();
+                }
+                // ... and finally for normal playable dialogs,
+                // we'll wait for the user to take action and play a line.
             }
-            // ... and finally for normal playable dialogs,
-            // we'll wait for the user to take action and play a line.
         };
 
         this.create_line_elements = function(lines_array, lines_holder, listen){
@@ -1098,11 +1108,13 @@ class Entry {
         };
 
         this.proceed = function(){
-            // ... auto-plays anyway
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
+            if (_ALLOW_AUTO_PLAY) {
+                // ... auto-plays anyway
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                }
             }
         };
         
@@ -1325,10 +1337,12 @@ class Generator {
         };
         
         this.proceed = function(){
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else {
-                this.generate_and_play();
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else {
+                    this.generate_and_play();
+                }
             }
         };
         
@@ -1381,6 +1395,10 @@ class Generator {
                     this.eval_button = create_element("button", i18n("generate"));
                     this.eval_button.addEventListener( _CLICK, this.generate_and_play.bind(_self) );
                     this.html.appendChild(this.eval_button);
+                    // and skip button (used in manual play and step-backs)
+                    this.skip_button = create_element("button", i18n("skip"));
+                    this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );
+                    this.html.appendChild(this.skip_button);
             }
             return this;
         }
@@ -1447,11 +1465,12 @@ class Hub {
         };
         
         this.proceed = function(){
-            // ... auto-plays anyway
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                }
             }
         };
         
@@ -1465,6 +1484,8 @@ class Hub {
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
                     // ... and the children
+                    this.hub_mark = create_element("span", "[Hub]");
+                    this.html.appendChild(this.hub_mark);
                     this.hub_button = create_element("button", node_resource.name);
                     this.hub_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, AUTO_PLAY_SLOT) );
                     this.html.appendChild(this.hub_button);
@@ -1563,12 +1584,12 @@ class Interaction {
         };
         
         this.proceed = function(){
-            // This is an *interaction* node instance 
-            // so we normally wait for user to take action (AUTO_PLAY_SLOT = -1).
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                }
             }
         };
 
@@ -1674,10 +1695,12 @@ class Jump {
         };
         
         this.proceed = function(){
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else {
-                this.play_forward_the_jump();
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else {
+                    this.play_forward_the_jump();
+                }
             }
         };
         
@@ -1690,14 +1713,21 @@ class Jump {
                 this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
+                this.html.setAttribute('data-target',  node_resource.data.target);
                     // ... and the children
-                    // Reason:
-                    if ( node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("reason") && typeof node_resource.data.reason == 'string' && node_resource.data.reason.length > 0 ) {
+                    // Reason or a mark:
+                    if (
+                        node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("reason") &&
+                        typeof node_resource.data.reason == 'string' && node_resource.data.reason.length > 0
+                    ) {
                         this.reason = create_element("em", node_resource.data.reason, {'class': 'reason'});
                         this.html.appendChild(this.reason);
+                    } else {
+                        this.jump_mark = create_element("span", "[Jump]");
+                        this.html.appendChild(this.jump_mark);
                     }
                     // Manual play button:
-                    this.jump_button = create_element("button", node_resource.name);
+                    this.jump_button = create_element("button", `${node_resource.name} > ${node_resource.data.target}`);
                     this.jump_button.addEventListener( _CLICK, this.play_forward_the_jump.bind(_self) );
                     this.html.appendChild(this.jump_button);
             }
@@ -1797,6 +1827,10 @@ class MacroUse {
         };
         
         this.proceed = function(){
+            // NOTE:
+            // Macro-use nodes ignore `_ALLOW_AUTO_PLAY` an always auto-play/skip.
+            // The inner nodes have their own behaviors.
+            // ...
             // handle skip in case,
             if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
                 this.skip_play();
@@ -1816,7 +1850,8 @@ class MacroUse {
                 this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
-                    // ... and holder element to capsulate sub-nodes
+                    this.html.setAttribute('data-macro',  node_resource.data.macro);
+                    // holder element to capsulate sub-nodes
                     this.holder = create_element("div");
                     this.html.appendChild(this.holder);
                 // fetch the target macro and its map
@@ -1904,10 +1939,12 @@ class Marker {
         };
         
         this.proceed = function(){
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play(); // ... also auto-plays forward
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play(); // ... also auto-plays forward
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                }
             }
         };
         
@@ -1922,11 +1959,13 @@ class Marker {
                 this.html = create_node_base_html(node_id, node_resource);
                     // ... and the children
                     // Label
-                    if ( node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("label") && typeof node_resource.data.label == 'string' && node_resource.data.label.length > 0 ) {
-                        var attributes = ( node_resource.data.hasOwnProperty("color") ? { style: `--marker-color: #${node_resource.data.color}; ` } :  undefined );
-                        this.label = create_element("p", node_resource.data.label, attributes);
-                        this.html.appendChild(this.label);
-                    }
+                    var label_text = (
+                        node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("label") &&
+                        typeof node_resource.data.label == 'string' && node_resource.data.label.length > 0
+                    ) ? node_resource.data.label : "...";
+                    var attributes = ( node_resource.data.hasOwnProperty("color") ? { style: `--marker-color: #${node_resource.data.color}; ` } :  undefined );
+                    this.label = create_element("p", label_text, attributes);
+                    this.html.appendChild(this.label);
                     // Manual play button
                     this.marker_button = create_element("button", node_resource.name);
                     this.marker_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, AUTO_PLAY_SLOT) );
@@ -2004,13 +2043,15 @@ class Randomizer {
         };
         
         this.proceed = function(){
-            // Randomly play one of the outgoing slots
-            // whether we are handling skip,
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            // or auto-playing
-            } else if ( AUTO_PLAY ) {
-                this.play_forward_randomly();
+            if (_ALLOW_AUTO_PLAY) {
+                // Randomly play one of the outgoing slots
+                // whether we are handling skip,
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                // or auto-playing
+                } else if ( AUTO_PLAY ) {
+                    this.play_forward_randomly();
+                }
             }
         };
         
@@ -2024,6 +2065,8 @@ class Randomizer {
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
                     // ... and the children
+                    this.rnd_mark = create_element("span", "[Randomizer]");
+                    this.html.appendChild(this.rnd_mark);
                     this.randomizer_button = create_element("button", node_resource.name);
                     this.randomizer_button.addEventListener( _CLICK, this.play_forward_randomly.bind(_self) );
                     this.html.appendChild( this.randomizer_button );
@@ -2309,11 +2352,13 @@ class UserInput {
         };
         
         this.proceed = function(){
-            // `user_input` node type is pure interactive (there is no auto-play or default behavior,)
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                // if skipped, it means we just go to the next node as if this node didn't exist
-                this.skip_play();
-            } // otherwise we shall wait for user interaction
+            if (_ALLOW_AUTO_PLAY) {
+                // `user_input` node type is pure interactive (there is no auto-play or default behavior,)
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    // if skipped, it means we just go to the next node as if this node didn't exist
+                    this.skip_play();
+                } // otherwise we shall wait for user interaction
+            }
         };
         
         if ( node_id >= 0 ){
@@ -2364,6 +2409,10 @@ class UserInput {
                         this.continue_button = create_element("button", i18n('continue'));
                         this.continue_button.addEventListener( _CLICK, this.play_forward_from.bind(_self) );
                         this.html.appendChild(this.continue_button);
+                        // and skip button (used in manual play and step-backs)
+                        this.skip_button = create_element("button", i18n("skip"));
+                        this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );
+                        this.html.appendChild(this.skip_button);
                         // ...
                         this.set_view_unplayed()
                     }
@@ -2457,10 +2506,12 @@ class VariableUpdate {
         };
         
         this.proceed = function(){
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else {
-                this.evaluation_and_play();
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else {
+                    this.evaluation_and_play();
+                }
             }
         };
         
@@ -2495,6 +2546,11 @@ class VariableUpdate {
                     this.eval_button = create_element("button", i18n("evaluate"));
                     this.eval_button.addEventListener( _CLICK, this.evaluation_and_play.bind(_self) );
                     this.html.appendChild(this.eval_button);
+                    // and skip button (used in manual play and step-backs)
+                    this.skip_button = create_element("button", i18n("skip"));
+                    this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );
+                    this.html.appendChild(this.skip_button);
+                    // ...
             }
             return this;
         }
@@ -2593,7 +2649,7 @@ class VariableUpdateExpression {
             return parsed;
         };
             
-        this.evalutors = {
+        this.evaluators = {
             "str": function(left, operation, right){ 
                 var result = null;
                 switch (operation) {
@@ -2693,7 +2749,7 @@ class VariableUpdateExpression {
                         with_value= safeBool(with_value);
                     }
                     if ( UPDATE_OPERATORS[type].hasOwnProperty(this.data.operator) ){
-                        result = this.evalutors[type]( value, this.data.operator, with_value );
+                        result = this.evaluators[type]( value, this.data.operator, with_value );
                     }
                 }
             }
@@ -2723,9 +2779,22 @@ class VariableUpdateExpression {
 // Arrow HTML-JS Runtime: Main interpreter script
 
 // Preferences
+//
+// NOTE: Respecting following preferences depends on each node module.
+//
+
 const _VERBOSE = true;    // console logging verbosity
 const _CLICK   = 'click'; // default event to be listened for user interactions
 const _LOCALE  = 'en';    // runtime's UI locale (used by `i18n`)
+
+// This runtime allows nodes (such as hubs, generators, etc.)
+// to auto-play (or skip) in case no user interaction is normally needed.
+// You can force a fully manual play by disabling following constant.
+// This constant controls auto-skipping as well.
+const _ALLOW_AUTO_PLAY = true;
+
+// Nodes (e.g. `Content`s) can clear up the view from all other nodes before them if allowed:
+const _ALLOW_CLEARANCE = true;
 
 const DO_NOT_PRINT_END_MESSAGE = true;
 
@@ -3609,7 +3678,8 @@ footer button:not(:first-of-type) {
 /* hub */
 .node[data-type='hub']{}
 .node[data-type='hub'][data-played='true']{ display: none; }
-.node[data-type='hub'] button {}
+.node[data-type='hub'] span {} /* (Hub mark) */
+.node[data-type='hub'] button { margin: 0.75rem; }
 
 /* interaction */
 .node[data-type='interaction']{}
@@ -3640,16 +3710,19 @@ footer button:not(:first-of-type) {
 .node[data-type='interaction'][data-played='true'] .interaction-actions { display: none; }
 
 /* jump */
-.node[data-type='jump']{}
+.node[data-type='jump']{
+    /* It comes with `[data-target]` set to the destination node's UID. */
+}
 .node[data-type='jump'][data-played='true']{ display: none; }
 .node[data-type='jump'] /*em*/.reason {}
+.node[data-type='jump'] span {} /* (Jump mark if no reason is set) */
 .node[data-type='jump'] button { margin: 0.75rem; }
 
 /* macro_use */
 .node[data-type='macro_use']{
-    margin: 2.5rem;
-    /* To compensate for the added margin */
-    width: calc(95vw - 5rem); /* body width - left margin - right margin */
+    /* It also comes with `[data-macro]` set to the UID of the used macro */
+    border: dashed 0.125rem var(--color-4);
+    padding: 0.5rem 2rem;
 }
 
 /* marker */
@@ -3674,7 +3747,8 @@ footer button:not(:first-of-type) {
 /* randomizer */
 .node[data-type='randomizer']{}
 .node[data-type='randomizer'][data-played='true']{ display: none; }
-.node[data-type='randomizer'] button {}
+.node[data-type='randomizer'] span {} /* (Randomizer mark) */
+.node[data-type='randomizer'] button { margin: 0.75rem; }
 
 /* user_input */
 .node[data-type='user_input']{}
@@ -3684,10 +3758,7 @@ footer button:not(:first-of-type) {
 .node[data-type='user_input'][data-valid='false'] input {
     border-color: var(--color-e);
 }
-.node[data-type='user_input'][data-valid='false'] button {
-    filter: grayscale(1) opacity(0.5);
-}
-
+.node[data-type='user_input'] p {}
 .node[data-type='user_input'] label {
     margin-right: 1rem;
     cursor: pointer;
@@ -3700,9 +3771,14 @@ footer button:not(:first-of-type) {
 .node[data-type='user_input'][data-played='true'] label {
     pointer-events: none;
 }
+.node[data-type='user_input'] button { margin: 0.25rem; } /* two buttons */
 .node[data-type='user_input'][data-played='true'] button {
     display: none;
 }
+.node[data-type='user_input'][data-valid='false'] button:nth-of-type(1) { /* apply/continue */
+    filter: grayscale(1) opacity(0.5);
+}
+.node[data-type='user_input'][data-valid='false'] button:nth-of-type(2) { /* skip */ }
 
 /* variable_update */
 .node[data-type='variable_update']{}

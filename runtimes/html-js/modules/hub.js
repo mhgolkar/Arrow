@@ -52,11 +52,12 @@ class Hub {
         };
         
         this.proceed = function(){
-            // ... auto-plays anyway
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                }
             }
         };
         
@@ -70,6 +71,8 @@ class Hub {
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
                     // ... and the children
+                    this.hub_mark = create_element("span", "[Hub]");
+                    this.html.appendChild(this.hub_mark);
                     this.hub_button = create_element("button", node_resource.name);
                     this.hub_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, AUTO_PLAY_SLOT) );
                     this.html.appendChild(this.hub_button);

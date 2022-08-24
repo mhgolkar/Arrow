@@ -31,8 +31,12 @@ var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 # this reference will be used by the main console (~ as sub-terminal/sub-console)
 const MACRO_TERMINAL_REL_PATH = "./MacroUsePlay/PanelContainer/MacroUseSubConsole"
 
-onready var MacroUseName = get_node("./MacroUsePlay/MacroUseTitle/Name")
+onready var MacroUseLabel = get_node("./MacroUsePlay/MacroUseTitle/Label")
 onready var SkipButton = get_node("./MacroUsePlay/SkipMacro")
+
+const MACRO_USE_LABEL_FORMAT_STRING = (
+	"{user}: {target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_MACROS else "{user}: {target_name} ({target_uid})"
+)
 
 func _ready() -> void:
 	register_connections()
@@ -56,8 +60,15 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 	pass
 
 func setup_view() -> void:
+	var label = { "user": "Invalid!", "target_name": "Unset", "target_uid": "-1" }
 	if _NODE_RESOURCE.has("name"):
-		MacroUseName.set_text(_NODE_RESOURCE.name)
+		label.user = _NODE_RESOURCE.name
+	if _NODE_RESOURCE.has("data"):
+		if _NODE_RESOURCE.data.has("macro") && (_NODE_RESOURCE.data.macro is int) && _NODE_RESOURCE.data.macro >= 0:
+			label.target_uid = _NODE_RESOURCE.data.macro
+			var the_macro = Main.Mind.lookup_resource(_NODE_RESOURCE.data.macro, "scenes")
+			label.target_name = the_macro.name
+	MacroUseLabel.set_text( MACRO_USE_LABEL_FORMAT_STRING.format(label) )
 	pass
 	
 func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1, _variables_current:Dictionary={}) -> void:

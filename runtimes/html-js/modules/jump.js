@@ -42,10 +42,12 @@ class Jump {
         };
         
         this.proceed = function(){
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else {
-                this.play_forward_the_jump();
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else {
+                    this.play_forward_the_jump();
+                }
             }
         };
         
@@ -58,14 +60,21 @@ class Jump {
                 this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
+                this.html.setAttribute('data-target',  node_resource.data.target);
                     // ... and the children
-                    // Reason:
-                    if ( node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("reason") && typeof node_resource.data.reason == 'string' && node_resource.data.reason.length > 0 ) {
+                    // Reason or a mark:
+                    if (
+                        node_resource.hasOwnProperty("data") && node_resource.data.hasOwnProperty("reason") &&
+                        typeof node_resource.data.reason == 'string' && node_resource.data.reason.length > 0
+                    ) {
                         this.reason = create_element("em", node_resource.data.reason, {'class': 'reason'});
                         this.html.appendChild(this.reason);
+                    } else {
+                        this.jump_mark = create_element("span", "[Jump]");
+                        this.html.appendChild(this.jump_mark);
                     }
                     // Manual play button:
-                    this.jump_button = create_element("button", node_resource.name);
+                    this.jump_button = create_element("button", `${node_resource.name} > ${node_resource.data.target}`);
                     this.jump_button.addEventListener( _CLICK, this.play_forward_the_jump.bind(_self) );
                     this.html.appendChild(this.jump_button);
             }

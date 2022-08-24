@@ -55,17 +55,20 @@ class Content {
         };
         
         this.proceed = function(){
-            // ... auto-plays anyway
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
+            if (_ALLOW_AUTO_PLAY) {   
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                }
             }
             // View Clearance ?
-            // `content` nodes can force the page to get cleaned before they step in
-            if ( this.node_resource.data.hasOwnProperty('clear') &&  typeof this.node_resource.data.clear == 'boolean' ){
-                if ( this.node_resource.data.clear === true ){
-                    clear_up(this.node_id);
+            if (_ALLOW_CLEARANCE) {
+                // `content` nodes can force the page to get cleaned before they step in
+                if ( this.node_resource.data.hasOwnProperty('clear') &&  typeof this.node_resource.data.clear == 'boolean' ){
+                    if ( this.node_resource.data.clear === true ){
+                        clear_up(this.node_id);
+                    }
                 }
             }
         };

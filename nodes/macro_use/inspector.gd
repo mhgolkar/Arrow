@@ -24,6 +24,7 @@ var _OPEN_NODE
 var This = self
 
 onready var MacroOptions = get_node("./Macro/Options")
+const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR_MACROS else "{name} ({uid})" 
 
 var _CACHED_MACROS_LIST = {}
 
@@ -52,7 +53,11 @@ func refresh_macro_list(select_by_res_id:int = NO_MACRO_ID) -> void:
 	if _CACHED_MACROS_LIST.size() > 0 :
 		for macro_id in _CACHED_MACROS_LIST:
 			var the_macro = _CACHED_MACROS_LIST[macro_id]
-			MacroOptions.add_item(the_macro.name, macro_id)
+			var the_macro_ident = MACRO_IDENTITY_FORMAT_STRING.format({
+				"uid": macro_id,
+				"name": the_macro.name,
+			})
+			MacroOptions.add_item(the_macro_ident, macro_id)
 		if select_by_res_id >= 0 :
 			var macro_item_index = MacroOptions.get_item_index( select_by_res_id )
 			MacroOptions.select(macro_item_index)

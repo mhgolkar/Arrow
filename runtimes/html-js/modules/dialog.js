@@ -89,19 +89,21 @@ class Dialog {
         };
         
         this.proceed = function(){
-            // handle skip in case,
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            // otherwise auto-play if set (which is not normal)
-            } else if ( AUTO_PLAY_SLOT >= 0 ) {
-                this.play_forward_from(AUTO_PLAY_SLOT);
-            // or handle the none-playable dialog in case ...
-            } else if ( this.node_resource.data.hasOwnProperty('playable') &&  this.node_resource.data.playable === false ){
-                this.html.setAttribute('none-playable', 'true');
-                this.random_play_none_playable_dialogs();
+            if (_ALLOW_AUTO_PLAY) {
+                // handle skip in case,
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                // otherwise auto-play if set (which is not normal)
+                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                    this.play_forward_from(AUTO_PLAY_SLOT);
+                // or handle the none-playable dialog in case ...
+                } else if ( this.node_resource.data.hasOwnProperty('playable') &&  this.node_resource.data.playable === false ){
+                    this.html.setAttribute('none-playable', 'true');
+                    this.random_play_none_playable_dialogs();
+                }
+                // ... and finally for normal playable dialogs,
+                // we'll wait for the user to take action and play a line.
             }
-            // ... and finally for normal playable dialogs,
-            // we'll wait for the user to take action and play a line.
         };
 
         this.create_line_elements = function(lines_array, lines_holder, listen){

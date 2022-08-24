@@ -83,6 +83,10 @@ class MacroUse {
         };
         
         this.proceed = function(){
+            // NOTE:
+            // Macro-use nodes ignore `_ALLOW_AUTO_PLAY` an always auto-play/skip.
+            // The inner nodes have their own behaviors.
+            // ...
             // handle skip in case,
             if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
                 this.skip_play();
@@ -102,7 +106,8 @@ class MacroUse {
                 this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
-                    // ... and holder element to capsulate sub-nodes
+                    this.html.setAttribute('data-macro',  node_resource.data.macro);
+                    // holder element to capsulate sub-nodes
                     this.holder = create_element("div");
                     this.html.appendChild(this.holder);
                 // fetch the target macro and its map

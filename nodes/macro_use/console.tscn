@@ -28,12 +28,12 @@ margin_right = 20.0
 margin_bottom = 14.0
 text = "[M]"
 
-[node name="Name" type="Label" parent="MacroUsePlay/MacroUseTitle"]
+[node name="Label" type="Label" parent="MacroUsePlay/MacroUseTitle"]
 margin_left = 24.0
 margin_right = 219.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
-text = "{name}"
+text = "{label}"
 align = 1
 valign = 1
 autowrap = true

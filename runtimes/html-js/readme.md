@@ -118,6 +118,15 @@ from exported `.html` file, the runtime template, and/or
 > and any curious user may find how to, if they put their minds on it.
 > Therefor we recommend leaving it as is.
 
+### Fully Manual (Debug) Play
+
+This runtime allows nodes (such as hubs, generators, etc.)
+to auto-play in case no user interaction is normally needed during play.
+
+You can force a fully manual play by disabling `_ALLOW_AUTO_PLAY` constant in `arrow.js` file.
+> This constant controls auto-skipping as well.
+> Note also that respecting this preference depends on each module.
+
 ### CSS Styling Helpers
 
 To style node types, you can edit `arrow.css` file, where you can find corresponding placeholder blocks.

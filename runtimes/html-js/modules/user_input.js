@@ -268,11 +268,13 @@ class UserInput {
         };
         
         this.proceed = function(){
-            // `user_input` node type is pure interactive (there is no auto-play or default behavior,)
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                // if skipped, it means we just go to the next node as if this node didn't exist
-                this.skip_play();
-            } // otherwise we shall wait for user interaction
+            if (_ALLOW_AUTO_PLAY) {
+                // `user_input` node type is pure interactive (there is no auto-play or default behavior,)
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    // if skipped, it means we just go to the next node as if this node didn't exist
+                    this.skip_play();
+                } // otherwise we shall wait for user interaction
+            }
         };
         
         if ( node_id >= 0 ){
@@ -323,6 +325,10 @@ class UserInput {
                         this.continue_button = create_element("button", i18n('continue'));
                         this.continue_button.addEventListener( _CLICK, this.play_forward_from.bind(_self) );
                         this.html.appendChild(this.continue_button);
+                        // and skip button (used in manual play and step-backs)
+                        this.skip_button = create_element("button", i18n("skip"));
+                        this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );
+                        this.html.appendChild(this.skip_button);
                         // ...
                         this.set_view_unplayed()
                     }

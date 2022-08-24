@@ -24,9 +24,12 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY:bool = false
 
-onready var TargetName:Button = get_node("./JumpPlay/TargetName")
+onready var JumpAction:Button = get_node("./JumpPlay/JumpAction")
 
 const REASON_TEXT_UNSET_MESSAGE = "No Reason"
+const JUMP_ACTION_LABEL_FORMAT_STRING = (
+	"{jump} > {target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_NODES else "{jump} > {target_name} ({target_uid})"
+)
 
 func _ready() -> void:
 	register_connections()
@@ -38,7 +41,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	TargetName.connect("pressed", self, "play_forward_the_jump", [], CONNECT_DEFERRED)
+	JumpAction.connect("pressed", self, "play_forward_the_jump", [], CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -50,16 +53,21 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 	pass
 
 func setup_view() -> void:
-	# Jump's name
+	# Jump action label (identity of the jump and its target)
+	var label = { "jump": "Invalid!", "target_name": "Unset", "target_uid": "-1" }
 	if _NODE_RESOURCE.has("name"):
-		TargetName.set_text(_NODE_RESOURCE.name)
-	else:
-		printerr("Node %s data seems corrupt! It lacks `name` key in the resource dictionary." % _NODE_ID)
+		label.jump = _NODE_RESOURCE.name
+	if _NODE_RESOURCE.has("data"):
+		if _NODE_RESOURCE.data.has("target") && (_NODE_RESOURCE.data.target is int) && _NODE_RESOURCE.data.target >= 0:
+			label.target_uid = _NODE_RESOURCE.data.target
+			var the_target = Main.Mind.lookup_resource(_NODE_RESOURCE.data.target, "nodes")
+			label.target_name = the_target.name
+	JumpAction.set_text( JUMP_ACTION_LABEL_FORMAT_STRING.format(label) )
 	# Jump's reason
-	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("reason") && (_NODE_RESOURCE.data.reason is String):
-		TargetName.set("hint_tooltip", _NODE_RESOURCE.data.reason )
+	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("reason") && (_NODE_RESOURCE.data.reason is String) && _NODE_RESOURCE.data.reason.length() > 0:
+		JumpAction.set("hint_tooltip", _NODE_RESOURCE.data.reason )
 	else:
-		TargetName.set("hint_tooltip", REASON_TEXT_UNSET_MESSAGE )
+		JumpAction.set("hint_tooltip", REASON_TEXT_UNSET_MESSAGE )
 	pass
 	
 func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1, _variables_current:Dictionary={}) -> void:
@@ -95,13 +103,13 @@ func set_view_played_on_ready() -> void:
 	pass
 
 func set_view_unplayed() -> void:
-	TargetName.set_deferred("flat", false)
-	TargetName.set_deferred("disabled", false)
+	JumpAction.set_deferred("flat", false)
+	JumpAction.set_deferred("disabled", false)
 	pass
 
 func set_view_played() -> void:
-	TargetName.set_deferred("flat", true)
-	TargetName.set_deferred("disabled", true)
+	JumpAction.set_deferred("flat", true)
+	JumpAction.set_deferred("disabled", true)
 	pass
 
 func skip_play() -> void:

@@ -15,8 +15,11 @@ var This = self
 onready var Destination = get_node("./Slot/Destination")
 onready var Reason = get_node("./Slot/Reason")
 
-const JUMP_TARGET_FAILED_MESSAGE = "No Target"
+const DESTINATION_FORMAT_STRING = (
+	"{target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_NODES else "{target_name} ({target_uid})"
+)
 const REASON_TEXT_UNSET_MESSAGE = "No Reason"
+const HIDE_REASON_IF_UNSET = true
 
 #func _ready() -> void:
 #	register_connections()
@@ -36,14 +39,17 @@ func _gui_input(event) -> void:
 	pass
 
 func _update_node(data:Dictionary) -> void:
-	var target_text = JUMP_TARGET_FAILED_MESSAGE
+	var destination = { "target_name": "Unset", "target_uid": "-1" }
 	if data.has("target") && (data.target is int) && data.target >= 0:
+		destination.target_uid = data.target
 		var target_node = Main.Mind.lookup_resource(data.target, "nodes")
 		if (target_node is Dictionary) && target_node.has("name") && (target_node.name is String):
-			target_text = target_node.name
-	Destination.set_deferred("text", target_text)
+			destination.target_name = target_node.name
+	Destination.set_deferred("text", DESTINATION_FORMAT_STRING.format(destination))
 	if data.has("reason") && (data.reason is String) && data.reason.length() > 0:
 		Reason.set_deferred("text", data.reason)
+		Reason.set_deferred("visible", true)
 	else:
 		Reason.set_deferred("text", REASON_TEXT_UNSET_MESSAGE)
+		Reason.set_deferred("visible", (!HIDE_REASON_IF_UNSET))
 	pass

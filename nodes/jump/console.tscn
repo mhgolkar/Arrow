@@ -9,9 +9,6 @@ margin_bottom = 162.0
 rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="JumpPlay" type="HBoxContainer" parent="."]
 margin_right = 233.0
@@ -25,11 +22,11 @@ margin_right = 11.0
 margin_bottom = 17.0
 text = "[J]"
 
-[node name="TargetName" type="Button" parent="JumpPlay"]
+[node name="JumpAction" type="Button" parent="JumpPlay"]
 margin_left = 15.0
 margin_right = 233.0
 margin_bottom = 20.0
 mouse_filter = 1
 size_flags_horizontal = 3
-text = "{name}"
+text = "{jump-label}"
 flat = true

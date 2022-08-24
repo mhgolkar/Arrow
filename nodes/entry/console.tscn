@@ -23,7 +23,7 @@ margin_right = 15.0
 margin_bottom = 17.0
 text = "[E]"
 
-[node name="EntryName" type="Button" parent="EntryPlay"]
+[node name="EntryLabel" type="Button" parent="EntryPlay"]
 margin_left = 19.0
 margin_right = 194.0
 margin_bottom = 20.0

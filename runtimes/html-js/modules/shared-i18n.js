@@ -3,6 +3,9 @@
 const _SUPPORTED_LOCALES = ["en"];
 
 const _TRANSLATION_TABLE = {
+    skip: {
+        en: "Skip",
+    },
     continue: {
         en: "Continue",
     },

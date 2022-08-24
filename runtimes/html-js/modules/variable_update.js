@@ -72,10 +72,12 @@ class VariableUpdate {
         };
         
         this.proceed = function(){
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else {
-                this.evaluation_and_play();
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else {
+                    this.evaluation_and_play();
+                }
             }
         };
         
@@ -110,6 +112,11 @@ class VariableUpdate {
                     this.eval_button = create_element("button", i18n("evaluate"));
                     this.eval_button.addEventListener( _CLICK, this.evaluation_and_play.bind(_self) );
                     this.html.appendChild(this.eval_button);
+                    // and skip button (used in manual play and step-backs)
+                    this.skip_button = create_element("button", i18n("skip"));
+                    this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );
+                    this.html.appendChild(this.skip_button);
+                    // ...
             }
             return this;
         }
@@ -208,7 +215,7 @@ class VariableUpdateExpression {
             return parsed;
         };
             
-        this.evalutors = {
+        this.evaluators = {
             "str": function(left, operation, right){ 
                 var result = null;
                 switch (operation) {
@@ -308,7 +315,7 @@ class VariableUpdateExpression {
                         with_value= safeBool(with_value);
                     }
                     if ( UPDATE_OPERATORS[type].hasOwnProperty(this.data.operator) ){
-                        result = this.evalutors[type]( value, this.data.operator, with_value );
+                        result = this.evaluators[type]( value, this.data.operator, with_value );
                     }
                 }
             }

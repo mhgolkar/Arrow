@@ -59,13 +59,15 @@ class Randomizer {
         };
         
         this.proceed = function(){
-            // Randomly play one of the outgoing slots
-            // whether we are handling skip,
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            // or auto-playing
-            } else if ( AUTO_PLAY ) {
-                this.play_forward_randomly();
+            if (_ALLOW_AUTO_PLAY) {
+                // Randomly play one of the outgoing slots
+                // whether we are handling skip,
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                // or auto-playing
+                } else if ( AUTO_PLAY ) {
+                    this.play_forward_randomly();
+                }
             }
         };
         
@@ -79,6 +81,8 @@ class Randomizer {
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
                     // ... and the children
+                    this.rnd_mark = create_element("span", "[Randomizer]");
+                    this.html.appendChild(this.rnd_mark);
                     this.randomizer_button = create_element("button", node_resource.name);
                     this.randomizer_button.addEventListener( _CLICK, this.play_forward_randomly.bind(_self) );
                     this.html.appendChild( this.randomizer_button );

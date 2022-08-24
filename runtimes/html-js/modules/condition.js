@@ -74,10 +74,12 @@ class Condition {
         };
         
         this.proceed = function(){
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            } else {
-                this.evaluation_and_play();
+            if (_ALLOW_AUTO_PLAY) {
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                } else {
+                    this.evaluation_and_play();
+                }
             }
         };
         
@@ -239,7 +241,7 @@ class ConditionStatement {
             }
         };
             
-        this.evalutors = {
+        this.evaluators = {
             "str": function(left, operation, right){ 
                 var result = null;
                 switch (operation) {
@@ -351,7 +353,7 @@ class ConditionStatement {
                     }
                     // lets evaluate for the type
                     if ( COMPARISON_OPERATORS[type].hasOwnProperty(this.data.operator) ){
-                        result = this.evalutors[type]( value, this.data.operator, with_value );
+                        result = this.evaluators[type]( value, this.data.operator, with_value );
                     }
                 }
             }
