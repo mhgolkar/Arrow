@@ -1818,6 +1818,10 @@ class MacroUse {
             this.html.setAttribute('data-played', true);
         };
         
+        // IMPORTANT!
+        // Unlike `step_back` which is called only when the node itself is the last step back;
+        // this method could be called by the main runtime module whenever a wrapped node
+        // (i.e. one inside the macro) is the last node (subject of backing;)
         this.set_view_unplayed = function(){
             this.html.setAttribute('data-played', false);
         };
@@ -1848,12 +1852,6 @@ class MacroUse {
                 this.node_resource = node_resource;
                 this.node_map = node_map;
                 this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
-                // Create the node html element
-                this.html = create_node_base_html(node_id, node_resource);
-                    this.html.setAttribute('data-macro',  node_resource.data.macro);
-                    // holder element to capsulate sub-nodes
-                    this.holder = create_element("div");
-                    this.html.appendChild(this.holder);
                 // fetch the target macro and its map
                 if ( node_resource.hasOwnProperty('data') && node_resource.data.hasOwnProperty('macro') ){
                     this.macro_id = safeInt( node_resource.data.macro );
@@ -1871,6 +1869,20 @@ class MacroUse {
                         }
                     }
                 }
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    this.html.setAttribute('data-macro',  node_resource.data.macro);
+                    // holder element to capsulate sub-nodes
+                    this.holder = create_element("div");
+                    this.html.appendChild(this.holder);
+                    // the identity label
+                    this.label = create_element("span", `${node_id}: ${node_resource.data.macro} - ${this.macro.name}`);
+                    this.html.appendChild(this.label);
+                    // and skip button (used in manual play and step-backs)
+                    this.skip_button = create_element("button", i18n("skip"));
+                    this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );
+                    this.html.appendChild(this.skip_button);
+                // ...
                 if ( Array.isArray(this.nodes_list) == false || this.nodes_list.length == 0 || this.nodes_list.includes(this.entry) == false ){
                     console.warn("Unset or invalid macro_use: ", node_id, node_resource, " -> Set to be skipped.");
                     this.node_map.skip = true;
@@ -3104,12 +3116,6 @@ function play_node(node_id, _playing_in_slot){
             instance = new NODE_CLASSES_BY_TYPE[node_resource.type](
                 node_id, node_resource, node_map, _playing_in_slot
             );
-            OPEN_NODES_BY_ORDER.push({
-                id: node_id,
-                instance: instance
-            });
-            update_ui_open_nodes_list(node_resource.name);
-            var new_node_element = instance.get_element();
             // Macros need special treatments
             var handled_by_macro = false;
             if ( OPEN_MACRO ){
@@ -3121,7 +3127,14 @@ function play_node(node_id, _playing_in_slot){
                     OPEN_MACRO = null;
                 }
             }
-            if (handled_by_macro== false) {
+            OPEN_NODES_BY_ORDER.push({
+                id: node_id,
+                instance: instance,
+                wrapper: OPEN_MACRO, 
+            });
+            update_ui_open_nodes_list(node_resource.name);
+            var new_node_element = instance.get_element();
+            if (handled_by_macro == false) {
                 DOME.CONTENT.appendChild( new_node_element );
             }
             // Is the new node itself a macro ?
@@ -3196,8 +3209,13 @@ function play_back(steps, default_throw_error){
             node.instance.remove_element();
         }
         update_ui_open_nodes_list();
-        // we also need to make the last open node manually playable, so:
-        OPEN_NODES_BY_ORDER[ remove_threshold - 1 ].instance.step_back();
+        // we also need to make the last open node manually playable,
+        var last = OPEN_NODES_BY_ORDER[ remove_threshold - 1 ];
+        if ( last.wrapper != null ) {
+            OPEN_MACRO = last.wrapper; // (with special cares)
+            OPEN_MACRO.set_view_unplayed();
+        }
+        last.instance.step_back();
     } else {
         error = "There is only one remained open node! We can't step back anymore.";
     }
@@ -3721,8 +3739,27 @@ footer button:not(:first-of-type) {
 /* macro_use */
 .node[data-type='macro_use']{
     /* It also comes with `[data-macro]` set to the UID of the used macro */
+    position: relative;
     border: dashed 0.125rem var(--color-4);
-    padding: 0.5rem 2rem;
+    padding: 2rem;
+}
+.node[data-type='macro_use'] span { /* macro label */
+    position: absolute;
+    top: -0.125rem;
+    right: -0.125rem;
+    border-bottom-left-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--color-4);
+    color: var(--color-6);
+}
+.node[data-type='macro_use'] > button { /* skip */
+    position: absolute;
+    bottom: -0.125rem;
+    right: -0.125rem;
+    margin: 0;
+}
+.node[data-type='macro_use'][data-played='true'] > button {
+    display: none;
 }
 
 /* marker */

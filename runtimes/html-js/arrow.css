@@ -449,8 +449,27 @@ footer button:not(:first-of-type) {
 /* macro_use */
 .node[data-type='macro_use']{
     /* It also comes with `[data-macro]` set to the UID of the used macro */
+    position: relative;
     border: dashed 0.125rem var(--color-4);
-    padding: 0.5rem 2rem;
+    padding: 2rem;
+}
+.node[data-type='macro_use'] span { /* macro label */
+    position: absolute;
+    top: -0.125rem;
+    right: -0.125rem;
+    border-bottom-left-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--color-4);
+    color: var(--color-6);
+}
+.node[data-type='macro_use'] > button { /* skip */
+    position: absolute;
+    bottom: -0.125rem;
+    right: -0.125rem;
+    margin: 0;
+}
+.node[data-type='macro_use'][data-played='true'] > button {
+    display: none;
 }
 
 /* marker */

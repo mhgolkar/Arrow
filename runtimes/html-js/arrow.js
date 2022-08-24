@@ -326,12 +326,6 @@ function play_node(node_id, _playing_in_slot){
             instance = new NODE_CLASSES_BY_TYPE[node_resource.type](
                 node_id, node_resource, node_map, _playing_in_slot
             );
-            OPEN_NODES_BY_ORDER.push({
-                id: node_id,
-                instance: instance
-            });
-            update_ui_open_nodes_list(node_resource.name);
-            var new_node_element = instance.get_element();
             // Macros need special treatments
             var handled_by_macro = false;
             if ( OPEN_MACRO ){
@@ -343,7 +337,14 @@ function play_node(node_id, _playing_in_slot){
                     OPEN_MACRO = null;
                 }
             }
-            if (handled_by_macro== false) {
+            OPEN_NODES_BY_ORDER.push({
+                id: node_id,
+                instance: instance,
+                wrapper: OPEN_MACRO, 
+            });
+            update_ui_open_nodes_list(node_resource.name);
+            var new_node_element = instance.get_element();
+            if (handled_by_macro == false) {
                 DOME.CONTENT.appendChild( new_node_element );
             }
             // Is the new node itself a macro ?
@@ -418,8 +419,13 @@ function play_back(steps, default_throw_error){
             node.instance.remove_element();
         }
         update_ui_open_nodes_list();
-        // we also need to make the last open node manually playable, so:
-        OPEN_NODES_BY_ORDER[ remove_threshold - 1 ].instance.step_back();
+        // we also need to make the last open node manually playable,
+        var last = OPEN_NODES_BY_ORDER[ remove_threshold - 1 ];
+        if ( last.wrapper != null ) {
+            OPEN_MACRO = last.wrapper; // (with special cares)
+            OPEN_MACRO.set_view_unplayed();
+        }
+        last.instance.step_back();
     } else {
         error = "There is only one remained open node! We can't step back anymore.";
     }

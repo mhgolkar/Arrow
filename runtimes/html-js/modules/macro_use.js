@@ -74,6 +74,10 @@ class MacroUse {
             this.html.setAttribute('data-played', true);
         };
         
+        // IMPORTANT!
+        // Unlike `step_back` which is called only when the node itself is the last step back,
+        // this method could be called by the main runtime module whenever a wrapped node
+        // (i.e. one inside the macro) is the last node (subject of backing;)
         this.set_view_unplayed = function(){
             this.html.setAttribute('data-played', false);
         };
@@ -104,12 +108,6 @@ class MacroUse {
                 this.node_resource = node_resource;
                 this.node_map = node_map;
                 this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
-                // Create the node html element
-                this.html = create_node_base_html(node_id, node_resource);
-                    this.html.setAttribute('data-macro',  node_resource.data.macro);
-                    // holder element to capsulate sub-nodes
-                    this.holder = create_element("div");
-                    this.html.appendChild(this.holder);
                 // fetch the target macro and its map
                 if ( node_resource.hasOwnProperty('data') && node_resource.data.hasOwnProperty('macro') ){
                     this.macro_id = safeInt( node_resource.data.macro );
@@ -127,6 +125,20 @@ class MacroUse {
                         }
                     }
                 }
+                // Create the node html element
+                this.html = create_node_base_html(node_id, node_resource);
+                    this.html.setAttribute('data-macro',  node_resource.data.macro);
+                    // holder element to capsulate sub-nodes
+                    this.holder = create_element("div");
+                    this.html.appendChild(this.holder);
+                    // the identity label
+                    this.label = create_element("span", `${node_id}: ${node_resource.data.macro} - ${this.macro.name}`);
+                    this.html.appendChild(this.label);
+                    // and skip button (used in manual play and step-backs)
+                    this.skip_button = create_element("button", i18n("skip"));
+                    this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );
+                    this.html.appendChild(this.skip_button);
+                // ...
                 if ( Array.isArray(this.nodes_list) == false || this.nodes_list.length == 0 || this.nodes_list.includes(this.entry) == false ){
                     console.warn("Unset or invalid macro_use: ", node_id, node_resource, " -> Set to be skipped.");
                     this.node_map.skip = true;
