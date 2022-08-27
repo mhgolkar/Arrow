@@ -60,7 +60,8 @@ class MacroUse {
         this.append_instance = function(node_instance) {
             if (this.holder && 'appendChild' in this.holder){
                 if ( 'get_element' in node_instance ){
-                    this.holder.appendChild( node_instance.get_element() ); 
+                    this.holder.appendChild( node_instance.get_element() );
+                    this.reset_replay(false); // we do not allow replaying macro in the midst (out of order)
                 } else {
                     throw new Error("Invalid Instance! Unable to get_element from the inputted instance.");
                 }
@@ -68,8 +69,19 @@ class MacroUse {
                 throw new Error("Unexpected Behavior! The holder element of the macro is not ready.");
             }
         };
-
         
+        this.reset_replay = function(force) {
+            if (this.replay) {
+                var is_at_initial_state = (
+                    typeof force == 'boolean' ? force :
+                    this.holder.childElementCount == 0 && Number.isInteger(this.entry) && this.entry >= 0
+                );
+                this.replay.disabled = (! is_at_initial_state);
+            } else {
+                console.warn("Macro-use has no replay button!")
+            }
+        };
+
         this.set_view_played = function(slot_idx){
             this.html.setAttribute('data-played', true);
         };
@@ -84,13 +96,10 @@ class MacroUse {
         
         this.step_back = function(){
             this.set_view_unplayed();
+            this.reset_replay();
         };
-        
-        this.proceed = function(){
-            // NOTE:
-            // Macro-use nodes ignore `_ALLOW_AUTO_PLAY` an always auto-play/skip.
-            // The inner nodes have their own behaviors.
-            // ...
+
+        this.replay_macro = function(){
             // handle skip in case,
             if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
                 this.skip_play();
@@ -98,6 +107,14 @@ class MacroUse {
             } else if ( Number.isInteger(this.entry) && this.entry >= 0 ){
                 // ... playing its entry node
                 play_node(this.entry);
+            }
+        };
+        
+        this.proceed = function(){
+            if (_ALLOW_AUTO_PLAY) {
+                this.replay_macro();
+            } else {
+                this.reset_replay();
             }
         };
         
@@ -131,9 +148,14 @@ class MacroUse {
                     // holder element to capsulate sub-nodes
                     this.holder = create_element("div");
                     this.html.appendChild(this.holder);
-                    // the identity label
-                    this.label = create_element("span", `${node_id}: ${node_resource.data.macro} - ${this.macro.name}`);
+                    // the identity label,
+                    var macro_label = `${node_id}: ${node_resource.data.macro} - ${this.macro.name}`;
+                    this.label = create_element("span", macro_label);
                     this.html.appendChild(this.label);
+                    // a replay button
+                    this.replay = create_element("button", macro_label);
+                    this.replay.addEventListener( _CLICK, this.replay_macro.bind(_self) );
+                    this.html.appendChild(this.replay);
                     // and skip button (used in manual play and step-backs)
                     this.skip_button = create_element("button", i18n("skip"));
                     this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );

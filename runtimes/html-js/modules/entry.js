@@ -76,6 +76,9 @@ class Entry {
                     ) {
                         this.plaque = create_element("em", node_resource.data.plaque, {'class': 'plaque'});
                         this.html.appendChild(this.plaque);
+                    } else {
+                        this.entry_mark = create_element("span", "[Entry]");
+                        this.html.appendChild(this.entry_mark);
                     }
                     // + possible user interaction (manual play)
                     this.entry_button = create_element("button", node_resource.name);

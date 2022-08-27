@@ -424,6 +424,9 @@ function play_back(steps, default_throw_error){
         if ( last.wrapper != null ) {
             OPEN_MACRO = last.wrapper; // (with special cares)
             OPEN_MACRO.set_view_unplayed();
+        } else if (OPEN_MACRO != null && OPEN_MACRO.node_id != last.id){
+            OPEN_MACRO.set_view_played();
+            OPEN_MACRO = null;
         }
         last.instance.step_back();
     } else {

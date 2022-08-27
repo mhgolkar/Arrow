@@ -1135,6 +1135,9 @@ class Entry {
                     ) {
                         this.plaque = create_element("em", node_resource.data.plaque, {'class': 'plaque'});
                         this.html.appendChild(this.plaque);
+                    } else {
+                        this.entry_mark = create_element("span", "[Entry]");
+                        this.html.appendChild(this.entry_mark);
                     }
                     // + possible user interaction (manual play)
                     this.entry_button = create_element("button", node_resource.name);
@@ -1804,7 +1807,8 @@ class MacroUse {
         this.append_instance = function(node_instance) {
             if (this.holder && 'appendChild' in this.holder){
                 if ( 'get_element' in node_instance ){
-                    this.holder.appendChild( node_instance.get_element() ); 
+                    this.holder.appendChild( node_instance.get_element() );
+                    this.reset_replay(false); // we do not allow replaying macro in the midst (out of order)
                 } else {
                     throw new Error("Invalid Instance! Unable to get_element from the inputted instance.");
                 }
@@ -1812,14 +1816,25 @@ class MacroUse {
                 throw new Error("Unexpected Behavior! The holder element of the macro is not ready.");
             }
         };
-
         
+        this.reset_replay = function(force) {
+            if (this.replay) {
+                var is_at_initial_state = (
+                    typeof force == 'boolean' ? force :
+                    this.holder.childElementCount == 0 && Number.isInteger(this.entry) && this.entry >= 0
+                );
+                this.replay.disabled = (! is_at_initial_state);
+            } else {
+                console.warn("Macro-use has no replay button!")
+            }
+        };
+
         this.set_view_played = function(slot_idx){
             this.html.setAttribute('data-played', true);
         };
         
         // IMPORTANT!
-        // Unlike `step_back` which is called only when the node itself is the last step back;
+        // Unlike `step_back` which is called only when the node itself is the last step back,
         // this method could be called by the main runtime module whenever a wrapped node
         // (i.e. one inside the macro) is the last node (subject of backing;)
         this.set_view_unplayed = function(){
@@ -1828,13 +1843,10 @@ class MacroUse {
         
         this.step_back = function(){
             this.set_view_unplayed();
+            this.reset_replay();
         };
-        
-        this.proceed = function(){
-            // NOTE:
-            // Macro-use nodes ignore `_ALLOW_AUTO_PLAY` an always auto-play/skip.
-            // The inner nodes have their own behaviors.
-            // ...
+
+        this.replay_macro = function(){
             // handle skip in case,
             if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
                 this.skip_play();
@@ -1842,6 +1854,14 @@ class MacroUse {
             } else if ( Number.isInteger(this.entry) && this.entry >= 0 ){
                 // ... playing its entry node
                 play_node(this.entry);
+            }
+        };
+        
+        this.proceed = function(){
+            if (_ALLOW_AUTO_PLAY) {
+                this.replay_macro();
+            } else {
+                this.reset_replay();
             }
         };
         
@@ -1875,9 +1895,14 @@ class MacroUse {
                     // holder element to capsulate sub-nodes
                     this.holder = create_element("div");
                     this.html.appendChild(this.holder);
-                    // the identity label
-                    this.label = create_element("span", `${node_id}: ${node_resource.data.macro} - ${this.macro.name}`);
+                    // the identity label,
+                    var macro_label = `${node_id}: ${node_resource.data.macro} - ${this.macro.name}`;
+                    this.label = create_element("span", macro_label);
                     this.html.appendChild(this.label);
+                    // a replay button
+                    this.replay = create_element("button", macro_label);
+                    this.replay.addEventListener( _CLICK, this.replay_macro.bind(_self) );
+                    this.html.appendChild(this.replay);
                     // and skip button (used in manual play and step-backs)
                     this.skip_button = create_element("button", i18n("skip"));
                     this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );
@@ -3214,6 +3239,9 @@ function play_back(steps, default_throw_error){
         if ( last.wrapper != null ) {
             OPEN_MACRO = last.wrapper; // (with special cares)
             OPEN_MACRO.set_view_unplayed();
+        } else if (OPEN_MACRO != null && OPEN_MACRO.node_id != last.id){
+            OPEN_MACRO.set_view_played();
+            OPEN_MACRO = null;
         }
         last.instance.step_back();
     } else {
@@ -3685,6 +3713,7 @@ footer button:not(:first-of-type) {
 .node[data-type='entry']{}
 .node[data-type='entry'][data-played='true']{ display: none; }
 .node[data-type='entry'] /*em*/.plaque {}
+.node[data-type='entry'] span {} /* (Entry mark if no plaque is set) */
 .node[data-type='entry'] button { margin: 0.75rem; }
 
 /* generator */
@@ -3743,7 +3772,7 @@ footer button:not(:first-of-type) {
     border: dashed 0.125rem var(--color-4);
     padding: 2rem;
 }
-.node[data-type='macro_use'] span { /* macro label */
+.node[data-type='macro_use'] > span { /* macro label */
     position: absolute;
     top: -0.125rem;
     right: -0.125rem;
@@ -3752,7 +3781,11 @@ footer button:not(:first-of-type) {
     background: var(--color-4);
     color: var(--color-6);
 }
-.node[data-type='macro_use'] > button { /* skip */
+.node[data-type='macro_use'] > button:nth-of-type(1) { /* replay */ }
+.node[data-type='macro_use'] > button:nth-of-type(1):disabled {
+    display: none;
+}
+.node[data-type='macro_use'] > button:nth-of-type(2) { /* skip */
     position: absolute;
     bottom: -0.125rem;
     right: -0.125rem;
