@@ -20,9 +20,10 @@ var _NODE_RESOURCE:Dictionary
 var _NODE_MAP:Dictionary
 var _NODE_SLOTS_MAP:Dictionary
 var _VARIABLES_CURRENT:Dictionary
+var _CURRENT_VARIABLES_VALUE_BY_NAME:Dictionary
 var _THE_VARIABLE_ID:int = -1
 var _THE_VARIABLE = null
-var _CURRENT_VARIABLES_VALUE_BY_NAME:Dictionary
+var _THE_VARIABLE_ORIGINAL_VALUE = null
 
 var This = self
 var _PLAY_IS_SET_UP:bool = false
@@ -100,6 +101,10 @@ func setup_view() -> void:
 				if the_variable is Dictionary:
 					_THE_VARIABLE_ID = _NODE_RESOURCE.data.variable
 					_THE_VARIABLE = the_variable
+					if _THE_VARIABLE_ORIGINAL_VALUE == null:
+						_THE_VARIABLE_ORIGINAL_VALUE = (
+							the_variable.value if the_variable.has("value") else the_variable.init
+						)
 	set_view_unplayed()
 	pass
 
@@ -313,6 +318,13 @@ func skip_play() -> void:
 	pass
 
 func step_back() -> void:
+	# Stepping back, we should undo the changes we've made to the variable as well,
+	# so the user can inspect the previous value, before manually playing or skipping the node.
+	if _THE_VARIABLE_ID >= 0:
+		emit_signal("reset_variable", {
+			_THE_VARIABLE_ID: _THE_VARIABLE_ORIGINAL_VALUE
+		})
+	# ...
 	set_view_unplayed()
 	pass
 	

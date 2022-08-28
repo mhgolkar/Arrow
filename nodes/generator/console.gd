@@ -178,10 +178,12 @@ func skip_play() -> void:
 	pass
 
 func step_back() -> void:
-	# stepping back, we should undo the changes we've made to the variable
+	# Stepping back, we should undo the changes we've made to the variable as well,
+	# so the user can inspect the previous value, before manually playing or skipping the node.
 	if _THE_TARGET_VARIABLE_ID >= 0:
 		emit_signal("reset_variable", {
 			_THE_TARGET_VARIABLE_ID: _THE_TARGET_VARIABLE_ORIGINAL_VALUE
 		})
+	# ...
 	set_view_unplayed()
 	pass

@@ -24,6 +24,7 @@ var _CACHED_TYPES:Dictionary = {}
 var _NODES_IN_TERMINAL = [] # new one first [0]
 var _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL = []
 var _SKIPPED_NODES:Dictionary = {}
+var _OPEN_MACRO = null # or { "ELEMENT": ..., "TERMINAL": ..., "MACRO_NODES": [...] }
 
 # console settings
 var _AUTOSCROLL:bool = true
@@ -160,7 +161,7 @@ func update_current_inspected_variable() -> void:
 				"str":
 					value = VariableInspectorCurrentValue["str"].get_text()
 				"num":
-					value = VariableInspectorCurrentValue["num"].get_value()
+					value = int( VariableInspectorCurrentValue["num"].get_value() )
 				"bool":
 					var boolean_integer = VariableInspectorCurrentValue["bool"].get_selected_id()
 					value = (true if (boolean_integer == 1) else false)
@@ -168,12 +169,22 @@ func update_current_inspected_variable() -> void:
 		print(current_variable_set)
 	pass
 
-func append_to_terminal(node, variables_current = null) -> void:
-	_NODES_IN_TERMINAL.push_front(node)
+func append_to_terminal(node, node_uid: int = -1, variables_current = null) -> void:
+	if _OPEN_MACRO != null && (_OPEN_MACRO.MACRO_NODES.has(node_uid) || node_uid == -1):
+		_OPEN_MACRO.TERMINAL.call_deferred("add_child", node)
+	else:
+		_OPEN_MACRO = null
+		Terminal.call_deferred("add_child", node)
+	# ...
+	_NODES_IN_TERMINAL.push_front({
+		"id": node_uid,
+		"instance": node,
+		"wrapper": _OPEN_MACRO.duplicate(false) if _OPEN_MACRO is Dictionary else null,
+	});
 	if (variables_current is Dictionary) == false:
 		variables_current = clone_fresh_variable_set()
 	_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.push_front( variables_current )
-	Terminal.call_deferred("add_child", node)
+	# print("New node appended to the terminal. ", _NODES_IN_TERMINAL, _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL)
 	self.call_deferred("refresh_variables_list")
 	self.call_deferred("update_scroll_to_v_max")
 	pass
@@ -206,7 +217,7 @@ func clone_fresh_variable_set() -> Dictionary:
 func clear_console() -> void:
 	var all_nodes_count = _NODES_IN_TERMINAL.size()
 	while (all_nodes_count > 0):
-		_NODES_IN_TERMINAL.pop_front().queue_free()
+		_NODES_IN_TERMINAL.pop_front().instance.queue_free()
 		all_nodes_count -= 1
 	_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.clear()
 	_SKIPPED_NODES.clear()
@@ -230,89 +241,38 @@ func listen_to_playing_node(node:Node, node_uid:int = -1) -> void:
 	for the_signal in POSSIBLE_SIGNALS_FROM_PLAYING_NODES:
 		var the_method = POSSIBLE_SIGNALS_FROM_PLAYING_NODES[the_signal]
 		if node.is_connected(the_signal, self, the_method) == false:
-			node.connect(the_signal, self, the_method, [node], CONNECT_DEFERRED)
+			node.connect(the_signal, self, the_method, [node, node_uid], CONNECT_DEFERRED)
 	# 'console' lets users to double click on a playing node and jump to the respective node on the gird,
 	# so we listen for that too ...
 	if node.is_connected("gui_input", self, "_on_playing_node_gui_input") == false:
 		node.connect("gui_input", self, "_on_playing_node_gui_input", [node, node_uid], CONNECT_DEFERRED)
 	pass
 
-var _MACRO_USE_TREATMENT = {
-	"ACTIVE": false,
-	"ELEMENT": null,
-	"TERMINAL": null,
-	"MACRO_NODES": []
-}
-
-func will_be_macro_pushed(node_uid:int) -> bool:
-	return (
-		_MACRO_USE_TREATMENT.ACTIVE == true &&
-		_MACRO_USE_TREATMENT.MACRO_NODES.has(node_uid)
-	)
-
-func macro_use_special_treatments(node_uid:int, node_resource:Dictionary, node_map:Dictionary, node_element:Node) -> bool:
-	var macro_terminal_push:bool = false
-	if node_resource.type == "macro_use":
-		macro_use_treatment_load(node_resource, node_map, node_element)
-	elif _MACRO_USE_TREATMENT.ACTIVE == true :
-		if _MACRO_USE_TREATMENT.MACRO_NODES.has(node_uid):
-			# this is the macro itself being played
-			append_to_macro_terminal(node_element)
-			macro_terminal_push = true
-		else:
-			# otherwise we have left the macro, without finishing it (no END_EDGE emission, probably via jump,)
-			# so unloade it without playing forward.
-			macro_use_treatment_unload(false)
-	return macro_terminal_push
-
-func macro_use_treatment_load(node_resource:Dictionary, node_map:Dictionary, node_element:Node) -> void:
-	_MACRO_USE_TREATMENT.ACTIVE = true
-	_MACRO_USE_TREATMENT.ELEMENT = node_element
-	_MACRO_USE_TREATMENT.TERMINAL = node_element.get_node( node_element.get("MACRO_TERMINAL_REL_PATH") )
+func open_macro(node_uid: int, node_resource:Dictionary, node_map:Dictionary, node_element:Node) -> void:
+	_OPEN_MACRO = {
+		"ID": node_uid,
+		"ELEMENT": node_element,
+		"TERMINAL": node_element.get_node( node_element.get("MACRO_TERMINAL_REL_PATH") ),
+		"MACRO_NODES": [],
+	}
 	# getting macro child nodes from the central mind
-	_MACRO_USE_TREATMENT.MACRO_NODES.clear()
 	if node_resource.has("data") && node_resource.data.has("macro"):
 		if (node_resource.data.macro is int) && node_resource.data.macro >= 0 :
 			var the_macro_resource = Main.Mind.lookup_resource(node_resource.data.macro, "scenes", false) # ... bacause a macro is a special scene
 			if the_macro_resource is Dictionary:
 				if the_macro_resource.has("map") && the_macro_resource.map is Dictionary:
-					_MACRO_USE_TREATMENT.MACRO_NODES = the_macro_resource.map.keys()
-					# ok! now we have loaded the macro_use, yet we shall ...
-					# ... run the macro from its entry node
-					if the_macro_resource.has("entry") && (the_macro_resource.entry is int):
-						self.call_deferred("request_play_forward", the_macro_resource.entry, 0, node_element)
-					else:
-						printerr("Unexpected Behavior! Macro has no `entry`. Project data might be corrupted.")
-	print_debug("Type `macro_use` special treatments loaded.", _MACRO_USE_TREATMENT)
-	pass
-	
-func macro_use_treatment_unload(play_forward:bool = true) -> void:
-	if _MACRO_USE_TREATMENT.ACTIVE && _MACRO_USE_TREATMENT.ELEMENT && (play_forward != false):
-		_MACRO_USE_TREATMENT.ELEMENT.call_deferred("play_macro_use_forward")
-	_MACRO_USE_TREATMENT.ACTIVE = false
-	_MACRO_USE_TREATMENT.TERMINAL = null
-	_MACRO_USE_TREATMENT.ELEMENT = null
-	_MACRO_USE_TREATMENT.MACRO_NODES.clear()
-	pass
-
-func append_to_macro_terminal(node) -> void:
-	_MACRO_USE_TREATMENT.TERMINAL.call_deferred("add_child", node)
-	self.call_deferred("refresh_variables_list")
-	self.call_deferred("update_scroll_to_v_max")
+					_OPEN_MACRO.MACRO_NODES = the_macro_resource.map.keys()
+	print_debug("Type `macro_use` special treatments loaded.", _OPEN_MACRO)
 	pass
 
 func play_node(node_uid:int, node_resource:Dictionary, node_map:Dictionary, type:Dictionary, playing_in_slot:int = -1) -> void:
-	# print_debug("Console, plays node: ", node_uid, node_resource.type)
+	print_debug("Console, plays node: %s - %s" % [node_uid, node_resource.type])
 	var the_play_node = type.console.instance()
-	var is_macro_pushy = will_be_macro_pushed(node_uid)
 	var synced_var_set = (
-		_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL[0]
-			if (
-				is_macro_pushy && _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0
-			) else (
-				clone_fresh_variable_set()
-			)
-		)
+		_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL[0].duplicate(true)
+		if _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0 else
+		clone_fresh_variable_set()
+	)
 	the_play_node.call_deferred("setup_play",
 		node_uid,
 		node_resource.duplicate(true),
@@ -321,12 +281,9 @@ func play_node(node_uid:int, node_resource:Dictionary, node_map:Dictionary, type
 		synced_var_set
 	)
 	listen_to_playing_node(the_play_node, node_uid)
-	# finally add it to the tree
-	# Note: we run `macro_use_special_treatments` on every node
-	# because the function detects the `macro_use` nodes and handles special treatments (pushes, leaves, etc.) in case,
-	var macro_pushed = macro_use_special_treatments(node_uid, node_resource, node_map, the_play_node)
-	if macro_pushed == false: # for normal nodes it does nothing, so we treat them normally:
-		append_to_terminal(the_play_node, synced_var_set)
+	append_to_terminal(the_play_node, node_uid, synced_var_set)
+	if node_resource.type == 'macro_use':
+		open_macro(node_uid, node_resource, node_map, the_play_node)
 	# and...
 	if node_map.has("skip") && node_map.skip == true:
 		# the node is appended, because it's part of the continuum anyway when played, so we ask it to get skipped (hidden)
@@ -361,7 +318,7 @@ func play_step_back(how_many:int = 1) -> void:
 	if _NODES_IN_TERMINAL.size() >= how_many:
 		while (how_many > 0):
 			_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.pop_front()
-			var node = _NODES_IN_TERMINAL.pop_front()
+			var node = _NODES_IN_TERMINAL.pop_front().instance
 			if is_instance_valid(node):
 				if "_NODE_ID" in node && _SKIPPED_NODES.has(node._NODE_ID):
 					_SKIPPED_NODES.erase(node._NODE_ID)
@@ -370,24 +327,23 @@ func play_step_back(how_many:int = 1) -> void:
 		# after stepping back, we shall...
 		# make the last node manually playable by the user, to able them debug and decide!
 		if _NODES_IN_TERMINAL.size() > 0 :
-			var now_playing_node = _NODES_IN_TERMINAL[0]
+			var last = _NODES_IN_TERMINAL[0]
 			# yet another treatment for `macro_use` nodes
-			if is_instance_valid(now_playing_node) && "_NODE_RESOURCE" in now_playing_node && now_playing_node._NODE_RESOURCE.type == "macro_use":
-				play_step_back(1) # another step back
-				macro_use_treatment_unload(false) # unload macro if it's still loaded
-				# and replay it with `skip` property overloaded to force it being played
-				var skip_overloaded_map = now_playing_node._NODE_MAP.duplicate(true)
-				skip_overloaded_map.skip = false
-				play_node(now_playing_node._NODE_ID, now_playing_node._NODE_RESOURCE, skip_overloaded_map, _CACHED_TYPES["macro_use"])
-			# normal nodes
-			else:
-				now_playing_node.call_deferred("step_back")
-				reset_node_skippness_view(now_playing_node, false) # make sure it's visible even skipped
+			if last.wrapper != null: # last was a noe inside an open-macro instance
+				_OPEN_MACRO = last.wrapper
+				_OPEN_MACRO.ELEMENT.set_view_unplayed()
+			elif _OPEN_MACRO != null && _OPEN_MACRO.ID != last.id: # out of the macro
+				_OPEN_MACRO.ELEMENT.set_view_played();
+				_OPEN_MACRO = null;
+			# ...
+			if last.id >= 0: # Non-node printed messages are expected to be `< 0 ~= -1`
+				last.instance.call_deferred("step_back")
+			reset_node_skippness_view(last.instance, false) # make sure it's visible even skipped
 			self.call_deferred("update_scroll_to_v_max")
 		self.call_deferred("refresh_variables_list")
 	pass
 
-func request_play_forward(to_node_id:int = -1, to_slot:int = -1, _the_player_one = null):
+func request_play_forward(to_node_id:int = -1, to_slot:int = -1, _the_player_one = null, _the_player_one_uid = null):
 	print_debug("Play Forward! To node: ", to_node_id, " slot: ", to_slot)
 	emit_signal("request_mind", "console_play_node", {
 		"id": to_node_id,
@@ -395,60 +351,61 @@ func request_play_forward(to_node_id:int = -1, to_slot:int = -1, _the_player_one
 	})
 	pass
 
-func interpret_status_code(code:int, the_player_node = null) -> void:
+func interpret_status_code(code:int, the_player_node = null, the_player_node_uid = null) -> void:
 	match code:
 		CONSOLE_STATUS_CODE.END_EDGE:
-			if _MACRO_USE_TREATMENT.ACTIVE:
-				# this is end of a `macro_use`, but there might be still more to play in the parent scene, so ...
-				macro_use_treatment_unload(true) # ... with `play_forward=true`
+			if _OPEN_MACRO != null && the_player_node_uid != _OPEN_MACRO.ID:
+				# It seems like a macro's end of line
+				_OPEN_MACRO.ELEMENT.play_forward_from() # ~ PLAY_MACRO_END_SLOT
 			else:
-				# it's end of the parent scene/plot-line
 				print_console( CONSOLE_STATUS_CODE.END_EDGE_MESSAGE )
 		CONSOLE_STATUS_CODE.NO_DEFAULT:
 			if is_instance_valid(the_player_node):
 				var full_no_default_message = CONSOLE_STATUS_CODE.NO_DEFAULT_MESSAGE + " (" + the_player_node._NODE_RESOURCE.name + ")"
 				print_console( full_no_default_message , true, Settings.CAUTION_COLOR )
-				# `macro_use` nodes may also send this status code and they need special treatments:
-				if the_player_node._NODE_RESOURCE.type == "macro_use":
-					yield(TheTree, "idle_frame")
-					self.call_deferred("macro_use_treatment_unload")
 			else:
 				print_console( CONSOLE_STATUS_CODE.NO_DEFAULT_MESSAGE , false, Settings.CAUTION_COLOR )
 	pass
 
-func clear_nodes_before(the_player_node) -> void:
+func clear_nodes_before(the_player_node, the_player_node_uid) -> void:
 	if _PREVENT_CLEARANCE != true:
-		var how_many = (_NODES_IN_TERMINAL.size() - _NODES_IN_TERMINAL.find(the_player_node) - 1)
-		while (how_many > 0):
-			_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.pop_back()
-			var node = _NODES_IN_TERMINAL.pop_back()
-			if node:
-				node.queue_free()
-				how_many -= 1
-		self.call_deferred("refresh_variables_list")
+		if _NODES_IN_TERMINAL.size() > 0:
+			while true:
+				var oldest = _NODES_IN_TERMINAL[ _NODES_IN_TERMINAL.size() - 1 ] # (we did `push_front` to the array)
+				if oldest.id != the_player_node_uid:
+					_NODES_IN_TERMINAL.pop_back().instance.queue_free()
+					_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.pop_back()
+				else:
+					break
+			self.call_deferred("refresh_variables_list")
 	else:
 		print_console( CLEARANCE_PREVENTION_MESSAGE, false, CLEARANCE_PREVENTION_MESSAGE_COLOR )
 	pass
 
-# <variable_update_list> { int<variable_ids>: variant<new_values>, ...}
-func reset_synced_variable(variable_update_list:Dictionary, the_player_node = null) -> void:
+func reset_synced_variable(variable_update_list:Dictionary, the_player_node = null, the_player_node_uid = null) -> void:
 	# print_debug("reset_synced_variable : ", variable_update_list)
-	var index_of_the_player_node = _NODES_IN_TERMINAL.find(the_player_node)
-	if _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() > index_of_the_player_node:
-		if index_of_the_player_node < 0 :
-			# the player node might not be set or may be a node in a `macro_use` sub-terminal/sub-console,
-			# therefore not found, 
-			# in those cases, we update the newest first[0] set
-			index_of_the_player_node = 0
-		var the_set = _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL[index_of_the_player_node]
-		for variable_id in variable_update_list:
-			if the_set.has(variable_id):
-				if typeof( the_set[variable_id].value ) == typeof( variable_update_list[variable_id] ):
-					the_set[variable_id].value = variable_update_list[variable_id]
+	if _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
+		assert(
+			_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() == _NODES_IN_TERMINAL.size(),
+			"Size of synced variable sets are expected to be the same as nodes in terminal!"
+		)
+		if _NODES_IN_TERMINAL[0].id == the_player_node_uid:
+			var the_set = _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL[0]
+			for variable_id in variable_update_list:
+				if the_set.has(variable_id):
+					if typeof( the_set[variable_id].value ) == typeof( variable_update_list[variable_id] ):
+						the_set[variable_id].value = variable_update_list[variable_id]
+					else:
+						printerr("Invalid Console Node Behavior! The variable %s is tried to be reset by value of other type: " % variable_id, variable_update_list[variable_id])
 				else:
-					printerr("Invalid Console Node Behavior! The variable %s is tried to be reset by value of other type: " % variable_id, variable_update_list[variable_id])
-			else:
-				printerr("Invalid Console Node Behavior! Trying to reset nonexistent variable: ", variable_id)
+					printerr("Invalid Console Node Behavior! Trying to reset nonexistent variable %s by node %s " % [variable_id, the_player_node_uid])
+		else:
+			printerr(
+				"Unexpected behavior: Variable update ignored! Only the last node (%s) is allowed to update variable sets (not requesting %s.)"
+				% [_NODES_IN_TERMINAL[0].id, the_player_node_uid]
+			)
+	else:
+		printerr("Unexpected behavior: node " + the_player_node_uid + " tried to update variables while no one is set up in memory!")
 	refresh_variables_list()
 	pass
 

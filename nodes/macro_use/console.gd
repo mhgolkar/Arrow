@@ -43,12 +43,13 @@ func _ready() -> void:
 	_NODE_IS_READY = true
 	if _PLAY_IS_SET_UP:
 		setup_view()
+		proceed_auto_play()
 	if _DEFERRED_VIEW_PLAY_SLOT >= 0:
 		set_view_played(_DEFERRED_VIEW_PLAY_SLOT)
 	pass
 
 func register_connections() -> void:
-	SkipButton.connect("pressed", self, "play_macro_use_forward", [], CONNECT_DEFERRED)
+	SkipButton.connect("pressed", self, "play_forward_from", [PLAY_MACRO_END_SLOT], CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -79,18 +80,33 @@ func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _pla
 	# update fields and children
 	if _NODE_IS_READY:
 		setup_view()
-	# handle skip in case
-	if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
-		skip_play()
-		# otherwise wait for further user interactions
+		proceed_auto_play()
 	_PLAY_IS_SET_UP = true
 	pass
 
-# currently, there is only one slot out (one forward) possible for any instance of `macro_use`
-# this function is called by the main console's `macro_use_treatment_unload`
-# when the macro is left or run out (END_EDGE) or by `skip` button being pressed
-func play_macro_use_forward() -> void:
-	play_forward_from(PLAY_MACRO_END_SLOT)
+func proceed_auto_play() -> void:
+	if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
+		skip_play()
+	else:
+		if (
+			_NODE_RESOURCE.has("data") && _NODE_RESOURCE.data is Dictionary &&
+			_NODE_RESOURCE.data.has("macro") && (_NODE_RESOURCE.data.macro is int) &&
+			_NODE_RESOURCE.data.macro >= 0
+		):
+			var the_macro = Main.Mind.lookup_resource(_NODE_RESOURCE.data.macro, "scenes")
+			if (
+				the_macro is Dictionary &&
+				the_macro.has("entry") && the_macro.entry is int && the_macro.entry >= 0
+			):
+				self.emit_signal("play_forward", the_macro.entry, 0)
+			else:
+				print(
+					"Macro-use %s skipped, trying to run macro %s with no valid entry (%s)"
+					% [_NODE_ID, _NODE_RESOURCE.data.macro, the_macro]
+				)
+				skip_play()
+		else:
+			skip_play()
 	pass
 
 func play_forward_from(slot_idx:int = PLAY_MACRO_END_SLOT) -> void:
@@ -119,8 +135,7 @@ func set_view_played(slot_idx:int = PLAY_MACRO_END_SLOT) -> void:
 	pass
 
 func skip_play() -> void:
-	# notify user of no action being taken
-	emit_signal("status_code", CONSOLE_STATUS_CODE.NO_DEFAULT)
+	play_forward_from(PLAY_MACRO_END_SLOT)
 	pass
 
 func step_back() -> void:
