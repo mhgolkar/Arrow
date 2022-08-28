@@ -53,11 +53,26 @@ margin_right = 212.0
 margin_bottom = 7.0
 size_flags_horizontal = 3
 
-[node name="SkipMacro" type="Button" parent="MacroUsePlay"]
-margin_left = 181.0
+[node name="Actions" type="HBoxContainer" parent="MacroUsePlay"]
 margin_top = 36.0
 margin_right = 219.0
 margin_bottom = 56.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Replay" type="Button" parent="MacroUsePlay/Actions"]
+margin_left = 123.0
+margin_right = 177.0
+margin_bottom = 20.0
+mouse_filter = 1
+size_flags_horizontal = 8
+disabled = true
+text = "Replay"
+
+[node name="Skip" type="Button" parent="MacroUsePlay/Actions"]
+margin_left = 181.0
+margin_right = 219.0
+margin_bottom = 20.0
 mouse_filter = 1
 size_flags_horizontal = 8
 text = "Skip"

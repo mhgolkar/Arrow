@@ -36,9 +36,7 @@ class MacroUse {
         
         this.skip_play = function() {
             this.html.setAttribute('data-skipped', true);
-            // `macro_use`s have no default action when they are skipped,
-            // so just give the parent script a heads up
-            handle_status(_CONSOLE_STATUS_CODE.NO_DEFAULT, _self);
+            this.play_self_forward();
         };
 
         this.play_self_forward = function() {
@@ -100,19 +98,23 @@ class MacroUse {
         };
 
         this.replay_macro = function(){
-            // handle skip in case,
-            if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
-                this.skip_play();
-            // otherwise run the macro (sub-nodes), by ...
-            } else if ( Number.isInteger(this.entry) && this.entry >= 0 ){
-                // ... playing its entry node
+            if ( Number.isInteger(this.entry) && this.entry >= 0 ){
                 play_node(this.entry);
+            } else {
+                console.error(`Node ${this.node_id} using macro ${this.macro_id} has no valid entry: ${this.entry}`);
+                this.skip_play();
             }
         };
         
         this.proceed = function(){
             if (_ALLOW_AUTO_PLAY) {
-                this.replay_macro();
+                // handle skip in case,
+                if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
+                    this.skip_play();
+                // otherwise run the macro (i.e. scoped nodes starting with entry):
+                } else {
+                    this.replay_macro();
+                }
             } else {
                 this.reset_replay();
             }

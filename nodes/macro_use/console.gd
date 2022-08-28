@@ -28,11 +28,11 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-# this reference will be used by the main console (~ as sub-terminal/sub-console)
-const MACRO_TERMINAL_REL_PATH = "./MacroUsePlay/PanelContainer/MacroUseSubConsole"
-
 onready var MacroUseLabel = get_node("./MacroUsePlay/MacroUseTitle/Label")
-onready var SkipButton = get_node("./MacroUsePlay/SkipMacro")
+onready var SkipButton = get_node("./MacroUsePlay/Actions/Skip")
+onready var ReplayButton = get_node("./MacroUsePlay/Actions/Replay")
+
+onready var TERMINAL = get_node("./MacroUsePlay/PanelContainer/MacroUseSubConsole")
 
 const MACRO_USE_LABEL_FORMAT_STRING = (
 	"{user}: {target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS else "{user}: {target_name} ({target_uid})"
@@ -49,7 +49,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	SkipButton.connect("pressed", self, "play_forward_from", [PLAY_MACRO_END_SLOT], CONNECT_DEFERRED)
+	SkipButton.connect("pressed", self, "play_forward_from", [], CONNECT_DEFERRED)
+	ReplayButton.connect("pressed", self, "replay_macro", [], CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -84,29 +85,43 @@ func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _pla
 	_PLAY_IS_SET_UP = true
 	pass
 
+func append_subnode(node_instance) -> void:
+	TERMINAL.call_deferred("add_child", node_instance)
+	reset_replay(false)
+	pass
+
+func reset_replay(force: bool = false) -> void:
+	ReplayButton.set_disabled(! force)
+	ReplayButton.set_visible(force)
+	pass
+
+func replay_macro() -> void:
+	if (
+		_NODE_RESOURCE.has("data") && _NODE_RESOURCE.data is Dictionary &&
+		_NODE_RESOURCE.data.has("macro") && (_NODE_RESOURCE.data.macro is int) &&
+		_NODE_RESOURCE.data.macro >= 0
+	):
+		var the_macro = Main.Mind.lookup_resource(_NODE_RESOURCE.data.macro, "scenes")
+		if (
+			the_macro is Dictionary &&
+			the_macro.has("entry") && the_macro.entry is int && the_macro.entry >= 0
+		):
+			self.emit_signal("play_forward", the_macro.entry, 0)
+		else:
+			print(
+				"Macro-use %s skipped, trying to run macro %s with no valid entry (%s)"
+				% [_NODE_ID, _NODE_RESOURCE.data.macro, the_macro]
+			)
+			skip_play()
+	else:
+		skip_play()
+	pass
+
 func proceed_auto_play() -> void:
 	if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
 		skip_play()
 	else:
-		if (
-			_NODE_RESOURCE.has("data") && _NODE_RESOURCE.data is Dictionary &&
-			_NODE_RESOURCE.data.has("macro") && (_NODE_RESOURCE.data.macro is int) &&
-			_NODE_RESOURCE.data.macro >= 0
-		):
-			var the_macro = Main.Mind.lookup_resource(_NODE_RESOURCE.data.macro, "scenes")
-			if (
-				the_macro is Dictionary &&
-				the_macro.has("entry") && the_macro.entry is int && the_macro.entry >= 0
-			):
-				self.emit_signal("play_forward", the_macro.entry, 0)
-			else:
-				print(
-					"Macro-use %s skipped, trying to run macro %s with no valid entry (%s)"
-					% [_NODE_ID, _NODE_RESOURCE.data.macro, the_macro]
-				)
-				skip_play()
-		else:
-			skip_play()
+		replay_macro()
 	pass
 
 func play_forward_from(slot_idx:int = PLAY_MACRO_END_SLOT) -> void:
@@ -132,6 +147,7 @@ func set_view_unplayed() -> void:
 
 func set_view_played(slot_idx:int = PLAY_MACRO_END_SLOT) -> void:
 	SkipButton.set("visible", false)
+	reset_replay(false)
 	pass
 
 func skip_play() -> void:
@@ -139,6 +155,7 @@ func skip_play() -> void:
 	pass
 
 func step_back() -> void:
+	reset_replay(true)
 	set_view_unplayed()
 	pass
 	

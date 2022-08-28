@@ -339,8 +339,9 @@ function play_node(node_id, _playing_in_slot){
             }
             OPEN_NODES_BY_ORDER.push({
                 id: node_id,
+                resource: node_resource,
                 instance: instance,
-                wrapper: OPEN_MACRO, 
+                wrapper: OPEN_MACRO,
             });
             update_ui_open_nodes_list(node_resource.name);
             var new_node_element = instance.get_element();
@@ -372,11 +373,10 @@ const _CONSOLE_STATUS_CODE = {
 function handle_status(status_code, the_player_node_instance){
     switch (status_code) {
         case _CONSOLE_STATUS_CODE.END_EDGE:
-            if ( OPEN_MACRO ){
+            if ( OPEN_MACRO && OPEN_MACRO != the_player_node_instance ){
                 // This is most likely the end of a `macro_use` in a scene,
                 // so there might be still more to play on the parent scene:
                 OPEN_MACRO.play_self_forward();
-                OPEN_MACRO = null;
             } else {
                 if ( DO_NOT_PRINT_END_MESSAGE !== true ){
                     DOME.CONTENT.appendChild(
@@ -387,12 +387,6 @@ function handle_status(status_code, the_player_node_instance){
             }
             break;
         case _CONSOLE_STATUS_CODE.NO_DEFAULT:
-            // `macro_use` nodes may send this (~ skipped) and they need special treatments:
-            if ( the_player_node_instance.node_resource.type == "macro_use" ){
-                OPEN_MACRO.play_self_forward();
-                OPEN_MACRO = null;
-            }
-            // and get dev/user a heads up
             if (_VERBOSE) {
                 console.log(
                     `Node '${the_player_node_instance.node_resource.name}' has no action and no default!\n`+
@@ -427,6 +421,8 @@ function play_back(steps, default_throw_error){
         } else if (OPEN_MACRO != null && OPEN_MACRO.node_id != last.id){
             OPEN_MACRO.set_view_played();
             OPEN_MACRO = null;
+        } else if ( last.resource.type == 'macro_use' ) {
+            OPEN_MACRO = last.instance;
         }
         last.instance.step_back();
     } else {

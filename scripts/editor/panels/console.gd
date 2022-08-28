@@ -169,16 +169,17 @@ func update_current_inspected_variable() -> void:
 		print(current_variable_set)
 	pass
 
-func append_to_terminal(node, node_uid: int = -1, variables_current = null) -> void:
+func append_to_terminal(node_instance, node_uid: int = -1, node_resource = null, variables_current = null) -> void:
 	if _OPEN_MACRO != null && (_OPEN_MACRO.MACRO_NODES.has(node_uid) || node_uid == -1):
-		_OPEN_MACRO.TERMINAL.call_deferred("add_child", node)
+		_OPEN_MACRO.ELEMENT.call("append_subnode", node_instance)
 	else:
 		_OPEN_MACRO = null
-		Terminal.call_deferred("add_child", node)
+		Terminal.call_deferred("add_child", node_instance)
 	# ...
 	_NODES_IN_TERMINAL.push_front({
 		"id": node_uid,
-		"instance": node,
+		"resource": node_resource,
+		"instance": node_instance,
 		"wrapper": _OPEN_MACRO.duplicate(false) if _OPEN_MACRO is Dictionary else null,
 	});
 	if (variables_current is Dictionary) == false:
@@ -248,11 +249,10 @@ func listen_to_playing_node(node:Node, node_uid:int = -1) -> void:
 		node.connect("gui_input", self, "_on_playing_node_gui_input", [node, node_uid], CONNECT_DEFERRED)
 	pass
 
-func open_macro(node_uid: int, node_resource:Dictionary, node_map:Dictionary, node_element:Node) -> void:
+func open_macro(node_uid: int, node_resource:Dictionary, node_element:Node) -> void:
 	_OPEN_MACRO = {
 		"ID": node_uid,
 		"ELEMENT": node_element,
-		"TERMINAL": node_element.get_node( node_element.get("MACRO_TERMINAL_REL_PATH") ),
 		"MACRO_NODES": [],
 	}
 	# getting macro child nodes from the central mind
@@ -281,9 +281,9 @@ func play_node(node_uid:int, node_resource:Dictionary, node_map:Dictionary, type
 		synced_var_set
 	)
 	listen_to_playing_node(the_play_node, node_uid)
-	append_to_terminal(the_play_node, node_uid, synced_var_set)
+	append_to_terminal(the_play_node, node_uid, node_resource, synced_var_set)
 	if node_resource.type == 'macro_use':
-		open_macro(node_uid, node_resource, node_map, the_play_node)
+		open_macro(node_uid, node_resource, the_play_node)
 	# and...
 	if node_map.has("skip") && node_map.skip == true:
 		# the node is appended, because it's part of the continuum anyway when played, so we ask it to get skipped (hidden)
@@ -335,6 +335,8 @@ func play_step_back(how_many:int = 1) -> void:
 			elif _OPEN_MACRO != null && _OPEN_MACRO.ID != last.id: # out of the macro
 				_OPEN_MACRO.ELEMENT.set_view_played();
 				_OPEN_MACRO = null;
+			elif last.resource.type == 'macro_use':
+				open_macro(last.id, last.resource, last.instance)
 			# ...
 			if last.id >= 0: # Non-node printed messages are expected to be `< 0 ~= -1`
 				last.instance.call_deferred("step_back")
