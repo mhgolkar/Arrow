@@ -33,6 +33,7 @@ var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 const PROMPT_UNSET_MESSAGE = "No Question!"
 const NO_VARIABLE_MESSAGE = "Variable Unset!"
 const DONE_RESULT_TEMPLATE = "{variable_name} = {new_value}"
+const SKIPPED_MESSAGE = "[Skipped]"
 
 const DEFAULT_CUSTOM = {
 	"str": ["", "", ""],
@@ -41,7 +42,8 @@ const DEFAULT_CUSTOM = {
 }
 
 onready var Prompt:Label = get_node("./UserInputPlay/Prompt")
-onready var Enter:Button = get_node("./UserInputPlay/Enter")
+onready var Enter:Button = get_node("./UserInputPlay/Actions/Enter")
+onready var Skip:Button = get_node("./UserInputPlay/Actions/Skip")
 onready var InputsHolder = get_node("./UserInputPlay/Input")
 onready var Inputs = {
 	"str":  get_node("./UserInputPlay/Input/String"),
@@ -62,6 +64,7 @@ func _ready() -> void:
 
 func register_connections() -> void:
 	Enter.connect("pressed", self, "play_forward", [], CONNECT_DEFERRED)
+	Skip.connect("pressed", self, "skip_play", [], CONNECT_DEFERRED)
 	for type in Inputs:
 		Inputs[type].connect("gui_input", self, "_reset_input_validity_state", [], CONNECT_DEFERRED)
 	pass
@@ -306,14 +309,17 @@ func set_view_unplayed() -> void:
 		InputsHolder.set("visible", false)
 		set_result( NO_VARIABLE_MESSAGE, true )
 	Enter.set("visible", true)
+	Skip.set("visible", true)
 	pass
 
 func set_view_played(slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	InputsHolder.set("visible", false)
 	Enter.set("visible", false)
+	Skip.set("visible", false)
 	pass
 
 func skip_play() -> void:
+	set_result( SKIPPED_MESSAGE, true )
 	play_forward(false) # ... without applying input
 	pass
 
