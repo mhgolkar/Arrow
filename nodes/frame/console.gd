@@ -16,6 +16,10 @@ onready var Main = get_tree().get_root().get_child(0)
 
 var Utils = Helpers.Utils
 
+# NOTE:
+# Currently frames accept no incoming or outgoing slots,
+# which means the can act only as end of the plot
+# (e.g. as destination of a jump!)
 const AUTO_PLAY_SLOT = 0
 
 var _NODE_ID:int
@@ -41,6 +45,7 @@ func _ready() -> void:
 	_NODE_IS_READY = true
 	if _PLAY_IS_SET_UP:
 		setup_view()
+		proceed_auto_play()
 	if _DEFERRED_VIEW_PLAY_SLOT >= 0:
 		set_view_played(_DEFERRED_VIEW_PLAY_SLOT)
 	pass
@@ -76,13 +81,20 @@ func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _pla
 	# update fields and children
 	if _NODE_IS_READY:
 		setup_view()
-	# handle skip in case
-	if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
-		skip_play()
-	# otherwise auto-play if set
-	elif AUTO_PLAY_SLOT >= 0:
-		play_forward_from(AUTO_PLAY_SLOT)
+		proceed_auto_play()
 	_PLAY_IS_SET_UP = true
+	pass
+
+func proceed_auto_play() -> void:
+	if Main.Mind.Console._ALLOW_AUTO_PLAY:
+		# handle skip in case
+		if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
+			skip_play()
+		# otherwise auto-play if set
+		elif AUTO_PLAY_SLOT >= 0:
+			play_forward_from(AUTO_PLAY_SLOT)
+	else:
+		set_view_unplayed()
 	pass
 
 func play_forward_from(slot_idx:int = AUTO_PLAY_SLOT) -> void:
@@ -113,8 +125,6 @@ func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	pass
 
 func skip_play() -> void:
-	# play the AUTO (and only) play slot anyway
-	# as if this node is just part of a direct connection with no side effects
 	play_forward_from(AUTO_PLAY_SLOT)
 	pass
 

@@ -12,4 +12,4 @@ const END_EDGE_MESSAGE = "Plot Ends Here!"
 
 # no default action is taken by the node (e.g. due to being skipped)
 const NO_DEFAULT = 1
-const NO_DEFAULT_MESSAGE = "Default Discarded."
+const NO_DEFAULT_MESSAGE = "No Default Action Possible."

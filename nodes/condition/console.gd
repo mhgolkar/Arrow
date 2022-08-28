@@ -94,12 +94,15 @@ func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _pla
 	pass
 
 func proceed_auto_play() -> void:
-	if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
-		skip_play()
+	if Main.Mind.Console._ALLOW_AUTO_PLAY:
+		if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
+			skip_play()
+		else:
+			play_forward_from(
+				TRUE_SLOT if (evaluate_condition() == true) else FALSE_SLOT
+			)
 	else:
-		play_forward_from(
-			TRUE_SLOT if (evaluate_condition() == true) else FALSE_SLOT
-		)
+		set_view_unplayed()
 	pass
 
 func evaluate_condition() -> bool:

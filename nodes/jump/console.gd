@@ -36,6 +36,7 @@ func _ready() -> void:
 	_NODE_IS_READY = true
 	if _PLAY_IS_SET_UP:
 		setup_view()
+		proceed_auto_play()
 	if _DEFERRED_VIEW_PLAY:
 		set_view_played()
 	pass
@@ -78,13 +79,21 @@ func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _pla
 	# update fields and children
 	if _NODE_IS_READY:
 		setup_view()
-	# always auto-play next node (i.e. the jump destination)
-	# unless it's a skipped jump, which means ...
-	if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
-		skip_play() # ... ending with status_code
-	else:
-		play_forward_the_jump()
+		proceed_auto_play()
 	_PLAY_IS_SET_UP = true
+	pass
+
+func proceed_auto_play() -> void:
+	if Main.Mind.Console._ALLOW_AUTO_PLAY:
+		# always auto-play next node (i.e. the jump destination)
+		# unless it's a skipped jump, which means ...
+		if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
+			skip_play() # ... ending with status_code
+			# because jumps have no outgoing slot
+		else:
+			play_forward_the_jump()
+	else:
+		set_view_unplayed()
 	pass
 
 func play_forward_the_jump() -> void:

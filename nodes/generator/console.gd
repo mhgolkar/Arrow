@@ -121,13 +121,16 @@ func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _pla
 	pass
 
 func proceed_auto_play() -> void:
-	# handle skip in case
-	if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
-		skip_play()
-	# otherwise...
+	if Main.Mind.Console._ALLOW_AUTO_PLAY:
+		# handle skip in case
+		if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
+			skip_play()
+		# otherwise...
+		else:
+			# evaluate the condition and auto-play the case:
+			generate_set_and_play_forward(true)
 	else:
-		# evaluate the condition and auto-play the case:
-		generate_set_and_play_forward(true)
+		set_view_unplayed()
 	pass
 
 func generate_set_and_play_forward(proceed_update:bool = true) -> void:

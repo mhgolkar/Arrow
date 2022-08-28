@@ -28,6 +28,7 @@ var _OPEN_MACRO = null # or { "ELEMENT": ..., "TERMINAL": ..., "MACRO_NODES": [.
 
 # console settings
 var _AUTOSCROLL:bool = true
+var _ALLOW_AUTO_PLAY:bool = true
 var _PREVENT_CLEARANCE:bool = false
 var _INSPECT_VARIABLES:bool = false
 var _SHOW_SKIPPED_NODES:bool = false
@@ -41,9 +42,10 @@ const CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_OFF = Settings.CONSOLE_SKIPPED
 const CONSOLE_SETTINGS_MENU = {
 	# CAUTION! The func `refresh_console_setting_menu_buttons` shall be modified respectively in case
 	0: { "label": "Auto-scroll", "is_checkbox": true , "action": "_reset_settings_auto_scroll" },
-	1: { "label": "Prevent Clearance", "is_checkbox": true , "action": "_reset_settings_prevent_clearance" },
-	2: { "label": "Inspect Variables", "is_checkbox": true , "action": "_reset_settings_inspect_variables" },
-	3: { "label": "Show Skipped Nodes", "is_checkbox": true , "action": "_reset_settings_show_skipped_nodes" },
+	1: { "label": "Allow Auto-play", "is_checkbox": true , "action": "_reset_settings_allow_auto_play" },
+	2: { "label": "Prevent Clearance", "is_checkbox": true , "action": "_reset_settings_prevent_clearance" },
+	3: { "label": "Inspect Variables", "is_checkbox": true , "action": "_reset_settings_inspect_variables" },
+	4: { "label": "Show Skipped Nodes", "is_checkbox": true , "action": "_reset_settings_show_skipped_nodes" },
 }
 var _CONSOLE_SETTINGS_MENU_ITEM_INDEX_BY_ACTION = {}
 
@@ -413,9 +415,10 @@ func reset_synced_variable(variable_update_list:Dictionary, the_player_node = nu
 
 func refresh_console_setting_menu_buttons() -> void:
 	SettingsMenuButtonPopup.set_item_checked(0, _AUTOSCROLL)
-	SettingsMenuButtonPopup.set_item_checked(1, _PREVENT_CLEARANCE)
-	SettingsMenuButtonPopup.set_item_checked(2, _INSPECT_VARIABLES)
-	SettingsMenuButtonPopup.set_item_checked(3, _SHOW_SKIPPED_NODES)
+	SettingsMenuButtonPopup.set_item_checked(1, _ALLOW_AUTO_PLAY)
+	SettingsMenuButtonPopup.set_item_checked(2, _PREVENT_CLEARANCE)
+	SettingsMenuButtonPopup.set_item_checked(3, _INSPECT_VARIABLES)
+	SettingsMenuButtonPopup.set_item_checked(4, _SHOW_SKIPPED_NODES)
 	VariablesInspectorPanel.set_visible(_INSPECT_VARIABLES)
 	if _INSPECT_VARIABLES:
 		self.call_deferred("refresh_variables_list")
@@ -423,6 +426,11 @@ func refresh_console_setting_menu_buttons() -> void:
 
 func _reset_settings_auto_scroll() -> void:
 	_AUTOSCROLL = (! _AUTOSCROLL)
+	refresh_console_setting_menu_buttons()
+	pass
+
+func _reset_settings_allow_auto_play() -> void:
+	_ALLOW_AUTO_PLAY = (! _ALLOW_AUTO_PLAY)
 	refresh_console_setting_menu_buttons()
 	pass
 

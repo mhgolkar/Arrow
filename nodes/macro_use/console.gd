@@ -118,10 +118,13 @@ func replay_macro() -> void:
 	pass
 
 func proceed_auto_play() -> void:
-	if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
-		skip_play()
+	if Main.Mind.Console._ALLOW_AUTO_PLAY:
+		if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
+			skip_play()
+		else:
+			replay_macro()
 	else:
-		replay_macro()
+		reset_replay(true)
 	pass
 
 func play_forward_from(slot_idx:int = PLAY_MACRO_END_SLOT) -> void:
