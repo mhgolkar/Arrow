@@ -58,8 +58,6 @@ static func render_arguments_message(data: Dictionary):
 
 class generator :
 	
-	const KEYS_NEEDED_TO_PARSE = ["variable", "method"]
-	
 	var Mind
 		
 	func _init(mind) -> void:
@@ -69,7 +67,7 @@ class generator :
 	# returns the new value on successful evaluation, otherwise `null`
 	func generate(node_data:Dictionary, variables_current:Dictionary):
 		var result = null
-		if node_data.has_all(KEYS_NEEDED_TO_PARSE) && (node_data.variable is int) && (node_data.variable >= 0):
+		if node_data.has_all(["variable", "method"]) && (node_data.variable is int) && (node_data.variable >= 0):
 			var target_var = Mind.lookup_resource(node_data.variable, "variables")
 			if target_var is Dictionary && target_var.has("type"):
 				if (

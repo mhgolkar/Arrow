@@ -66,13 +66,7 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 func setup_view() -> void:
 	var unset = true
 	if _NODE_RESOURCE.has("data"):
-		# save a lookup if we have the data already cached
-		var the_variable = null
-		if _NODE_RESOURCE.data.has("variable") && (_NODE_RESOURCE.data.variable is int) :
-			if _NODE_RESOURCE.data.variable >= 0 && _VARIABLES_CURRENT.has(_NODE_RESOURCE.data.variable):
-				the_variable = _VARIABLES_CURRENT[_NODE_RESOURCE.data.variable]
-		# then parse the statement
-		var statement_text = ConditionStatement.parse(_NODE_RESOURCE.data, the_variable)
+		var statement_text = ConditionStatement.parse(_NODE_RESOURCE.data, _VARIABLES_CURRENT)
 		if statement_text is String:
 			Statement.set_deferred("text", statement_text)
 			unset = false

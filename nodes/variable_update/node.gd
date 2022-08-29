@@ -26,9 +26,9 @@ onready var VarUpExpr = VariableUpdateSharedClass.expression.new(Main.Mind)
 #	pass
 
 func _update_node(data:Dictionary) -> void:
-	var statement_text = VarUpExpr.parse(data)
-	if statement_text is String:
-		Expr.set_deferred("text", statement_text)
+	var expression_text = VarUpExpr.parse(data, null)
+	if expression_text is String:
+		Expr.set_deferred("text", expression_text)
 	else:
 		Expr.set_deferred("text", UNSET_OR_INVALID_MESSAGE)
 	pass

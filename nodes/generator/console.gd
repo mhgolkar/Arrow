@@ -31,10 +31,11 @@ var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
 const UNSET_OR_INVALID_TARGET_VAR_MESSAGE = "Undefined"
-const TARGET_VARIABLE_MESSAGE_TEMPLATE = "{name} ({type})"
 const UNSET_OR_INVALID_METHOD_MESSAGE = "Unset"
 const UNSET_OR_INVALID_ARGUMENTS_MESSAGE = "Null/Invalid"
 const HIDE_ARGUMENTS_IF_UNSET = true
+
+const OPERATION_STATE_FORMAT_STRING = "{name} `{original}` : {updated}"
 
 onready var TheGenerator = GeneratorSharedClass.generator.new(Main.Mind)
 
@@ -56,7 +57,7 @@ func _ready() -> void:
 
 func register_connections() -> void:
 	Redo.connect("pressed", self, "generate_set_and_play_forward", [true], CONNECT_DEFERRED)
-	Skip.connect("pressed", self, "generate_set_and_play_forward", [false], CONNECT_DEFERRED)
+	Skip.connect("pressed", self, "skip_play", [], CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -65,6 +66,16 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 			# <connection>[ from_id, from_slot, to_id, to_slot ]
 			if connection.size() >= 4 && connection[0] == this_node_id:
 				_NODE_SLOTS_MAP[ connection[1] ] = { "id": connection[2], "slot": connection[3] }
+	pass
+
+func reset_operation_view(generated_value = "?") -> void:
+	Target.set_deferred(
+		"text", OPERATION_STATE_FORMAT_STRING.format({
+			"name": _THE_TARGET_VARIABLE.name,
+			"original": _THE_TARGET_VARIABLE_ORIGINAL_VALUE,
+			"updated": generated_value,
+		})
+	)
 	pass
 
 # update view parts, normally called first after instancing via setup_play
@@ -96,7 +107,7 @@ func setup_view() -> void:
 					_THE_TARGET_VARIABLE_ORIGINAL_VALUE = (
 						the_variable.value if the_variable.has("value") else the_variable.init
 					)
-				Target.set_deferred( "text", TARGET_VARIABLE_MESSAGE_TEMPLATE.format(the_variable))
+				reset_operation_view()
 			else:
 				unset = true
 	if unset:
@@ -106,7 +117,7 @@ func setup_view() -> void:
 		Arguments.set_deferred("visible", (! HIDE_ARGUMENTS_IF_UNSET))
 	set_view_unplayed()
 	pass
-	
+
 func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1, variables_current:Dictionary={}) -> void:
 	_NODE_ID = node_id
 	_NODE_RESOURCE = node_resource
@@ -141,6 +152,7 @@ func generate_set_and_play_forward(proceed_update:bool = true) -> void:
 		else:
 			print_debug("Data Generation Result: ", new_value)
 			if proceed_update:
+				reset_operation_view(new_value)
 				emit_signal("reset_variable", {
 					_THE_TARGET_VARIABLE_ID: new_value
 				})
@@ -177,6 +189,7 @@ func set_view_played(slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	pass
 
 func skip_play() -> void:
+	reset_operation_view("[Skipped]")
 	play_forward_from(ONLY_PLAY_SLOT)
 	pass
 
@@ -184,6 +197,7 @@ func step_back() -> void:
 	# Stepping back, we should undo the changes we've made to the variable as well,
 	# so the user can inspect the previous value, before manually playing or skipping the node.
 	if _THE_TARGET_VARIABLE_ID >= 0:
+		reset_operation_view()
 		emit_signal("reset_variable", {
 			_THE_TARGET_VARIABLE_ID: _THE_TARGET_VARIABLE_ORIGINAL_VALUE
 		})

@@ -26,7 +26,7 @@ onready var ConditionStatement = ConditionSharedClass.Statement.new(Main.Mind)
 #	pass
 
 func _update_node(data:Dictionary) -> void:
-	var statement_text = ConditionStatement.parse(data)
+	var statement_text = ConditionStatement.parse(data, null)
 	if statement_text is String:
 		Condition.set_deferred("text", statement_text)
 	else:

@@ -31,8 +31,8 @@ var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
 const PROMPT_UNSET_MESSAGE = "No Question!"
-const NO_VARIABLE_MESSAGE = "Variable Unset!"
-const DONE_RESULT_TEMPLATE = "{variable_name} = {new_value}"
+const NO_VARIABLE_MESSAGE = "Unset/Invalid Variable!"
+const DONE_RESULT_TEMPLATE = "{variable_name} `{original_value}` = `{new_value}`"
 const SKIPPED_MESSAGE = "[Skipped]"
 
 const DEFAULT_CUSTOM = {
@@ -238,10 +238,7 @@ func play_forward(apply_change:bool = true) -> void:
 				self.emit_signal("reset_variable", {
 					_THE_VARIABLE_ID: new_var_value
 				})
-				set_result(DONE_RESULT_TEMPLATE.format({
-					"variable_name": _THE_VARIABLE.name,
-					"new_value": new_var_value,
-				}), true)
+				set_result(new_var_value, true)
 				play = true # Validated, applied and playable
 			else:
 				play = false # Invalid input
@@ -265,8 +262,16 @@ func set_view_played_on_ready(slot_idx:int) -> void:
 		_DEFERRED_VIEW_PLAY_SLOT = slot_idx
 	pass
 
-func set_result(value:String, show:bool = true):
-	Result.set_text(value)
+func set_result(value, show:bool = true, unset = ""):
+	var text = (
+		unset if value == null else
+		DONE_RESULT_TEMPLATE.format({
+			"variable_name": _THE_VARIABLE.name,
+			"original_value": _THE_VARIABLE_ORIGINAL_VALUE,
+			"new_value": String(value),
+		})
+	)
+	Result.set_text(text)
 	Result.set("visible", show)
 	pass
 
@@ -314,10 +319,13 @@ func set_view_unplayed() -> void:
 	if _THE_VARIABLE_ID >= 0:
 		InputsHolder.set("visible", true)
 		set_input_view()
-		set_result("", false)
+		set_result("?", false)
+		Enter.set_disabled(false)
 	else:
 		InputsHolder.set("visible", false)
-		set_result( NO_VARIABLE_MESSAGE, true )
+		Invalid.set_visible(false)
+		Enter.set_disabled(true)
+		set_result(null, true, NO_VARIABLE_MESSAGE)
 	Enter.set("visible", true)
 	Skip.set("visible", true)
 	pass
@@ -329,7 +337,7 @@ func set_view_played(slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	pass
 
 func skip_play() -> void:
-	set_result( SKIPPED_MESSAGE, true )
+	set_result(_THE_VARIABLE_ORIGINAL_VALUE, true)
 	play_forward(false) # ... without applying input
 	pass
 

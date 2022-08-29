@@ -81,9 +81,9 @@ func setup_view() -> void:
 						the_variable.value if the_variable.has("value") else the_variable.init
 					)
 		# expression
-		var statement_text = VarUpExpression.parse(_NODE_RESOURCE.data, _THE_VARIABLE)
-		if statement_text is String:
-			TheExpression.set_deferred("text", statement_text)
+		var expression_text = VarUpExpression.parse(_NODE_RESOURCE.data, _VARIABLES_CURRENT)
+		if expression_text is String:
+			TheExpression.set_deferred("text", expression_text)
 			unset = false
 	if unset:
 		TheExpression.set_deferred("text", UNSET_OR_INVALID_MESSAGE)

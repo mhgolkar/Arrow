@@ -49,46 +49,40 @@ const COMPARISON_OPERATORS = {
 
 class Statement :
 	
-	const STATEMENT_TEMPLATE = "{ident} {operator_sign} {parameter}"
-	const KEYS_NEEDED_TO_PARSE = ["variable", "operator", "with"]
-	const COMPARED_TO_SELF_INITIAL_RIGHT_SIDE = "Self (Intial Value)"
-	
-	const STRING_VALUE_FORMATING_TEMPLATE = "`%s`"
-	
 	var Mind
 	
 	func _init(mind) -> void:
 		Mind = mind
 		pass
 	
-	func parse(data:Dictionary, variable_resource = null):
+	func parse(data:Dictionary, variables_current = null):
 		var parsed = null
-		if data.has_all(KEYS_NEEDED_TO_PARSE) && (data.variable is int) && (data.variable >= 0):
-			var statement = { "ident": null, "operator_sign": null, "parameter": null }
-			var variable = (variable_resource if (variable_resource is Dictionary) else Mind.lookup_resource(data.variable, "variables"))
-			if variable is Dictionary && variable.has_all(["name", "type"]):
-				statement.ident = variable.name
-				statement.operator_sign = COMPARISON_OPERATORS[variable.type][data.operator].sign
+		if data.has_all(["variable", "operator", "with"]) && (data.variable is int) && (data.variable >= 0):
+			var statement = { "lhs": null, "operator": null, "rhs": null }
+			var lhs = (variables_current[data.variable] if variables_current != null else Mind.lookup_resource(data.variable,"variables"))
+			if lhs is Dictionary && lhs.has_all(["name", "type", "init"]):
+				statement.lhs = lhs.name + ((" `" + String(lhs.value if lhs.has("value") else lhs.init) + "`") if variables_current != null else "")
+				statement.operator = COMPARISON_OPERATORS[lhs.type][data.operator].sign
 				if data.with.size() == 2 :
 					match data.with[0]:
 						PARAMETER_MODES_ENUM_CODE.value:
-							if variable.type == "str":
-								statement.parameter = (STRING_VALUE_FORMATING_TEMPLATE % data.with[1])
-							else:
-								statement.parameter = data.with[1]
+							statement.rhs = "`%s`" % data.with[1]
 						PARAMETER_MODES_ENUM_CODE.variable:
 							if data.with[1] == data.variable : # the variable is compared to self (initial value)
-								statement.parameter = COMPARED_TO_SELF_INITIAL_RIGHT_SIDE
+								statement.rhs = "Self (Initial `" + String(lhs.init) + "`)"
 							else: # or another variable
-								var parameter_var = Mind.lookup_resource(data.with[1], "variables")
-								statement.parameter = parameter_var.name
-					parsed = STATEMENT_TEMPLATE.format(statement)
+								var rhs = (variables_current[data.with[1]] if variables_current != null else Mind.lookup_resource(data.with[1],"variables"))
+								if rhs is Dictionary && rhs.has_all(["name", "type", "init"]):
+									statement.rhs = (("`" + String(rhs.value if rhs.has("value") else rhs.init) + "` ") if variables_current != null else "") + rhs.name
+								else:
+									statement.rhs = "[Invalid]"
+					parsed = "{lhs} {operator} {rhs}".format(statement)
 		return parsed
 	
 	# returns bool on successful evaluation, otherwise null
 	func evaluate(data:Dictionary, variables_current:Dictionary):
 		var result = null
-		if data.has_all(KEYS_NEEDED_TO_PARSE) && (data.variable is int) && (data.variable >= 0):
+		if data.has_all(["variable", "operator", "with"]) && (data.variable is int) && (data.variable >= 0):
 			var variable = Mind.lookup_resource(data.variable, "variables")
 			if variable is Dictionary && variable.has("type"):
 				var type = variable.type
