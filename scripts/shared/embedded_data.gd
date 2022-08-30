@@ -95,7 +95,7 @@ const Data = {
 		"resources": {
 			"scenes": {
 				0: {
-					"name": "Adventure Begins",
+					"name": Settings.SCENE_NAME_PREFIX + "0",
 					"entry": 1, # the scene's active entry node
 					"map": {
 						1 : { "offset":[100, 100], "io": [ [1, 0, 2, 0] ] },
@@ -104,8 +104,16 @@ const Data = {
 				},
 			},
 			"nodes": {
-				1: { "type": "entry", "name":"1", "data": { "plaque": "Start" } },
-				2: { "type": "content", "name":"2", "data": { "title": "Hello World!", "content": "I'm the very first step to a great adventure.", "clear": false }  },
+				1: {
+					"type": "entry",
+					"name": "1",
+					"data": { "plaque": "Start" }
+				},
+				2: {
+					"type": "content",
+					"name": "2",
+					"data": { "title": "Hello World!", "content": "Let's begin our adventure.", "clear": false } 
+				},
 			},
 			"variables": {},
 			"characters": {},
