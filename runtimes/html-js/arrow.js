@@ -55,6 +55,7 @@ const NODE_CLASSES_BY_TYPE = {
     "content": Content,
     "dialog": Dialog,
     "entry": Entry,
+    "frame": Frame,
     "generator": Generator,
     "hub": Hub,
     "interaction": Interaction,

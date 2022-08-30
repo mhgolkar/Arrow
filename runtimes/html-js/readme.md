@@ -75,7 +75,7 @@ Arrow editor is capable of re-building the `html-js.arrow-runtime`
 template file with no extra dependency.
 
 Rebuilding process runs automatically under one of following conditions:
-+ If the template file does not exist or is removed.
++ If the template file does not exist (i.e. is manually removed.)
 + The source files are changed (by modification-time,) and `Auto Rebuild Runtime(s)` quick preference is active.
 
 During the process, all the embedded `.css` and `.js` files
@@ -103,7 +103,7 @@ in `./arrow.js` file to any supported locale.
 If you don't intend to let players go backwards in the play,
 find and remove the line
 
-```html
+```HTML
 <button id="play-back">Back</button>
 ```
 
@@ -114,18 +114,28 @@ from exported `.html` file, the runtime template, and/or
 > the template if you need the changes to reflect in the quick exports as well.
 
 > Disclaimer:  
-> It won't totally eliminate the ability of going backwards,
-> and any curious user may find how to, if they put their minds on it.
-> Therefor we recommend leaving it as is.
+> Technically it will not eliminate the ability of going backwards.
+> It only removes an element from the user interface which invokes the underlying step-back process.
+> Such functionality will still be accessible through scripting and browser console to the users.
 
 ### Fully Manual (Debug) Play
 
 This runtime allows nodes (such as hubs, generators, etc.)
 to auto-play in case no user interaction is normally needed during play.
 
-You can force a fully manual play by disabling `_ALLOW_AUTO_PLAY` constant in `arrow.js` file.
-> This constant controls auto-skipping as well.
-> Note also that respecting this preference depends on each module.
+You can force a fully manual play/skip by setting following constant in `arrow.js` file to `false`:
+
+```JS
+const _ALLOW_AUTO_PLAY = true;
+```
+
+It is also possible to keep skipped nodes displayed, by removing following block from `arrow.css` file:
+
+```CSS
+.node[data-played='true'][data-skipped='true'] {
+    display: none;
+}
+```
 
 ### CSS Styling Helpers
 
@@ -135,7 +145,7 @@ You can also take advantage of style helper *data-attributes*, which will be set
 
 The most general of these helpers are set for every appended `.node` HTML block:
 
-```css
+```CSS
 .node[data-name][data-type][data-uid][data-played='true|false']
 ```
 
@@ -143,13 +153,13 @@ Other style helper data-attributes are:
 
 + current value of every variables set on the `#console` element:
     
-    ```html
+    ```HTML
     <section id="console" data-[variable-name]="[current-value]" ...
     ```
 
 + space separated list of all appended nodes on the `#content` element:
 
-    ```html
+    ```HTML
     <article id="content" data-open-nodes="[node-names space separated]" ...
     ```
 
@@ -157,7 +167,7 @@ Other style helper data-attributes are:
 
 + Node-type specific helpers, similar to the following for `dialog` nodes:
 
-    ```css
+    ```CSS
     .character-profile[data-name='character-name']
     ```
 

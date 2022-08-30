@@ -398,6 +398,25 @@ footer button:not(:first-of-type) {
 .node[data-type='entry'] span {} /* (Entry mark if no plaque is set) */
 .node[data-type='entry'] button { margin: 0.75rem; }
 
+/* frame */
+.node[data-type='frame']{}
+.node[data-type='frame'] p {
+    /* The frame label. `--frame-color` is set inline. */
+    color: var(--frame-color);
+    border: solid 0.125rem var(--frame-color);
+    border-radius: 1rem;
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+
+}
+.node[data-type='frame'] button { margin: 0.5rem; }
+.node[data-type='frame'][data-played='true'] p {
+    filter: opacity( 0.5 );
+}
+.node[data-type='frame'][data-played='true'] button {
+    display: none;
+}
+
 /* generator */
 .node[data-type='generator']{}
 .node[data-type='generator'][data-played='true']{ display: none; }
