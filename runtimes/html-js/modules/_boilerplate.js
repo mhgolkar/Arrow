@@ -33,7 +33,8 @@ class NodeType {
         
         this.skip_play = function() {
             this.html.setAttribute('data-skipped', true);
-            // Continue the only and natural path even if the node is skipped in auto-play cases
+            // Skipped nodes can have default behavior such as continuing to the only outgoing slot
+            // without any side effects (e.g. no variable modification, etc.)
             if (AUTO_PLAY_SLOT >= 0){
                 this.play_forward_from(AUTO_PLAY_SLOT);
             }
@@ -54,20 +55,23 @@ class NodeType {
         };
         
         this.proceed = function(){
-            // Shall we play a specified slot ?
-            // if ( typeof this.playing_in_slot == 'number' && this.playing_in_slot >= 0 ){
-                // this.play_forward_from(this.playing_in_slot);
-            // or ...
-            // } else {
-                // handle skip in case,
+            if (_ALLOW_AUTO_PLAY) {
+                // When auto-play is enabled (default)
+                // we first handle node skipping which is set in the project data (via editor,)
                 if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
                     this.skip_play();
-                // otherwise auto-play if set
+                // otherwise auto-play if set by the constant:
                 } else if ( AUTO_PLAY_SLOT >= 0 ) {
                     this.play_forward_from(AUTO_PLAY_SLOT);
+                // or prepare for manual user interaction ...
+                } else {
+                    // ... if any extra set up is needed
+                    // this.set_view_unplayed()
                 }
-                // Finally if nothing is played, we'll wait for the user interaction
-            //}
+            } else {
+                // Here in fully manual play mode, we can wait for user interaction:
+                // this.set_view_unplayed()
+            }
         };
         
         if ( node_id >= 0 ){
@@ -77,10 +81,10 @@ class NodeType {
                 this.node_resource = node_resource;
                 this.node_map = node_map;
                 this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
-                // Create the node html element
+                // TODO
+                // Create the node's html elements, extra logic and bindings needed:
                 this.html = create_node_base_html(node_id, node_resource);
                     // ... and the children
-                    // TODO
                     // this.x_button = create_element("button", node_resource.name);
                     // this.x_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, AUTO_PLAY_SLOT) );
                     // this.html.appendChild(this.x_button);

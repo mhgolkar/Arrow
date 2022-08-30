@@ -36,6 +36,7 @@ var _NODE_ID:int
 var _NODE_RESOURCE:Dictionary
 var _NODE_MAP:Dictionary
 var _NODE_SLOTS_MAP:Dictionary
+# var _VARIABLES_CURRENT:Dictionary
 
 # the node (element) itself
 var This = self
@@ -52,12 +53,15 @@ func _ready()%VOID_RETURN%:
 	_NODE_IS_READY = true
 	if _PLAY_IS_SET_UP:
 		setup_view()
+		proceed_auto_play()
 	if _DEFERRED_VIEW_PLAY_SLOT >= 0:
 		set_view_played(_DEFERRED_VIEW_PLAY_SLOT)
 	pass
 
 func register_connections()%VOID_RETURN%:
-	# e.g. CONSOLE_CHILD_X.connect("the_signal", self, "_on_self_signal_handler", [], CONNECT_DEFERRED)
+	# TODO ...
+	# Handling manual user interactions (e.g. manual continue, skip or re-play buttons, inputs, etc.)
+	# CONSOLE_CHILD_X.connect("the_signal", self, "_on_self_signal_handler", [], CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID)%VOID_RETURN%:
@@ -68,9 +72,10 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 				_NODE_SLOTS_MAP[ connection[1] ] = { "id": connection[2], "slot": connection[3] }
 	pass
 
-# update view parts, normally called right after instancing via setup_play
+# update view parts, normally called right after instancing via setup_play or when node is _ready
 func setup_view()%VOID_RETURN%:
 	# TODO ...
+	# if _NODE_RESOURCE.has("data") :
 	pass
 	
 # this function is called by the parent console to customize this instance for the respective node resource data
@@ -78,17 +83,28 @@ func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _pla
 	_NODE_ID = node_id
 	_NODE_RESOURCE = node_resource
 	_NODE_MAP = node_map
+	# _VARIABLES_CURRENT = _variables_current
 	remap_connections_for_slots()
 	# update fields and parts
 	if _NODE_IS_READY:
 		setup_view()
-	# handle skip in case
-	if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
-		skip_play()
-	# otherwise auto-play if set
-	elif AUTO_PLAY_SLOT >= 0:
-		play_forward_from(AUTO_PLAY_SLOT)
+		proceed_auto_play()
 	_PLAY_IS_SET_UP = true
+	pass
+
+func proceed_auto_play() -> void:
+	if Main.Mind.Console._ALLOW_AUTO_PLAY:
+		# handle skip in case
+		if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
+			skip_play()
+		# otherwise auto-play if set
+		elif AUTO_PLAY_SLOT >= 0:
+			play_forward_from(AUTO_PLAY_SLOT)
+		# or prepare for manual user interaction
+		# if any extra set up is needed
+		# set_view_unplayed()
+	else:
+		set_view_unplayed()
 	pass
 
 func play_forward_from(slot_idx:int = AUTO_PLAY_SLOT)%VOID_RETURN%:
@@ -108,22 +124,22 @@ func set_view_played_on_ready(slot_idx:int) -> void:
 		_DEFERRED_VIEW_PLAY_SLOT = slot_idx
 	pass
 
-# change view as if the node has never been played
+# changes view as if the node has never been played
+# (e.g. after step_back or when auto-play is disabled)
 func set_view_unplayed()%VOID_RETURN%:
-	# TODO ?
-		# remove newly made fields
-		# and/or (re-)setup view fields
-			# setup_view()
+	# TODO ...
 	pass
 
-# change view to what indicates the node is played
+# changes view to what indicates the node is played
 # normally called after auto-play or some interactions by the user
 func set_view_played(slot_idx:int = AUTO_PLAY_SLOT)%VOID_RETURN%:
-	# TODO ?
+	# TODO ...
 	pass
 
+# passes playing this node (with no display or update action)
+# on auto-play or when it's manually skipped by user
 func skip_play()%VOID_RETURN%:
-	# TODO ?
+	# TODO ...
 	pass
 
 # resets the view and other variables as if the node has not been played
