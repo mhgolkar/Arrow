@@ -38,6 +38,7 @@ class Jump {
         };
         
         this.step_back = function(){
+            this.html.setAttribute('data-skipped', false);
             this.set_view_unplayed();
         };
         

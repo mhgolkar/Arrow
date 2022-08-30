@@ -92,7 +92,14 @@ class MacroUse {
             this.html.setAttribute('data-played', false);
         };
         
+        // This method is called when we `step_back` on a node that is wrapped by this macro_use
+        this.step_into = function() {
+            this.html.setAttribute('data-skipped', false);
+            this.set_view_unplayed()
+        };
+
         this.step_back = function(){
+            this.html.setAttribute('data-skipped', false);
             this.set_view_unplayed();
             this.reset_replay();
         };

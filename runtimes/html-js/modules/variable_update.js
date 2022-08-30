@@ -53,6 +53,7 @@ class VariableUpdate {
             if ( this.the_variable && this.previous_variable_value !== null ){
                 update_global_variable_by_id(this.the_variable_id, this.previous_variable_value);
             }
+            this.html.setAttribute('data-skipped', false);
             this.set_view_unplayed();
         };
 

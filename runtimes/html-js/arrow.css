@@ -274,7 +274,10 @@ when users can't play any furthur (no more forward nodes.)
 #content .end-message {
     margin-top: 2rem;
     color: var(--color-7);
-    /* Uncomment following line if you don't want any end message : */
+    /*
+    On top of `DO_NOT_PRINT_END_MESSAGE` constant in `arrow.js` file,
+    you can uncomment following line if you don't want any end message.
+    */
     /* display: none; */
 }
 
@@ -330,17 +333,23 @@ footer button:not(:first-of-type) {
 }
 
 /* content */
-.node[data-type='content']{}
-.node[data-type='content'][data-played='true'] button { display: none; }
+.node[data-type='content'] {}
+.node[data-type='content'][data-played='true'] button {
+    display: none;
+}
 
 /* condition */
-.node[data-type='condition']{}
-.node[data-type='condition'][data-played='true']{ display: none; }
+.node[data-type='condition'] {}
+.node[data-type='condition'][data-played='true'] {
+    display: none;
+}
 .node[data-type='condition'] /*code*/.statement {}
-.node[data-type='condition'] button { margin: 0.5rem; }
+.node[data-type='condition'] button {
+    margin: 0.5rem;
+}
 
 /* dialog */
-.node[data-type='dialog']{
+.node[data-type='dialog'] {
     /* It may come with [none-playable='true'] */
 }
 .node[data-type='dialog'] /*div*/.character-profile {
@@ -389,17 +398,23 @@ footer button:not(:first-of-type) {
     padding: 0.75em;
     margin: 0.5rem 2rem;
 }
-.node[data-type='dialog'][data-played='true'] .dialog-lines { display: none; }
+.node[data-type='dialog'][data-played='true'] .dialog-lines {
+    display: none;
+}
 
 /* entry */
-.node[data-type='entry']{}
-.node[data-type='entry'][data-played='true']{ display: none; }
+.node[data-type='entry'] {}
+.node[data-type='entry'][data-played='true'] {
+    display: none;
+}
 .node[data-type='entry'] /*em*/.plaque {}
-.node[data-type='entry'] span {} /* (Entry mark if no plaque is set) */
-.node[data-type='entry'] button { margin: 0.75rem; }
+.node[data-type='entry'] span { /* (Entry mark if no plaque is set) */ }
+.node[data-type='entry'] button {
+    margin: 0.75rem;
+}
 
 /* frame */
-.node[data-type='frame']{}
+.node[data-type='frame'] {}
 .node[data-type='frame'] p {
     /* The frame label. `--frame-color` is set inline. */
     color: var(--frame-color);
@@ -409,7 +424,9 @@ footer button:not(:first-of-type) {
     padding: 0.25rem 0.5rem;
 
 }
-.node[data-type='frame'] button { margin: 0.5rem; }
+.node[data-type='frame'] button {
+    margin: 0.5rem;
+}
 .node[data-type='frame'][data-played='true'] p {
     filter: opacity( 0.5 );
 }
@@ -418,19 +435,27 @@ footer button:not(:first-of-type) {
 }
 
 /* generator */
-.node[data-type='generator']{}
-.node[data-type='generator'][data-played='true']{ display: none; }
+.node[data-type='generator'] {}
+.node[data-type='generator'][data-played='true'] {
+    display: none;
+}
 .node[data-type='generator'] /*code*/.expression {}
-.node[data-type='generator'] button { margin: 0.5rem; }
+.node[data-type='generator'] button {
+    margin: 0.5rem;
+}
 
 /* hub */
-.node[data-type='hub']{}
-.node[data-type='hub'][data-played='true']{ display: none; }
-.node[data-type='hub'] span {} /* (Hub mark) */
-.node[data-type='hub'] button { margin: 0.75rem; }
+.node[data-type='hub'] {}
+.node[data-type='hub'][data-played='true'] {
+    display: none;
+}
+.node[data-type='hub'] span { /* (Hub mark) */ }
+.node[data-type='hub'] button {
+    margin: 0.75rem;
+}
 
 /* interaction */
-.node[data-type='interaction']{}
+.node[data-type='interaction'] {}
 .node[data-type='interaction'] /*ol*/.interaction-actions {
     list-style: none;
     padding: 0;
@@ -455,19 +480,25 @@ footer button:not(:first-of-type) {
     padding: 0.75em;
     margin: 0.5rem 0;
 }
-.node[data-type='interaction'][data-played='true'] .interaction-actions { display: none; }
+.node[data-type='interaction'][data-played='true'] .interaction-actions {
+    display: none;
+}
 
 /* jump */
-.node[data-type='jump']{
+.node[data-type='jump'] {
     /* It comes with `[data-target]` set to the destination node's UID. */
 }
-.node[data-type='jump'][data-played='true']{ display: none; }
+.node[data-type='jump'][data-played='true'] {
+    display: none;
+}
 .node[data-type='jump'] /*em*/.reason {}
-.node[data-type='jump'] span {} /* (Jump mark if no reason is set) */
-.node[data-type='jump'] button { margin: 0.75rem; }
+.node[data-type='jump'] span { /* (Jump mark if no reason is set) */ }
+.node[data-type='jump'] button {
+    margin: 0.75rem;
+}
 
 /* macro_use */
-.node[data-type='macro_use']{
+.node[data-type='macro_use'] {
     /* It also comes with `[data-macro]` set to the UID of the used macro */
     position: relative;
     border: dashed 0.125rem var(--color-4);
@@ -497,7 +528,7 @@ footer button:not(:first-of-type) {
 }
 
 /* marker */
-.node[data-type='marker']{}
+.node[data-type='marker'] {}
 .node[data-type='marker'] p {
     /* The marker label. `--marker-color` is set inline. */
     color: var(--marker-color);
@@ -507,7 +538,9 @@ footer button:not(:first-of-type) {
     padding: 0.25rem 0.5rem;
 
 }
-.node[data-type='marker'] button { margin: 0.5rem; }
+.node[data-type='marker'] button {
+    margin: 0.5rem;
+}
 .node[data-type='marker'][data-played='true'] p {
     filter: opacity( 0.5 );
 }
@@ -516,13 +549,17 @@ footer button:not(:first-of-type) {
 }
 
 /* randomizer */
-.node[data-type='randomizer']{}
-.node[data-type='randomizer'][data-played='true']{ display: none; }
-.node[data-type='randomizer'] span {} /* (Randomizer mark) */
-.node[data-type='randomizer'] button { margin: 0.75rem; }
+.node[data-type='randomizer'] {}
+.node[data-type='randomizer'][data-played='true'] {
+    display: none;
+}
+.node[data-type='randomizer'] span { /* (Randomizer mark) */ }
+.node[data-type='randomizer'] button {
+    margin: 0.75rem;
+}
 
 /* user_input */
-.node[data-type='user_input']{}
+.node[data-type='user_input'] {}
 .node[data-type='user_input'] input {
     margin-right: 1rem;
 }
@@ -542,7 +579,9 @@ footer button:not(:first-of-type) {
 .node[data-type='user_input'][data-played='true'] label {
     pointer-events: none;
 }
-.node[data-type='user_input'] button { margin: 0.25rem; } /* two buttons */
+.node[data-type='user_input'] button { /* both buttons */
+    margin: 0.25rem;
+}
 .node[data-type='user_input'][data-played='true'] button {
     display: none;
 }
@@ -552,7 +591,11 @@ footer button:not(:first-of-type) {
 .node[data-type='user_input'][data-valid='false'] button:nth-of-type(2) { /* skip */ }
 
 /* variable_update */
-.node[data-type='variable_update']{}
-.node[data-type='variable_update'][data-played='true']{ display: none; }
+.node[data-type='variable_update'] {}
+.node[data-type='variable_update'][data-played='true'] {
+    display: none;
+}
 .node[data-type='variable_update'] /*code*/.expression {}
-.node[data-type='variable_update'] button { margin: 0.5rem; }
+.node[data-type='variable_update'] button {
+    margin: 0.5rem;
+}

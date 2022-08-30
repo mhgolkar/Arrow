@@ -418,7 +418,7 @@ function play_back(steps, default_throw_error){
         var last = OPEN_NODES_BY_ORDER[ remove_threshold - 1 ];
         if ( last.wrapper != null ) {
             OPEN_MACRO = last.wrapper; // (with special cares)
-            OPEN_MACRO.set_view_unplayed();
+            OPEN_MACRO.step_into();
         } else if (OPEN_MACRO != null && OPEN_MACRO.node_id != last.id){
             OPEN_MACRO.set_view_played();
             OPEN_MACRO = null;
