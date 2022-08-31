@@ -569,8 +569,14 @@ class Mind :
 		pass
 	
 	func load_where_user_left_last_time() -> void:
-		var the_scene_id = ProMan.get_project_last_open_scene()
-		scene_editorial_open(the_scene_id)
+		var last_left_scene = ProMan.get_project_last_open_scene()
+		# The last open scene tracked by editor may not exist in the project anymore
+		# (e.g. removed by another contributor, or reverted before save.)
+		if _PROJECT.resources.scenes.has(last_left_scene) == false:
+			# In such cases, we fall back on the scene that includes the current project entry:
+			last_left_scene = find_scene_owner_of_node(_PROJECT.entry)
+		# ...
+		scene_editorial_open(last_left_scene)
 		pass
 	
 	func scene_editorial_open(scene_id:int = -1, restore_last_view:bool = true) -> void:
