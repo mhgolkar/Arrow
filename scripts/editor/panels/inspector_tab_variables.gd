@@ -14,6 +14,8 @@ var _LISTED_VARIABLES_BY_ID = {}
 var _LISTED_VARIABLES_BY_NAME = {}
 
 var _SELECTED_VARIABLE_BEING_EDITED_ID = -1
+
+var _SELECTED_VARIABLE_USERS_IN_THE_SCENE = {} # id: {id, resource, map}
 var _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE = []
 
 var _CURRENT_LOCATED_REF_ID = -1
@@ -194,8 +196,22 @@ func load_variable_in_editor(variable_id) -> void:
 	smartly_toggle_editor()
 	pass
 
+func refresh_variable_cache_by_id(variable_id:int) -> void:
+	if variable_id >= 0 :
+		var the_variable = Main.Mind.lookup_resource(variable_id, "variables", true)
+		if the_variable is Dictionary:
+			_LISTED_VARIABLES_BY_ID[variable_id] = the_variable
+			_LISTED_VARIABLES_BY_NAME[the_variable.name] = _LISTED_VARIABLES_BY_ID[variable_id]
+	pass
+
+func refresh_referrers_list() -> void:
+	if _SELECTED_VARIABLE_BEING_EDITED_ID >= 0:
+		update_usage_pagination(_SELECTED_VARIABLE_BEING_EDITED_ID)
+	pass
+
 func update_usage_pagination(variable_id:int) -> void:
-	# clean up,
+	refresh_variable_cache_by_id(variable_id)
+	_SELECTED_VARIABLE_USERS_IN_THE_SCENE.clear()
 	_SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.clear()
 	VariableAppearanceGoToButtonPopup.clear()
 	var count = {
@@ -206,8 +222,10 @@ func update_usage_pagination(variable_id:int) -> void:
 	var the_variable = _LISTED_VARIABLES_BY_ID[variable_id]
 	if the_variable.has("use"):
 		for referrer_id in the_variable.use:
-			if Grid._DRAWN_NODES_BY_ID.has(referrer_id):
+			var local_referrer_overview = Main.Mind.scene_owns_node(referrer_id)
+			if local_referrer_overview != null:
 				_SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.append(referrer_id)
+				_SELECTED_VARIABLE_USERS_IN_THE_SCENE[referrer_id] = local_referrer_overview
 		count.total = the_variable.use.size()
 		count.here = _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.size()
 	# update ...
@@ -215,7 +233,7 @@ func update_usage_pagination(variable_id:int) -> void:
 	if count.here > 0 :
 		for referrer_id in _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE:
 			VariableAppearanceGoToButtonPopup.add_item(
-				Grid._DRAWN_NODES_BY_ID[referrer_id]._node_resource.name,
+				_SELECTED_VARIABLE_USERS_IN_THE_SCENE[referrer_id].resource.name,
 				referrer_id
 			)
 	var no_goto = (! (count.here > 0))

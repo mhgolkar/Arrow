@@ -235,6 +235,11 @@ func focus_grid_on_inspected() -> void:
 		Grid.call_deferred("go_to_offset_by_node_id", _CURRENT_INSPECTED_NODE_RESOURCE_ID, true)
 	pass
 
+func refresh_referrers_list() -> void:
+	if _CURRENT_INSPECTED_NODE_RESOURCE_ID >= 0:
+		update_referrers_list(_CURRENT_INSPECTED_NODE_RESOURCE_ID)
+	pass
+
 func update_referrers_list(node_id:int = _CURRENT_INSPECTED_NODE_RESOURCE_ID) -> void:
 	NodeReferrersListPopUp.clear()
 	_CURRENT_INSPECTED_NODE_REFERRERS_IDS = []

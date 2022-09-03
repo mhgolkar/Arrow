@@ -1078,6 +1078,22 @@ class Mind :
 			printerr("Unexpected Behavior! The function `find_scene_owner_of_node` is called with resource id < 0")
 		return the_owner_scene_id
 	
+	# Returns a dictionary including node id, resource, and map in the scene if scene owns that node otherwise null
+	func scene_owns_node(node_id: int, scene_id: int = -1):
+		var found = null
+		var check_scene_id = scene_id if scene_id >= 0 else _CURRENT_OPEN_SCENE_ID
+		if _PROJECT.resources.scenes.has(check_scene_id):
+			if _PROJECT.resources.scenes[check_scene_id].map.has(node_id):
+				found = {
+					"uid": node_id,
+					"resource": _PROJECT.resources.nodes[node_id],
+					"map": _PROJECT.resources.scenes[check_scene_id].map[node_id],
+				}
+		else:
+			print_stack()
+			printerr("Failed trying to check node from invalid scene: ", node_id, " of ", scene_id)
+		return found
+	
 	func update_scene_entry(node_id:int) -> void:
 		var the_owner_scene_id = find_scene_owner_of_node(node_id)
 		if the_owner_scene_id >= 0 :
@@ -1165,10 +1181,9 @@ class Mind :
 		# and because "ref" is an optional field, we will remove it to optimize for size ...
 		if the_user_resource_original.ref.size() == 0:
 			the_user_resource_original.erase("ref")
-		# force update tabs because references may have changed
-		# (`_use` command may be sent with different resource types / fields at the same time, so we refresh both)
-		for tab in ['Variables', 'Characters', 'Macros']:
-			Inspector.Tab[tab].call_deferred("refresh_tab")
+		# finally, refresh referrer lists
+		for tab in ['Node', 'Variables', 'Characters', 'Macros']:
+			Inspector.Tab[tab].call_deferred("refresh_referrers_list")
 		pass
 	
 	func list_referrers(resource_uid:int = -1, priority_field:String = "") -> Dictionary:
@@ -1255,12 +1270,12 @@ class Mind :
 							revise_variable_exposure(the_resource.use, the_recource_old_name, the_resource.name)
 				"characters":
 					Inspector.Tab.Characters.call_deferred("list_characters", { resource_uid: the_resource })
-			# ... also update any node that uses this resource
+			# ... also update grid view of any node that uses this resource
 			if the_resource.has("use"):
 				for referrer_id in the_resource.use:
 					if _PROJECT.resources.scenes[_CURRENT_OPEN_SCENE_ID].map.has(referrer_id):
 						Grid.call_deferred("update_grid_node_box", referrer_id, _PROJECT.resources.nodes[referrer_id])
-			# print_debug("Update resource call: ", modification, the_resource, lookup_resource(resource_uid, field, false))
+			# print_debug("Update resource call: ", resource_uid, " = ", the_resource, " * ", modification, " = ", lookup_resource(resource_uid, field, false))
 		elif is_auto_update != true: # inspector may try to auto update a recently deleted node automatically
 			print_stack()
 			printerr("Unexpected Behaviour! Trying to update resource = %s which is not Dictionary!" % resource_uid)
@@ -1735,7 +1750,10 @@ class Mind :
 		for original_id in copying_nodes_id_list:
 			var original = lookup_resource(original_id, "nodes", false)
 			var the_offset = (offset_adjustment_vector + Utils.array_to_vector2(maps_reference[original_id].offset))
-			var new_id = create_insert_node(original.type, the_offset, -1, true, "", { "data": original.data.duplicate(true) })
+			var the_resource_update = { "data": original.data.duplicate(true) }
+			if original.has("ref") && original.ref is Array && original.ref.size() > 0:
+				the_resource_update.data._use = { "refer": original.ref.duplicate(true) }
+			var new_id = create_insert_node(original.type, the_offset, -1, true, "", the_resource_update)
 			id_conversation_table[original_id] = new_id
 		# and try to re-connect the copied ones similar to the originals
 		var replaced_connections = node_connection_replacement(id_conversation_table, true)

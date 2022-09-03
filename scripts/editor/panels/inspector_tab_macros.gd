@@ -17,7 +17,11 @@ onready var Grid = get_node(Addressbook.GRID)
 var _LISTED_MACROS_BY_ID = {}
 var _LISTED_MACROS_BY_NAME = {}
 
+# The macro that is open in the editor (not selected one in the list)
+# > You can use `get_selected_macro_id()` for the selected one
 var _SELECTED_MACRO_BEING_EDITED_ID = -1
+
+var _SELECTED_MACRO_USERS_IN_THE_SCENE = {} # id: {id, resource, map}
 var _SELECTED_MACRO_USER_IDS_IN_THE_SCENE = []
 
 var _CURRENT_LOCATED_REF_ID = -1
@@ -298,9 +302,16 @@ func refresh_macro_cache_by_id(macro_id:int = -1) -> void:
 			_LISTED_MACROS_BY_NAME[the_macro.name] = _LISTED_MACROS_BY_ID[macro_id]
 	pass
 
+func refresh_referrers_list() -> void:
+	var macro_id = get_selected_macro_id()
+	if macro_id >= 0:
+		update_instance_pagination(macro_id)
+	pass
+
 func update_instance_pagination(macro_id:int = -1) -> void:
 	if macro_id >= 0 && _LISTED_MACROS_BY_ID.has(macro_id):
 		refresh_macro_cache_by_id(macro_id)
+		_SELECTED_MACRO_USERS_IN_THE_SCENE.clear()
 		_SELECTED_MACRO_USER_IDS_IN_THE_SCENE.clear()
 		MacroInstanceGoToButtonPopup.clear()
 		var count = {
@@ -310,15 +321,17 @@ func update_instance_pagination(macro_id:int = -1) -> void:
 		var the_macro = _LISTED_MACROS_BY_ID[macro_id]
 		if the_macro.has("use"):
 			for referrer_id in the_macro.use:
-				if Grid._DRAWN_NODES_BY_ID.has(referrer_id):
+				var local_referrer_overview = Main.Mind.scene_owns_node(referrer_id)
+				if local_referrer_overview != null:
 					_SELECTED_MACRO_USER_IDS_IN_THE_SCENE.append(referrer_id)
+					_SELECTED_MACRO_USERS_IN_THE_SCENE[referrer_id] = local_referrer_overview
 			count.total = the_macro.use.size()
 			count.here = _SELECTED_MACRO_USER_IDS_IN_THE_SCENE.size()
 		MacroInstanceGoToButton.set_text( MACRO_INSTANCE_INDICATION_TEMPLATE.format(count) )
 		if count.here > 0 :
 			for referrer_id in _SELECTED_MACRO_USER_IDS_IN_THE_SCENE:
 				MacroInstanceGoToButtonPopup.add_item(
-					Grid._DRAWN_NODES_BY_ID[referrer_id]._node_resource.name,
+					_SELECTED_MACRO_USERS_IN_THE_SCENE[referrer_id].resource.name,
 					referrer_id
 				)
 		var no_goto = (! (count.here > 0))

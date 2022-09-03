@@ -16,6 +16,8 @@ var _LISTED_CHARACTERS_BY_ID = {}
 var _LISTED_CHARACTERS_BY_NAME = {}
 
 var _SELECTED_CHARACTER_BEING_EDITED_ID = -1
+
+var _SELECTED_CHARACTER_USERS_IN_THE_SCENE = {} # id: {id, resource, map}
 var _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE = []
 
 var _CURRENT_LOCATED_REF_ID = -1
@@ -171,8 +173,23 @@ func load_character_in_editor(character_id:int) -> void:
 	update_appearance_pagination(character_id)
 	smartly_toggle_editor()
 	pass
-	
+
+func refresh_character_cache_by_id(character_id:int) -> void:
+	if character_id >= 0 :
+		var the_character = Main.Mind.lookup_resource(character_id, "characters", true)
+		if the_character is Dictionary:
+			_LISTED_CHARACTERS_BY_ID[character_id] = the_character
+			_LISTED_CHARACTERS_BY_NAME[the_character.name] = _LISTED_CHARACTERS_BY_ID[character_id]
+	pass
+
+func refresh_referrers_list() -> void:
+	if _SELECTED_CHARACTER_BEING_EDITED_ID >= 0:
+		update_appearance_pagination(_SELECTED_CHARACTER_BEING_EDITED_ID)
+	pass
+
 func update_appearance_pagination(character_id:int) -> void:
+	refresh_character_cache_by_id(character_id)
+	_SELECTED_CHARACTER_USERS_IN_THE_SCENE.clear()
 	_SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE.clear()
 	CharacterAppearanceGoToButtonPopup.clear()
 	var count = {
@@ -182,8 +199,10 @@ func update_appearance_pagination(character_id:int) -> void:
 	var the_character = _LISTED_CHARACTERS_BY_ID[character_id]
 	if the_character.has("use"):
 		for referrer_id in the_character.use:
-			if Grid._DRAWN_NODES_BY_ID.has(referrer_id):
+			var local_referrer_overview = Main.Mind.scene_owns_node(referrer_id)
+			if local_referrer_overview != null:
 				_SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE.append(referrer_id)
+				_SELECTED_CHARACTER_USERS_IN_THE_SCENE[referrer_id] = local_referrer_overview
 		count.total = the_character.use.size()
 		count.here = _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE.size()
 	# update stuff
@@ -191,7 +210,7 @@ func update_appearance_pagination(character_id:int) -> void:
 	if count.here > 0 :
 		for referrer_id in _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE:
 			CharacterAppearanceGoToButtonPopup.add_item(
-				Grid._DRAWN_NODES_BY_ID[referrer_id]._node_resource.name,
+				_SELECTED_CHARACTER_USERS_IN_THE_SCENE[referrer_id].resource.name,
 				referrer_id
 			)
 	var no_goto = (! (count.here > 0))

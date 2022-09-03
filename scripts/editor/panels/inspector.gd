@@ -32,7 +32,7 @@ func register_connections() -> void:
 		var transmitter_tab_node = Tab[tab_title]
 		transmitter_tab_node.connect("relay_request_mind", self, "request_mind_relay", [tab_title, transmitter_tab_node], 0)
 	# direct signaling
-	TheTabContainer.connect("tab_changed", self, "handle_tab_change")
+	TheTabContainer.connect("tab_changed", self, "refresh_inspector_tab")
 	TheTabContainer.connect("gui_input", self, "_on_gui_input")
 	pass
 
@@ -40,18 +40,21 @@ func register_connections() -> void:
 func initialize_tabs():
 	for tab_title in Tab:
 		Tab[tab_title].call_deferred("initialize_tab")
-	handle_tab_change(-1)
+	refresh_inspector_tab()
 	pass
 
 func request_mind_relay(req:String, args=null, _tab=null, _tab_node=null):
 	emit_signal("request_mind", req, args)
 	pass
 
-func handle_tab_change(tab_idx:int):
-	if tab_idx < 0 :
-		tab_idx = TheTabContainer.get_current_tab()
-	# when we come from another tab to ...
-	var tab_title = TheTabContainer.get_tab_title(tab_idx)
+func refresh_inspector_tabs():
+	for tab_title in Tab:
+		refresh_inspector_tab(tab_title)
+	pass
+
+func refresh_inspector_tab(tab = null):
+	var maybe_tab_idx = tab if tab is int else TheTabContainer.get_current_tab()
+	var tab_title = tab if tab is String else TheTabContainer.get_tab_title(maybe_tab_idx)
 	# it's better to referesh important lists to avoid conflicts,
 	# in case the user have changed the dataset or resources' `use`cases.
 	if Tab.has(tab_title):
@@ -98,7 +101,7 @@ func scroll_tabs_workaround(mouse_event: InputEventMouseButton) -> void:
 				var next_tab_index = TheTabContainer.get_current_tab() + direction
 				var caped_next = max(0, min(TheTabContainer.get_tab_count() - 1, next_tab_index))
 				TheTabContainer.set_current_tab(caped_next)
-				# handle_tab_change() # It'll be called by internal signaling
+				# refresh_inspector_tab() # It'll be called by internal signaling
 	pass
 
 func _on_gui_input(event: InputEvent) -> void:
