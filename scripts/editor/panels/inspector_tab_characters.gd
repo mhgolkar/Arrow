@@ -14,8 +14,11 @@ var Utils = Helpers.Utils
 
 var _LISTED_CHARACTERS_BY_ID = {}
 var _LISTED_CHARACTERS_BY_NAME = {}
+
 var _SELECTED_CHARACTER_BEING_EDITED_ID = -1
-var _SELECTED_CHARACTER_USE_CASES_IN_THE_SCENE_BY_ID = []
+var _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE = []
+
+var _CURRENT_LOCATED_REF_ID = -1
 
 onready var CharactersList = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTERS_LIST)
 onready var CharactersNewButton = get_node(Addressbook.INSPECTOR.CHARACTERS.NEW_BUTTON)
@@ -26,13 +29,16 @@ onready var CharacterEditorName = get_node(Addressbook.INSPECTOR.CHARACTERS.CHAR
 onready var CharacterColorPickerButton = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.COLOR_PICKER_BUTTON)
 onready var CharacterEditorSaveButton = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.SAVE_BUTTON)
 
-onready var CharacterAppearanceIndication = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_APPEARANCE.INDICATION)
 onready var CharacterAppearanceGoToButton = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_APPEARANCE.GO_TO_MENU_BUTTON)
 onready var CharacterAppearanceGoToButtonPopup = CharacterAppearanceGoToButton.get_popup()
-const CHARACTER_APPEARANCE_INDICATION_TEMPLATE = "{here}:{total}"
+onready var CharacterAppearanceGoToPrevious = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_APPEARANCE.GO_TO_PREVIOUS)
+onready var CharacterAppearanceGoToNext = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_APPEARANCE.GO_TO_NEXT)
+
+const CHARACTER_APPEARANCE_INDICATION_TEMPLATE = "{here} : {total}"
 
 func _ready() -> void:
 	register_connections()
+	CharacterAppearanceGoToButtonPopup.set_allow_search(true)
 	pass
 
 func register_connections() -> void:
@@ -42,6 +48,8 @@ func register_connections() -> void:
 	CharacterEditorSaveButton.connect("pressed", self, "submit_character_modification", [], CONNECT_DEFERRED)
 	CharacterRemoveButton.connect("pressed", self, "request_remove_character", [], CONNECT_DEFERRED)
 	CharacterAppearanceGoToButtonPopup.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
+	CharacterAppearanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
+	CharacterAppearanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
 	pass
 
 func initialize_tab() -> void:
@@ -165,7 +173,7 @@ func load_character_in_editor(character_id:int) -> void:
 	pass
 	
 func update_appearance_pagination(character_id:int) -> void:
-	_SELECTED_CHARACTER_USE_CASES_IN_THE_SCENE_BY_ID.clear()
+	_SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE.clear()
 	CharacterAppearanceGoToButtonPopup.clear()
 	var count = {
 		"total": 0,
@@ -175,24 +183,47 @@ func update_appearance_pagination(character_id:int) -> void:
 	if the_character.has("use"):
 		for referrer_id in the_character.use:
 			if Grid._DRAWN_NODES_BY_ID.has(referrer_id):
-				_SELECTED_CHARACTER_USE_CASES_IN_THE_SCENE_BY_ID.append(referrer_id)
+				_SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE.append(referrer_id)
 		count.total = the_character.use.size()
-		count.here = _SELECTED_CHARACTER_USE_CASES_IN_THE_SCENE_BY_ID.size()
+		count.here = _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE.size()
 	# update stuff
-	CharacterAppearanceIndication.set_text( CHARACTER_APPEARANCE_INDICATION_TEMPLATE.format(count) )
+	CharacterAppearanceGoToButton.set_text( CHARACTER_APPEARANCE_INDICATION_TEMPLATE.format(count) )
 	if count.here > 0 :
-		for referrer_id in _SELECTED_CHARACTER_USE_CASES_IN_THE_SCENE_BY_ID:
+		for referrer_id in _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE:
 			CharacterAppearanceGoToButtonPopup.add_item(
 				Grid._DRAWN_NODES_BY_ID[referrer_id]._node_resource.name,
 				referrer_id
 			)
-	CharacterAppearanceGoToButton.set_disabled( ! (count.here > 0) )
+	var no_goto = (! (count.here > 0))
+	CharacterAppearanceGoToButton.set_disabled( no_goto )
+	CharacterAppearanceGoToPrevious.set_disabled( no_goto )
+	CharacterAppearanceGoToNext.set_disabled( no_goto )
 	pass
 	
 func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
-	Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
+	if referrer_id >= 0:
+		_CURRENT_LOCATED_REF_ID = referrer_id
+		Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
 	pass
-	
+
+func _rotate_go_to(direction: int) -> void:
+	var count = _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE.size()
+	if count > 0:
+		var current_located_index = _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE.find(_CURRENT_LOCATED_REF_ID)
+		var goto = max(-1, current_located_index + direction)
+		if goto >= count:
+			goto = 0
+		elif goto < 0:
+			goto = count - 1
+		# ...
+		if goto < count && goto >= 0:
+			_on_go_to_menu_button_popup_id_pressed(
+				_SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE[goto]
+			) # also updates _CURRENT_LOCATED_REF_ID
+	else:
+		_CURRENT_LOCATED_REF_ID = -1
+	pass
+
 func submit_character_modification() -> void:
 	var the_character_original = _LISTED_CHARACTERS_BY_ID[ _SELECTED_CHARACTER_BEING_EDITED_ID ]
 	var resource_updater = {

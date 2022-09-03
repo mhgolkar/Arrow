@@ -2374,6 +2374,37 @@ margin_bottom = 20.0
 hint_tooltip = "Update Node (Ctrl + Shift + Plus)"
 text = "Update"
 
+[node name="NodeRefPanel" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties"]
+margin_right = 14.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+
+[node name="NodeRefs" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel"]
+margin_top = 332.0
+margin_right = 124.0
+margin_bottom = 372.0
+
+[node name="Previous" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel/NodeRefs"]
+margin_left = 400.0
+margin_right = 430.0
+margin_bottom = 27.0
+hint_tooltip = "Locate Previous Referrer"
+text = ""
+
+[node name="Referrers" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel/NodeRefs"]
+margin_left = 107.0
+margin_right = 200.0
+margin_bottom = 24.0
+hint_tooltip = "Resources depending on this node (e.g. jumps.)"
+text = "0 Ref(s)"
+
+[node name="Next" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel/NodeRefs"]
+margin_left = 556.0
+margin_right = 586.0
+margin_bottom = 27.0
+hint_tooltip = "Locate Next Referrer"
+text = ""
+
 [node name="NodeState" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties"]
 margin_top = 332.0
 margin_right = 253.0
@@ -2389,12 +2420,6 @@ margin_left = 58.0
 margin_right = 103.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-
-[node name="NodeReferrers" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState"]
-margin_left = 107.0
-margin_right = 200.0
-margin_bottom = 24.0
-text = "0 Referrer(s)"
 
 [node name="ShowFocusNode" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState"]
 margin_left = 204.0
@@ -2613,30 +2638,28 @@ margin_top = 7.0
 margin_right = 241.0
 margin_bottom = 30.0
 
-[node name="InstancesLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
-margin_top = 3.0
-margin_right = 88.0
-margin_bottom = 20.0
-text = "Instance(s)"
-
-[node name="Indication" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
-margin_left = 92.0
-margin_right = 170.0
-margin_bottom = 23.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "0:0"
-align = 1
-valign = 1
-clip_text = true
+[node name="PreviousInstance" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
+margin_left = 400.0
+margin_right = 430.0
+margin_bottom = 27.0
+hint_tooltip = "Locate Previous Referrer"
+text = ""
 
 [node name="GoToInstance" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
 margin_left = 174.0
 margin_right = 234.0
 margin_bottom = 23.0
+hint_tooltip = "Resources depending on this macro (e.g. macro-use nodes,) in this scene of total."
 text = "Locate"
 flat = false
 items = [ "{ referrers by name }", null, 0, false, false, 0, 0, null, "", false ]
+
+[node name="NextInstance" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
+margin_left = 556.0
+margin_right = 586.0
+margin_bottom = 27.0
+hint_tooltip = "Locate Next Referrer"
+text = ""
 
 [node name="MacroTools" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
 margin_top = 312.0
@@ -2721,42 +2744,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
 alignment = 1
-
-[node name="VariableUsages" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer"]
-margin_right = 239.0
-margin_bottom = 34.0
-size_flags_horizontal = 3
-
-[node name="VariableUsagesPagination" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 232.0
-margin_bottom = 27.0
-
-[node name="ReferrersLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
-margin_top = 3.0
-margin_right = 69.0
-margin_bottom = 17.0
-text = "Referrer(s)"
-
-[node name="Indication" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
-margin_left = 73.0
-margin_right = 167.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "7 : 23"
-align = 1
-valign = 1
-clip_text = true
-
-[node name="GoToUsage" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
-margin_left = 171.0
-margin_right = 225.0
-margin_bottom = 20.0
-text = "Locate"
-flat = false
-items = [ "{ referrers by name }", null, 0, false, false, 0, 0, null, "", false ]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer"]
 margin_top = 38.0
@@ -2846,6 +2833,40 @@ margin_left = 207.0
 margin_right = 239.0
 margin_bottom = 20.0
 text = "Set"
+
+[node name="VariableUsages" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+
+[node name="VariableUsagesPagination" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 232.0
+margin_bottom = 27.0
+
+[node name="PreviousUsage" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
+margin_left = 400.0
+margin_right = 430.0
+margin_bottom = 27.0
+hint_tooltip = "Locate Previous Referrer"
+text = ""
+
+[node name="GoToUsage" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
+margin_left = 171.0
+margin_right = 225.0
+margin_bottom = 20.0
+hint_tooltip = "Resources depending on this variable (i.e. referencing nodes) in this scene of total."
+text = "Locate"
+flat = false
+items = [ "{ referrers by name }", null, 0, false, false, 0, 0, null, "", false ]
+
+[node name="NextUsage" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
+margin_left = 556.0
+margin_right = 586.0
+margin_bottom = 27.0
+hint_tooltip = "Locate Next Referrer"
+text = ""
 
 [node name="PanelContainer" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer"]
 margin_top = 322.0
@@ -2961,30 +2982,28 @@ margin_top = 7.0
 margin_right = 232.0
 margin_bottom = 27.0
 
-[node name="AppearancesLabel" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
-margin_top = 3.0
-margin_right = 90.0
-margin_bottom = 17.0
-text = "Appearance(s)"
-
-[node name="Indication" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
-margin_left = 94.0
-margin_right = 167.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "7 : 23"
-align = 1
-valign = 1
-clip_text = true
+[node name="PreviousAppearance" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
+margin_left = 400.0
+margin_right = 430.0
+margin_bottom = 27.0
+hint_tooltip = "Locate Previous Referrer"
+text = ""
 
 [node name="GoToAppearance" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
 margin_left = 171.0
 margin_right = 225.0
 margin_bottom = 20.0
+hint_tooltip = "Resources depending on this character (e.g. dialogs,) in this scene of total."
 text = "Locate"
 flat = false
 items = [ "{ referrers by name }", null, 0, false, false, 0, 0, null, "", false ]
+
+[node name="NextAppearance" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
+margin_left = 556.0
+margin_right = 586.0
+margin_bottom = 27.0
+hint_tooltip = "Locate Next Referrer"
+text = ""
 
 [node name="CharacterCreate" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer"]
 margin_top = 322.0

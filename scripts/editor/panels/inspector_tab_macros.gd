@@ -18,7 +18,9 @@ var _LISTED_MACROS_BY_ID = {}
 var _LISTED_MACROS_BY_NAME = {}
 
 var _SELECTED_MACRO_BEING_EDITED_ID = -1
-var _SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID = []
+var _SELECTED_MACRO_USER_IDS_IN_THE_SCENE = []
+
+var _CURRENT_LOCATED_REF_ID = -1
 
 onready var MacrosList = get_node(Addressbook.INSPECTOR.MACROS.MACROS_LIST)
 onready var MacroEntryNote = get_node(Addressbook.INSPECTOR.MACROS.MACRO_ENTRY_NOTE)
@@ -33,13 +35,16 @@ onready var MacroEditorUpdateButton = get_node(Addressbook.INSPECTOR.MACROS.EDIT
 onready var MacroEditorCloseButton = get_node(Addressbook.INSPECTOR.MACROS.EDIT.CLOSE_BUTTON)
 
 onready var MacroInstancePanel = get_node(Addressbook.INSPECTOR.MACROS.MACRO_INSTANCES.itself)
-onready var MacroInstanceIndication = get_node(Addressbook.INSPECTOR.MACROS.MACRO_INSTANCES.INDICATION)
 onready var MacroInstanceGoToButton = get_node(Addressbook.INSPECTOR.MACROS.MACRO_INSTANCES.GO_TO_MENU_BUTTON)
 onready var MacroInstanceGoToButtonPopup = MacroInstanceGoToButton.get_popup()
-const MACRO_INSTANCE_INDICATION_TEMPLATE = "{here}:{total}"
+onready var MacroInstanceGoToPrevious = get_node(Addressbook.INSPECTOR.MACROS.MACRO_INSTANCES.GO_TO_PREVIOUS)
+onready var MacroInstanceGoToNext = get_node(Addressbook.INSPECTOR.MACROS.MACRO_INSTANCES.GO_TO_NEXT)
+
+const MACRO_INSTANCE_INDICATION_TEMPLATE = "{here} : {total}"
 
 func _ready() -> void:
 	register_connections()
+	MacroInstanceGoToButtonPopup.set_allow_search(true)
 	pass
 
 func register_connections() -> void:
@@ -52,6 +57,8 @@ func register_connections() -> void:
 	MacroEditorUpdateButton.connect("pressed", self, "submit_macro_modification", [], CONNECT_DEFERRED)
 	MacroEditorCloseButton.connect("pressed", self, "request_macro_editorial_close", [], CONNECT_DEFERRED)
 	MacroInstanceGoToButtonPopup.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
+	MacroInstanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
+	MacroInstanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
 	pass
 
 func initialize_tab() -> void:
@@ -294,7 +301,7 @@ func refresh_macro_cache_by_id(macro_id:int = -1) -> void:
 func update_instance_pagination(macro_id:int = -1) -> void:
 	if macro_id >= 0 && _LISTED_MACROS_BY_ID.has(macro_id):
 		refresh_macro_cache_by_id(macro_id)
-		_SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID.clear()
+		_SELECTED_MACRO_USER_IDS_IN_THE_SCENE.clear()
 		MacroInstanceGoToButtonPopup.clear()
 		var count = {
 			"total": 0,
@@ -304,25 +311,47 @@ func update_instance_pagination(macro_id:int = -1) -> void:
 		if the_macro.has("use"):
 			for referrer_id in the_macro.use:
 				if Grid._DRAWN_NODES_BY_ID.has(referrer_id):
-					_SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID.append(referrer_id)
+					_SELECTED_MACRO_USER_IDS_IN_THE_SCENE.append(referrer_id)
 			count.total = the_macro.use.size()
-			count.here = _SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID.size()
-		# update stuff
-		MacroInstanceIndication.set_text( MACRO_INSTANCE_INDICATION_TEMPLATE.format(count) )
+			count.here = _SELECTED_MACRO_USER_IDS_IN_THE_SCENE.size()
+		MacroInstanceGoToButton.set_text( MACRO_INSTANCE_INDICATION_TEMPLATE.format(count) )
 		if count.here > 0 :
-			for referrer_id in _SELECTED_MACRO_INSTANCES_IN_THE_SCENE_BY_ID:
+			for referrer_id in _SELECTED_MACRO_USER_IDS_IN_THE_SCENE:
 				MacroInstanceGoToButtonPopup.add_item(
 					Grid._DRAWN_NODES_BY_ID[referrer_id]._node_resource.name,
 					referrer_id
 				)
-		MacroInstanceGoToButton.set_disabled( ! (count.here > 0) )
+		var no_goto = (! (count.here > 0))
+		MacroInstanceGoToButton.set_disabled( no_goto )
+		MacroInstanceGoToPrevious.set_disabled( no_goto )
+		MacroInstanceGoToNext.set_disabled( no_goto )
 		MacroInstancePanel.set("visible", true)
 	else:
 		MacroInstancePanel.set("visible", false)
 	pass
 
 func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
-	Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
+	if referrer_id >= 0:
+		_CURRENT_LOCATED_REF_ID = referrer_id
+		Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
+	pass
+
+func _rotate_go_to(direction: int) -> void:
+	var count = _SELECTED_MACRO_USER_IDS_IN_THE_SCENE.size()
+	if count > 0:
+		var current_located_index = _SELECTED_MACRO_USER_IDS_IN_THE_SCENE.find(_CURRENT_LOCATED_REF_ID)
+		var goto = max(-1, current_located_index + direction)
+		if goto >= count:
+			goto = 0
+		elif goto < 0:
+			goto = count - 1
+		# ...
+		if goto < count && goto >= 0:
+			_on_go_to_menu_button_popup_id_pressed(
+				_SELECTED_MACRO_USER_IDS_IN_THE_SCENE[goto]
+			) # also updates _CURRENT_LOCATED_REF_ID
+	else:
+		_CURRENT_LOCATED_REF_ID = -1
 	pass
 
 func submit_macro_modification() -> void:

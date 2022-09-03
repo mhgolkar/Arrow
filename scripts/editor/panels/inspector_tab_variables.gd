@@ -12,8 +12,11 @@ onready var Grid = get_node(Addressbook.GRID)
 
 var _LISTED_VARIABLES_BY_ID = {}
 var _LISTED_VARIABLES_BY_NAME = {}
+
 var _SELECTED_VARIABLE_BEING_EDITED_ID = -1
-var _SELECTED_VARIABLE_USE_CASES_IN_THE_SCENE_BY_ID = []
+var _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE = []
+
+var _CURRENT_LOCATED_REF_ID = -1
 
 onready var VariablesTypeSelect = get_node(Addressbook.INSPECTOR.VARIABLES.TYPE_SELECT)
 onready var VariablesNewButton = get_node(Addressbook.INSPECTOR.VARIABLES.NEW_BUTTON)
@@ -32,13 +35,16 @@ onready var VariableEditorRemoveButton = get_node(Addressbook.INSPECTOR.VARIABLE
 const VARIABLE_TYPE_IN_SELECTION_TEXT_TEMPLATE = "{name} ({type})"
 const VARIABLE_IN_LIST_TEXT_TEMPLATE = "{name} ({type}, {init})"
 
-onready var VariableAppearanceIndication = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.VARIABLE_USAGES.INDICATION)
 onready var VariableAppearanceGoToButton = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.VARIABLE_USAGES.GO_TO_MENU_BUTTON)
 onready var VariableAppearanceGoToButtonPopup = VariableAppearanceGoToButton.get_popup()
-const VARIABLE_APPEARANCE_INDICATION_TEMPLATE = "{here}:{total}"
+onready var VariableAppearanceGoToPrevious = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.VARIABLE_USAGES.GO_TO_PREVIOUS)
+onready var VariableAppearanceGoToNext = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.VARIABLE_USAGES.GO_TO_NEXT)
+
+const VARIABLE_APPEARANCE_INDICATION_TEMPLATE = "{here} : {total}"
 
 func _ready() -> void:
 	register_connections()
+	VariableAppearanceGoToButtonPopup.set_allow_search(true)
 	pass
 
 func register_connections() -> void:
@@ -48,6 +54,8 @@ func register_connections() -> void:
 	VariableEditorSaveButton.connect("pressed", self, "submit_variable_modification", [], CONNECT_DEFERRED)
 	VariableEditorRemoveButton.connect("pressed", self, "request_remove_variable", [], CONNECT_DEFERRED)
 	VariableAppearanceGoToButtonPopup.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
+	VariableAppearanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
+	VariableAppearanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
 	pass
 
 func initialize_tab() -> void:
@@ -188,7 +196,7 @@ func load_variable_in_editor(variable_id) -> void:
 
 func update_usage_pagination(variable_id:int) -> void:
 	# clean up,
-	_SELECTED_VARIABLE_USE_CASES_IN_THE_SCENE_BY_ID.clear()
+	_SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.clear()
 	VariableAppearanceGoToButtonPopup.clear()
 	var count = {
 		"total": 0,
@@ -199,24 +207,47 @@ func update_usage_pagination(variable_id:int) -> void:
 	if the_variable.has("use"):
 		for referrer_id in the_variable.use:
 			if Grid._DRAWN_NODES_BY_ID.has(referrer_id):
-				_SELECTED_VARIABLE_USE_CASES_IN_THE_SCENE_BY_ID.append(referrer_id)
+				_SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.append(referrer_id)
 		count.total = the_variable.use.size()
-		count.here = _SELECTED_VARIABLE_USE_CASES_IN_THE_SCENE_BY_ID.size()
+		count.here = _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.size()
 	# update ...
-	VariableAppearanceIndication.set_text( VARIABLE_APPEARANCE_INDICATION_TEMPLATE.format(count) )
+	VariableAppearanceGoToButton.set_text( VARIABLE_APPEARANCE_INDICATION_TEMPLATE.format(count) )
 	if count.here > 0 :
-		for referrer_id in _SELECTED_VARIABLE_USE_CASES_IN_THE_SCENE_BY_ID:
+		for referrer_id in _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE:
 			VariableAppearanceGoToButtonPopup.add_item(
 				Grid._DRAWN_NODES_BY_ID[referrer_id]._node_resource.name,
 				referrer_id
 			)
-	VariableAppearanceGoToButton.set_disabled( ! (count.here > 0) )
+	var no_goto = (! (count.here > 0))
+	VariableAppearanceGoToButton.set_disabled( no_goto )
+	VariableAppearanceGoToPrevious.set_disabled( no_goto )
+	VariableAppearanceGoToNext.set_disabled( no_goto )
 	pass
 
 func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
-	Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
+	if referrer_id >= 0:
+		_CURRENT_LOCATED_REF_ID = referrer_id
+		Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
 	pass
 
+func _rotate_go_to(direction: int) -> void:
+	var count = _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.size()
+	if count > 0:
+		var current_located_index = _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.find(_CURRENT_LOCATED_REF_ID)
+		var goto = max(-1, current_located_index + direction)
+		if goto >= count:
+			goto = 0
+		elif goto < 0:
+			goto = count - 1
+		# ...
+		if goto < count && goto >= 0:
+			_on_go_to_menu_button_popup_id_pressed(
+				_SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE[goto]
+			) # also updates _CURRENT_LOCATED_REF_ID
+	else:
+		_CURRENT_LOCATED_REF_ID = -1
+	pass
+	
 func exposure_safe_vriable_name(var_name: String) -> String:
 	for restricted_char in ["{", "}", ".", " ", "\t"]:
 		var_name = var_name.replace(restricted_char, "_")

@@ -1180,8 +1180,8 @@ class Mind :
 					for user_res_id in the_resource.use:
 						# `priority_field = nodes` because most/all of the resources are used by nodes
 						var the_user_resource = lookup_resource(user_res_id, "nodes", false)
-						if the_user_resource is Dictionary && the_user_resource.has("name"):
-							use_cases_id_to_name_list[user_res_id] = the_user_resource.name
+						if the_user_resource is Dictionary:
+							use_cases_id_to_name_list[user_res_id] = the_user_resource
 		return use_cases_id_to_name_list
 	
 	func update_inspector_if_node_open(node_id:int) -> void:

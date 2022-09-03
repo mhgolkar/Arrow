@@ -22,12 +22,14 @@ var _CURRENT_INSPECTED_NODE_RESOURCE_ID:int = -1
 var _CURRENT_INSPECTED_NODE
 var _CURRENT_INSPECTED_NODE_MAP
 var _CURRENT_INSPECTED_NODE_REFERRERS
+var _CURRENT_INSPECTED_NODE_REFERRERS_IDS
 
 var SUB_INSPCETORS
 var _LAST_OPEN_SUB_INSPECTOR
 var _CURRENT_STATE_OF_SUB_INSPECTOR_BLOCKER = true
 
-var REFERRERS_MENU_BUTTON_TEXT_TEMPLATE = "%s Referrer(s)"
+var REFERRERS_MENU_BUTTON_TEXT_TEMPLATE = "%s"
+var _CURRENT_LOCATED_REF_ID = -1
 
 onready var SubInspcetorBlockerMessage = get_node(Addressbook.INSPECTOR.NODE.SUB_INSPECTOR_BLOCKER_MESSAGE)
 # properties
@@ -36,8 +38,6 @@ onready var InspectorNodeProperties = get_node(Addressbook.INSPECTOR.NODE.PROPER
 onready var NodeTypeLabel = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_TYPE_LABEL)
 onready var NodeUidEdit = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_UID_EDIT)
 onready var NodeIsSkippedCheck = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_IS_SKIPPED_CHECK)
-onready var NodeReferrersList = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_REFERRERS_MENU_BUTTON)
-onready var NodeReferrersListPopUp = NodeReferrersList.get_popup()
 	# body
 onready var SubInspectorHolder =  get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.SUB_INSPECTOR_HOLDER)
 	# notes
@@ -47,18 +47,26 @@ onready var UpdateNodeButton = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NO
 onready var NodeHistoryBackButton = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_TOOLS.HISTORY_BACK)
 onready var ResetNodeParamsButton = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_TOOLS.RESET_BUTTON)
 onready var NodeHistoryForeButton = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_TOOLS.HISTORY_FORE)
+onready var NodeReferrersGroup = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_REFERRERS_GROUP)
+onready var NodeReferrersList = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_REFERRERS_MENU_BUTTON)
+onready var NodeReferrersListPopUp = NodeReferrersList.get_popup()
+onready var NodeReferrersGoToNext = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_REFERRERS_NEXT)
+onready var NodeReferrersGoToPrevious = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_REFERRERS_PREVIOUS)
 onready var FocusNodeButton = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.FOCUS_NODE_BUTTON)
 
 func _ready() -> void:
 	register_connections()
+	NodeReferrersListPopUp.set_allow_search(true)
 	pass
 
 func register_connections() -> void:
 	NodeIsSkippedCheck.connect("toggled", self, "toggle_node_skip", [], CONNECT_DEFERRED)
 	UpdateNodeButton.connect("pressed", self, "read_and_update_inspected_node", [], CONNECT_DEFERRED)
 	ResetNodeParamsButton.connect("pressed", self, "reset_inspection", [], CONNECT_DEFERRED)
+	NodeReferrersListPopUp.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
+	NodeReferrersGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
+	NodeReferrersGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
 	FocusNodeButton.connect("pressed", self, "focus_grid_on_inspected", [], CONNECT_DEFERRED)
-	NodeReferrersListPopUp.connect("id_pressed", self, "_request_locating_node_by_id", [], CONNECT_DEFERRED)
 	NodeHistoryBackButton.connect("pressed", self, "rotate_node_history", [true], CONNECT_DEFERRED)
 	NodeHistoryForeButton.connect("pressed", self, "rotate_node_history", [false], CONNECT_DEFERRED)
 	pass
@@ -98,6 +106,7 @@ func total_clean_up(keep_history:bool = false) -> void:
 	_CURRENT_INSPECTED_NODE = null
 	_CURRENT_INSPECTED_NODE_MAP = null
 	_CURRENT_INSPECTED_NODE_REFERRERS = null
+	_CURRENT_INSPECTED_NODE_REFERRERS_IDS = null
 	_LAST_OPEN_SUB_INSPECTOR = null
 	_CURRENT_NODE_HISTORY_ROTATION_POSE = -1
 	_CURRENT_NODE_HISTORY_ROTATION_ID = -1
@@ -228,24 +237,47 @@ func focus_grid_on_inspected() -> void:
 
 func update_referrers_list(node_id:int = _CURRENT_INSPECTED_NODE_RESOURCE_ID) -> void:
 	NodeReferrersListPopUp.clear()
+	_CURRENT_INSPECTED_NODE_REFERRERS_IDS = []
 	_CURRENT_INSPECTED_NODE_REFERRERS = Main.Mind.list_referrers(node_id)
 	var referrers_size = _CURRENT_INSPECTED_NODE_REFERRERS.size()
 	if referrers_size > 0 :
-		NodeReferrersList.set_visible(true)
+		NodeReferrersGroup.set_visible(true)
 		NodeReferrersList.set_text(REFERRERS_MENU_BUTTON_TEXT_TEMPLATE % referrers_size)
 		for user_node_id in _CURRENT_INSPECTED_NODE_REFERRERS:
-			var user_node_name = _CURRENT_INSPECTED_NODE_REFERRERS[user_node_id]
+			var user_node = _CURRENT_INSPECTED_NODE_REFERRERS[user_node_id]
+			_CURRENT_INSPECTED_NODE_REFERRERS_IDS.append(user_node_id)
+			var user_node_name = user_node.name if true|| user_node.has("name") else ("Unnamed - %s" % user_node_id)
 			NodeReferrersListPopUp.add_item(user_node_name, user_node_id)
 	else:
-		NodeReferrersList.set_visible(false)
+		NodeReferrersGroup.set_visible(false)
 	pass
 
-func _request_locating_node_by_id(node_id:int) -> void:
-	emit_signal("relay_request_mind", "locate_node_on_grid", {
-		"id": node_id,
-		"highlight": true,
-		"force": true, # ... to change open scene
-	})
+func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
+	if referrer_id >= 0:
+		_CURRENT_LOCATED_REF_ID = referrer_id
+		emit_signal("relay_request_mind", "locate_node_on_grid", {
+			"id": referrer_id,
+			"highlight": true,
+			"force": true, # ... to change open scene
+		})
+	pass
+
+func _rotate_go_to(direction: int) -> void:
+	var count = _CURRENT_INSPECTED_NODE_REFERRERS_IDS.size()
+	if count > 0:
+		var current_located_index = _CURRENT_INSPECTED_NODE_REFERRERS_IDS.find(_CURRENT_LOCATED_REF_ID)
+		var goto = max(-1, current_located_index + direction)
+		if goto >= count:
+			goto = 0
+		elif goto < 0:
+			goto = count - 1
+		# ...
+		if goto < count && goto >= 0:
+			_on_go_to_menu_button_popup_id_pressed(
+				_CURRENT_INSPECTED_NODE_REFERRERS_IDS[goto]
+			) # also updates _CURRENT_LOCATED_REF_ID
+	else:
+		_CURRENT_LOCATED_REF_ID = -1
 	pass
 
 func level_trackage_data(copy:Dictionary, original:Dictionary) -> void:
