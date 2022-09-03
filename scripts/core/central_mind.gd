@@ -1307,6 +1307,9 @@ class Mind :
 						# drop all the resources (`ref`erences) this resource is using
 						"drop": the_resource.ref.duplicate(true)
 					})
+				# it might also be in the clipboard and cause trouble on paste, so we remove it there too
+				clipboard_drop([resource_uid])
+				# ...
 				if is_removable == false && forced == true:
 					print_debug("Forced removal of resource %s: " % resource_uid, the_resource)
 				# ... then, removal precautions and recursive clean-ups
@@ -1693,6 +1696,14 @@ class Mind :
 			print_debug("Clipboard (%s) : " % CLIPBOARD_MODE.keys()[_CLIPBOARD.MODE], _CLIPBOARD.DATA)
 		pass
 	
+	func clipboard_drop(node_list: Array) -> void:
+		for node_id in node_list:
+			while _CLIPBOARD.DATA.has(node_id): # (to make sure no duplicated node_id is there)
+				_CLIPBOARD.DATA.erase(node_id)
+		if _CLIPBOARD.DATA.size() == 0:
+			_CLIPBOARD.MODE = CLIPBOARD_MODE.EMPTY
+		pass
+	
 	# following function replaces all the connections between nodes mentioned in a `conversation_table: { n_id:o_id , ... }`.
 	# ( every connection of n1, n2, etc. will be replaced with the o1, o2, etc. )
 	# it returns newly made connections
@@ -1729,6 +1740,7 @@ class Mind :
 		return new_connections
 	
 	func clipboard_available() -> bool:
+		# print_debug("Clipboard: ", _CLIPBOARD)
 		if _CLIPBOARD.MODE != CLIPBOARD_MODE.EMPTY:
 			if _CLIPBOARD.DATA is Array && _CLIPBOARD.DATA.size() > 0 :
 				return true

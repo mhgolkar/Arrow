@@ -592,7 +592,6 @@ func _gui_input(event: InputEvent) -> void:
 		if event.is_echo() == false && event.is_pressed() == true:
 			match event.get_scancode():
 				KEY_DELETE:
-					request_mind("clean_clipboard", null)
 					if _ALREADY_SELECTED_NODE_IDS.size() != 0:
 						if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
 							request_mind("remove_selected_nodes", null)
