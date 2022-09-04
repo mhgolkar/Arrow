@@ -1228,9 +1228,9 @@ class Mind :
 	func update_resource(resource_uid:int, modification:Dictionary, field:String = "", is_auto_update:bool = false) -> void:
 		var validated_field = find_resource_field(resource_uid, field)
 		var the_resource = lookup_resource(resource_uid, validated_field, false) # duplicate = false ...
-		var the_recource_old_name = the_resource.name if the_resource.has("name") else null
 		# ... so we can directrly update the resource 
 		if the_resource is Dictionary:
+			var the_resource_old_name = the_resource.name if the_resource.has("name") else null
 			# handing special command/parameters (_use, _as_entry, ...?)
 			if modification.has("data"): # they come only from nodes (sub-inspectors) so can be find in `data`
 				if modification.data.has("_use"):
@@ -1264,10 +1264,10 @@ class Mind :
 					update_inspector_if_node_open(resource_uid)
 				"variables":
 					Inspector.Tab.Variables.call_deferred("list_variables", { resource_uid: the_resource })
-					if the_resource.name != the_recource_old_name : # name update means we need to,
+					if the_resource.name != the_resource_old_name : # name update means we need to,
 						# update all exposures of this variable in other referrer nodes
 						if the_resource.has("use") && the_resource.use is Array :
-							revise_variable_exposure(the_resource.use, the_recource_old_name, the_resource.name)
+							revise_variable_exposure(the_resource.use, the_resource_old_name, the_resource.name)
 				"characters":
 					Inspector.Tab.Characters.call_deferred("list_characters", { resource_uid: the_resource })
 			# ... also update grid view of any node that uses this resource
@@ -1440,11 +1440,25 @@ class Mind :
 		else:
 			return false
 			
-	func are_nodes_moveable(node_id_list:Array) -> bool:
-		return (
-			node_id_list.has( Main.Mind.get_scene_entry(-1) ) == false &&
-			node_id_list.has( Main.Mind.get_project_entry() ) == false
-		)
+	func immovable_nodes(node_id_list:Array, to_scene: int = -1) -> Array:
+		var unsafe_to_move = []
+		var destination_scene = to_scene if _PROJECT.resources.scenes.has(to_scene) else _CURRENT_OPEN_SCENE_ID
+		var project_entry = get_project_entry()
+		for uid in node_id_list:
+			var unsafe = false
+			var node = _PROJECT.resources.nodes[uid]
+			var owner_scene_id = find_scene_owner_of_node(uid)
+			match node.type:
+				"entry":
+					unsafe = (
+						( owner_scene_id != destination_scene && get_scene_entry(owner_scene_id) == uid ) ||
+						( uid == project_entry && is_scene_macro(destination_scene) )
+					)
+				# (Currentyl only entry nodes can be unsafe to move)
+			# ...
+			if unsafe:
+				unsafe_to_move.append(uid)
+		return unsafe_to_move
 	
 	func update_node_map(node_id:int, modification:Dictionary, scene_id:int = -1) -> void:
 		if scene_id == -1:
@@ -1837,15 +1851,18 @@ class Mind :
 					Grid.call_deferred("disconnection_from_view", disconnection)
 		pass
 		
-	func clipboard_pull(offset:Vector2) -> void:
-		if clipboard_available() :
+	func clipboard_pull(offset:Vector2, drop: Array = []) -> void:
+		if clipboard_available():
+			if drop.size() > 0: # (`drop` includes the immovable nodes confirmed to be left off after the prompt below)
+				clipboard_drop(drop)
 			offset = offset.floor()
 			print_debug("Paste (%s) " % CLIPBOARD_MODE.keys()[_CLIPBOARD.MODE], "at %s :" % offset, _CLIPBOARD.DATA)
 			match _CLIPBOARD.MODE:
 				CLIPBOARD_MODE.COPY:
 					copy_nodes_to_offset(offset, _CLIPBOARD.DATA)
 				CLIPBOARD_MODE.CUT:
-					if are_nodes_moveable(_CLIPBOARD.DATA) :
+					var immovable_here = immovable_nodes(_CLIPBOARD.DATA);
+					if immovable_here.size() == 0:
 						# clipboard pulls replace one another, so all the nodes listed there are from one owner scene
 						# and currently paste can only happens to the current open scene
 						# these are also the `move_nodes_...` function's defaults
@@ -1854,7 +1871,17 @@ class Mind :
 						# and finally clean up the clipboard after move
 						clipboard_push([], CLIPBOARD_MODE.EMPTY)
 					else:
-						printerr("Unexpected Behavior! The nodes in clipboard are not moveable!, ", _CLIPBOARD)
+						print("Caution! Not movable clipboard: ", _CLIPBOARD, " due to ", immovable_here)
+						Notifier.call_deferred(
+							"show_notification",
+							"Action Blocked!",
+							(
+								"At least one of the nodes in the clipboard is not moveable.\n" +
+								"We can not move selected node(s) due to continuum safety (e.g. scene entry.)\n"
+							),
+							[ { "label": "Move What's Safe", "callee": Main.Mind, "method": "clipboard_pull", "arguments": [offset, immovable_here] },],
+							Settings.CAUTION_COLOR
+						)
 		pass
 	
 	func register_project_and_save_from_open(project_title:String, project_filename:String) -> void:

@@ -100,7 +100,7 @@ func reset_quick_edit_buttons():
 	var there_is_selection = (Grid._ALREADY_SELECTED_NODE_IDS.size() > 0)
 	var there_is_highlight = (Grid._HIGHLIGHTED_NODES.size() > 0)
 	var selected_nodes_are_removeable = there_is_selection && Main.Mind.batch_remove_resources(Grid._ALREADY_SELECTED_NODE_IDS, "nodes", true, true) # check-only
-	var selected_nodes_are_moveable = there_is_selection && Main.Mind.are_nodes_moveable(Grid._ALREADY_SELECTED_NODE_IDS)
+	var selected_nodes_are_moveable = there_is_selection && (Main.Mind.immovable_nodes(Grid._ALREADY_SELECTED_NODE_IDS).size() == 0)
 	var clipboard_has_copy_or_paste = Main.Mind.clipboard_available()
 	PasteClipboardButton.set_disabled( clipboard_has_copy_or_paste == false )
 	RemoveNodesButton.set_disabled( selected_nodes_are_removeable == false )
