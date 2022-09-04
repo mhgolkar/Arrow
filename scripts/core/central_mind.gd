@@ -70,7 +70,7 @@ class Mind :
 	
 	var _CLIPBOARD:Dictionary = {
 		"MODE": CLIPBOARD_MODE.EMPTY,
-		"DATA": null
+		"DATA": []
 	}
 	
 	var _BROWSER_READER_HELPER = Html5Helpers.Reader.new()
@@ -1688,12 +1688,15 @@ class Mind :
 			if nodes_list is Array && nodes_list.size() > 0:
 				_CLIPBOARD.MODE = mode
 				_CLIPBOARD.DATA = nodes_list.duplicate(true)
-				Grid.call_deferred("highlight_nodes", _CLIPBOARD.DATA, false, true)
 			else:
-				Grid.call_deferred("highlight_nodes", _CLIPBOARD.DATA, true, true)
 				_CLIPBOARD.MODE = CLIPBOARD_MODE.EMPTY
-				_CLIPBOARD.DATA = null
+				_CLIPBOARD.DATA = []
 			print_debug("Clipboard (%s) : " % CLIPBOARD_MODE.keys()[_CLIPBOARD.MODE], _CLIPBOARD.DATA)
+		else:
+			print_stack()
+			printerr("Unexpected clipboard mode: ", mode, ". Expected values are indices from ", CLIPBOARD_MODE)
+		var priority = (null if _CLIPBOARD.MODE == CLIPBOARD_MODE.EMPTY else (true if _CLIPBOARD.MODE == CLIPBOARD_MODE.CUT else false))
+		Grid.call_deferred("highlight_nodes", _CLIPBOARD.DATA, true, priority)
 		pass
 	
 	func clipboard_drop(node_list: Array) -> void:
@@ -1702,6 +1705,7 @@ class Mind :
 				_CLIPBOARD.DATA.erase(node_id)
 		if _CLIPBOARD.DATA.size() == 0:
 			_CLIPBOARD.MODE = CLIPBOARD_MODE.EMPTY
+		Grid.call_deferred("highlight_nodes", _CLIPBOARD.DATA, true, null)
 		pass
 	
 	# following function replaces all the connections between nodes mentioned in a `conversation_table: { n_id:o_id , ... }`.
@@ -1848,7 +1852,7 @@ class Mind :
 						# so we'll use the default of the move and give only two first parameters
 						move_nodes_to_offset(offset, _CLIPBOARD.DATA)
 						# and finally clean up the clipboard after move
-						clipboard_push([], CLIPBOARD_MODE.EMPTY) 
+						clipboard_push([], CLIPBOARD_MODE.EMPTY)
 					else:
 						printerr("Unexpected Behavior! The nodes in clipboard are not moveable!, ", _CLIPBOARD)
 		pass

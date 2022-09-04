@@ -36,6 +36,7 @@ var _ALREADY_SELECTED_NODE_IDS = []
 var _ALREADY_SELECTED_NODES_BY_ID = {}
 
 var _HIGHLIGHTED_NODES = []
+var _HIGHLIGHTED_NODES_USED_OVERLAY = GraphNode.OVERLAY_DISABLED
 
 func _ready() -> void:
 	DEFAULT_ZOOM = self.get('zoom')
@@ -283,41 +284,62 @@ func got_to_offset(destination, auto_adjust:bool = false, reset_zoom:bool = true
 		Minimap.call_deferred("set_crosshair")
 	pass
 
-func go_to_offset_by_node_id(node_id:int, highlight:bool = false) -> void:
+func go_to_offset_by_node_id(node_id:int, flick:bool = false) -> void:
 	yield(TheTree, "idle_frame")
 	if _DRAWN_NODES_BY_ID.has(node_id):
 		got_to_offset( _DRAWN_NODES_BY_ID[node_id].get_offset() , true)
-		if highlight:
-			highlight_node(node_id, true)
+		if flick:
+			flick_node(node_id)
 	pass
 
-func highlight_node(node_id:int = -1, fade_out:bool = false) -> void:
-	# is there such node?
-	if node_id >=0 && _DRAWN_NODES_BY_ID.has(node_id):
-		if _HIGHLIGHTED_NODES.has(node_id) && fade_out == true:
-			_DRAWN_NODES_BY_ID[node_id].set_overlay(GraphNode.OVERLAY_DISABLED)
-			_HIGHLIGHTED_NODES.erase(node_id)
-		else:
-			_DRAWN_NODES_BY_ID[node_id].set_overlay(GraphNode.OVERLAY_POSITION)
-			_HIGHLIGHTED_NODES.append(node_id)
-			if fade_out == true:
-				# set for auto fade out
-				var highlight_timer = TheTree.create_timer(Settings.NODE_HIGHLIGHT_FADE_TIME_OUT)
-				highlight_timer.connect("timeout", self, "highlight_node", [node_id, true])
-	else:
-		# otherwise off-light for all
-		for node_id in _HIGHLIGHTED_NODES:
-			if _DRAWN_NODES_BY_ID.has(node_id) && is_instance_valid(_DRAWN_NODES_BY_ID[node_id]):
-				highlight_node(node_id, true)
-		_HIGHLIGHTED_NODES.clear()
+func flick_node(node_id: int = -1, fade_out: float = Settings.NODE_FLICK_FADE_TIME_OUT) -> void:
+	if node_id is int && node_id >= 0 && _DRAWN_NODES_BY_ID.has(node_id):
+		_DRAWN_NODES_BY_ID[node_id].set_overlay(
+			(
+				GraphNode.OVERLAY_POSITION
+				if _HIGHLIGHTED_NODES_USED_OVERLAY != GraphNode.OVERLAY_POSITION else
+				GraphNode.OVERLAY_BREAKPOINT
+			)
+		)
+		# and set for auto fade out
+		var flick_timeout = TheTree.create_timer(fade_out)
+		flick_timeout.connect("timeout", self, "flick_node_out", [node_id])
+	pass
+
+func flick_node_out(node_id: int = -1) -> void:
+	if node_id is int && node_id >= 0 && _DRAWN_NODES_BY_ID.has(node_id):
+		_DRAWN_NODES_BY_ID[node_id].set_overlay(
+			_HIGHLIGHTED_NODES_USED_OVERLAY if _HIGHLIGHTED_NODES.has(node_id) else GraphNode.OVERLAY_DISABLED
+		)
+	pass
+
+func highlight_node_on(list: Array, state_overlay = _HIGHLIGHTED_NODES_USED_OVERLAY) -> void:
+	for node_id in list:
+		if node_id is int && node_id >= 0 && _DRAWN_NODES_BY_ID.has(node_id):
+			if _HIGHLIGHTED_NODES.has(node_id) == false:
+				_HIGHLIGHTED_NODES.append(node_id)
+			if _DRAWN_NODES_BY_ID[node_id].get_overlay() != state_overlay:
+				_DRAWN_NODES_BY_ID[node_id].set_overlay(state_overlay)
+	pass
+
+func highlight_node_off(list: Array) -> void:
+	for node_id in list:
+		if node_id is int && node_id >= 0:
+			while _HIGHLIGHTED_NODES.has(node_id):
+				_HIGHLIGHTED_NODES.erase(node_id)
+			if _DRAWN_NODES_BY_ID.has(node_id):
+				_DRAWN_NODES_BY_ID[node_id].set_overlay(GraphNode.OVERLAY_DISABLED)
 	pass
 	
-func highlight_nodes(list, fade_out:bool = false, reset_previous:bool = false) ->void:
-	if reset_previous == true:
-		highlight_node(-1)
-	if list is Array && list.size() > 0:
-		for node_id in list:
-			highlight_node(node_id, fade_out)
+func highlight_nodes(list: Array, reset_others: bool = true, reset_priority = null) ->void:
+	if reset_others:
+		highlight_node_off( _HIGHLIGHTED_NODES.duplicate(true) )
+	# ...
+	_HIGHLIGHTED_NODES_USED_OVERLAY = (
+		(GraphNode.OVERLAY_BREAKPOINT if reset_priority else GraphNode.OVERLAY_POSITION)
+		if reset_priority is bool else _HIGHLIGHTED_NODES_USED_OVERLAY
+	)
+	highlight_node_on( list, _HIGHLIGHTED_NODES_USED_OVERLAY )
 	pass
 
 func reset_view_to_initial() -> void:
