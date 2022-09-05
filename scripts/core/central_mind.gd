@@ -1398,6 +1398,7 @@ class Mind :
 						drop.append([res_id, res.use])
 			else:
 				nope.append([res_id, "Scene or Project Entry!"])
+				nopee_names.append( lookup_resource(res_id, "nodes").name )
 		var check_result
 		if nope.size() == 0:
 			if check_only != true:
@@ -1413,9 +1414,10 @@ class Mind :
 				show_error(
 					"Unsafe Operation Discarded.",
 					(
-						"At least one the resources you want to remove is used by another resource or node. " +
-						"We can't proceed this operation, unless you remove referrers as well. \nUsed one(s) are: %s"
-					) % nopee_names
+						"At least one the resources you want to remove is required by another resource or node. " +
+						"We can't proceed this operation, unless you remove referrers as well. \n\n" +
+						"Used resource(s) are: " + Utils.stringify_json(nopee_names, "") + "\n"
+					)
 				)
 				printerr("Batch remove operation discarded due to existing use cases: ", nope)
 			check_result = false
@@ -1871,15 +1873,23 @@ class Mind :
 						# and finally clean up the clipboard after move
 						clipboard_push([], CLIPBOARD_MODE.EMPTY)
 					else:
-						print("Caution! Not movable clipboard: ", _CLIPBOARD, " due to ", immovable_here)
+						# print("Caution! Not movable clipboard: ", _CLIPBOARD, " due to ", immovable_here)
+						var movable_size = _CLIPBOARD.DATA.size() - immovable_here.size()
+						var immovable_names = []
+						for uid in immovable_here:
+							immovable_names.append( _PROJECT.resources.nodes[uid].name )
 						Notifier.call_deferred(
 							"show_notification",
-							"Action Blocked!",
+							"Unsafe Move Detected!",
 							(
-								"At least one of the nodes in the clipboard is not moveable.\n" +
-								"We can not move selected node(s) due to continuum safety (e.g. scene entry.)\n"
+								"At least one of the selected nodes is not moveable.\n" +
+								"We can not move all or some of the nodes due to continuum safety (e.g. scene entry.) \n\n" +
+								"Immovable(s): " + Utils.stringify_json(immovable_names, "") + "\n"
 							),
-							[ { "label": "Move What's Safe", "callee": Main.Mind, "method": "clipboard_pull", "arguments": [offset, immovable_here] },],
+							[{
+								"label": ("Move What's Safe (%s)" % movable_size),
+								"callee": Main.Mind, "method": "clipboard_pull", "arguments": [offset, immovable_here]
+							}],
 							Settings.CAUTION_COLOR
 						)
 		pass

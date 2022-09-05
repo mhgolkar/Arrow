@@ -615,8 +615,23 @@ func _gui_input(event: InputEvent) -> void:
 			match event.get_scancode():
 				KEY_DELETE:
 					if _ALREADY_SELECTED_NODE_IDS.size() != 0:
-						if Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true): # check-only
+						var non_removables = Main.Mind.batch_remove_resources(_ALREADY_SELECTED_NODE_IDS, "nodes", true, true, true)
+						if non_removables.names.size() == 0:
 							request_mind("remove_selected_nodes", null)
+						else:
+							Main.Mind.Notifier.call_deferred(
+								"show_notification",
+								"Unable to Remove!",
+								(
+									"At least one of the selected nodes is not removeable.\n" +
+									"Due to continuum safety, we do not remove nodes when another node is depended on them, " +
+									"unless the user node is also selected. " +
+									"We can not also remove the scene or project entry. \n\n" +
+									"Non-removable(s): " + Utils.stringify_json(non_removables.names, "") + "\n"
+								),
+								[],
+								Settings.CAUTION_COLOR
+							)
 		# With Modifiers
 		if event.get_control():
 			# > Press
