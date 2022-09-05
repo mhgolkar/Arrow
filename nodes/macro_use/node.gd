@@ -32,12 +32,13 @@ const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR
 func _gui_input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.is_doubleclick():
-			if _node_resource.has("data"):
-				var data = _node_resource.data
-				if data.has("macro") && (data.macro is int) && data.macro >= 0:
-					var the_macro = Main.Mind.lookup_resource(data.macro, "scenes")
-					if the_macro.has("entry"):
-						Main.Mind.call_deferred("locate_node_on_grid", the_macro.entry)
+			if event.get_alt() == true:
+				if _node_resource.has("data"):
+					var data = _node_resource.data
+					if data.has("macro") && (data.macro is int) && data.macro >= 0:
+						var the_macro = Main.Mind.lookup_resource(data.macro, "scenes")
+						if the_macro.has("entry"):
+							Main.Mind.call_deferred("locate_node_on_grid", the_macro.entry)
 	pass
 
 func _update_node(data:Dictionary) -> void:

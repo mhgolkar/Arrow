@@ -32,10 +32,11 @@ const HIDE_REASON_IF_UNSET = true
 func _gui_input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.is_doubleclick():
-			if _node_resource.has("data"):
-				var data = _node_resource.data
-				if data.has("target") && (data.target is int) && data.target >= 0:
-					Main.Mind.call_deferred("locate_node_on_grid", data.target)
+			if event.get_alt() == true:
+				if _node_resource.has("data"):
+					var data = _node_resource.data
+					if data.has("target") && (data.target is int) && data.target >= 0:
+						Main.Mind.call_deferred("locate_node_on_grid", data.target)
 	pass
 
 func _update_node(data:Dictionary) -> void:
