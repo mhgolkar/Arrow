@@ -15,7 +15,7 @@ __meta__ = {
 
 [node name="Frame" type="VBoxContainer" parent="."]
 margin_right = 227.0
-margin_bottom = 186.0
+margin_bottom = 212.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -42,22 +42,25 @@ margin_bottom = 66.0
 size_flags_horizontal = 3
 text = "Label"
 
-[node name="LabelEdit" type="LineEdit" parent="Frame"]
+[node name="LabelEdit" type="TextEdit" parent="Frame"]
 margin_top = 70.0
 margin_right = 227.0
-margin_bottom = 94.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="SizeXLabel" type="Label" parent="Frame"]
-margin_top = 98.0
+margin_top = 124.0
 margin_right = 227.0
-margin_bottom = 112.0
+margin_bottom = 138.0
 size_flags_horizontal = 3
 text = "Width"
 
 [node name="SizeX" type="SpinBox" parent="Frame"]
-margin_top = 116.0
+margin_top = 142.0
 margin_right = 227.0
-margin_bottom = 140.0
+margin_bottom = 166.0
 min_value = 128.0
 max_value = 256.0
 value = 256.0
@@ -65,16 +68,16 @@ rounded = true
 allow_greater = true
 
 [node name="SizeYLabel" type="Label" parent="Frame"]
-margin_top = 144.0
+margin_top = 170.0
 margin_right = 227.0
-margin_bottom = 158.0
+margin_bottom = 184.0
 size_flags_horizontal = 3
 text = "Height"
 
 [node name="SizeY" type="SpinBox" parent="Frame"]
-margin_top = 162.0
+margin_top = 188.0
 margin_right = 227.0
-margin_bottom = 186.0
+margin_bottom = 212.0
 min_value = 128.0
 max_value = 256.0
 value = 256.0

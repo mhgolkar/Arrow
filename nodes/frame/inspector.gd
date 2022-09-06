@@ -40,7 +40,7 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 	_OPEN_NODE_ID = node_id
 	_OPEN_NODE = node
 	# ... then update parameters
-	LabelEdit.clear()
+	LabelEdit.set_text("")
 	if node.has("data") && node.data is Dictionary:
 		if node.data.has("label") && node.data.label is String:
 			LabelEdit.set_text(node.data.label)
