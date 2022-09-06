@@ -63,7 +63,7 @@ text = "Brief:"
 
 [node name="Length" type="SpinBox" parent="Content/Brief"]
 margin_left = 38.0
-margin_right = 216.0
+margin_right = 200.0
 margin_bottom = 24.0
 hint_tooltip = "Length of the brief display of this content on the grid.
 `-1` previews all the content."
@@ -71,7 +71,13 @@ size_flags_horizontal = 3
 min_value = -1.0
 rounded = true
 allow_greater = true
-allow_lesser = true
+
+[node name="Pick" type="Button" parent="Content/Brief"]
+margin_left = 204.0
+margin_right = 216.0
+margin_bottom = 24.0
+hint_tooltip = "Set brief up to the cursor."
+text = ""
 
 [node name="ClearPage" type="CheckBox" parent="Content"]
 margin_top = 231.0

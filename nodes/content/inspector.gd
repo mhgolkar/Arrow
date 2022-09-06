@@ -28,16 +28,22 @@ var This = self
 
 onready var Title = get_node("./Content/Title")
 onready var BriefLength = get_node("./Content/Brief/Length")
+onready var BriefPick = get_node("./Content/Brief/Pick")
 onready var Content = get_node("./Content/Content")
 onready var ClearPage = get_node("./Content/ClearPage")
 
-#func _ready() -> void:
-#	register_connections()
-#	pass
+func _ready() -> void:
+	register_connections()
+	pass
 
-#func register_connections() -> void:
-#	# e.g. SOME_CHILD.connect("the_signal", self, "the_handler_on_self", [], CONNECT_DEFERRED)
-#	pass
+func register_connections() -> void:
+	BriefPick.connect("pressed", self, "_pick_the_breif", [], CONNECT_DEFERRED)
+	pass
+
+func _pick_the_breif() -> void:
+	Content.select(0, 0, Content.cursor_get_line(), Content.cursor_get_column())
+	BriefLength.set_value( Content.get_selection_text().length() )
+	pass
 
 func _update_parameters(node_id:int, node:Dictionary) -> void:
 	# first cache the node
