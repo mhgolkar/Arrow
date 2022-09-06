@@ -1,61 +1,77 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://nodes/content/console.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0, 0, 0, 0 )
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 0.247059 )
+border_blend = true
 
 [node name="Content" type="PanelContainer"]
 margin_top = 46.0
 margin_right = 221.0
 margin_bottom = 146.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ContentPlay" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 214.0
-margin_bottom = 112.0
+margin_bottom = 131.0
 mouse_filter = 2
 alignment = 1
 
-[node name="Title" type="Label" parent="ContentPlay"]
+[node name="Title" type="RichTextLabel" parent="ContentPlay"]
 margin_right = 207.0
-margin_bottom = 14.0
-text = "{ Title }"
-align = 1
+margin_bottom = 31.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+custom_styles/normal = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "{ Rich [color=red]Title[/color] }"
+text = "{ Rich Title }"
+fit_content_height = true
+
+[node name="Spacer" type="MarginContainer" parent="ContentPlay"]
+margin_top = 35.0
+margin_right = 207.0
+margin_bottom = 39.0
+custom_constants/margin_top = 4
 
 [node name="Brief" type="RichTextLabel" parent="ContentPlay"]
-margin_top = 18.0
+margin_top = 43.0
 margin_right = 207.0
-margin_bottom = 33.0
+margin_bottom = 58.0
 mouse_filter = 2
 bbcode_enabled = true
-bbcode_text = "{ Rich text with [color=green] BBCode[/color] brief }"
-text = "{ Rich text with  BBCode brief }"
+bbcode_text = "{ Rich text with [color=green] Brief[/color] }"
+text = "{ Rich text with  Brief }"
 fit_content_height = true
 
 [node name="Content" type="RichTextLabel" parent="ContentPlay"]
-margin_top = 37.0
+margin_top = 62.0
 margin_right = 207.0
-margin_bottom = 67.0
+margin_bottom = 92.0
 mouse_filter = 2
 bbcode_enabled = true
-bbcode_text = "{ Rich text with [color=yellow] BBCode[/color] content }"
-text = "{ Rich text with  BBCode content }"
+bbcode_text = "{ Rich [color=yellow]Content[/color] with BBCode support }"
+text = "{ Rich Content with BBCode support }"
 fit_content_height = true
 
-[node name="Margin" type="MarginContainer" parent="ContentPlay"]
-margin_top = 71.0
+[node name="Spacer2" type="MarginContainer" parent="ContentPlay"]
+margin_top = 96.0
 margin_right = 207.0
-margin_bottom = 81.0
-rect_min_size = Vector2( 0, 10 )
-mouse_filter = 2
+margin_bottom = 100.0
+custom_constants/margin_top = 4
 
 [node name="Continue" type="Button" parent="ContentPlay"]
 margin_left = 138.0
-margin_top = 85.0
+margin_top = 104.0
 margin_right = 207.0
-margin_bottom = 105.0
+margin_bottom = 124.0
 size_flags_horizontal = 8
 text = "Continue"

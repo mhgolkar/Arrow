@@ -333,7 +333,12 @@ footer button:not(:first-of-type) {
 }
 
 /* content */
-.node[data-type='content'] {}
+.node[data-type='content'] {
+    /* It may come with [data-auto='true'] or [data-clear='true'] */
+}
+.node[data-type='content'] button { /* both buttons */
+    margin: 0.25rem;
+}
 .node[data-type='content'][data-played='true'] button {
     display: none;
 }

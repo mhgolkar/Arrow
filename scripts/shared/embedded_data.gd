@@ -112,7 +112,7 @@ const Data = {
 				2: {
 					"type": "content",
 					"name": "2",
-					"data": { "title": "Hello World!", "content": "Let's begin our adventure.", "clear": false } 
+					"data": { "title": "Hello World!", "content": "Let's begin our adventure." } 
 				},
 			},
 			"variables": {},

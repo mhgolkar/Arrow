@@ -39,7 +39,7 @@ text = "Content"
 [node name="Content" type="TextEdit" parent="Content"]
 margin_top = 64.0
 margin_right = 216.0
-margin_bottom = 199.0
+margin_bottom = 171.0
 rect_min_size = Vector2( 0, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -50,9 +50,9 @@ wrap_enabled = true
 minimap_width = 25
 
 [node name="Brief" type="HBoxContainer" parent="Content"]
-margin_top = 203.0
+margin_top = 175.0
 margin_right = 216.0
-margin_bottom = 227.0
+margin_bottom = 199.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Content/Brief"]
@@ -78,6 +78,13 @@ margin_right = 216.0
 margin_bottom = 24.0
 hint_tooltip = "Set brief up to the cursor."
 text = ""
+
+[node name="AutoPlay" type="CheckBox" parent="Content"]
+margin_top = 203.0
+margin_right = 216.0
+margin_bottom = 227.0
+hint_tooltip = "Prints the node and goes forward with no user interaction."
+text = "Auto-play"
 
 [node name="ClearPage" type="CheckBox" parent="Content"]
 margin_top = 231.0

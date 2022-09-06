@@ -748,7 +748,17 @@ class Content {
         
         const _self = this;
         
+        const DEFAULT_NODE_DATA = {
+            "title": "",
+            "content": "",
+            "brief": 0,
+            "auto": false,
+            "clear": false,
+        }
+
+        // Forces auto-play regardless of the `auto` property
         const AUTO_PLAY_SLOT = -1;
+        
         const CONTINUE_PLAY_SLOT = 0;
         
         const TITLE_TAG = "h2";
@@ -797,21 +807,34 @@ class Content {
             this.set_view_unplayed();
         };
         
+        this.has_intended_bool_behavior = function(parameter) {
+            var is_intended = DEFAULT_NODE_DATA[parameter];
+            if (
+                this.node_resource.data.hasOwnProperty(parameter) &&
+                (typeof this.node_resource.data[parameter] == 'boolean')
+            ){
+                is_intended = this.node_resource.data[parameter]
+            }
+            return is_intended;
+        }
+                
         this.proceed = function(){
             if (_ALLOW_AUTO_PLAY) {   
                 if (this.node_map.hasOwnProperty("skip") && this.node_map.skip == true){
                     this.skip_play();
-                } else if ( AUTO_PLAY_SLOT >= 0 ) {
+                } else if (AUTO_PLAY_SLOT >= 0) {
                     this.play_forward_from(AUTO_PLAY_SLOT);
+                } else {
+                    if ( this.has_intended_bool_behavior("auto") ) {
+                        this.play_forward_from(CONTINUE_PLAY_SLOT);
+                    }
                 }
             }
             // View Clearance ?
             if (_ALLOW_CLEARANCE) {
                 // `content` nodes can force the page to get cleaned before they step in
-                if ( this.node_resource.data.hasOwnProperty('clear') &&  typeof this.node_resource.data.clear == 'boolean' ){
-                    if ( this.node_resource.data.clear === true ){
-                        clear_up(this.node_id);
-                    }
+                if ( this.has_intended_bool_behavior("clear") ) {
+                    clear_up(this.node_id);
                 }
             }
         };
@@ -825,15 +848,13 @@ class Content {
                 this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
-                    // ... and the children
-                    this.continue_button = create_element("button", i18n("continue"));
-                    this.continue_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, CONTINUE_PLAY_SLOT) );
+                    // ...
                     if ( node_resource.hasOwnProperty("data") ){
                         if ( node_resource.data.hasOwnProperty("title") ){
-                            this.title = create_element(TITLE_TAG, format(node_resource.data.title, VARS_NAME_VALUE_PAIR));
+                            this.title = create_element(TITLE_TAG, parse_bbcode( format(node_resource.data.title, VARS_NAME_VALUE_PAIR) ) );
                             this.html.appendChild(this.title);
                         }
-                        if ( node_resource.data.hasOwnProperty("brief") && typeof node_resource.data.brief == 'string'){
+                        if ( node_resource.data.hasOwnProperty("brief") && typeof node_resource.data.brief == 'string' ){
                             // Textual (legacy) brief support:
                             this.brief = create_element(BRIEF_TAG, parse_bbcode( format(node_resource.data.brief, VARS_NAME_VALUE_PAIR) ) );
                             this.html.appendChild(this.brief);
@@ -842,8 +863,19 @@ class Content {
                             this.content = create_element(CONTENT_TAG, parse_bbcode( format(node_resource.data.content, VARS_NAME_VALUE_PAIR) ) );
                             this.html.appendChild(this.content);
                         }
+                        if ( this.has_intended_bool_behavior("auto") ) { this.html.setAttribute('data-auto', 'true'); }
+                        if ( this.has_intended_bool_behavior("clear") ) { this.html.setAttribute('data-clear', 'true'); }
                     }
+                    // ...
+                    this.continue_button = create_element("button", i18n("continue"));
+                    this.continue_button.addEventListener( _CLICK, this.play_forward_from.bind(_self, CONTINUE_PLAY_SLOT) );
                     this.html.appendChild(this.continue_button);
+                    // ...
+                    if (node_map.hasOwnProperty("skip") && node_map.skip === true) {
+                        this.skip_button = create_element("button", i18n("skip"));
+                        this.skip_button.addEventListener( _CLICK, this.skip_play.bind(_self) );
+                        this.html.appendChild(this.skip_button);
+                    }
             }
             return this;
         }
@@ -1968,7 +2000,7 @@ class MacroUse {
         this.step_into = function() {
             this.html.setAttribute('data-skipped', false);
             this.set_view_unplayed()
-        }
+        };
 
         this.step_back = function(){
             this.html.setAttribute('data-skipped', false);
@@ -3786,7 +3818,12 @@ footer button:not(:first-of-type) {
 }
 
 /* content */
-.node[data-type='content'] {}
+.node[data-type='content'] {
+    /* It may come with [data-auto='true'] or [data-clear='true'] */
+}
+.node[data-type='content'] button { /* both buttons */
+    margin: 0.25rem;
+}
 .node[data-type='content'][data-played='true'] button {
     display: none;
 }

@@ -13,6 +13,9 @@ signal reset_variable
 
 onready var Main = get_tree().get_root().get_child(0)
 
+const DEFAULT_NODE_DATA = ContentSharedClass.DEFAULT_NODE_DATA
+
+# forces auto-play regardless of the `auto` property
 const AUTO_PLAY_SLOT = -1
 
 # played on `Continue` button being pressed or skipping
@@ -34,10 +37,14 @@ onready var Content = get_node("./ContentPlay/Content")
 onready var Brief = get_node("./ContentPlay/Brief")
 onready var Continue = get_node("./ContentPlay/Continue")
 
-const TITLE_UNSET_MESSAGE = "Untitled"
-const TITLE_UNSET_SELF_MODULATION_COLOR  = Color(1, 1, 1, 0.30)
 const CONTENT_UNSET_MESSAGE = "No Content."
+const CONTENT_UNSET_SELF_MODULATION_COLOR = Color(1, 1, 1, 0.30)
+
+const TITLE_UNSET_MESSAGE = "Untitled"
+const HIDE_UNSET_TITLE = true
+
 const BRIEF_UNSET_MESSAGE = "No Brief."
+const HIDE_UNSET_BRIEF = true
 
 func _ready() -> void:
 	register_connections()
@@ -64,28 +71,24 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 
 func resource_has_valid_string_data(field:String) -> bool:
 	return (
-		_NODE_RESOURCE.has("data") &&
-		_NODE_RESOURCE.data.has(field) &&
-		_NODE_RESOURCE.data[field] is String &&
-		_NODE_RESOURCE.data[field].length() > 0 
+		_NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has(field) &&
+		_NODE_RESOURCE.data[field] is String && _NODE_RESOURCE.data[field].length() > 0 
 	)
 
-func content_wants_clearance() -> bool:
-	return (
-		_NODE_RESOURCE.has("data") &&
-		_NODE_RESOURCE.data.has("clear") &&
-		_NODE_RESOURCE.data.clear is bool &&
-		_NODE_RESOURCE.data.clear == true
-	)
+func resource_has_intended_bool_behavior(parameter: String) -> bool:
+	var is_intended = DEFAULT_NODE_DATA[parameter]
+	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has(parameter) && _NODE_RESOURCE.data[parameter] is bool:
+		is_intended = _NODE_RESOURCE.data[parameter]
+	return is_intended
 
 func setup_view() -> void:
 	# Title
 	if resource_has_valid_string_data("title"):
 		var reformatted_title = _NODE_RESOURCE.data.title.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
-		Title.set_deferred("text", reformatted_title)
+		Title.set_deferred("bbcode_text", reformatted_title)
 	else:
-		Title.set_deferred("text", TITLE_UNSET_MESSAGE)
-		Title.set_deferred("self_modulate", TITLE_UNSET_SELF_MODULATION_COLOR)
+		Title.set_deferred("bbcode_text", TITLE_UNSET_MESSAGE)
+		Title.set_deferred("visible", HIDE_UNSET_TITLE != true)
 	# Content
 	if resource_has_valid_string_data("content"):
 		# print formatted content (using bbcode support,)
@@ -94,6 +97,7 @@ func setup_view() -> void:
 		Content.set_deferred("bbcode_text", reformatted_content)
 	else:
 		Content.set_deferred("bbcode_text", CONTENT_UNSET_MESSAGE)
+		Content.set_deferred("self_modulate", CONTENT_UNSET_SELF_MODULATION_COLOR)
 	# Brief
 	# > Textual (legacy) brief is deprecated;
 	# > Yet for backward compatibility we show it if the node is still using the old structure:
@@ -103,9 +107,9 @@ func setup_view() -> void:
 		Brief.set_deferred("visible", true)
 	else:
 		Brief.set_deferred("bbcode_text", BRIEF_UNSET_MESSAGE)
-		Brief.set_deferred("visible", false)
+		Brief.set_deferred("visible", HIDE_UNSET_BRIEF != true)
 	# ask for console clearance ...
-	if content_wants_clearance():
+	if resource_has_intended_bool_behavior("clear"):
 		emit_signal("clear_up")
 	pass
 
@@ -133,9 +137,11 @@ func proceed_auto_play() -> void:
 		# handle skip in case
 		if _NODE_MAP.has("skip") && _NODE_MAP.skip == true:
 			skip_play()
-			# otherwise auto-play if set
+		# otherwise auto-play if set
 		elif AUTO_PLAY_SLOT >= 0:
 			play_forward_from(AUTO_PLAY_SLOT)
+		elif resource_has_intended_bool_behavior("auto"):
+			play_forward_from(ONLY_SLOT_OUT)
 	else:
 		set_view_unplayed()
 	pass

@@ -31,7 +31,7 @@ const CONFIG_FILES_SUB_PATH_DIR_PRIORITY = ["user://", "res://"]
 # The work (or project management) directory may also be overridden using `--work-dir` cli argument.
 # Note that in `HTML5` exports, only `user://` is writable, so this process will not apply. 
 
-# MainUserInterface
+# Main User Interface
 
 const PANELS_OPEN_BY_DEFAULT = ["inspector"]
 const BLOCKING_PANELS = ["preferences", "authors", "new_project_prompt", "about", "welcome", "notification"]
@@ -43,7 +43,7 @@ const DISCOURAGED_FILENAME_CHARACTERS = [" ", ":", "?", "*", "|", "%", "<", ">",
 const TIME_STAMP_TEMPLATE = "{year}.{month}.{day} {hour}:{minute}:{second}"
 const TIME_STAMP_TEMPLATE_UTC_MARK = " UTC"
 
-# ProjectManagement
+# Project Management
 
 const PROJECT_LIST_FILE_NAME = "projects.arrow"
 # ...
@@ -58,6 +58,13 @@ const PROJECT_FILE_JSON_DEFAULT_IDENT = "\t"
 # You can open and automatically (re-)save them in textual format; 
 # But if you still need to save your projects as binary, set this setting to `true`:
 const USE_DEPRECATED_BIN_SAVE = false
+
+# IMPORTANT!
+# Optional node properties (those with default values commonly used,)
+# can be left from the saved project files, optimizing them for size.
+# This is a tricky process and depends on the version of Arrow and runtime being used;
+# so it's recommended to be deactivated only for completely new projects with universally trusted defaults.
+const SAVE_DEFAULTS = false
 
 # UID Management
 
@@ -98,7 +105,7 @@ const INVALID_QUICK_CONNECTION = {
 }
 
 # [ Modular Node Type System ]
-# NodeTypes
+# Node Types
 
 # Arrow has a modular node type system which allows users to make *and possibly share* their own custom types of narrative plot nodes.
 # You can find default node types (such as 'condition', 'content', 'dialog', 'interaction', etc.) in `res://nodes` directory and use them as templates to make your own node type modules.

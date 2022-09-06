@@ -11,6 +11,8 @@ onready var Mind = Main.Mind
 var Utils = Helpers.Utils
 
 const TITLE_UNSET_MESSAGE = "Untitled"
+const HIDE_UNSET_TITLE = true
+
 const BRIEF_UNSET_MESSAGE = ""
 
 var _node_id
@@ -20,6 +22,8 @@ var This = self
 
 onready var Title = get_node("./VBoxContainer/Title")
 onready var Brief = get_node("./VBoxContainer/Brief")
+onready var AutoPlay = get_node("./VBoxContainer/Header/AutoPlay")
+onready var ClearPage = get_node("./VBoxContainer/Header/ClearPage")
 
 func _ready() -> void:
 	register_connections()
@@ -42,16 +46,11 @@ func _on_resize_request(new_min_size) -> void:
 	pass
 
 func _update_node(data:Dictionary) -> void:
-	# title
-	var title
-	if data.has("title"):
-		title = String(data.title)
-	Title.set_text(
-		title
-		if (title is String && title.length() > 0)
-		else TITLE_UNSET_MESSAGE
-	)
-	# brief
+	# Title
+	var title = data.title if data.has("title") && data.title is String && data.title.length() > 0 else null
+	Title.set_bbcode(title if title is String else TITLE_UNSET_MESSAGE)
+	Title.set_visible(title is String || (! HIDE_UNSET_TITLE ))
+	# Brief
 	Brief.set_visible(false)
 	var brief = null;
 	if data.has("brief"):
@@ -67,6 +66,10 @@ func _update_node(data:Dictionary) -> void:
 		if brief is String && brief.length() > 0:
 			Brief.set_bbcode(brief)
 			Brief.set_visible(true)
+	# Auto-play indicator
+	AutoPlay.set_visible( data.has("auto") && data.auto == true)
+	# Print on clear page indicator
+	ClearPage.set_visible( data.has("clear") && data.clear == true)
 	# Custom node size
 	if data.has("rect") && data.rect is Array && data.rect.size() >= 2 :
 		var new_size = Utils.array_to_vector2(data.rect)
