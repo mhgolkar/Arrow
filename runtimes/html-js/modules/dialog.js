@@ -11,6 +11,13 @@ class Dialog {
             "color": "ffffff",
         };
 
+        const DEFAULT_NODE_DATA = {
+            "character": -1, // ~ anonymous or unset (hardcoded convention)
+            "lines": ["Hey there!"],
+            // -- optional(s) --
+            "playable": false,
+        };
+
         const AUTO_PLAY_SLOT = -1;
         
         const LINES_HOLDER_TAG = 'ol';
@@ -98,8 +105,7 @@ class Dialog {
                 } else if ( AUTO_PLAY_SLOT >= 0 ) {
                     this.play_forward_from(AUTO_PLAY_SLOT);
                 // or handle the none-playable dialog in case ...
-                } else if ( this.node_resource.data.hasOwnProperty('playable') &&  this.node_resource.data.playable === false ){
-                    this.html.setAttribute('none-playable', 'true');
+                } else {
                     this.random_play_none_playable_dialogs();
                 }
                 // ... and finally for normal playable dialogs,
@@ -124,10 +130,23 @@ class Dialog {
             }
             return line_elements;
         };
-
+        
+        this.has_intended_bool_behavior = function(parameter) {
+            var is_intended = DEFAULT_NODE_DATA[parameter];
+            if (
+                this.node_resource.data.hasOwnProperty(parameter) &&
+                (typeof this.node_resource.data[parameter] == 'boolean')
+            ){
+                is_intended = this.node_resource.data[parameter]
+            }
+            return is_intended;
+        }
+        
         this.random_play_none_playable_dialogs = function(){
-            var random_played_line_idx = inclusiveRandInt( this.lines.length - 1);
-            this.play_forward_from(random_played_line_idx);
+            if ( this.has_intended_bool_behavior("playable") == false ){
+                var random_played_line_idx = inclusiveRandInt( this.lines.length - 1);
+                this.play_forward_from(random_played_line_idx);
+            }
         };
 
         this.update_character_profile = function(character_id, character){
@@ -184,6 +203,9 @@ class Dialog {
                             this.html.appendChild(this.lines_holder);
                         } else {
                             error = "No `lines` exist!";
+                        }
+                        if ( this.has_intended_bool_behavior("playable") ){
+                            this.html.setAttribute('data-playable', 'true');
                         }
                     } else {
                         error = "The resource doesn't own the required `data`.";

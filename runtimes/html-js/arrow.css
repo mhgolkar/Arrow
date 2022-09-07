@@ -355,7 +355,7 @@ footer button:not(:first-of-type) {
 
 /* dialog */
 .node[data-type='dialog'] {
-    /* It may come with [none-playable='true'] */
+    /* It may come with [data-playable='true'] when it's intended to be manually playable by user */
 }
 .node[data-type='dialog'] /*div*/.character-profile {
     /*

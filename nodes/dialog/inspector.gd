@@ -9,14 +9,11 @@ onready var Main = get_tree().get_root().get_child(0)
 
 var ListHelpers = Helpers.ListHelpers
 
-const LET_ANONYMOUS_DIALOGS = true
-export var ANONYMOUS_CHARACTER_TITLE = "Anonymous"
+const ANONYMOUS_CHARACTER = DialogSharedClass.ANONYMOUS_CHARACTER
+const DEFAULT_NODE_DATA = DialogSharedClass.DEFAULT_NODE_DATA
 
-const DEFAULT_NODE_DATA = {
-	"character": -1, # ~ anonymous or unset
-	"lines": ["Hey there!"],
-	"playable": true
-}
+const ALLOW_ANONYMOUS_DIALOGS = true
+const ANONYMOUS_UID_CONTROL_VALUE = (-254)
 
 var _OPEN_NODE_ID
 var _OPEN_NODE
@@ -181,8 +178,9 @@ func a_node_is_open() -> bool :
 
 func refresh_character_list(select_by_res_id:int = -1) -> void:
 	Character.clear()
-	if LET_ANONYMOUS_DIALOGS == true:
-		Character.add_item(ANONYMOUS_CHARACTER_TITLE, (-254)) # -1 conflicts with default of the `add_item`
+	if ALLOW_ANONYMOUS_DIALOGS == true:
+		# (Our conventional `-1` conflicts with the default behavior of `add_item` method, so we use a `..._CONTROLL_VALUE`)
+		Character.add_item(ANONYMOUS_CHARACTER.name, ANONYMOUS_UID_CONTROL_VALUE)
 	_PROJECT_CHARACTERS_CACHE = Main.Mind.clone_dataset_of("characters")
 	for character_id in _PROJECT_CHARACTERS_CACHE:
 		var the_character = _PROJECT_CHARACTERS_CACHE[character_id]
@@ -279,14 +277,18 @@ func _read_parameters() -> Dictionary:
 	var parameters = {
 		"character": Character.get_selected_id(),
 		"lines": ListHelpers.get_item_list_as_text_array(LinesList),
-		"playable": Playable.is_pressed()
 	}
-	# anonymous ?
-	# to avoid conflict with `add_item` we have used another minus number (~ -254) for the the `Anonymous` character-uid in this script
-	# here we adjust it to `-1`
-	if parameters.character < 0:
+	# Optionals (to avoid bloat:)
+	# > playable (otherwise randomly auto-played)
+	var playable = Playable.is_pressed()
+	parameters["playable"] = playable if Settings.SAVE_DEFAULTS || playable != DEFAULT_NODE_DATA.playable else null
+	# ...
+	# NOTE:
+	# To avoid conflict with `add_item` default `-1` behavior, we used ANONYMOUS_UID_CONTROL_VALUE instead.
+	# Here we adjust it to our conventional `-1` for unset/anonymous:
+	if parameters.character == ANONYMOUS_UID_CONTROL_VALUE:
 		parameters.character = -1
-	# does it rely on any other resource ?
+	# We should also handle dependencies if it relies on any other resource:
 	var _use = create_use_command(parameters)
 	if _use.drop.size() > 0 || _use.refer.size() > 0 :
 		parameters._use = _use

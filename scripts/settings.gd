@@ -63,7 +63,7 @@ const USE_DEPRECATED_BIN_SAVE = false
 # Optional node properties (those with default values commonly used,)
 # can be left from the saved project files, optimizing them for size.
 # This is a tricky process and depends on the version of Arrow and runtime being used;
-# so it's recommended to be deactivated only for completely new projects with universally trusted defaults.
+# so it's recommended to be used only for new projects with universally trusted defaults.
 const SAVE_DEFAULTS = false
 
 # UID Management

@@ -32,11 +32,13 @@ var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
 onready var CharacterProfileName  = get_node("./DialogPlay/CharacterProfile/Name")
 onready var CharacterProfileColor = get_node("./DialogPlay/CharacterProfile/Color")
-onready var PlayableLinesHolder = get_node("./DialogPlay/PlayableLines")
-onready var PlayedLine = get_node("./DialogPlay/PlayedOrReply")
-onready var PlayedLineLabel = get_node("./DialogPlay/PlayedOrReply/Label")
+onready var PlayBox = get_node("./DialogPlay/Box")
+onready var PlayableLines = get_node("./DialogPlay/Box/Rows/PlayableLines")
+onready var PlayedLine = get_node("./DialogPlay/Box/Rows/Played")
 
 const ANONYMOUS_CHARACTER = DialogSharedClass.ANONYMOUS_CHARACTER
+const DEFAULT_NODE_DATA = DialogSharedClass.DEFAULT_NODE_DATA
+
 const LINES_SHARED_PROPERTIES = {
 	"clip_text": true,
 	"align": Button.ALIGN_LEFT
@@ -75,6 +77,10 @@ func update_character(profile:Dictionary) -> void:
 		CharacterProfileName.set("text", profile.name)
 	if profile.has("color") && (profile.color is String):
 		CharacterProfileColor.set("color", Utils.rgba_hex_to_color(profile.color))
+		# And colorize the box's boarder
+		var colorized = PlayBox.get_stylebox("panel").duplicate()
+		colorized.border_color = Utils.rgba_hex_to_color(profile.color)
+		PlayBox.add_stylebox_override("panel", colorized)
 	pass
 
 func set_character_anonymous() -> void:
@@ -93,7 +99,7 @@ func update_character_profile() -> void:
 	pass
 	
 func clean_all_lines() -> void:
-	for node in PlayableLinesHolder.get_children():
+	for node in PlayableLines.get_children():
 		if node is Button:
 			node.free()
 	pass
@@ -114,16 +120,19 @@ func setup_view() -> void:
 			for property in LINES_SHARED_PROPERTIES:
 				the_line_button.set(property, LINES_SHARED_PROPERTIES[property])
 			listen_to_line(the_line_button, line_idx)
-			PlayableLinesHolder.add_child(the_line_button)
+			PlayableLines.add_child(the_line_button)
 	pass
 
 # automatically chooses a random reply (as a none-playable [character's] dialog)
 func random_play_none_playable_dialogs() -> void:
+	var non_playable = (! DEFAULT_NODE_DATA.playable)
 	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("playable") && (_NODE_RESOURCE.data.playable is bool):
-		if _NODE_RESOURCE.data.playable == false:
-			if _NODE_RESOURCE.data.has("lines") && (_NODE_RESOURCE.data.lines is Array) && (_NODE_RESOURCE.data.lines.size() > 0):
-				var random_slot_idx = randi()  % _NODE_RESOURCE.data.lines.size()
-				play_forward_from(random_slot_idx)
+		non_playable = (! _NODE_RESOURCE.data.playable)
+	# ...
+	if non_playable:
+		if _NODE_RESOURCE.data.has("lines") && (_NODE_RESOURCE.data.lines is Array) && (_NODE_RESOURCE.data.lines.size() > 0):
+			var random_slot_idx = randi()  % _NODE_RESOURCE.data.lines.size()
+			play_forward_from(random_slot_idx)
 	pass
 		
 func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1, variables_current:Dictionary={}) -> void:
@@ -173,9 +182,9 @@ func set_view_played_on_ready(slot_idx:int) -> void:
 	pass
 
 func set_view_unplayed() -> void:
-	PlayedLineLabel.set_text("")
+	PlayedLine.set_text("")
 	PlayedLine.set_visible(false)
-	PlayableLinesHolder.set_visible(true)
+	PlayableLines.set_visible(true)
 	pass
 
 func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
@@ -183,13 +192,9 @@ func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 		if _NODE_RESOURCE.data.lines.size() > slot_idx:
 			var line_text = _NODE_RESOURCE.data.lines[slot_idx]
 			var reformatted_line_text = line_text.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
-			PlayedLineLabel.set_text(reformatted_line_text)
+			PlayedLine.set_text(reformatted_line_text)
 			PlayedLine.set_visible(true)
-			if _CHARACTER_CACHED && _CHARACTER_CACHED.has("color"):
-				PlayedLine.set("self_modulate", Utils.rgba_hex_to_color(_CHARACTER_CACHED.color))
-			else:
-				PlayedLine.set("self_modulate", ANONYMOUS_CHARACTER.played_line_color)
-			PlayableLinesHolder.set_visible(false)
+			PlayableLines.set_visible(false)
 	pass
 
 func skip_play() -> void:

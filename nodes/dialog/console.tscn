@@ -1,21 +1,28 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://nodes/dialog/console.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 14.0
+content_margin_right = 4.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 1, 1, 1, 0 )
+draw_center = false
+border_width_left = 2
+border_color = Color( 1, 1, 1, 0.709804 )
 
 [node name="Dialog" type="PanelContainer"]
 margin_top = 150.0
 margin_right = 221.0
-margin_bottom = 272.0
+margin_bottom = 242.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DialogPlay" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 214.0
-margin_bottom = 115.0
+margin_bottom = 85.0
 mouse_filter = 2
 
 [node name="CharacterProfile" type="HBoxContainer" parent="DialogPlay"]
@@ -24,61 +31,62 @@ margin_bottom = 14.0
 mouse_filter = 2
 
 [node name="Color" type="ColorRect" parent="DialogPlay/CharacterProfile"]
-margin_right = 15.0
+margin_right = 14.0
 margin_bottom = 14.0
-rect_min_size = Vector2( 15, 0 )
+rect_min_size = Vector2( 14, 0 )
 mouse_filter = 2
 size_flags_stretch_ratio = 2.0
-color = Color( 0.0980392, 0.729412, 0.333333, 0.709804 )
+color = Color( 1, 1, 1, 0.709804 )
 
 [node name="Name" type="Label" parent="DialogPlay/CharacterProfile"]
-margin_left = 19.0
+margin_left = 18.0
 margin_right = 207.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
 text = "{character-name}"
 
-[node name="MarginContainer" type="MarginContainer" parent="DialogPlay"]
+[node name="Box" type="PanelContainer" parent="DialogPlay"]
 margin_top = 18.0
 margin_right = 207.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 0, 10 )
-mouse_filter = 2
+margin_bottom = 78.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
 
-[node name="PlayableLines" type="VBoxContainer" parent="DialogPlay"]
-margin_top = 32.0
-margin_right = 207.0
-margin_bottom = 76.0
+[node name="Rows" type="VBoxContainer" parent="DialogPlay/Box"]
+margin_left = 14.0
+margin_top = 8.0
+margin_right = 203.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
 
-[node name="LineA" type="Button" parent="DialogPlay/PlayableLines"]
-margin_right = 207.0
+[node name="PlayableLines" type="VBoxContainer" parent="DialogPlay/Box/Rows"]
+margin_right = 189.0
+margin_bottom = 44.0
+
+[node name="LineA" type="Button" parent="DialogPlay/Box/Rows/PlayableLines"]
+margin_right = 189.0
 margin_bottom = 20.0
 text = "{ dialog line x }"
 clip_text = true
 align = 0
 
-[node name="LineB" type="Button" parent="DialogPlay/PlayableLines"]
+[node name="LineB" type="Button" parent="DialogPlay/Box/Rows/PlayableLines"]
 margin_top = 24.0
-margin_right = 207.0
+margin_right = 189.0
 margin_bottom = 44.0
 text = "{ another dialogue line }"
 clip_text = true
 align = 0
 
-[node name="PlayedOrReply" type="PanelContainer" parent="DialogPlay"]
+[node name="Played" type="Label" parent="DialogPlay/Box/Rows"]
 visible = false
-self_modulate = Color( 0.0980392, 0.729412, 0.333333, 0.709804 )
-margin_top = 80.0
-margin_right = 207.0
-margin_bottom = 108.0
-mouse_filter = 2
-
-[node name="Label" type="Label" parent="DialogPlay/PlayedOrReply"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 200.0
-margin_bottom = 21.0
+margin_top = 48.0
+margin_right = 193.0
+margin_bottom = 62.0
+size_flags_horizontal = 3
 text = "{ played line or chosen reply }"
-align = 1
 autowrap = true

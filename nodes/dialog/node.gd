@@ -21,6 +21,8 @@ const OUT_SLOT_COLOR_LEFT   = OUT_SLOT_COLOR
 const LINE_SLOT_ALIGN = Label.ALIGN_RIGHT
 
 const ANONYMOUS_CHARACTER = DialogSharedClass.ANONYMOUS_CHARACTER
+const DEFAULT_NODE_DATA = DialogSharedClass.DEFAULT_NODE_DATA
+
 const PLAYABLE_STATUS_MESSAGE = " Playable"
 const AUTOPLAY_STATUS_MESSAGE = " Auto"
 
@@ -78,8 +80,8 @@ func set_character_anonymous() -> void:
 	update_character( ANONYMOUS_CHARACTER )
 	pass
 
-func set_playable(enabled:bool = true) -> void:
-	Playable.set_text( PLAYABLE_STATUS_MESSAGE if enabled else AUTOPLAY_STATUS_MESSAGE )
+func set_playable(manual:bool) -> void:
+	Playable.set_text( PLAYABLE_STATUS_MESSAGE if manual else AUTOPLAY_STATUS_MESSAGE )
 	pass
 
 func _update_node(data:Dictionary) -> void:
@@ -89,6 +91,8 @@ func _update_node(data:Dictionary) -> void:
 		remove_lines_all()
 	if data.has("playable") && (data.playable is bool):
 		set_playable(data.playable)
+	else:
+		set_playable(DEFAULT_NODE_DATA.playable)
 	if data.has("character") && (data.character is int) && (data.character >= 0):
 		var the_character_profile = Main.Mind.lookup_resource(data.character, "characters")
 		if the_character_profile != null :
