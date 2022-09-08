@@ -12,6 +12,8 @@ var ListHelpers = Helpers.ListHelpers
 const ANONYMOUS_CHARACTER = DialogSharedClass.ANONYMOUS_CHARACTER
 const DEFAULT_NODE_DATA = DialogSharedClass.DEFAULT_NODE_DATA
 
+const SAVE_UNOPTIMIZED = DialogSharedClass.SAVE_UNOPTIMIZED
+
 const ALLOW_ANONYMOUS_DIALOGS = true
 const ANONYMOUS_UID_CONTROL_VALUE = (-254)
 
@@ -281,7 +283,7 @@ func _read_parameters() -> Dictionary:
 	# Optionals (to avoid bloat:)
 	# > playable (otherwise randomly auto-played)
 	var playable = Playable.is_pressed()
-	parameters["playable"] = playable if Settings.SAVE_DEFAULTS || playable != DEFAULT_NODE_DATA.playable else null
+	parameters["playable"] = playable if SAVE_UNOPTIMIZED || playable != DEFAULT_NODE_DATA.playable else null
 	# ...
 	# NOTE:
 	# To avoid conflict with `add_item` default `-1` behavior, we used ANONYMOUS_UID_CONTROL_VALUE instead.

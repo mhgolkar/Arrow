@@ -28,7 +28,6 @@ const NO_VARIABLE_VAR_TYPE = "bool"
 const NO_VARIABLE_TEXT = "No Variable Available"
 const NO_VARIABLE_ID = -1
 
-# will be customized by `_setup_new`
 var DEFAULT_NODE_DATA = {
 	"variable": NO_VARIABLE_ID, # uid of the target variable to be updated
 	"operator": UPDATE_OPERATORS[NO_VARIABLE_VAR_TYPE].keys()[0], # update operation

@@ -9,6 +9,8 @@ onready var Main = get_tree().get_root().get_child(0)
 
 const DEFAULT_NODE_DATA = ContentSharedClass.DEFAULT_NODE_DATA
 
+const SAVE_UNOPTIMIZED = ContentSharedClass.SAVE_UNOPTIMIZED
+
 var _OPEN_NODE_ID
 var _OPEN_NODE
 
@@ -136,19 +138,19 @@ func _read_parameters() -> Dictionary:
 	var parameters = {} # all are optional fields (avoiding bloat:)
 	# > title
 	var title = Title.get_text()
-	parameters["title"] = title if Settings.SAVE_DEFAULTS || title != DEFAULT_NODE_DATA.title else null # ~ null = remove
+	parameters["title"] = title if SAVE_UNOPTIMIZED || title != DEFAULT_NODE_DATA.title else null # ~ null = remove
 	# > content
 	var content = Content.get_text()
-	parameters["content"] = content if Settings.SAVE_DEFAULTS || content != DEFAULT_NODE_DATA.content else null
+	parameters["content"] = content if SAVE_UNOPTIMIZED || content != DEFAULT_NODE_DATA.content else null
 	# > brief
 	var brief_length = int( BriefLength.get_value() )
-	parameters["brief"] = brief_length if Settings.SAVE_DEFAULTS || brief_length != DEFAULT_NODE_DATA.brief else null
+	parameters["brief"] = brief_length if SAVE_UNOPTIMIZED || brief_length != DEFAULT_NODE_DATA.brief else null
 	# > auto-play
 	var auto = AutoPlay.is_pressed()
-	parameters["auto"] = auto if Settings.SAVE_DEFAULTS || auto != DEFAULT_NODE_DATA.auto else null
+	parameters["auto"] = auto if SAVE_UNOPTIMIZED || auto != DEFAULT_NODE_DATA.auto else null
 	# > clear page before print
 	var clear = ClearPage.is_pressed()
-	parameters["clear"] = clear if Settings.SAVE_DEFAULTS || clear != DEFAULT_NODE_DATA.clear else null
+	parameters["clear"] = clear if SAVE_UNOPTIMIZED || clear != DEFAULT_NODE_DATA.clear else null
 	# ...
 	# and references used in this content node
 	var _use = create_use_command(parameters)

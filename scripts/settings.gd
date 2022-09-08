@@ -59,13 +59,6 @@ const PROJECT_FILE_JSON_DEFAULT_IDENT = "\t"
 # But if you still need to save your projects as binary, set this setting to `true`:
 const USE_DEPRECATED_BIN_SAVE = false
 
-# IMPORTANT!
-# Optional node properties (those with default values commonly used,)
-# can be left from the saved project files, optimizing them for size.
-# This is a tricky process and depends on the version of Arrow and runtime being used;
-# so it's recommended to be used only for new projects with universally trusted defaults.
-const SAVE_DEFAULTS = false
-
 # UID Management
 
 const ANONYMOUS_AUTHOR_INFO = "Anonymous Contributor"
