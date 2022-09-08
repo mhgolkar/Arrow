@@ -69,47 +69,53 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 				_NODE_SLOTS_MAP[ connection[1] ] = { "id": connection[2], "slot": connection[3] }
 	pass
 
-func resource_has_valid_string_data(field:String) -> bool:
-	return (
-		_NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has(field) &&
-		_NODE_RESOURCE.data[field] is String && _NODE_RESOURCE.data[field].length() > 0 
-	)
+func string_data_or_default(parameter:String) -> String:
+	var text = DEFAULT_NODE_DATA[parameter]
+	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has(parameter) && _NODE_RESOURCE.data[parameter] is String:
+		text = _NODE_RESOURCE.data[parameter]
+	return text
 
-func resource_has_intended_bool_behavior(parameter: String) -> bool:
-	var is_intended = DEFAULT_NODE_DATA[parameter]
+func bool_data_or_default(parameter: String) -> bool:
+	var intended = DEFAULT_NODE_DATA[parameter]
 	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has(parameter) && _NODE_RESOURCE.data[parameter] is bool:
-		is_intended = _NODE_RESOURCE.data[parameter]
-	return is_intended
+		intended = _NODE_RESOURCE.data[parameter]
+	return intended
 
 func setup_view() -> void:
 	# Title
-	if resource_has_valid_string_data("title"):
-		var reformatted_title = _NODE_RESOURCE.data.title.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
+	var title = string_data_or_default("title")
+	if title.length() > 0:
+		var reformatted_title = title.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
 		Title.set_deferred("bbcode_text", reformatted_title)
 	else:
 		Title.set_deferred("bbcode_text", TITLE_UNSET_MESSAGE)
 		Title.set_deferred("visible", HIDE_UNSET_TITLE != true)
 	# Content
-	if resource_has_valid_string_data("content"):
+	var content = string_data_or_default("content")
+	if content.length() > 0:
 		# print formatted content (using bbcode support,)
 		# after replacing `{variable_name}` tags with their respective [current] values:
-		var reformatted_content = _NODE_RESOURCE.data.content.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
+		var reformatted_content = content.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
 		Content.set_deferred("bbcode_text", reformatted_content)
 	else:
 		Content.set_deferred("bbcode_text", CONTENT_UNSET_MESSAGE)
 		Content.set_deferred("self_modulate", CONTENT_UNSET_SELF_MODULATION_COLOR)
 	# Brief
-	# > Textual (legacy) brief is deprecated;
+	# > Textual **legacy** brief is deprecated;
 	# > Yet for backward compatibility we show it if the node is still using the old structure:
-	if resource_has_valid_string_data("brief"):
+	if (
+		_NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("brief") &&
+		_NODE_RESOURCE.data.brief is String && _NODE_RESOURCE.data.brief.length() > 0
+	):
 		var reformatted_brief = _NODE_RESOURCE.data.brief.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
 		Brief.set_deferred("bbcode_text", reformatted_brief)
 		Brief.set_deferred("visible", true)
 	else:
 		Brief.set_deferred("bbcode_text", BRIEF_UNSET_MESSAGE)
 		Brief.set_deferred("visible", HIDE_UNSET_BRIEF != true)
-	# ask for console clearance ...
-	if resource_has_intended_bool_behavior("clear"):
+	# ...
+	# Ask for console clearance if behavior is intended:
+	if bool_data_or_default("clear"):
 		emit_signal("clear_up")
 	pass
 
@@ -140,7 +146,7 @@ func proceed_auto_play() -> void:
 		# otherwise auto-play if set
 		elif AUTO_PLAY_SLOT >= 0:
 			play_forward_from(AUTO_PLAY_SLOT)
-		elif resource_has_intended_bool_behavior("auto"):
+		elif bool_data_or_default("auto"):
 			play_forward_from(ONLY_SLOT_OUT)
 	else:
 		set_view_unplayed()

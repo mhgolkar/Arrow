@@ -65,15 +65,26 @@ class Content {
             this.set_view_unplayed();
         };
         
-        this.has_intended_bool_behavior = function(parameter) {
-            var is_intended = DEFAULT_NODE_DATA[parameter];
+        this.string_data_or_default = function(parameter) {
+            var text = DEFAULT_NODE_DATA[parameter];
+            if (
+                this.node_resource.data.hasOwnProperty(parameter) &&
+                (typeof this.node_resource.data[parameter] == 'string')
+            ){
+                text = this.node_resource.data[parameter]
+            }
+            return text;
+        }
+        
+        this.bool_data_or_default = function(parameter) {
+            var intended = DEFAULT_NODE_DATA[parameter];
             if (
                 this.node_resource.data.hasOwnProperty(parameter) &&
                 (typeof this.node_resource.data[parameter] == 'boolean')
             ){
-                is_intended = this.node_resource.data[parameter]
+                intended = this.node_resource.data[parameter]
             }
-            return is_intended;
+            return intended;
         }
                 
         this.proceed = function(){
@@ -83,7 +94,7 @@ class Content {
                 } else if (AUTO_PLAY_SLOT >= 0) {
                     this.play_forward_from(AUTO_PLAY_SLOT);
                 } else {
-                    if ( this.has_intended_bool_behavior("auto") ) {
+                    if ( this.bool_data_or_default("auto") ) {
                         this.play_forward_from(CONTINUE_PLAY_SLOT);
                     }
                 }
@@ -91,7 +102,7 @@ class Content {
             // View Clearance ?
             if (_ALLOW_CLEARANCE) {
                 // `content` nodes can force the page to get cleaned before they step in
-                if ( this.has_intended_bool_behavior("clear") ) {
+                if ( this.bool_data_or_default("clear") ) {
                     clear_up(this.node_id);
                 }
             }
@@ -108,21 +119,25 @@ class Content {
                 this.html = create_node_base_html(node_id, node_resource);
                     // ...
                     if ( node_resource.hasOwnProperty("data") ){
-                        if ( node_resource.data.hasOwnProperty("title") ){
-                            this.title = create_element(TITLE_TAG, parse_bbcode( format(node_resource.data.title, VARS_NAME_VALUE_PAIR) ) );
+                        var title_string = this.string_data_or_default("title")
+                        if ( title_string.length > 0 ){
+                            this.title = create_element(TITLE_TAG, parse_bbcode( format(title_string, VARS_NAME_VALUE_PAIR) ) );
                             this.html.appendChild(this.title);
                         }
+                        // Textual (legacy) brief support:
+                        // (It's not a string anymore so we can check for its default)
                         if ( node_resource.data.hasOwnProperty("brief") && typeof node_resource.data.brief == 'string' ){
-                            // Textual (legacy) brief support:
                             this.brief = create_element(BRIEF_TAG, parse_bbcode( format(node_resource.data.brief, VARS_NAME_VALUE_PAIR) ) );
                             this.html.appendChild(this.brief);
                         }
-                        if ( node_resource.data.hasOwnProperty("content") ){
-                            this.content = create_element(CONTENT_TAG, parse_bbcode( format(node_resource.data.content, VARS_NAME_VALUE_PAIR) ) );
+                        // ...
+                        var content_string = this.string_data_or_default("content")
+                        if (content_string.length > 0 ){
+                            this.content = create_element(CONTENT_TAG, parse_bbcode( format(content_string, VARS_NAME_VALUE_PAIR) ) );
                             this.html.appendChild(this.content);
                         }
-                        if ( this.has_intended_bool_behavior("auto") ) { this.html.setAttribute('data-auto', 'true'); }
-                        if ( this.has_intended_bool_behavior("clear") ) { this.html.setAttribute('data-clear', 'true'); }
+                        if ( this.bool_data_or_default("auto") ) { this.html.setAttribute('data-auto', 'true'); }
+                        if ( this.bool_data_or_default("clear") ) { this.html.setAttribute('data-clear', 'true'); }
                     }
                     // ...
                     this.continue_button = create_element("button", i18n("continue"));
