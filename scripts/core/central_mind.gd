@@ -155,6 +155,8 @@ class Mind :
 				track_nodes_selection(args, true)
 			"node_unselection":
 				track_nodes_selection(args, false)
+			"branch_selection":
+				select_branch(args[0], args[1], args[2])
 			"insert_node":
 				create_insert_nodes(args.nodes, args.offset)
 			"quick_insert_node":
@@ -753,17 +755,18 @@ class Mind :
 	
 	# tells you if a node is selected
 	# and can also manage selection if a boolean is also passed (true = select, false = unselect)
-	func track_nodes_selection(node_id:int, select_or_unselect = null) -> bool:
+	func track_nodes_selection(node_id:int, select_or_unselect = null, ignore_error:bool = false) -> bool:
 		var is_already_selected = _SELECTED_NODES_IDS.has(node_id)
 		if select_or_unselect is bool:
 			if select_or_unselect == true:
 			# selection
 				if is_already_selected :
-					print_stack()
-					printerr("Unexpected Behavior! Trying to select an already selected node!", node_id)
+					if ignore_error == false:
+						print_stack()
+						printerr("Unexpected Behavior! Trying to select an already selected node!", node_id)
 				elif node_id >= 0 && _PROJECT.resources.nodes.has(node_id):
 					_SELECTED_NODES_IDS.push_front(node_id)
-					react_to_selection_change(false, node_id, select_or_unselect)
+					react_to_selection_change()
 				else:
 					print_stack()
 					printerr("Unexpected Behavior! Tracking Invalid or None-existing Node-id ! ", node_id)
@@ -771,29 +774,74 @@ class Mind :
 				# unselection
 				if is_already_selected :
 					_SELECTED_NODES_IDS.erase(node_id)
-					react_to_selection_change(false, node_id, select_or_unselect)
+					react_to_selection_change()
 				else:
-					print_stack()
-					printerr("Unexpected Behavior! Trying to unselect a node that is not selected!")
+					if ignore_error == false:
+						print_stack()
+						printerr("Unexpected Behavior! Trying to unselect a node that is not selected!")
 		else: # just wants to know if selected
 			return is_already_selected 
 		return false
 
 	func force_unsellect_all() -> void:
 		_SELECTED_NODES_IDS.clear()
-		react_to_selection_change(true)
+		react_to_selection_change()
 		Grid.call_deferred("force_unselect_all")
 		pass
 	
+	func force_select_group(list: Array, clear: bool = false) -> void:
+		if clear:
+			force_unsellect_all()
+		for node_id in list:
+			if _SELECTED_NODES_IDS.has(node_id) == false:
+				_SELECTED_NODES_IDS.push_front(node_id)
+		Grid.call_deferred("force_select_group", list, false)
+		pass
+
+	func flat_branch_map(start_node_id: int, end_node_id: int, with_waterfall: bool = false, scene_id: int = _CURRENT_OPEN_SCENE_ID) -> Array:
+		var flat_map = []
+		var level = [start_node_id]
+		if _PROJECT.resources.scenes[scene_id].map.has(start_node_id):
+			var start_map = _PROJECT.resources.scenes[scene_id].map[start_node_id]
+			if start_map.has("io") && start_map.io is Array && start_map.io.size() > 0:
+				for outgoing_link in start_map.io:
+					var next_node_id = outgoing_link[2]
+					if next_node_id == end_node_id:
+						level.append(end_node_id)
+					else:
+						var next_flat_map = flat_branch_map(next_node_id, end_node_id, with_waterfall, scene_id)
+						level.append_array(next_flat_map)
+		if level.has(end_node_id) || with_waterfall:
+			for node_id in level:
+				if flat_map.has(node_id) == false:
+					flat_map.append(node_id)
+		return flat_map
+
+	func select_branch(from: Array, to: int, with_waterfall: bool = false, dry_run: bool = false) -> Array:
+		var selection = from.duplicate()
+		var name_list = []
+		for start in from:
+			var branch_flat = flat_branch_map(start, to, with_waterfall)
+			if branch_flat.has(to) || with_waterfall:
+				for node_id in branch_flat:
+					if selection.has(node_id) == false:
+						selection.append(node_id)
+						name_list.append(_PROJECT.resources.nodes[node_id].name)
+		# ...
+		print_debug("Branch(s) selected %s nodes from %s to %s: " % [selection.size(), from, to], name_list, " + ", with_waterfall)
+		if dry_run != true:
+			force_select_group(selection, true)
+		return selection
+	
 	func react_to_scene_change(new_scene_id:int = -1) -> void:
 		# anyway react to selection, because there might be some kind of change not tracked
-		react_to_selection_change(true)
+		react_to_selection_change()
 		# we shall also tell the inspector's macros tab to react, whether it's a scene or a macro.
 		Inspector.Tab.Macros.call_deferred("update_macro_editorial_state", new_scene_id)
 		Inspector.Tab.Scenes.call_deferred("update_scene_editorial_state", new_scene_id)
 		pass
 	
-	func react_to_selection_change(_manual_change_happened:bool = false, _last_change_node_id:int = -1, _select_or_unselect = null) -> void:
+	func react_to_selection_change() -> void:
 		# print_debug("Current Selected Nodes: ", _SELECTED_NODES_IDS)
 		inspector_reaction_to_selection_change()
 		pass

@@ -212,9 +212,15 @@ func _on_node_selection(node) -> void:
 	# Note: following check is necessary,
 	# because `GraphEdit` lets (fires event for) reselection of a selected node.
 	if _ALREADY_SELECTED_NODE_IDS.has(the_node_id) == false:
-		request_mind("node_selection", the_node_id)
-		_ALREADY_SELECTED_NODES_BY_ID[the_node_id] = node
-		_ALREADY_SELECTED_NODE_IDS.push_front(the_node_id)
+		if Input.is_key_pressed(KEY_SHIFT): # Branch selection it is
+			var with_waterfall = Input.is_key_pressed(KEY_ALT)
+			self.call_deferred(
+				"request_mind", "branch_selection",
+				[_ALREADY_SELECTED_NODE_IDS.duplicate(true), the_node_id, with_waterfall]
+			)
+		else: # Normal selection
+			request_mind("node_selection", the_node_id)
+			select_node_by_id(the_node_id)
 	else:
 		request_mind("inspect_node", the_node_id)
 	pass
@@ -224,14 +230,23 @@ func force_unselect_all():
 	_ALREADY_SELECTED_NODES_BY_ID.clear()
 	set_selected(null)
 	pass
+
+func force_select_group(list: Array, clear: bool = false) -> void:
+	if clear:
+		force_unselect_all()
+	yield(TheTree, "idle_frame")
+	for node_id in list:
+		select_node_by_id(node_id)
+	pass
 	
 func select_node_by_id(node_id:int, unselect_others:bool = false, go_to:bool = false) -> void:
 	if unselect_others:
 		force_unselect_all()
 	if _DRAWN_NODES_BY_ID.has(node_id):
-		set_selected( _DRAWN_NODES_BY_ID[node_id] )
-		_ALREADY_SELECTED_NODE_IDS.push_back(node_id)
-		_ALREADY_SELECTED_NODES_BY_ID[node_id] = _DRAWN_NODES_BY_ID[node_id]
+		_DRAWN_NODES_BY_ID[node_id].set_selected(true)
+		if _ALREADY_SELECTED_NODE_IDS.has(node_id) == false:
+			_ALREADY_SELECTED_NODE_IDS.push_back(node_id)
+			_ALREADY_SELECTED_NODES_BY_ID[node_id] = _DRAWN_NODES_BY_ID[node_id]
 		if go_to == true:
 			go_to_offset_by_node_id(node_id)
 	else:
