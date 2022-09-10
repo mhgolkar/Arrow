@@ -355,6 +355,12 @@ class Utils:
 	static func vector2_to_array(from:Vector2) -> Array:
 		return [from.x, from.y]
 	
+	static func refactor_array(left: Array, factor: float, devide: bool = false) -> Array:
+		var right = []
+		for num in left:
+			right.append( (num * factor) if devide == false else (num / factor) )
+		return right
+
 	static func int_to_base36(val:int = 0) -> String:
 		var base36 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		var result = ""

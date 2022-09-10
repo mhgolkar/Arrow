@@ -47,7 +47,7 @@ const Data = {
 				# {
 					# title:string,
 					# filename:string (filename or path relative to the app local directory),
-					# last_view_offset { <scene-uid>:[x,y] }, (offset of the graph editor (grid) where user has left the scene or macro.)
+					# last_view { <scene-uid>: [x,y, zoom] }, (offset and zoom where user has left, per scene)
 					# last_open_scene:int<uid>
 					# active_author: 0
 				# }

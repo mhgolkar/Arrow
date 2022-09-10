@@ -106,8 +106,6 @@ class Mind :
 		for t in TRANSMITTERS:
 			var tx = Main.get_node(t)
 			tx.connect("request_mind", self, "central_event_dispatcher", [t, tx], 0)
-		# others
-		Grid.connect("scroll_offset_changed", self, "update_last_view_offset", [], CONNECT_DEFERRED)
 		pass
 	
 	func load_node_types() -> void:
@@ -436,8 +434,10 @@ class Mind :
 		Editor.call_deferred("set_project_save_status", ProMan.is_project_saved())
 		pass
 	
-	func update_last_view_offset(offset:Vector2) -> void:
-		ProMan.set_project_last_view_offset(offset, _CURRENT_OPEN_SCENE_ID)
+	func track_last_view(offset: Vector2 = Vector2.INF, zoom: float = -INF, scene_id: int = -1) -> void:
+		var state = Utils.vector2_to_array(offset if offset < Vector2.INF else Grid.get_scroll_ofs())
+		state.append(zoom if zoom > 0 else Grid.get_zoom())
+		ProMan.set_project_last_view(state, (scene_id if scene_id >= 0 else _CURRENT_OPEN_SCENE_ID))
 		pass
 	
 #	func reset_auto_save_quick_preference() -> void:
@@ -582,12 +582,13 @@ class Mind :
 		pass
 	
 	func scene_editorial_open(scene_id:int = -1, restore_last_view:bool = true) -> void:
+		track_last_view() # for the previously open scene
 		load_scene(scene_id, -1) # updates _CURRENT_OPEN_SCENE_ID (-1 = to the entry)
 		scene_id = _CURRENT_OPEN_SCENE_ID
 		if restore_last_view == true:
-			var the_offset = ProMan.get_project_last_view_offset(-1, scene_id)
-			go_to_grid_offset(the_offset)
-		ProMan.call_deferred("set_project_last_open_scene", scene_id)
+			var state = ProMan.get_project_last_view(-1, scene_id)
+			go_to_grid_view(state)
+		ProMan.set_project_last_open_scene(scene_id)
 		pass
 	
 	func load_scene(scene_id:int = -1, node_id:int = -1) -> void:
@@ -889,14 +890,15 @@ class Mind :
 		# (to the node's on-grid offset)
 		var the_scene_id = find_scene_owner_of_node(node_id)
 		var destination = _PROJECT.resources.scenes[the_scene_id].map[node_id].offset
-		go_to_grid_offset(destination)
+		go_to_grid_view(destination)
 		if select == true:
 			_SELECTED_NODES_IDS = [node_id]
-			Grid.call_deferred("select_node_by_id", node_id)
+			Grid.call_deferred("select_node_by_id", node_id, true)
 		pass
 	
-	func go_to_grid_offset(offset:Array = [0,0]) -> void:
-		Grid.call_deferred("got_to_offset", offset)
+	func go_to_grid_view(offset_or_state: Array = [0, 0, 1]) -> void:
+		Grid.call_deferred("got_to_offset", [offset_or_state[0], offset_or_state[1]], false, false)
+		Grid.set_deferred("zoom", offset_or_state[2] if offset_or_state.size() >= 3 else 1)
 		pass
 		
 	func create_new_resource_id() -> int:
@@ -1968,6 +1970,7 @@ class Mind :
 					# will ask for a title and a name
 					# then calls `register_and_save_project`
 			else:
+				track_last_view()
 				reset_project_last_save_time()
 				ProMan.save_project(_PROJECT, false, (Settings.USE_DEPRECATED_BIN_SAVE != true))
 				reset_project_save_status()

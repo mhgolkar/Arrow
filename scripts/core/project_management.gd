@@ -6,6 +6,7 @@
 class_name ProjectManagement
 
 const PROJECT_LIST_FILE_NAME = Settings.PROJECT_LIST_FILE_NAME
+const JSON_FLOAT_PRECISION_HACK = 10_000_000
 
 class ProjectManager :
 	
@@ -329,26 +330,27 @@ class ProjectManager :
 				return _PROJECT_LIST.projects[project_uid].description
 		return null
 	
-	func set_project_last_view_offset(offset = [0, 0], scene_uid:int = 0, project_uid:int = -1) -> void:
-		if (offset is Vector2):
-			offset = Utils.vector2_to_array(offset)
-		if (offset is Array) && (offset.size() == 2) && (offset[0] is float || offset[0] is int) && (offset[1] is float || offset[1] is int):
+	func set_project_last_view(state: Array = [0, 0, 1], scene_uid:int = -1, project_uid:int = -1) -> void:
+		if state is Array && state.size() == 3:
 			project_uid = valid_project_uid_or_default(project_uid)
 			if is_project_listed(project_uid) && (scene_uid >= 0) :
-				if _PROJECT_LIST.projects[project_uid].has("last_view_offset") == false:
-					_PROJECT_LIST.projects[project_uid].last_view_offset = {}
-				_PROJECT_LIST.projects[project_uid].last_view_offset[scene_uid] = offset
+				if _PROJECT_LIST.projects[project_uid].has("last_view") == false:
+					_PROJECT_LIST.projects[project_uid].last_view = {}
+				_PROJECT_LIST.projects[project_uid].last_view[scene_uid] = Utils.refactor_array(state, JSON_FLOAT_PRECISION_HACK, false)
+				print_debug("project %s last view set: " % project_uid, _PROJECT_LIST.projects[project_uid].last_view)
 		else:
-			printerr("Unexpected Behavior! Invalid Offset to set_project_last_view_offset: ", offset)
+			printerr("Unexpected Behavior! Invalid state to set_project_last_view: ", state)
 		pass
 	
-	func get_project_last_view_offset(project_uid:int = -1, scene_uid:int = 0) -> Array:
+	func get_project_last_view(project_uid:int = -1, scene_uid:int = 0) -> Array:
 		project_uid = valid_project_uid_or_default(project_uid)
 		if is_project_listed(project_uid) && (scene_uid >= 0) :
-			if _PROJECT_LIST.projects[project_uid].has("last_view_offset"):
-				if _PROJECT_LIST.projects[project_uid].last_view_offset.has(scene_uid):
-					return _PROJECT_LIST.projects[project_uid].last_view_offset[scene_uid]
-		return [0, 0]
+			if _PROJECT_LIST.projects[project_uid].has("last_view"):
+				if _PROJECT_LIST.projects[project_uid].last_view.has(scene_uid):
+					print_debug("project %s last view get: " % project_uid, _PROJECT_LIST.projects[project_uid].last_view)
+					var state = _PROJECT_LIST.projects[project_uid].last_view[scene_uid]
+					return Utils.refactor_array(state, JSON_FLOAT_PRECISION_HACK, true) # to correct precision
+		return [0, 0, 1]
 	
 	func get_project_active_author(project_uid:int = -1):
 		project_uid = valid_project_uid_or_default(project_uid)
