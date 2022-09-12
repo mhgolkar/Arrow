@@ -18,7 +18,7 @@ const _ALLOW_AUTO_PLAY = true;
 // Nodes (e.g. `Content`s) can clear up the view from all other nodes before them if allowed:
 const _ALLOW_CLEARANCE = true;
 
-const DO_NOT_PRINT_END_MESSAGE = true;
+const DO_NOT_PRINT_EOL_MESSAGE = true;
 
 // Referencing to frequently used DOM Elements
 var DOME = {};
@@ -63,6 +63,7 @@ const NODE_CLASSES_BY_TYPE = {
     "macro_use": MacroUse,
     "marker": Marker,
     "randomizer": Randomizer,
+    "sequencer": Sequencer,
     "user_input": UserInput,
     "variable_update": VariableUpdate,
     // jshint ignore:end
@@ -379,12 +380,17 @@ function handle_status(status_code, the_player_node_instance){
                 // so there might be still more to play on the parent scene:
                 OPEN_MACRO.play_self_forward();
             } else {
-                if ( DO_NOT_PRINT_END_MESSAGE !== true ){
+                var node_name = the_player_node_instance.node_resource.name;
+                console.log(`EOL: ${node_name}`);
+                if ( DO_NOT_PRINT_EOL_MESSAGE !== true ){
                     DOME.CONTENT.appendChild(
-                        create_element('div', i18n('end_of_play'), { class: 'end-message' })
+                        create_element(
+                            'div',
+                            format( i18n('eol'), { "node_name": node_name } ),
+                            { class: 'eol' }
+                        )
                     );
                 }
-                console.log("End of Play!");
             }
             break;
         case _CONSOLE_STATUS_CODE.NO_DEFAULT:

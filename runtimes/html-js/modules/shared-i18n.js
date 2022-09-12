@@ -30,8 +30,8 @@ const _TRANSLATION_TABLE = {
     evaluate: {
         en: "Evaluate",
     },
-    end_of_play: {
-        en: "The End !",
+    eol: {
+        en: "EOL: {node_name}",
     },
 };
 

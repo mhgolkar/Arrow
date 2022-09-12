@@ -337,7 +337,7 @@ func play_step_back(how_many:int = 1) -> void:
 			elif _OPEN_MACRO != null && _OPEN_MACRO.ID != last.id: # out of the macro
 				_OPEN_MACRO.ELEMENT.set_view_played();
 				_OPEN_MACRO = null;
-			elif last.resource.type == 'macro_use':
+			elif last.resource != null && last.resource.type == 'macro_use':
 				open_macro(last.id, last.resource, last.instance)
 			# ...
 			if last.id >= 0: # Non-node printed messages are expected to be `< 0 ~= -1`
@@ -356,19 +356,24 @@ func request_play_forward(to_node_id:int = -1, to_slot:int = -1, _the_player_one
 	pass
 
 func interpret_status_code(code:int, the_player_node = null, the_player_node_uid = null) -> void:
+	var caller = {
+		"uid": the_player_node_uid if the_player_node_uid != null else (-1)
+	}
+	if is_instance_valid(the_player_node):
+		caller.name = the_player_node._NODE_RESOURCE.name
+	else:
+		var resource = Main.Mind.lookup_resource(the_player_node_uid)
+		caller.name = resource.name if resource is Dictionary && resource.has("name") else "Undefined"
+	# ...
 	match code:
 		CONSOLE_STATUS_CODE.END_EDGE:
 			if _OPEN_MACRO != null && the_player_node_uid != _OPEN_MACRO.ID:
 				# It seems like a macro's end of line
 				_OPEN_MACRO.ELEMENT.play_forward_from() # ~ PLAY_MACRO_END_SLOT
 			else:
-				print_console( CONSOLE_STATUS_CODE.END_EDGE_MESSAGE )
+				print_console( CONSOLE_STATUS_CODE.END_EDGE_MESSAGE.format(caller), false, Settings.INFO_COLOR )
 		CONSOLE_STATUS_CODE.NO_DEFAULT:
-			if is_instance_valid(the_player_node):
-				var full_no_default_message = CONSOLE_STATUS_CODE.NO_DEFAULT_MESSAGE + " (" + the_player_node._NODE_RESOURCE.name + ")"
-				print_console( full_no_default_message , true, Settings.CAUTION_COLOR )
-			else:
-				print_console( CONSOLE_STATUS_CODE.NO_DEFAULT_MESSAGE , false, Settings.CAUTION_COLOR )
+			print_console( CONSOLE_STATUS_CODE.NO_DEFAULT_MESSAGE.format(caller) , false, Settings.CAUTION_COLOR )
 	pass
 
 func clear_nodes_before(the_player_node, the_player_node_uid) -> void:

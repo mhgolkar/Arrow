@@ -2,7 +2,7 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Randomizer Node Type Console
+# Sequencer Node Type Console
 extends MarginContainer
 
 signal play_forward
@@ -14,22 +14,24 @@ signal reset_variable
 
 onready var Main = get_tree().get_root().get_child(0)
 
-# if `true` tries to automatically play a randomly chosen slot
+# if `true` tries to automatically run the sequence
 const AUTO_PLAY = true
 
 var _NODE_ID:int
 var _NODE_RESOURCE:Dictionary
 var _NODE_MAP:Dictionary
 var _NODE_SLOTS_MAP:Dictionary
-var _SLOTS_COUNT:int = RandomizerSharedClass.RANDOMIZER_MINIMUM_ACCEPTABLE_OUT_SLOTS
+var _SLOTS_COUNT:int = SequencerSharedClass.SEQUENCER_MINIMUM_ACCEPTABLE_OUT_SLOTS
 
 var This = self
 var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
-var _DEFERRED_VIEW_PLAY_SLOT:int = -1
+var _DEFERRED_VIEW_PLAYED:bool = false
 
-onready var RandomizerName:Button = get_node("./RandomizerPlay/RandomizerName")
-onready var SlotsCount:Label = get_node("./RandomizerPlay/SlotsCount")
+onready var SequencerName:Label = get_node("./SequencerPlay/Identity/SequencerName")
+onready var SlotsCount:Label = get_node("./SequencerPlay/Identity/SlotsCount")
+onready var Play:Button = get_node("./SequencerPlay/Actions/Play")
+onready var Skip:Button = get_node("./SequencerPlay/Actions/Skip")
 
 const ERROR_SLOT_NUMBER_MESSAGE = "ERR"
 
@@ -39,12 +41,13 @@ func _ready() -> void:
 	if _PLAY_IS_SET_UP:
 		setup_view()
 		proceed_auto_play()
-	if _DEFERRED_VIEW_PLAY_SLOT >= 0:
-		set_view_played(_DEFERRED_VIEW_PLAY_SLOT)
+	if _DEFERRED_VIEW_PLAYED:
+		set_view_played()
 	pass
 
 func register_connections() -> void:
-	RandomizerName.connect("pressed", self, "play_forward_randomly", [], CONNECT_DEFERRED)
+	Play.connect("pressed", self, "play_sequence_forward", [], CONNECT_DEFERRED)
+	Skip.connect("pressed", self, "skip_play", [], CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -56,12 +59,12 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 	pass
 
 func setup_view() -> void:
-	# the randomizer's name
+	# the sequencer's name
 	if _NODE_RESOURCE.has("name"):
-		RandomizerName.set_text(_NODE_RESOURCE.name)
+		SequencerName.set_text(_NODE_RESOURCE.name)
 	else:
 		printerr("Node %s data seems corrupt! It lacks `name` key in the resource dictionary." % _NODE_ID)
-	# the randomizer's slot count
+	# the sequencer's slot count
 	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("slots") && (_NODE_RESOURCE.data.slots is int):
 		_SLOTS_COUNT = _NODE_RESOURCE.data.slots
 		SlotsCount.set_text( String(_NODE_RESOURCE.data.slots) )
@@ -89,46 +92,60 @@ func proceed_auto_play() -> void:
 			skip_play()
 		# otherwise auto-play if set
 		elif AUTO_PLAY :
-			play_forward_randomly()
+			play_sequence_forward()
 	else:
 		set_view_unplayed()
 	pass
 
-func play_forward_randomly() -> void:
-	var random_slot_idx = ( randi() % _SLOTS_COUNT )
-	play_forward_from(random_slot_idx)
+func play_sequence_forward() -> void:
+	var nothing  = true
+	for order in range(0, _SLOTS_COUNT): # over all the slots
+		if _NODE_SLOTS_MAP.has(order): # those connected
+			request_play_forward(order) # will be played
+			nothing  = false
+	if nothing:
+		emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+	set_view_played_on_ready()
 	pass
 
-func play_forward_from(slot_idx:int = -1) -> void:
+func play_last_connected_slot() -> void:
+	var nothing  = true
+	for last in range(_SLOTS_COUNT - 1, -1, -1): # the last 
+		if _NODE_SLOTS_MAP.has(last): # connected one
+			request_play_forward(last) # will be played
+			nothing = false
+			break # and only the one
+	if nothing:
+		emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+	set_view_played_on_ready()
+	pass
+
+func request_play_forward(slot_idx:int = -1) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
 			emit_signal("play_forward", next.id, next.slot)
-		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
-		set_view_played_on_ready(slot_idx)
 	pass
 
-func set_view_played_on_ready(slot_idx:int) -> void:
+func set_view_played_on_ready() -> void:
 	if _NODE_IS_READY:
-		set_view_played(slot_idx)
+		set_view_played()
 	else:
-		_DEFERRED_VIEW_PLAY_SLOT = slot_idx
+		_DEFERRED_VIEW_PLAYED = true
 	pass
 
 func set_view_unplayed() -> void:
-	RandomizerName.set_deferred("flat", false)
-	RandomizerName.set_deferred("disabled", false)
+	Play.set_deferred("visible", true)
+	Skip.set_deferred("visible", true)
 	pass
 
-func set_view_played(slot_idx:int = -1) -> void:
-	RandomizerName.set_deferred("flat", true)
-	RandomizerName.set_deferred("disabled", true)
+func set_view_played() -> void:
+	Play.set_deferred("visible", false)
+	Skip.set_deferred("visible", false)
 	pass
 
 func skip_play() -> void:
-	# randomizes anyway
-	play_forward_randomly()
+	play_last_connected_slot()
 	pass
 
 func step_back() -> void:

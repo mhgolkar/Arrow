@@ -95,6 +95,11 @@ _global_script_classes=[ {
 "path": "res://nodes/randomizer/shared.gd"
 }, {
 "base": "Reference",
+"class": "SequencerSharedClass",
+"language": "GDScript",
+"path": "res://nodes/sequencer/shared.gd"
+}, {
+"base": "Reference",
 "class": "Settings",
 "language": "GDScript",
 "path": "res://scripts/settings.gd"
@@ -122,6 +127,7 @@ _global_script_class_icons={
 "NodeTypes": "",
 "ProjectManagement": "",
 "RandomizerSharedClass": "",
+"SequencerSharedClass": "",
 "Settings": "",
 "VariableUpdateSharedClass": ""
 }

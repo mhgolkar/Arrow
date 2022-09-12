@@ -268,14 +268,14 @@ main {}
 }
 
 /*
-`.end-message` is added automatically by the runtime,
-when users can't play any furthur (no more forward nodes.)
+End-of-line (`.eol`) element is added automatically by the runtime (if `DO_NOT_PRINT_EOL_MESSAGE !== true`,)
+whenever a sub-plot-line can not progress any further (i.e. no more nodes forward in that branch.)
 */
-#content .end-message {
+#content .eol {
     margin-top: 2rem;
     color: var(--color-7);
     /*
-    On top of `DO_NOT_PRINT_END_MESSAGE` constant in `arrow.js` file,
+    On top of `DO_NOT_PRINT_EOL_MESSAGE` constant in `arrow.js` file,
     you can uncomment following line if you don't want any end message.
     */
     /* display: none; */
@@ -560,6 +560,16 @@ footer button:not(:first-of-type) {
 }
 .node[data-type='randomizer'] span { /* (Randomizer mark) */ }
 .node[data-type='randomizer'] button {
+    margin: 0.75rem;
+}
+
+/* sequencer */
+.node[data-type='sequencer'] {}
+.node[data-type='sequencer'][data-played='true'] {
+    display: none;
+}
+.node[data-type='sequencer'] span { /* (Sequencer mark) */ }
+.node[data-type='sequencer'] button { /* both skip and play buttons */
     margin: 0.75rem;
 }
 
