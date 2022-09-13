@@ -254,9 +254,16 @@ const INSPECTOR = {
 		"REMOVE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate/HBoxContainer/RemoveCharacter",
 		"CHARACTER_EDITOR": {
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor",
-			"COLOR_PICKER_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/HBoxContainer/CharacterColor",
-			"NAME_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/HBoxContainer/CharacterNameEdit",
-			"SAVE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/HBoxContainer/SaveCharacter",
+			# > Identity
+			"COLOR_PICKER_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer/CharacterColor",
+			"NAME_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer/CharacterNameEdit",
+			"SAVE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer/SaveCharacter",
+			# > Tags
+			"TAGBOX": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Scroll/Tags",
+			"NO_TAG_MESSAGE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Scroll/NoInitialTags",
+			"TAG_EDIT_KEY": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Edit/Key",
+			"TAG_EDIT_VALUE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Edit/Value",
+			"TAG_EDIT_OVERSET": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Edit/Overset",
 		},
 		"CHARACTER_APPEARANCE":{
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance",

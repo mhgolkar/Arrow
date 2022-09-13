@@ -1297,19 +1297,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 theme = ExtResource( 26 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Inspector" type="PanelContainer" parent="FloatToolsLayer/Container"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -325.0
-margin_top = 80.0
-margin_right = -55.0
-margin_bottom = -90.0
-rect_min_size = Vector2( 270, 430 )
+margin_left = -330.0
+margin_top = 65.0
+margin_right = -30.0
+margin_bottom = -80.0
+rect_min_size = Vector2( 300, 430 )
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1318,19 +1315,19 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 263.0
-margin_bottom = 423.0
+margin_right = 293.0
+margin_bottom = 448.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Titlebar" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer"]
-margin_right = 256.0
+margin_right = 286.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="DragPoint" type="Control" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/Titlebar"]
-margin_right = 232.0
+margin_right = 262.0
 margin_bottom = 24.0
 mouse_default_cursor_shape = 6
 size_flags_horizontal = 3
@@ -1346,8 +1343,8 @@ __meta__ = {
 }
 
 [node name="ResizePoint" type="Control" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/Titlebar"]
-margin_left = 236.0
-margin_right = 256.0
+margin_left = 266.0
+margin_right = 286.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 20, 20 )
 mouse_default_cursor_shape = 11
@@ -1370,8 +1367,8 @@ __meta__ = {
 
 [node name="TabContainer" type="TabContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer"]
 margin_top = 28.0
-margin_right = 256.0
-margin_bottom = 416.0
+margin_right = 286.0
+margin_bottom = 441.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 14.0
@@ -2132,8 +2129,8 @@ margin_bottom = 228.0
 text = "Local"
 
 [node name="LocalMode" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes"]
-margin_right = 248.0
-margin_bottom = 349.0
+margin_right = 278.0
+margin_bottom = 374.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -2143,8 +2140,8 @@ __meta__ = {
 [node name="LocalProjects" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 241.0
-margin_bottom = 342.0
+margin_right = 271.0
+margin_bottom = 367.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -2152,23 +2149,23 @@ __meta__ = {
 }
 
 [node name="VSplitContainer" type="VSplitContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects"]
-margin_right = 234.0
-margin_bottom = 308.0
+margin_right = 264.0
+margin_bottom = 333.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/VSplitContainer"]
-margin_right = 234.0
-margin_bottom = 308.0
+margin_right = 264.0
+margin_bottom = 333.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 
 [node name="ListedProjects" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/VSplitContainer/ScrollContainer"]
-margin_right = 234.0
-margin_bottom = 308.0
+margin_right = 264.0
+margin_bottom = 333.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "{ local projects }", null, false ]
@@ -2185,13 +2182,13 @@ bbcode_text = "{ [color=yellow]project description[/color] from the notes on the
 text = "{ project description from the notes on the entry node of the selected one }"
 
 [node name="LocalProjectsActions" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects"]
-margin_top = 312.0
-margin_right = 234.0
-margin_bottom = 335.0
+margin_top = 337.0
+margin_right = 264.0
+margin_bottom = 360.0
 alignment = 1
 
 [node name="NewLocalProjectMenu" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions"]
-margin_right = 75.0
+margin_right = 85.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "New"
@@ -2199,16 +2196,16 @@ flat = false
 script = ExtResource( 7 )
 
 [node name="OpenLocalProject" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions"]
-margin_left = 79.0
-margin_right = 154.0
+margin_left = 89.0
+margin_right = 174.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 disabled = true
 text = "Open"
 
 [node name="RemoveLocalProject" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/LocalProjectsActions"]
-margin_left = 158.0
-margin_right = 234.0
+margin_left = 178.0
+margin_right = 264.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 disabled = true
@@ -2908,128 +2905,201 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer"]
-margin_right = 253.0
-margin_bottom = 238.0
+margin_right = 278.0
+margin_bottom = 136.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CharactersList" type="ItemList" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ScrollContainer"]
-margin_right = 253.0
-margin_bottom = 238.0
+margin_right = 278.0
+margin_bottom = 136.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "{ characters }", null, false ]
 allow_reselect = true
 
 [node name="CharacterEditor" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer"]
-margin_top = 242.0
-margin_right = 253.0
-margin_bottom = 318.0
+margin_top = 140.0
+margin_right = 278.0
+margin_bottom = 333.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 69.0
+margin_right = 271.0
+margin_bottom = 186.0
 alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer"]
-margin_right = 239.0
-margin_bottom = 24.0
+[node name="CharacterIdentity" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer"]
+margin_right = 264.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
 
-[node name="CharacterColor" type="ColorPickerButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/HBoxContainer"]
-margin_right = 39.0
-margin_bottom = 24.0
+[node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 257.0
+margin_bottom = 34.0
+
+[node name="CharacterColor" type="ColorPickerButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer"]
+margin_right = 41.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 color = Color( 0.0588235, 0.956863, 0.87451, 1 )
 edit_alpha = false
 
-[node name="CharacterNameEdit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/HBoxContainer"]
-margin_left = 43.0
-margin_right = 202.0
-margin_bottom = 24.0
+[node name="CharacterNameEdit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer"]
+margin_left = 45.0
+margin_right = 210.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
 placeholder_text = "Character's Unique Name"
 
-[node name="SaveCharacter" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/HBoxContainer"]
-margin_left = 206.0
-margin_right = 238.0
-margin_bottom = 24.0
+[node name="SaveCharacter" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer"]
+margin_left = 214.0
+margin_right = 250.0
+margin_bottom = 27.0
 text = "Set"
 
+[node name="CharacterTags" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer"]
+margin_top = 45.0
+margin_right = 264.0
+margin_bottom = 138.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 257.0
+margin_bottom = 86.0
+
+[node name="Scroll" type="ScrollContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer"]
+margin_right = 250.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tags" type="HFlowContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Scroll"]
+margin_right = 250.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tag" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Scroll/Tags"]
+margin_right = 68.0
+margin_bottom = 23.0
+hint_tooltip = "Tag Value"
+text = "Tag Key"
+flat = false
+items = [ "Tag Value", null, 0, false, true, -1, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Edit", null, 0, false, false, 0, 0, null, "", false, "Remove", null, 0, false, false, 1, 0, null, "", false ]
+
+[node name="NoInitialTags" type="Label" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Scroll"]
+margin_right = 250.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
+text = "No Initial Tags"
+align = 1
+valign = 1
+
+[node name="Edit" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer"]
+margin_top = 52.0
+margin_right = 250.0
+margin_bottom = 79.0
+
+[node name="Key" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Edit"]
+margin_right = 111.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+placeholder_text = "Key"
+
+[node name="Value" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Edit"]
+margin_left = 115.0
+margin_right = 226.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+placeholder_text = "Value"
+
+[node name="Overset" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Edit"]
+margin_left = 230.0
+margin_right = 250.0
+margin_bottom = 27.0
+hint_tooltip = "Oversets (adds or updates) a tag"
+text = "+"
+
 [node name="CharacterAppearance" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer"]
-margin_top = 28.0
-margin_right = 239.0
-margin_bottom = 62.0
+margin_top = 142.0
+margin_right = 264.0
+margin_bottom = 179.0
 size_flags_horizontal = 3
 
 [node name="CharacterAppearancePagination" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 232.0
-margin_bottom = 27.0
+margin_right = 257.0
+margin_bottom = 30.0
 
 [node name="PreviousAppearance" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
-margin_left = 400.0
-margin_right = 430.0
-margin_bottom = 27.0
+margin_right = 20.0
+margin_bottom = 23.0
 hint_tooltip = "Locate Previous Referrer"
 text = ""
 
 [node name="GoToAppearance" type="MenuButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
-margin_left = 171.0
-margin_right = 225.0
-margin_bottom = 20.0
+margin_left = 24.0
+margin_right = 84.0
+margin_bottom = 23.0
 hint_tooltip = "Resources depending on this character (e.g. dialogs,) in this scene of total."
 text = "Locate"
 flat = false
 items = [ "{ referrers by name }", null, 0, false, false, 0, 0, null, "", false ]
 
 [node name="NextAppearance" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
-margin_left = 556.0
-margin_right = 586.0
-margin_bottom = 27.0
+margin_left = 88.0
+margin_right = 108.0
+margin_bottom = 23.0
 hint_tooltip = "Locate Next Referrer"
 text = ""
 
 [node name="CharacterCreate" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer"]
-margin_top = 322.0
-margin_right = 253.0
-margin_bottom = 356.0
+margin_top = 337.0
+margin_right = 278.0
+margin_bottom = 374.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 27.0
+margin_right = 271.0
+margin_bottom = 30.0
 alignment = 2
 
 [node name="RemoveCharacter" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate/HBoxContainer"]
-margin_right = 64.0
-margin_bottom = 20.0
+margin_right = 60.0
+margin_bottom = 23.0
 text = "Remove"
 
 [node name="MarginContainer" type="MarginContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate/HBoxContainer"]
-margin_left = 68.0
-margin_right = 195.0
-margin_bottom = 20.0
+margin_left = 64.0
+margin_right = 224.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 
 [node name="NewCharacter" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate/HBoxContainer"]
-margin_left = 199.0
-margin_right = 239.0
-margin_bottom = 20.0
+margin_left = 228.0
+margin_right = 264.0
+margin_bottom = 23.0
 text = "New"
 
 [node name="Lobby" type="PanelContainer" parent="FloatToolsLayer/Container"]

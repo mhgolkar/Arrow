@@ -27,15 +27,23 @@ onready var CharactersNewButton = get_node(Addressbook.INSPECTOR.CHARACTERS.NEW_
 onready var CharacterRemoveButton = get_node(Addressbook.INSPECTOR.CHARACTERS.REMOVE_BUTTON)
 
 onready var CharacterEditorPanel = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.itself)
+# > Identity
 onready var CharacterEditorName = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.NAME_EDIT)
 onready var CharacterColorPickerButton = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.COLOR_PICKER_BUTTON)
 onready var CharacterEditorSaveButton = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.SAVE_BUTTON)
+# > Tags
+onready var TagBox = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.TAGBOX)
+onready var NoTagMessage = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.NO_TAG_MESSAGE)
+onready var TagEditKey = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.TAG_EDIT_KEY)
+onready var TagEditValue = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.TAG_EDIT_VALUE)
+onready var TagEditOverset = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.TAG_EDIT_OVERSET)
 
 onready var CharacterAppearanceGoToButton = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_APPEARANCE.GO_TO_MENU_BUTTON)
 onready var CharacterAppearanceGoToButtonPopup = CharacterAppearanceGoToButton.get_popup()
 onready var CharacterAppearanceGoToPrevious = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_APPEARANCE.GO_TO_PREVIOUS)
 onready var CharacterAppearanceGoToNext = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_APPEARANCE.GO_TO_NEXT)
 
+const TAG_KEY_VALUE_DISPLAY_TEMPLATE = "`{value}`" # also available: {key}
 const CHARACTER_APPEARANCE_INDICATION_TEMPLATE = "{here} : {total}"
 
 func _ready() -> void:
@@ -49,6 +57,7 @@ func register_connections() -> void:
 	CharactersList.connect("nothing_selected", self, "_on_characters_list_nothing_selected", [], CONNECT_DEFERRED)
 	CharacterEditorSaveButton.connect("pressed", self, "submit_character_modification", [], CONNECT_DEFERRED)
 	CharacterRemoveButton.connect("pressed", self, "request_remove_character", [], CONNECT_DEFERRED)
+	TagEditOverset.connect("pressed", self, "read_and_overset_tag", [], CONNECT_DEFERRED)
 	CharacterAppearanceGoToButtonPopup.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
 	CharacterAppearanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
 	CharacterAppearanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
@@ -170,6 +179,8 @@ func load_character_in_editor(character_id:int) -> void:
 	CharacterColorPickerButton.set("color", Utils.rgba_hex_to_color(the_character.color))
 	# can't it be removed ? not if it's used by other resources
 	CharacterRemoveButton.set_disabled( (the_character.has("use") && the_character.use.size() > 0) )
+	# ...
+	update_tag_box(character_id)
 	update_appearance_pagination(character_id)
 	smartly_toggle_editor()
 	pass
@@ -180,6 +191,77 @@ func refresh_character_cache_by_id(character_id:int) -> void:
 		if the_character is Dictionary:
 			_LISTED_CHARACTERS_BY_ID[character_id] = the_character
 			_LISTED_CHARACTERS_BY_NAME[the_character.name] = _LISTED_CHARACTERS_BY_ID[character_id]
+	pass
+
+func take_tag_action(action_id: int, key: String, value: String) -> void:
+	match action_id:
+		1: # Edit
+			TagEditKey.set_text(key)
+			TagEditValue.set_text(value)
+			TagEditValue.grab_focus()
+		2: # Unset
+			TagEditKey.set_text(key)
+			TagEditKey.grab_focus()
+			TagEditValue.set_text(value)
+			var tag_unset = {
+				"id": _SELECTED_CHARACTER_BEING_EDITED_ID, 
+				"modification": { "tags": { key: null } },
+				"field": "characters"
+			}
+			self.emit_signal("relay_request_mind", "update_resource", tag_unset)
+		3: # Overset
+			var tag_overset = {
+				"id": _SELECTED_CHARACTER_BEING_EDITED_ID, 
+				"modification": { "tags": { key: value } },
+				"field": "characters"
+			}
+			self.emit_signal("relay_request_mind", "update_resource", tag_overset)
+	pass
+
+func read_and_overset_tag() -> void:
+	var key = TagEditKey.get_text()
+	var value = TagEditValue.get_text()
+	if key.length() > 0:
+		take_tag_action(3, key, value)
+	pass
+
+func clean_all_tags() -> void:
+	for node in TagBox.get_children():
+		if node is Button:
+			node.free()
+	pass
+
+func append_tag_to_box(key: String, value: String) -> void:
+	var key_value_display = TAG_KEY_VALUE_DISPLAY_TEMPLATE.format({ "key": key, "value": value })
+	var the_tag = MenuButton.new()
+	the_tag.set_text(key)
+	the_tag.set_tooltip(key_value_display)
+	the_tag.set_flat(false)
+	var the_popup = the_tag.get_popup()
+	the_popup.add_item(key_value_display, 0)
+	the_popup.set_item_disabled(0, true)
+	the_popup.add_separator("", 0)
+	the_popup.add_item("Edit", 1)
+	the_popup.add_item("Unset", 2)
+	the_popup.connect("id_pressed", self, "take_tag_action", [key, value], CONNECT_DEFERRED)
+	# ...
+	TagBox.add_child(the_tag)
+	pass
+
+func update_tag_box(character_id:int) -> void:
+	clean_all_tags()
+	refresh_character_cache_by_id(character_id)
+	var the_character = _LISTED_CHARACTERS_BY_ID[character_id]
+	var tags_available = (
+		the_character is Dictionary && the_character.has("tags") &&
+		the_character.tags is Dictionary && the_character.tags.size() > 0
+	)
+	if tags_available:
+		# print_debug("Character tags available: ", the_character.tags)
+		for key in the_character.tags:
+			append_tag_to_box(key, the_character.tags[key])
+	TagBox.set_visible(tags_available)
+	NoTagMessage.set_visible( ! tags_available )
 	pass
 
 func refresh_referrers_list() -> void:
