@@ -10,6 +10,8 @@ signal request_mind
 onready var TheTree = get_tree()
 onready var Main = TheTree.get_root().get_child(0)
 
+var Utils = Helpers.Utils
+
 onready var Terminal = get_node(Addressbook.CONSOLE.TERMINAL)
 onready var TerminalScroll = get_node(Addressbook.CONSOLE.TERMINAL_SCROLL_CONTAINER)
 onready var ClearConsoleButton = get_node(Addressbook.CONSOLE.CLEAR)
@@ -23,6 +25,7 @@ const CONSOLE_MESSAGE_DEFAULT_COLOR = Settings.CONSOLE_MESSAGE_DEFAULT_COLOR
 var _CACHED_TYPES:Dictionary = {}
 var _NODES_IN_TERMINAL = [] # new one first [0]
 var _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL = []
+var _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL = []
 var _SKIPPED_NODES:Dictionary = {}
 var _OPEN_MACRO = null # or { "ELEMENT": ..., "TERMINAL": ..., "MACRO_NODES": [...] }
 
@@ -31,6 +34,7 @@ var _AUTOSCROLL:bool = true
 var _ALLOW_AUTO_PLAY:bool = true
 var _PREVENT_CLEARANCE:bool = false
 var _INSPECT_VARIABLES:bool = false
+var _INSPECT_CHAR_TAGS:bool = false
 var _SHOW_SKIPPED_NODES:bool = false
 
 const CLEARANCE_PREVENTION_MESSAGE = "Clearance ignored."
@@ -44,8 +48,9 @@ const CONSOLE_SETTINGS_MENU = {
 	0: { "label": "Auto-scroll", "is_checkbox": true , "action": "_reset_settings_auto_scroll" },
 	1: { "label": "Allow Auto-play", "is_checkbox": true , "action": "_reset_settings_allow_auto_play" },
 	2: { "label": "Prevent Clearance", "is_checkbox": true , "action": "_reset_settings_prevent_clearance" },
-	3: { "label": "Inspect Variables", "is_checkbox": true , "action": "_reset_settings_inspect_variables" },
-	4: { "label": "Show Skipped Nodes", "is_checkbox": true , "action": "_reset_settings_show_skipped_nodes" },
+	3: { "label": "Show Skipped Nodes", "is_checkbox": true , "action": "_reset_settings_show_skipped_nodes" },
+	4: { "label": "Inspect Variables", "is_checkbox": true , "action": "_reset_settings_inspect_variables" },
+	5: { "label": "Inspect Character Tags", "is_checkbox": true , "action": "_reset_settings_inspect_char_tags" },
 }
 var _CONSOLE_SETTINGS_MENU_ITEM_INDEX_BY_ACTION = {}
 
@@ -59,6 +64,17 @@ onready var VariableInspectorCurrentValue = {
 }
 onready var VariableInspectorUpdateButton = get_node(Addressbook.CONSOLE.VARIABLE_INSPECTOR.UPDATE_BUTTON)
 
+onready var CharTagsInspectorPanel = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.itself)
+onready var CharTagsInspectorSelect = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.CHAR_SELECTOR)
+onready var CharTagsInspectorCurrent = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.CURRENT)
+onready var CharTagsInspectorTagBox = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.TAGBOX)
+onready var CharTagsInspectorNoneMessage = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.NO_TAG_MESSAGE)
+onready var CharTagsInspectorEditKey = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.TAG_EDIT_KEY)
+onready var CharTagsInspectorEditValue = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.TAG_EDIT_VALUE)
+onready var CharTagsInspectorEditOverset = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.TAG_EDIT_OVERSET)
+
+const CHAR_TAG_KEY_VALUE_DISPLAY_TEMPLATE = "`{value}`" # also available: {key}
+
 func _ready() -> void:
 	register_connections()
 	load_console_settings_menu()
@@ -71,6 +87,8 @@ func register_connections() -> void:
 	SettingsMenuButtonPopup.connect("id_pressed", self, "_on_console_settings_popup_menu_id_pressed", [], CONNECT_DEFERRED)
 	VariableInspectorSelect.connect("item_selected", self, "_on_variable_inspector_item_select", [], CONNECT_DEFERRED)
 	VariableInspectorUpdateButton.connect("pressed", self, "update_current_inspected_variable", [], CONNECT_DEFERRED)
+	CharTagsInspectorSelect.connect("item_selected", self, "_on_char_tags_inspector_item_select", [], CONNECT_DEFERRED)
+	CharTagsInspectorEditOverset.connect("pressed", self, "read_and_overset_current_inspected_char_tag", [], CONNECT_DEFERRED)
 	pass
 
 func _request_mind(req:String, args = null) -> void:
@@ -171,7 +189,113 @@ func update_current_inspected_variable() -> void:
 		print(current_variable_set)
 	pass
 
-func append_to_terminal(node_instance, node_uid: int = -1, node_resource = null, variables_current = null) -> void:
+func refresh_characters_list() -> void:
+	var the_selected_one_index_before_referesh = CharTagsInspectorSelect.get_selected()
+	CharTagsInspectorSelect.clear()
+	var no_char_yet = true
+	if _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() >= 1:
+		var characters = _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL[0]
+		if characters.size() > 0 :
+			for character_id in characters:
+				CharTagsInspectorSelect.add_item(characters[character_id].name, character_id)
+			# reselect the character after refresh
+			if the_selected_one_index_before_referesh < characters.size():
+				CharTagsInspectorSelect.select(the_selected_one_index_before_referesh)
+			no_char_yet = false
+	if no_char_yet:
+		CharTagsInspectorSelect.add_item("No Character Available", -1)
+	inspect_character()
+	pass
+
+func take_char_tag_action(action_id: int, char_id: int, key: String, value: String) -> void:
+	if char_id >= 0 && _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
+		var current_character_set = _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL[0]
+		if current_character_set.has(char_id):
+			var selected_character = current_character_set[char_id]
+			match action_id:
+				1: # Edit
+					CharTagsInspectorEditKey.set_text(key)
+					CharTagsInspectorEditValue.set_text(value)
+					CharTagsInspectorEditValue.grab_focus()
+				2: # Unset
+					CharTagsInspectorEditKey.set_text(key)
+					CharTagsInspectorEditKey.grab_focus()
+					CharTagsInspectorEditValue.set_text(value)
+					selected_character.tags.erase(key)
+				3: # Overset
+					selected_character.tags[key] = value
+	inspect_character()
+	pass
+
+func clean_all_char_tags() -> void:
+	for node in CharTagsInspectorTagBox.get_children():
+		if node is Button:
+			node.free()
+	pass
+
+func append_char_tag_to_box(char_id: int, key: String, value: String) -> void:
+	var key_value_display = CHAR_TAG_KEY_VALUE_DISPLAY_TEMPLATE.format({ "key": key, "value": value })
+	var the_tag = MenuButton.new()
+	the_tag.set_text(key)
+	the_tag.set_tooltip(key_value_display)
+	the_tag.set_flat(false)
+	var the_popup = the_tag.get_popup()
+	the_popup.add_item(key_value_display, 0)
+	the_popup.set_item_disabled(0, true)
+	the_popup.add_separator("", 0)
+	the_popup.add_item("Edit", 1)
+	the_popup.add_item("Unset", 2)
+	the_popup.connect("id_pressed", self, "take_char_tag_action", [char_id, key, value], CONNECT_DEFERRED)
+	# ...
+	CharTagsInspectorTagBox.add_child(the_tag)
+	pass
+	
+func inspect_character(id:int = -1) -> void:
+	clean_all_char_tags()
+	var a_char_inspected = false
+	var tags_available = false
+	if id < 0 :
+		id = CharTagsInspectorSelect.get_selected_id()
+	if id >= 0 && _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
+		var current_character_set = _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL[0]
+		if current_character_set.size() > 0:
+			if current_character_set.has(id):
+				a_char_inspected = true
+				var selected_character = current_character_set[id]
+				tags_available = (
+					selected_character is Dictionary && selected_character.has("tags") &&
+					selected_character.tags is Dictionary && selected_character.tags.size() > 0
+				)
+				if tags_available:
+					# print_debug("Console + Inspected character tags available: ", selected_character.tags)
+					for key in selected_character.tags:
+						append_char_tag_to_box(id, key, selected_character.tags[key])
+			else:
+				# there might be a lingering previously inspected character after step back or removal
+				refresh_characters_list()
+	CharTagsInspectorTagBox.set_visible(tags_available)
+	CharTagsInspectorNoneMessage.set_visible( ! tags_available )
+	CharTagsInspectorPanel.set_v_size_flags( SIZE_EXPAND_FILL if tags_available else SIZE_FILL )
+	CharTagsInspectorCurrent.set("visible", a_char_inspected)
+	pass
+
+func _on_char_tags_inspector_item_select(idx:int = -1) -> void:
+	# it inspects based on `get_selected_id`, so automatically converts idx to id
+	inspect_character()
+	pass
+
+func read_and_overset_current_inspected_char_tag() -> void:
+	var char_id = CharTagsInspectorSelect.get_selected_id()
+	var key = Utils.exposure_safe_resource_name( CharTagsInspectorEditKey.get_text() )
+	CharTagsInspectorEditKey.set_text(key) # ... so the user can see the safe key if we have changed it
+	var value = CharTagsInspectorEditValue.get_text()
+	if key.length() > 0:
+		take_char_tag_action(3, char_id, key, value)
+	pass
+
+func append_to_terminal(
+	node_instance, node_uid: int = -1, node_resource = null, variables_current = null, characters_current = null
+) -> void:
 	if _OPEN_MACRO != null && (_OPEN_MACRO.MACRO_NODES.has(node_uid) || node_uid == -1):
 		_OPEN_MACRO.ELEMENT.call("append_subnode", node_instance)
 	else:
@@ -187,8 +311,12 @@ func append_to_terminal(node_instance, node_uid: int = -1, node_resource = null,
 	if (variables_current is Dictionary) == false:
 		variables_current = clone_fresh_variable_set()
 	_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.push_front( variables_current )
-	# print("New node appended to the terminal. ", _NODES_IN_TERMINAL, _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL)
+	if (characters_current is Dictionary) == false:
+		characters_current = clone_fresh_character_set()
+	_CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.push_front( characters_current )
+	# ...
 	self.call_deferred("refresh_variables_list")
+	self.call_deferred("refresh_characters_list")
 	self.call_deferred("update_scroll_to_v_max")
 	pass
 
@@ -215,6 +343,21 @@ func clone_fresh_variable_set() -> Dictionary:
 			new_set[variable_id].value = all_registered_variables[variable_id].init
 	return new_set
 
+func clone_fresh_character_set() -> Dictionary:
+	var new_set:Dictionary = {}
+	if _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0 :
+		# clone the changes from the last synced set
+		new_set = _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL[0].duplicate(true)
+	# then check for any new characters, because there might be new ones created since previous play in console;
+	# it also loads initial values in empty `new_set` if there has been no previously played set
+	var all_registered_characters = Main.Mind.clone_dataset_of("characters")
+	for character_id in all_registered_characters:
+		if new_set.has(character_id) == false:
+			new_set[character_id] = all_registered_characters[character_id]
+			if new_set[character_id].has("tags") == false:
+				new_set[character_id].tags = {}
+	return new_set
+
 # clears console even if clearance prevention setting is on,
 # because it's called by core and not console nodes
 func clear_console() -> void:
@@ -223,9 +366,11 @@ func clear_console() -> void:
 		_NODES_IN_TERMINAL.pop_front().instance.queue_free()
 		all_nodes_count -= 1
 	_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.clear()
+	_CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.clear()
 	_SKIPPED_NODES.clear()
 	print_debug("Console Cleared.")
 	self.call_deferred("refresh_variables_list")
+	self.call_deferred("refresh_characters_list")
 	pass
 
 # listens to the playing node for only ONE EMISSION of each possible message,
@@ -236,6 +381,7 @@ const POSSIBLE_SIGNALS_FROM_PLAYING_NODES = {
 	"status_code"    : "interpret_status_code",
 	"clear_up"       : "clear_nodes_before",
 	"reset_variable" : "reset_synced_variable",
+	"overset_characters_tags" : "overset_synced_characters_tags",
 }
 
 func listen_to_playing_node(node:Node, node_uid:int = -1) -> void:
@@ -243,8 +389,9 @@ func listen_to_playing_node(node:Node, node_uid:int = -1) -> void:
 	# we shall check for existance of the connection first to avoid error
 	for the_signal in POSSIBLE_SIGNALS_FROM_PLAYING_NODES:
 		var the_method = POSSIBLE_SIGNALS_FROM_PLAYING_NODES[the_signal]
-		if node.is_connected(the_signal, self, the_method) == false:
-			node.connect(the_signal, self, the_method, [node, node_uid], CONNECT_DEFERRED)
+		if node.has_signal(the_signal):
+			if node.is_connected(the_signal, self, the_method) == false:
+				node.connect(the_signal, self, the_method, [node, node_uid], CONNECT_DEFERRED)
 	# 'console' lets users to double click on a playing node and jump to the respective node on the gird,
 	# so we listen for that too ...
 	if node.is_connected("gui_input", self, "_on_playing_node_gui_input") == false:
@@ -275,12 +422,18 @@ func play_node(node_uid:int, node_resource:Dictionary, node_map:Dictionary, type
 		if _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0 else
 		clone_fresh_variable_set()
 	)
+	var synced_char_set = (
+		_CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL[0].duplicate(true)
+		if _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0 else
+		clone_fresh_character_set()
+	)
 	the_play_node.call_deferred("setup_play",
 		node_uid,
 		node_resource.duplicate(true),
 		node_map.duplicate(true),
 		playing_in_slot,
-		synced_var_set
+		synced_var_set,
+		synced_char_set
 	)
 	listen_to_playing_node(the_play_node, node_uid)
 	append_to_terminal(the_play_node, node_uid, node_resource, synced_var_set)
@@ -320,6 +473,7 @@ func play_step_back(how_many:int = 1) -> void:
 	if _NODES_IN_TERMINAL.size() >= how_many:
 		while (how_many > 0):
 			_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.pop_front()
+			_CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.pop_front()
 			var node = _NODES_IN_TERMINAL.pop_front().instance
 			if is_instance_valid(node):
 				if "_NODE_ID" in node && _SKIPPED_NODES.has(node._NODE_ID):
@@ -345,6 +499,7 @@ func play_step_back(how_many:int = 1) -> void:
 			reset_node_skippness_view(last.instance, false) # make sure it's visible even skipped
 			self.call_deferred("update_scroll_to_v_max")
 		self.call_deferred("refresh_variables_list")
+		self.call_deferred("refresh_characters_list")
 	pass
 
 func request_play_forward(to_node_id:int = -1, to_slot:int = -1, _the_player_one = null, _the_player_one_uid = null):
@@ -384,9 +539,11 @@ func clear_nodes_before(the_player_node, the_player_node_uid) -> void:
 				if oldest.id != the_player_node_uid:
 					_NODES_IN_TERMINAL.pop_back().instance.queue_free()
 					_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.pop_back()
+					_CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.pop_back()
 				else:
 					break
 			self.call_deferred("refresh_variables_list")
+			self.call_deferred("refresh_characters_list")
 	else:
 		print_console( CLEARANCE_PREVENTION_MESSAGE, false, CLEARANCE_PREVENTION_MESSAGE_COLOR )
 	pass
@@ -418,15 +575,44 @@ func reset_synced_variable(variable_update_list:Dictionary, the_player_node = nu
 	refresh_variables_list()
 	pass
 
+func overset_synced_characters_tags(char_tags_update_list:Dictionary, the_player_node = null, the_player_node_uid = null) -> void:
+	# print_debug("overset_synced_characters_tags : ", char_tags_update_list)
+	if _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
+		assert(
+			_CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() == _NODES_IN_TERMINAL.size(),
+			"Size of synced character sets are expected to be the same as nodes in terminal!"
+		)
+		if _NODES_IN_TERMINAL[0].id == the_player_node_uid:
+			var the_set = _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL[0]
+			for character_id in char_tags_update_list:
+				if the_set.has(character_id):
+					for key in char_tags_update_list[character_id]:
+						the_set[character_id][ String(key) ] = String(char_tags_update_list[character_id][key])
+				else:
+					printerr("Invalid Console Node Behavior! Trying to overset tag(s) for nonexistent character %s by node %s " % [character_id, the_player_node_uid])
+		else:
+			printerr(
+				"Unexpected behavior: Variable update ignored! Only the last node (%s) is allowed to update character sets (not requesting %s.)"
+				% [_NODES_IN_TERMINAL[0].id, the_player_node_uid]
+			)
+	else:
+		printerr("Unexpected behavior: node " + the_player_node_uid + " tried to update characters while no one is set up in memory!")
+	refresh_characters_list()
+	pass
+
 func refresh_console_setting_menu_buttons() -> void:
 	SettingsMenuButtonPopup.set_item_checked(0, _AUTOSCROLL)
 	SettingsMenuButtonPopup.set_item_checked(1, _ALLOW_AUTO_PLAY)
 	SettingsMenuButtonPopup.set_item_checked(2, _PREVENT_CLEARANCE)
-	SettingsMenuButtonPopup.set_item_checked(3, _INSPECT_VARIABLES)
-	SettingsMenuButtonPopup.set_item_checked(4, _SHOW_SKIPPED_NODES)
+	SettingsMenuButtonPopup.set_item_checked(3, _SHOW_SKIPPED_NODES)
+	SettingsMenuButtonPopup.set_item_checked(4, _INSPECT_VARIABLES)
+	SettingsMenuButtonPopup.set_item_checked(5, _INSPECT_CHAR_TAGS)
 	VariablesInspectorPanel.set_visible(_INSPECT_VARIABLES)
+	CharTagsInspectorPanel.set_visible(_INSPECT_CHAR_TAGS)
 	if _INSPECT_VARIABLES:
 		self.call_deferred("refresh_variables_list")
+	if _INSPECT_CHAR_TAGS:
+		self.call_deferred("refresh_characters_list")
 	pass
 
 func _reset_settings_auto_scroll() -> void:
@@ -446,6 +632,11 @@ func _reset_settings_prevent_clearance() -> void:
 
 func _reset_settings_inspect_variables() -> void:
 	_INSPECT_VARIABLES = (! _INSPECT_VARIABLES)
+	refresh_console_setting_menu_buttons()
+	pass
+
+func _reset_settings_inspect_char_tags() -> void:
+	_INSPECT_CHAR_TAGS = (! _INSPECT_CHAR_TAGS)
 	refresh_console_setting_menu_buttons()
 	pass
 

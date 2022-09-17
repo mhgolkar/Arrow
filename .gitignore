@@ -25,7 +25,6 @@ mono_crash.*.json
 
 # Misc
 .git/
-.repository/
 .wiki/
 .extra/
 .releases/

@@ -3382,6 +3382,7 @@ margin_right = 247.0
 margin_bottom = 350.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/PanelContainer"]
 margin_left = 7.0
@@ -3400,36 +3401,39 @@ size_flags_vertical = 3
 
 [node name="VariableCurrentValueInspector" type="PanelContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer"]
 visible = false
-margin_top = 292.0
+margin_top = 282.0
 margin_right = 247.0
-margin_bottom = 354.0
+margin_bottom = 350.0
+size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 240.0
-margin_bottom = 55.0
+margin_bottom = 61.0
+size_flags_horizontal = 3
 
 [node name="Variables" type="OptionButton" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer"]
 margin_right = 233.0
-margin_bottom = 20.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "{ variables list }"
 items = [ "{ variables list }", null, false, 0, null ]
 selected = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer"]
-margin_top = 24.0
+margin_top = 27.0
 margin_right = 233.0
-margin_bottom = 48.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
 
 [node name="CurrentValue" type="MarginContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer"]
-margin_right = 171.0
-margin_bottom = 24.0
+margin_right = 169.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 
 [node name="String" type="LineEdit" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer/CurrentValue"]
-margin_right = 171.0
+margin_right = 169.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 __meta__ = {
@@ -3438,7 +3442,7 @@ __meta__ = {
 
 [node name="Number" type="SpinBox" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer/CurrentValue"]
 visible = false
-margin_right = 171.0
+margin_right = 169.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 allow_greater = true
@@ -3449,17 +3453,105 @@ __meta__ = {
 
 [node name="Boolean" type="OptionButton" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer/CurrentValue"]
 visible = false
-margin_right = 171.0
+margin_right = 169.0
 margin_bottom = 27.0
+size_flags_horizontal = 3
 text = "True"
 items = [ "True", null, false, 1, null, "False", null, false, 0, null ]
 selected = 0
 
 [node name="UpdateCurrentValue" type="Button" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer"]
-margin_left = 175.0
+margin_left = 173.0
 margin_right = 233.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 text = "Update"
+
+[node name="CharacterTagsInspector" type="PanelContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer"]
+visible = false
+margin_top = 177.0
+margin_right = 254.0
+margin_bottom = 350.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector"]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Selector" type="OptionButton" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 247.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="Current" type="VBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 247.0
+margin_bottom = 166.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Scroll" type="ScrollContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current"]
+margin_top = 27.0
+margin_right = 240.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tags" type="HFlowContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Scroll"]
+margin_right = 240.0
+margin_bottom = 101.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tag" type="MenuButton" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Scroll/Tags"]
+margin_right = 68.0
+margin_bottom = 23.0
+hint_tooltip = "Tag Value"
+focus_mode = 2
+text = "Tag Key"
+flat = false
+items = [ "Tag Value", null, 0, false, true, -1, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Edit", null, 0, false, false, 0, 0, null, "", false, "Remove", null, 0, false, false, 1, 0, null, "", false ]
+
+[node name="NoTagsCurrently" type="Label" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Scroll"]
+margin_right = 240.0
+margin_bottom = 101.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
+text = "No Tags Currently"
+align = 1
+valign = 1
+
+[node name="Edit" type="HBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current"]
+margin_top = 132.0
+margin_right = 240.0
+margin_bottom = 159.0
+size_flags_horizontal = 3
+
+[node name="Key" type="LineEdit" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Edit"]
+margin_right = 106.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+placeholder_text = "Key"
+
+[node name="Value" type="LineEdit" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Edit"]
+margin_left = 110.0
+margin_right = 216.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+placeholder_text = "Value"
+
+[node name="Overset" type="Button" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Edit"]
+margin_left = 220.0
+margin_right = 240.0
+margin_bottom = 27.0
+hint_tooltip = "Oversets (adds or updates) a tag"
+text = "+"
 
 [node name="Toolbar" type="HBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer"]
 margin_top = 392.0

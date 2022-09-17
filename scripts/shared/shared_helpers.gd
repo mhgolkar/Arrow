@@ -481,6 +481,16 @@ class Utils:
 	
 	static func ellipsis(text: String, length: int) -> String:
 		return text.substr(0, length) + ("..." if text.length() > length else "")
+	
+	# Returns a version of the name that is safe to be used with recursive parsing (text formatting with dictionary)
+	static func exposure_safe_resource_name(
+		name: String,
+		restricted = Settings.EXPOSURE_SAFE_NAME_RESTRICTED_CHARS,
+		replacement = Settings.EXPOSURE_SAFE_NAME_RESTRICTED_CHARS_REPLACEMENT
+	) -> String:
+		for c in restricted:
+			name = name.replace(c, replacement)
+		return name
 
 # List Node Helpers
 class ListHelpers:

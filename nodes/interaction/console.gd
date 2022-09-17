@@ -7,10 +7,9 @@ extends PanelContainer
 
 signal play_forward
 signal status_code
-# warning-ignore:unused_signal
-signal clear_up
-# warning-ignore:unused_signal
-signal reset_variable
+# signal clear_up
+# signal reset_variable
+# signal overset_characters_tags
 
 onready var Main = get_tree().get_root().get_child(0)
 
@@ -81,7 +80,10 @@ func setup_view() -> void:
 			ActionsHolder.add_child(the_action_button)
 	pass
 
-func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1, variables_current:Dictionary={}) -> void:
+func setup_play(
+	node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1,
+	variables_current:Dictionary={}, _characters_current:Dictionary={}
+) -> void:
 	_NODE_ID = node_id
 	_NODE_RESOURCE = node_resource
 	_NODE_MAP = node_map

@@ -336,4 +336,14 @@ const CONSOLE = {
 		},
 		"UPDATE_BUTTON": "/root/Main/FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/VariableCurrentValueInspector/VBoxContainer/HBoxContainer/UpdateCurrentValue",
 	},
+	"CHAR_TAGS_INSPECTOR": {
+		"itself": "/root/Main/FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector",
+		"CHAR_SELECTOR": "/root/Main/FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Selector",
+		"CURRENT": "/root/Main/FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current",
+		"TAGBOX": "/root/Main/FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Scroll/Tags",
+		"NO_TAG_MESSAGE": "/root/Main/FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Scroll/NoTagsCurrently",
+		"TAG_EDIT_KEY": "/root/Main/FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Edit/Key",
+		"TAG_EDIT_VALUE": "/root/Main/FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Edit/Value",
+		"TAG_EDIT_OVERSET": "/root/Main/FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Edit/Overset",
+	},
 }

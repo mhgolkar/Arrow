@@ -33,7 +33,7 @@ onready var CharacterColorPickerButton = get_node(Addressbook.INSPECTOR.CHARACTE
 onready var CharacterEditorSaveButton = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.SAVE_BUTTON)
 # > Tags
 onready var TagBox = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.TAGBOX)
-onready var NoTagMessage = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.NO_TAG_MESSAGE)
+onready var TagNoneMessage = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.NO_TAG_MESSAGE)
 onready var TagEditKey = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.TAG_EDIT_KEY)
 onready var TagEditValue = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.TAG_EDIT_VALUE)
 onready var TagEditOverset = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.TAG_EDIT_OVERSET)
@@ -219,7 +219,8 @@ func take_tag_action(action_id: int, key: String, value: String) -> void:
 	pass
 
 func read_and_overset_tag() -> void:
-	var key = TagEditKey.get_text()
+	var key = Utils.exposure_safe_resource_name( TagEditKey.get_text() )
+	TagEditKey.set_text(key) # ... so the user can see the safe key if we have changed it
 	var value = TagEditValue.get_text()
 	if key.length() > 0:
 		take_tag_action(3, key, value)
@@ -261,7 +262,7 @@ func update_tag_box(character_id:int) -> void:
 		for key in the_character.tags:
 			append_tag_to_box(key, the_character.tags[key])
 	TagBox.set_visible(tags_available)
-	NoTagMessage.set_visible( ! tags_available )
+	TagNoneMessage.set_visible( ! tags_available )
 	pass
 
 func refresh_referrers_list() -> void:
@@ -335,6 +336,7 @@ func submit_character_modification() -> void:
 	var mod_name  = CharacterEditorName.get_text()
 	var mod_color = Utils.color_to_rgba_hex(CharacterColorPickerButton.get("color"), false)
 	if mod_name.length() > 0 && mod_name != the_character_original.name: # name is changed
+		mod_name = Utils.exposure_safe_resource_name(mod_name)
 		# force using unique name for characters ?
 		if Settings.FORCE_UNIQUE_NAMES_FOR_CHARACTERS == false || _LISTED_CHARACTERS_BY_NAME.has(mod_name) == false:
 			resource_updater.modification["name"] = mod_name

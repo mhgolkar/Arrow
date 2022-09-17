@@ -24,6 +24,13 @@ signal clear_up
 # warning-ignore:unused_signal
 signal reset_variable
 
+# nodes can (over-)set one or some tags for charracters
+# by signaling a list of { character_id<int>: { tag<String> : value<String> ,... } ,... }
+# The existing states of characters and their tags are sent in `setup_play`
+# as a dictionary of ` { char_id: { var_uid: resource_data, ... }, ... }`
+# warning-ignore:unused_signal
+signal overset_characters_tags
+
 # reference to `Main` (root)
 onready var Main = get_tree().get_root().get_child(0)
 
@@ -37,6 +44,7 @@ var _NODE_RESOURCE:Dictionary
 var _NODE_MAP:Dictionary
 var _NODE_SLOTS_MAP:Dictionary
 # var _VARIABLES_CURRENT:Dictionary
+# var _CHARACTERS_CURRENT:Dictionary
 
 # the node (element) itself
 var This = self
@@ -79,11 +87,15 @@ func setup_view()%VOID_RETURN%:
 	pass
 	
 # this function is called by the parent console to customize this instance for the respective node resource data
-func setup_play(node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1, _variables_current:Dictionary={})%VOID_RETURN%:
+func setup_play(
+	node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1,
+	_variables_current:Dictionary={}, _characters_current:Dictionary={}
+)%VOID_RETURN%:
 	_NODE_ID = node_id
 	_NODE_RESOURCE = node_resource
 	_NODE_MAP = node_map
 	# _VARIABLES_CURRENT = _variables_current
+	# _CHARACTERS_CURRENT = _characters_current
 	remap_connections_for_slots()
 	# update fields and parts
 	if _NODE_IS_READY:

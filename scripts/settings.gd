@@ -193,6 +193,11 @@ const NONE_UNIQUE_FILENAME_AUTO_POSTFIX = "_"
 const RANDOM_PROJECT_NAME_PREFIX = "untitled_"
 const RANDOM_PROJECT_NAME_AFFIX_LENGTH = 3
 
+# Following restricted characters are crucial to easy and correct parsing of resources
+# such as variables and character tags
+const EXPOSURE_SAFE_NAME_RESTRICTED_CHARS = ["{", "}", ".", " ", "\t", "\n", "\r"]
+const EXPOSURE_SAFE_NAME_RESTRICTED_CHARS_REPLACEMENT = "_"
+
 # Minimap
 
 const CLASSIC_MINIMAP_ENABLED = true
