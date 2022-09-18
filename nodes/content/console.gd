@@ -25,7 +25,8 @@ var _NODE_ID:int
 var _NODE_RESOURCE:Dictionary
 var _NODE_MAP:Dictionary
 var _NODE_SLOTS_MAP:Dictionary
-var _CURRENT_VARIABLES_VALUE_BY_NAME:Dictionary
+var _CURRENT_VARS_EXPO:Dictionary
+var _CURRENT_CHAR_TAGS_EXPO:Dictionary
 
 var This = self
 var _PLAY_IS_SET_UP:bool = false
@@ -85,7 +86,7 @@ func setup_view() -> void:
 	# Title
 	var title = string_data_or_default("title")
 	if title.length() > 0:
-		var reformatted_title = title.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
+		var reformatted_title = title.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
 		Title.set_deferred("bbcode_text", reformatted_title)
 	else:
 		Title.set_deferred("bbcode_text", TITLE_UNSET_MESSAGE)
@@ -93,9 +94,7 @@ func setup_view() -> void:
 	# Content
 	var content = string_data_or_default("content")
 	if content.length() > 0:
-		# print formatted content (using bbcode support,)
-		# after replacing `{variable_name}` tags with their respective [current] values:
-		var reformatted_content = content.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
+		var reformatted_content = content.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
 		Content.set_deferred("bbcode_text", reformatted_content)
 	else:
 		Content.set_deferred("bbcode_text", CONTENT_UNSET_MESSAGE)
@@ -107,7 +106,7 @@ func setup_view() -> void:
 		_NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("brief") &&
 		_NODE_RESOURCE.data.brief is String && _NODE_RESOURCE.data.brief.length() > 0
 	):
-		var reformatted_brief = _NODE_RESOURCE.data.brief.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
+		var reformatted_brief = _NODE_RESOURCE.data.brief.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
 		Brief.set_deferred("bbcode_text", reformatted_brief)
 		Brief.set_deferred("visible", true)
 	else:
@@ -119,20 +118,31 @@ func setup_view() -> void:
 		emit_signal("clear_up")
 	pass
 
-func remap_current_variables_value_by_name(variables:Dictionary) -> void:
+func create_current_variables_exposure(variables:Dictionary) -> void:
+	_CURRENT_VARS_EXPO = {}
 	for var_id in variables:
 		var the_variable = variables[var_id]
-		_CURRENT_VARIABLES_VALUE_BY_NAME[the_variable.name] = the_variable.value
+		_CURRENT_VARS_EXPO[the_variable.name] = the_variable.value
+	pass
+
+func create_current_characters_exposure(characters:Dictionary) -> void:
+	_CURRENT_CHAR_TAGS_EXPO = {}
+	for char_id in characters:
+		var the_character = characters[char_id]
+		if the_character.has("tags") && the_character.tags is Dictionary:
+			for key in the_character.tags:
+				_CURRENT_CHAR_TAGS_EXPO[the_character.name + "." + key] = the_character.tags[key]
 	pass
 
 func setup_play(
 	node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1,
-	variables_current:Dictionary={}, _characters_current:Dictionary={}
+	variables_current:Dictionary={}, characters_current:Dictionary={}
 ) -> void:
 	_NODE_ID = node_id
 	_NODE_RESOURCE = node_resource
 	_NODE_MAP = node_map
-	remap_current_variables_value_by_name(variables_current)
+	create_current_variables_exposure(variables_current)
+	create_current_characters_exposure(characters_current)
 	remap_connections_for_slots()
 	# update fields and children
 	if _NODE_IS_READY:

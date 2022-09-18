@@ -21,7 +21,8 @@ var _NODE_ID:int
 var _NODE_RESOURCE:Dictionary
 var _NODE_MAP:Dictionary
 var _NODE_SLOTS_MAP:Dictionary
-var _CURRENT_VARIABLES_VALUE_BY_NAME:Dictionary
+var _CURRENT_VARS_EXPO:Dictionary
+var _CURRENT_CHAR_TAGS_EXPO:Dictionary
 var _CHARACTER_CACHED:Dictionary
 
 var This = self
@@ -65,10 +66,20 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 				_NODE_SLOTS_MAP[ connection[1] ] = { "id": connection[2], "slot": connection[3] }
 	pass
 
-func remap_current_variables_value_by_name(variables:Dictionary) -> void:
+func create_current_variables_exposure(variables:Dictionary) -> void:
+	_CURRENT_VARS_EXPO = {}
 	for var_id in variables:
 		var the_variable = variables[var_id]
-		_CURRENT_VARIABLES_VALUE_BY_NAME[the_variable.name] = the_variable.value
+		_CURRENT_VARS_EXPO[the_variable.name] = the_variable.value
+	pass
+
+func create_current_characters_exposure(characters:Dictionary) -> void:
+	_CURRENT_CHAR_TAGS_EXPO = {}
+	for char_id in characters:
+		var the_character = characters[char_id]
+		if the_character.has("tags") && the_character.tags is Dictionary:
+			for key in the_character.tags:
+				_CURRENT_CHAR_TAGS_EXPO[the_character.name + "." + key] = the_character.tags[key]
 	pass
 
 func update_character(profile:Dictionary) -> void:
@@ -114,7 +125,7 @@ func setup_view() -> void:
 		for line_idx in range(0, _NODE_RESOURCE.data.lines.size()):
 			var the_line_button = Button.new()
 			var line_text = _NODE_RESOURCE.data.lines[line_idx]
-			var reformatted_line_text = line_text.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
+			var reformatted_line_text = line_text.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
 			the_line_button.set_text(reformatted_line_text)
 			for property in LINES_SHARED_PROPERTIES:
 				the_line_button.set(property, LINES_SHARED_PROPERTIES[property])
@@ -136,12 +147,13 @@ func random_play_none_playable_dialogs() -> void:
 		
 func setup_play(
 	node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1,
-	variables_current:Dictionary={}, _characters_current:Dictionary={}
+	variables_current:Dictionary={}, characters_current:Dictionary={}
 ) -> void:
 	_NODE_ID = node_id
 	_NODE_RESOURCE = node_resource
 	_NODE_MAP = node_map
-	remap_current_variables_value_by_name(variables_current)
+	create_current_variables_exposure(variables_current)
+	create_current_characters_exposure(characters_current)
 	remap_connections_for_slots()
 	# update fields and children
 	if _NODE_IS_READY:
@@ -193,7 +205,7 @@ func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("lines") && (_NODE_RESOURCE.data.lines is Array):
 		if _NODE_RESOURCE.data.lines.size() > slot_idx:
 			var line_text = _NODE_RESOURCE.data.lines[slot_idx]
-			var reformatted_line_text = line_text.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
+			var reformatted_line_text = line_text.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
 			PlayedLine.set_text(reformatted_line_text)
 			PlayedLine.set_visible(true)
 			PlayableLines.set_visible(false)

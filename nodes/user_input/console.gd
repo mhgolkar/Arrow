@@ -20,7 +20,8 @@ var _NODE_RESOURCE:Dictionary
 var _NODE_MAP:Dictionary
 var _NODE_SLOTS_MAP:Dictionary
 var _VARIABLES_CURRENT:Dictionary
-var _CURRENT_VARIABLES_VALUE_BY_NAME:Dictionary
+var _CURRENT_VARS_EXPO:Dictionary
+var _CURRENT_CHAR_TAGS_EXPO:Dictionary
 var _THE_VARIABLE_ID:int = -1
 var _THE_VARIABLE = null
 var _THE_VARIABLE_ORIGINAL_VALUE = null
@@ -78,10 +79,20 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 				_NODE_SLOTS_MAP[ connection[1] ] = { "id": connection[2], "slot": connection[3] }
 	pass
 
-func remap_current_variables_value_by_name(variables:Dictionary) -> void:
+func create_current_variables_exposure(variables:Dictionary) -> void:
+	_CURRENT_VARS_EXPO = {}
 	for var_id in variables:
 		var the_variable = variables[var_id]
-		_CURRENT_VARIABLES_VALUE_BY_NAME[the_variable.name] = the_variable.value
+		_CURRENT_VARS_EXPO[the_variable.name] = the_variable.value
+	pass
+
+func create_current_characters_exposure(characters:Dictionary) -> void:
+	_CURRENT_CHAR_TAGS_EXPO = {}
+	for char_id in characters:
+		var the_character = characters[char_id]
+		if the_character.has("tags") && the_character.tags is Dictionary:
+			for key in the_character.tags:
+				_CURRENT_CHAR_TAGS_EXPO[the_character.name + "." + key] = the_character.tags[key]
 	pass
 
 func setup_view() -> void:
@@ -90,7 +101,7 @@ func setup_view() -> void:
 		if _NODE_RESOURCE.data.has("prompt") && (_NODE_RESOURCE.data.prompt is String) :
 			var prompt_text
 			if _NODE_RESOURCE.data.prompt.length() > 0:
-				prompt_text = _NODE_RESOURCE.data.prompt.format(_CURRENT_VARIABLES_VALUE_BY_NAME)
+				prompt_text = _NODE_RESOURCE.data.prompt.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
 			else:
 				prompt_text = PROMPT_UNSET_MESSAGE
 			Prompt.set_text( prompt_text )
@@ -114,13 +125,14 @@ func setup_view() -> void:
 
 func setup_play(
 	node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1,
-	variables_current:Dictionary={}, _characters_current:Dictionary={}
+	variables_current:Dictionary={}, characters_current:Dictionary={}
 ) -> void:
 	_NODE_ID = node_id
 	_NODE_RESOURCE = node_resource
 	_NODE_MAP = node_map
 	_VARIABLES_CURRENT = variables_current
-	remap_current_variables_value_by_name(variables_current)
+	create_current_variables_exposure(variables_current)
+	create_current_characters_exposure(characters_current)
 	remap_connections_for_slots()
 	# update fields and children
 	if _NODE_IS_READY:

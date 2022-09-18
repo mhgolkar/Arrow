@@ -29,11 +29,12 @@ const DEFAULT_NODE_DATA = {
 var _OPEN_NODE_ID
 var _OPEN_NODE
 
-const EXPOSED_VARIABLES_REGEX_PATTERN = "{([.]*[^{|}]*)}"
-var EXPOSED_VARIABLES_REGEX = null
-
 var _PROJECT_VARIABLES_CACHE:Dictionary = {}
-var _PROJECT_VARIABLES_CACHE_NAME_TO_ID:Dictionary
+
+const RESOURCE_NAME_EXPOSURE = {
+	"variables": { "PATTERN": "{([.]*[^{|}]*)}", "NAME_GROUP_ID": 1 },
+	"characters": { "PATTERN": "{([.]*[^{|}]*)\\.([.]*[^{|}]*)}", "NAME_GROUP_ID": 1 },
+}
 
 var This = self
 
@@ -96,18 +97,9 @@ func a_node_is_open() -> bool :
 	else:
 		return false
 
-func refresh_variables_cache() -> void:
-	_PROJECT_VARIABLES_CACHE = Main.Mind.clone_dataset_of("variables")
-	_PROJECT_VARIABLES_CACHE_NAME_TO_ID = {}
-	if _PROJECT_VARIABLES_CACHE.size() > 0 : 
-		for variable_id in _PROJECT_VARIABLES_CACHE:
-			var the_variable = _PROJECT_VARIABLES_CACHE[variable_id]
-			_PROJECT_VARIABLES_CACHE_NAME_TO_ID[the_variable.name] = variable_id
-	pass
-
 func referesh_variables_list(select_by_res_id:int = NO_VARIABLE_ID) -> void:
 	VariablesOption.clear()
-	refresh_variables_cache()
+	_PROJECT_VARIABLES_CACHE = Main.Mind.clone_dataset_of("variables")
 	if _PROJECT_VARIABLES_CACHE.size() > 0 :
 		for variable_id in _PROJECT_VARIABLES_CACHE:
 			var the_variable = _PROJECT_VARIABLES_CACHE[variable_id]
@@ -194,26 +186,31 @@ func read_custom_properties():
 		return custom_properties
 	return null
 
-func find_exposed_variables(prompt:String, return_ids:bool = true) -> Array:
-	refresh_variables_cache()
-	if EXPOSED_VARIABLES_REGEX == null:
-		EXPOSED_VARIABLES_REGEX = RegEx.new()
-		EXPOSED_VARIABLES_REGEX.compile(EXPOSED_VARIABLES_REGEX_PATTERN)
-	var exposed_variables = []
-	for regex_match in EXPOSED_VARIABLES_REGEX.search_all( prompt ):
-		var possibly_exposed_variable = regex_match.get_string(1)
-		# print_debug("Possible Variable Exposure: ", possibly_exposed_variable)
-		if _PROJECT_VARIABLES_CACHE_NAME_TO_ID.has( possibly_exposed_variable ):
-			exposed_variables.append(
-				_PROJECT_VARIABLES_CACHE_NAME_TO_ID[possibly_exposed_variable]
-				if return_ids
-				else possibly_exposed_variable
-			)
-	return exposed_variables
+func find_exposed_resources(prompt: String, return_ids:bool = true) -> Array:
+	var exposed_resources = []
+	for resource_set in RESOURCE_NAME_EXPOSURE:
+		var _CACHE = Main.Mind.clone_dataset_of(resource_set)
+		var _CACHE_NAME_TO_ID = {}
+		if _CACHE.size() > 0 : 
+			for resource_id in _CACHE:
+				_CACHE_NAME_TO_ID[ _CACHE[resource_id].name ] = resource_id
+		# ...
+		var _NAME_GROUP_ID = RESOURCE_NAME_EXPOSURE[resource_set].NAME_GROUP_ID
+		var _EXPOSURE_PATTERN = RegEx.new()
+		_EXPOSURE_PATTERN.compile( RESOURCE_NAME_EXPOSURE[resource_set].PATTERN )
+		# ...
+		for regex_match in _EXPOSURE_PATTERN.search_all( prompt ):
+			var possible_exposure = regex_match.get_string(_NAME_GROUP_ID)
+			# print_debug("Possible Resource Exposure: ", possible_exposure)
+			if _CACHE_NAME_TO_ID.has( possible_exposure ):
+				var exposed = _CACHE_NAME_TO_ID[possible_exposure] if return_ids else possible_exposure
+				if exposed_resources.has(exposed) == false:
+					exposed_resources.append(exposed)
+	return exposed_resources
 
 func create_use_command(parameters:Dictionary) -> Dictionary:
-	var use = { "drop": [], "refer": [], "field": "variables" }
-	var exposed_variable_ids = find_exposed_variables(parameters.prompt, true)
+	var use = { "drop": [], "refer": [] }
+	var exposed_resources_by_uid = find_exposed_resources(parameters.prompt, true)
 	# reference for the target variable ?
 	# if there is any change in the target resources ...
 	if parameters.variable != _OPEN_NODE.data.variable:
@@ -221,23 +218,23 @@ func create_use_command(parameters:Dictionary) -> Dictionary:
 			use.refer.append(parameters.variable)
 		if _OPEN_NODE.data.variable >= 0: # drop the old target reference ...
 			# ... if it's not exposed in the prompt message too
-			if exposed_variable_ids.has(_OPEN_NODE.data.variable) == false:
+			if exposed_resources_by_uid.has(_OPEN_NODE.data.variable) == false:
 				use.drop.append(_OPEN_NODE.data.variable)
-	# or for any parsed variables ?
-	# print_debug( "Exposed Variables in %s: " % _OPEN_NODE.name, exposed_variable_ids )
-	# remove the reference if any variable is not exposed anymore
+	# or for any exposed variable or character in the context ?
+	# print_debug( "Exposed Resources in %s: " % _OPEN_NODE.name, exposed_resources_by_uid )
+	# remove the reference if any resource is not exposed anymore
 	if _OPEN_NODE.has("ref") && _OPEN_NODE.ref is Array:
 		for currently_referred_resource in _OPEN_NODE.ref:
 			if (
-				exposed_variable_ids.has( currently_referred_resource ) == false &&
+				exposed_resources_by_uid.has( currently_referred_resource ) == false &&
 				currently_referred_resource != parameters.variable &&
 				currently_referred_resource != _OPEN_NODE.data.variable
 			):
 				use.drop.append( currently_referred_resource )
 	# and add new ones
-	if exposed_variable_ids.size() > 0 :
+	if exposed_resources_by_uid.size() > 0 :
 		var may_exist = (_OPEN_NODE.has("ref") && _OPEN_NODE.ref is Array)
-		for newly_exposed in exposed_variable_ids:
+		for newly_exposed in exposed_resources_by_uid:
 			if may_exist == false || _OPEN_NODE.ref.has( newly_exposed ) == false:
 				use.refer.append( newly_exposed )
 	return use
