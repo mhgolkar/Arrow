@@ -8,8 +8,8 @@ extends PanelContainer
 signal play_forward
 signal status_code
 # signal clear_up
-signal reset_variable
-# signal overset_characters_tags
+signal reset_variables
+# signal reset_characters_tags
 
 onready var Main = get_tree().get_root().get_child(0)
 
@@ -156,7 +156,7 @@ func generate_set_and_play_forward(proceed_update:bool = true) -> void:
 			print_debug("Data Generation Result: ", new_value)
 			if proceed_update:
 				reset_operation_view(new_value)
-				emit_signal("reset_variable", {
+				emit_signal("reset_variables", {
 					_THE_TARGET_VARIABLE_ID: new_value
 				})
 	play_forward_from(ONLY_PLAY_SLOT)
@@ -201,7 +201,7 @@ func step_back() -> void:
 	# so the user can inspect the previous value, before manually playing or skipping the node.
 	if _THE_TARGET_VARIABLE_ID >= 0:
 		reset_operation_view()
-		emit_signal("reset_variable", {
+		emit_signal("reset_variables", {
 			_THE_TARGET_VARIABLE_ID: _THE_TARGET_VARIABLE_ORIGINAL_VALUE
 		})
 	# ...

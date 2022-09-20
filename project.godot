@@ -105,6 +105,11 @@ _global_script_classes=[ {
 "path": "res://scripts/settings.gd"
 }, {
 "base": "Reference",
+"class": "TagEditSharedClass",
+"language": "GDScript",
+"path": "res://nodes/tag_edit/shared.gd"
+}, {
+"base": "Reference",
 "class": "VariableUpdateSharedClass",
 "language": "GDScript",
 "path": "res://nodes/variable_update/shared.gd"
@@ -129,6 +134,7 @@ _global_script_class_icons={
 "RandomizerSharedClass": "",
 "SequencerSharedClass": "",
 "Settings": "",
+"TagEditSharedClass": "",
 "VariableUpdateSharedClass": ""
 }
 

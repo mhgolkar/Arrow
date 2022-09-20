@@ -8,8 +8,8 @@ extends MarginContainer
 signal play_forward
 signal status_code
 # signal clear_up
-# signal reset_variable
-# signal overset_characters_tags
+# signal reset_variables
+# signal reset_characters_tags
 
 onready var Main = get_tree().get_root().get_child(0)
 

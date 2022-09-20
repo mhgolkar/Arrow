@@ -5,31 +5,33 @@
 # % Custom % Node Type Console
 extends %BASE%
 
-# this signal will tell console which node (id:int) and slot (idx:int) shall be played next
+# This signal will tell console which node (id:int) and slot (idx:int) shall be played next
 signal play_forward
 
-# this signal tells the console that something special has happend, including:
+# This signal tells the console that something special has happend, including:
 # CONSOLE_STATUS_CODE
 	# END_EDGE  : outgoing slot connects to no other node
 	# NO_DEFAULT : no default action is taken (e.g. due to being skipped)
 signal status_code
 
-# nodes can ask to be printed on clean console
+# Nodes can ask to be printed on clean console (dropping all the previous nodes from display)
 # warning-ignore:unused_signal
 signal clear_up
 
-# nodes can (re-)set one or some variables
-# by signaling a list of { variable_id<int> : new_value<variant> ,...}
-# The existing states of variables are sent in `setup_play` as a dictionary of `{ var_uid: resource_data, ... }`
+# Nodes can (re-)set one or some variables
+# by signaling a list of { variable_id<int> : new_value<variant> ,...}.
+# IDs shall exist already and values should be of the same type.
+# The existing states of variables are sent in `setup_play` as a dictionary of `{ var_uid: <variable_resource_data>, ... }`
 # warning-ignore:unused_signal
-signal reset_variable
+signal reset_variables
 
-# nodes can (over-)set one or some tags for charracters
-# by signaling a list of { character_id<int>: { tag<String> : value<String> ,... } ,... }
+# Nodes can (over-)set one or some tags for charracters
+# by signaling a list of { character_id<int>: { tag-key<String> : value<String> ,... } ,... }
 # The existing states of characters and their tags are sent in `setup_play`
-# as a dictionary of ` { char_id: { var_uid: resource_data, ... }, ... }`
+# as a dictionary of ` { char_id<int>: { <character_resource_data>, ["tags": { key<String>: value<String>, ... },] ... }, ... }`.
+# Values or keys that are not string will be ignored, other than `null` value which causes the tag to be erased.
 # warning-ignore:unused_signal
-signal overset_characters_tags
+signal reset_characters_tags
 
 # reference to `Main` (root)
 onready var Main = get_tree().get_root().get_child(0)

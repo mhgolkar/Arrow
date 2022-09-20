@@ -380,8 +380,8 @@ const POSSIBLE_SIGNALS_FROM_PLAYING_NODES = {
 	"play_forward"   : "request_play_forward",
 	"status_code"    : "interpret_status_code",
 	"clear_up"       : "clear_nodes_before",
-	"reset_variable" : "reset_synced_variable",
-	"overset_characters_tags" : "overset_synced_characters_tags",
+	"reset_variables" : "reset_synced_variables",
+	"reset_characters_tags" : "reset_synced_characters_tags",
 }
 
 func listen_to_playing_node(node:Node, node_uid:int = -1) -> void:
@@ -548,8 +548,8 @@ func clear_nodes_before(the_player_node, the_player_node_uid) -> void:
 		print_console( CLEARANCE_PREVENTION_MESSAGE, false, CLEARANCE_PREVENTION_MESSAGE_COLOR )
 	pass
 
-func reset_synced_variable(variable_update_list:Dictionary, the_player_node = null, the_player_node_uid = null) -> void:
-	# print_debug("reset_synced_variable : ", variable_update_list)
+func reset_synced_variables(update_list:Dictionary, the_player_node = null, the_player_node_uid = null) -> void:
+	# print_debug("reset_synced_variables : ", update_list)
 	if _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
 		assert(
 			_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() == _NODES_IN_TERMINAL.size(),
@@ -557,12 +557,12 @@ func reset_synced_variable(variable_update_list:Dictionary, the_player_node = nu
 		)
 		if _NODES_IN_TERMINAL[0].id == the_player_node_uid:
 			var the_set = _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL[0]
-			for variable_id in variable_update_list:
+			for variable_id in update_list:
 				if the_set.has(variable_id):
-					if typeof( the_set[variable_id].value ) == typeof( variable_update_list[variable_id] ):
-						the_set[variable_id].value = variable_update_list[variable_id]
+					if typeof( the_set[variable_id].value ) == typeof( update_list[variable_id] ):
+						the_set[variable_id].value = update_list[variable_id]
 					else:
-						printerr("Invalid Console Node Behavior! The variable %s is tried to be reset by value of other type: " % variable_id, variable_update_list[variable_id])
+						printerr("Invalid Console Node Behavior! The variable %s is tried to be reset by value of other type: " % variable_id, update_list[variable_id])
 				else:
 					printerr("Invalid Console Node Behavior! Trying to reset nonexistent variable %s by node %s " % [variable_id, the_player_node_uid])
 		else:
@@ -575,8 +575,8 @@ func reset_synced_variable(variable_update_list:Dictionary, the_player_node = nu
 	refresh_variables_list()
 	pass
 
-func overset_synced_characters_tags(char_tags_update_list:Dictionary, the_player_node = null, the_player_node_uid = null) -> void:
-	# print_debug("overset_synced_characters_tags : ", char_tags_update_list)
+func reset_synced_characters_tags(update_list:Dictionary, the_player_node = null, the_player_node_uid = null) -> void:
+	print_debug("reset_synced_characters_tags : ", update_list)
 	if _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
 		assert(
 			_CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() == _NODES_IN_TERMINAL.size(),
@@ -584,12 +584,19 @@ func overset_synced_characters_tags(char_tags_update_list:Dictionary, the_player
 		)
 		if _NODES_IN_TERMINAL[0].id == the_player_node_uid:
 			var the_set = _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL[0]
-			for character_id in char_tags_update_list:
+			for character_id in update_list:
 				if the_set.has(character_id):
-					for key in char_tags_update_list[character_id]:
-						the_set[character_id][ String(key) ] = String(char_tags_update_list[character_id][key])
+					for key in update_list[character_id]:
+						if key is String && key.length() > 0:
+							var value = update_list[character_id][key]
+							if value is String:
+								the_set[character_id].tags[ key ] = value
+							elif value == null:
+								the_set[character_id].tags.erase(key)
+							else:
+								printerr("Trying to update character %s's tags by node %s with invalid value: " % [character_id, the_player_node_uid], value)
 				else:
-					printerr("Invalid Console Node Behavior! Trying to overset tag(s) for nonexistent character %s by node %s " % [character_id, the_player_node_uid])
+					printerr("Invalid Console Node Behavior! Trying to reset tag(s) for nonexistent character %s by node %s " % [character_id, the_player_node_uid])
 		else:
 			printerr(
 				"Unexpected behavior: Variable update ignored! Only the last node (%s) is allowed to update character sets (not requesting %s.)"
