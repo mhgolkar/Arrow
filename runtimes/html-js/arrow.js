@@ -64,6 +64,7 @@ const NODE_CLASSES_BY_TYPE = {
     "marker": Marker,
     "randomizer": Randomizer,
     "sequencer": Sequencer,
+    "tag_edit": TagEdit,
     "user_input": UserInput,
     "variable_update": VariableUpdate,
     // jshint ignore:end
@@ -76,9 +77,39 @@ function sort_characters(){
         if ( characters.hasOwnProperty(char_id) ) {
             if ( object_has_keys_all( characters[char_id], _CHARS_REQUIRED_KEYS ) ){
                 CHARS[char_id] = characters[char_id];
+                if ( CHARS[char_id].hasOwnProperty("tags") == false ) {
+                    CHARS[char_id].tags = {}
+                }
             } else {
                 throw new Error(`Unable to sort characters! The character '${char_id}' resource doesn't include required data! ${ _CHARS_REQUIRED_KEYS.join(", ") }`);
             }
+        }
+    }
+}
+
+function update_global_characters_tags(update_list) {
+    for (char_id in update_list) {
+        if ( CHARS.hasOwnProperty(char_id) ) {
+            for (tag_key in update_list[char_id]) {
+                if (tag_key.length > 0) {
+                    var new_value = update_list[char_id][tag_key];
+                    if (typeof new_value == 'string'){
+                        console.log(`updating character tag '${tag_key} : ${CHARS[char_id].tags[tag_key]}' with '${new_value}' for '${CHARS[char_id].name}'`);
+                        CHARS[char_id].tags[tag_key] = new_value;
+                    } else if (new_value === null) {
+                        if (CHARS[char_id].tags.hasOwnProperty(tag_key)) {
+                            console.log(`removing character tag '${tag_key} : ${CHARS[char_id].tags[tag_key]}' for '${CHARS[char_id].name}'`);
+                            delete CHARS[char_id].tags[tag_key];
+                        }
+                    } else {
+                        console.warn(`Trying to update character tag '${tag_key}' with unexpected value: ${new_value}`, arguments);
+                    }
+                } else {
+                    console.warn(`Trying to update character tag with blank key: ${tag_key}`, arguments);
+                }
+            }
+        } else {
+            console.warn(`Trying to update non-existent character ID: ${char_id}`, arguments);
         }
     }
 }

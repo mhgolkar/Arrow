@@ -21,6 +21,12 @@ const _TRANSLATION_TABLE = {
     dialog_anonymous_character_name: {
         en: "Anonymous",
     },
+    apply: {
+        en: "Apply",
+    },
+    invalid: {
+        en: "Invalid",
+    },
     user_input_default_bool_negative: {
         en: "Negative (False)",
     },

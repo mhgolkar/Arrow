@@ -576,7 +576,7 @@ func reset_synced_variables(update_list:Dictionary, the_player_node = null, the_
 	pass
 
 func reset_synced_characters_tags(update_list:Dictionary, the_player_node = null, the_player_node_uid = null) -> void:
-	print_debug("reset_synced_characters_tags : ", update_list)
+	# print_debug("reset_synced_characters_tags : ", update_list)
 	if _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
 		assert(
 			_CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() == _NODES_IN_TERMINAL.size(),

@@ -534,8 +534,8 @@ footer button:not(:first-of-type) {
 
 /* marker */
 .node[data-type='marker'] {}
-.node[data-type='marker'] p {
-    /* The marker label. `--marker-color` is set inline. */
+.node[data-type='marker'] p { /* (The marker label) */
+    /* `--marker-color` is set inline. */
     color: var(--marker-color);
     border: solid 0.125rem var(--marker-color);
     border-radius: 1rem;
@@ -571,6 +571,30 @@ footer button:not(:first-of-type) {
 .node[data-type='sequencer'] span { /* (Sequencer mark) */ }
 .node[data-type='sequencer'] button { /* both skip and play buttons */
     margin: 0.75rem;
+}
+
+/* tag_edit */
+.node[data-type='tag_edit'] {}
+.node[data-type='tag_edit'][data-played='true'] {
+    display: none;
+}
+.node[data-type='tag_edit'] > code { /* (valid) */
+    /* The target character color `--character-color` is set inline. */
+    /* It also comes with `[data-character-id]` and `[data-character-name]` as well */
+    display: inline-block;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: dashed 0.125rem var(--character-color);
+    color: var(--character-color);
+    margin-inline-end: 0.75rem;
+}
+.node[data-type='tag_edit'] > span { /* (invalid) */
+    display: inline-block;
+    margin-inline-end: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+.node[data-type='tag_edit'] button { /* both skip and apply */
+    margin: 0.25rem;
 }
 
 /* user_input */
