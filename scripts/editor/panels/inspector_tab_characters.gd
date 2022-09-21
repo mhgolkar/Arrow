@@ -22,6 +22,8 @@ var _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE = []
 
 var _CURRENT_LOCATED_REF_ID = -1
 
+var _KEY_BEING_REVISIONED = null
+
 onready var CharactersList = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTERS_LIST)
 onready var CharactersNewButton = get_node(Addressbook.INSPECTOR.CHARACTERS.NEW_BUTTON)
 onready var CharacterRemoveButton = get_node(Addressbook.INSPECTOR.CHARACTERS.REMOVE_BUTTON)
@@ -182,6 +184,7 @@ func load_character_in_editor(character_id:int) -> void:
 	# ...
 	update_tag_box(character_id)
 	update_appearance_pagination(character_id)
+	refresh_revision_mode(null)
 	smartly_toggle_editor()
 	pass
 
@@ -193,12 +196,27 @@ func refresh_character_cache_by_id(character_id:int) -> void:
 			_LISTED_CHARACTERS_BY_NAME[the_character.name] = _LISTED_CHARACTERS_BY_ID[character_id]
 	pass
 
+func refresh_revision_mode(key = null) -> void:
+	if key is String:
+		_KEY_BEING_REVISIONED = key
+	else:
+		_KEY_BEING_REVISIONED = null
+	# ...
+	for node in TagBox.get_children():
+		if node is Button:
+			node.set_disabled(
+				_KEY_BEING_REVISIONED is String &&
+				node.get_meta("key") != _KEY_BEING_REVISIONED
+			)
+	pass
+
 func take_tag_action(action_id: int, key: String, value: String) -> void:
 	match action_id:
 		1: # Edit
 			TagEditKey.set_text(key)
 			TagEditValue.set_text(value)
 			TagEditValue.grab_focus()
+			refresh_revision_mode(key)
 		2: # Unset
 			TagEditKey.set_text(key)
 			TagEditKey.grab_focus()
@@ -215,6 +233,14 @@ func take_tag_action(action_id: int, key: String, value: String) -> void:
 				"modification": { "tags": { key: value } },
 				"field": "characters"
 			}
+			if _KEY_BEING_REVISIONED is String && _KEY_BEING_REVISIONED != key:
+				var character_name = _LISTED_CHARACTERS_BY_ID[_SELECTED_CHARACTER_BEING_EDITED_ID].name
+				tag_overset.modification["tags"][_KEY_BEING_REVISIONED] = null
+				tag_overset.modification["data"] = {
+					"_exposure_revision": [
+						[_KEY_BEING_REVISIONED, key, character_name, character_name]
+					]
+				}
 			self.emit_signal("relay_request_mind", "update_resource", tag_overset)
 	pass
 
@@ -235,6 +261,7 @@ func clean_all_tags() -> void:
 func append_tag_to_box(key: String, value: String) -> void:
 	var key_value_display = TAG_KEY_VALUE_DISPLAY_TEMPLATE.format({ "key": key, "value": value })
 	var the_tag = MenuButton.new()
+	the_tag.set_meta("key", key) # CAUTION! `refresh_revision_mode` depends on this
 	the_tag.set_text(key)
 	the_tag.set_tooltip(key_value_display)
 	the_tag.set_flat(false)
@@ -359,10 +386,13 @@ func smartly_toggle_editor() -> void:
 		CharacterEditorPanel.set("visible", false)
 	else:
 		CharacterEditorPanel.set("visible", true)
+	TagEditKey.set_text("")
+	TagEditValue.set_text("")
 	pass
 	
 func _on_characters_list_nothing_selected() -> void:
 	CharactersList.unselect_all()
 	_SELECTED_CHARACTER_BEING_EDITED_ID = -1
+	refresh_revision_mode(null)
 	smartly_toggle_editor()
 	pass

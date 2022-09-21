@@ -197,6 +197,7 @@ const RANDOM_PROJECT_NAME_AFFIX_LENGTH = 3
 # such as variables and character tags
 const EXPOSURE_SAFE_NAME_RESTRICTED_CHARS = ["{", "}", ".", ":", ";", "`", "'", '"', " ", "\t", "\n", "\r"]
 const EXPOSURE_SAFE_NAME_RESTRICTED_CHARS_REPLACEMENT = "_"
+const NODE_TYPES_WITH_DIRECT_EXPOSURES = ["tag_edit", "tag_pass"]
 
 # Minimap
 

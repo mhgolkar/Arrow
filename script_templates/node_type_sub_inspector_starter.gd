@@ -46,15 +46,20 @@ func _read_parameters() -> Dictionary:
 	var parameters = {}
 	# TODO ...
 		#
-		# if you use another resource(s) make sure you append:
+		# If you use another resource(s) make sure you append:
 		# 	`_use: { drop:[<resource_uid>,...], refer:[<resource_uid>,...] }`
 		# to the `parameters`.
-		# items listed in the `drop` array will be unlinked and the `refer`ed ones will be linked.
-		# if the items are of known field (nodes, variables, etc.) adding `field:<String>` optionally to the `_use` helps optimization
+		# Items listed in the `drop` array will be unlinked and the `refer`ed ones will be linked.
+		# If the items are of known field (nodes, variables, etc.) adding `field:<String>` optionally to the `_use` helps optimization
 		#
-		# other special command(s) you can add to the `parameters`:
+		# Handle with care!
+		# Other special command(s) you can add to the `parameters`:
 		# 	`_as_entry: { { node_id:<node_resource_uid>, for_scene:<bool>, for_project:<bool> }`
-		# (handle with care!)
+		#	`_exposure_revision: [ [old_name<String>, new_name<String>, old_parent<String(e.g. character-name)>, new_parent<String>], ... ]`
+		#		> Caution! Variables and Characters automatically does the revision based on their UID and `name` change parameters.
+		#		> This command is mostly used for other (UID-less) exposures, including `character_name.exposed_tag`.
+		#
+		# Note also that all commands are executed before the resource being updated.
 		#
 	return parameters
 

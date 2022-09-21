@@ -1254,22 +1254,19 @@ class Mind :
 			inspect_node(node_id, -1, false)
 		pass
 	
-	func revise_variable_exposure(referrers_list:Array, old_name:String, new_name:String) -> void:
-		var old_exposure = "{%s}" % old_name
-		var new_exposure = "{%s}" % new_name
+	func revise_name_exposure(
+		referrers_list:Array, old_name:String, new_name:String, old_parent: String = "", new_parent: String = ""
+	) -> void:
+		var old_exposure = "{" + ((old_parent + ".") if old_parent.length() > 0 else "") + old_name + "}"
+		var new_exposure = "{" + ((new_parent + ".") if new_parent.length() > 0 else "") + new_name + "}"
 		for referer_resource_id in referrers_list:
 			var referrer_original = lookup_resource(referer_resource_id, "nodes", false) # only nodes can expose variables
 			if referrer_original.has("data") && referrer_original.data is Dictionary:
-				var data_modification = { "data": {} }
-				for property in referrer_original.data:
-					var value = referrer_original.data[property]
-					if value is String && value.find(old_exposure) != -1:
-						data_modification.data[property] = value.replace(old_exposure, new_exposure)
-					elif value is Array: # mainly for dialogs and interactions
-						data_modification.data[property] = value.duplicate(true)
-						for i in range(0, value.size()):
-							if value[i] is String && value[i].find(old_exposure) != -1:
-								data_modification.data[property][i] = value[i].replace(old_exposure, new_exposure)
+				var data_modification = {
+					"data": Utils.recursively_replace_string(referrer_original.data, old_exposure, new_exposure, true)
+				}
+				if Settings.NODE_TYPES_WITH_DIRECT_EXPOSURES.has(referrer_original.type):
+					data_modification.data = Utils.recursively_replace_string(data_modification.data, old_name, new_name, true)
 				if data_modification.data.size() > 0:
 					update_resource(referer_resource_id, data_modification, "nodes")
 		pass
@@ -1281,18 +1278,27 @@ class Mind :
 		# ... so we can directrly update the resource 
 		if the_resource is Dictionary:
 			var the_resource_old_name = the_resource.name if the_resource.has("name") else null
-			# handing special command/parameters (_use, _as_entry, ...?)
-			if modification.has("data"): # they come only from nodes (sub-inspectors) so can be find in `data`
+			# handing special command/parameters (_use, _as_entry, etc.)
+			if modification.has("data"): # that come with `data` field.
+				# we handle, then remove them, to avoid writing the command with data in the project file:
+				# > Use and Reference Update
 				if modification.data.has("_use"):
-					# handle then remove the pair, to avoid writing it with database
 					if modification.data._use is Dictionary:
 						handle_use_command_parameter(resource_uid, modification.data._use)
 					modification.data.erase("_use")
+				# > Entry Update
 				if modification.data.has("_as_entry"):
-					# handle then remove the pair, to avoid writing it with database
 					if modification.data._as_entry is Dictionary:
 						handle_as_entry_command_parameter(modification.data._as_entry)
 					modification.data.erase("_as_entry")
+				# > Name Exposure Revision
+				if modification.data.has("_exposure_revision"):
+					# (besides the variable name's automatic handling below for each name we do revision:)
+					if modification.data._exposure_revision is Array:
+						if the_resource.has("use") && the_resource.use is Array :
+							for revision in modification.data._exposure_revision:
+								revise_name_exposure(the_resource.use, revision[0], revision[1], revision[2], revision[3])
+					modification.data.erase("_exposure_revision")
 			# update the resource
 				# passed parameters: 'false: to add optional pairs like notes, true: to remove empty pair keys, false : to edit the original'
 			Utils.recursively_update_dictionary(the_resource, modification, false, true, false)
@@ -1317,9 +1323,14 @@ class Mind :
 					if the_resource.name != the_resource_old_name : # name update means we need to,
 						# update all exposures of this variable in other referrer nodes
 						if the_resource.has("use") && the_resource.use is Array :
-							revise_variable_exposure(the_resource.use, the_resource_old_name, the_resource.name)
+							revise_name_exposure(the_resource.use, the_resource_old_name, the_resource.name)
 				"characters":
 					Inspector.Tab.Characters.call_deferred("list_characters", { resource_uid: the_resource })
+					if the_resource.name != the_resource_old_name : # name update means we need to,
+						# update all exposures of this characters in other referrer nodes per tag:
+						if the_resource.has("use") && the_resource.use is Array && the_resource.has("tags") && the_resource.tags is Dictionary:
+							for key in the_resource.tags:
+								revise_name_exposure(the_resource.use, key, key, the_resource_old_name, the_resource.name)
 			# ... also update grid view of any node that uses this resource
 			if the_resource.has("use"):
 				for referrer_id in the_resource.use:

@@ -491,6 +491,22 @@ class Utils:
 		for c in restricted:
 			name = name.replace(c, replacement)
 		return name
+	
+	static func recursively_replace_string(original, old: String, new: String, case_sensitive: bool = true):
+		var revised
+		if original is String:
+			revised = original.replace(old, new) if case_sensitive else original.replacen(old, new)
+		elif original is Array:
+			revised = []
+			for i in range(0, original.size()):
+				revised.push_back( recursively_replace_string(original[i], old, new, case_sensitive) )
+		elif original is Dictionary:
+			revised = {}
+			for key in original:
+				revised[key] = recursively_replace_string(original[key], old, new, case_sensitive)
+		else:
+			revised = original
+		return revised
 
 # List Node Helpers
 class ListHelpers:
