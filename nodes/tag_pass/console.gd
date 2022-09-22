@@ -179,13 +179,10 @@ func process_tag_pass_forward() -> void:
 					current_tags.has( entity[0] ) &&
 					( entity.size() == 1 || entity[1] == null || entity[1] == current_tags[entity[0]] )
 				)
-				match method:
-					METHODS_ENUM.ANY:
-						if shall_pass == true:
-							break
-					METHODS_ENUM.ALL:
-						if shall_pass == false:
-							break
+				if method == METHODS_ENUM.ANY && shall_pass == true:
+					break
+				if method == METHODS_ENUM.ALL && shall_pass == false:
+					break
 	play_forward_from(TRUE_SLOT if shall_pass else FALSE_SLOT)
 	pass
 

@@ -120,16 +120,6 @@ class TagEdit {
                 this.skip_play();
             }
         };
-        
-        this.data_is_valid = function(data){
-            return (
-                data != null && (typeof data == 'object') &&
-                data.hasOwnProperty("character") && (Number.isInteger( safeInt(data.character) ) && safeInt(data.character) >= 0) &&
-                data.hasOwnProperty("edit") && Array.isArray(data.edit) && data.edit.length >= 3 &&
-                Number.isInteger(data.edit[0]) && METHODS.hasOwnProperty(data.edit[0]) &&
-                (typeof data.edit[1] == 'string') && data.edit[1].length > 0 && (typeof data.edit[2] == 'string')
-            )
-        }
 
         this.proceed = function(){
             if (_ALLOW_AUTO_PLAY) {
@@ -141,14 +131,24 @@ class TagEdit {
             }
         };
         
+        this.data_is_valid = function(data){
+            return (
+                data != null && (typeof data == 'object') &&
+                data.hasOwnProperty("character") && (Number.isInteger( safeInt(data.character) ) && safeInt(data.character) >= 0) &&
+                data.hasOwnProperty("edit") && Array.isArray(data.edit) && data.edit.length >= 3 &&
+                Number.isInteger(data.edit[0]) && METHODS.hasOwnProperty(data.edit[0]) &&
+                (typeof data.edit[1] == 'string') && data.edit[1].length > 0 && (typeof data.edit[2] == 'string')
+            )
+        }
+        
         if ( node_id >= 0 ){
             if ( typeof node_resource == 'object' && typeof node_map == 'object' ){
                 this.node_id = node_id;
                 this.node_resource = node_resource;
                 this.node_map = node_map;
                 this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
-                var is_valid = this.node_resource.hasOwnProperty("data") && this.data_is_valid(this.node_resource.data);
                 // ...
+                var is_valid = this.node_resource.hasOwnProperty("data") && this.data_is_valid(this.node_resource.data);
                 if ( is_valid ){
                     this.the_character_id = safeInt(this.node_resource.data.character);
                     if ( CHARS.hasOwnProperty(this.the_character_id) ) {
@@ -156,7 +156,7 @@ class TagEdit {
                     } else {
                         is_valid = false
                         if (_VERBOSE) console.warn(
-                            "Invalid Tag-Edit Node! The node has nonexistent UID as the target character:",
+                            "Invalid Tag-Edit Node! The node has non-existent UID as the target character:",
                             this.the_character_id,
                             this.node_resource
                         );
@@ -182,8 +182,8 @@ class TagEdit {
                         );
                         this.html.appendChild(this.tag_edition);
                     } else {
-                        this.invalid_tag_Edit = create_element("span", `[Tag-Edit] ${this.node_resource.name} : ${ i18n("invalid") }`);
-                        this.html.appendChild(this.invalid_tag_Edit);
+                        this.invalid_tag_edit = create_element("span", `[Tag-Edit] ${this.node_resource.name} : ${ i18n("invalid") }`);
+                        this.html.appendChild(this.invalid_tag_edit);
                     }
                     // manual application button,
                     if (is_valid){

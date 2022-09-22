@@ -182,7 +182,7 @@ func append_tag_to_box(key: String, value) -> void:
 func refresh_checkable_tags(clear: bool = true) -> void:
 	clean_all_tags()
 	if clear:
-		_CHECKABLES_CACHE.clear()
+		_CHECKABLES_CACHE = []
 		if is_open_node_valid():
 			for entity in _OPEN_NODE.data.pass[1]:
 				if TagPassSharedClass.tag_is_checkable(entity):

@@ -65,6 +65,7 @@ const NODE_CLASSES_BY_TYPE = {
     "randomizer": Randomizer,
     "sequencer": Sequencer,
     "tag_edit": TagEdit,
+    "tag_pass": TagPass,
     "user_input": UserInput,
     "variable_update": VariableUpdate,
     // jshint ignore:end
