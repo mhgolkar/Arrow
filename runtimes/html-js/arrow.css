@@ -361,6 +361,7 @@ footer button:not(:first-of-type) {
     /*
     It comes with `[data-name]` and `[data-id]`, set to the character's name (unescaped) and UID,
     and `--character-color: #<character-hex-color>;` css variable set inline.
+    It can also have `[data-tag-<key>='<value>']` attribute for each existent tag.
     */
 }
 .node[data-type='dialog'] /*div.character-profile*/.character-name {}

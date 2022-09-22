@@ -154,22 +154,33 @@ Other style helper data-attributes are:
 + current value of every variables set on the `#console` element:
     
     ```HTML
-    <section id="console" data-[variable-name]="[current-value]" ...
+    <section id="console" data-{variable-name}="{current-value}" ...
     ```
 
 + space separated list of all appended nodes on the `#content` element:
 
     ```HTML
-    <article id="content" data-open-nodes="[node-names space separated]" ...
+    <article id="content" data-open-nodes="{node-names space separated}" ...
     ```
 
 > Node and variable names are lowercase and escaped by replacing whitespaces with dashes (`-`)
 
-+ Node-type specific helpers, similar to the following for `dialog` nodes:
++ Node-type specific helpers:
 
-    ```CSS
-    .character-profile[data-name='character-name']
-    ```
+    + E.g. Attributes for `character-profile` elements of `dialog` nodes:
+
+        ```CSS
+        .character-profile[data-name='{character-name}']
+        ```
+
+        or
+
+        ```CSS
+        .character-profile[data-tag-{key}='{value}']
+        /* set for each `key: value` tag of character's */
+        ```
+    
+    > You can find more information about such helpers in `arrow.css` file.
 
 ### Hybrid Styling Options
 

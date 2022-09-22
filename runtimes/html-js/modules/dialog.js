@@ -153,14 +153,18 @@ class Dialog {
             if ( typeof character == 'object' && character.hasOwnProperty("color") && character.hasOwnProperty("name") ){
                 if ( this.character_profile_element == null ){
                     this.character_name_element = create_element( "div", character.name, { class: 'character-name' } );
+                    var data_attributes = {
+                        class: 'character-profile',
+                        style: `--character-color: #${character.color};`,
+                        "data-id": character_id,
+                        "data-name": character.name,
+                    };
+                    for (const key in character.tags){
+                        data_attributes[`data-tag-${key}`] = character.tags[key];
+                    };
                     this.character_profile_element = create_element( "div",
                         this.character_name_element,
-                        {
-                            class: 'character-profile',
-                            style: `--character-color: #${character.color};`,
-                            "data-id": character_id,
-                            "data-name": character.name,
-                        }
+                        data_attributes
                     );
                     this.html.appendChild(this.character_profile_element);
                 } else {
