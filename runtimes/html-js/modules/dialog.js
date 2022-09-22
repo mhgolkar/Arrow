@@ -73,7 +73,7 @@ class Dialog {
             if ( Number.isInteger(slot_idx) && slot_idx >= 0 && slot_idx < this.lines.length ){
                 this.played_line = create_element(
                     PLAYED_LINE_TAG,
-                    format(this.lines[slot_idx], VARS_NAME_VALUE_PAIR),
+                    exposure(this.lines[slot_idx]),
                     { class: 'dialog-played-line' }
                 );
                 this.html.appendChild(this.played_line);
@@ -119,7 +119,7 @@ class Dialog {
             for ( var idx = 0; idx < lines_array.length; idx++ ) {
                 var line_element = create_element(
                     LINE_ELEMENT_TAG,
-                    format(lines_array[idx], VARS_NAME_VALUE_PAIR)
+                    exposure(lines_array[idx])
                 );
                 if ( listen ){
                     // Each line has its own slot in the same order, so...

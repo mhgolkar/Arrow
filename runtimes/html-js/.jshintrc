@@ -20,9 +20,9 @@
         "object_has_keys_all": true,
         "CHARS": true,
         "VARS": true,
-        "VARS_NAME_VALUE_PAIR": true,
         "capitalize": true,
         "format": true,
+        "exposure": true,
         "clear_up": true,
         "play_node": true,
         "handle_status": true,
@@ -35,7 +35,8 @@
         "string_begins_with": true,
         "string_ends_with": true,
         "get_resource_by_id": true,
-        "update_global_variable_by_id": true
+        "update_global_variable_by_id": true,
+        "update_global_characters_tags": true
     },
     "exported": {},
     "indent": 1

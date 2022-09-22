@@ -58,7 +58,7 @@ class Interaction {
             if ( Number.isInteger(slot_idx) && slot_idx >= 0 && slot_idx < this.actions.length ){
                 this.played_action = create_element(
                     PLAYED_ACTION_TAG,
-                    format(this.actions[slot_idx], VARS_NAME_VALUE_PAIR),
+                    exposure(this.actions[slot_idx]),
                     { class: 'interaction-played-action' }
                 );
                 this.html.appendChild(this.played_action);
@@ -97,7 +97,7 @@ class Interaction {
             for ( var idx = 0; idx < actions_array.length; idx++ ) {
                 var action_element = create_element(
                     ACTION_ELEMENT_TAG,
-                    format(actions_array[idx], VARS_NAME_VALUE_PAIR)
+                    exposure(actions_array[idx])
                 );
                 if ( listen ){
                     // Each action has its own slot in the same order, so...

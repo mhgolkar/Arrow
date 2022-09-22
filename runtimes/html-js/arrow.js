@@ -25,8 +25,6 @@ var DOME = {};
 
 // Global Variables
 var VARS = {};
-var VARS_NAME_VALUE_PAIR = {};
-var VARS_NAME_TO_ID_TABLE = {};
 
 // Characters List
 var CHARS = {};
@@ -127,8 +125,6 @@ function sort_global_variables(){
             ){
                 VARS[var_id] = variables[var_id];
                 VARS[var_id].value = variables[var_id].init; // Make it ready to change
-                VARS_NAME_TO_ID_TABLE[ variables[var_id].name ] = var_id;
-                VARS_NAME_VALUE_PAIR[ variables[var_id].name ] = VARS[var_id].value;
                 refresh_console_attribute_of(variables[var_id].name, VARS[var_id].value);
             } else {
                 throw new Error(`Unable to sort global variables! The variable '${var_id}' resource doesn't include required data! ${ _GLOBAL_VARS_REQUIRED_KEYS.join(", ") }`);
@@ -148,7 +144,6 @@ function update_global_variable_by_id(var_id, new_value){
         ) {
             // ... then updating
             var var_name = VARS[var_id].name;
-            VARS_NAME_VALUE_PAIR[ var_name ] = new_value;
             VARS[var_id].value = new_value;
             refresh_console_attribute_of(var_name, new_value);
             if (_VERBOSE) console.log("Variable Updated: ", var_name, "=", new_value);
@@ -161,10 +156,34 @@ function update_global_variable_by_id(var_id, new_value){
 }
 
 function update_global_variable_by_name(var_name, new_value){
-    if ( VARS_NAME_TO_ID_TABLE.hasOwnProperty(var_name) ){
-        update_global_variable_by_id( VARS_NAME_TO_ID_TABLE[var_name], new_value );
+    var var_uid = null
+    for (const uid in VARS) {
+        if ( VARS[uid].name === var_name ) {
+            var_uid = uid;
+            break;
+        }
+    }
+    if ( var_uid !== null ){
+        update_global_variable_by_id(var_uid, new_value);
     } else {
         throw new Error(`Unable to Update Global Variable by Name: No variable with name '${var_name}'`);
+    }
+}
+
+function exposure(text){
+    if ( typeof text == 'string' ){
+        for (const var_id in VARS) {
+            text = text.replaceAll(`{${VARS[var_id].name}}`, VARS[var_id].value);
+        }
+        for (const char_id in CHARS) {
+            var char_name = CHARS[char_id].name;
+            for (const tag_key in CHARS[char_id].tags){
+                text = text.replaceAll(`{${char_name}.${tag_key}}`, CHARS[char_id].tags[tag_key]);
+            }
+        }
+        return text;
+    } else {
+        throw new Error("Unable to process exposure: the text shall be of type string.");
     }
 }
 

@@ -121,19 +121,19 @@ class Content {
                     if ( node_resource.hasOwnProperty("data") ){
                         var title_string = this.string_data_or_default("title")
                         if ( title_string.length > 0 ){
-                            this.title = create_element(TITLE_TAG, parse_bbcode( format(title_string, VARS_NAME_VALUE_PAIR) ) );
+                            this.title = create_element(TITLE_TAG, parse_bbcode( exposure( title_string ) ) );
                             this.html.appendChild(this.title);
                         }
                         // Textual (legacy) brief support:
                         // (It's not a string anymore so we can check for its default)
                         if ( node_resource.data.hasOwnProperty("brief") && typeof node_resource.data.brief == 'string' ){
-                            this.brief = create_element(BRIEF_TAG, parse_bbcode( format(node_resource.data.brief, VARS_NAME_VALUE_PAIR) ) );
+                            this.brief = create_element(BRIEF_TAG, parse_bbcode( exposure( node_resource.data.brief ) ) );
                             this.html.appendChild(this.brief);
                         }
                         // ...
                         var content_string = this.string_data_or_default("content")
                         if (content_string.length > 0 ){
-                            this.content = create_element(CONTENT_TAG, parse_bbcode( format(content_string, VARS_NAME_VALUE_PAIR) ) );
+                            this.content = create_element(CONTENT_TAG, parse_bbcode( exposure( content_string ) ) );
                             this.html.appendChild(this.content);
                         }
                         if ( this.bool_data_or_default("auto") ) { this.html.setAttribute('data-auto', 'true'); }

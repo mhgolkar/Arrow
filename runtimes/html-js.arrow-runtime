@@ -869,19 +869,19 @@ class Content {
                     if ( node_resource.hasOwnProperty("data") ){
                         var title_string = this.string_data_or_default("title")
                         if ( title_string.length > 0 ){
-                            this.title = create_element(TITLE_TAG, parse_bbcode( format(title_string, VARS_NAME_VALUE_PAIR) ) );
+                            this.title = create_element(TITLE_TAG, parse_bbcode( exposure( title_string ) ) );
                             this.html.appendChild(this.title);
                         }
                         // Textual (legacy) brief support:
                         // (It's not a string anymore so we can check for its default)
                         if ( node_resource.data.hasOwnProperty("brief") && typeof node_resource.data.brief == 'string' ){
-                            this.brief = create_element(BRIEF_TAG, parse_bbcode( format(node_resource.data.brief, VARS_NAME_VALUE_PAIR) ) );
+                            this.brief = create_element(BRIEF_TAG, parse_bbcode( exposure( node_resource.data.brief ) ) );
                             this.html.appendChild(this.brief);
                         }
                         // ...
                         var content_string = this.string_data_or_default("content")
                         if (content_string.length > 0 ){
-                            this.content = create_element(CONTENT_TAG, parse_bbcode( format(content_string, VARS_NAME_VALUE_PAIR) ) );
+                            this.content = create_element(CONTENT_TAG, parse_bbcode( exposure( content_string ) ) );
                             this.html.appendChild(this.content);
                         }
                         if ( this.bool_data_or_default("auto") ) { this.html.setAttribute('data-auto', 'true'); }
@@ -984,7 +984,7 @@ class Dialog {
             if ( Number.isInteger(slot_idx) && slot_idx >= 0 && slot_idx < this.lines.length ){
                 this.played_line = create_element(
                     PLAYED_LINE_TAG,
-                    format(this.lines[slot_idx], VARS_NAME_VALUE_PAIR),
+                    exposure(this.lines[slot_idx]),
                     { class: 'dialog-played-line' }
                 );
                 this.html.appendChild(this.played_line);
@@ -1030,7 +1030,7 @@ class Dialog {
             for ( var idx = 0; idx < lines_array.length; idx++ ) {
                 var line_element = create_element(
                     LINE_ELEMENT_TAG,
-                    format(lines_array[idx], VARS_NAME_VALUE_PAIR)
+                    exposure(lines_array[idx])
                 );
                 if ( listen ){
                     // Each line has its own slot in the same order, so...
@@ -1762,7 +1762,7 @@ class Interaction {
             if ( Number.isInteger(slot_idx) && slot_idx >= 0 && slot_idx < this.actions.length ){
                 this.played_action = create_element(
                     PLAYED_ACTION_TAG,
-                    format(this.actions[slot_idx], VARS_NAME_VALUE_PAIR),
+                    exposure(this.actions[slot_idx]),
                     { class: 'interaction-played-action' }
                 );
                 this.html.appendChild(this.played_action);
@@ -1801,7 +1801,7 @@ class Interaction {
             for ( var idx = 0; idx < actions_array.length; idx++ ) {
                 var action_element = create_element(
                     ACTION_ELEMENT_TAG,
-                    format(actions_array[idx], VARS_NAME_VALUE_PAIR)
+                    exposure(actions_array[idx])
                 );
                 if ( listen ){
                     // Each action has its own slot in the same order, so...
@@ -3166,10 +3166,7 @@ class UserInput {
                     if ( node_resource.hasOwnProperty('data') ){
                         // Prompt Message:
                         if ( node_resource.data.hasOwnProperty('prompt') ){
-                            this.prompt_element = create_element(
-                                "p",
-                                format(node_resource.data.prompt, VARS_NAME_VALUE_PAIR),
-                            );
+                            this.prompt_element = create_element("p", exposure(node_resource.data.prompt));
                             this.html.appendChild(this.prompt_element);
                         }
                         // Input
@@ -3595,8 +3592,6 @@ var DOME = {};
 
 // Global Variables
 var VARS = {};
-var VARS_NAME_VALUE_PAIR = {};
-var VARS_NAME_TO_ID_TABLE = {};
 
 // Characters List
 var CHARS = {};
@@ -3697,8 +3692,6 @@ function sort_global_variables(){
             ){
                 VARS[var_id] = variables[var_id];
                 VARS[var_id].value = variables[var_id].init; // Make it ready to change
-                VARS_NAME_TO_ID_TABLE[ variables[var_id].name ] = var_id;
-                VARS_NAME_VALUE_PAIR[ variables[var_id].name ] = VARS[var_id].value;
                 refresh_console_attribute_of(variables[var_id].name, VARS[var_id].value);
             } else {
                 throw new Error(`Unable to sort global variables! The variable '${var_id}' resource doesn't include required data! ${ _GLOBAL_VARS_REQUIRED_KEYS.join(", ") }`);
@@ -3718,7 +3711,6 @@ function update_global_variable_by_id(var_id, new_value){
         ) {
             // ... then updating
             var var_name = VARS[var_id].name;
-            VARS_NAME_VALUE_PAIR[ var_name ] = new_value;
             VARS[var_id].value = new_value;
             refresh_console_attribute_of(var_name, new_value);
             if (_VERBOSE) console.log("Variable Updated: ", var_name, "=", new_value);
@@ -3731,10 +3723,34 @@ function update_global_variable_by_id(var_id, new_value){
 }
 
 function update_global_variable_by_name(var_name, new_value){
-    if ( VARS_NAME_TO_ID_TABLE.hasOwnProperty(var_name) ){
-        update_global_variable_by_id( VARS_NAME_TO_ID_TABLE[var_name], new_value );
+    var var_uid = null
+    for (const uid in VARS) {
+        if ( VARS[uid].name === var_name ) {
+            var_uid = uid;
+            break;
+        }
+    }
+    if ( var_uid !== null ){
+        update_global_variable_by_id(var_uid, new_value);
     } else {
         throw new Error(`Unable to Update Global Variable by Name: No variable with name '${var_name}'`);
+    }
+}
+
+function exposure(text){
+    if ( typeof text == 'string' ){
+        for (const var_id in VARS) {
+            text = text.replaceAll(`{${VARS[var_id].name}}`, VARS[var_id].value);
+        }
+        for (const char_id in CHARS) {
+            var char_name = CHARS[char_id].name;
+            for (const tag_key in CHARS[char_id].tags){
+                text = text.replaceAll(`{${char_name}.${tag_key}}`, CHARS[char_id].tags[tag_key]);
+            }
+        }
+        return text;
+    } else {
+        throw new Error("Unable to process exposure: the text shall be of type string.");
     }
 }
 
