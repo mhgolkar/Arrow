@@ -2832,7 +2832,7 @@ class TagPass {
                         var method = this.node_resource.data.pass[0];
                         var checks = this.node_resource.data.pass[1];
                         var checkable = 0;
-                        var checkable_tags = create_element("div", METHODS[method]);
+                        var checkable_tags = create_element("div", `${this.the_character.name}: ${METHODS[method]}`);
                         for (var i = 0; i < checks.length; i++){
                             var entity = checks[i];
                             if (this.tag_is_checkable(entity)){
