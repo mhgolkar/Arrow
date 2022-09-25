@@ -60,6 +60,7 @@ const NODE_CLASSES_BY_TYPE = {
     "jump": Jump,
     "macro_use": MacroUse,
     "marker": Marker,
+    "monolog": Monolog,
     "randomizer": Randomizer,
     "sequencer": Sequencer,
     "tag_edit": TagEdit,

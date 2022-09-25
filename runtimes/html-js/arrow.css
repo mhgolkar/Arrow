@@ -364,7 +364,9 @@ footer button:not(:first-of-type) {
     It can also have `[data-tag-<key>='<value>']` attribute for each existent tag.
     */
 }
-.node[data-type='dialog'] /*div.character-profile*/.character-name {}
+.node[data-type='dialog'] /*div.character-profile*/.character-name {
+    word-break: break-all;
+}
 .node[data-type='dialog'] /*div.character-profile*/.character-name::before {
     content: "";
     display: inline-block;
@@ -518,6 +520,7 @@ footer button:not(:first-of-type) {
     padding: 0.25rem 0.5rem;
     background: var(--color-4);
     color: var(--color-6);
+    word-break: break-all;
 }
 .node[data-type='macro_use'] > button:nth-of-type(1) { /* replay */ }
 .node[data-type='macro_use'] > button:nth-of-type(1):disabled {
@@ -554,6 +557,49 @@ footer button:not(:first-of-type) {
     display: none;
 }
 /* [data-theme^='dark'] .node[data-type='marker'] { filter: invert(1); } */
+
+/* monolog */
+.node[data-type='monolog'] {
+    /* It may come with [data-auto='true'] or [data-clear='true'] */
+}
+.node[data-type='monolog'] /*div*/.character-profile {
+    /*
+    It comes with `[data-name]` and `[data-id]`, set to the character's name (unescaped) and UID,
+    and `--character-color: #<character-hex-color>;` css variable set inline.
+    It can also have `[data-tag-<key>='<value>']` attribute for each existent tag.
+    */
+}
+.node[data-type='monolog'] /*div.character-profile*/.character-name {
+    word-break: break-all;
+}
+.node[data-type='monolog'] /*div.character-profile*/.character-name::before {
+    content: "";
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    vertical-align: middle;
+    margin: 0.5rem;
+    border: solid 0.125rem var(--color-7);
+    transform: translateY( calc( -0.125rem / 2 ) );
+    border-radius: 100%;
+    background-color: var(--character-color);
+}
+.node[data-type='monolog'] /*div.character-profile*/.character-name::after {
+    content: ":";
+}
+.node[data-type='monolog'] pre { /* (the monolog) */
+    font-size: 1.1em;
+    font-weight: var(--font-weight-emphasis);
+    border-left: solid 0.125rem var(--color-6);
+    padding: 0.75em;
+    margin: 0.5rem 2rem;
+}
+.node[data-type='monolog'] button { /* both buttons */
+    margin: 0.25rem;
+}
+.node[data-type='monolog'][data-played='true'] button {
+    display: none;
+}
 
 /* randomizer */
 .node[data-type='randomizer'] {}
@@ -618,6 +664,7 @@ footer button:not(:first-of-type) {
     border-left-width: 1.5rem;
     border-left-style: solid;
     margin-inline-end: 0.75rem;
+    word-break: break-all;
 }
 .node[data-type='tag_pass'] > code > div { /* (tag group) */
     margin: 0;
@@ -676,7 +723,9 @@ footer button:not(:first-of-type) {
 .node[data-type='variable_update'][data-played='true'] {
     display: none;
 }
-.node[data-type='variable_update'] /*code*/.expression {}
+.node[data-type='variable_update'] /*code*/.expression {
+    word-break: break-all;
+}
 .node[data-type='variable_update'] button {
     margin: 0.5rem;
 }

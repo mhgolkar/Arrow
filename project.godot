@@ -80,6 +80,11 @@ _global_script_classes=[ {
 "path": "res://scripts/core/main_ui_management.gd"
 }, {
 "base": "Reference",
+"class": "MonologSharedClass",
+"language": "GDScript",
+"path": "res://nodes/monolog/shared.gd"
+}, {
+"base": "Reference",
 "class": "NodeTypes",
 "language": "GDScript",
 "path": "res://scripts/core/node_types_handler.gd"
@@ -134,6 +139,7 @@ _global_script_class_icons={
 "Html5Helpers": "",
 "HubSharedClass": "",
 "MainUserInterface": "",
+"MonologSharedClass": "",
 "NodeTypes": "",
 "ProjectManagement": "",
 "RandomizerSharedClass": "",

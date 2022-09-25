@@ -1,14 +1,14 @@
-// Arrow HTML-JS Runtime: Content node module
+// Arrow HTML-JS Runtime: Monolog node module
 
-class Content {
+class Monolog {
 
     constructor(node_id, node_resource, node_map, _playing_in_slot) {
         
         const _self = this;
         
         const DEFAULT_NODE_DATA = {
-            "title": "",
-            "content": "",
+            "character": -1,
+            "monolog": "",
             "brief": 0,
             "auto": false,
             "clear": false,
@@ -19,9 +19,7 @@ class Content {
         
         const CONTINUE_PLAY_SLOT = 0;
         
-        const TITLE_TAG = "h2";
-        const CONTENT_TAG = "pre";
-        const BRIEF_TAG = "pre";
+        const MONOLOG_TAG = "pre";
 
         this.get_element = function () {
             return this.html;
@@ -46,7 +44,7 @@ class Content {
         };
         
         this.skip_play = function() {
-            // a skipped content node is not displayed ...
+            // a skipped monolog node is not displayed ...
             this.html.setAttribute('data-skipped', true);
             // ...  so there is no continue button and we shall play forward anyway
             this.play_forward_from((AUTO_PLAY_SLOT >= 0 ? AUTO_PLAY_SLOT : CONTINUE_PLAY_SLOT));
@@ -101,10 +99,38 @@ class Content {
             }
             // View Clearance ?
             if (_ALLOW_CLEARANCE) {
-                // `content` nodes can force the page to get cleaned before they step in
+                // `monolog` nodes can force the page to get cleaned before they step in
                 if ( this.bool_data_or_default("clear") ) {
                     clear_up(this.node_id);
                 }
+            }
+        };
+
+        this.update_character_profile = function(character_id, character){
+            if ( typeof character == 'object' && character.hasOwnProperty("color") && character.hasOwnProperty("name") ){
+                if ( this.character_profile_element == null ){
+                    this.character_name_element = create_element( "div", character.name, { class: 'character-name' } );
+                    var data_attributes = {
+                        class: 'character-profile',
+                        style: `--character-color: #${character.color};`,
+                        "data-id": character_id,
+                        "data-name": character.name,
+                    };
+                    for (const key in character.tags){
+                        data_attributes[`data-tag-${key}`] = character.tags[key];
+                    };
+                    this.character_profile_element = create_element( "div",
+                        this.character_name_element,
+                        data_attributes
+                    );
+                    this.html.appendChild(this.character_profile_element);
+                } else {
+                    this.character_profile_element.setAttribute('style', `--character-color: #${character.color};`);
+                    this.character_name_element.innerHTML = character.name;
+                }
+            } else {
+                if (_VERBOSE) console.error(character);
+                throw new Error("Unable to Update Character Profile: Lack of required object keys, `name` and/or `color`.");
             }
         };
         
@@ -117,24 +143,18 @@ class Content {
                 this.slots_map = remap_connections_for_slots( (node_map || {}), node_id );
                 // Create the node html element
                 this.html = create_node_base_html(node_id, node_resource);
-                    // ...
+                    // Character
+                    var character_id = safeInt(node_resource.data.character);
+                    this.update_character_profile(
+                        character_id,
+                        CHARS.hasOwnProperty(character_id) ? CHARS[character_id] : ANONYMOUS_CHARACTER,
+                    );
+                    // Monolog
                     if ( node_resource.hasOwnProperty("data") ){
-                        var title_string = this.string_data_or_default("title")
-                        if ( title_string.length > 0 ){
-                            this.title = create_element(TITLE_TAG, parse_bbcode( exposure( title_string ) ) );
-                            this.html.appendChild(this.title);
-                        }
-                        // Textual (legacy) brief support:
-                        // (It's not a string anymore so we can check for its default)
-                        if ( node_resource.data.hasOwnProperty("brief") && typeof node_resource.data.brief == 'string' ){
-                            this.brief = create_element(BRIEF_TAG, parse_bbcode( exposure( node_resource.data.brief ) ) );
-                            this.html.appendChild(this.brief);
-                        }
-                        // ...
-                        var content_string = this.string_data_or_default("content")
-                        if (content_string.length > 0 ){
-                            this.content = create_element(CONTENT_TAG, parse_bbcode( exposure( content_string ) ) );
-                            this.html.appendChild(this.content);
+                        var monolog_string = this.string_data_or_default("monolog")
+                        if (monolog_string.length > 0 ){
+                            this.monolog = create_element(MONOLOG_TAG, parse_bbcode( exposure( monolog_string ) ) );
+                            this.html.appendChild(this.monolog);
                         }
                         if ( this.bool_data_or_default("auto") ) { this.html.setAttribute('data-auto', 'true'); }
                         if ( this.bool_data_or_default("clear") ) { this.html.setAttribute('data-clear', 'true'); }
@@ -152,7 +172,7 @@ class Content {
             }
             return this;
         }
-        throw new Error("Unable to construct `Content`");
+        throw new Error("Unable to construct `Monolog`");
     }
     
 }

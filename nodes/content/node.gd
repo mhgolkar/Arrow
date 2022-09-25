@@ -10,6 +10,8 @@ onready var Mind = Main.Mind
 
 var Utils = Helpers.Utils
 
+const DEFAULT_NODE_DATA = ContentSharedClass.DEFAULT_NODE_DATA
+
 const TITLE_UNSET_MESSAGE = "Untitled"
 const HIDE_UNSET_TITLE = true
 
@@ -51,11 +53,12 @@ func _update_node(data:Dictionary) -> void:
 			brief = data.content.substr(0, brief_length)
 		else:
 			brief = BRIEF_UNSET_MESSAGE
+		# ...
 		if brief is String && brief.length() > 0:
 			Brief.set_bbcode(brief)
 			Brief.set_visible(true)
 	# Auto-play indicator
-	AutoPlay.set_visible( data.has("auto") && data.auto == true)
+	AutoPlay.set_visible(data.auto if (data.has("auto") && data.auto is bool) else DEFAULT_NODE_DATA.auto)
 	# Print on clear page indicator
-	ClearPage.set_visible( data.has("clear") && data.clear == true)
+	ClearPage.set_visible(data.clear if (data.has("clear") && data.clear is bool) else DEFAULT_NODE_DATA.clear)
 	pass

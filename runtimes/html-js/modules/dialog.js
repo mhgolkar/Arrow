@@ -140,7 +140,7 @@ class Dialog {
                 is_intended = this.node_resource.data[parameter]
             }
             return is_intended;
-        }
+        };
         
         this.random_play_none_playable_dialogs = function(){
             if ( this.has_intended_bool_behavior("playable") == false ){
