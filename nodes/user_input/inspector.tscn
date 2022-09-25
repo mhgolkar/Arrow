@@ -42,6 +42,7 @@ text = "Direct user input to:"
 margin_top = 96.0
 margin_right = 239.0
 margin_bottom = 116.0
+clip_text = true
 
 [node name="Customization" type="VBoxContainer" parent="UserInput"]
 margin_top = 120.0

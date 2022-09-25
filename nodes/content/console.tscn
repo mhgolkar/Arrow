@@ -24,7 +24,20 @@ margin_bottom = 131.0
 mouse_filter = 2
 alignment = 1
 
-[node name="Title" type="RichTextLabel" parent="ContentPlay"]
+[node name="Header" type="HBoxContainer" parent="ContentPlay"]
+margin_right = 207.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+
+[node name="Icon" type="Label" parent="ContentPlay/Header"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_top = 8.0
+margin_right = 4.0
+margin_bottom = 22.0
+text = " "
+
+[node name="Title" type="RichTextLabel" parent="ContentPlay/Header"]
+margin_left = 8.0
 margin_right = 207.0
 margin_bottom = 31.0
 mouse_filter = 2

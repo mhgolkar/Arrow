@@ -2,46 +2,58 @@
 
 [ext_resource path="res://nodes/entry/console.gd" type="Script" id=1]
 
-[node name="Entry" type="MarginContainer"]
+[node name="Entry" type="PanelContainer"]
 margin_right = 233.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="EntryPlay" type="HBoxContainer" parent="."]
-margin_right = 233.0
-margin_bottom = 20.0
+[node name="EntryPlay" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 226.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Header" type="HBoxContainer" parent="EntryPlay"]
+margin_right = 219.0
+margin_bottom = 14.0
 mouse_filter = 2
 
-[node name="Icon" type="Label" parent="EntryPlay"]
-margin_top = 3.0
-margin_right = 15.0
-margin_bottom = 17.0
-text = "[E]"
+[node name="Icon" type="Label" parent="EntryPlay/Header"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_bottom = 14.0
+text = ""
 
-[node name="EntryLabel" type="Button" parent="EntryPlay"]
-margin_left = 19.0
-margin_right = 194.0
-margin_bottom = 20.0
+[node name="Plaque" type="Label" parent="EntryPlay/Header"]
+margin_left = 4.0
+margin_right = 180.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 64, 0 )
+size_flags_horizontal = 3
+text = "{Entry Plaque}"
+align = 1
+autowrap = true
+
+[node name="IsSceneEntryIndicator" type="Label" parent="EntryPlay/Header"]
+margin_left = 184.0
+margin_right = 199.0
+margin_bottom = 14.0
+text = "[S]"
+
+[node name="IsProjectEntryIndicator" type="Label" parent="EntryPlay/Header"]
+margin_left = 203.0
+margin_right = 219.0
+margin_bottom = 14.0
+text = "[P]"
+
+[node name="Action" type="Button" parent="EntryPlay"]
+margin_top = 18.0
+margin_right = 219.0
+margin_bottom = 38.0
 mouse_filter = 1
 size_flags_horizontal = 3
 text = "{name}"
-flat = true
-
-[node name="IsSceneEntryIndicator" type="Label" parent="EntryPlay"]
-margin_left = 198.0
-margin_top = 3.0
-margin_right = 213.0
-margin_bottom = 17.0
-text = "[S]"
-
-[node name="IsProjectEntryIndicator" type="Label" parent="EntryPlay"]
-margin_left = 217.0
-margin_top = 3.0
-margin_right = 233.0
-margin_bottom = 17.0
-text = "[P]"
+clip_text = true

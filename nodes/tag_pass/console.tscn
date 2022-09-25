@@ -40,21 +40,13 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="TagPassPlay/Header"]
 self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 58.0
 margin_bottom = 14.0
-text = " Tag Pass"
-
-[node name="MarginContainer" type="MarginContainer" parent="TagPassPlay/Header"]
-margin_left = 62.0
-margin_right = 65.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+text = ""
 
 [node name="Method" type="Label" parent="TagPassPlay/Header"]
 self_modulate = Color( 1, 1, 1, 0.501961 )
-margin_left = 69.0
-margin_right = 129.0
+margin_left = 4.0
+margin_right = 64.0
 margin_bottom = 14.0
 size_flags_vertical = 8
 text = "{method}"
@@ -65,19 +57,21 @@ margin_right = 129.0
 margin_bottom = 32.0
 
 [node name="Color" type="ColorRect" parent="TagPassPlay/Character"]
-margin_right = 15.0
+margin_right = 14.0
 margin_bottom = 14.0
-rect_min_size = Vector2( 15, 0 )
+rect_min_size = Vector2( 14, 14 )
+size_flags_vertical = 0
 size_flags_stretch_ratio = 2.0
 color = Color( 0.0588235, 0.407843, 0.956863, 0.435294 )
 
 [node name="Name" type="Label" parent="TagPassPlay/Character"]
-margin_left = 19.0
+margin_left = 18.0
 margin_right = 129.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
 text = "{character-name}"
+autowrap = true
 
 [node name="Invalid" type="Label" parent="TagPassPlay"]
 visible = false

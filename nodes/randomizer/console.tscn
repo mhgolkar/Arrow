@@ -2,47 +2,40 @@
 
 [ext_resource path="res://nodes/randomizer/console.gd" type="Script" id=1]
 
-[node name="Randomizer" type="MarginContainer"]
+[node name="Randomizer" type="PanelContainer"]
 margin_top = 226.0
 margin_right = 233.0
 margin_bottom = 246.0
 rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="RandomizerPlay" type="HBoxContainer" parent="."]
-margin_right = 233.0
-margin_bottom = 20.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 226.0
+margin_bottom = 27.0
 mouse_filter = 2
 
 [node name="Icon" type="Label" parent="RandomizerPlay"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_top = 3.0
-margin_right = 32.0
 margin_bottom = 17.0
-text = "[Rnd]"
+text = ""
 
 [node name="RandomizerName" type="Button" parent="RandomizerPlay"]
-margin_left = 36.0
-margin_right = 136.0
+margin_left = 4.0
+margin_right = 133.0
 margin_bottom = 20.0
 mouse_filter = 1
 size_flags_horizontal = 3
 text = "{name}"
 flat = true
-
-[node name="CountIcon" type="Label" parent="RandomizerPlay"]
-margin_left = 140.0
-margin_top = 3.0
-margin_right = 147.0
-margin_bottom = 17.0
-text = "^"
+clip_text = true
 
 [node name="SlotsCount" type="Label" parent="RandomizerPlay"]
-margin_left = 151.0
+margin_left = 137.0
 margin_top = 3.0
-margin_right = 233.0
+margin_right = 219.0
 margin_bottom = 17.0
 text = "{slots-count}"

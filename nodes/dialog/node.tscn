@@ -6,6 +6,7 @@
 margin_right = 72.0
 margin_bottom = 81.0
 mouse_filter = 1
+resizable = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color( 1, 1, 1, 1 )

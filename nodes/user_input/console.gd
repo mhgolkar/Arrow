@@ -42,7 +42,7 @@ const DEFAULT_CUSTOM = {
 	"bool": ["Negative (False)", "Positive (True)", true],
 }
 
-onready var Prompt:Label = get_node("./UserInputPlay/Prompt")
+onready var Prompt:Label = get_node("./UserInputPlay/Header/Prompt")
 onready var Enter:Button = get_node("./UserInputPlay/Actions/Enter")
 onready var Skip:Button = get_node("./UserInputPlay/Actions/Skip")
 onready var InputsHolder = get_node("./UserInputPlay/Input")
@@ -65,7 +65,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	Enter.connect("pressed", self, "play_forward", [], CONNECT_DEFERRED)
+	Enter.connect("pressed", self, "read_and_try_playing_forward", [true], CONNECT_DEFERRED)
 	Skip.connect("pressed", self, "skip_play", [], CONNECT_DEFERRED)
 	for type in Inputs:
 		Inputs[type].connect("gui_input", self, "_reset_input_validity_state", [], CONNECT_DEFERRED)
@@ -243,33 +243,36 @@ func validate_input(input):
 	return input
 
 # Note: there is only one playable slot
-func play_forward(apply_change:bool = true) -> void:
-	if _NODE_SLOTS_MAP.has(ONLY_PLAY_SLOT):
-		var play = false
-		var next = _NODE_SLOTS_MAP[ONLY_PLAY_SLOT]
-		if apply_change != false:
-			var new_var_value = validate_input( read_input() )
-			if new_var_value != null:
-				self.emit_signal("reset_variables", {
-					_THE_VARIABLE_ID: new_var_value
-				})
-				set_result(new_var_value, true)
-				play = true # Validated, applied and playable
-			else:
-				play = false # Invalid input
+func read_and_try_playing_forward(apply_change:bool = true) -> void:
+	var play = false
+	if apply_change != false:
+		var new_var_value = validate_input( read_input() )
+		if new_var_value != null:
+			self.emit_signal("reset_variables", {
+				_THE_VARIABLE_ID: new_var_value
+			})
+			set_result(new_var_value, true)
+			play = true # Validated, applied and playable
 		else:
-			play = true # Skipped node (play without applying variable)
-		# ...
-		_reset_input_validity_state(play)
-		if play:
-			self.emit_signal("play_forward", next.id, next.slot)
-			set_view_played_on_ready(ONLY_PLAY_SLOT)
+			play = false # Invalid input
 	else:
-		# End-of-line node
-		emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
-		set_view_played_on_ready(ONLY_PLAY_SLOT)
+		play = true # Skipped node (play without applying variable)
+	# ...
+	_reset_input_validity_state(play)
+	if play:
+		play_forward_from(ONLY_PLAY_SLOT)
 	pass
 
+func play_forward_from(slot_idx:int = ONLY_PLAY_SLOT) -> void:
+	if slot_idx >= 0:
+		if _NODE_SLOTS_MAP.has(slot_idx):
+			var next = _NODE_SLOTS_MAP[slot_idx]
+			self.emit_signal("play_forward", next.id, next.slot)
+		else:
+			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+		set_view_played_on_ready(slot_idx)
+	pass
+	
 func set_view_played_on_ready(slot_idx:int) -> void:
 	if _NODE_IS_READY:
 		set_view_played(slot_idx)
@@ -353,7 +356,7 @@ func set_view_played(slot_idx:int = ONLY_PLAY_SLOT) -> void:
 
 func skip_play() -> void:
 	set_result(_THE_VARIABLE_ORIGINAL_VALUE, true)
-	play_forward(false) # ... without applying input
+	read_and_try_playing_forward(false) # ... without applying input
 	pass
 
 func step_back() -> void:

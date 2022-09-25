@@ -8,9 +8,6 @@ margin_right = 233.0
 margin_bottom = 136.0
 size_flags_horizontal = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GeneratorPlay" type="VBoxContainer" parent="."]
 margin_left = 7.0
@@ -30,7 +27,18 @@ size_flags_horizontal = 3
 margin_right = 219.0
 margin_bottom = 50.0
 
-[node name="Method" type="Label" parent="GeneratorPlay/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GeneratorPlay/PanelContainer/VBoxContainer"]
+margin_right = 219.0
+margin_bottom = 14.0
+
+[node name="Icon" type="Label" parent="GeneratorPlay/PanelContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_right = 4.0
+margin_bottom = 14.0
+text = " "
+
+[node name="Method" type="Label" parent="GeneratorPlay/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 8.0
 margin_right = 219.0
 margin_bottom = 14.0
 size_flags_horizontal = 3

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://nodes/sequencer/console.gd" type="Script" id=1]
 
-[node name="Sequencer" type="MarginContainer"]
+[node name="Sequencer" type="PanelContainer"]
 margin_top = 226.0
 margin_right = 233.0
 margin_bottom = 246.0
@@ -11,55 +11,54 @@ size_flags_horizontal = 3
 script = ExtResource( 1 )
 
 [node name="SequencerPlay" type="VBoxContainer" parent="."]
-margin_right = 233.0
-margin_bottom = 38.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 226.0
+margin_bottom = 45.0
 
 [node name="Identity" type="HBoxContainer" parent="SequencerPlay"]
-margin_right = 233.0
+margin_right = 219.0
 margin_bottom = 14.0
 mouse_filter = 2
 
 [node name="Icon" type="Label" parent="SequencerPlay/Identity"]
-margin_right = 31.0
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_bottom = 14.0
-text = "[Seq]"
+text = ""
 
 [node name="SequencerName" type="Label" parent="SequencerPlay/Identity"]
-margin_left = 35.0
-margin_right = 136.0
+margin_left = 4.0
+margin_right = 133.0
 margin_bottom = 14.0
 mouse_filter = 1
 size_flags_horizontal = 3
+size_flags_vertical = 7
 text = "{name}"
 align = 1
-
-[node name="CountIcon" type="Label" parent="SequencerPlay/Identity"]
-margin_left = 140.0
-margin_right = 147.0
-margin_bottom = 14.0
-text = "^"
+autowrap = true
+clip_text = true
 
 [node name="SlotsCount" type="Label" parent="SequencerPlay/Identity"]
-margin_left = 151.0
-margin_right = 233.0
+margin_left = 137.0
+margin_right = 219.0
 margin_bottom = 14.0
 text = "{slots-count}"
 
 [node name="Actions" type="HBoxContainer" parent="SequencerPlay"]
 margin_top = 18.0
-margin_right = 233.0
+margin_right = 219.0
 margin_bottom = 38.0
 mouse_filter = 2
 alignment = 2
 
 [node name="Play" type="Button" parent="SequencerPlay/Actions"]
-margin_left = 155.0
-margin_right = 191.0
+margin_left = 141.0
+margin_right = 177.0
 margin_bottom = 20.0
 text = "Run"
 
 [node name="Skip" type="Button" parent="SequencerPlay/Actions"]
-margin_left = 195.0
-margin_right = 233.0
+margin_left = 181.0
+margin_right = 219.0
 margin_bottom = 20.0
 text = "Skip"

@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://nodes/user_input/console.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0, 0, 0, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.5, 0.5, 0.5, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="UserInput" type="PanelContainer"]
 margin_right = 233.0
@@ -12,10 +28,23 @@ script = ExtResource( 1 )
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 226.0
-margin_bottom = 105.0
+margin_bottom = 113.0
 mouse_filter = 2
 
-[node name="Prompt" type="Label" parent="UserInputPlay"]
+[node name="Header" type="HBoxContainer" parent="UserInputPlay"]
+margin_right = 219.0
+margin_bottom = 14.0
+
+[node name="Icon" type="Label" parent="UserInputPlay/Header"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_right = 4.0
+margin_bottom = 14.0
+size_flags_vertical = 7
+text = "﬍ "
+valign = 1
+
+[node name="Prompt" type="Label" parent="UserInputPlay/Header"]
+margin_left = 8.0
 margin_right = 219.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
@@ -58,13 +87,17 @@ text = "* Invalid input"
 [node name="Result" type="Label" parent="UserInputPlay"]
 margin_top = 60.0
 margin_right = 219.0
-margin_bottom = 74.0
+margin_bottom = 82.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_styles/normal = SubResource( 1 )
 text = "{ result }"
+autowrap = true
 
 [node name="Actions" type="HBoxContainer" parent="UserInputPlay"]
-margin_top = 78.0
+margin_top = 86.0
 margin_right = 219.0
-margin_bottom = 98.0
+margin_bottom = 106.0
 size_flags_horizontal = 3
 alignment = 2
 

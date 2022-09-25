@@ -3,7 +3,7 @@
 # Mor. H. Golkar
 
 # Randomizer Node Type Console
-extends MarginContainer
+extends PanelContainer
 
 signal play_forward
 signal status_code
@@ -31,6 +31,7 @@ onready var RandomizerName:Button = get_node("./RandomizerPlay/RandomizerName")
 onready var SlotsCount:Label = get_node("./RandomizerPlay/SlotsCount")
 
 const ERROR_SLOT_NUMBER_MESSAGE = "ERR"
+const SLOTS_COUNT_TEMPLATE = "[%s]"
 
 func _ready() -> void:
 	register_connections()
@@ -63,7 +64,7 @@ func setup_view() -> void:
 	# the randomizer's slot count
 	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("slots") && (_NODE_RESOURCE.data.slots is int):
 		_SLOTS_COUNT = _NODE_RESOURCE.data.slots
-		SlotsCount.set_text( String(_NODE_RESOURCE.data.slots) )
+		SlotsCount.set_text( SLOTS_COUNT_TEMPLATE % _NODE_RESOURCE.data.slots )
 	else:
 		SlotsCount.set_text( ERROR_SLOT_NUMBER_MESSAGE )
 		printerr("Unexpected Behavior! Hub doesn't have data/propert `slots`.")

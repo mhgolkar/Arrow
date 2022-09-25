@@ -25,26 +25,48 @@ margin_right = 214.0
 margin_bottom = 85.0
 mouse_filter = 2
 
-[node name="CharacterProfile" type="HBoxContainer" parent="DialogPlay"]
+[node name="Header" type="HBoxContainer" parent="DialogPlay"]
+margin_right = 207.0
+margin_bottom = 14.0
+
+[node name="Icon" type="Label" parent="DialogPlay/Header"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_right = 4.0
+margin_bottom = 14.0
+text = " "
+
+[node name="CharacterProfile" type="HBoxContainer" parent="DialogPlay/Header"]
+margin_left = 8.0
 margin_right = 207.0
 margin_bottom = 14.0
 mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Color" type="ColorRect" parent="DialogPlay/CharacterProfile"]
+[node name="Color" type="ColorRect" parent="DialogPlay/Header/CharacterProfile"]
 margin_right = 14.0
 margin_bottom = 14.0
-rect_min_size = Vector2( 14, 0 )
+rect_min_size = Vector2( 14, 14 )
 mouse_filter = 2
+size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
 color = Color( 1, 1, 1, 0.709804 )
 
-[node name="Name" type="Label" parent="DialogPlay/CharacterProfile"]
+[node name="Spacer" type="MarginContainer" parent="DialogPlay/Header/CharacterProfile"]
 margin_left = 18.0
-margin_right = 207.0
+margin_right = 22.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 4, 0 )
+size_flags_vertical = 3
+
+[node name="Name" type="Label" parent="DialogPlay/Header/CharacterProfile"]
+margin_left = 26.0
+margin_right = 199.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
 text = "{character-name}"
+autowrap = true
 
 [node name="Box" type="PanelContainer" parent="DialogPlay"]
 margin_top = 18.0

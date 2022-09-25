@@ -24,4 +24,4 @@ margin_bottom = 38.0
 self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_right = 76.0
 margin_bottom = 14.0
-text = "  Seq."
+text = " Seq."

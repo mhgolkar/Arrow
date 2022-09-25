@@ -17,6 +17,7 @@ const OUT_SLOT_COLOR_RIGHT  = OUT_SLOT_COLOR
 const OUT_SLOT_COLOR_LEFT   = OUT_SLOT_COLOR
 
 const ACTION_SLOT_ALIGN = Label.ALIGN_RIGHT
+const ACTION_AUTO_WRAP = true
 
 var _node_id
 var _node_resource
@@ -47,6 +48,7 @@ func _update_node(data:Dictionary) -> void:
 				var action_slot = Label.new()
 				action_slot.set_text(action_text)
 				action_slot.set_align(ACTION_SLOT_ALIGN)
+				action_slot.set_autowrap(ACTION_AUTO_WRAP)
 				This.add_child(action_slot)
 				This.set_slot(
 					idx,

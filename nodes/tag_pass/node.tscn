@@ -78,7 +78,7 @@ __meta__ = {
 self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_right = 58.0
 margin_bottom = 14.0
-text = " Tag Pass"
+text = " Tag Pass"
 
 [node name="MarginContainer" type="MarginContainer" parent="Pass/Header"]
 margin_left = 62.0

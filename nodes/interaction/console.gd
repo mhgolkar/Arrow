@@ -27,9 +27,14 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var ActionsHolder = get_node("./InteractionPlay/Actions")
-onready var PlayedAction = get_node("./InteractionPlay/ActionPlayed")
-onready var PlayedActionLabel = get_node("./InteractionPlay/ActionPlayed/Label")
+onready var ActionsHolder = get_node("./InteractionPlay/Box/Rows/Actions")
+onready var PlayedAction = get_node("./InteractionPlay/Box/Rows/ActionPlayed")
+onready var PlayedActionLabel = get_node("./InteractionPlay/Box/Rows/ActionPlayed/Label")
+
+const ACTIONS_SHARED_PROPERTIES = {
+	"clip_text": true,
+	"align": Button.ALIGN_LEFT
+}
 
 func _ready() -> void:
 	# register_connections()
@@ -87,6 +92,8 @@ func setup_view() -> void:
 			var action_text = _NODE_RESOURCE.data.actions[action_idx]
 			var reformatted_action_text = action_text.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
 			the_action_button.set_text(reformatted_action_text)
+			for property in ACTIONS_SHARED_PROPERTIES:
+				the_action_button.set(property, ACTIONS_SHARED_PROPERTIES[property])
 			listen_to_action(the_action_button, action_idx)
 			ActionsHolder.add_child(the_action_button)
 	pass

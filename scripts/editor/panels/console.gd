@@ -21,6 +21,11 @@ onready var SettingsMenuButton = get_node(Addressbook.CONSOLE.SETTINGS)
 onready var SettingsMenuButtonPopup = SettingsMenuButton.get_popup()
 
 const CONSOLE_MESSAGE_DEFAULT_COLOR = Settings.CONSOLE_MESSAGE_DEFAULT_COLOR
+const CONSOLE_MESSAGE_PRINET_PROPERTIES = {
+	"v_size_flags": Control.SIZE_EXPAND_FILL,
+	"align": Label.ALIGN_LEFT,
+	"autowrap": true,
+}
 
 var _CACHED_TYPES:Dictionary = {}
 var _NODES_IN_TERMINAL = [] # new one first [0]
@@ -320,11 +325,11 @@ func append_to_terminal(
 	self.call_deferred("update_scroll_to_v_max")
 	pass
 
-func print_console(message:String, centerize:bool = false, color:Color = CONSOLE_MESSAGE_DEFAULT_COLOR) -> void:
+func print_console(message:String, color:Color = CONSOLE_MESSAGE_DEFAULT_COLOR) -> void:
 	var message_node = Label.new()
 	message_node.set_text(message)
-	if centerize:
-		message_node.set_align(Label.ALIGN_CENTER)
+	for property in CONSOLE_MESSAGE_PRINET_PROPERTIES:
+		message_node.set(property, CONSOLE_MESSAGE_PRINET_PROPERTIES[property])
 	message_node.set("custom_colors/font_color", color)
 	append_to_terminal(message_node)
 	pass
@@ -526,9 +531,9 @@ func interpret_status_code(code:int, the_player_node = null, the_player_node_uid
 				# It seems like a macro's end of line
 				_OPEN_MACRO.ELEMENT.play_forward_from() # ~ PLAY_MACRO_END_SLOT
 			else:
-				print_console( CONSOLE_STATUS_CODE.END_EDGE_MESSAGE.format(caller), false, Settings.INFO_COLOR )
+				print_console( CONSOLE_STATUS_CODE.END_EDGE_MESSAGE.format(caller), Settings.INFO_COLOR )
 		CONSOLE_STATUS_CODE.NO_DEFAULT:
-			print_console( CONSOLE_STATUS_CODE.NO_DEFAULT_MESSAGE.format(caller) , false, Settings.CAUTION_COLOR )
+			print_console( CONSOLE_STATUS_CODE.NO_DEFAULT_MESSAGE.format(caller), Settings.CAUTION_COLOR )
 	pass
 
 func clear_nodes_before(the_player_node, the_player_node_uid) -> void:
@@ -545,7 +550,7 @@ func clear_nodes_before(the_player_node, the_player_node_uid) -> void:
 			self.call_deferred("refresh_variables_list")
 			self.call_deferred("refresh_characters_list")
 	else:
-		print_console( CLEARANCE_PREVENTION_MESSAGE, false, CLEARANCE_PREVENTION_MESSAGE_COLOR )
+		print_console( CLEARANCE_PREVENTION_MESSAGE, CLEARANCE_PREVENTION_MESSAGE_COLOR )
 	pass
 
 func reset_synced_variables(update_list:Dictionary, the_player_node = null, the_player_node_uid = null) -> void:

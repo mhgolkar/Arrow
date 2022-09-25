@@ -39,7 +39,7 @@ const OPERATION_STATE_FORMAT_STRING = "{name} `{original}` : {updated}"
 
 onready var TheGenerator = GeneratorSharedClass.generator.new(Main.Mind)
 
-onready var Method = get_node("./GeneratorPlay/PanelContainer/VBoxContainer/Method")
+onready var Method = get_node("./GeneratorPlay/PanelContainer/VBoxContainer/HBoxContainer/Method")
 onready var Arguments = get_node("./GeneratorPlay/PanelContainer/VBoxContainer/Arguments")
 onready var Target = get_node("./GeneratorPlay/PanelContainer/VBoxContainer/Target")
 onready var Redo = get_node("./GeneratorPlay/Application/Redo")

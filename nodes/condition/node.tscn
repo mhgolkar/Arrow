@@ -7,47 +7,62 @@ mouse_filter = 1
 slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color( 1, 1, 1, 1 )
-slot/0/right_enabled = true
+slot/0/right_enabled = false
 slot/0/right_type = 1
 slot/0/right_color = Color( 1, 1, 1, 1 )
-slot/1/left_enabled = true
+slot/1/left_enabled = false
 slot/1/left_type = 0
 slot/1/left_color = Color( 1, 1, 1, 1 )
-slot/1/right_enabled = false
-slot/1/right_type = 0
+slot/1/right_enabled = true
+slot/1/right_type = 1
 slot/1/right_color = Color( 1, 1, 1, 1 )
-slot/2/left_enabled = false
+slot/2/left_enabled = true
 slot/2/left_type = 0
 slot/2/left_color = Color( 1, 1, 1, 1 )
-slot/2/right_enabled = true
+slot/2/right_enabled = false
 slot/2/right_type = 1
 slot/2/right_color = Color( 1, 1, 1, 1 )
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color( 1, 1, 1, 1 )
+slot/3/right_enabled = true
+slot/3/right_type = 1
+slot/3/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Label" type="Label" parent="."]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 112.0
+margin_bottom = 38.0
+text = " Condition"
 
 [node name="False" type="Label" parent="."]
 self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_left = 16.0
-margin_top = 24.0
-margin_right = 92.0
-margin_bottom = 38.0
+margin_top = 39.0
+margin_right = 112.0
+margin_bottom = 53.0
 text = "False "
 align = 2
 
 [node name="Condition" type="Label" parent="."]
 margin_left = 16.0
-margin_top = 39.0
-margin_right = 92.0
-margin_bottom = 53.0
+margin_top = 54.0
+margin_right = 112.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 96, 0 )
+size_flags_horizontal = 7
 text = "{statement}"
+align = 1
+autowrap = true
 
 [node name="True" type="Label" parent="."]
 self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_left = 16.0
-margin_top = 54.0
-margin_right = 92.0
-margin_bottom = 68.0
+margin_top = 69.0
+margin_right = 112.0
+margin_bottom = 83.0
 text = "True "
 align = 2

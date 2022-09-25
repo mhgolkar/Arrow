@@ -19,6 +19,7 @@ const OUT_SLOT_COLOR_RIGHT  = OUT_SLOT_COLOR
 const OUT_SLOT_COLOR_LEFT   = OUT_SLOT_COLOR
 
 const LINE_SLOT_ALIGN = Label.ALIGN_RIGHT
+const LINE_AUTO_WRAP = true
 
 const ANONYMOUS_CHARACTER = DialogSharedClass.ANONYMOUS_CHARACTER
 const DEFAULT_NODE_DATA = DialogSharedClass.DEFAULT_NODE_DATA
@@ -60,6 +61,7 @@ func update_lines(lines:Array, clear_first:bool = true) -> void:
 			var line_slot = Label.new()
 			line_slot.set_text(line_text)
 			line_slot.set_align(LINE_SLOT_ALIGN)
+			line_slot.set_autowrap(LINE_AUTO_WRAP)
 			This.add_child(line_slot)
 			This.set_slot(
 				idx,

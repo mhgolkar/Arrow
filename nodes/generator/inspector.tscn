@@ -9,9 +9,6 @@ margin_right = 207.0
 margin_bottom = 187.0
 size_flags_horizontal = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Generate" type="VBoxContainer" parent="."]
 margin_right = 200.0
@@ -29,6 +26,7 @@ margin_top = 18.0
 margin_right = 200.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
+clip_text = true
 
 [node name="GenerateValue" type="Label" parent="Generate"]
 margin_top = 42.0
@@ -41,6 +39,7 @@ margin_top = 60.0
 margin_right = 200.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
+clip_text = true
 
 [node name="Arguments" type="PanelContainer" parent="Generate"]
 visible = false

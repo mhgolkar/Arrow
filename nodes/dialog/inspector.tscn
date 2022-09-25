@@ -33,6 +33,7 @@ margin_left = 72.0
 margin_right = 239.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+clip_text = true
 
 [node name="LinesLabel" type="Label" parent="Dialog"]
 margin_top = 24.0

@@ -13,9 +13,6 @@ slot/0/right_enabled = true
 slot/0/right_type = 1
 slot/0/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Head" type="VBoxContainer" parent="."]
 margin_left = 16.0
@@ -27,4 +24,4 @@ margin_bottom = 38.0
 self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_right = 30.0
 margin_bottom = 14.0
-text = " Hub"
+text = " Hub"

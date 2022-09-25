@@ -27,13 +27,13 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var MarkerName:Label = get_node("./MarkerPlay/Head/MarkerName")
-onready var MarkerLabel:Button = get_node("./MarkerPlay/MarkerLabel")
+onready var MarkerLabel:Label = get_node("./MarkerPlay/Head/MarkerLabel")
+onready var Action:Button = get_node("./MarkerPlay/Action")
 
 const LABEL_UNSET_MESSAGE = "Unlabeled"
 const LABEL_UNSET_SELF_MODULATION_COLOR  = Color(1, 1, 1, 0.30)
 
-const NO_NOTES_MESSAGE = "Marker Has No Extra Information."
+const NO_NOTES_MESSAGE = "[No Notes.]"
 
 func _ready() -> void:
 	register_connections()
@@ -46,7 +46,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	MarkerLabel.connect("pressed", self, "play_forward_from", [AUTO_PLAY_SLOT], CONNECT_DEFERRED)
+	Action.connect("pressed", self, "play_forward_from", [AUTO_PLAY_SLOT], CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -58,7 +58,7 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 	pass
 
 func setup_view() -> void:
-	MarkerName.set_text(_NODE_RESOURCE.name)
+	Action.set_text(_NODE_RESOURCE.name)
 	if _NODE_RESOURCE.data.label.length() > 0:
 		MarkerLabel.set_text(_NODE_RESOURCE.data.label)
 	else:
@@ -113,13 +113,13 @@ func set_view_played_on_ready(slot_idx:int) -> void:
 	pass
 
 func set_view_unplayed() -> void:
-	MarkerLabel.set("flat", false)
-	MarkerLabel.set("disabled", false)
+	Action.set("flat", false)
+	Action.set("visible", true)
 	pass
 
 func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
-	MarkerLabel.set("flat", true)
-	MarkerLabel.set("disabled", true)
+	Action.set("flat", true)
+	Action.set("visible", false)
 	pass
 
 func skip_play() -> void:

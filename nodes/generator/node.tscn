@@ -3,6 +3,8 @@
 [ext_resource path="res://nodes/generator/node.gd" type="Script" id=1]
 
 [node name="GeneratorNode" type="GraphNode"]
+margin_right = 119.0
+margin_bottom = 98.0
 mouse_filter = 1
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -11,36 +13,35 @@ slot/0/right_enabled = true
 slot/0/right_type = 1
 slot/0/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 102.0
+margin_right = 103.0
 margin_bottom = 92.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 86.0
+margin_right = 87.0
 margin_bottom = 14.0
 text = " Generator"
 
 [node name="Method" type="Label" parent="VBoxContainer"]
 margin_top = 18.0
-margin_right = 86.0
+margin_right = 87.0
 margin_bottom = 32.0
 text = "{ method }"
 
 [node name="Arguments" type="Label" parent="VBoxContainer"]
 margin_top = 36.0
-margin_right = 86.0
+margin_right = 87.0
 margin_bottom = 50.0
 text = "{ arguments }"
+autowrap = true
 
 [node name="Target" type="Label" parent="VBoxContainer"]
 margin_top = 54.0
-margin_right = 86.0
+margin_right = 87.0
 margin_bottom = 68.0
 text = "{ target var }"
+autowrap = true

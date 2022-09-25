@@ -34,7 +34,7 @@ var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 const UNSET_OR_INVALID_MESSAGE = "Unset !"
 onready var VarUpExpression = VariableUpdateSharedClass.expression.new(Main.Mind)
 
-onready var TheExpression = get_node("./VariableUpdatePlay/PanelContainer/Expression")
+onready var TheExpression = get_node("./VariableUpdatePlay/Information/Expression")
 onready var Apply = get_node("./VariableUpdatePlay/Application/Apply")
 onready var Dismiss = get_node("./VariableUpdatePlay/Application/Dismiss")
 

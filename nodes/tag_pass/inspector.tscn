@@ -3,10 +3,8 @@
 [ext_resource path="res://nodes/tag_pass/inspector.gd" type="Script" id=1]
 
 [node name="TagPassType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 174.0
-margin_bottom = 227.0
+margin_right = 167.0
+margin_bottom = 220.0
 size_flags_horizontal = 3
 script = ExtResource( 1 )
 
@@ -26,6 +24,7 @@ margin_top = 18.0
 margin_right = 167.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
+clip_text = true
 
 [node name="Check" type="Label" parent="TagPass"]
 margin_top = 42.0
@@ -38,6 +37,7 @@ margin_top = 60.0
 margin_right = 167.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
+clip_text = true
 
 [node name="Checkables" type="PanelContainer" parent="TagPass"]
 margin_top = 84.0

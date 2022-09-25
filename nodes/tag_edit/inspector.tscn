@@ -26,6 +26,7 @@ margin_top = 18.0
 margin_right = 200.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
+clip_text = true
 
 [node name="Edit" type="Label" parent="TagEdit"]
 margin_top = 42.0
@@ -38,6 +39,7 @@ margin_top = 60.0
 margin_right = 200.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
+clip_text = true
 
 [node name="Key" type="LineEdit" parent="TagEdit"]
 margin_top = 84.0

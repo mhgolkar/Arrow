@@ -8,9 +8,6 @@ margin_top = 7.0
 margin_right = 246.0
 margin_bottom = 157.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Update" type="VBoxContainer" parent="."]
 margin_right = 239.0
@@ -27,6 +24,7 @@ text = "Update variable"
 margin_top = 18.0
 margin_right = 239.0
 margin_bottom = 38.0
+clip_text = true
 
 [node name="By" type="Label" parent="Update"]
 margin_top = 42.0
@@ -38,6 +36,7 @@ text = "by"
 margin_top = 60.0
 margin_right = 239.0
 margin_bottom = 80.0
+clip_text = true
 
 [node name="To" type="Label" parent="Update"]
 margin_top = 84.0
@@ -98,3 +97,4 @@ visible = false
 margin_right = 154.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+clip_text = true

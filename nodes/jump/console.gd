@@ -3,7 +3,7 @@
 # Mor. H. Golkar
 
 # Jump Node Type Console
-extends MarginContainer
+extends PanelContainer
 
 signal play_forward
 signal status_code
@@ -23,11 +23,12 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY:bool = false
 
-onready var JumpAction:Button = get_node("./JumpPlay/JumpAction")
+onready var Reason:Label = get_node("./JumpPlay/Header/Reason")
+onready var Action:Button = get_node("./JumpPlay/Link/Action")
 
 const REASON_TEXT_UNSET_MESSAGE = "No Reason"
-const JUMP_ACTION_LABEL_FORMAT_STRING = (
-	"{jump} > {target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_NODES else "{jump} > {target_name} ({target_uid})"
+const JUMP_TARGET_LABEL_FORMAT_STRING = (
+	"{target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_NODES else "{target_name} ({target_uid})"
 )
 
 func _ready() -> void:
@@ -41,7 +42,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	JumpAction.connect("pressed", self, "play_forward_the_jump", [], CONNECT_DEFERRED)
+	Action.connect("pressed", self, "play_forward_the_jump", [], CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -62,12 +63,12 @@ func setup_view() -> void:
 			label.target_uid = _NODE_RESOURCE.data.target
 			var the_target = Main.Mind.lookup_resource(_NODE_RESOURCE.data.target, "nodes")
 			label.target_name = the_target.name
-	JumpAction.set_text( JUMP_ACTION_LABEL_FORMAT_STRING.format(label) )
+	Action.set_text( JUMP_TARGET_LABEL_FORMAT_STRING.format(label) )
 	# Jump's reason
 	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("reason") && (_NODE_RESOURCE.data.reason is String) && _NODE_RESOURCE.data.reason.length() > 0:
-		JumpAction.set("hint_tooltip", _NODE_RESOURCE.data.reason )
+		Reason.set_text( _NODE_RESOURCE.data.reason )
 	else:
-		JumpAction.set("hint_tooltip", REASON_TEXT_UNSET_MESSAGE )
+		Reason.set_text( REASON_TEXT_UNSET_MESSAGE )
 	pass
 	
 func setup_play(
@@ -114,13 +115,13 @@ func set_view_played_on_ready() -> void:
 	pass
 
 func set_view_unplayed() -> void:
-	JumpAction.set_deferred("flat", false)
-	JumpAction.set_deferred("disabled", false)
+	Action.set_deferred("flat", false)
+	Action.set_deferred("disabled", false)
 	pass
 
 func set_view_played() -> void:
-	JumpAction.set_deferred("flat", true)
-	JumpAction.set_deferred("disabled", true)
+	Action.set_deferred("flat", true)
+	Action.set_deferred("disabled", true)
 	pass
 
 func skip_play() -> void:

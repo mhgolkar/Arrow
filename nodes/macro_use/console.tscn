@@ -1,21 +1,24 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://nodes/macro_use/console.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 8.0
+bg_color = Color( 0, 0, 0, 0 )
+border_width_left = 2
+border_color = Color( 0.701961, 0.701961, 0.701961, 0.701961 )
 
 [node name="MacroUse" type="PanelContainer"]
 margin_top = 166.0
 margin_right = 233.0
 margin_bottom = 198.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MacroUsePlay" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 226.0
-margin_bottom = 63.0
+margin_bottom = 49.0
 mouse_filter = 2
 
 [node name="MacroUseTitle" type="HBoxContainer" parent="MacroUsePlay"]
@@ -24,12 +27,12 @@ margin_bottom = 14.0
 mouse_filter = 2
 
 [node name="Icon" type="Label" parent="MacroUsePlay/MacroUseTitle"]
-margin_right = 20.0
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_bottom = 14.0
-text = "[M]"
+text = ""
 
 [node name="Label" type="Label" parent="MacroUsePlay/MacroUseTitle"]
-margin_left = 24.0
+margin_left = 4.0
 margin_right = 219.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
@@ -41,22 +44,21 @@ autowrap = true
 [node name="PanelContainer" type="PanelContainer" parent="MacroUsePlay"]
 margin_top = 18.0
 margin_right = 219.0
-margin_bottom = 32.0
+margin_bottom = 18.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
 
 [node name="MacroUseSubConsole" type="VBoxContainer" parent="MacroUsePlay/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 212.0
-margin_bottom = 7.0
+margin_left = 8.0
+margin_right = 219.0
 size_flags_horizontal = 3
 
 [node name="Actions" type="HBoxContainer" parent="MacroUsePlay"]
-margin_top = 36.0
+margin_top = 22.0
 margin_right = 219.0
-margin_bottom = 56.0
+margin_bottom = 42.0
 size_flags_horizontal = 3
 alignment = 2
 

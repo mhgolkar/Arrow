@@ -390,7 +390,7 @@ func draw_node(node_id:int, node:Dictionary, map:Dictionary, type:Dictionary) ->
 	if map.has("io"):
 		for connection in map.io:
 			queue_drawing_connection(connection)
-	make_auto_resize(node_instance)
+	make_resizeable(node_instance)
 	pass
 
 func get_node_instance(node_id_or_instance):
@@ -404,6 +404,7 @@ func update_grid_node_box(instance_or_id, node:Dictionary) -> void:
 		# pass a clone of data to the plot node
 		var data_clone = node.data.duplicate(true) 
 		node_instance.call_deferred("_update_node", data_clone)
+		resize_to_best_fit(node_instance, data_clone)
 	# now that we've changed a node box, we shall update minimap too
 	if USE_ARROW_MINIMAP:
 		yield(TheTree, "idle_frame") # wait (none-blocking) skipping one _process
@@ -580,25 +581,50 @@ func disconnection_from_view(connection:Array) -> void:
 	disconnect_from_view_by_id(connection[0], connection[1], connection[2],connection[3])
 	pass
 
-# [ auto-resizer ]
-
-func make_auto_resize(resizing_node:Node) -> void:
-	# every time a node is changed, it's redrawn so ...
-	resizing_node.connect("draw", self, "shrink_to_fit", [resizing_node], CONNECT_DEFERRED)
+func make_resizeable(instance) -> void:
+	# We allow nodes to handle resize-request signal as they wish; but if not handled, we take care of it here:
+	if instance.get_signal_connection_list("resize_request").size() == 0:
+		instance.set_resizable(true)
+		instance.connect("draw", self, "resize_to_best_fit", [instance, instance._node_resource.data], CONNECT_DEFERRED)
+		instance.connect("resize_request", self, "_on_resize_request", [instance], CONNECT_DEFERRED)
+	# else:
+	# 	print_debug("node instance is already handling resize: ", instance._node_id, instance._node_resource)
 	pass
 
-func shrink_to_fit(resizing_node:Node) -> void:
-	# find the real fit boundry (biggest x and y)
-	if is_instance_valid(resizing_node):
-		var real_fit = Vector2.ZERO
-		for child in resizing_node.get_children():
-			var child_size = child.get_size()
-			if child_size.x > real_fit.x:
-				real_fit.x = child_size.x
-			if child_size.y > real_fit.y:
-				real_fit.y = child_size.y
-		# then shrink the node to that
-		resizing_node.set_size(real_fit)
+func get_min_content_bounding_box(instance) -> Vector2:
+	var real_fit = Vector2.ZERO
+	for child in instance.get_children():
+		var child_size = child.get_size()
+		if child_size.x > real_fit.x:
+			real_fit.x = child_size.x
+		if child_size.y > real_fit.y:
+			real_fit.y = child_size.y
+	return real_fit
+
+func shrink_to_fit(instance:Node) -> void:
+	if is_instance_valid(instance):
+		var minimum_fit = get_min_content_bounding_box(instance)
+		instance.set_deferred("rect_min_size", minimum_fit)
+		instance.set_deferred("rect_size", minimum_fit)
+	pass
+
+func resize_to_best_fit(instance, data: Dictionary) -> void:
+	if data.has("rect") && data.rect is Array && data.rect.size() >= 2 :
+		var new_size = Utils.array_to_vector2(data.rect)
+		instance.set_deferred("rect_min_size", new_size)
+		instance.set_deferred("rect_size", new_size)
+	else:
+		shrink_to_fit(instance)
+	pass
+
+func _on_resize_request(resize_vector, instance) -> void:
+	var min_bounding = get_min_content_bounding_box(instance)
+	var rect_size_array = Utils.vector2_to_array(resize_vector) if resize_vector > min_bounding else null
+	var data_update = { "data": { "rect": rect_size_array } }
+	Main.Mind.update_resource(instance._node_id, data_update, "nodes", true)
+	# Because we are updating resource out of signal hierarchy,
+	# we need to manually toggle the save status as well:
+	Main.Mind.reset_project_save_status(false)
 	pass
 
 func resize_native_minimap() -> void:

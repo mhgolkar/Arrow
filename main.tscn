@@ -3418,6 +3418,7 @@ margin_right = 233.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "{ variables list }"
+clip_text = true
 items = [ "{ variables list }", null, false, 0, null ]
 selected = 0
 
@@ -3485,6 +3486,7 @@ margin_top = 7.0
 margin_right = 247.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
+clip_text = true
 
 [node name="Current" type="VBoxContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer"]
 margin_left = 7.0

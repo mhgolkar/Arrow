@@ -30,8 +30,8 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var CharacterProfileName  = get_node("./DialogPlay/CharacterProfile/Name")
-onready var CharacterProfileColor = get_node("./DialogPlay/CharacterProfile/Color")
+onready var CharacterProfileName  = get_node("./DialogPlay/Header/CharacterProfile/Name")
+onready var CharacterProfileColor = get_node("./DialogPlay/Header/CharacterProfile/Color")
 onready var PlayBox = get_node("./DialogPlay/Box")
 onready var PlayableLines = get_node("./DialogPlay/Box/Rows/PlayableLines")
 onready var PlayedLine = get_node("./DialogPlay/Box/Rows/Played")

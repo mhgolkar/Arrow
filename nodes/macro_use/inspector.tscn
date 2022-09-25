@@ -27,3 +27,4 @@ text = "Macro"
 margin_top = 18.0
 margin_right = 239.0
 margin_bottom = 38.0
+clip_text = true

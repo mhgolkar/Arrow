@@ -1,15 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://nodes/interaction/console.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 8.0
+bg_color = Color( 0, 0, 0, 0 )
+border_width_left = 2
+border_color = Color( 0.701961, 0.701961, 0.701961, 0.701961 )
 
 [node name="Interaction" type="PanelContainer"]
 margin_top = 48.0
 margin_right = 233.0
 margin_bottom = 138.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="InteractionPlay" type="VBoxContainer" parent="."]
 margin_left = 7.0
@@ -18,39 +21,61 @@ margin_right = 226.0
 margin_bottom = 83.0
 mouse_filter = 2
 
-[node name="Actions" type="VBoxContainer" parent="InteractionPlay"]
+[node name="Label" type="Label" parent="InteractionPlay"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_right = 219.0
-margin_bottom = 44.0
+margin_bottom = 14.0
+text = " "
+
+[node name="Box" type="PanelContainer" parent="InteractionPlay"]
+margin_top = 18.0
+margin_right = 219.0
+margin_bottom = 76.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="Rows" type="VBoxContainer" parent="InteractionPlay/Box"]
+margin_left = 8.0
+margin_right = 219.0
+margin_bottom = 58.0
+alignment = 1
+
+[node name="Actions" type="VBoxContainer" parent="InteractionPlay/Box/Rows"]
+margin_top = 7.0
+margin_right = 211.0
+margin_bottom = 51.0
 mouse_filter = 2
 
-[node name="ActX" type="Button" parent="InteractionPlay/Actions"]
-margin_right = 219.0
+[node name="ActX" type="Button" parent="InteractionPlay/Box/Rows/Actions"]
+margin_right = 211.0
 margin_bottom = 20.0
 text = "{ action x }"
 clip_text = true
 align = 0
 
-[node name="ActY" type="Button" parent="InteractionPlay/Actions"]
+[node name="ActY" type="Button" parent="InteractionPlay/Box/Rows/Actions"]
 margin_top = 24.0
-margin_right = 219.0
+margin_right = 211.0
 margin_bottom = 44.0
 text = "{ another action }"
 clip_text = true
 align = 0
 
-[node name="ActionPlayed" type="PanelContainer" parent="InteractionPlay"]
+[node name="ActionPlayed" type="PanelContainer" parent="InteractionPlay/Box/Rows"]
 visible = false
-self_modulate = Color( 0.0352941, 0.247059, 0.580392, 0.403922 )
-margin_top = 48.0
-margin_right = 219.0
-margin_bottom = 76.0
+margin_left = -7.0
+margin_top = -25.0
+margin_right = 212.0
+margin_bottom = 3.0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="InteractionPlay/ActionPlayed"]
+[node name="Label" type="Label" parent="InteractionPlay/Box/Rows/ActionPlayed"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 212.0
 margin_bottom = 21.0
 text = "{ action taken }"
 align = 1
+valign = 1
 autowrap = true

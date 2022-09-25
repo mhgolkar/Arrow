@@ -22,19 +22,21 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 108.0
+margin_right = 112.0
 margin_bottom = 56.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 
 [node name="NodeLabel" type="Label" parent="VBoxContainer"]
 self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 92.0
+margin_right = 96.0
 margin_bottom = 14.0
 text = " Marker"
 
 [node name="MarkerLabel" type="Label" parent="VBoxContainer"]
 margin_top = 18.0
-margin_right = 92.0
+margin_right = 96.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 96, 0 )
 text = "{Marker Label}"
+autowrap = true

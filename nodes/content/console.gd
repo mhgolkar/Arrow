@@ -33,7 +33,7 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var Title = get_node("./ContentPlay/Title")
+onready var Title = get_node("./ContentPlay/Header/Title")
 onready var Content = get_node("./ContentPlay/Content")
 onready var Brief = get_node("./ContentPlay/Brief")
 onready var Continue = get_node("./ContentPlay/Continue")

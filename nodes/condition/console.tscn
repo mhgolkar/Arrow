@@ -21,7 +21,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label" type="Label" parent="ConditionPlay"]
+self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+margin_top = 7.0
+margin_bottom = 21.0
+text = ""
+
 [node name="Statement" type="Label" parent="ConditionPlay"]
+margin_left = 4.0
 margin_right = 114.0
 margin_bottom = 28.0
 size_flags_horizontal = 3

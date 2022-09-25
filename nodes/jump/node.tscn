@@ -13,9 +13,6 @@ slot/0/right_enabled = false
 slot/0/right_type = 0
 slot/0/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Slot" type="VBoxContainer" parent="."]
 margin_left = 16.0
@@ -29,7 +26,7 @@ size_flags_vertical = 7
 self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
 margin_right = 82.0
 margin_bottom = 14.0
-text = " Jump to"
+text = " Jump to"
 
 [node name="Destination" type="Label" parent="Slot"]
 margin_top = 18.0
@@ -43,3 +40,4 @@ margin_top = 36.0
 margin_right = 82.0
 margin_bottom = 50.0
 text = "{reason}"
+autowrap = true

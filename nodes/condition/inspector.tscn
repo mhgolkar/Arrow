@@ -27,6 +27,7 @@ text = "Check for variable"
 margin_top = 18.0
 margin_right = 239.0
 margin_bottom = 38.0
+clip_text = true
 
 [node name="if" type="Label" parent="Condition"]
 margin_top = 42.0
@@ -39,6 +40,7 @@ margin_top = 60.0
 margin_right = 239.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
+clip_text = true
 
 [node name="CompareTo" type="Label" parent="Condition"]
 margin_top = 84.0
@@ -107,3 +109,4 @@ visible = false
 margin_right = 147.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+clip_text = true
