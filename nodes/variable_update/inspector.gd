@@ -61,7 +61,7 @@ func load_parameter_types() -> void:
 
 func register_connections() -> void:
 	Variables.connect("item_selected", self, "_on_variables_item_selected", [], CONNECT_DEFERRED)
-	# Operators.connect("item_selected", self, "_on_operators_item_selected", [], CONNECT_DEFERRED)
+	Operators.connect("item_selected", self, "_on_operators_item_selected", [], CONNECT_DEFERRED)
 	ParameterType.connect("item_selected", self, "_on_parameter_type_item_selected", [], CONNECT_DEFERRED)
 	pass
 
@@ -84,6 +84,7 @@ func refresh_operators_list() -> void:
 	if a_node_is_open() && _OPEN_NODE.data.variable == selected_variable_id:
 		var the_node_operator_item_idx = Operators.get_item_index( _OPERATORS_ITEM_ID_LISTED_BY_KEY[_OPEN_NODE.data.operator] )
 		Operators.select(the_node_operator_item_idx)
+	_on_operators_item_selected( Operators.get_selected_id() )
 	pass
 
 # it loads variables into the option-button's list, where ...
@@ -111,8 +112,15 @@ func _on_variables_item_selected(item_index:int) -> void:
 	refresh_updater_parameter()
 	pass
 
-#func _on_operators_item_selected(item_index:int) -> void:
-#	pass
+func _on_operators_item_selected(item_index:int) -> void:
+	var slected_check_var_id = Variables.get_selected_id()
+	var selected_check_var_type = NO_VARIABLE_VAR_TYPE
+	if _PROJECT_VARIABLES_CACHE.has( slected_check_var_id ):
+		selected_check_var_type = _PROJECT_VARIABLES_CACHE[ slected_check_var_id ].type
+	var selected_operator = UPDATE_OPERATORS[selected_check_var_type][_OPERATORS_LISTED_BY_ITEM_ID[item_index]]
+	# ...
+	Operators.set_tooltip(selected_operator.hint if selected_operator.has("hint") else "")
+	pass
 
 func _on_parameter_type_item_selected(item_index:int) -> void:
 	var type_id = ParameterType.get_item_id(item_index)

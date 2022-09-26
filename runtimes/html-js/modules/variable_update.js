@@ -146,12 +146,12 @@ class VariableUpdateExpression {
 
         const UPDATE_OPERATORS = {
             "num": {
-                "set": { "text": "Set Equel", "sign": "=" },
+                "set": { "text": "Set Equal", "sign": "=" },
                 "add": { "text": "Addition", "sign": "+=" },
                 "sub": { "text": "Subtraction", "sign": "-=" },
                 "div": { "text": "Division", "sign": "/=" },
                 "rem": { "text": "Remainder", "sign": "%=" },
-                "mul": { "text": "Multipication", "sign": "*=" },
+                "mul": { "text": "Multiplication", "sign": "*=" },
                 "exp": { "text": "Exponentiation", "sign": "^=" },
                 "abs": { "text": "Absolute", "sign": "=||" },
             },
@@ -160,8 +160,14 @@ class VariableUpdateExpression {
                 "stc": { "text": "Set Capitalized", "sign": "C=" },
                 "stl": { "text": "Set Lowercased", "sign": "l=" },
                 "stu": { "text": "Set Uppercased", "sign": "U=" },
-                "ins": { "text": "End Insertion", "sign": "=+" },
-                "inb": { "text": "Begining Insertion", "sign": "+=" },
+                "ins": { "text": "Insert Right", "sign": "=+" },
+                "inb": { "text": "Insert Left", "sign": "+=" },
+                "rmc": { "text": "Remove Left", "sign": "-=" },
+                "rml": { "text": "Remove Left (Case Insensitive)", "sign": "-~" },
+                "rmr": { "text": "Remove Right", "sign": "=-" },
+                "rmi": { "text": "Remove Right (Case Insensitive)", "sign": "~-" },
+                "rpl": { "text": "Replace", "sign": "=*" },
+                "rpi": { "text": "Replace (Case Insensitive)", "sign": "~*" },
             },
             "bool": {
                 "set": { "text": "Set", "sign": "=" },
@@ -232,11 +238,55 @@ class VariableUpdateExpression {
                     case "stu": // Set Uppercased (u=)
                         result = right.toUpperCase();
                         break;
-                    case "ins": // End Insertion (=+)
+                    case "ins": // Insert Right (=+)
                         result = ( left + right );
                         break;
-                    case "inb": // Begining Insertion (+=)
+                    case "inb": // Insert Left (+=)
                         result = ( right + left );
+                        break;
+                    case "rmc": // Remove Left (-=)
+                        var rem_idx = left.indexOf(right);
+                        if (rem_idx >= 0){
+                            result = left.substring(0, rem_idx) + left.substring(rem_idx + right.length);
+                        } else {
+                            result = left;
+                        }
+                        break;
+                    case "rml": // Remove Left _Case Insensitive_ (-~)
+                        var rem_idx = left.toLowerCase().indexOf(right.toLowerCase());
+                        if (rem_idx >= 0){
+                            result = left.substring(0, rem_idx) + left.substring(rem_idx + right.length);
+                        } else {
+                            result = left;
+                        }
+                        break;
+                    case "rmr": // Remove Right (=-)
+                        var rem_idx = left.lastIndexOf(right);
+                        if (rem_idx >= 0){
+                            result = left.substring(0, rem_idx) + left.substring(rem_idx + right.length);
+                        } else {
+                            result = left;
+                        }
+                        break;
+                    case "rmi": // Remove Right _Case Insensitive_ (~-)
+                        var rem_idx = left.toLowerCase().lastIndexOf(right.toLowerCase());
+                        if (rem_idx >= 0){
+                            result = left.substring(0, rem_idx) + left.substring(rem_idx + right.length);
+                        } else {
+                            result = left;
+                        }
+                        break;
+                    case "rpl": // Replace (=*)	
+                        var replacement = right.split("|");
+                        if (replacement.length == 1){ replacement.push(""); }
+                        result = left.replaceAll(replacement[0], replacement[1]);
+                        break;
+                    case "rpi": // Replace _Case Insensitive_ (~*)
+                        var replacement = right.split("|");
+                        if (replacement.length == 1){ replacement.push(""); }
+                        var escaped_replacement = replacement[0].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                        replacement[0] = new RegExp(escaped_replacement, 'ig');
+                        result = left.replace(replacement[0], replacement[1]);
                         break;
                 }
                 return result;
@@ -244,7 +294,7 @@ class VariableUpdateExpression {
             "num": function(left, operation, right){
                 var result = null;
                 switch (operation) {
-                    case "set": // Set Equel (=)
+                    case "set": // Set Equal (=)
                         result = right;
                         break;
                     case "add": // Addition (+=)
@@ -254,12 +304,12 @@ class VariableUpdateExpression {
                         result = (left - right);
                         break;
                     case "div": // Division (/=)
-                        result = (left / right);
+                        result = Math.floor(left / right);
                         break;
                     case "rem": // Remainder (%=)
                         result = (left % right);
                         break;
-                    case "mul": // Multipication (*=)
+                    case "mul": // Multiplication (*=)
                         result = (left * right);
                         break;
                     case "exp": // Exponentiation (^=)

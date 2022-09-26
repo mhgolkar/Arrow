@@ -17,12 +17,12 @@ const PARAMETER_MODES_ENUM_CODE = {
 const UPDATE_OPERATORS = {
 	# CAUTION! this list shall correspond to the `evaluate_...` functions
 	"num": {
-		"set": { "text": "Set Equel", "sign": "=" },
+		"set": { "text": "Set Equal", "sign": "=" },
 		"add": { "text": "Addition", "sign": "+=" },
 		"sub": { "text": "Subtraction", "sign": "-=" },
 		"div": { "text": "Division", "sign": "/=" },
 		"rem": { "text": "Remainder", "sign": "%=" },
-		"mul": { "text": "Multipication", "sign": "*=" },
+		"mul": { "text": "Multiplication", "sign": "*=" },
 		"exp": { "text": "Exponentiation", "sign": "^=" },
 		"abs": { "text": "Absolute", "sign": "=||" },
 	},
@@ -31,8 +31,14 @@ const UPDATE_OPERATORS = {
 		"stc": { "text": "Set Capitalized", "sign": "C=" },
 		"stl": { "text": "Set Lowercased", "sign": "l=" },
 		"stu": { "text": "Set Uppercased", "sign": "U=" },
-		"ins": { "text": "End Insertion", "sign": "=+" },
-		"inb": { "text": "Begining Insertion", "sign": "+=" },
+		"ins": { "text": "Insert Right", "sign": "=+" },
+		"inb": { "text": "Insert Left", "sign": "+=" },
+		"rmc": { "text": "Remove Left", "sign": "-=" },
+		"rml": { "text": "Remove Left (Case Insensitive)", "sign": "-~" },
+		"rmr": { "text": "Remove Right", "sign": "=-" },
+		"rmi": { "text": "Remove Right (Case Insensitive)", "sign": "~-" },
+		"rpl": { "text": "Replace", "sign": "=*", "hint": "Use pipe to define arguments (i.e. `find|replace`)." },
+		"rpi": { "text": "Replace (Case Insensitive)", "sign": "~*", "hint": "Use pipe to define arguments (i.e. `find|replace`)." },
 	},
 	"bool": {
 		"set": { "text": "Set", "sign": "=" },
@@ -101,7 +107,7 @@ class expression :
 	func evaluate_num_update(left:int, operation:String, right:int):
 		var result = null # updates `left` by ...
 		match operation:
-			"set": # Set Equel (=)
+			"set": # Set Equal (=)
 				result = right
 			"add": # Addition (+=)
 				result = (left + right)
@@ -109,11 +115,11 @@ class expression :
 				result = (left - right)
 			"div": # Division (/=)
 				if right != 0: # no support for infinity
-					result = (left / right)
+					result = int( floor(left / right) )
 			"rem": # Remainder (%=)
 				if right != 0: # no support for NAN
 					result = (left % right)
-			"mul": # Multipication (*=)
+			"mul": # Multiplication (*=)
 				result = (left * right)
 			"exp": # Exponentiation (^=)
 				result = pow(left, right)
@@ -137,10 +143,44 @@ class expression :
 				result = right.to_lower()
 			"stu": # Set Uppercased (u=)
 				result = right.to_upper()
-			"ins": # End Insertion (=+)
+			"ins": # Insert Right (=+)
 				result = ( left + right )
-			"inb": # Begining Insertion (+=)
+			"inb": # Insert Left (+=)
 				result = ( right + left )
+			"rmc": # Remove Left (-=)
+				var rem_idx = left.find(right)
+				if rem_idx >= 0:
+					result = left.substr(0, rem_idx) + left.substr((rem_idx + right.length()), -1)
+				else:
+					result = left
+			"rml": # Remove Left _Case Insensitive_ (-~)
+				var rem_idx = left.findn(right)
+				if rem_idx >= 0:
+					result = left.substr(0, rem_idx) + left.substr((rem_idx + right.length()), -1)
+				else:
+					result = left
+			"rmr": # Remove Right (=-)
+				var rem_idx = left.rfind(right)
+				if rem_idx >= 0:
+					result = left.substr(0, rem_idx) + left.substr((rem_idx + right.length()), -1)
+				else:
+					result = left
+			"rmi": # Remove Right _Case Insensitive_ (~-)
+				var rem_idx = left.rfindn(right)
+				if rem_idx >= 0:
+					result = left.substr(0, rem_idx) + left.substr((rem_idx + right.length()), -1)
+				else:
+					result = left
+			"rpl": # Replace (=*)	
+				var replacement = right.split("|")
+				if replacement.size() == 1: # consider it a replace with blank (ie. "" ~ remove all)
+					replacement.append("")
+				result = left.replace(replacement[0], replacement[1])
+			"rpi": # Replace _Case Insensitive_ (~*)
+				var replacement = right.split("|")
+				if replacement.size() == 1: # consider it a replace with blank (ie. "" ~ remove all)
+					replacement.append("")
+				result = left.replacen(replacement[0], replacement[1])
 		return result
 		
 	func evaluate_bool_update(left:bool, operation:String, right:bool):
