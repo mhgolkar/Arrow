@@ -321,7 +321,10 @@ class Utils:
 		var dir = Directory.new()
 		return dir.remove(path)
 	
-	static func parse_time_stamp(time, mark_utc:bool = false, custom_template:String = ""):
+	static func parse_time_stamp(
+		time_stamp, mark_utc:bool = false, convert_to_local_time: bool = false, custom_template:String = ""
+	):
+		var time = time_stamp.utc if time_stamp is Dictionary && time_stamp.has("utc") else time_stamp # (backward compatibility)
 		var time_dictionary: Dictionary
 		if time is Dictionary:
 			time_dictionary = time
@@ -331,6 +334,12 @@ class Utils:
 			time_dictionary = Time.get_datetime_dict_from_unix_time( int(time) )
 		else:
 			printerr("Unsupported time stamp format to parse! ", time)
+		# ...
+		if convert_to_local_time:
+			var unix_time = Time.get_unix_time_from_datetime_dict(time_dictionary) # (seconds)
+			var local_offset = Time.get_time_zone_from_system().bias * 60 # (bias is in minutes)
+			var local_unix_time = unix_time + local_offset
+			time_dictionary = Time.get_datetime_dict_from_unix_time(local_unix_time)
 		# ...
 		var template = (custom_template if (custom_template.length() > 0) else Settings.TIME_STAMP_TEMPLATE)
 		var parsed_time_stamp = template.format(time_dictionary)

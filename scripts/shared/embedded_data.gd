@@ -79,8 +79,8 @@ const Data = {
 			# > This method is not recommended; For most of the projects the default method is a better choice.
 			# "epoch": null,
 			# ...
-			"last_save": null, # `local` and `utc` date-time (ISO 8601) strings
-			"arrow_editor_version": Settings.ARROW_VERSION, # for future version compatibility checks.
+			"last_save": null, # UTC date-time (ISO 8601) string
+			"editor": Settings.ARROW_VERSION, # for future version compatibility checks.
 			# ...
 			# Arrow has a vcs-friendly project structure (i.e. unique & never-reused resource-ids, 'json' exports, etc.)
 			# so you can easily use your favorite revisioning system, such as git.

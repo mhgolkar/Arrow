@@ -148,7 +148,7 @@ func unlist_snapshot(snapshot_index:int, is_local:bool) -> void:
 		LocalProjectProperties.unlist_snapshot_by_idx(snapshot_index)
 	pass
 
-func reset_last_save(last_save: Dictionary, is_local:bool) -> void:
+func reset_last_save(last_save, is_local:bool) -> void:
 	if is_local:
 		LocalProjectProperties.reset_last_save(last_save)
 	pass

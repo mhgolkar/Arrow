@@ -96,12 +96,19 @@ func clean_snapshots_view() -> void:
 	_IS_IN_PREVIEW_MODE = false
 	pass
 
-func reset_last_save(last_save: Dictionary) -> void:
-	if last_save.has("local"):
-		var parsed_time_stamp = Utils.parse_time_stamp(last_save.local, false)
-		LastSaveTimeStamp.set_text(parsed_time_stamp)
+func reset_last_save(last_save) -> void:
+	# Note: last-save times are saved in UTC and shown in local
+	var parsed_time = null
+	if last_save is Dictionary: # (backward compatibility)
+		if last_save.has("local"):
+			parsed_time = Utils.parse_time_stamp(last_save.local, false, false) # shown from and in local
+		elif last_save.has("utc"):
+			parsed_time = Utils.parse_time_stamp(last_save.utc, false, true) # shown from utc in local
+	elif last_save is String: # (new versions only include UTC time string,
+		parsed_time = Utils.parse_time_stamp(last_save, false, true) # so conversion is needed) 
 	else:
 		printerr("Unable to set last save time! ", last_save)
+	LastSaveTimeStamp.set_text(parsed_time if parsed_time is String else "ERR!")
 	pass
 
 func refresh_fields(project_title:String, project_meta:Dictionary) -> void:
@@ -137,7 +144,9 @@ func list_snapshot(snapshot_details:Dictionary) -> void:
 	# list item
 	SnapshotsList.add_item(SNAPSHOT_LIST_ITEM_TEMPLATE.format({
 			"version": snapshot_details.version,
-			"parsed_time": Utils.parse_time_stamp(snapshot_details.time, false, SNAPSHOT_LIST_ITEM_TIME_TEMPLATE)
+			"parsed_time": Utils.parse_time_stamp(
+				snapshot_details.time, false, true, SNAPSHOT_LIST_ITEM_TIME_TEMPLATE
+			)
 		})
 	)
 	# keep the index of the snapshot as meta data
