@@ -62,7 +62,15 @@ const USE_DEPRECATED_BIN_SAVE = false
 # UID Management
 
 const ANONYMOUS_AUTHOR_INFO = "Anonymous Contributor"
-# ...
+
+# > Native Distributed UID (Arrow-Flake)
+# Default UIDs are inspired by Snowflakes, but highly customized,
+# to support chapters, authors and an incremental seed with following bit sizes:
+# It is highly recommended to keep the default values.
+# For more information, read documentation of the `Native` flake ID helper.
+const NATIVE_DISTRIBUTED_UID_BIT_SIZES = [10, 6, 37]
+
+# > Snowflake Mode
 # Arrow uses a custom (native) distributed UID generation (as recommended default) method.
 # You can still force use of time-base (Snowflake) IDs for your new projects if you prefer them.
 # Note also that you may remove default nodes created in new projects to avoid possible conflicts.

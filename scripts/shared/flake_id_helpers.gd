@@ -11,25 +11,37 @@ class_name Flake
 # These values will be mixed together with a chapter ID
 # which can be unique to each document for projects devided into multiple ones,
 # and shape a 53-bit UID for each resource. In other words:
-# +  9 bit chapter ID (0 - 512; Optional, default `0`)
+# + 10 bit chapter ID (0 - 1024; Optional, default `0`)
 # +  6 bit author ID (0 - 64; At least one author with `0` ID)
-# + 38 bit for more than 274 billion resources per author per chapter.
+# + 37 bit for more than 137 billion resources per author per chapter.
 # These UIDs are fast, minimal (specially for single author projects,)
 # and fit into a double-precision floating-point representation
 # (allowing easier integration of Arrow projects in many languages such as JS.)
+#
+# Note:
+# You can change the bit sizes from Settings, but it is highly recommended to
+# **keep the defaults** for most of workflows.
+#
 class Native:
 
+	const BIT_SIZE = Settings.NATIVE_DISTRIBUTED_UID_BIT_SIZES
+
 	## Maximum Chapter ID
-	# With 9 bits dedicated to unique chapter-id we can have maximum `2^9` sub-projects (including `0`.)
-	const CHAPTER_ID_EXCLUSIVE_LIMIT = 512
+	# By default with 10 bits dedicated to unique chapter-id we can have maximum `2^10 = 1024` sub-projects (including `0`.)
+	const CHAPTER_ID_EXCLUSIVE_LIMIT = int( pow( 2, BIT_SIZE[0] ) )
 	
 	## Maximum Number of Authors
-	# With 6 bits dedicated to unique author-id we can have maximum `2^6` authors (including `0`)
-	# working on the same project at the same time, which sounds reasonable.
-	const AUTHOR_ID_EXCLUSIVE_LIMITT = 64
+	# With 6 bits dedicated to unique author-id we can have maximum `2^6 = 64` authors (including `0`)
+	# which sounds reasonable for number of authors working on the same project at the same time.
+	const AUTHOR_ID_EXCLUSIVE_LIMITT = int( pow( 2, BIT_SIZE[1] ) )
 
-	## Maximum number of resource IDs per author per chapter (2^38 including `0`)
-	const RESOURCE_SEED_EXCLUSIVE_LIMIT = 274_877_906_944
+	## Maximum number of resource IDs per author per chapter (by default `2^37 = 137_438_953_472` including `0`)
+	const RESOURCE_SEED_EXCLUSIVE_LIMIT = int( pow( 2, BIT_SIZE[2] ) )
+
+	# Shifts for each segment
+	const CHAPTER_SHIFT = BIT_SIZE[1] + BIT_SIZE[2] # (by default 43 bits left shift to open space for 6-bit Author ID and 37-bit resource Seed)
+	const AUTHOR_SHIFT = BIT_SIZE[2] #  # (by default 37 bits left shift to open way for resource Seed)
+	const SEED_SHIFT = 0 # (seed fills up the rest of open space provided by other shifts and is the last segment)
 
 	# A reference to the active project meta data to directly manage incremental seeds per authors
 	var _PROJECT_META: Dictionary
@@ -54,9 +66,9 @@ class Native:
 	static func _calculate_unchecked(chapter: int, author: int, next_seed: int) -> int:
 		return (
 			# > Godot `int` is i64 so we can directly shift them (not using first few bits.)
-			(chapter << 44) # 🡠 44 bits left shift for 6-bit Author ID and 38-bit resource Seed, then
-			| (author << 38) # 🡠 38 bits left shift for resource seed,
-			| next_seed # which fills up the rest of bits
+			(chapter << CHAPTER_SHIFT) 
+			| (author << AUTHOR_SHIFT)
+			| (next_seed << SEED_SHIFT)
 		)
 	
 	## Next Flake
