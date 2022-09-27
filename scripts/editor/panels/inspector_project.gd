@@ -9,9 +9,14 @@ signal relay_request_mind
 
 onready var Main = get_tree().get_root().get_child(0)
 
+var Utils = Helpers.Utils
+
 onready var ProjectListModes = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.itself)
 onready var LocalProjectProperties = get_node(Addressbook.INSPECTOR.PROJECT.LOCAL_PROJECT_PROPERTIES.itself)
 
+onready var Filter = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.LISTING_INSTRUCTION.FILTER)
+onready var FilterReverse = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.LISTING_INSTRUCTION.FILTER_REVERSE)
+onready var SortAlphabetical = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.LISTING_INSTRUCTION.SORT_ALPHABETICAL)
 onready var LocalProjectsList = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.LISTED_PROJECTS_LIST)
 onready var SelectedProjectDescription = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.SELECTED_PROJECT_DESCRIPTION)
 onready var NewLocalProjectMenu = get_node(Addressbook.INSPECTOR.PROJECT.PROJECT_LIST_MODES.LOCAL_MODE.TOOLS.NEW_MENU_BUTTON)
@@ -37,6 +42,9 @@ func register_connections() -> void:
 	LocalProjectsList.connect("item_selected", self, "_on_local_projects_list_item_selected", [], CONNECT_DEFERRED)
 	LocalProjectsList.connect("item_activated", self, "request_opening_project", [], CONNECT_DEFERRED)
 	LocalProjectsList.connect("nothing_selected", self, "_on_local_projects_list_nothing_selected", [], CONNECT_DEFERRED)
+	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	SortAlphabetical.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	pass
 
 func initialize_tab() -> void:
@@ -49,6 +57,10 @@ func refresh_tab() -> void:
 
 func request_mind_relay(req:String, args=null, _the_part=null):
 	emit_signal("relay_request_mind", req, args)
+	pass
+
+func _on_listing_instruction_change(_x = null) -> void:
+	Main.Mind.load_projects_list()
 	pass
 
 func _on_local_projects_list_item_selected(_selected=null) -> void:
@@ -82,16 +94,28 @@ func refresh_local_project_list_tools_buttons() -> void:
 	OpenLocalProject.set_disabled( ! local_project_is_selected )
 	pass
 
+func read_listing_instruction() -> Dictionary:
+	return {
+		"FILTER": Filter.get_text(),
+		"FILTER_REVERSE": FilterReverse.is_pressed(),
+		"SORT_ALPHABETICAL": SortAlphabetical.is_pressed(),
+	}
+
 # <list>{ <project_uid>:int { title:string<project_title>, filename:string<filename-without-extension>}, ... }
 func list_local_projects(list:Dictionary, clean_existings:bool = false) -> void:
-	print_debug("Projects Listed: ", list)
+	# print_debug("Projects Listed: ", list)
+	var _LISTING = read_listing_instruction()
 	if clean_existings:
 		LocalProjectsList.clear()
 	var last_index = (LocalProjectsList.get_item_count() - 1)
 	for project_id in list:
-		LocalProjectsList.call_deferred("add_item", list[project_id].title)
-		last_index += 1 # now that we have added an item, index of the last item is changed
-		LocalProjectsList.call_deferred("set_item_metadata", last_index, project_id)
+		var project_title = list[project_id].title
+		if Utils.filter_pass(project_title, _LISTING.FILTER, _LISTING.FILTER_REVERSE):
+			LocalProjectsList.call_deferred("add_item", project_title)
+			last_index += 1 # now that we have added an item, index of the last item is changed
+			LocalProjectsList.call_deferred("set_item_metadata", last_index, project_id)
+	if _LISTING.SORT_ALPHABETICAL:
+		LocalProjectsList.call_deferred("sort_items_by_text")
 	pass
 
 func request_removing_project() -> void:

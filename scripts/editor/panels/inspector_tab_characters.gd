@@ -24,7 +24,11 @@ var _CURRENT_LOCATED_REF_ID = -1
 
 var _KEY_BEING_REVISIONED = null
 
+onready var Filter = get_node(Addressbook.INSPECTOR.CHARACTERS.LISTING_INSTRUCTION.FILTER)
+onready var FilterReverse = get_node(Addressbook.INSPECTOR.CHARACTERS.LISTING_INSTRUCTION.FILTER_REVERSE)
+onready var SortAlphabetical = get_node(Addressbook.INSPECTOR.CHARACTERS.LISTING_INSTRUCTION.SORT_ALPHABETICAL)
 onready var CharactersList = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTERS_LIST)
+
 onready var CharactersNewButton = get_node(Addressbook.INSPECTOR.CHARACTERS.NEW_BUTTON)
 onready var CharacterRemoveButton = get_node(Addressbook.INSPECTOR.CHARACTERS.REMOVE_BUTTON)
 
@@ -63,6 +67,9 @@ func register_connections() -> void:
 	CharacterAppearanceGoToButtonPopup.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
 	CharacterAppearanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
 	CharacterAppearanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
+	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	SortAlphabetical.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	pass
 
 func initialize_tab() -> void:
@@ -85,17 +92,63 @@ func refresh_characters_list(list:Dictionary = {}) -> void:
 	smartly_toggle_editor()
 	pass
 
+func _on_listing_instruction_change(_x = null) -> void:
+	refresh_characters_list()
+	pass
+
+func read_listing_instruction() -> Dictionary:
+	var filter_text = Filter.get_text()
+	var filter_array = []
+	for pattern in ["(.*)\\.(.*):(.*)", "(.*)\\.(.*)", "(.*)"]:
+		var extende_pattern = RegEx.new()
+		extende_pattern.compile(pattern)
+		var regex_match = extende_pattern.search(filter_text)
+		if regex_match != null:
+			filter_array = regex_match.get_strings()
+			filter_array.pop_front() # to remove the first (whole text) element
+			break
+	while filter_array.size() < 3:
+		filter_array.append("")
+	# ...
+	return {
+		"FILTER": filter_array,
+		"FILTER_REVERSE": FilterReverse.is_pressed(),
+		"SORT_ALPHABETICAL": SortAlphabetical.is_pressed(),
+	}
+
+func filters_pass_all(character: Dictionary, _LISTING: Dictionary) -> bool:
+	var passes = true # when there is no filter
+	if _LISTING.FILTER.size() > 0:
+		var pass_name =  Utils.filter_pass(character.name, _LISTING.FILTER[0])
+		# first make sure that characters with no tag also passe if there is no real filter:
+		var pass_tag_key = _LISTING.FILTER[1].length() == 0
+		var pass_tag_value = _LISTING.FILTER[2].length() == 0
+		if character.has("tags"):
+			for key in character.tags:
+				if pass_tag_key != true:
+					pass_tag_key = Utils.filter_pass(key, _LISTING.FILTER[1])
+				if pass_tag_key == true && pass_tag_value != true:
+					pass_tag_value = Utils.filter_pass(character.tags[key], _LISTING.FILTER[2])
+				if pass_tag_key && pass_tag_value:
+					break
+		passes = (pass_name && pass_tag_key && pass_tag_value)
+	return (passes if _LISTING.FILTER_REVERSE == false else (!passes))
+
 # appends a list of characters to the existing ones
 # Note: this won't refresh the current list,
 # if a character exists (by id) it'll be updated, otherwise added
 func list_characters(list_to_append:Dictionary) -> void :
+	var _LISTING = read_listing_instruction()
 	for character_id in list_to_append:
 		var the_character = list_to_append[character_id]
-		if _LISTED_CHARACTERS_BY_ID.has(character_id):
-			update_character_list_item(character_id, the_character)
-		else:
-			insert_character_list_item(character_id, the_character)
+		if filters_pass_all(the_character, _LISTING):
+			if _LISTED_CHARACTERS_BY_ID.has(character_id):
+				update_character_list_item(character_id, the_character)
+			else:
+				insert_character_list_item(character_id, the_character)
 	CharactersList.ensure_current_is_visible()
+	if _LISTING.SORT_ALPHABETICAL:
+		CharactersList.call_deferred("sort_items_by_text")
 	pass
 
 func unlist_characters(id_list:Array) -> void :

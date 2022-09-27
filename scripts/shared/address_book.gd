@@ -128,6 +128,11 @@ const INSPECTOR = {
 		"PROJECT_LIST_MODES":{
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes",
 			"LOCAL_MODE": {
+				"LISTING_INSTRUCTION": {
+					"FILTER" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/ListingInstruction/Filter",
+					"FILTER_REVERSE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/ListingInstruction/FilterReverse",
+					"SORT_ALPHABETICAL" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/ListingInstruction/SortAlphabetical",
+				},
 				"LISTED_PROJECTS_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/VSplitContainer/ScrollContainer/ListedProjects",
 				"SELECTED_PROJECT_DESCRIPTION": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Project/ProjectListModes/LocalMode/LocalProjects/VSplitContainer/ProjectDescription",
 				"TOOLS": {
@@ -186,6 +191,11 @@ const INSPECTOR = {
 	},
 	"SCENES":{
 		"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes",
+		"LISTING_INSTRUCTION": {
+			"FILTER" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/ListingInstruction/Filter",
+			"FILTER_REVERSE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/ListingInstruction/FilterReverse",
+			"SORT_ALPHABETICAL" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/ListingInstruction/SortAlphabetical",
+		},
 		"SCENES_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/VSplitContainer/ScrollContainer/ScenesList",
 		"SCENE_ENTRY_NOTES": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/VSplitContainer/SceneEntryNote",
 		"TOOLS":{
@@ -202,6 +212,11 @@ const INSPECTOR = {
 	},
 	"MACROS":{
 		"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros",
+		"LISTING_INSTRUCTION": {
+			"FILTER" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ListingInstruction/Filter",
+			"FILTER_REVERSE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ListingInstruction/FilterReverse",
+			"SORT_ALPHABETICAL" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ListingInstruction/SortAlphabetical",
+		},
 		"MACROS_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/VSplitContainer/ScrollContainer/MacrosList",
 		"MACRO_ENTRY_NOTE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/VSplitContainer/MacroEntryNote",
 		"EDIT":{
@@ -225,8 +240,12 @@ const INSPECTOR = {
 	},
 	"VARIABLES": {
 		"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables",
-		"TYPE_SELECT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/PanelContainer/HBoxContainer/TypeSelect",
-		"NEW_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/PanelContainer/HBoxContainer/NewButton",
+		"LISTING_INSTRUCTION": {
+			"FILTER" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction/Filter",
+			"FILTER_REVERSE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction/FilterReverse",
+			"FILTER_IN_TYPE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction/FilterInType",
+			"SORT_ALPHABETICAL" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction/SortAlphabetical",
+		},
 		"VARIABLES_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ScrollContainer/VariablesList",
 		"VARIABLE_EDITOR":{
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor",
@@ -246,9 +265,16 @@ const INSPECTOR = {
 			"SAVE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer2/SaveVariable",
 			"REMOVE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer2/RemoveVariable",
 		},
+		"TYPE_SELECT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/PanelContainer/HBoxContainer/TypeSelect",
+		"NEW_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/PanelContainer/HBoxContainer/NewButton",
 	},
 	"CHARACTERS":{
 		"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters",
+		"LISTING_INSTRUCTION": {
+			"FILTER" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ListingInstruction/Filter",
+			"FILTER_REVERSE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ListingInstruction/FilterReverse",
+			"SORT_ALPHABETICAL" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ListingInstruction/SortAlphabetical",
+		},
 		"CHARACTERS_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ScrollContainer/CharactersList",
 		"NEW_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate/HBoxContainer/NewCharacter",
 		"REMOVE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterCreate/HBoxContainer/RemoveCharacter",

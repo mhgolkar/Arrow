@@ -22,8 +22,10 @@ var _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE = []
 
 var _CURRENT_LOCATED_REF_ID = -1
 
-onready var VariablesTypeSelect = get_node(Addressbook.INSPECTOR.VARIABLES.TYPE_SELECT)
-onready var VariablesNewButton = get_node(Addressbook.INSPECTOR.VARIABLES.NEW_BUTTON)
+onready var Filter = get_node(Addressbook.INSPECTOR.VARIABLES.LISTING_INSTRUCTION.FILTER)
+onready var FilterReverse = get_node(Addressbook.INSPECTOR.VARIABLES.LISTING_INSTRUCTION.FILTER_REVERSE)
+onready var FilterInType = get_node(Addressbook.INSPECTOR.VARIABLES.LISTING_INSTRUCTION.FILTER_IN_TYPE)
+onready var SortAlphabetical = get_node(Addressbook.INSPECTOR.VARIABLES.LISTING_INSTRUCTION.SORT_ALPHABETICAL)
 onready var VariablesList = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLES_LIST)
 
 onready var VariableEditorPanel = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.itself)
@@ -35,6 +37,9 @@ onready var VariableEditorInitialValue = {
 }
 onready var VariableEditorSaveButton = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.SAVE_BUTTON)
 onready var VariableEditorRemoveButton = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.REMOVE_BUTTON)
+
+onready var VariablesTypeSelect = get_node(Addressbook.INSPECTOR.VARIABLES.TYPE_SELECT)
+onready var VariablesNewButton = get_node(Addressbook.INSPECTOR.VARIABLES.NEW_BUTTON)
 
 const VARIABLE_TYPE_IN_SELECTION_TEXT_TEMPLATE = "{name} ({type})"
 const VARIABLE_IN_LIST_TEXT_TEMPLATE = "{name} ({type}, {init})"
@@ -60,6 +65,10 @@ func register_connections() -> void:
 	VariableAppearanceGoToButtonPopup.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
 	VariableAppearanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
 	VariableAppearanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
+	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	FilterInType.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	SortAlphabetical.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	pass
 
 func initialize_tab() -> void:
@@ -97,17 +106,34 @@ func refresh_variables_list(list:Dictionary = {}) -> void:
 	smartly_toggle_editor()
 	pass
 
+func _on_listing_instruction_change(_x = null) -> void:
+	refresh_variables_list()
+	pass
+
+func read_listing_instruction() -> Dictionary:
+	return {
+		"FILTER": Filter.get_text(),
+		"FILTER_REVERSE": FilterReverse.is_pressed(),
+		"FILTER_IN_TYPE": [null, "num", "str", "bool"][ FilterInType.get_selected_id() ],
+		"SORT_ALPHABETICAL": SortAlphabetical.is_pressed(),
+	}
+
 # appends a list of variables to the existing ones
 # CAUTION! this won't refresh the current list,
 # if a variable exists (by id) it'll be updated, otherwise added
 func list_variables(list_to_append:Dictionary) -> void :
+	var _LISTING = read_listing_instruction()
 	for variable_id in list_to_append:
 		var the_variable = list_to_append[variable_id]
-		if _LISTED_VARIABLES_BY_ID.has(variable_id):
-			update_variable_list_item(variable_id, the_variable)
-		else:
-			insert_variable_list_item(variable_id, the_variable)
+		if Utils.filter_pass(the_variable.name, _LISTING.FILTER, _LISTING.FILTER_REVERSE):
+			if _LISTING.FILTER_IN_TYPE == null || the_variable.type == _LISTING.FILTER_IN_TYPE:
+				if _LISTED_VARIABLES_BY_ID.has(variable_id):
+					update_variable_list_item(variable_id, the_variable)
+				else:
+					insert_variable_list_item(variable_id, the_variable)
 	VariablesList.ensure_current_is_visible()
+	if _LISTING.SORT_ALPHABETICAL:
+		VariablesList.call_deferred("sort_items_by_text")
 	pass
 
 func unlist_variables(id_list:Array) -> void :

@@ -9,11 +9,16 @@ signal relay_request_mind
 
 onready var Main = get_tree().get_root().get_child(0)
 
+var Utils = Helpers.Utils
+
 var _LISTED_SCENES_BY_ID = {}
 var _LISTED_SCENES_BY_NAME = {}
 
 var _SELECTED_SCENE_BEING_EDITED_ID = -1
 
+onready var Filter = get_node(Addressbook.INSPECTOR.SCENES.LISTING_INSTRUCTION.FILTER)
+onready var FilterReverse = get_node(Addressbook.INSPECTOR.SCENES.LISTING_INSTRUCTION.FILTER_REVERSE)
+onready var SortAlphabetical = get_node(Addressbook.INSPECTOR.SCENES.LISTING_INSTRUCTION.SORT_ALPHABETICAL)
 onready var ScenesList = get_node(Addressbook.INSPECTOR.SCENES.SCENES_LIST)
 onready var SceneEntryNote = get_node(Addressbook.INSPECTOR.SCENES.SCENE_ENTRY_NOTES)
 
@@ -37,6 +42,9 @@ func register_connections() -> void:
 	ScenesRemoveButton.connect("pressed", self, "request_remove_scene", [], CONNECT_DEFERRED)
 	ScenesEditButton.connect("pressed", self, "request_scene_editorial_open", [], CONNECT_DEFERRED)
 	SceneEditorUpdateButton.connect("pressed", self, "submit_scene_modification", [], CONNECT_DEFERRED)
+	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	SortAlphabetical.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	pass
 
 func initialize_tab() -> void:
@@ -61,17 +69,32 @@ func refresh_scenes_list(list:Dictionary = {}) -> void:
 	update_scene_notes()
 	pass
 
+func _on_listing_instruction_change(_x = null) -> void:
+	refresh_scenes_list()
+	pass
+
+func read_listing_instruction() -> Dictionary:
+	return {
+		"FILTER": Filter.get_text(),
+		"FILTER_REVERSE": FilterReverse.is_pressed(),
+		"SORT_ALPHABETICAL": SortAlphabetical.is_pressed(),
+	}
+
 # appends a list of scenes to the existing ones
 # Note: this won't refresh the current list,
 # if a scene exists (by id) it'll be updated, otherwise added
 func list_scenes(list_to_append:Dictionary) -> void :
+	var _LISTING = read_listing_instruction()
 	for scene_id in list_to_append:
 		var the_scene = list_to_append[scene_id]
-		if _LISTED_SCENES_BY_ID.has(scene_id):
-			update_scene_list_item(scene_id, the_scene)
-		else:
-			insert_scene_list_item(scene_id, the_scene)
+		if Utils.filter_pass(the_scene.name, _LISTING.FILTER, _LISTING.FILTER_REVERSE):
+			if _LISTED_SCENES_BY_ID.has(scene_id):
+				update_scene_list_item(scene_id, the_scene)
+			else:
+				insert_scene_list_item(scene_id, the_scene)
 	ScenesList.ensure_current_is_visible()
+	if _LISTING.SORT_ALPHABETICAL:
+		ScenesList.call_deferred("sort_items_by_text")
 	pass
 
 func unlist_scenes(id_list:Array) -> void :
@@ -170,6 +193,7 @@ func smartly_update_tools(selected_scene_id:int = -1) -> void:
 				selected_scene_is_removable = true
 	ScenesEditButton.set_disabled( (! a_scene_is_selected) || (selected_scene_id == _SELECTED_SCENE_BEING_EDITED_ID) )
 	ScenesRemoveButton.set_disabled( (!a_scene_is_selected) || (!selected_scene_is_removable) )
+	SceneEditorPanel.set_visible( a_scene_is_selected && selected_scene_id == _SELECTED_SCENE_BEING_EDITED_ID )
 	pass
 
 func update_scene_notes(scene_id: int = -1) -> void:
@@ -256,12 +280,12 @@ func update_scene_editorial_state(scene_id:int = -1) -> void:
 		_SELECTED_SCENE_BEING_EDITED_ID = scene_id
 		var the_scene = _LISTED_SCENES_BY_ID[scene_id]
 		SceneEditorName.set_text(the_scene.name)
-		SceneEditorPanel.set("visible", true)
+		# SceneEditorPanel.set("visible", true) # moved to `smartly_update_tools`
 		# this may be called by other scripts, so let's reselect the open scene
 		select_list_item_by_scene_id(scene_id)
 	else:
 		_SELECTED_SCENE_BEING_EDITED_ID = -1
-		SceneEditorPanel.set("visible", false)
+		# SceneEditorPanel.set("visible", false)
 	smartly_update_tools()
 	update_scene_notes()
 	pass

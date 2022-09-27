@@ -516,6 +516,11 @@ class Utils:
 		else:
 			revised = original
 		return revised
+	
+	static func filter_pass(text: String, filter: String, reverse: bool = false, ci: bool = true) -> bool:
+		filter = "*" + filter + "*"
+		var passes = text.matchn(filter) if ci else text.match(filter)
+		return ( passes if reverse == false else (! passes ) )
 
 # List Node Helpers
 class ListHelpers:

@@ -14,6 +14,8 @@ signal relay_request_mind
 onready var Main = get_tree().get_root().get_child(0)
 onready var Grid = get_node(Addressbook.GRID)
 
+var Utils = Helpers.Utils
+
 var _LISTED_MACROS_BY_ID = {}
 var _LISTED_MACROS_BY_NAME = {}
 
@@ -26,6 +28,9 @@ var _SELECTED_MACRO_USER_IDS_IN_THE_SCENE = []
 
 var _CURRENT_LOCATED_REF_ID = -1
 
+onready var Filter = get_node(Addressbook.INSPECTOR.MACROS.LISTING_INSTRUCTION.FILTER)
+onready var FilterReverse = get_node(Addressbook.INSPECTOR.MACROS.LISTING_INSTRUCTION.FILTER_REVERSE)
+onready var SortAlphabetical = get_node(Addressbook.INSPECTOR.MACROS.LISTING_INSTRUCTION.SORT_ALPHABETICAL)
 onready var MacrosList = get_node(Addressbook.INSPECTOR.MACROS.MACROS_LIST)
 onready var MacroEntryNote = get_node(Addressbook.INSPECTOR.MACROS.MACRO_ENTRY_NOTE)
 
@@ -63,6 +68,9 @@ func register_connections() -> void:
 	MacroInstanceGoToButtonPopup.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
 	MacroInstanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
 	MacroInstanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
+	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	SortAlphabetical.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	pass
 
 func initialize_tab() -> void:
@@ -87,17 +95,32 @@ func refresh_macros_list(list:Dictionary = {}) -> void:
 	update_macro_notes()
 	pass
 
+func _on_listing_instruction_change(_x = null) -> void:
+	refresh_macros_list()
+	pass
+
+func read_listing_instruction() -> Dictionary:
+	return {
+		"FILTER": Filter.get_text(),
+		"FILTER_REVERSE": FilterReverse.is_pressed(),
+		"SORT_ALPHABETICAL": SortAlphabetical.is_pressed(),
+	}
+
 # appends a list of macros to the existing ones
 # Note: this won't refresh the current list,
 # if a macro exists (by id) it'll be updated, otherwise added
 func list_macros(list_to_append:Dictionary) -> void :
+	var _LISTING = read_listing_instruction()
 	for macro_id in list_to_append:
 		var the_macro = list_to_append[macro_id]
-		if _LISTED_MACROS_BY_ID.has(macro_id):
-			update_macro_list_item(macro_id, the_macro)
-		else:
-			insert_macro_list_item(macro_id, the_macro)
+		if Utils.filter_pass(the_macro.name, _LISTING.FILTER, _LISTING.FILTER_REVERSE):
+			if _LISTED_MACROS_BY_ID.has(macro_id):
+				update_macro_list_item(macro_id, the_macro)
+			else:
+				insert_macro_list_item(macro_id, the_macro)
 	MacrosList.ensure_current_is_visible()
+	if _LISTING.SORT_ALPHABETICAL:
+		MacrosList.call_deferred("sort_items_by_text")
 	pass
 
 func unlist_macros(id_list:Array) -> void :
@@ -194,6 +217,7 @@ func smartly_update_tools(selected_macro_id:int = -1) -> void:
 				selected_macro_is_removable = true
 	MacrosEditButton.set_disabled( (! a_macro_is_selected) || (selected_macro_id == _SELECTED_MACRO_BEING_EDITED_ID) )
 	MacrosRemoveButton.set_disabled( (!a_macro_is_selected) || (!selected_macro_is_removable) )
+	MacroEditorPanel.set_visible( a_macro_is_selected && selected_macro_id == _SELECTED_MACRO_BEING_EDITED_ID )
 	update_instance_pagination(selected_macro_id)
 	pass
 
@@ -279,12 +303,12 @@ func update_macro_editorial_state(macro_id:int = -1) -> void:
 		_SELECTED_MACRO_BEING_EDITED_ID = macro_id
 		var the_macro = _LISTED_MACROS_BY_ID[macro_id]
 		MacroEditorName.set_text(the_macro.name)
-		MacroEditorPanel.set("visible", true)
+		# MacroEditorPanel.set("visible", true) # moved to `smartly_update_tools`
 		# this may be called by other scripts, so let's reselect the open macro
 		select_list_item_by_macro_id(macro_id)
 	else:
 		_SELECTED_MACRO_BEING_EDITED_ID = -1
-		MacroEditorPanel.set("visible", false)
+		# MacroEditorPanel.set("visible", false)
 	smartly_update_tools()
 	update_macro_notes()
 	pass
