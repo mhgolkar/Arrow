@@ -6,16 +6,13 @@
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 246.0
-margin_bottom = 157.0
+margin_bottom = 164.0
 scroll_horizontal_enabled = false
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Jump" type="VBoxContainer" parent="."]
 margin_right = 239.0
-margin_bottom = 150.0
+margin_bottom = 157.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -46,20 +43,21 @@ placeholder_text = "Node UID"
 [node name="Suggestion" type="HBoxContainer" parent="Jump"]
 margin_top = 92.0
 margin_right = 239.0
-margin_bottom = 150.0
+margin_bottom = 157.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Jump/Suggestion"]
 margin_right = 11.0
-margin_bottom = 58.0
+margin_bottom = 65.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 
 [node name="List" type="ItemList" parent="Jump/Suggestion"]
 margin_left = 15.0
 margin_right = 239.0
-margin_bottom = 58.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.5

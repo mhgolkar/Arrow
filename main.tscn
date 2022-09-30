@@ -3164,7 +3164,7 @@ size_flags_vertical = 3
 
 [node name="Tags" type="HFlowContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterTags/VBoxContainer/Scroll"]
 margin_right = 250.0
-margin_bottom = 2.69452e+08
+margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -3679,7 +3679,7 @@ size_flags_vertical = 3
 
 [node name="Tags" type="HFlowContainer" parent="FloatToolsLayer/Container/Console/VBoxContainer/PanelContainer/VBoxContainer/CharacterTagsInspector/VBoxContainer/Current/Scroll"]
 margin_right = 240.0
-margin_bottom = 2.6953e+08
+margin_bottom = 101.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

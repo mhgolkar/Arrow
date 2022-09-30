@@ -301,7 +301,7 @@ const INLINED_JSON_DEFAULT_IDENT = "\t" # e.g. `\t` (tab) for readability or emp
 
 const THEMES = {
 	0: { "name": "Dark Night",  "resource": preload("res://resources/themes/dark_night.tres") },
-	1: { "name": "Godot Default",  "resource": preload("res://resources/themes/godot_default.tres") },
+	1: { "name": "Godot",  "resource": preload("res://resources/themes/godot_default.tres") },
 	2: { "name": "Alien",  "resource": preload("res://resources/themes/godot_alien.tres") },
 	3: { "name": "Gray",  "resource": preload("res://resources/themes/godot_gray.tres") },
 	4: { "name": "Light",  "resource": preload("res://resources/themes/godot_light.tres") }
