@@ -32,6 +32,10 @@ const EDITOR = {
 	"itself": "/root/Main/Editor",
 	# Top
 	"APP_MENU": "/root/Main/Editor/Top/Toolbar/AppControls/AppMenu",
+	"HISTORY": {
+		"UNDO": "/root/Main/Editor/Top/Toolbar/HistoryTools/HBoxContainer/Undo",
+		"REDO": "/root/Main/Editor/Top/Toolbar/HistoryTools/HBoxContainer/Redo",
+	},
 	"PROJECT_TITLE": "/root/Main/Editor/Top/Toolbar/ProjectTitle",
 	#	Reserved for possible vcs integration in the future:
 	#		"AUTO_LOCAL_SAVE_SWITCH": "/root/Main/Editor/Top/Toolbar/AutoLocalSaveSwitch",
@@ -64,9 +68,10 @@ const PREF_PANEL_FIELDS = {
 	"appearance_theme": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance/VBoxContainer/PreferencesThemeOptions",
 	#	"appearance_borderless": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance/VBoxContainer/PreferencesBorderless",
 	"language": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesLanguage/VBoxContainer/PreferencesLanguageOptions",
-	"app_local_dir_path": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer/PreferencesAppDirPath",
-	"app_local_dir_browse": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer/PreferencesAppDirPathBrowse",
-	"app_local_dir_reset_menu": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer/PreferencesAppDirPathResetMenu",
+	"app_local_dir_path": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/AppLocalDirectory/PreferencesAppDirPath",
+	"app_local_dir_browse": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/AppLocalDirectory/PreferencesAppDirPathBrowse",
+	"app_local_dir_reset_menu": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/AppLocalDirectory/PreferencesAppDirPathResetMenu",
+	"history_size": "/root/Main/BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesHistory/VBoxContainer/History/Size",
 }
 
 const ABOUT_PANEL = {

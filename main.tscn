@@ -441,9 +441,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -200.0
-margin_top = -180.0
+margin_top = -200.0
 margin_right = 200.0
-margin_bottom = 103.0
+margin_bottom = 100.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -453,36 +453,36 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 393.0
-margin_bottom = 277.0
+margin_bottom = 342.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer"]
 margin_right = 386.0
-margin_bottom = 20.0
+margin_bottom = 23.0
 alignment = 2
 
 [node name="PreferencesLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/HBoxContainer"]
 margin_top = 3.0
-margin_right = 252.0
-margin_bottom = 17.0
+margin_right = 242.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Prefrences"
 
 [node name="PreferencesDismiss" type="Button" parent="BlockingLayer/Container/Preferences/VBoxContainer/HBoxContainer"]
-margin_left = 256.0
-margin_right = 320.0
-margin_bottom = 20.0
+margin_left = 246.0
+margin_right = 314.0
+margin_bottom = 23.0
 text = "Dismiss"
 
 [node name="PreferencesConfirm" type="Button" parent="BlockingLayer/Container/Preferences/VBoxContainer/HBoxContainer"]
-margin_left = 324.0
+margin_left = 318.0
 margin_right = 386.0
-margin_bottom = 20.0
+margin_bottom = 23.0
 text = "Confirm"
 
 [node name="PanelContainer" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer"]
-margin_top = 24.0
+margin_top = 27.0
 margin_right = 386.0
-margin_bottom = 270.0
+margin_bottom = 335.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -490,35 +490,35 @@ size_flags_vertical = 3
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 379.0
-margin_bottom = 239.0
+margin_bottom = 301.0
 alignment = 1
 
 [node name="UILabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
 margin_right = 372.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 text = "User Interface"
 
 [node name="PreferencesUI" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
 visible = false
-margin_top = 18.0
+margin_top = 21.0
 margin_right = 372.0
-margin_bottom = 84.0
+margin_bottom = 93.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 365.0
-margin_bottom = 59.0
+margin_bottom = 65.0
 
 [node name="UIScaleLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer"]
 margin_right = 358.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 text = "Scale"
 
 [node name="UIScaleSlider" type="HSlider" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer"]
-margin_top = 18.0
+margin_top = 21.0
 margin_right = 358.0
-margin_bottom = 34.0
+margin_bottom = 37.0
 min_value = 0.1
 max_value = 2.0
 step = 0.01
@@ -526,14 +526,14 @@ page = 0.01
 value = 1.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer"]
-margin_top = 38.0
+margin_top = 41.0
 margin_right = 358.0
-margin_bottom = 52.0
+margin_bottom = 58.0
 alignment = 1
 
 [node name="XSmallLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer/HBoxContainer"]
 margin_right = 68.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "X-Small"
 valign = 1
@@ -541,14 +541,14 @@ valign = 1
 [node name="MarginContainer1" type="MarginContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer/HBoxContainer"]
 margin_left = 72.0
 margin_right = 140.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MediumLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer/HBoxContainer"]
 margin_left = 144.0
 margin_right = 213.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Medium"
 align = 1
@@ -557,39 +557,39 @@ valign = 1
 [node name="MarginContainer2" type="MarginContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer/HBoxContainer"]
 margin_left = 217.0
 margin_right = 285.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="XLargeLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesUI/VBoxContainer/HBoxContainer"]
 margin_left = 289.0
 margin_right = 358.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "X-Large"
 align = 2
 valign = 1
 
 [node name="PreferencesAppearance" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
-margin_top = 18.0
+margin_top = 21.0
 margin_right = 372.0
-margin_bottom = 70.0
+margin_bottom = 79.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 365.0
-margin_bottom = 45.0
+margin_bottom = 51.0
 
 [node name="AppearanceLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance/VBoxContainer"]
 margin_right = 358.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 text = "Appearance"
 
 [node name="PreferencesThemeOptions" type="OptionButton" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesAppearance/VBoxContainer"]
-margin_top = 18.0
+margin_top = 21.0
 margin_right = 358.0
-margin_bottom = 38.0
+margin_bottom = 44.0
 text = "{ themes }"
 items = [ "{ themes }", null, false, 0, null ]
 selected = 0
@@ -602,73 +602,73 @@ margin_bottom = 66.0
 text = "Borderless (Depends on OS)"
 
 [node name="PreferencesLanguage" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
-margin_top = 74.0
+margin_top = 83.0
 margin_right = 372.0
-margin_bottom = 126.0
+margin_bottom = 141.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesLanguage"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 365.0
-margin_bottom = 45.0
+margin_bottom = 51.0
 
 [node name="LanguageLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesLanguage/VBoxContainer"]
 margin_right = 358.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 text = "Language"
 
 [node name="PreferencesLanguageOptions" type="OptionButton" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesLanguage/VBoxContainer"]
-margin_top = 18.0
+margin_top = 21.0
 margin_right = 358.0
-margin_bottom = 38.0
+margin_bottom = 44.0
 text = "English"
 items = [ "English", null, false, 0, null ]
 selected = 0
 
 [node name="ALDLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
-margin_top = 130.0
+margin_top = 145.0
 margin_right = 372.0
-margin_bottom = 144.0
+margin_bottom = 162.0
 text = "Data Management"
 
 [node name="PreferencesData" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
-margin_top = 148.0
+margin_top = 166.0
 margin_right = 372.0
-margin_bottom = 232.0
+margin_bottom = 228.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 365.0
-margin_bottom = 77.0
+margin_bottom = 55.0
 
 [node name="AppLocalDirLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer"]
 margin_right = 358.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 text = "Work Directory"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer"]
-margin_top = 18.0
+[node name="AppLocalDirectory" type="HBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer"]
+margin_top = 21.0
 margin_right = 358.0
-margin_bottom = 42.0
+margin_bottom = 48.0
 
-[node name="PreferencesAppDirPath" type="LineEdit" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer"]
-margin_right = 243.0
-margin_bottom = 24.0
+[node name="PreferencesAppDirPath" type="LineEdit" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/AppLocalDirectory"]
+margin_right = 238.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 text = "user://"
 editable = false
 
-[node name="PreferencesAppDirPathBrowse" type="Button" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer"]
-margin_left = 247.0
-margin_right = 306.0
-margin_bottom = 24.0
+[node name="PreferencesAppDirPathBrowse" type="Button" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/AppLocalDirectory"]
+margin_left = 242.0
+margin_right = 302.0
+margin_bottom = 27.0
 text = "Browse"
 
-[node name="PreferencesAppDirPathResetMenu" type="MenuButton" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/HBoxContainer"]
-margin_left = 310.0
+[node name="PreferencesAppDirPathResetMenu" type="MenuButton" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesData/VBoxContainer/AppLocalDirectory"]
+margin_left = 306.0
 margin_right = 358.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 text = "Reset"
 flat = false
 script = ExtResource( 4 )
@@ -689,6 +689,53 @@ margin_left = 144.0
 margin_right = 336.0
 margin_bottom = 14.0
 text = "Local Data Security & Backups"
+
+[node name="PreferencesHistory" type="PanelContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 232.0
+margin_right = 372.0
+margin_bottom = 294.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesHistory"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 365.0
+margin_bottom = 55.0
+
+[node name="HistoryLabel" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesHistory/VBoxContainer"]
+margin_right = 358.0
+margin_bottom = 17.0
+text = "History (Undo/Redo)"
+
+[node name="History" type="HBoxContainer" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesHistory/VBoxContainer"]
+margin_top = 21.0
+margin_right = 358.0
+margin_bottom = 48.0
+
+[node name="Label" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesHistory/VBoxContainer/History"]
+margin_top = 5.0
+margin_right = 48.0
+margin_bottom = 22.0
+text = "Size: "
+
+[node name="Size" type="SpinBox" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesHistory/VBoxContainer/History"]
+margin_left = 52.0
+margin_right = 342.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+rounded = true
+allow_greater = true
+
+[node name="Info" type="Label" parent="BlockingLayer/Container/Preferences/VBoxContainer/PanelContainer/VBoxContainer/PreferencesHistory/VBoxContainer/History"]
+margin_left = 346.0
+margin_top = 5.0
+margin_right = 358.0
+margin_bottom = 22.0
+hint_tooltip = "History size defines how many steps you can move a project in time.
+Currently history functions (undo `Ctrl+Z` & redo `Ctrl+Shift+Z`)
+work by capturing a full image of the open project in memory.
+Performance may vary, depending on the device specs and project size"
+mouse_filter = 0
+text = ""
 
 [node name="Authors" type="PanelContainer" parent="BlockingLayer/Container"]
 visible = false
@@ -3946,8 +3993,32 @@ mouse_default_cursor_shape = 2
 text = "{new version message}"
 script = ExtResource( 24 )
 
-[node name="ProjectTitle" type="Label" parent="Editor/Top/Toolbar"]
+[node name="HistoryTools" type="PanelContainer" parent="Editor/Top/Toolbar"]
 margin_left = 84.0
+margin_right = 150.0
+margin_bottom = 37.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Editor/Top/Toolbar/HistoryTools"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 59.0
+margin_bottom = 30.0
+
+[node name="Undo" type="Button" parent="Editor/Top/Toolbar/HistoryTools/HBoxContainer"]
+margin_right = 24.0
+margin_bottom = 23.0
+hint_tooltip = "History Undo (Ctrl + Z)"
+text = ""
+
+[node name="Redo" type="Button" parent="Editor/Top/Toolbar/HistoryTools/HBoxContainer"]
+margin_left = 28.0
+margin_right = 52.0
+margin_bottom = 23.0
+hint_tooltip = "History Redo (Ctrl + Shift + Z)"
+text = ""
+
+[node name="ProjectTitle" type="Label" parent="Editor/Top/Toolbar"]
+margin_left = 154.0
 margin_right = 732.0
 margin_bottom = 37.0
 size_flags_horizontal = 3

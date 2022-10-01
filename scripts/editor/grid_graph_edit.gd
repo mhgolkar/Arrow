@@ -38,6 +38,8 @@ var _ALREADY_SELECTED_NODES_BY_ID = {}
 var _HIGHLIGHTED_NODES = []
 var _HIGHLIGHTED_NODES_USED_OVERLAY = GraphNode.OVERLAY_DISABLED
 
+var _DEBOUNCED_REQS = {}
+
 func _ready() -> void:
 	DEFAULT_ZOOM = self.get('zoom')
 	register_connections()
@@ -581,6 +583,25 @@ func disconnection_from_view(connection:Array) -> void:
 	disconnect_from_view_by_id(connection[0], connection[1], connection[2],connection[3])
 	pass
 
+func _handle_debounced_req(id) -> void:
+	if _DEBOUNCED_REQS.has(id):
+		var act = _DEBOUNCED_REQS[id]
+		act.caller.callv(act.method, act.arguments)
+		_DEBOUNCED_REQS.erase(id)
+	else:
+		printerr("Unexpected behavior: no such debounced request: ", id)
+	pass
+
+func _debounce_request(id, caller: Reference, method: String, arguments: Array) -> void:
+	if _DEBOUNCED_REQS.has(id):
+		_DEBOUNCED_REQS[id].timer.disconnect("timeout", self, "_handle_debounced_req")
+	_DEBOUNCED_REQS[id] = {
+		"timer": TheTree.create_timer( Settings.MIND_REQUEST_DEBOUNCE_TIME_SEC ),
+		"caller": caller, "method": method, "arguments": arguments,
+	}
+	_DEBOUNCED_REQS[id].timer.connect("timeout", self, "_handle_debounced_req", [id], CONNECT_DEFERRED)
+	pass
+
 func make_resizeable(instance) -> void:
 	# We allow nodes to handle resize-request signal as they wish; but if not handled, we take care of it here:
 	if instance.get_signal_connection_list("resize_request").size() == 0:
@@ -620,11 +641,24 @@ func resize_to_best_fit(instance, data: Dictionary) -> void:
 func _on_resize_request(resize_vector, instance) -> void:
 	var min_bounding = get_min_content_bounding_box(instance)
 	var rect_size_array = Utils.vector2_to_array(resize_vector) if resize_vector > min_bounding else null
-	var data_update = { "data": { "rect": rect_size_array } }
-	Main.Mind.update_resource(instance._node_id, data_update, "nodes", true)
-	# Because we are updating resource out of signal hierarchy,
-	# we need to manually toggle the save status as well:
-	Main.Mind.reset_project_save_status(false)
+	# emulate change for user to see
+	instance._node_resource.data.rect = rect_size_array
+	resize_to_best_fit(instance, instance._node_resource.data)
+	# and plan to request with debounce
+	_debounce_request(
+		"_delayed_resize_%s" % instance._node_id,
+		Main.Mind,
+		"central_event_dispatcher",
+		[
+			"update_resource",
+			{
+				"id": instance._node_id,
+				"modification": { "data": { "rect": rect_size_array } },
+				"field": "nodes",
+				"auto": true,
+			}
+		]
+	)
 	pass
 
 func resize_native_minimap() -> void:

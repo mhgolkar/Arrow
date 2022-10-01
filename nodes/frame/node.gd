@@ -20,6 +20,9 @@ var _node_resource
 
 var This = self
 
+var _RESIZE_DEBOUNCER = null
+var _DELAYED_RESIZE: Dictionary
+
 onready var CollapseToggle = get_node("./MarginContainer/VBoxContainer/Header/CollapseToggle")
 onready var FrameLabel = get_node("./MarginContainer/VBoxContainer/FrameLabel")
 
@@ -32,20 +35,31 @@ func register_connections() -> void:
 	CollapseToggle.connect("toggled", self, "_handle_collapse_and_size", [], CONNECT_DEFERRED)
 	pass
 
+func _handle_delayed_request() -> void:
+	Mind.central_event_dispatcher("update_resource", _DELAYED_RESIZE)
+	pass
+
 func _on_resize_request(new_min_size) -> void:
 	if new_min_size.x < 128 :
 		new_min_size.x = 128
 	if new_min_size.y < 128 :
 		new_min_size.y = 128
-	Mind.update_resource(
-		_node_id, 
-		{ "data": { "rect": Utils.vector2_to_array(new_min_size) } },
-		"nodes",
-		true
-	)
-	# Because we are updating resource out of signal hierarchy,
-	# we need to manually toggle the save status as well:
-	Mind.reset_project_save_status(false)
+	# ...
+	var rect_array = Utils.vector2_to_array(new_min_size)
+	_DELAYED_RESIZE = {
+		"id":_node_id,
+		"modification": { "data": { "rect": rect_array } },
+		"field": "nodes",
+		"auto": true,
+	}
+	# emulate change for user to see
+	_node_resource.data.rect = rect_array
+	_handle_collapse_and_size()
+	# and plan to request with debounce
+	if _RESIZE_DEBOUNCER != null:
+		_RESIZE_DEBOUNCER.disconnect("timeout", self, "_handle_delayed_request")
+	_RESIZE_DEBOUNCER = TheTree.create_timer( Settings.MIND_REQUEST_DEBOUNCE_TIME_SEC )
+	_RESIZE_DEBOUNCER.connect("timeout", self, "_handle_delayed_request", [], CONNECT_DEFERRED)
 	pass
 
 func _handle_collapse_and_size(do_collapse: bool = CollapseToggle.is_pressed()) -> void:

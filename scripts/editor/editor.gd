@@ -11,6 +11,10 @@ signal request_mind
 onready var Main = get_tree().get_root().get_child(0)
 
 # top
+	# history
+onready var HistoryUndo = get_node( Addressbook.EDITOR.HISTORY.UNDO )
+onready var HistoryRedo = get_node( Addressbook.EDITOR.HISTORY.REDO )
+	# title
 onready var ProjectTitle = get_node( Addressbook.EDITOR.PROJECT_TITLE )
 	# save
 onready var SaveButton = get_node(Addressbook.EDITOR.QUICK_TOOLS.SAVE)
@@ -28,6 +32,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
+	HistoryUndo.connect("pressed", self, "_request_mind", ["history_rotate", -1])
+	HistoryRedo.connect("pressed", self, "_request_mind", ["history_rotate", +1])
 	SaveButton.connect("pressed", self, "_request_mind", ["save_project"])
 	PlayFromSceneEntryButton.connect("pressed", self, "_request_mind", ["console_play_from", "scene_entry"])
 	PlayFromProjectEntryButton.connect("pressed", self, "_request_mind", ["console_play_from", "project_entry"])
@@ -46,6 +52,11 @@ func set_project_save_status(is_saved:bool = false) -> void:
 
 func set_scene_name(the_scene_name:String) -> void:
 	OpenSceneTitle.set_deferred("text", the_scene_name)
+	pass
+
+func reset_history_tools(current_index: int, history_size: int, is_locked: bool = false) -> void:
+	HistoryUndo.set_disabled( is_locked || history_size == 0 || current_index <= 0)
+	HistoryRedo.set_disabled( is_locked || history_size == 0 || current_index >= (history_size - 1))
 	pass
 
 func _request_mind(req:String, args = null) -> void:

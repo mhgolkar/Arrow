@@ -22,6 +22,7 @@ const FIELDS_VALUE_PROPERTY = {
 	"appearance_theme": "selected",
 	"language": "selected",
 	"app_local_dir_path": "text",
+	"history_size": "value",
 }
 
 const LANGUAGE_ITEM_TEXT_TEMPLATE = "{name} ({code})"
@@ -63,6 +64,7 @@ func register_connections() -> void:
 	FIELDS.language.connect("item_selected", self, "preprocess_and_emit_modification_signal", ["language"], CONNECT_DEFERRED)
 	FIELDS.app_local_dir_browse.connect("pressed", self, "prompt_local_dir_path", [], CONNECT_DEFERRED)
 	FIELDS.app_local_dir_reset_menu.connect("item_selected_value", self, "_on_app_local_dir_reset_menu_item_selected", [], CONNECT_DEFERRED)
+	FIELDS.history_size.get_line_edit().connect("text_changed", self, "preprocess_and_emit_modification_signal", ["history_size"], CONNECT_DEFERRED)
 	pass
 
 func refresh_fields_view(preferences:Dictionary) -> void:
@@ -86,6 +88,10 @@ func preprocess_and_emit_modification_signal(value, field) -> void:
 			value = FIELDS.appearance_theme.get_item_id(value) # Convert idx to theme_id
 		"language":
 			value = FIELDS.language.get_item_id(value) # Convert idx to lang_id
+		"history_size":
+			# NOTE: wee need this because spinners signal `value_changed` even on changes by code,
+			# so we use the `text_changed` of their inner LineEdit:
+			value = max(0, int(value))
 	# .. then signal
 	self.emit_signal("preference_modified", field, value)
 	pass
@@ -93,7 +99,7 @@ func preprocess_and_emit_modification_signal(value, field) -> void:
 func handle_app_local_dir_selection(new_dir_path):
 	FIELDS.app_local_dir_path.set_deferred("text", new_dir_path)
 	emit_signal("preference_modified", "app_local_dir_path", new_dir_path)
-pass
+	pass
 
 func _on_app_local_dir_selected(dir:String) -> void:
 	dir = Utils.try_making_clean_relative_dir(dir, true)

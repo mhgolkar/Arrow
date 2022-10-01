@@ -83,6 +83,8 @@ const ALWAYS_USE_REALTIME_IDS = true # Only if the Snowflake IDs are forced (abo
 const SNAPSHOT_VERSION_PREFIX = "v"
 const TAKE_INITIAL_SNAPSHOT = true
 
+const MIND_REQUEST_DEBOUNCE_TIME_SEC = 0.25 # second(s)
+
 # History
 
 const MAXIMUM_HISTORY_SIZE_PER_NODE = 7

@@ -72,6 +72,11 @@ class Mind :
 		"MODE": CLIPBOARD_MODE.EMPTY,
 		"DATA": []
 	}
+
+	var _HISTORY:Dictionary = {
+		"MEMORY": [],
+		"INDEX": -1,
+	}
 	
 	var _BROWSER_READER_HELPER = Html5Helpers.Reader.new()
 	
@@ -240,6 +245,8 @@ class Mind :
 				console( args.id, false, null, args.slot )
 			"locate_node_on_grid":
 				locate_node_on_grid(args.id, args.highlight, (args.force if args.has("force") else true))
+			"history_rotate":
+				history_rotate(args)
 			"show_error":
 				show_error(
 					args.heading, args.message,
@@ -253,6 +260,7 @@ class Mind :
 	func drop_current_project() -> void:
 		_PROJECT.clear()
 		clean_snapshots_all()
+		forget_history()
 		_CURRENT_OPEN_SCENE_ID = -1
 		_SELECTED_NODES_IDS.clear()
 		pass
@@ -390,11 +398,12 @@ class Mind :
 		# ... loading project in the editor
 		reset_project_title()
 		reset_project_save_status()
-		#reset_auto_save_quick_preference()
 		# ... inspector tabs
 		initialize_inspector()
 		# ... grid
-		load_where_user_left_last_time()
+		if do_not_drop != true:
+			load_where_user_left_last_time()
+			history_check_point()
 		# if it's blank we want to stay where we are (most likely at the projects-list)
 		if is_blank == false && ProMan.is_project_listed():
 			activate_project_properties()
@@ -421,24 +430,88 @@ class Mind :
 		Inspector.Tab.Project.call_deferred("reset_last_save", _PROJECT.meta.last_save, is_project_local())
 		pass
 	
-	# force can only unsave the project not falsely mark it as saved
-	func reset_project_save_status(force = null):
-		if force is bool && force == false:
+	# We can use `new_state = false` to force the project being unsaved
+	func reset_project_save_status(new_state = null, history_checkpoint: bool = true):
+		if new_state is bool && new_state == false:
 			ProMan.set_project_unsaved()
+			if history_checkpoint != false:
+				history_check_point()
 		Editor.call_deferred("set_project_save_status", ProMan.is_project_saved())
 		pass
+	
+	func capture_full_project_image(version: String) -> Dictionary:
+		var now = Time.get_datetime_string_from_system(true, true) # UTC:bool = true
+		return {
+			"version": version,
+			"time": now,
+			"project": _PROJECT.duplicate(true), # Note: it may be a previewed snapshot
+			"view": get_current_view_state(),
+			"open_scene": _CURRENT_OPEN_SCENE_ID,
+		}
+		pass
+	
+	func load_full_project_image(snapshot: Dictionary) -> void:
+		load_project( snapshot.project.duplicate(true), false, true )
+		scene_editorial_open(snapshot.open_scene, false)
+		go_to_grid_view(snapshot.view)
+		pass
+	
+	func history_check_point() -> void:
+		if _SNAPSHOT_INDEX_OF_PREVIEW < 0:
+			if Main.Configs.CONFIRMED.history_size > 0:
+				if _HISTORY.INDEX < (_HISTORY.MEMORY.size() - 1) : # to avoid possible conflicts with new history,
+					_HISTORY.MEMORY.resize(_HISTORY.INDEX + 1) # droping the redo (after index)
+				# ...
+				_HISTORY.MEMORY.push_back( capture_full_project_image("_history_checkpoint") )
+				# ...
+				while _HISTORY.MEMORY.size() > Main.Configs.CONFIRMED.history_size:
+					_HISTORY.MEMORY.pop_front()
+				_HISTORY.INDEX = _HISTORY.MEMORY.size() - 1
+				print_debug("History check point: index %s, size %s" % [_HISTORY.INDEX, _HISTORY.MEMORY.size()])
+			else:
+				forget_history()
+		reset_history_tools()
+		pass
+	
+	func history_rotate(direction: int) -> void:
+		if _SNAPSHOT_INDEX_OF_PREVIEW < 0:
+			if _HISTORY.MEMORY.size() > 0:
+				var already = _HISTORY.INDEX
+				_HISTORY.INDEX += direction
+				if _HISTORY.INDEX < 0:
+					_HISTORY.INDEX = 0
+				if _HISTORY.INDEX >= _HISTORY.MEMORY.size() - 1:
+					_HISTORY.INDEX = _HISTORY.MEMORY.size() - 1
+				# ...
+				if already != _HISTORY.INDEX:
+					clipboard_push([], CLIPBOARD_MODE.EMPTY) # to avoid trying to move nodes not existing anymore
+					load_full_project_image( _HISTORY.MEMORY[_HISTORY.INDEX] )
+					reset_project_save_status(false, false)
+					print_debug("History rotation %s: index %s, size %s" % [direction, _HISTORY.INDEX, _HISTORY.MEMORY.size()])
+		reset_history_tools()
+		pass
+	
+	func reset_history_tools() -> void:
+		Editor.reset_history_tools(_HISTORY.INDEX, _HISTORY.MEMORY.size(), _SNAPSHOT_INDEX_OF_PREVIEW >= 0)
+		pass
+	
+	func forget_history() -> void:
+		_HISTORY = {
+			"MEMORY": [],
+			"INDEX": -1,
+		}
+		pass
+	
+	func get_current_view_state() -> Array:
+		var current = Utils.vector2_to_array( Grid.get_scroll_ofs() )
+		current.append( Grid.get_zoom() )
+		return current
 	
 	func track_last_view(offset: Vector2 = Vector2.INF, zoom: float = -INF, scene_id: int = -1) -> void:
 		var state = Utils.vector2_to_array(offset if offset < Vector2.INF else Grid.get_scroll_ofs())
 		state.append(zoom if zoom > 0 else Grid.get_zoom())
 		ProMan.set_project_last_view(state, (scene_id if scene_id >= 0 else _CURRENT_OPEN_SCENE_ID))
 		pass
-	
-#	func reset_auto_save_quick_preference() -> void:
-#		# state of `auto local save` must be in the project list for ...
-#		var auto_save_last_state = ProMan.get_project_auto_save_state() # no-parameter: get the active one's
-#		Main.call_deferred("set_quick_preferences", "auto_local_save", auto_save_last_state, true)
-#		pass
 	
 	func reset_active_author(id:int) -> void:
 		# Track the active author for the next time project is opened
@@ -2037,7 +2110,6 @@ class Mind :
 	
 	func take_snapshot(custom_version_prefix:String = "") -> void:
 		var version:String
-		var now = Time.get_datetime_string_from_system(true, true) # UTC:bool = true
 		var to_be_snapshot_index = _SNAPSHOTS.size()
 		if _SNAPSHOT_INDEX_OF_PREVIEW < 0 :
 			_SNAPSHOTS_COUNT_PURE_ONES += 1
@@ -2049,33 +2121,32 @@ class Mind :
 			# append index of the to-be-added snapshot as the branch of the base
 			base.branchs.push_back( to_be_snapshot_index )
 			print_debug("A Snapshot of another snapshot made! v%s" % version)
-		_SNAPSHOTS.push_back({
-			"version": version,
-			"time": now,
-			"project": _PROJECT.duplicate(true), # Note: it may be a previewed snapshot
-			"branchs": [],
-		})
+		var snapshot = capture_full_project_image(version)
+		snapshot["branchs"] = []
+		_SNAPSHOTS.push_back(snapshot)
 		# list it
 		if custom_version_prefix.length() == 0 :
 			custom_version_prefix = Settings.SNAPSHOT_VERSION_PREFIX 
-		var full_version_code = ( custom_version_prefix + version)
+		var full_version_code = ( custom_version_prefix + snapshot.version)
 		Inspector.Tab.Project.call_deferred("list_snapshot", {
-			"index":to_be_snapshot_index, "version": full_version_code, "time": now
+			"index": to_be_snapshot_index,
+			"version": full_version_code,
+			"time": snapshot.time,
 		}, is_project_local())
 		pass
 	
 	func preview_snapshot(idx:int) -> void:
 		if idx >= 0 && _SNAPSHOTS.size() > idx :
 			_SNAPSHOT_INDEX_OF_PREVIEW = idx
-			_MASTER_PROJECT_SAFE = _PROJECT.duplicate(true)
-			load_project( _SNAPSHOTS[idx].project.duplicate(true), false, true )
+			_MASTER_PROJECT_SAFE = capture_full_project_image("_master_project_safe")
+			load_full_project_image( _SNAPSHOTS[idx] )
 		pass
 	
 	func return_to_master_project() -> void:
 		if _SNAPSHOT_INDEX_OF_PREVIEW >= 0:
 			_SNAPSHOT_INDEX_OF_PREVIEW = -1
-			load_project( _MASTER_PROJECT_SAFE.duplicate(true), false, true )
-			_MASTER_PROJECT_SAFE.clear()
+			load_full_project_image( _MASTER_PROJECT_SAFE )
+			_MASTER_PROJECT_SAFE = {}
 		else:
 			print_stack()
 			printerr("Unexpected Behavior! Trying to return to master branch when no snapshot is open!")
@@ -2084,9 +2155,9 @@ class Mind :
 	func restore_snapshot(snapshot_idx:int) -> void:
 		if snapshot_idx >= 0 && _SNAPSHOTS.size() > snapshot_idx :
 			clean_inspector_tabs()
-			load_project( _SNAPSHOTS[snapshot_idx].project.duplicate(true), false, true )
+			load_full_project_image( _SNAPSHOTS[snapshot_idx] )
 			reset_project_save_status(false)
-			_MASTER_PROJECT_SAFE.clear()
+			_MASTER_PROJECT_SAFE = {}
 			_SNAPSHOT_INDEX_OF_PREVIEW = -1
 			print_debug("Project Snapshot Restored: ", snapshot_idx)
 		pass
@@ -2359,6 +2430,10 @@ class Mind :
 			take_snapshot()
 		elif event.is_action_pressed("arrow_quick_re_export"):
 			quick_re_export()
+		elif event.is_action_pressed("arrow_history_redo"):
+			history_rotate(+1)
+		elif event.is_action_pressed("arrow_history_undo"):
+			history_rotate(-1)
 		else:
 			handled = false
 		return handled
