@@ -699,9 +699,9 @@ func _gui_input(event: InputEvent) -> void:
 								"Unable to Remove!",
 								(
 									"At least one of the selected nodes is not removeable.\n" +
-									"Due to continuum safety, we do not remove nodes when another node is depended on them, " +
-									"unless the user node is also selected. " +
-									"We can not also remove the scene or project entry. \n\n" +
+									"For continuum safety, " +
+									"Arrow does not allow removing nodes while any other resource depends on them. " +
+									"We can not also remove a scene's or a project's active entry. \n\n" +
 									"Non-removable(s): " + Utils.stringify_json(non_removables.names, "") + "\n"
 								),
 								[],

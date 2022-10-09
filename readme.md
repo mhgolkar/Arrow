@@ -10,80 +10,77 @@
 [Download](#download) | [Contribution](#contribution-to-arrow) | [Runtimes](#runtimes) | [Guides](#guides)
 
 Arrow is the free, open-source and feature-rich tool for
-**game narrative** design, **text-adventures** development,
-and creation of **nonlinear interactive storytelling** documents.
+*game narrative* design, *text-adventure* development,
+and creation of *interactive nonlinear storytelling* documents.
 
 ![Arrow's Overall Look][arrow-screenshot]
 
 Notable Features:
 
-+ 100% Visual Development
 + Free as in Freedom
-+ Customizable Node System
-+ with Built-in Node-types including:
-    + Content,
-    + Dialog,
-    + Conditional,
-    + Variable Modifier,
-    + User Input,
-    + Macro (reusables,)
-    + and more.
-+ Easy Scene Management and Navigation
-+ One-Click **Playable Export**
-+ JSON Export and Import
-+ VCS Friendly Save Files
++ 100% Visual Development
++ Extensible Node System
++ VCS-Friendly Save Files & JSON Export
++ One-Click Playable Export (HTML)
++ Support for Distributed Workflows
++ Continuum Safety
+
+Arrow supports a rich palette of features, from scenes and macros, to variables and characters.
+It also comes with built-in common node types, providing logic, interactive navigation, random data generation,
+state management, and more.
+
+> Check out [Guides](#guides) for detailed information.
 
 
 ## Download
 
 Arrow prebuilt executables are available to download from the archive of [releases].
 
-Following links are to the *latest* stable releases:
+Following links are to the *latest* stable versions:
 
-Linux X11 [x86 (32-bit)][linux-x11-x86-latest] | [x86_64 (64-bit)][linux-x11-x86-64-latest]
+Linux (X11) [x86 (32-bit)][linux-x11-x86-latest] | [x86_64 (64-bit)][linux-x11-x86-64-latest]
 
 Windows [32-bit][win-32-latest] | [64-bit][win-64-latest]
 
-> At the time `MacOS` releases are not available.  
-> Mac users may kindly and *easily* [build Arrow from source][wiki-build-from-source].
+> MacOS builds are not available at this time.  
+> Mac users can easily [build Arrow from source][wiki-build-from-source].
 
 
 ## Web App
 
-Arrow is also available as [Progressive Web App][web-app].
+[Arrow Progressive Web App][web-app] is also available.
 
-This web-app provides full features as the latest downloadable releases.
-
+This version provides full features as the latest downloadable releases.  
 **It stores project data and configurations in your browser.**  
 Convenience import/export options are available to ease working with file-system of devices as well.
 
-The experience is optimized for desktop (mode/) screens and requires browser to have
-`WebGl` and `Canvas` element support, `Web Storage` available and `Java-Script` enabled
-(in other words: any *modern browser* by default.)
+> The experience is optimized for desktop (mode/) screens.
+
+> PWA version requires your browser to have `WebGl` and `Canvas` element support,
+> available `Web-Storage`, and `Java-Script` enabled
+> (which any *modern browser* does by default).
 
 
-## Runtimes
+## Runtime Projects
 
-+ Official (Bundled) [HTML-JS Runtime][runtime-html-js]
-
-
-## Contribution to Arrow
-
-Contributions are very welcome and appreciated.  
-Please browse [Contribution][wiki-contribution] wiki page,
-to find where you could help Arrow most.  
-
-Thank you in advance.
++ [Official HTML-JS Runtime][runtime-html-js]
+    > Bundled with Arrow, this runtime is used in playable exports.
 
 
 ## Guides
 
-Docs for Arrow are available in the [project's wiki][wiki-home]
-including:
+Docs for Arrow are available in the [repository's Wiki][wiki-home],
+including a [Quick Start Guide][wiki-quick-start-guide] as well as,
+detailed instructions, documentation of the built-in nodes, and more.
 
-[Quick Start Guide][wiki-quick-start-guide]
 
-[Build from Source][wiki-build-from-source]
+## Contribution to Arrow
+
+Contributions are welcome and appreciated.  
+Please browse [Contribution][wiki-contribution] wiki page,
+to find how you can help Arrow most.  
+
+Thanks in advance.
 
 
 ## Licenses
@@ -96,6 +93,8 @@ See [license][license-file] & [copyright][copyright-file] files for more informa
 
 
 Have a Good Time
+<!-- M670503-Q59 -->
+
 
 
 <!-- download -->
@@ -108,10 +107,10 @@ Have a Good Time
 [web-app]: https://mhgolkar.github.io/Arrow/
 <!-- wiki -->
 [wiki-home]: https://github.com/mhgolkar/Arrow/wiki/
-[wiki-quick-start-guide]: https://github.com/mhgolkar/Arrow/wiki/quick-start-guide
 [wiki-build-from-source]: https://github.com/mhgolkar/Arrow/wiki/build-from-source
+[wiki-quick-start-guide]: https://github.com/mhgolkar/Arrow/wiki/quick-start-guide
 [wiki-contribution]: https://github.com/mhgolkar/Arrow/wiki/contribution
-<!-- rel -->
+<!-- relative -->
 [runtime-html-js]: ./runtimes/html-js/
 [license-file]: ./license
 [copyright-file]: ./copyright

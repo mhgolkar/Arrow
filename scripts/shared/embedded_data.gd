@@ -59,31 +59,31 @@ const Data = {
 	# Blank (New) Project:
 	"Untitled_Project": {
 		"title": "Untitled Adventure",
-		"entry": 1, # resource-id of the project's main (active) entry node
+		"entry": 1, # Resource-UID of the project's main (active) entry node
 		"meta": {
-			# Native distributed incremental (default) UID metas:
-			# > For larger projects which are devided into multiple documents,
+			# Native (default) distributed UID metadata:
+			# > For larger projects which are divided into multiple documents,
 			# > setting different chapter IDs per sub-project guarantees global uniqueness of resource UIDs.
-			# > Up to 512 chapters _represented as 1st 9-bit in each UID_ can exist.
-			"chapter": 0, # (0 - 512; Order is optional.)
+			# > Up to 1024 chapters _represented as the 1st 9 bits in each UID_ can exist.
+			"chapter": 0, # (0 - 1024; Order is optional.)
 			# > Arrow uses an incremental seed tracker for each author to guarantee resource UID uniqueness
-			# > when multiple users work on the same document simultaneously.
+			# > when multiple users work on the same document at the same time.
 			"authors": {
-				# (Up to 64 authors _represented as 2nd 6-bit in each UID_ can work on the same document.)
+				# (Up to 64 authors _represented as the next 6 bits in each UID_ can contribute simultaneously.)
 				0: [Settings.ANONYMOUS_AUTHOR_INFO, 3] # [Author info, and incremental seed for the next UID]
 			},
 			# ...
 			# Time-based distributed UID epoch:
-			# > This field is unix time (in microseconds) on creation of the project.
-			# > If you set it, you'll get 64-bit timebased distributed IDs inspired by Snowflake-IDs.
+			# > This field is unix time (UTC in microseconds) on creation of the project.
+			# > If you set it, you'll get 64-bit time-based distributed IDs inspired by Snowflake-IDs.
 			# > This method is not recommended; For most of the projects the default method is a better choice.
 			# "epoch": null,
 			# ...
 			"last_save": null, # UTC date-time (ISO 8601) string
-			"editor": Settings.ARROW_VERSION, # for future version compatibility checks.
+			"editor": Settings.ARROW_VERSION, # for version compatibility checks.
 			# ...
-			# Arrow has a vcs-friendly project structure (i.e. unique & never-reused resource-ids, 'json' exports, etc.)
-			# so you can easily use your favorite revisioning system, such as git.
+			# Arrow has a vcs-friendly project structure (i.e. unique & never-reused resource-ids, JSON exports, etc.)
+			# so you can easily use your favorite revision system, such as Git.
 			# `offline` and `remote` properties are reserved for possible editor vcs integration in the future.
 			"offline": true,
 			"remote": {},
@@ -96,7 +96,7 @@ const Data = {
 			"scenes": {
 				0: {
 					"name": Settings.SCENE_NAME_PREFIX + "0",
-					"entry": 1, # the scene's active entry node
+					"entry": 1, # The scene's active entry node
 					"map": {
 						1 : { "offset":[100, 100], "io": [ [1, 0, 2, 0] ] },
 						2 : { "offset":[280, 170] },

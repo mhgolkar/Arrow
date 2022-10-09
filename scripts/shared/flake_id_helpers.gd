@@ -9,14 +9,14 @@ class_name Flake
 # while multiple authors can work simultaneously on the same project
 # by assigning each author a unique ID and an incremental seed bucket.
 # These values will be mixed together with a chapter ID
-# which can be unique to each document for projects devided into multiple ones,
+# which can be unique to each document for projects divided into multiple ones,
 # and shape a 53-bit UID for each resource. In other words:
 # + 10 bit chapter ID (0 - 1024; Optional, default `0`)
 # +  6 bit author ID (0 - 64; At least one author with `0` ID)
 # + 37 bit for more than 137 billion resources per author per chapter.
 # These UIDs are fast, minimal (specially for single author projects,)
 # and fit into a double-precision floating-point representation
-# (allowing easier integration of Arrow projects in many languages such as JS.)
+# (allowing easier use of Arrow projects in many languages such as JS.)
 #
 # Note:
 # You can change the bit sizes from Settings, but it is highly recommended to
