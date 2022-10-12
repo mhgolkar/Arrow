@@ -27,9 +27,8 @@ mono_crash.*.json
 .git/
 .wiki/
 .extra/
+.website/
 .releases/
-demo.arrow-project
-config.arrow
-projects.arrow
 project.md
+*.arrow
 run
