@@ -527,48 +527,43 @@ class Mind :
 	func standardize_authors_list() -> void:
 		if _PROJECT.meta.has("authors") == false || (_PROJECT.meta.authors is Dictionary) == false:
 			_PROJECT.meta.authors = {}
-		# Following part of standardization, is currently supposed to impact projects with snowflake/epoch method only:
+		# This is supposed to impact projects with snowflake/epoch method only where an author was only a name:
 		var zero_seed = (-1) if (_PROJECT.meta.has("epoch") && _PROJECT.meta.epoch is int && _PROJECT.meta.epoch > 0) else 0;
 		for key in _PROJECT.meta.authors:
 			if _PROJECT.meta.authors[key] is String:
 				_PROJECT.meta.authors[key] = [_PROJECT.meta.authors[key], zero_seed]
+		# Backward compatibility for 1st generation projects:
+		if _PROJECT.has("next_resource_seed"):
+			_PROJECT.meta.chapter = 0
+			_PROJECT.meta.authors = { 0: [Settings.ANONYMOUS_AUTHOR_INFO, _PROJECT.next_resource_seed] }
+			_PROJECT.erase("next_resource_seed")
+			print_debug("CAUTION! Global seed moved to anonymous author for backward compatibility: ", _PROJECT.meta.authors)
 		pass
 
 	func reset_node_id_generator() -> void:
-		# (with backward-compatibility)
-		if _PROJECT.has("next_resource_seed"):
-			# Legacy local incremental UID method:
-			Flaker = null
-			print(
-				"CAUTION! You're using an old project structure with single-producer node-IDs. Next ID: ",
-				_PROJECT.next_resource_seed,
-				"This is *Not Recommended*, specially for new projects."
-			)
-		else:
-			# One of the distributed UID management methods:
-			standardize_authors_list() # (automatic compatiblity update)
-			# We expect projects to have at least one (even 0-Anonymous) author.
-			var active_author = ProMan.get_project_active_author() # (current record in projects list or null)
-			if (active_author is int) == false || _PROJECT.meta.authors.has(active_author) == false:
-				if _PROJECT.meta.authors.size() == 0:
-					active_author = 0
-					var zero_seed = (-1) if (_PROJECT.meta.has("epoch") && _PROJECT.meta.epoch is int && _PROJECT.meta.epoch > 0) else 0;
-					_PROJECT.meta.authors[0] = [ Settings.ANONYMOUS_AUTHOR_INFO, zero_seed ]
-				else:
-					active_author = _PROJECT.meta.authors.keys()[0] # (the first author-id)
-				print(
-					"Contributor reset! Active author of this document is now: ",
-					active_author, " = ", _PROJECT.meta.authors[active_author]
-				)
-			# ...
-			# + Time-based (Snowflake) UID:
-			if _PROJECT.meta.has("epoch") && _PROJECT.meta.epoch is int && _PROJECT.meta.epoch > 0:
-				Flaker = Flake.Snow.new(_PROJECT.meta.epoch, active_author)
-			# + Default (native, recommended) UID:
+		standardize_authors_list() # (automatic compatiblity update)
+		# We expect projects to have at least one (even 0-Anonymous) author.
+		var active_author = ProMan.get_project_active_author() # (current record in projects list or null)
+		if (active_author is int) == false || _PROJECT.meta.authors.has(active_author) == false:
+			if _PROJECT.meta.authors.size() == 0:
+				active_author = 0
+				var zero_seed = (-1) if (_PROJECT.meta.has("epoch") && _PROJECT.meta.epoch is int && _PROJECT.meta.epoch > 0) else 0;
+				_PROJECT.meta.authors[0] = [ Settings.ANONYMOUS_AUTHOR_INFO, zero_seed ]
 			else:
-				Flaker = Flake.Native.new(_PROJECT.meta, active_author)
-			# ...
-			reset_active_author(active_author)
+				active_author = _PROJECT.meta.authors.keys()[0] # (the first author-id)
+			print(
+				"Contributor reset! Active author of this document is now: ",
+				active_author, " = ", _PROJECT.meta.authors[active_author]
+			)
+		# ...
+		# + Time-based (Snowflake) UID:
+		if _PROJECT.meta.has("epoch") && _PROJECT.meta.epoch is int && _PROJECT.meta.epoch > 0:
+			Flaker = Flake.Snow.new(_PROJECT.meta.epoch, active_author)
+		# + Default (native, recommended) UID:
+		else:
+			Flaker = Flake.Native.new(_PROJECT.meta, active_author)
+		# ...
+		reset_active_author(active_author)
 		pass
 	
 	func reset_project_authors_list(auto_select:bool = false) -> void:
@@ -969,21 +964,16 @@ class Mind :
 		pass
 		
 	func create_new_resource_id() -> int:
-		if _PROJECT.has("next_resource_seed"): # Local (legacy)
-			var the_new_seed_uid = _PROJECT.next_resource_seed
-			_PROJECT.next_resource_seed += 1
-			return the_new_seed_uid
-		else: # Distributed
-			if Flaker is Flake.Native:
-				return Flaker.next()
-			if Flaker is Flake.Snow:
-				if Settings.ALWAYS_USE_REALTIME_IDS:
-					return Flaker.realtime_next()
-				else:
-					return Flaker.lazy_next()
+		if Flaker is Flake.Native:
+			return Flaker.next()
+		if Flaker is Flake.Snow:
+			if Settings.ALWAYS_USE_REALTIME_IDS:
+				return Flaker.realtime_next()
 			else:
-				printerr("Invalid state of Flaker!")
-				return -888
+				return Flaker.lazy_next()
+		else:
+			printerr("Invalid state of Flaker!")
+			return -888
 		pass
 	
 	var _CACHED_COMPILED_REGEXES = {}

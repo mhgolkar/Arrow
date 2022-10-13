@@ -77,7 +77,7 @@ const Data = {
 			# > This field is unix time (UTC in microseconds) on creation of the project.
 			# > If you set it, you'll get 64-bit time-based distributed IDs inspired by Snowflake-IDs.
 			# > This method is not recommended; For most of the projects the default method is a better choice.
-			# "epoch": null,
+			# "epoch": <int>,
 			# ...
 			"last_save": null, # UTC date-time (ISO 8601) string
 			"editor": Settings.ARROW_VERSION, # for version compatibility checks.
@@ -89,8 +89,9 @@ const Data = {
 			"remote": {},
 		},
 		# ...
-		# Local incremental (legacy) UID tracker:
-		# "next_resource_seed": 3, # if exists in a project, nodes will be identified by an incremental serial.
+		# Local incremental UID tracker (deprecated):
+		# > If exists, we move this global seed to the author `0` on chapter `0` for backward compatibility.
+		# "next_resource_seed": <int>,
 		# ...
 		"resources": {
 			"scenes": {
