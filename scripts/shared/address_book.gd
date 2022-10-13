@@ -76,7 +76,7 @@ const PREF_PANEL_FIELDS = {
 
 const ABOUT_PANEL = {
 	"itself": "/root/Main/BlockingLayer/Container/AboutApp",
-	"VERSION_CODE": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Version",
+	"VERSION_CODE": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Title/Version",
 	"OK_BUTTON": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/Buttons/OK",
 	"LINKS": {
 		"SOURCE": "/root/Main/BlockingLayer/Container/AboutApp/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/Source",
@@ -88,7 +88,7 @@ const ABOUT_PANEL = {
 
 const WELCOME_PANEL = {
 	"itself": "/root/Main/BlockingLayer/Container/Welcome",
-	"VERSION_CODE": "/root/Main/BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/Version",
+	"VERSION_CODE": "/root/Main/BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/Title/Version",
 	"OK_BUTTON": "/root/Main/BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/Buttons/OK",
 	"LINKS": {
 		"RELEASES": "/root/Main/BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer/Releases",

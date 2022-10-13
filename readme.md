@@ -1,11 +1,16 @@
 <!-- Arrow Logo -->
-<div style="padding: 1rem 0; margin: 0;">
-    <img src="./icon.png" style="height: 64px; width: 64px;" alt="">
-</div>
+<h1 style="font-size: 3rem; line-height: 100%;">
+    <span>Arrow</span>
+    <img
+        src="./icon.png"
+        style="width: 1em; height: auto; display: inline-block; vertical-align: bottom;"
+        alt="Arrow's logo"
+    >
+</h1>
 
 
-# Arrow
-***Game Narrative Design Tool***
+<!-- # Arrow -->
+***The Game Narrative Design Tool***
 
 [Download](#download) | [Contribution](#contribution-to-arrow) | [Runtimes](#runtimes) | [Guides](#guides)
 
@@ -116,4 +121,4 @@ Have a Good Time
 [copyright-file]: ./copyright
 <!-- resources -->
 <!-- [arrow-logo]: ./icon.png -->
-[arrow-screenshot]: ./.screenshot.png
+[arrow-screenshot]: https://mhgolkar.github.io/Arrow/images/screenshot_overall.png
