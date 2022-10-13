@@ -1,6 +1,88 @@
 # Arrow: Changelog
 
 
+## v2.0.0
+
+This major release introduces many changes in Arrow,
+including few structural updates that may affect your projects.
+
+> **CAUTION!**  
+> Although no major trouble is expected,
+> create a backup of your old projects (created with v1.x)
+> before opening them with the new v2.x generation.
+
+### Notable Changes
+
+Following is a list of updates you may find impacting your workflow:
+
++ New distributed resource identifier system
+    > Resources (nodes, scenes, etc.) are now getting distributed UIDs.
+    > They ease workflows where multiple authors work on the same project simultaneously,
+    > or when a project is divided to different chapters/documents and no UID conflict is desired.
+    >> Older documents will be modified automatically, by moving `next_resource_seed` to `authors` metadata.
+    >> Although no conflict with existing identifiers is expected, it *will affect* the UIDs and names you'll get later.
++ Content node's `brief` is updated to display a substring of the content instead of an independent text
+    > Any content node being inspected will be automatically updated
+    > by using the current brief's length as the new `brief`'s integer value,
+    > and then moving the old textual `brief` to top of the main content.
++ Arrow is now capable of building the HTML-JS runtime template automatically from the bundled source
+    > This change comes with deprecation of the `gulp.js` builder and removing all the related dependencies.
+    > Some changes in directory structure and placeholder tags are also introduced.
+    > The template generated this way is not enhanced or minified, and is considered a debug tool,
+    > therefore no beautification or compression support is planned.
+    >> For more information, check out readme file of the official HTML-JS runtime.
++ Representation of color values is changed from `ARGB` to more common `RGBA`
+    > This *will affect your projects* in the most visible way, by changing color of markers, frames and possibly characters.
+    >> One quick fix is to use RegEx search and replace for `("color":\W")([\d\w]{2})([\d\w]{6})(")` with `$1$3$2$4` on saved documents.
++ Representation of `last_save` time  of projects is changed from dictionary to date-time (ISO 8601) string.
+    > This shall not affect your projects, unless your (custom) runtime depends on `last_save` property being a dictionary/map.
+    > The value will be automatically updated on first next save.
++ Projects list serialization is changed from Godot's binary (variant) to `JSON`
+    > Arrow reads the old project listing format with no problem;
+    > but they will be updated on first next save.
+    > This change allows manual hacks in path listing.
++ Project (document) file extension is changed from `.arrow-project` to `.arrow`
+    > This does not affect the projects listing process.
+    > You just need to rename existing files and they work fine.
++ Console and the official HTML-JS runtime have undergone many revisions
+    > These changes are mostly quality-of-life updates such as better display, debug and manual control,
+    > as well as standardization of auto-play/skip, macro scoping, and tracking of nodes and variable states.
+    > In general, they have no effect on normal projects, but production code directly depending on such behaviors.
++ Many node types are revised, and in some cases, their inner structure is changed
+    > All these changes are meant to be backward compatible. Your old projects shall work with least problem.
+    > But if you use a custom runtime, make sure to check out the updates. Following change(s) are the most notable:
+    + Frequently used nodes with commonly empty fields (i.e. `Content` and `Dialog` types,) are optimized for file size
+    > If a parameter is set to its known default value, it might be left from save files and exports to optimize for size and load.
+    > This behavior is node type specific, depends on `SAVE_UNOPTIMIZED` constant, and is applied to nodes being inspected.
+    > We expect it not to interfere with how your projects behave in console and the official runtime.
++ Arrow now uses its own custom path for user directory
+    + `user://` will point to `<OS-user-data-directory>/arrow`
+    > If your files are not listed anymore, you have been using the old default path for your workspace.
+    > You need to move your documents from that path (`./godot`) to the new default `./arrow` in the same parent directory.
+    >> Any path you wish (including the old default) can as well be set for work-directory,
+    >> by changing the respective configuration form *Preferences* panel.
+
+### New Features
+
+This version (`v2`) comes with many quality-of-life improvements, and new features as well.
+Most notable ones are:
+
++ Customizable User-Input nodes (e.g. number range, string pattern, etc.)
++ *Auto-play* control in the console (and the official runtime _as a global constant_)
++ Branch selection using `Shift + Selection` (and `Shift + Alt + Selection` for waterfall mode)
++ New `Sequencer` node
++ New **Character Tag System** with full console, inspector, and runtime support (including resource exposure)
++ New `Tag Edit` and `Tag Pass` nodes to dynamically interact with our new Character Tag System
++ New `Monolog` node to ease creation of conversations with much longer content
++ New string operations for `Variable-Update` nodes, including *find-and-replace*
++ List filtering and alphabetical sort for the resource inspectors
++ History System (undo/redo) with variable memory size
+    > History system is experimental and disabled by default.
+    > You can activate it by choosing any history size higher than `0` from the preferences panel.
+
+For more information, browse the repository's wiki.
+
+
 ## v1.6.0
 
 + Binary saving is **deprecated**
