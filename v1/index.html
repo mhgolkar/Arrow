@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="refresh" content="6; url='./Arrow.html'" />
+		<meta name="description" content="Arrow v1 - Web App - Redirection" />
+		<meta name="robots" content="noindex, nofollow">
+		<style>
+			body {
+				margin: 0;
+				border: 0 none;
+				padding: 1rem;
+				background-color: #1e1e1e;
+				color: white;
+				font-family: monospace;
+			}
+			p {
+				font-size: 1rem;
+			}
+			aside {
+				font-size: 0.8rem;
+			}
+			a, a:visited {
+				color: #00ffc4;
+			}
+			a:hover {
+				color: #ffffff;
+				font-weight: bolder;
+			}
+		</style>
+	</head>
+	<body>
+		<p>
+			Automatic redirection to <a href="./Arrow.html">Arrow v1.x</a>,
+			in <span id="countdown"> few seconds </span> ...
+		</p>
+		<aside>
+			Check out our <a href="../">Home</a> page for more information.<br>
+			There is also a new <a href="../v2">version 2.x</a> out there!
+		</aside>
+		<script>
+			// The refresh is handled by the `http-equiv="refresh"` meta.
+			// Here we have a little beautification.
+			var countdown = document.getElementById("countdown");
+			countdown.innerText = 6; // (same as the refresh meta's `content`)
+			setInterval(function (){
+				countdown.innerText = parseInt(countdown.innerText) - 1;
+			}, 1000);
+		</script>
+	</body>
+</html>

@@ -8,18 +8,18 @@
 ## Web App Branch
 
 This branch of [Arrow][arrow-root]
-serves `HTML5` export of the project as
-[Progressive Web App][arrow-pwa]
-via github-pages.
+serves `HTML5` export of the project
+as a [Progressive Web App][arrow-pwa]
+on github-pages.
 
 Arrow is the free, open-source and feature-rich tool for
-**game narrative** design, **text-adventures** development,
-and creation of **nonlinear interactive storytelling** documents.
+*game narrative* design, *text-adventure* development,
+and creation of *interactive nonlinear storytelling* documents.
 
 For full source code and more, checkout the [`main`][arrow-main] branch.
 
 
-<!-- rel -->
+<!-- absolute -->
 [arrow-root]: https://github.com/mhgolkar/Arrow
 [arrow-pwa]: https://mhgolkar.github.io/Arrow/
 [arrow-main]: https://github.com/mhgolkar/Arrow/tree/main
