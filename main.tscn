@@ -219,7 +219,7 @@ margin_top = 42.0
 margin_right = 333.0
 margin_bottom = 59.0
 focus_mode = 2
-text = "Downlaod App"
+text = "Download App"
 
 [node name="MarginContainer4" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
 visible = false
