@@ -186,7 +186,7 @@ size_flags_vertical = 3
 margin_top = 139.0
 margin_right = 381.0
 margin_bottom = 156.0
-text = "Explore more at:"
+text = "See also:"
 autowrap = true
 
 [node name="InfoLinks" type="HBoxContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
@@ -212,21 +212,21 @@ size_flags_stretch_ratio = 9.0
 margin_right = 340.0
 margin_bottom = 17.0
 focus_mode = 2
-text = "Source: Git Repository"
+text = "Source"
 
 [node name="Docs" type="LinkButton" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
 margin_top = 21.0
 margin_right = 340.0
 margin_bottom = 38.0
 focus_mode = 2
-text = "Online Documentation"
+text = "Documentation"
 
 [node name="Releases" type="LinkButton" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer/InfoLinks/VBoxContainer"]
 margin_top = 42.0
 margin_right = 340.0
 margin_bottom = 59.0
 focus_mode = 2
-text = "Downlaod App"
+text = "Downloadable Versions"
 
 [node name="MarginContainer4" type="MarginContainer" parent="BlockingLayer/Container/Welcome/VBoxContainer/HBoxContainer/Information/VBoxContainer"]
 visible = false
