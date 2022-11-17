@@ -98,7 +98,6 @@ See [license][license-file] & [copyright][copyright-file] files for more informa
 
 
 Have a Good Time
-<!-- M670503-Q59 -->
 
 
 

@@ -8,7 +8,6 @@ class_name Settings
 
 const ARROW_VERSION = "2.0.0"
 const ARROW_WEBSITE = "https://mhgolkar.github.io/Arrow/"
-# <!-- M670503-Q59 -->
 
 const CURRENT_RELEASE_TAG = "v2.0.0"
 const ARROW_RELEASES_ARCHIVE = "https://github.com/mhgolkar/Arrow/releases/"

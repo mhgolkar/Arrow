@@ -29,7 +29,7 @@ const COMPARISON_OPERATORS = {
 		"gt": { "text": "is Greater", "sign": ">" },
 		"gte": { "text": "is Greater or Equal", "sign": ">=" },
 		"ls": { "text": "is Lesser", "sign": "<" },
-		"lse": { "text": "is Lesser or Equa)", "sign": "<=" },
+		"lse": { "text": "is Lesser or Equal", "sign": "<=" },
 	},
 	"str": {
 		"rgx":{ "text": "Matches RegEx Pattern", "sign": "~=" },
