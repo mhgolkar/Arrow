@@ -291,8 +291,8 @@ const HTML_JS_SINGLE_FILE_TEMPLATE_PATH = 'res://runtimes/html-js.arrow-runtime'
 
 const PURGE_DEVELOPMENT_DATA_FROM_PLAYABLES = true
 const DATA_TO_BE_PURGED_FROM_PLAYABLE_METADATA:Array = [
-	'offline', 'remote', 'last_save', 'editor',
-	'authors', 'chapter',
+	'offline', 'remote', 'last_save', # 'editor',
+	'authors', # 'chapter',
 ]
 const DATA_TO_BE_PURGED_FROM_PLAYABLE_RESOURCES:Dictionary = {
 	"nodes": [ 'notes' ]
