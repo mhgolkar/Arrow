@@ -14,10 +14,8 @@ const SAVE_UNOPTIMIZED = ContentSharedClass.SAVE_UNOPTIMIZED
 var _OPEN_NODE_ID
 var _OPEN_NODE
 
-const RESOURCE_NAME_EXPOSURE = {
-	"variables": { "PATTERN": "{([.]*[^{|}]*)}", "NAME_GROUP_ID": 1 },
-	"characters": { "PATTERN": "{([.]*[^{|}]*)\\.([.]*[^{|}]*)}", "NAME_GROUP_ID": 1 },
-}
+const FIELDS_WITH_EXPOSURE = ["title", "content"]
+const RESOURCE_NAME_EXPOSURE = Settings.RESOURCE_NAME_EXPOSURE
 
 var This = self
 
@@ -114,7 +112,7 @@ func find_exposed_resources(parameters:Dictionary, fields:Array, return_ids:bool
 func create_use_command(parameters:Dictionary) -> Dictionary:
 	var use = { "drop": [], "refer": [] }
 	# reference for any exposed variable or character ?
-	var exposed_resources_by_uid = find_exposed_resources(parameters, ["title", "content"], true)
+	var exposed_resources_by_uid = find_exposed_resources(parameters, FIELDS_WITH_EXPOSURE, true)
 	# print_debug( "Exposed Resources in %s: " % _OPEN_NODE.name, exposed_resources_by_uid )
 	# remove the reference if any resource is not exposed anymore
 	if _OPEN_NODE.has("ref") && _OPEN_NODE.ref is Array:
@@ -158,3 +156,22 @@ func _read_parameters() -> Dictionary:
 func _create_new(new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
+
+func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
+	for resource_set in RESOURCE_NAME_EXPOSURE:
+		var _NAME_GROUP_ID = RESOURCE_NAME_EXPOSURE[resource_set].NAME_GROUP_ID
+		var _EXPOSURE_PATTERN = RegEx.new()
+		_EXPOSURE_PATTERN.compile( RESOURCE_NAME_EXPOSURE[resource_set].PATTERN )
+		for field in FIELDS_WITH_EXPOSURE:
+			if data.has(field) && data[field] is String:
+				var revised = {}
+				for matched in _EXPOSURE_PATTERN.search_all( data[field] ):
+					var exposure = [matched.get_string(), matched.get_start(), matched.get_end()] 
+					var exposed = [matched.get_string(_NAME_GROUP_ID), matched.get_start(_NAME_GROUP_ID), matched.get_end(_NAME_GROUP_ID)]
+					if translation.names.has( exposed[0] ):
+						var cut = [exposed[1] - exposure[1], exposed[2] - exposure[1]]
+						var new_name = translation.names[exposed[0]]
+						revised[exposure[0]] = (exposure[0].substr(0, cut[0]) + new_name + exposure[0].substr(cut[1], -1))
+				for exposure in revised:
+					data[field] = data[field].replace(exposure, revised[exposure])
+	pass

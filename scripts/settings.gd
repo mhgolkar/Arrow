@@ -208,6 +208,10 @@ const RANDOM_PROJECT_NAME_AFFIX_LENGTH = 3
 const EXPOSURE_SAFE_NAME_RESTRICTED_CHARS = ["{", "}", ".", ":", ";", "`", "'", '"', " ", "\t", "\n", "\r"]
 const EXPOSURE_SAFE_NAME_RESTRICTED_CHARS_REPLACEMENT = "_"
 const NODE_TYPES_WITH_DIRECT_EXPOSURES = ["tag_edit", "tag_pass"]
+const RESOURCE_NAME_EXPOSURE = {
+	"variables": { "PATTERN": "{([.]*[^{|}|\\.|:|;|'|\"|`]*)}", "NAME_GROUP_ID": 1 },
+	"characters": { "PATTERN": "{([.]*[^{|}|\\.|:|;|'|\"|`]*)\\.([.]*[^{|}|\\.|:|;|'|\"|`]*)}", "NAME_GROUP_ID": 1 },
+}
 
 # Minimap
 
@@ -283,6 +287,7 @@ const PATH_DIALOG_PROPERTIES = {
 
 # Don't need to change these unless you're developing new features.
 const CLIPBOARD_MODE = { "EMPTY":0, "COPY":1, "CUT":2 }
+const OS_CLIPBOARD_MERGE_MODE = { "REUSE":0, "RECREATE":1 }
 
 # Runtimes
 

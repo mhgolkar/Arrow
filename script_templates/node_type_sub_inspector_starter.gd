@@ -69,3 +69,10 @@ func _read_parameters() -> Dictionary:
 func _create_new(new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
+
+# central mind tries to translate internal references (by UID) or name exposures,
+# that are held by each node if needed, by calling this method if it exists, passing the data as reference
+func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
+	# if translation.names.has(data.exposure):
+	# if translation.ids.has(data.internal_reference):
+	pass

@@ -22,10 +22,7 @@ var _OPEN_NODE
 
 var _PROJECT_CHARACTERS_CACHE = {}
 
-const RESOURCE_NAME_EXPOSURE = {
-	"variables": { "PATTERN": "{([.]*[^{|}]*)}", "NAME_GROUP_ID": 1 },
-	"characters": { "PATTERN": "{([.]*[^{|}]*)\\.([.]*[^{|}]*)}", "NAME_GROUP_ID": 1 },
-}
+const RESOURCE_NAME_EXPOSURE = Settings.RESOURCE_NAME_EXPOSURE
 
 var This = self
 
@@ -295,3 +292,23 @@ func _read_parameters() -> Dictionary:
 func _create_new(new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
+
+func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
+	if translation.ids.has(data.character):
+		data.character = translation.ids[data.character]
+	for resource_set in RESOURCE_NAME_EXPOSURE:
+		var _NAME_GROUP_ID = RESOURCE_NAME_EXPOSURE[resource_set].NAME_GROUP_ID
+		var _EXPOSURE_PATTERN = RegEx.new()
+		_EXPOSURE_PATTERN.compile( RESOURCE_NAME_EXPOSURE[resource_set].PATTERN )
+		for idx in range(0, data.lines.size()):
+			var revised = {}
+			for matched in _EXPOSURE_PATTERN.search_all( data.lines[idx] ):
+				var exposure = [matched.get_string(), matched.get_start(), matched.get_end()] 
+				var exposed = [matched.get_string(_NAME_GROUP_ID), matched.get_start(_NAME_GROUP_ID), matched.get_end(_NAME_GROUP_ID)]
+				if translation.names.has( exposed[0] ):
+					var cut = [exposed[1] - exposure[1], exposed[2] - exposure[1]]
+					var new_name = translation.names[exposed[0]]
+					revised[exposure[0]] = (exposure[0].substr(0, cut[0]) + new_name + exposure[0].substr(cut[1], -1))
+			for exposure in revised:
+				data.lines[idx] = data.lines[idx].replace(exposure, revised[exposure])
+	pass

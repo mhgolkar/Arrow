@@ -114,3 +114,7 @@ func _create_new(new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 
+func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
+	if translation.ids.has(data.macro):
+		data.macro = translation.ids[data.macro]
+	pass

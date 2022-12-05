@@ -31,10 +31,8 @@ var _OPEN_NODE
 
 var _PROJECT_VARIABLES_CACHE:Dictionary = {}
 
-const RESOURCE_NAME_EXPOSURE = {
-	"variables": { "PATTERN": "{([.]*[^{|}]*)}", "NAME_GROUP_ID": 1 },
-	"characters": { "PATTERN": "{([.]*[^{|}]*)\\.([.]*[^{|}]*)}", "NAME_GROUP_ID": 1 },
-}
+const FIELDS_WITH_EXPOSURE = ["prompt"]
+const RESOURCE_NAME_EXPOSURE = Settings.RESOURCE_NAME_EXPOSURE
 
 var This = self
 
@@ -186,7 +184,7 @@ func read_custom_properties():
 		return custom_properties
 	return null
 
-func find_exposed_resources(prompt: String, return_ids:bool = true) -> Array:
+func find_exposed_resources(parameters:Dictionary, fields:Array, return_ids:bool = true) -> Array:
 	var exposed_resources = []
 	for resource_set in RESOURCE_NAME_EXPOSURE:
 		var _CACHE = Main.Mind.clone_dataset_of(resource_set)
@@ -199,18 +197,20 @@ func find_exposed_resources(prompt: String, return_ids:bool = true) -> Array:
 		var _EXPOSURE_PATTERN = RegEx.new()
 		_EXPOSURE_PATTERN.compile( RESOURCE_NAME_EXPOSURE[resource_set].PATTERN )
 		# ...
-		for regex_match in _EXPOSURE_PATTERN.search_all( prompt ):
-			var possible_exposure = regex_match.get_string(_NAME_GROUP_ID)
-			# print_debug("Possible Resource Exposure: ", possible_exposure)
-			if _CACHE_NAME_TO_ID.has( possible_exposure ):
-				var exposed = _CACHE_NAME_TO_ID[possible_exposure] if return_ids else possible_exposure
-				if exposed_resources.has(exposed) == false:
-					exposed_resources.append(exposed)
+		for field in fields:
+			if parameters[field] is String:
+				for regex_match in _EXPOSURE_PATTERN.search_all( parameters[field] ):
+					var possible_exposure = regex_match.get_string(_NAME_GROUP_ID)
+					# print_debug("Possible Resource Exposure: ", possible_exposure)
+					if _CACHE_NAME_TO_ID.has( possible_exposure ):
+						var exposed = _CACHE_NAME_TO_ID[possible_exposure] if return_ids else possible_exposure
+						if exposed_resources.has(exposed) == false:
+							exposed_resources.append(exposed)
 	return exposed_resources
 
 func create_use_command(parameters:Dictionary) -> Dictionary:
 	var use = { "drop": [], "refer": [] }
-	var exposed_resources_by_uid = find_exposed_resources(parameters.prompt, true)
+	var exposed_resources_by_uid = find_exposed_resources(parameters, FIELDS_WITH_EXPOSURE, true)
 	# reference for the target variable ?
 	# if there is any change in the target resources ...
 	if parameters.variable != _OPEN_NODE.data.variable:
@@ -256,3 +256,24 @@ func _read_parameters() -> Dictionary:
 func _create_new(new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
+
+func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
+	if translation.ids.has(data.variable):
+		data.variable = translation.ids[data.variable]
+	for resource_set in RESOURCE_NAME_EXPOSURE:
+		var _NAME_GROUP_ID = RESOURCE_NAME_EXPOSURE[resource_set].NAME_GROUP_ID
+		var _EXPOSURE_PATTERN = RegEx.new()
+		_EXPOSURE_PATTERN.compile( RESOURCE_NAME_EXPOSURE[resource_set].PATTERN )
+		for field in FIELDS_WITH_EXPOSURE:
+			if data.has(field) && data[field] is String:
+				var revised = {}
+				for matched in _EXPOSURE_PATTERN.search_all( data[field] ):
+					var exposure = [matched.get_string(), matched.get_start(), matched.get_end()] 
+					var exposed = [matched.get_string(_NAME_GROUP_ID), matched.get_start(_NAME_GROUP_ID), matched.get_end(_NAME_GROUP_ID)]
+					if translation.names.has( exposed[0] ):
+						var cut = [exposed[1] - exposure[1], exposed[2] - exposure[1]]
+						var new_name = translation.names[exposed[0]]
+						revised[exposure[0]] = (exposure[0].substr(0, cut[0]) + new_name + exposure[0].substr(cut[1], -1))
+				for exposure in revised:
+					data[field] = data[field].replace(exposure, revised[exposure])
+	pass

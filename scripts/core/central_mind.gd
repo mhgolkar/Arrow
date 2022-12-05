@@ -34,6 +34,7 @@ const NODE_INITIAL_NAME_PREFIX_FOR_SCENES = Settings.NODE_INITIAL_NAME_PREFIX_FO
 const NODE_INITIAL_NAME_PREFIX_FOR_MACROS = Settings.NODE_INITIAL_NAME_PREFIX_FOR_MACROS
 
 const CLIPBOARD_MODE = Settings.CLIPBOARD_MODE
+const OS_CLIPBOARD_MERGE_MODE = Settings.OS_CLIPBOARD_MERGE_MODE
 
 
 class Mind :
@@ -191,6 +192,10 @@ class Mind :
 			"clipboard_push_selection":
 				if _SELECTED_NODES_IDS.size() > 0:
 					clipboard_push(_SELECTED_NODES_IDS, args)
+			"os_clipboard_push":
+				os_clipboard_push(args[0], args[1], args[2])
+			"os_clipboard_pull":
+				os_clipboard_pull(args[0], args[1])
 			"clean_clipboard":
 				clipboard_push([], CLIPBOARD_MODE.EMPTY)
 			"clipboard_pull":
@@ -747,6 +752,22 @@ class Mind :
 			return (resource.duplicate(true) if (duplicate == true) else resource)
 		else: # null or something naturally cloned
 			return resource
+
+	# returns found resource (as tagged) using uid,
+	# looking up in all the fields, but first in the `priority_field` if provided
+	func lookup_resource_tagged(resource_uid:int, priority_field:String = "", duplicate:bool = true):
+		var resource = null
+		var field = null
+		if resource_uid >= 0 :
+			var valid_field_owning_resource = find_resource_field(resource_uid, priority_field)
+			if valid_field_owning_resource.length() > 0:
+				resource = _PROJECT.resources[valid_field_owning_resource][resource_uid]
+				field = valid_field_owning_resource
+		if resource is Dictionary:
+			# Note: this function may be called by (custom) node types
+			return { "field": field, "data": (resource.duplicate(true) if (duplicate == true) else resource) }
+		else: # null or something naturally cloned
+			return { "field": field, "data": resource }
 			
 	func lookup_map_by_node_id(node_id:int, duplicate:bool = true):
 		# it checks if the node exist when trying to find scene owner, so...
@@ -962,8 +983,14 @@ class Mind :
 		Grid.call_deferred("got_to_offset", [offset_or_state[0], offset_or_state[1]], false, false)
 		Grid.set_deferred("zoom", offset_or_state[2] if offset_or_state.size() >= 3 else 1)
 		pass
-		
-	func create_new_resource_id() -> int:
+	
+	func uid_is_used(uid: int) -> bool:
+		for field in _PROJECT.resources:
+			if _PROJECT.resources[field].has(uid):
+				return true
+		return false
+	
+	func next_resource_id() -> int:
 		if Flaker is Flake.Native:
 			return Flaker.next()
 		if Flaker is Flake.Snow:
@@ -975,6 +1002,14 @@ class Mind :
 			printerr("Invalid state of Flaker!")
 			return -888
 		pass
+	
+	func create_new_resource_id() -> int:
+		var new_uid = null
+		# (this additional safety check makes sure you won't get a duplicated UID,
+		# even in case of manual edits or merger of unreliably chaptered documents)
+		while new_uid == null || (uid_is_used(new_uid) && new_uid > 0):
+			new_uid = next_resource_id()
+		return new_uid
 	
 	var _CACHED_COMPILED_REGEXES = {}
 	func compiled_regex_from(pattern:String) -> RegEx:
@@ -2010,6 +2045,298 @@ class Mind :
 							}],
 							Settings.CAUTION_COLOR
 						)
+		pass
+	
+	# collects resources and their dependencies flattened in an object and an array
+	func collect_resources(list_or_one, priority_field:String = "", duplicate:bool = false) -> Dictionary:
+		var found = {}
+		if list_or_one is Array:
+			for res_id in list_or_one:
+				found[res_id] = collect_resources(res_id)
+		else:
+			var looked = lookup_resource_tagged(list_or_one, priority_field, duplicate)
+			var dependencies: Array
+			match looked.field:
+				"scenes":
+					# when resource is a whole scene
+					dependencies = looked.data.map.keys()
+					dependencies.append(looked.data.entry)
+				"nodes":
+					dependencies = looked.data.ref if looked.data.has("ref") else []
+					# nodes need to have their owner also collected, for offset and connection data,
+					# as well as a target to be pasted into for the dependency nodes
+					var owner_scene_id = find_scene_owner_of_node(list_or_one)
+					# we'll take a scene shell (without all the nodes but this collected one and the entry)
+					var owner_shell = lookup_resource(owner_scene_id, "scenes", true)
+					owner_shell.map = { list_or_one: owner_shell.map[list_or_one] }
+					# we need to update shalls to keep map data for previously collected nodes as well
+					if found.has(owner_scene_id):
+						Utils.recursively_update_dictionary(owner_shell, found[owner_scene_id], false)
+					found[owner_scene_id] = {
+						"resources": { "scenes": { owner_scene_id: owner_shell } },
+						"dependencies": [owner_shell.entry]
+					}
+				"variables":
+					dependencies = [] # currently holds no dependency (`ref`s)
+				"characters":
+					dependencies = [] # ditto
+			found[list_or_one] = { "resources": { looked.field: { list_or_one: looked.data } }, "dependencies": dependencies }
+		# mix found data all in one collected batch
+		var collected = { "resources": {}, "dependencies": [] }
+		# first flatten all dependencies
+		for res_id in found:
+			for id in found[res_id].dependencies:
+				if collected.dependencies.has(id) == false:
+					collected.dependencies.append(id)
+			# then make sure they are also collected as resources
+			for ref_id in collected.dependencies:
+				if found.has(ref_id) == false:
+					found[ref_id] = collect_resources(ref_id)
+		# finally mix all the resources
+		for res_id in found:
+			# (recursive update is necessary becase we may collect pieces of a single resource _e.g. scene map_ in multiple steps)
+			Utils.recursively_update_dictionary(collected.resources, found[res_id].resources, false)
+		return collected
+	
+	# copies selected resources and their dependencies into OS clipboard
+	# as a JSON stringified structured dictionary;
+	# also returns the created dictionary (by default without duplication).
+	# note: if no resource_list is provided, selected nodes (from grid) will be pushed
+	func os_clipboard_push(resource_list:Array = [], priority_field:String = "nodes", duplicate:bool = false) -> Dictionary:
+		var list = resource_list if resource_list.size() > 0 else _SELECTED_NODES_IDS;
+		var collected = collect_resources(list, priority_field, duplicate)
+		# after collecting the data we need to clean it up
+		for field in collected.resources:
+			for res_id in collected.resources[field]:
+				var data = collected.resources[field][res_id]
+				# collected scenes shall not keep those grid connections in which one side is not collected
+				if field == "scenes" && data.has("map"):
+					for nid in data.map:
+						if data.map[nid].has("io"):
+							var new_io = []
+							for con in data.map[nid].io:
+								if list.has(con[2]) || collected.dependencies.has(con[2]):
+									new_io.append(con)
+							if new_io.size() > 0:
+								data.map[nid].io = new_io
+							else:
+								data.map[nid].erase("io")
+				# and generally for every resource type,
+				# unlike `ref`s that are all collected as dependencies,
+				# we shall not keep `use` data where the user is not collected so the relation is broken
+				if data.has("use"):
+					var new_use = []
+					for user_id in data.use:
+						if list.has(user_id) || collected.dependencies.has(user_id):
+							new_use.append(user_id)
+					if new_use.size() > 0:
+						data.use = new_use
+					else:
+						data.erase("use")
+		# finally pack the collection with some metadata and set it into the OS clipboard
+		var data = {
+			"arrow": { "version": Settings.ARROW_VERSION },
+			"chunk": {
+				"title": _PROJECT.title,
+				"chapter": _PROJECT.meta.chapter,
+				"list": list, "dependencies": collected.dependencies,
+				"resources": collected.resources,
+			}
+		};
+		var data_as_text = Utils.stringify_json(data)
+		OS.set_clipboard(data_as_text)
+		return data
+	
+	# cache for data pulled from the OS clipboard
+	var _OS_CLIPBOARD_PULLED: Dictionary = {}
+
+	# prompts for the mode (if not already set) and merges the data if any, from the OS clipboard
+	func os_clipboard_pull(merge_mode = null, offset_for_nodes = null) -> void:
+		if merge_mode == null:
+			_OS_CLIPBOARD_PULLED = {}
+			var os_clipbard = OS.get_clipboard()
+			if os_clipbard.find("arrow") >= 0:
+				var pulled = Utils.recursively_convert_numbers_to_int( Utils.parse_json(os_clipbard) );
+				if pulled is Dictionary && pulled.has_all(["arrow", "chunk"]):
+					_OS_CLIPBOARD_PULLED = pulled
+					var allow_reuse = (pulled.chunk.chapter != _PROJECT.meta.chapter)
+					var statistics = ""
+					for field in pulled.chunk.resources:
+						statistics += "\n• " + String(pulled.chunk.resources[field].size()) + " " + field
+					Notifier.call_deferred(
+						"show_notification",
+						"Merger Detected [Experimental!]",
+						(
+							"You are trying to paste resources from `" + pulled.chunk.title +
+							"` (chapter " + String(pulled.chunk.chapter) + "), including: " + statistics + "\n" +
+							"in which " + String(pulled.chunk.list.size()) +
+							" are the main resource(s) and the rest are the referenced dependencies.\n\n" +
+							("Please choose your merger strategy if sharable resources with similar UIDs exist:" if allow_reuse else "")
+						),
+						[
+							{ "label": "Reuse", "callee": Main.Mind, "method": "os_clipboard_pull", "arguments": [OS_CLIPBOARD_MERGE_MODE.REUSE, offset_for_nodes] },
+							{ "label": "Recreate", "callee": Main.Mind, "method": "os_clipboard_pull", "arguments": [OS_CLIPBOARD_MERGE_MODE.RECREATE, offset_for_nodes] },
+						] if allow_reuse else [
+							{ "label": "Recreate", "callee": Main.Mind, "method": "os_clipboard_pull", "arguments": [OS_CLIPBOARD_MERGE_MODE.RECREATE, offset_for_nodes] },
+						],
+						Settings.INFO_COLOR
+					)
+		else:
+			var dependencies = _OS_CLIPBOARD_PULLED.chunk.dependencies;
+			var moving_list = _OS_CLIPBOARD_PULLED.chunk.list;
+			var new_resources = _OS_CLIPBOARD_PULLED.chunk.resources;
+			# ...
+			var import_table = { "names": {}, "ids": {} }
+			var new_moving_list = []
+			# depending on the merge mode, we decide which UIDs can be set as is, which need to be changed with new IDs,
+			# and what pulled resources shall be ignored to reuse similar ones already existing
+			for field in new_resources:
+				for pulled_id in new_resources[field]:
+					var pulled_data = new_resources[field][pulled_id]
+					var existing = lookup_resource_tagged(pulled_id, field, false)
+					# if the pulled UID is not used in this document, our priority is to reuse the UID, unless recreation is explicitly decided
+					if existing.data == null:
+						import_table.ids[pulled_id] = create_new_resource_id() if merge_mode == OS_CLIPBOARD_MERGE_MODE.RECREATE else pulled_id
+					else:
+						# if a resource with identical UID exists, depending on the chosen strategy:
+						var new_id = null
+						match merge_mode:
+							OS_CLIPBOARD_MERGE_MODE.REUSE:
+								# the existing data ould be used and resources from the pulled ones will be ignored,
+								# unless the data type is different from the clipboard data or is not sharable
+								if (
+									["characters", "variables"].has(field) == false ||
+									field != existing.field || pulled_data.has("type") != existing.data.has("type") ||
+									(pulled_data.has("type") && pulled_data.type != existing.data.type)
+								):
+									new_id = create_new_resource_id()
+								# (else: new_id = null) resources that has no ID in the table would not be imported
+							OS_CLIPBOARD_MERGE_MODE.RECREATE:
+								# or we assigne a new UID to every clipboard resource anyway and import them as totaly new data
+								new_id = create_new_resource_id()
+						# make sure this new ID would not collide with any of the IDs used directly from the pulled data
+						# (i.e. with those reused because of `existing.data == null`)
+						while new_id != null && (moving_list.has(new_id) || dependencies.has(new_id)):
+							new_id = create_new_resource_id()
+						# ...
+						if new_id != null:
+							import_table.ids[pulled_id] = new_id
+					# if we decided to import the resource
+					if import_table.ids.has(pulled_id):
+						# we may also fix the name when it's duplicate
+						if pulled_data.has("name"):
+							var old_name = pulled_data.name
+							while is_resource_name_duplicate(pulled_data.name, field):
+								pulled_data.name += Settings.REUSED_NODE_NAMES_AUTO_POSTFIX
+							if pulled_data.name != old_name:
+								import_table.names[old_name] = pulled_data.name
+			# ...
+			for field in new_resources:
+				for old_id in new_resources[field]:
+					if import_table.ids.has(old_id):
+						var new_id = import_table.ids[old_id]
+						var import = new_resources[field][old_id]
+						# common
+						# ------
+						# we also need to revise old uses and references
+						if import.has("ref"):
+							var new_ref = []
+							for rid in import.ref:
+								if import_table.ids.has(rid):
+									new_ref.append(import_table.ids[rid])
+								else:
+									new_ref.append(rid)
+									# (reused resources _ref here_ get their new relations later below)
+							import.ref = new_ref
+						if import.has("use"):
+							var new_use = []
+							for uid in import.use:
+								if import_table.ids.has(uid):
+									new_use.append(import_table.ids[uid])
+								# 🡦 we may not keep track of dropped users in case they are not imported
+							import.use = new_use
+						# ...
+						# type-specific
+						# -------------
+						match field:
+							"scenes":
+								if import_table.ids.has(import.entry):
+									import.entry = import_table.ids[import.entry]
+								var new_map = {}
+								for nid in import.map:
+									var new_nid;
+									if import_table.ids.has(nid):
+										new_nid = import_table.ids[nid]
+									else:
+										new_nid = nid
+									new_map[new_nid] = import.map[nid]
+									if new_map[new_nid].has("io"):
+										var new_io = []
+										for con in new_map[new_nid].io:
+											var new_dst = import_table.ids[con[2]] if import_table.ids.has(con[2]) else con[2]
+											new_io.append([new_nid, con[1], new_dst, con[3]])
+										new_map[new_nid].io = new_io
+								import.map = new_map
+							"nodes":
+									# moving (list) nodes that are collected from a grid in origin,
+									if moving_list.has(old_id):
+										# may be placed to the currently open grid in the destination
+										new_moving_list.append(new_id)
+									# nodes that keep references internally (e.g. contition, content, jump, etc.) may update them as well
+									if Inspector.Tab.Node.SUB_INSPCETORS[import.type].has_method("_translate_internal_ref"):
+										Inspector.Tab.Node.SUB_INSPCETORS[import.type]._translate_internal_ref(import.data, import_table)
+							"variables":
+								# currently, only generals may apply
+								pass
+							"characters":
+								# ditto
+								pass
+						# ...
+						# now we can import the pulled and revised data into our project
+						_PROJECT.resources[field][new_id] = import.duplicate(true)
+						# ...
+			# move main selected nodes to the currently open scene if desired
+			if offset_for_nodes is Vector2 && new_moving_list.size() > 0:
+				move_nodes_to_offset(offset_for_nodes, new_moving_list)
+			# clean-up empty imported scenes
+			# these are scenes that all their nodes (expect their mandatory entry) is moved to another scene in destination
+			# and the entry node is not referenced by any other resource (e.g. no jump to that entry exists)
+			var empty_scenes = []
+			if new_resources.has("scenes"):
+				for imported_scene_old_id in new_resources.scenes:
+					var new_scene_id = import_table.ids[imported_scene_old_id]
+					var imported_scene = _PROJECT.resources.scenes[new_scene_id]
+					var its_entry = _PROJECT.resources.nodes[imported_scene.entry]
+					if (
+						( # is not used itself (e.g. by a `macro_use` node)
+							imported_scene.has("use") == false || imported_scene.use.size() == 0
+						) &&
+						( # no referenced or mapped inner node
+							imported_scene.map.size() == 0 ||
+							( imported_scene.map.size() == 1 && ( its_entry.has("use") == false || its_entry.use.size() == 0 ))
+						)
+					):
+						empty_scenes.append(new_scene_id)
+			batch_remove_resources(empty_scenes)
+			# now that all the resources are in their place, 
+			# we need to update `use` relations for already existing resources that are referenced by newly imported ones
+			for pulled_id in import_table.ids:
+				var imported_id = import_table.ids[pulled_id]
+				var import = lookup_resource(imported_id, "", false)
+				if import != null && import.has("ref"):
+					for ref in import.ref:
+						var referenced = lookup_resource(ref, "", false)
+						if referenced.has("use") == false:
+							referenced.use = [imported_id]
+						elif referenced.use.has(imported_id) == false:
+							referenced.use.append(imported_id)
+			# ...
+			var state = get_current_view_state()
+			load_scene()
+			go_to_grid_view(state)
+			reset_project_save_status(false)
+			Inspector.call_deferred("refresh_inspector_tabs")
+			_OS_CLIPBOARD_PULLED = {}
 		pass
 	
 	func register_project_and_save_from_open(project_title:String, project_filename:String) -> void:

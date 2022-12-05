@@ -60,6 +60,7 @@ func register_connections() -> void:
 	VariablesNewButton.connect("pressed", self, "request_new_variable_creation", [], CONNECT_DEFERRED)
 	VariablesList.connect("item_selected", self, "_on_variables_list_item_selected", [], CONNECT_DEFERRED)
 	VariablesList.connect("nothing_selected", self, "_on_variables_list_nothing_selected", [], CONNECT_DEFERRED)
+	VariablesList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
 	VariableEditorSaveButton.connect("pressed", self, "submit_variable_modification", [], CONNECT_DEFERRED)
 	VariableEditorRemoveButton.connect("pressed", self, "request_remove_variable", [], CONNECT_DEFERRED)
 	VariableAppearanceGoToButtonPopup.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
@@ -364,3 +365,19 @@ func _on_variables_list_nothing_selected() -> void:
 	_SELECTED_VARIABLE_BEING_EDITED_ID = -1
 	smartly_toggle_editor()
 	pass
+
+func _on_list_gui_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.is_echo() == false && event.is_pressed() == true:
+			if event.get_control():
+				match event.get_scancode():
+					KEY_C:
+						if event.get_shift():
+							var selected = _SELECTED_VARIABLE_BEING_EDITED_ID
+							if selected >= 0:
+								emit_signal("relay_request_mind", "clean_clipboard", null)
+								emit_signal("relay_request_mind", "os_clipboard_push", [[selected], "variables", false])
+					KEY_V:
+						if event.get_shift():
+							emit_signal("relay_request_mind", "os_clipboard_pull", [null, null]) # (no moving)
+		pass

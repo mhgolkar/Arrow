@@ -61,6 +61,7 @@ func register_connections() -> void:
 	CharactersNewButton.connect("pressed", self, "request_new_character_creation", [], CONNECT_DEFERRED)
 	CharactersList.connect("item_selected", self, "_on_characters_list_item_selected", [], CONNECT_DEFERRED)
 	CharactersList.connect("nothing_selected", self, "_on_characters_list_nothing_selected", [], CONNECT_DEFERRED)
+	CharactersList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
 	CharacterEditorSaveButton.connect("pressed", self, "submit_character_modification", [], CONNECT_DEFERRED)
 	CharacterRemoveButton.connect("pressed", self, "request_remove_character", [], CONNECT_DEFERRED)
 	TagEditOverset.connect("pressed", self, "read_and_overset_tag", [], CONNECT_DEFERRED)
@@ -449,3 +450,19 @@ func _on_characters_list_nothing_selected() -> void:
 	refresh_revision_mode(null)
 	smartly_toggle_editor()
 	pass
+
+func _on_list_gui_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.is_echo() == false && event.is_pressed() == true:
+			if event.get_control():
+				match event.get_scancode():
+					KEY_C:
+						if event.get_shift():
+							var selected = _SELECTED_CHARACTER_BEING_EDITED_ID
+							if selected >= 0:
+								emit_signal("relay_request_mind", "clean_clipboard", null)
+								emit_signal("relay_request_mind", "os_clipboard_push", [[selected], "characters", false])
+					KEY_V:
+						if event.get_shift():
+							emit_signal("relay_request_mind", "os_clipboard_pull", [null, null]) # (no moving)
+		pass

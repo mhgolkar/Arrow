@@ -60,6 +60,7 @@ func register_connections() -> void:
 	MacrosList.connect("item_selected", self, "_on_macros_list_item_selected", [], CONNECT_DEFERRED)
 	MacrosList.connect("item_activated", self, "request_macro_editorial_open", [], CONNECT_DEFERRED)
 	MacrosList.connect("nothing_selected", self, "_on_macros_list_nothing_selected", [], CONNECT_DEFERRED)
+	MacrosList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
 	MacrosNewButton.connect("pressed", self, "request_new_macro_creation", [], CONNECT_DEFERRED)
 	MacrosRemoveButton.connect("pressed", self, "request_remove_macro", [], CONNECT_DEFERRED)
 	MacrosEditButton.connect("pressed", self, "request_macro_editorial_open", [], CONNECT_DEFERRED)
@@ -407,3 +408,19 @@ func submit_macro_modification() -> void:
 	if resource_updater.modification.size() > 0 :
 		self.emit_signal("relay_request_mind", "update_resource", resource_updater)
 	pass
+
+func _on_list_gui_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.is_echo() == false && event.is_pressed() == true:
+			if event.get_control():
+				match event.get_scancode():
+					KEY_C:
+						if event.get_shift():
+							var selected = get_selected_macro_id()
+							if selected >= 0:
+								emit_signal("relay_request_mind", "clean_clipboard", null)
+								emit_signal("relay_request_mind", "os_clipboard_push", [[selected], "scenes", false])
+					KEY_V:
+						if event.get_shift():
+							emit_signal("relay_request_mind", "os_clipboard_pull", [null, null]) # (no moving)
+		pass

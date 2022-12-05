@@ -87,10 +87,12 @@ func offset_from_position(position:Vector2) -> Vector2:
 	var grid_offset_of_position = (scroll_offset + position) / self.get_zoom()
 	return grid_offset_of_position
 
+func current_mouse_offset() -> Vector2:
+	return offset_from_position( self.get_local_mouse_position() )
+
 # (right-click on the grid)
 func _on_popup_request(position:Vector2) -> void:
-	var relative_click_position = self.get_local_mouse_position()
-	GridContextMenu.call_deferred("show_up", position, offset_from_position(relative_click_position))
+	GridContextMenu.call_deferred("show_up", position, current_mouse_offset())
 	pass
 
 func get_nodes_under_cursor(return_id:bool = false, return_first:bool = false) -> Array:
@@ -715,13 +717,19 @@ func _gui_input(event: InputEvent) -> void:
 					KEY_C:
 						request_mind("clean_clipboard", null)
 						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
-							request_mind("clipboard_push_selection", CLIPBOARD_MODE.COPY)
+							if event.get_shift():
+								request_mind("os_clipboard_push", [[], "nodes", false])
+							else:
+								request_mind("clipboard_push_selection", CLIPBOARD_MODE.COPY)
 					KEY_X:
 						request_mind("clean_clipboard", null)
 						if _ALREADY_SELECTED_NODE_IDS.size() != 0:
 							request_mind("clipboard_push_selection", CLIPBOARD_MODE.CUT)
 					KEY_V:
-						request_mind("clipboard_pull", offset_from_position( self.get_local_mouse_position() ) )
+						if event.get_shift():
+							request_mind("os_clipboard_pull", [null, current_mouse_offset()])
+						else:
+							request_mind("clipboard_pull", current_mouse_offset() )
 			# > Echo
 			match event.get_scancode():
 				KEY_KP_ADD:
