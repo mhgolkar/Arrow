@@ -6,10 +6,10 @@
 # Other scripts use this class as a centralized set of configurations
 class_name Settings
 
-const ARROW_VERSION = "2.0.0"
+const ARROW_VERSION = "2.1.0"
 const ARROW_WEBSITE = "https://mhgolkar.github.io/Arrow/"
 
-const CURRENT_RELEASE_TAG = "v2.0.0"
+const CURRENT_RELEASE_TAG = "v2.1.0"
 const ARROW_RELEASES_ARCHIVE = "https://github.com/mhgolkar/Arrow/releases/"
 const LATEST_RELEASE_CHECK_API = "https://api.github.com/repos/mhgolkar/Arrow/releases/latest"
 

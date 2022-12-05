@@ -1,6 +1,14 @@
 # Arrow: Changelog
 
 
+## v2.1.0
+
++ New (experimental) **Cross-chapter Resource Transfer**
+    > For more information check out the repo's wiki on
+    > [project organization](https://github.com/mhgolkar/Arrow/wiki/project-organization)
++ Few minor fixes
+
+
 ## v2.0.0
 
 This major release introduces many changes in Arrow,
