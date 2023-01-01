@@ -165,10 +165,12 @@ func _cap_num_custom_prop_values(_x = null) -> void:
 	var max_value = InputPropertiesByType["num"].fields[1][0].get_value()
 	var step_value = InputPropertiesByType["num"].fields[2][0].get_value()
 	# cap range (sorted)
-	if max_value < min_value:
-		InputPropertiesByType["num"].fields[1][0].set_value(min_value)
-	# and step to be positive non-zero
-	InputPropertiesByType["num"].fields[2][0].set_value( int( max( abs(step_value), 1 ) ) )
+	if max_value <= min_value:
+		max_value = min_value + 1
+		InputPropertiesByType["num"].fields[1][0].set_value(max_value)
+	# and make sure step is positive non-zero and meaningful
+	if step_value < 1 || step_value > abs(max_value - min_value):
+		InputPropertiesByType["num"].fields[2][0].set_value(1)
 	pass
 
 func read_custom_properties():

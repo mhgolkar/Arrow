@@ -218,13 +218,19 @@ func validate_input(input):
 							var step_ = custom[2]
 							if min_ <= max_:
 								if min_ == max_:
+									# although this is not allowed by the inspector anymore,
+									# we still let singular values to pass for backward compatibility
 									if input != min_:
 										input = null
 								else: # ( min_ < max_)
 									if input < min_ || input > max_:
 										input = null
 									else: # is in range but is it stepped properly?
-										if step_ != 0 && ((input - min_) % step_) != 0: # (zero step is ignored)
+										if (
+											# (conventionally invalid step parameters are ignored and any value in range can pass)
+											step_ >= 1 && step_ <= abs(max_ - min_) &&
+											abs(input - min_) % step_ != 0
+										):
 											input = null
 							else:
 								input = null
