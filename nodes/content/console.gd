@@ -113,8 +113,8 @@ func setup_view() -> void:
 		Brief.set_deferred("bbcode_text", BRIEF_UNSET_MESSAGE)
 		Brief.set_deferred("visible", HIDE_UNSET_BRIEF != true)
 	# ...
-	# Ask for console clearance if behavior is intended:
-	if bool_data_or_default("clear"):
+	# Ask for console clearance if the behavior is intended (unless the node is skipped):
+	if bool_data_or_default("clear") && (_NODE_MAP.has("skip") == false || _NODE_MAP.skip == false):
 		emit_signal("clear_up")
 	pass
 

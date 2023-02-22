@@ -105,8 +105,8 @@ func setup_view() -> void:
 	else:
 		Monolog.set_deferred("bbcode_text", MONOLOG_UNSET_MESSAGE)
 		Monolog.set_deferred("self_modulate", MONOLOG_UNSET_SELF_MODULATION_COLOR)
-	# Ask for console clearance if behavior is intended:
-	if bool_data_or_default("clear"):
+	# Ask for console clearance if the behavior is intended (unless the node is skipped):
+	if bool_data_or_default("clear") && (_NODE_MAP.has("skip") == false || _NODE_MAP.skip == false):
 		emit_signal("clear_up")
 	pass
 
