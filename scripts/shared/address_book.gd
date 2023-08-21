@@ -178,6 +178,7 @@ const INSPECTOR = {
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties",
 			"NODE_TYPE_LABEL": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeTypeLabel",
 			"NODE_UID_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeUID/Edit",
+			"NODE_UID_RAW": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeUID/Raw",
 			"NODE_IS_SKIPPED_CHECK": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState/NodeIsSkipped",
 			"NODE_REFERRERS_GROUP": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel",
 			"NODE_REFERRERS_MENU_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel/NodeRefs/Referrers",

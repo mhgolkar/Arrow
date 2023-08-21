@@ -31,12 +31,15 @@ var _CURRENT_STATE_OF_SUB_INSPECTOR_BLOCKER = true
 var REFERRERS_MENU_BUTTON_TEXT_TEMPLATE = "%s"
 var _CURRENT_LOCATED_REF_ID = -1
 
+const RAW_UID_TIP_TEMPLATE = "Raw UID: %s \n[press button to copy]"
+
 onready var SubInspcetorBlockerMessage = get_node(Addressbook.INSPECTOR.NODE.SUB_INSPECTOR_BLOCKER_MESSAGE)
 # properties
 onready var InspectorNodeProperties = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.itself)
 	# head
 onready var NodeTypeLabel = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_TYPE_LABEL)
 onready var NodeUidEdit = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_UID_EDIT)
+onready var NodeUidRaw = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_UID_RAW)
 onready var NodeIsSkippedCheck = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_IS_SKIPPED_CHECK)
 	# body
 onready var SubInspectorHolder =  get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.SUB_INSPECTOR_HOLDER)
@@ -60,6 +63,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
+	NodeUidRaw.connect("pressed", self, "os_clipboard_push_raw_uid", [], CONNECT_DEFERRED)
 	NodeIsSkippedCheck.connect("toggled", self, "toggle_node_skip", [], CONNECT_DEFERRED)
 	UpdateNodeButton.connect("pressed", self, "read_and_update_inspected_node", [], CONNECT_DEFERRED)
 	ResetNodeParamsButton.connect("pressed", self, "reset_inspection", [], CONNECT_DEFERRED)
@@ -145,6 +149,7 @@ func update_parameters(node_id:int, node:Dictionary, node_map:Dictionary, sub_in
 	# head
 	NodeTypeLabel.set_deferred("text", NODE_TYPES_LIST_CACHE[node.type].text)
 	NodeUidEdit.set_deferred("text", node.name)
+	NodeUidRaw.set_deferred("hint_tooltip", RAW_UID_TIP_TEMPLATE % node_id)
 	# skip
 	var is_node_skip = ( true if (node_map.has("skip") && node_map.skip == true ) else false )
 	toggle_node_skip(is_node_skip, false)
@@ -164,6 +169,10 @@ func refresh_sub_inspector_for_current_node():
 			_LAST_OPEN_SUB_INSPECTOR.call_deferred("_update_parameters", _CURRENT_INSPECTED_NODE_RESOURCE_ID, _CURRENT_INSPECTED_NODE.duplicate(true))
 	pass
 	
+func os_clipboard_push_raw_uid():
+	OS.set_clipboard( String(_CURRENT_INSPECTED_NODE_RESOURCE_ID) )
+	pass
+
 func read_and_validate_node_name():
 	var validated_name = null
 	if _CURRENT_INSPECTED_NODE is Dictionary:

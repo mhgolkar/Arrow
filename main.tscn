@@ -2373,6 +2373,13 @@ size_flags_horizontal = 3
 text = "S1TYPE1"
 placeholder_text = "Node Unique ID"
 
+[node name="Raw" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeUID"]
+margin_right = 12.0
+margin_bottom = 23.0
+hint_tooltip = "Raw UID: {i64}
+[press button to copy]"
+text = ""
+
 [node name="VSplitContainer" type="VSplitContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties"]
 margin_top = 46.0
 margin_right = 253.0
