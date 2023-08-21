@@ -45,8 +45,8 @@ func refresh_methods_list(select_by_method_id: int = -1) -> void:
 		Methods.add_item( METHODS[method_id], method_id )
 	# ...
 	if select_by_method_id >= 0 :
-		var the_method_item_idx = Characters.get_item_index( select_by_method_id )
-		Characters.select( the_method_item_idx )
+		var the_method_item_idx = Methods.get_item_index( select_by_method_id )
+		Methods.select( the_method_item_idx )
 	else:
 		if is_open_node_valid():
 			var the_method_item_idx = Methods.get_item_index( _OPEN_NODE.data.edit[0] )
@@ -55,24 +55,32 @@ func refresh_methods_list(select_by_method_id: int = -1) -> void:
 	_on_method_item_selected()
 	pass
 
-# it loads characters into the option-button's list, where ...
-# every item-id is the character's resource-uid
+func find_listed_character_index(by_id: int) -> int:
+	for idx in range(0, Characters.get_item_count()):
+		if Characters.get_item_metadata(idx) == by_id:
+			return idx
+	return -1
+
 func refresh_characters_list(select_by_res_id:int = -1) -> void:
 	Characters.clear()
 	_PROJECT_CHARACTERS_CACHE = Main.Mind.clone_dataset_of("characters")
-	if _PROJECT_CHARACTERS_CACHE.size() > 0 : 
+	if _PROJECT_CHARACTERS_CACHE.size() > 0 :
+		var item_index := 0
 		for character_id in _PROJECT_CHARACTERS_CACHE:
 			var the_character = _PROJECT_CHARACTERS_CACHE[character_id]
 			Characters.add_item(the_character.name, character_id)
+			Characters.set_item_metadata(item_index, character_id)
+			item_index += 1
 		if select_by_res_id >= 0 :
-			var character_item_index = Characters.get_item_index( select_by_res_id )
+			var character_item_index = find_listed_character_index( select_by_res_id )
 			Characters.select( character_item_index )
 		else:
 			if is_open_node_valid() && _PROJECT_CHARACTERS_CACHE.has(_OPEN_NODE.data.character):
-				var character_item_index = Characters.get_item_index( _OPEN_NODE.data.character )
+				var character_item_index = find_listed_character_index( _OPEN_NODE.data.character )
 				Characters.select( character_item_index )
 	else:
 		Characters.add_item(NO_CHARACTER_TEXT, NO_CHARACTER_ID)
+		Characters.set_item_metadata(0, NO_CHARACTER_ID)
 	pass
 
 func refresh_tag_key_value(key: String = "", value: String = "") -> void:
@@ -113,7 +121,7 @@ func _read_parameters() -> Dictionary:
 		return _create_new()
 	# otherwise ...
 	var parameters = {
-		"character": Characters.get_selected_id(),
+		"character": Characters.get_selected_metadata(),
 		"edit": [
 			Methods.get_selected_id(),
 			Utils.exposure_safe_resource_name( Key.get_text() ),

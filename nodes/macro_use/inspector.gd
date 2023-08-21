@@ -46,11 +46,18 @@ func a_node_is_open() -> bool :
 	else:
 		return false
 
+func find_listed_macro_index(by_id: int) -> int:
+	for idx in range(0, MacroOptions.get_item_count()):
+		if MacroOptions.get_item_metadata(idx) == by_id:
+			return idx
+	return -1
+
 func refresh_macro_list(select_by_res_id:int = NO_MACRO_ID) -> void:
 	MacroOptions.clear()
 	_CACHED_MACROS_LIST = Main.Mind.clone_dataset_of("scenes", { "macro": true })
 	var _current_open_scene_id = Main.Mind.get_current_open_scene_id()
 	if _CACHED_MACROS_LIST.size() > 0 :
+		var item_index := 0
 		for macro_id in _CACHED_MACROS_LIST:
 			var the_macro = _CACHED_MACROS_LIST[macro_id]
 			var the_macro_ident = MACRO_IDENTITY_FORMAT_STRING.format({
@@ -58,23 +65,26 @@ func refresh_macro_list(select_by_res_id:int = NO_MACRO_ID) -> void:
 				"name": the_macro.name,
 			})
 			MacroOptions.add_item(the_macro_ident, macro_id)
+			MacroOptions.set_item_metadata(item_index, macro_id)
+			item_index += 1
 		if select_by_res_id >= 0 :
-			var macro_item_index = MacroOptions.get_item_index( select_by_res_id )
+			var macro_item_index = find_listed_macro_index( select_by_res_id )
 			MacroOptions.select(macro_item_index)
 		elif a_node_is_open() && _OPEN_NODE.data.has("macro") && ( _OPEN_NODE.data.macro in _CACHED_MACROS_LIST ):
-				var macro_item_index_from_id = MacroOptions.get_item_index( _OPEN_NODE.data.macro )
+				var macro_item_index_from_id = find_listed_macro_index( _OPEN_NODE.data.macro )
 				MacroOptions.select( macro_item_index_from_id )
 		else: # if there is nothing to select
 			MacroOptions.select(0) # just select the first one
-			if MacroOptions.get_selected_id() == _current_open_scene_id && MacroOptions.get_item_count() > 1:
+			if MacroOptions.get_selected_metadata() == _current_open_scene_id && MacroOptions.get_item_count() > 1:
 				MacroOptions.select(1) # ... or the seccond one, if the first is looper
 		# to avoid creation of loopers (macro_use of the open macro in itself)
 		# hide the open macro from list in case
 		if _CACHED_MACROS_LIST.has(_current_open_scene_id):
-			var the_looper_idx = MacroOptions.get_item_index(_current_open_scene_id)
+			var the_looper_idx = find_listed_macro_index(_current_open_scene_id)
 			MacroOptions.set_item_disabled(the_looper_idx, true)
 	else:
 		MacroOptions.add_item(NO_MACRO_TEXT, NO_MACRO_ID)
+		MacroOptions.set_item_metadata(0, NO_MACRO_ID)
 	pass
 
 func _update_parameters(node_id:int, node:Dictionary) -> void:
@@ -91,7 +101,7 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 
 func _read_parameters() -> Dictionary:
 	var parameters = {
-		"macro": ( MacroOptions.get_selected_id() if (_CACHED_MACROS_LIST.size() > 0) else NO_MACRO_ID)
+		"macro": ( MacroOptions.get_selected_metadata() if (_CACHED_MACROS_LIST.size() > 0) else NO_MACRO_ID)
 	}
 	# if there is any change in the target resources ...
 	if parameters.macro != _OPEN_NODE.data.macro:

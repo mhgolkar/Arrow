@@ -67,7 +67,7 @@ func register_connections() -> void:
 	NodeIsSkippedCheck.connect("toggled", self, "toggle_node_skip", [], CONNECT_DEFERRED)
 	UpdateNodeButton.connect("pressed", self, "read_and_update_inspected_node", [], CONNECT_DEFERRED)
 	ResetNodeParamsButton.connect("pressed", self, "reset_inspection", [], CONNECT_DEFERRED)
-	NodeReferrersListPopUp.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
+	NodeReferrersListPopUp.connect("index_pressed", self, "_on_go_to_menu_button_popup_index_pressed", [], CONNECT_DEFERRED)
 	NodeReferrersGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
 	NodeReferrersGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
 	FocusNodeButton.connect("pressed", self, "focus_grid_on_inspected", [], CONNECT_DEFERRED)
@@ -257,16 +257,21 @@ func update_referrers_list(node_id:int = _CURRENT_INSPECTED_NODE_RESOURCE_ID) ->
 	if referrers_size > 0 :
 		NodeReferrersGroup.set_visible(true)
 		NodeReferrersList.set_text(REFERRERS_MENU_BUTTON_TEXT_TEMPLATE % referrers_size)
+		var item_index := 0
 		for user_node_id in _CURRENT_INSPECTED_NODE_REFERRERS:
 			var user_node = _CURRENT_INSPECTED_NODE_REFERRERS[user_node_id]
 			_CURRENT_INSPECTED_NODE_REFERRERS_IDS.append(user_node_id)
 			var user_node_name = user_node.name if true|| user_node.has("name") else ("Unnamed - %s" % user_node_id)
 			NodeReferrersListPopUp.add_item(user_node_name, user_node_id)
+			NodeReferrersListPopUp.set_item_metadata(item_index, user_node_id)
+			item_index += 1
 	else:
 		NodeReferrersGroup.set_visible(false)
 	pass
 
-func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
+func _on_go_to_menu_button_popup_index_pressed(referrer_idx:int) -> void:
+	# (We can not use `id_pressed` because currently Godot support is limited to i32 item IDs.)
+	var referrer_id = _CURRENT_INSPECTED_NODE_REFERRERS_IDS[referrer_idx]
 	if referrer_id >= 0:
 		_CURRENT_LOCATED_REF_ID = referrer_id
 		emit_signal("relay_request_mind", "locate_node_on_grid", {
@@ -287,9 +292,7 @@ func _rotate_go_to(direction: int) -> void:
 			goto = count - 1
 		# ...
 		if goto < count && goto >= 0:
-			_on_go_to_menu_button_popup_id_pressed(
-				_CURRENT_INSPECTED_NODE_REFERRERS_IDS[goto]
-			) # also updates _CURRENT_LOCATED_REF_ID
+			_on_go_to_menu_button_popup_index_pressed(goto) # also updates _CURRENT_LOCATED_REF_ID
 	else:
 		_CURRENT_LOCATED_REF_ID = -1
 	pass

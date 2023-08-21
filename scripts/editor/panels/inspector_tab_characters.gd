@@ -65,7 +65,7 @@ func register_connections() -> void:
 	CharacterEditorSaveButton.connect("pressed", self, "submit_character_modification", [], CONNECT_DEFERRED)
 	CharacterRemoveButton.connect("pressed", self, "request_remove_character", [], CONNECT_DEFERRED)
 	TagEditOverset.connect("pressed", self, "read_and_overset_tag", [], CONNECT_DEFERRED)
-	CharacterAppearanceGoToButtonPopup.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
+	CharacterAppearanceGoToButtonPopup.connect("index_pressed", self, "_on_go_to_menu_button_popup_index_pressed", [], CONNECT_DEFERRED)
 	CharacterAppearanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
 	CharacterAppearanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
 	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
@@ -372,18 +372,23 @@ func update_appearance_pagination(character_id:int) -> void:
 	# update stuff
 	CharacterAppearanceGoToButton.set_text( CHARACTER_APPEARANCE_INDICATION_TEMPLATE.format(count) )
 	if count.here > 0 :
+		var item_index := 0
 		for referrer_id in _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE:
 			CharacterAppearanceGoToButtonPopup.add_item(
 				_SELECTED_CHARACTER_USERS_IN_THE_SCENE[referrer_id].resource.name,
 				referrer_id
 			)
+			CharacterAppearanceGoToButtonPopup.set_item_metadata(item_index, referrer_id)
+			item_index += 1
 	var no_goto = (! (count.here > 0))
 	CharacterAppearanceGoToButton.set_disabled( no_goto )
 	CharacterAppearanceGoToPrevious.set_disabled( no_goto )
 	CharacterAppearanceGoToNext.set_disabled( no_goto )
 	pass
 	
-func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
+func _on_go_to_menu_button_popup_index_pressed(referrer_idx:int) -> void:
+	# (We can not use `id_pressed` because currently Godot support is limited to i32 item IDs.)
+	var referrer_id = _SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE[referrer_idx]
 	if referrer_id >= 0:
 		_CURRENT_LOCATED_REF_ID = referrer_id
 		Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
@@ -400,9 +405,7 @@ func _rotate_go_to(direction: int) -> void:
 			goto = count - 1
 		# ...
 		if goto < count && goto >= 0:
-			_on_go_to_menu_button_popup_id_pressed(
-				_SELECTED_CHARACTER_USER_IDS_IN_THE_SCENE[goto]
-			) # also updates _CURRENT_LOCATED_REF_ID
+			_on_go_to_menu_button_popup_index_pressed(goto) # also updates _CURRENT_LOCATED_REF_ID
 	else:
 		_CURRENT_LOCATED_REF_ID = -1
 	pass

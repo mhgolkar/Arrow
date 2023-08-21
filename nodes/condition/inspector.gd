@@ -69,7 +69,7 @@ func refresh_operators_list() -> void:
 	Operators.clear()
 	_OPERATORS_LISTED_BY_ITEM_ID = {}
 	_OPERATORS_ITEM_ID_LISTED_BY_KEY = {}
-	var selected_variable_id = Variables.get_selected_id()
+	var selected_variable_id = Variables.get_selected_metadata()
 	var selected_variable_type = NO_VARIABLE_VAR_TYPE
 	if _PROJECT_VARIABLES_CACHE.has(selected_variable_id):
 		selected_variable_type = _PROJECT_VARIABLES_CACHE[ selected_variable_id ].type
@@ -86,22 +86,32 @@ func refresh_operators_list() -> void:
 		Operators.select(the_node_operator_item_idx)
 	pass
 
+func find_listed_variable_index(by_id: int) -> int:
+	for idx in range(0, Variables.get_item_count()):
+		if Variables.get_item_metadata(idx) == by_id:
+			return idx
+	return -1
+
 func refresh_variables_list(select_by_res_id:int = -1) -> void:
 	Variables.clear()
 	_PROJECT_VARIABLES_CACHE = Main.Mind.clone_dataset_of("variables")
 	if _PROJECT_VARIABLES_CACHE.size() > 0 :
+		var item_index := 0
 		for variable_id in _PROJECT_VARIABLES_CACHE:
 			var the_variable = _PROJECT_VARIABLES_CACHE[variable_id]
 			Variables.add_item(the_variable.name, variable_id)
+			Variables.set_item_metadata(item_index, variable_id)
+			item_index += 1
 		if select_by_res_id >= 0 :
-			var variable_item_index = Variables.get_item_index( select_by_res_id )
+			var variable_item_index = find_listed_variable_index( select_by_res_id )
 			Variables.select( variable_item_index )
 		else:
 			if a_node_is_open() && _OPEN_NODE.data.has("variable") && _OPEN_NODE.data.variable in _PROJECT_VARIABLES_CACHE :
-				var variable_item_index = Variables.get_item_index( _OPEN_NODE.data.variable )
+				var variable_item_index = find_listed_variable_index( _OPEN_NODE.data.variable )
 				Variables.select( variable_item_index )
 	else:
 		Variables.add_item(NO_VARIABLE_TEXT, NO_VARIABLE_ID)
+		Variables.set_item_metadata(0, NO_VARIABLE_ID)
 	pass
 
 func _on_variables_item_selected(item_index:int) -> void:
@@ -128,7 +138,7 @@ func _on_parameter_type_item_selected(item_index:int) -> void:
 func refresh_comparison_parameter_value(value = null) -> void:
 	# value can only be of the same type as the selected variable,
 	# so the form inputs should correspond to the selected target variable
-	var slected_check_var_id = Variables.get_selected_id()
+	var slected_check_var_id = Variables.get_selected_metadata()
 	var selected_check_var_type = NO_VARIABLE_VAR_TYPE
 	if _PROJECT_VARIABLES_CACHE.has(slected_check_var_id):
 		selected_check_var_type = _PROJECT_VARIABLES_CACHE[ slected_check_var_id ].type
@@ -151,23 +161,32 @@ func refresh_comparison_parameter_value(value = null) -> void:
 			ParameterValueTypes["bool"].select( ParameterValueTypes["bool"].get_item_index( ( 1 if value else 0 ) ) )
 	pass
 
+func find_listed_parameter_variable_index(by_id: int) -> int:
+	for idx in range(0, ParameterVariable.get_item_count()):
+		if ParameterVariable.get_item_metadata(idx) == by_id:
+			return idx
+	return -1
+
 func refresh_comparison_parameters_variable_list(select_by_variable_id:int = -1) -> void:
 	ParameterVariable.clear()
 	# Note: it currently happens after `refresh_variables_list`, so we can use cache
-	var slected_check_var_id = Variables.get_selected_id()
+	var slected_check_var_id = Variables.get_selected_metadata()
 	var type_of_slected_check_var_id = _PROJECT_VARIABLES_CACHE[ slected_check_var_id ].type
+	var item_index := 0
 	for variable_id in _PROJECT_VARIABLES_CACHE:
 		var the_variable = _PROJECT_VARIABLES_CACHE[variable_id]
 		# only variables of the same type can be compared, so ...
 		if the_variable.type == type_of_slected_check_var_id:
 			var the_param_var_item_text = ( the_variable.name if ( variable_id != slected_check_var_id ) else (COMPARE_TO_INITIAL_VALUE_OF_VAR_TEXT_TEMPLATE.format({ "self": the_variable.name })) )
 			ParameterVariable.add_item(the_param_var_item_text, variable_id)
+			ParameterVariable.set_item_metadata(item_index, variable_id)
+			item_index += 1
 	if select_by_variable_id >= 0 :
-		var variable_item_index = ParameterVariable.get_item_index( select_by_variable_id )
+		var variable_item_index = find_listed_parameter_variable_index( select_by_variable_id )
 		ParameterVariable.select( variable_item_index )
 	else:
 		if a_node_is_open() && (_OPEN_NODE.data.with[0] == PARAMETER_MODES_ENUM_CODE.variable && _OPEN_NODE.data.with[1] is int && _OPEN_NODE.data.with[1] >= 0 ):
-			var variable_item_index = ParameterVariable.get_item_index( _OPEN_NODE.data.with[1] )
+			var variable_item_index = find_listed_parameter_variable_index( _OPEN_NODE.data.with[1] )
 			ParameterVariable.select( variable_item_index )
 	pass
 
@@ -214,7 +233,7 @@ func read_the_parameter_with() -> Array:
 	var the_value = null
 	match mode_enum:
 		PARAMETER_MODES_ENUM_CODE.value:
-			var slected_check_var_id = Variables.get_selected_id()
+			var slected_check_var_id = Variables.get_selected_metadata()
 			if _PROJECT_VARIABLES_CACHE.has(slected_check_var_id):
 				var selected_check_var_type = _PROJECT_VARIABLES_CACHE[ slected_check_var_id ].type
 				match selected_check_var_type:
@@ -226,7 +245,7 @@ func read_the_parameter_with() -> Array:
 						var int_boolean = int( ParameterValueTypes["bool"].get_selected_id() )
 						the_value = ( int_boolean == 1 )
 		PARAMETER_MODES_ENUM_CODE.variable:
-			the_value = ParameterVariable.get_selected_id()
+			the_value = ParameterVariable.get_selected_metadata()
 	return [mode_enum, the_value]
 
 func _read_parameters() -> Dictionary:
@@ -236,7 +255,7 @@ func _read_parameters() -> Dictionary:
 		return _create_new()
 	# otherwise ...
 	var parameters = {
-		"variable": Variables.get_selected_id(),
+		"variable": Variables.get_selected_metadata(),
 		"operator": _OPERATORS_LISTED_BY_ITEM_ID[ Operators.get_selected_id() ],
 		"with": read_the_parameter_with()
 	}

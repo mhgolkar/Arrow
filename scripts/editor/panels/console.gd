@@ -129,21 +129,25 @@ func refresh_variables_list() -> void:
 	if _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() >= 1:
 		var variables = _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL[0]
 		if variables.size() > 0 :
+			var item_index := 0
 			for variable_id in variables:
 				VariableInspectorSelect.add_item(variables[variable_id].name, variable_id)
+				VariableInspectorSelect.set_item_metadata(item_index, variable_id)
+				item_index += 1
 			# reselect the variable after refresh
 			if the_selected_one_index_before_referesh < variables.size():
 				VariableInspectorSelect.select(the_selected_one_index_before_referesh)
 			no_var_yet = false
 	if no_var_yet:
 		VariableInspectorSelect.add_item("No Variable Available", -1)
+		VariableInspectorSelect.set_item_metadata(0, -1)
 	inspect_variable()
 	pass
 
 func inspect_variable(id:int = -1) -> void:
 	var a_var_inspected = false
 	if id < 0 :
-		id = VariableInspectorSelect.get_selected_id()
+		id = VariableInspectorSelect.get_selected_metadata()
 	if id >= 0 && _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
 		var current_variable_set = _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL[0]
 		if current_variable_set.size() > 0:
@@ -171,12 +175,11 @@ func set_variable_inspector_current_value_editor_to_type(the_type_visible:String
 	pass
 
 func _on_variable_inspector_item_select(idx:int = -1) -> void:
-	# it inspects based on `get_selected_id`, so automatically converts idx to id
 	inspect_variable()
 	pass
 
 func update_current_inspected_variable() -> void:
-	var id = VariableInspectorSelect.get_selected_id()
+	var id = VariableInspectorSelect.get_selected_metadata()
 	if id >= 0 && _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
 		var current_variable_set = _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL[0]
 		if current_variable_set.has(id):
@@ -201,14 +204,18 @@ func refresh_characters_list() -> void:
 	if _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() >= 1:
 		var characters = _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL[0]
 		if characters.size() > 0 :
+			var item_index := 0
 			for character_id in characters:
 				CharTagsInspectorSelect.add_item(characters[character_id].name, character_id)
+				CharTagsInspectorSelect.set_item_metadata(item_index, character_id)
+				item_index += 1
 			# reselect the character after refresh
 			if the_selected_one_index_before_referesh < characters.size():
 				CharTagsInspectorSelect.select(the_selected_one_index_before_referesh)
 			no_char_yet = false
 	if no_char_yet:
 		CharTagsInspectorSelect.add_item("No Character Available", -1)
+		CharTagsInspectorSelect.set_item_metadata(0, -1)
 	inspect_character()
 	pass
 
@@ -260,7 +267,7 @@ func inspect_character(id:int = -1) -> void:
 	var a_char_inspected = false
 	var tags_available = false
 	if id < 0 :
-		id = CharTagsInspectorSelect.get_selected_id()
+		id = CharTagsInspectorSelect.get_selected_metadata()
 	if id >= 0 && _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
 		var current_character_set = _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL[0]
 		if current_character_set.size() > 0:
@@ -285,12 +292,11 @@ func inspect_character(id:int = -1) -> void:
 	pass
 
 func _on_char_tags_inspector_item_select(idx:int = -1) -> void:
-	# it inspects based on `get_selected_id`, so automatically converts idx to id
 	inspect_character()
 	pass
 
 func read_and_overset_current_inspected_char_tag() -> void:
-	var char_id = CharTagsInspectorSelect.get_selected_id()
+	var char_id = CharTagsInspectorSelect.get_selected_metadata()
 	var key = Utils.exposure_safe_resource_name( CharTagsInspectorEditKey.get_text() )
 	CharTagsInspectorEditKey.set_text(key) # ... so the user can see the safe key if we have changed it
 	var value = CharTagsInspectorEditValue.get_text()

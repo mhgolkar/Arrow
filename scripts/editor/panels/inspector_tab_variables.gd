@@ -63,7 +63,7 @@ func register_connections() -> void:
 	VariablesList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
 	VariableEditorSaveButton.connect("pressed", self, "submit_variable_modification", [], CONNECT_DEFERRED)
 	VariableEditorRemoveButton.connect("pressed", self, "request_remove_variable", [], CONNECT_DEFERRED)
-	VariableAppearanceGoToButtonPopup.connect("id_pressed", self, "_on_go_to_menu_button_popup_id_pressed", [], CONNECT_DEFERRED)
+	VariableAppearanceGoToButtonPopup.connect("index_pressed", self, "_on_go_to_menu_button_popup_index_pressed", [], CONNECT_DEFERRED)
 	VariableAppearanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
 	VariableAppearanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
 	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
@@ -260,18 +260,23 @@ func update_usage_pagination(variable_id:int) -> void:
 	# update ...
 	VariableAppearanceGoToButton.set_text( VARIABLE_APPEARANCE_INDICATION_TEMPLATE.format(count) )
 	if count.here > 0 :
+		var item_index := 0
 		for referrer_id in _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE:
 			VariableAppearanceGoToButtonPopup.add_item(
 				_SELECTED_VARIABLE_USERS_IN_THE_SCENE[referrer_id].resource.name,
 				referrer_id
 			)
+			VariableAppearanceGoToButtonPopup.set_item_metadata(item_index, referrer_id)
+			item_index += 1
 	var no_goto = (! (count.here > 0))
 	VariableAppearanceGoToButton.set_disabled( no_goto )
 	VariableAppearanceGoToPrevious.set_disabled( no_goto )
 	VariableAppearanceGoToNext.set_disabled( no_goto )
 	pass
 
-func _on_go_to_menu_button_popup_id_pressed(referrer_id:int) -> void:
+func _on_go_to_menu_button_popup_index_pressed(referrer_idx:int) -> void:
+	# (We can not use `id_pressed` because currently Godot support is limited to i32 item IDs.)
+	var referrer_id = _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE[referrer_idx]
 	if referrer_id >= 0:
 		_CURRENT_LOCATED_REF_ID = referrer_id
 		Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
@@ -288,9 +293,7 @@ func _rotate_go_to(direction: int) -> void:
 			goto = count - 1
 		# ...
 		if goto < count && goto >= 0:
-			_on_go_to_menu_button_popup_id_pressed(
-				_SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE[goto]
-			) # also updates _CURRENT_LOCATED_REF_ID
+			_on_go_to_menu_button_popup_index_pressed(goto) # also updates _CURRENT_LOCATED_REF_ID
 	else:
 		_CURRENT_LOCATED_REF_ID = -1
 	pass

@@ -55,21 +55,32 @@ func a_node_is_open() -> bool :
 	else:
 		return false
 
+func find_listed_character_index(by_id: int) -> int:
+	for idx in range(0, Character.get_item_count()):
+		if Character.get_item_metadata(idx) == by_id:
+			return idx
+	return -1
+
 func refresh_character_list(select_by_res_id:int = -1) -> void:
 	Character.clear()
+	var item_index := 0
 	if ALLOW_ANONYMOUS_MONOLOGS == true:
 		# (Our conventional `-1` conflicts with the default behavior of `add_item` method, so we use a `..._CONTROLL_VALUE`)
 		Character.add_item(ANONYMOUS_CHARACTER.name, ANONYMOUS_UID_CONTROL_VALUE)
+		Character.set_item_metadata(item_index, ANONYMOUS_UID_CONTROL_VALUE)
+		item_index += 1
 	_PROJECT_CHARACTERS_CACHE = Main.Mind.clone_dataset_of("characters")
 	for character_id in _PROJECT_CHARACTERS_CACHE:
 		var the_character = _PROJECT_CHARACTERS_CACHE[character_id]
 		Character.add_item(the_character.name, character_id)
+		Character.set_item_metadata(item_index, character_id)
+		item_index += 1
 	if select_by_res_id >= 0 :
-		var character_item_index = Character.get_item_index( select_by_res_id )
+		var character_item_index = find_listed_character_index( select_by_res_id )
 		Character.select(character_item_index )
 	else:
 		if a_node_is_open() && _OPEN_NODE.data.has("character") && ( _OPEN_NODE.data.character in _PROJECT_CHARACTERS_CACHE ):
-			var character_item_index_from_id = Character.get_item_index( _OPEN_NODE.data.character )
+			var character_item_index_from_id = find_listed_character_index( _OPEN_NODE.data.character )
 			Character.select( character_item_index_from_id )
 	pass
 
@@ -138,7 +149,7 @@ func create_use_command(parameters:Dictionary) -> Dictionary:
 
 func _read_parameters() -> Dictionary:
 	var parameters = {
-		"character": Character.get_selected_id(),
+		"character": Character.get_selected_metadata(),
 		"monolog": Monolog.get_text(),
 	}
 	# Optionals (to avoid bloat:)

@@ -95,28 +95,38 @@ func a_node_is_open() -> bool :
 	else:
 		return false
 
+func find_listed_variable_index(by_id: int) -> int:
+	for idx in range(0, VariablesOption.get_item_count()):
+		if VariablesOption.get_item_metadata(idx) == by_id:
+			return idx
+	return -1
+
 func referesh_variables_list(select_by_res_id:int = NO_VARIABLE_ID) -> void:
 	VariablesOption.clear()
 	_PROJECT_VARIABLES_CACHE = Main.Mind.clone_dataset_of("variables")
 	if _PROJECT_VARIABLES_CACHE.size() > 0 :
+		var item_index := 0
 		for variable_id in _PROJECT_VARIABLES_CACHE:
 			var the_variable = _PROJECT_VARIABLES_CACHE[variable_id]
 			VariablesOption.add_item(the_variable.name, variable_id)
+			VariablesOption.set_item_metadata(item_index, variable_id)
+			item_index += 1
 		if select_by_res_id >= 0 :
-			var variable_item_index = VariablesOption.get_item_index( select_by_res_id )
+			var variable_item_index = find_listed_variable_index( select_by_res_id )
 			VariablesOption.select(variable_item_index)
 		else:
 			if a_node_is_open() && _OPEN_NODE.data.has("variable") && ( _OPEN_NODE.data.variable in _PROJECT_VARIABLES_CACHE ):
-				var variable_item_index_from_id = VariablesOption.get_item_index( _OPEN_NODE.data.variable )
+				var variable_item_index_from_id = find_listed_variable_index( _OPEN_NODE.data.variable )
 				VariablesOption.select( variable_item_index_from_id )
 	else:
 		VariablesOption.add_item(NO_VARIABLE_TEXT, NO_VARIABLE_ID)
+		VariablesOption.set_item_metadata(0, NO_VARIABLE_ID)
 	pass
 
 func refresh_custom_properties_panel(_x = null) -> void:
 	var show_panel = false
 	var variable_type = null
-	var selected_var_id = VariablesOption.get_selected_id()
+	var selected_var_id = VariablesOption.get_selected_metadata()
 	if _PROJECT_VARIABLES_CACHE.has(selected_var_id):
 		variable_type = _PROJECT_VARIABLES_CACHE[selected_var_id].type
 	# ...
@@ -174,7 +184,7 @@ func _cap_num_custom_prop_values(_x = null) -> void:
 	pass
 
 func read_custom_properties():
-	var selected_var_id = VariablesOption.get_selected_id()
+	var selected_var_id = VariablesOption.get_selected_metadata()
 	if _PROJECT_VARIABLES_CACHE.has(selected_var_id):
 		var custom_properties = []
 		var variable_type = _PROJECT_VARIABLES_CACHE[selected_var_id].type
@@ -244,7 +254,7 @@ func create_use_command(parameters:Dictionary) -> Dictionary:
 func _read_parameters() -> Dictionary:
 	var parameters = {
 		"prompt": Prompt.get_text(),
-		"variable": (VariablesOption.get_selected_id() if (_PROJECT_VARIABLES_CACHE.size() > 0) else NO_VARIABLE_ID),
+		"variable": (VariablesOption.get_selected_metadata() if (_PROJECT_VARIABLES_CACHE.size() > 0) else NO_VARIABLE_ID),
 	}
 	var custom_properties = read_custom_properties()
 	if custom_properties != null:

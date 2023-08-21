@@ -85,7 +85,7 @@ func refresh_methods_list() -> void:
 	Methods.clear()
 	_METHODS_LISTED_BY_ITEM_ID = {}
 	_METHODS_ITEM_ID_LISTED_BY_KEY = {}
-	var selected_variable_id = Variables.get_selected_id()
+	var selected_variable_id = Variables.get_selected_metadata()
 	var selected_variable_type = NO_VARIABLE_VAR_TYPE
 	if _PROJECT_VARIABLES_CACHE.has(selected_variable_id):
 		selected_variable_type = _PROJECT_VARIABLES_CACHE[ selected_variable_id ].type
@@ -103,24 +103,32 @@ func refresh_methods_list() -> void:
 	_on_method_item_selected() # to force show arguments box
 	pass
 
-# it loads variables into the option-button's list, where ...
-# every item-id is the variable's resource-uid
+func find_listed_variable_index(by_id: int) -> int:
+	for idx in range(0, Variables.get_item_count()):
+		if Variables.get_item_metadata(idx) == by_id:
+			return idx
+	return -1
+
 func refresh_variables_list(select_by_res_id:int = -1) -> void:
 	Variables.clear()
 	_PROJECT_VARIABLES_CACHE = Main.Mind.clone_dataset_of("variables")
-	if _PROJECT_VARIABLES_CACHE.size() > 0 : 
+	if _PROJECT_VARIABLES_CACHE.size() > 0 :
+		var item_index := 0
 		for variable_id in _PROJECT_VARIABLES_CACHE:
 			var the_variable = _PROJECT_VARIABLES_CACHE[variable_id]
 			Variables.add_item(the_variable.name, variable_id)
+			Variables.set_item_metadata(item_index, variable_id)
+			item_index += 1
 		if select_by_res_id >= 0 :
-			var variable_item_index = Variables.get_item_index( select_by_res_id )
+			var variable_item_index = find_listed_variable_index( select_by_res_id )
 			Variables.select( variable_item_index )
 		else:
 			if a_node_is_open() && _OPEN_NODE.data.has("variable") && _OPEN_NODE.data.variable in _PROJECT_VARIABLES_CACHE :
-				var variable_item_index = Variables.get_item_index( _OPEN_NODE.data.variable )
+				var variable_item_index = find_listed_variable_index( _OPEN_NODE.data.variable )
 				Variables.select( variable_item_index )
 	else:
 		Variables.add_item(NO_VARIABLE_TEXT, NO_VARIABLE_ID)
+		Variables.set_item_metadata(0, NO_VARIABLE_ID)
 	pass
 
 func _on_variables_item_selected(item_index:int) -> void:
@@ -208,7 +216,7 @@ func load_generator_arguments() -> void:
 			_OPEN_NODE.data.arguments
 			if (
 				a_node_is_open() && _OPEN_NODE.data.has("arguments") &&
-				_OPEN_NODE.data.variable == Variables.get_selected_id()
+				_OPEN_NODE.data.variable == Variables.get_selected_metadata()
 			)
 			else null
 		)
@@ -251,7 +259,7 @@ func _read_parameters() -> Dictionary:
 	# otherwise ...
 	var selected_method = _METHODS_LISTED_BY_ITEM_ID[ Methods.get_selected_id() ]
 	var parameters = {
-		"variable": Variables.get_selected_id(),
+		"variable": Variables.get_selected_metadata(),
 		"method": selected_method,
 	}
 	if ArgumentsGetterForMethod[selected_method] != null:
