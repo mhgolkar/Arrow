@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=185 format=2]
+[gd_resource type="Theme" load_steps=177 format=2]
 
 [ext_resource path="res://resources/fonts/dejavu_sans_mono_nerdfont_dynfont.tres" type="DynamicFont" id=1]
 
@@ -1469,40 +1469,6 @@ margin_right = 1.0
 margin_top = 1.0
 margin_bottom = 1.0
 
-[sub_resource type="DynamicFontData" id=175]
-hinting = 1
-
-[sub_resource type="DynamicFontData" id=176]
-hinting = 1
-
-[sub_resource type="DynamicFontData" id=177]
-hinting = 1
-
-[sub_resource type="DynamicFontData" id=178]
-hinting = 1
-
-[sub_resource type="DynamicFontData" id=179]
-hinting = 1
-
-[sub_resource type="DynamicFontData" id=180]
-hinting = 1
-
-[sub_resource type="DynamicFontData" id=181]
-hinting = 1
-
-[sub_resource type="DynamicFont" id=182]
-use_mipmaps = true
-use_filter = true
-extra_spacing_top = -1
-extra_spacing_bottom = -1
-font_data = SubResource( 181 )
-fallback/0 = SubResource( 175 )
-fallback/1 = SubResource( 176 )
-fallback/2 = SubResource( 177 )
-fallback/3 = SubResource( 178 )
-fallback/4 = SubResource( 179 )
-fallback/5 = SubResource( 180 )
-
 [sub_resource type="StyleBoxFlat" id=183]
 content_margin_left = 8.0
 content_margin_right = 8.0
@@ -1856,7 +1822,6 @@ WindowDialog/colors/title_color = Color( 0.81, 0.81, 0.81, 1 )
 WindowDialog/constants/close_h_ofs = 22
 WindowDialog/constants/close_v_ofs = 20
 WindowDialog/constants/title_height = 24
-WindowDialog/fonts/title_font = SubResource( 182 )
 WindowDialog/icons/close = SubResource( 100 )
 WindowDialog/icons/close_highlight = SubResource( 100 )
 WindowDialog/styles/panel = SubResource( 183 )
