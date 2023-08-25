@@ -1,4 +1,4 @@
-// Arrow HTML-JS Runtime: TagPass node module
+// Arrow HTML-JS Runtime: Tag-Pass node module
 
 class TagPass {
 

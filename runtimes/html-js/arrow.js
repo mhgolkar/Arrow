@@ -64,6 +64,7 @@ const NODE_CLASSES_BY_TYPE = {
     "randomizer": Randomizer,
     "sequencer": Sequencer,
     "tag_edit": TagEdit,
+    "tag_match": TagMatch,
     "tag_pass": TagPass,
     "user_input": UserInput,
     "variable_update": VariableUpdate,
@@ -438,7 +439,7 @@ function handle_status(status_code, the_player_node_instance){
                     DOME.CONTENT.appendChild(
                         create_element(
                             'div',
-                            format( i18n('eol'), { "node_name": node_name } ),
+                            format( i18n('eol_node'), { "node_name": node_name } ),
                             { class: 'eol' }
                         )
                     );

@@ -36,7 +36,13 @@ const _TRANSLATION_TABLE = {
     evaluate: {
         en: "Evaluate",
     },
+    match: {
+        en: "Match",
+    },
     eol: {
+        en: "EOL",
+    },
+    eol_node: {
         en: "EOL: {node_name}",
     },
 };

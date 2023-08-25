@@ -212,6 +212,12 @@ input[type="number"] {
     /* text-align: center; */
     -moz-appearance: textfield;
 }
+select {
+    font-size: 1rem;
+    background-color: var(--color-1);
+    color: var(--color-2);
+    font-family: var(--font);
+}
 em {
     font-style: italic;
 }
@@ -646,6 +652,35 @@ footer button:not(:first-of-type) {
     margin-bottom: 0.5rem;
 }
 .node[data-type='tag_edit'] button { /* both skip and apply */
+    margin: 0.25rem;
+}
+
+/* tag_match */
+.node[data-type='tag_match'] {}
+.node[data-type='tag_match'] > span { /* (invalid) */
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    margin-inline-end: 0.75rem;
+}
+.node[data-type='tag_match'][data-played='true'] {
+    display: none;
+}
+.node[data-type='tag_match'] > div {
+    /* The target character color `--character-color` is set inline. */
+    /* It also comes with `[data-character-id]` and `[data-character-name]` as well */
+    display: inline;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border: dashed 0.125rem var(--character-color);
+    border-left-width: 1.5rem;
+    border-left-style: solid;
+    margin-inline-end: 0.75rem;
+    word-break: break-all;
+}
+.node[data-type='tag_match'] > div > select {
+    margin-left: 1rem;
+}
+.node[data-type='tag_match'] button { /* both skip and apply */
     margin: 0.25rem;
 }
 
