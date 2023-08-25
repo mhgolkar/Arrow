@@ -541,6 +541,19 @@ func proceed_disconnection(from_id:int, from_slot:int, to_id:int, to_slot:int) -
 	emit_signal("request_mind", "update_node_map", mind_update_node_map_job)
 	pass
 
+func cut_off_connections(node_id: int, direction: String, last_kept: int) -> void:
+	var slots = _CONNECTION_RELATIONS_BY_ID_DIR_SLOT[node_id][direction].keys()
+	slots.sort()
+	print_debug("cutting off ", node_id, "'s ", direction, " slots from ", slots, " up to the last one: ", last_kept)
+	for order in slots:
+		if order > last_kept:
+			var other_side = _CONNECTION_RELATIONS_BY_ID_DIR_SLOT[node_id][direction][order]
+			if direction == "in":
+				disconnect_nodes_by_id(other_side[0], other_side[1], node_id, order)
+			else:
+				disconnect_nodes_by_id(node_id, order, other_side[0], other_side[1])
+	pass
+
 func _on_node_move_end() -> void:
 	# here might be more than one node selected and moved, so...
 	for node_id in _ALREADY_SELECTED_NODES_BY_ID:
@@ -570,7 +583,7 @@ func clean_node_off(node_id:int = -1):
 			for direction in _CONNECTION_RELATIONS[node_id]: # directions: in, out
 				for other_side_id in _CONNECTION_RELATIONS[node_id][direction]:
 					for connection in _CONNECTION_RELATIONS[node_id][direction][other_side_id]:
-						disconnect_nodes_by_id(connection[0], connection[1], connection[2],connection[3])
+						disconnect_nodes_by_id(connection[0], connection[1], connection[2], connection[3])
 						# ... which asks core mind to update the maps as well
 		# then manually trigger the unselection
 		proceed_unselection_by_id(node_id)

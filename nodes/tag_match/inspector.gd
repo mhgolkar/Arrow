@@ -232,6 +232,12 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 			RegEx.set_deferred("pressed", DEFAULT_NODE_DATA.regex)
 	pass
 
+func cut_off_dropped_connections() -> void:
+	if a_node_is_open() && _OPEN_NODE.data.has("patterns") && ( _OPEN_NODE.data.patterns is Array ):
+		if _OPEN_NODE.data.patterns.size() > PatternsList.get_item_count():
+			Main.Grid.cut_off_connections(_OPEN_NODE_ID, "out", PatternsList.get_item_count() - 1)
+	pass
+
 func create_use_command(parameters:Dictionary) -> Dictionary:
 	var use = { "drop": [], "refer": [] }
 	# reference for any character as the dialog's owner?
@@ -243,6 +249,7 @@ func create_use_command(parameters:Dictionary) -> Dictionary:
 	return use
 
 func _read_parameters() -> Dictionary:
+	cut_off_dropped_connections()
 	var user_defined_tag_key = TagKey.get_text();
 	var pattern_candidates = ListHelpers.get_item_list_as_text_array(PatternsList)
 	var revised_patterns = []

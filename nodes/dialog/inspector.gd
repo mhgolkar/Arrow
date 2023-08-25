@@ -252,6 +252,12 @@ func find_exposed_resources(lines:Array, return_ids:bool = true) -> Array:
 							exposed_resources.append(exposed)
 	return exposed_resources
 
+func cut_off_dropped_connections() -> void:
+	if a_node_is_open() && _OPEN_NODE.data.has("lines") && ( _OPEN_NODE.data.lines is Array ):
+		if _OPEN_NODE.data.lines.size() > LinesList.get_item_count():
+			Main.Grid.cut_off_connections(_OPEN_NODE_ID, "out", LinesList.get_item_count() - 1)
+	pass
+
 func create_use_command(parameters:Dictionary) -> Dictionary:
 	var use = { "drop": [], "refer": [] }
 	# reference for any character as the dialog's owner?
@@ -280,6 +286,7 @@ func create_use_command(parameters:Dictionary) -> Dictionary:
 	return use
 
 func _read_parameters() -> Dictionary:
+	cut_off_dropped_connections()
 	var parameters = {
 		"character": Character.get_selected_metadata(),
 		"lines": ListHelpers.get_item_list_as_text_array(LinesList),

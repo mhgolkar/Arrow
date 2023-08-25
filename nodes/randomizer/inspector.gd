@@ -40,7 +40,14 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 			Slots.set_value(DEFAULT_NODE_DATA.slots)
 	pass
 
+func cut_off_dropped_connections() -> void:
+	if _OPEN_NODE.has("data") && _OPEN_NODE.data.has("slots") && ( _OPEN_NODE.data.slots is int ):
+		if _OPEN_NODE.data.slots > Slots.get_value():
+			Main.Grid.cut_off_connections(_OPEN_NODE_ID, "out", Slots.get_value() - 1)
+	pass
+
 func _read_parameters() -> Dictionary:
+	cut_off_dropped_connections()
 	var parameters = {
 		"slots": int( Slots.get_value() )
 	}

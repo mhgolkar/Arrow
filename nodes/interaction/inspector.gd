@@ -228,7 +228,15 @@ func create_use_command(parameters:Dictionary) -> Dictionary:
 				use.refer.append( newly_exposed )
 	return use
 
+func cut_off_dropped_connections() -> void:
+	if a_node_is_open() && _OPEN_NODE.data.has("actions") && ( _OPEN_NODE.data.actions is Array ):
+		if _OPEN_NODE.data.actions.size() > ActionsList.get_item_count():
+			Main.Grid.cut_off_connections(_OPEN_NODE_ID, "out", ActionsList.get_item_count() - 1)
+	pass
+	
+
 func _read_parameters() -> Dictionary:
+	cut_off_dropped_connections()
 	var parameters = {
 		"actions": ListHelpers.get_item_list_as_text_array(ActionsList),
 	}
