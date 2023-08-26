@@ -34,6 +34,7 @@ onready var CharacterRemoveButton = get_node(Addressbook.INSPECTOR.CHARACTERS.RE
 
 onready var CharacterEditorPanel = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.itself)
 # > Identity
+onready var CharacterRawUid = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.RAW_UID)
 onready var CharacterEditorName = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.NAME_EDIT)
 onready var CharacterColorPickerButton = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.COLOR_PICKER_BUTTON)
 onready var CharacterEditorSaveButton = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTER_EDITOR.SAVE_BUTTON)
@@ -51,6 +52,7 @@ onready var CharacterAppearanceGoToNext = get_node(Addressbook.INSPECTOR.CHARACT
 
 const TAG_KEY_VALUE_DISPLAY_TEMPLATE = "`{value}`" # also available: {key}
 const CHARACTER_APPEARANCE_INDICATION_TEMPLATE = "{here} : {total}"
+const RAW_UID_TIP_TEMPLATE = "Raw UID: %s \n[press button to copy]"
 
 func _ready() -> void:
 	register_connections()
@@ -62,6 +64,7 @@ func register_connections() -> void:
 	CharactersList.connect("item_selected", self, "_on_characters_list_item_selected", [], CONNECT_DEFERRED)
 	CharactersList.connect("nothing_selected", self, "_on_characters_list_nothing_selected", [], CONNECT_DEFERRED)
 	CharactersList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
+	CharacterRawUid.connect("pressed", self, "os_clipboard_push_raw_uid", [], CONNECT_DEFERRED)
 	CharacterEditorSaveButton.connect("pressed", self, "submit_character_modification", [], CONNECT_DEFERRED)
 	CharacterRemoveButton.connect("pressed", self, "request_remove_character", [], CONNECT_DEFERRED)
 	TagEditOverset.connect("pressed", self, "read_and_overset_tag", [], CONNECT_DEFERRED)
@@ -231,6 +234,7 @@ func request_remove_character(resource_id:int = -1) -> void:
 func load_character_in_editor(character_id:int) -> void:
 	_SELECTED_CHARACTER_BEING_EDITED_ID = character_id
 	var the_character = _LISTED_CHARACTERS_BY_ID[character_id]
+	CharacterRawUid.set_deferred("hint_tooltip", RAW_UID_TIP_TEMPLATE % character_id)
 	CharacterEditorName.set_text(the_character.name)
 	CharacterColorPickerButton.set("color", Utils.rgba_hex_to_color(the_character.color))
 	# can't it be removed ? not if it's used by other resources
@@ -248,6 +252,10 @@ func refresh_character_cache_by_id(character_id:int) -> void:
 		if the_character is Dictionary:
 			_LISTED_CHARACTERS_BY_ID[character_id] = the_character
 			_LISTED_CHARACTERS_BY_NAME[the_character.name] = _LISTED_CHARACTERS_BY_ID[character_id]
+	pass
+
+func os_clipboard_push_raw_uid():
+	OS.set_clipboard( String(_SELECTED_CHARACTER_BEING_EDITED_ID) )
 	pass
 
 func refresh_revision_mode(key = null) -> void:

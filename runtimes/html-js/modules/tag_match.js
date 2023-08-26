@@ -96,7 +96,7 @@ class TagMatch {
                             }
                         } else {
                             if (pattern === tag_value){
-                                matched == i;
+                                matched = i;
                                 break;
                             }
                         }

@@ -29,6 +29,7 @@ onready var SortAlphabetical = get_node(Addressbook.INSPECTOR.VARIABLES.LISTING_
 onready var VariablesList = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLES_LIST)
 
 onready var VariableEditorPanel = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.itself)
+onready var VariableRawUid = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.RAW_UID)
 onready var VariableEditorName = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.NAME_EDIT)
 onready var VariableEditorInitialValue = {
 	"str": get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.INITIAL_VALUE_EDITS["str"]),
@@ -50,6 +51,7 @@ onready var VariableAppearanceGoToPrevious = get_node(Addressbook.INSPECTOR.VARI
 onready var VariableAppearanceGoToNext = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.VARIABLE_USAGES.GO_TO_NEXT)
 
 const VARIABLE_APPEARANCE_INDICATION_TEMPLATE = "{here} : {total}"
+const RAW_UID_TIP_TEMPLATE = "Raw UID: %s \n[press button to copy]"
 
 func _ready() -> void:
 	register_connections()
@@ -61,6 +63,7 @@ func register_connections() -> void:
 	VariablesList.connect("item_selected", self, "_on_variables_list_item_selected", [], CONNECT_DEFERRED)
 	VariablesList.connect("nothing_selected", self, "_on_variables_list_nothing_selected", [], CONNECT_DEFERRED)
 	VariablesList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
+	VariableRawUid.connect("pressed", self, "os_clipboard_push_raw_uid", [], CONNECT_DEFERRED)
 	VariableEditorSaveButton.connect("pressed", self, "submit_variable_modification", [], CONNECT_DEFERRED)
 	VariableEditorRemoveButton.connect("pressed", self, "request_remove_variable", [], CONNECT_DEFERRED)
 	VariableAppearanceGoToButtonPopup.connect("index_pressed", self, "_on_go_to_menu_button_popup_index_pressed", [], CONNECT_DEFERRED)
@@ -217,6 +220,7 @@ func load_variable_in_editor(variable_id) -> void:
 	_SELECTED_VARIABLE_BEING_EDITED_ID = variable_id
 	var the_variable = _LISTED_VARIABLES_BY_ID[variable_id]
 	switch_variable_initial_value_sub_editor(the_variable.type)
+	VariableRawUid.set_deferred("hint_tooltip", RAW_UID_TIP_TEMPLATE % variable_id)
 	VariableEditorName.set_text(the_variable.name)
 	set_variable_initial_value_sub_editor(the_variable.type, the_variable.init)
 	# can't it be removed ? not if it's used by other resources
@@ -231,6 +235,10 @@ func refresh_variable_cache_by_id(variable_id:int) -> void:
 		if the_variable is Dictionary:
 			_LISTED_VARIABLES_BY_ID[variable_id] = the_variable
 			_LISTED_VARIABLES_BY_NAME[the_variable.name] = _LISTED_VARIABLES_BY_ID[variable_id]
+	pass
+
+func os_clipboard_push_raw_uid():
+	OS.set_clipboard( String(_SELECTED_VARIABLE_BEING_EDITED_ID) )
 	pass
 
 func refresh_referrers_list() -> void:

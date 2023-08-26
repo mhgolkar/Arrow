@@ -27,8 +27,11 @@ onready var ScenesRemoveButton = get_node(Addressbook.INSPECTOR.SCENES.TOOLS.REM
 onready var ScenesEditButton = get_node(Addressbook.INSPECTOR.SCENES.TOOLS.EDIT_BUTTON)
 
 onready var SceneEditorPanel = get_node(Addressbook.INSPECTOR.SCENES.EDIT.itself)
+onready var SceneRawUid = get_node(Addressbook.INSPECTOR.SCENES.EDIT.RAW_UID)
 onready var SceneEditorName = get_node(Addressbook.INSPECTOR.SCENES.EDIT.NAME_EDIT)
 onready var SceneEditorUpdateButton = get_node(Addressbook.INSPECTOR.SCENES.EDIT.UPDATE_BUTTON)
+
+const RAW_UID_TIP_TEMPLATE = "Raw UID: %s \n[press button to copy]"
 
 func _ready() -> void:
 	register_connections()
@@ -42,6 +45,7 @@ func register_connections() -> void:
 	ScenesNewButton.connect("pressed", self, "request_new_scene_creation", [], CONNECT_DEFERRED)
 	ScenesRemoveButton.connect("pressed", self, "request_remove_scene", [], CONNECT_DEFERRED)
 	ScenesEditButton.connect("pressed", self, "request_scene_editorial_open", [], CONNECT_DEFERRED)
+	SceneRawUid.connect("pressed", self, "os_clipboard_push_raw_uid", [], CONNECT_DEFERRED)
 	SceneEditorUpdateButton.connect("pressed", self, "submit_scene_modification", [], CONNECT_DEFERRED)
 	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
@@ -280,6 +284,7 @@ func update_scene_editorial_state(scene_id:int = -1) -> void:
 	if scene_id >= 0 && _LISTED_SCENES_BY_ID.has(scene_id):
 		_SELECTED_SCENE_BEING_EDITED_ID = scene_id
 		var the_scene = _LISTED_SCENES_BY_ID[scene_id]
+		SceneRawUid.set_deferred("hint_tooltip", RAW_UID_TIP_TEMPLATE % scene_id)
 		SceneEditorName.set_text(the_scene.name)
 		# SceneEditorPanel.set("visible", true) # moved to `smartly_update_tools`
 		# this may be called by other scripts, so let's reselect the open scene
@@ -291,6 +296,10 @@ func update_scene_editorial_state(scene_id:int = -1) -> void:
 	update_scene_notes()
 	pass
 
+func os_clipboard_push_raw_uid():
+	OS.set_clipboard( String(_SELECTED_SCENE_BEING_EDITED_ID) )
+	pass
+	
 func request_scene_editorial_close() -> void:
 	if _SELECTED_SCENE_BEING_EDITED_ID >= 0:
 		emit_signal("relay_request_mind", "switch_scene", -1)

@@ -212,6 +212,7 @@ const INSPECTOR = {
 		},
 		"EDIT":{
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs",
+			"RAW_UID": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer/SceneName/RawUID",
 			"NAME_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer/SceneName/Edit",
 			"UPDATE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer/SceneName/Set",
 		},
@@ -227,6 +228,7 @@ const INSPECTOR = {
 		"MACRO_ENTRY_NOTE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/VSplitContainer/MacroEntryNote",
 		"EDIT":{
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs",
+			"RAW_UID": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/MacroName/RawUID",
 			"NAME_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/MacroName/Edit",
 			"UPDATE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/MacroName/Set",
 			"CLOSE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/CloseMacro",
@@ -261,6 +263,7 @@ const INSPECTOR = {
 				"GO_TO_PREVIOUS": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination/PreviousUsage",
 				"GO_TO_NEXT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination/NextUsage",
 			},
+			"RAW_UID": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer/RawUID",
 			"NAME_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer/VariablesNameEdit",
 			"INITIAL_VALUE_EDITS":{
 				"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableInitial/VariableInitialValue",
@@ -287,6 +290,7 @@ const INSPECTOR = {
 		"CHARACTER_EDITOR": {
 			"itself": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor",
 			# > Identity
+			"RAW_UID": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer/RawUID",
 			"COLOR_PICKER_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer/CharacterColor",
 			"NAME_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer/CharacterNameEdit",
 			"SAVE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer/SaveCharacter",

@@ -2628,6 +2628,13 @@ margin_bottom = 34.0
 margin_right = 264.0
 margin_bottom = 27.0
 
+[node name="RawUID" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer/SceneName"]
+margin_right = 12.0
+margin_bottom = 23.0
+hint_tooltip = "Raw UID: {i64}
+[press button to copy]"
+text = ""
+
 [node name="Edit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Scenes/VBoxContainer/OpenSceneConfigs/VBoxContainer/SceneName"]
 margin_right = 200.0
 margin_bottom = 27.0
@@ -2807,6 +2814,13 @@ margin_right = 264.0
 margin_bottom = 27.0
 alignment = 2
 
+[node name="RawUID" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/MacroName"]
+margin_right = 24.0
+margin_bottom = 23.0
+hint_tooltip = "Raw UID: {i64}
+[press button to copy]"
+text = ""
+
 [node name="Edit" type="LineEdit" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/OpenMacroConfigs/VBoxContainer/MacroName"]
 margin_right = 200.0
 margin_bottom = 27.0
@@ -2969,6 +2983,13 @@ margin_right = 264.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 placeholder_text = "Variable's Unique Identifier"
+
+[node name="RawUID" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer"]
+margin_right = 12.0
+margin_bottom = 23.0
+hint_tooltip = "Raw UID: {i64}
+[press button to copy]"
+text = ""
 
 [node name="VariableInitial" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer"]
 margin_top = 31.0
@@ -3194,6 +3215,13 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 257.0
 margin_bottom = 34.0
+
+[node name="RawUID" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer"]
+margin_right = 24.0
+margin_bottom = 23.0
+hint_tooltip = "Raw UID: {i64}
+[press button to copy]"
+text = ""
 
 [node name="CharacterColor" type="ColorPickerButton" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterIdentity/HBoxContainer"]
 margin_right = 41.0

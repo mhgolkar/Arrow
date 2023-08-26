@@ -39,6 +39,7 @@ onready var MacrosRemoveButton = get_node(Addressbook.INSPECTOR.MACROS.TOOLS.REM
 onready var MacrosEditButton = get_node(Addressbook.INSPECTOR.MACROS.TOOLS.EDIT_BUTTON)
 
 onready var MacroEditorPanel = get_node(Addressbook.INSPECTOR.MACROS.EDIT.itself)
+onready var MacroRawUid = get_node(Addressbook.INSPECTOR.MACROS.EDIT.RAW_UID)
 onready var MacroEditorName = get_node(Addressbook.INSPECTOR.MACROS.EDIT.NAME_EDIT)
 onready var MacroEditorUpdateButton = get_node(Addressbook.INSPECTOR.MACROS.EDIT.UPDATE_BUTTON)
 onready var MacroEditorCloseButton = get_node(Addressbook.INSPECTOR.MACROS.EDIT.CLOSE_BUTTON)
@@ -50,6 +51,7 @@ onready var MacroInstanceGoToPrevious = get_node(Addressbook.INSPECTOR.MACROS.MA
 onready var MacroInstanceGoToNext = get_node(Addressbook.INSPECTOR.MACROS.MACRO_INSTANCES.GO_TO_NEXT)
 
 const MACRO_INSTANCE_INDICATION_TEMPLATE = "{here} : {total}"
+const RAW_UID_TIP_TEMPLATE = "Raw UID: %s \n[press button to copy]"
 
 func _ready() -> void:
 	register_connections()
@@ -64,6 +66,7 @@ func register_connections() -> void:
 	MacrosNewButton.connect("pressed", self, "request_new_macro_creation", [], CONNECT_DEFERRED)
 	MacrosRemoveButton.connect("pressed", self, "request_remove_macro", [], CONNECT_DEFERRED)
 	MacrosEditButton.connect("pressed", self, "request_macro_editorial_open", [], CONNECT_DEFERRED)
+	MacroRawUid.connect("pressed", self, "os_clipboard_push_raw_uid", [], CONNECT_DEFERRED)
 	MacroEditorUpdateButton.connect("pressed", self, "submit_macro_modification", [], CONNECT_DEFERRED)
 	MacroEditorCloseButton.connect("pressed", self, "request_macro_editorial_close", [], CONNECT_DEFERRED)
 	MacroInstanceGoToButtonPopup.connect("index_pressed", self, "_on_go_to_menu_button_popup_index_pressed", [], CONNECT_DEFERRED)
@@ -303,6 +306,7 @@ func update_macro_editorial_state(macro_id:int = -1) -> void:
 	if macro_id >= 0 && _LISTED_MACROS_BY_ID.has(macro_id):
 		_SELECTED_MACRO_BEING_EDITED_ID = macro_id
 		var the_macro = _LISTED_MACROS_BY_ID[macro_id]
+		MacroRawUid.set_deferred("hint_tooltip", RAW_UID_TIP_TEMPLATE % macro_id)
 		MacroEditorName.set_text(the_macro.name)
 		# MacroEditorPanel.set("visible", true) # moved to `smartly_update_tools`
 		# this may be called by other scripts, so let's reselect the open macro
@@ -325,6 +329,10 @@ func refresh_macro_cache_by_id(macro_id:int = -1) -> void:
 		if the_macro is Dictionary:
 			_LISTED_MACROS_BY_ID[macro_id] = the_macro
 			_LISTED_MACROS_BY_NAME[the_macro.name] = _LISTED_MACROS_BY_ID[macro_id]
+	pass
+
+func os_clipboard_push_raw_uid():
+	OS.set_clipboard( String(_SELECTED_MACRO_BEING_EDITED_ID) )
 	pass
 
 func refresh_referrers_list() -> void:
