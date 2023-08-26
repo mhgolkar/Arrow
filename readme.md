@@ -103,10 +103,10 @@ Have a Good Time
 
 <!-- download -->
 [releases]: https://github.com/mhgolkar/Arrow/releases
-[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.1.0/Arrow-v2.1.0-linux-x86_64.tar.gz
-[linux-x11-x86-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.1.0/Arrow-v2.1.0-linux-x86.tar.gz
-[win-32-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.1.0/Arrow-v2.1.0-win.32.zip
-[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.1.0/Arrow-v2.1.0-win.64.zip
+[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.2.0/Arrow-v2.2.0-linux-x86_64.tar.gz
+[linux-x11-x86-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.2.0/Arrow-v2.2.0-linux-x86.tar.gz
+[win-32-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.2.0/Arrow-v2.2.0-win.32.zip
+[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.2.0/Arrow-v2.2.0-win.64.zip
 <!-- pwa -->
 [web-app]: https://mhgolkar.github.io/Arrow/
 <!-- wiki -->

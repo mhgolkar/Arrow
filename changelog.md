@@ -1,6 +1,15 @@
 # Arrow: Changelog
 
 
+## v2.2.0
+
++ New built-in `Tag-Match` node
+    > This new node helps creating non-binary branching gates by comparing a character's tag against a set of patterns.
+    > For more information check out the repo's wiki for [`Tag-Match`](https://github.com/mhgolkar/Arrow/wiki/tag-match) node.
++ Added ability of checking (and copying) raw underlying UID for resources.
++ Few bug fixes and improvements
+
+
 ## v2.1.0
 
 + New (experimental) **Cross-chapter Resource Transfer**
