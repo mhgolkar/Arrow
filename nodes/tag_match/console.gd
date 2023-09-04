@@ -206,12 +206,24 @@ func set_view_unplayed() -> void:
 func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	MatchedPattern.set_text(NO_MATCH)
 	if slot_idx >= 0:
-		if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("patterns") && (_NODE_RESOURCE.data.patterns is Array):
+		if (
+			_NODE_RESOURCE.has("data") &&
+			_NODE_RESOURCE.data.has("tag_key") &&
+			_NODE_RESOURCE.data.has("patterns") && (_NODE_RESOURCE.data.patterns is Array)
+		):
 			if _NODE_RESOURCE.data.patterns.size() > slot_idx:
 				MatchedPattern.set_text(
 					MATCHING_FORMAT_STRING.format({
 						"pattern": _NODE_RESOURCE.data.patterns[slot_idx],
-						"value": _CHARACTERS_CURRENT[_NODE_RESOURCE.data.character].tags[_NODE_RESOURCE.data.tag_key],
+						"value": (
+							_CHARACTERS_CURRENT[_NODE_RESOURCE.data.character].tags[_NODE_RESOURCE.data.tag_key]
+							if (
+								_CHARACTERS_CURRENT.has(_NODE_RESOURCE.data.character) &&
+								_CHARACTERS_CURRENT[_NODE_RESOURCE.data.character].has("tags") &&
+								_CHARACTERS_CURRENT[_NODE_RESOURCE.data.character].tags.has(_NODE_RESOURCE.data.tag_key)
+							)
+							else "N/A"
+						)
 					})
 				)
 	MatchedPattern.set_visible(true)

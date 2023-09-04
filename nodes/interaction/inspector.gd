@@ -48,6 +48,7 @@ func register_connections() -> void:
 	Action.connect("text_entered", self, "append_new_action", [], CONNECT_DEFERRED)
 	ActionsList.connect("multi_selected", self, "_toggle_available_tools_smartly", [], CONNECT_DEFERRED)
 	ActionsList.connect("item_rmb_selected", self, "_on_right_click_item_selection", [], CONNECT_DEFERRED)
+	ActionsList.connect("item_activated", self, "_on_double_click_item_activated", [], CONNECT_DEFERRED)
 	pass
 	
 func load_tools_menu() -> void:
@@ -154,6 +155,12 @@ func _on_right_click_item_selection(item_idx:int, _click_position:Vector2) -> vo
 	var all_items_count = ActionsList.get_item_count()
 	if all_items_count > 1 :
 		extract_selected_action([item_idx])
+	pass
+
+func _on_double_click_item_activated(item_idx:int) -> void:
+	var item_text = ActionsList.get_item_text(item_idx)
+	Action.set_text(item_text)
+	_toggle_available_tools_smartly()
 	pass
 
 func a_node_is_open() -> bool :
