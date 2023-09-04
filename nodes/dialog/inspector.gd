@@ -115,12 +115,13 @@ func sort_items_alphabetical() -> void:
 
 func append_new_line(text:String = "") -> void:
 	var new_line = ( text if text.length() > 0 else Line.get("text") )
-	LinesList.add_item( new_line )
-	Line.clear()
-	# select the last/newly created item
-	LinesList.select(( LinesList.get_item_count() - 1) , true) 
-	# and make sure it's visible
-	LinesList.ensure_current_is_visible()
+	if new_line.length() > 0: # (blank dialog lines are not allowed)
+		LinesList.add_item( new_line )
+		Line.clear()
+		# select the last/newly created item
+		LinesList.select(( LinesList.get_item_count() - 1) , true) 
+		# and make sure it's visible
+		LinesList.ensure_current_is_visible()
 	pass
 
 func extract_selected_line(selected_lines_idxs:Array = []) -> void:

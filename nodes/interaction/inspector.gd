@@ -107,12 +107,13 @@ func sort_items_alphabetical() -> void:
 
 func append_new_action(text:String = "") -> void:
 	var new_action = ( text if text.length() > 0 else Action.get("text") )
-	ActionsList.add_item( new_action )
-	Action.clear()
-	# select the last/newly created item
-	ActionsList.select(( ActionsList.get_item_count() - 1) , true) 
-	# and make sure it's visible
-	ActionsList.ensure_current_is_visible()
+	if new_action.length() > 0: # (blank actions are not allowed)
+		ActionsList.add_item( new_action )
+		Action.clear()
+		# select the last/newly created item
+		ActionsList.select(( ActionsList.get_item_count() - 1) , true) 
+		# and make sure it's visible
+		ActionsList.ensure_current_is_visible()
 	pass
 
 func extract_selected_action(selected_actions_idxs:Array = []) -> void:
