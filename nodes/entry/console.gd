@@ -64,6 +64,7 @@ func setup_view() -> void:
 	Plaque.set_text( label.plaque )
 	IsSceneEntryIndicator.set_deferred("visible", _NODE_ID == Main.Mind.get_scene_entry())
 	IsProjectEntryIndicator.set_deferred("visible", _NODE_ID == Main.Mind.get_project_entry())
+	This.set("hint_tooltip", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else ""))
 	pass
 	
 func setup_play(

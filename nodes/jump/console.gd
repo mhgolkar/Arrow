@@ -69,6 +69,8 @@ func setup_view() -> void:
 		Reason.set_text( _NODE_RESOURCE.data.reason )
 	else:
 		Reason.set_text( REASON_TEXT_UNSET_MESSAGE )
+	# ...
+	This.set("hint_tooltip", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else ""))
 	pass
 	
 func setup_play(
