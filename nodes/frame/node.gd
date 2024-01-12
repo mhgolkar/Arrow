@@ -28,9 +28,11 @@ onready var FrameLabel = get_node("./MarginContainer/VBoxContainer/FrameLabel")
 
 func _ready() -> void:
 	register_connections()
+	move_behind_wrapped_nodes()
 	pass
 
 func register_connections() -> void:
+	self.connect("mouse_exited", self, "_on_mouse_exited", [], CONNECT_DEFERRED)
 	self.connect("resize_request", self, "_on_resize_request", [], CONNECT_DEFERRED)
 	CollapseToggle.connect("toggled", self, "_handle_collapse_and_size", [], CONNECT_DEFERRED)
 	pass
@@ -60,6 +62,19 @@ func _on_resize_request(new_min_size) -> void:
 		_RESIZE_DEBOUNCER.disconnect("timeout", self, "_handle_delayed_request")
 	_RESIZE_DEBOUNCER = TheTree.create_timer( Settings.MIND_REQUEST_DEBOUNCE_TIME_SEC )
 	_RESIZE_DEBOUNCER.connect("timeout", self, "_handle_delayed_request", [], CONNECT_DEFERRED)
+	pass
+
+func move_behind_wrapped_nodes():
+	var z_order = self.get_position_in_parent()
+	for wrapped in Grid.get_nodes_in(self.get_global_rect()):
+		var wrapped_order = wrapped.node.get_position_in_parent()
+		if wrapped_order < z_order:
+			z_order = wrapped_order
+	Grid.move_child(self, z_order)
+	pass
+
+func _on_mouse_exited():
+	move_behind_wrapped_nodes()
 	pass
 
 func _handle_collapse_and_size(do_collapse: bool = CollapseToggle.is_pressed()) -> void:
