@@ -12,7 +12,7 @@
 <!-- # Arrow -->
 ***The Game Narrative Design Tool***
 
-[Download](#download) | [Contribution](#contribution-to-arrow) | [Runtimes](#runtimes) | [Guides](#guides)
+[Download](#download) | [Contribution](#contribution-to-arrow) | [Runtimes](#runtime-projects) | [Guides](#guides)
 
 Arrow is the free, open-source and feature-rich tool for
 *game narrative* design, *text-adventure* development,
