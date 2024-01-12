@@ -222,6 +222,7 @@ const INSPECTOR = {
 		"LISTING_INSTRUCTION": {
 			"FILTER" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ListingInstruction/Filter",
 			"FILTER_REVERSE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ListingInstruction/FilterReverse",
+			"FILTER_FOR_SCENE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ListingInstruction/FilterForScene",
 			"SORT_ALPHABETICAL" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ListingInstruction/SortAlphabetical",
 		},
 		"MACROS_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/VSplitContainer/ScrollContainer/MacrosList",
@@ -252,6 +253,7 @@ const INSPECTOR = {
 			"FILTER" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction/Filter",
 			"FILTER_REVERSE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction/FilterReverse",
 			"FILTER_IN_TYPE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction/FilterInType",
+			"FILTER_FOR_SCENE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction/FilterForScene",
 			"SORT_ALPHABETICAL" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction/SortAlphabetical",
 		},
 		"VARIABLES_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ScrollContainer/VariablesList",
@@ -282,6 +284,7 @@ const INSPECTOR = {
 		"LISTING_INSTRUCTION": {
 			"FILTER" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ListingInstruction/Filter",
 			"FILTER_REVERSE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ListingInstruction/FilterReverse",
+			"FILTER_FOR_SCENE" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ListingInstruction/FilterForScene",
 			"SORT_ALPHABETICAL" : "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ListingInstruction/SortAlphabetical",
 		},
 		"CHARACTERS_LIST": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ScrollContainer/CharactersList",

@@ -2719,6 +2719,15 @@ those not matching will pass."
 toggle_mode = true
 text = "ﭾ"
 
+[node name="FilterForScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ListingInstruction"]
+margin_left = 228.0
+margin_right = 252.0
+margin_bottom = 27.0
+hint_tooltip = "Filter for Scene
+(only shows macros used in the open scene)."
+toggle_mode = true
+text = ""
+
 [node name="SortAlphabetical" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/ListingInstruction"]
 margin_left = 256.0
 margin_right = 278.0
@@ -2923,6 +2932,15 @@ hint_tooltip = "Shows only variables of the selected type"
 text = "Any"
 items = [ "Any", null, false, 0, null, "Num", null, false, 1, null, "Str", null, false, 2, null, "Bool", null, false, 3, null ]
 selected = 0
+
+[node name="FilterForScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction"]
+margin_left = 253.0
+margin_right = 278.0
+margin_bottom = 27.0
+hint_tooltip = "Filter for Scene
+(only shows variables used in the open scene)."
+toggle_mode = true
+text = ""
 
 [node name="SortAlphabetical" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/ListingInstruction"]
 margin_left = 253.0
@@ -3165,6 +3183,15 @@ hint_tooltip = "Reverses filter:
 those not matching will pass."
 toggle_mode = true
 text = "ﭾ"
+
+[node name="FilterForScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ListingInstruction"]
+margin_left = 228.0
+margin_right = 252.0
+margin_bottom = 27.0
+hint_tooltip = "Filter for Scene
+(only shows characters used in the open scene)."
+toggle_mode = true
+text = ""
 
 [node name="SortAlphabetical" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/ListingInstruction"]
 margin_left = 256.0

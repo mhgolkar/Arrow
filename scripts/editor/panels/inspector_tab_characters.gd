@@ -26,6 +26,7 @@ var _KEY_BEING_REVISIONED = null
 
 onready var Filter = get_node(Addressbook.INSPECTOR.CHARACTERS.LISTING_INSTRUCTION.FILTER)
 onready var FilterReverse = get_node(Addressbook.INSPECTOR.CHARACTERS.LISTING_INSTRUCTION.FILTER_REVERSE)
+onready var FilterForScene = get_node(Addressbook.INSPECTOR.CHARACTERS.LISTING_INSTRUCTION.FILTER_FOR_SCENE)
 onready var SortAlphabetical = get_node(Addressbook.INSPECTOR.CHARACTERS.LISTING_INSTRUCTION.SORT_ALPHABETICAL)
 onready var CharactersList = get_node(Addressbook.INSPECTOR.CHARACTERS.CHARACTERS_LIST)
 
@@ -73,6 +74,7 @@ func register_connections() -> void:
 	CharacterAppearanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
 	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	FilterForScene.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	SortAlphabetical.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	pass
 
@@ -117,6 +119,7 @@ func read_listing_instruction() -> Dictionary:
 	return {
 		"FILTER": filter_array,
 		"FILTER_REVERSE": FilterReverse.is_pressed(),
+		"FILTER_FOR_SCENE": FilterForScene.is_pressed(),
 		"SORT_ALPHABETICAL": SortAlphabetical.is_pressed(),
 	}
 
@@ -146,10 +149,11 @@ func list_characters(list_to_append:Dictionary) -> void :
 	for character_id in list_to_append:
 		var the_character = list_to_append[character_id]
 		if filters_pass_all(the_character, _LISTING):
-			if _LISTED_CHARACTERS_BY_ID.has(character_id):
-				update_character_list_item(character_id, the_character)
-			else:
-				insert_character_list_item(character_id, the_character)
+			if _LISTING.FILTER_FOR_SCENE == false || Main.Mind.resource_is_used_in_scene(character_id, "characters"):
+				if _LISTED_CHARACTERS_BY_ID.has(character_id):
+					update_character_list_item(character_id, the_character)
+				else:
+					insert_character_list_item(character_id, the_character)
 	CharactersList.ensure_current_is_visible()
 	if _LISTING.SORT_ALPHABETICAL:
 		CharactersList.call_deferred("sort_items_by_text")

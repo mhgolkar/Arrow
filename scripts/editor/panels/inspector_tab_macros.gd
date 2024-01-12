@@ -30,6 +30,7 @@ var _CURRENT_LOCATED_REF_ID = -1
 
 onready var Filter = get_node(Addressbook.INSPECTOR.MACROS.LISTING_INSTRUCTION.FILTER)
 onready var FilterReverse = get_node(Addressbook.INSPECTOR.MACROS.LISTING_INSTRUCTION.FILTER_REVERSE)
+onready var FilterForScene = get_node(Addressbook.INSPECTOR.MACROS.LISTING_INSTRUCTION.FILTER_FOR_SCENE)
 onready var SortAlphabetical = get_node(Addressbook.INSPECTOR.MACROS.LISTING_INSTRUCTION.SORT_ALPHABETICAL)
 onready var MacrosList = get_node(Addressbook.INSPECTOR.MACROS.MACROS_LIST)
 onready var MacroEntryNote = get_node(Addressbook.INSPECTOR.MACROS.MACRO_ENTRY_NOTE)
@@ -74,6 +75,7 @@ func register_connections() -> void:
 	MacroInstanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
 	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	FilterForScene.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	SortAlphabetical.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	pass
 
@@ -107,6 +109,7 @@ func read_listing_instruction() -> Dictionary:
 	return {
 		"FILTER": Filter.get_text(),
 		"FILTER_REVERSE": FilterReverse.is_pressed(),
+		"FILTER_FOR_SCENE": FilterForScene.is_pressed(),
 		"SORT_ALPHABETICAL": SortAlphabetical.is_pressed(),
 	}
 
@@ -118,10 +121,11 @@ func list_macros(list_to_append:Dictionary) -> void :
 	for macro_id in list_to_append:
 		var the_macro = list_to_append[macro_id]
 		if Utils.filter_pass(the_macro.name, _LISTING.FILTER, _LISTING.FILTER_REVERSE):
-			if _LISTED_MACROS_BY_ID.has(macro_id):
-				update_macro_list_item(macro_id, the_macro)
-			else:
-				insert_macro_list_item(macro_id, the_macro)
+			if _LISTING.FILTER_FOR_SCENE == false || Main.Mind.resource_is_used_in_scene(macro_id, "scenes"):
+				if _LISTED_MACROS_BY_ID.has(macro_id):
+					update_macro_list_item(macro_id, the_macro)
+				else:
+					insert_macro_list_item(macro_id, the_macro)
 	MacrosList.ensure_current_is_visible()
 	if _LISTING.SORT_ALPHABETICAL:
 		MacrosList.call_deferred("sort_items_by_text")

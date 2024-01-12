@@ -1236,6 +1236,14 @@ class Mind :
 			printerr("Failed trying to check node from invalid scene: ", node_id, " of ", scene_id)
 		return found
 	
+	func resource_is_used_in_scene(res_id: int, priority_field:String = "", scene_id: int = -1) -> bool:
+		var res = lookup_resource(res_id, priority_field);
+		if res is Dictionary && res.has("use"):
+			for user in res.use:
+				if scene_owns_node(user, scene_id) != null:
+					return true
+		return false
+	
 	func update_scene_entry(node_id:int) -> void:
 		var the_owner_scene_id = find_scene_owner_of_node(node_id)
 		if the_owner_scene_id >= 0 :

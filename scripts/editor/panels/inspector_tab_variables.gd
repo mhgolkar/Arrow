@@ -25,6 +25,7 @@ var _CURRENT_LOCATED_REF_ID = -1
 onready var Filter = get_node(Addressbook.INSPECTOR.VARIABLES.LISTING_INSTRUCTION.FILTER)
 onready var FilterReverse = get_node(Addressbook.INSPECTOR.VARIABLES.LISTING_INSTRUCTION.FILTER_REVERSE)
 onready var FilterInType = get_node(Addressbook.INSPECTOR.VARIABLES.LISTING_INSTRUCTION.FILTER_IN_TYPE)
+onready var FilterForScene = get_node(Addressbook.INSPECTOR.VARIABLES.LISTING_INSTRUCTION.FILTER_FOR_SCENE)
 onready var SortAlphabetical = get_node(Addressbook.INSPECTOR.VARIABLES.LISTING_INSTRUCTION.SORT_ALPHABETICAL)
 onready var VariablesList = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLES_LIST)
 
@@ -72,6 +73,7 @@ func register_connections() -> void:
 	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	FilterInType.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
+	FilterForScene.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	SortAlphabetical.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	pass
 
@@ -119,6 +121,7 @@ func read_listing_instruction() -> Dictionary:
 		"FILTER": Filter.get_text(),
 		"FILTER_REVERSE": FilterReverse.is_pressed(),
 		"FILTER_IN_TYPE": [null, "num", "str", "bool"][ FilterInType.get_selected_id() ],
+		"FILTER_FOR_SCENE": FilterForScene.is_pressed(),
 		"SORT_ALPHABETICAL": SortAlphabetical.is_pressed(),
 	}
 
@@ -131,10 +134,11 @@ func list_variables(list_to_append:Dictionary) -> void :
 		var the_variable = list_to_append[variable_id]
 		if Utils.filter_pass(the_variable.name, _LISTING.FILTER, _LISTING.FILTER_REVERSE):
 			if _LISTING.FILTER_IN_TYPE == null || the_variable.type == _LISTING.FILTER_IN_TYPE:
-				if _LISTED_VARIABLES_BY_ID.has(variable_id):
-					update_variable_list_item(variable_id, the_variable)
-				else:
-					insert_variable_list_item(variable_id, the_variable)
+				if _LISTING.FILTER_FOR_SCENE == false || Main.Mind.resource_is_used_in_scene(variable_id, "variables"):
+					if _LISTED_VARIABLES_BY_ID.has(variable_id):
+						update_variable_list_item(variable_id, the_variable)
+					else:
+						insert_variable_list_item(variable_id, the_variable)
 	VariablesList.ensure_current_is_visible()
 	if _LISTING.SORT_ALPHABETICAL:
 		VariablesList.call_deferred("sort_items_by_text")
