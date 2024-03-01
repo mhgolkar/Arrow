@@ -1,6 +1,13 @@
 # Arrow: Changelog
 
 
+## v2.3.0
+
++ Add *filter by scene usage* functionality to the main resource inspectors
++ Few readability and UI/UX enhancements
++ Multiple bug fixes
+
+
 ## v2.2.0
 
 + New built-in `Tag-Match` node

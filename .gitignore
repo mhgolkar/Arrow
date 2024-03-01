@@ -1,3 +1,7 @@
+# Git
+.gitignore
+.git/
+
 # Godot 4+ specific ignores
 .godot/
 
@@ -17,6 +21,7 @@ mono_crash.*.json
 
 # Editor-specific ignores
 .vscode/
+*.code-workspace
 
 # System/tool-specific ignores
 .DS_Store
@@ -24,7 +29,6 @@ mono_crash.*.json
 *~
 
 # Misc
-.git/
 .wiki/
 .extra/
 .website/
