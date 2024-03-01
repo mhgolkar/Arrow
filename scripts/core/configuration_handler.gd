@@ -88,10 +88,10 @@ class ConfigHandler :
 		
 	func _on_preference_modifications_done(confirmed_by_user:bool) -> void:
 		print_debug("Preference Modification ", ("Confirmed." if confirmed_by_user else "Dismissed!"))
-		Main.UI.set_panel_visibility("preferences", false)
 		if confirmed_by_user:
 			# warning-ignore:return_value_discarded
 			save_configurations_and_confirm(TEMPORARY, null, false)
+		Main.UI.set_panel_visibility("preferences", false)
 		# saved as config file or not, confirmation has happened, so there are actions to be taken anyway:
 		# update/reset the view (& theme) changes
 		Main.UI.update_view_from_configuration(CONFIRMED)

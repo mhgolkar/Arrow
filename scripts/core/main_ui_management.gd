@@ -203,7 +203,7 @@ class UiManager :
 	
 	# updates view partially or fully depending on the `configuration`
 	func update_view_from_configuration(configuration:Dictionary) -> void:
-		print_debug("View updated:", configuration)
+		# print_debug("View updated:", configuration)
 		for config in configuration:
 			var cfg = configuration[config]
 			match config:

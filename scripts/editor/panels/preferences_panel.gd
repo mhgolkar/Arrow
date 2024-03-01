@@ -65,6 +65,7 @@ func register_connections() -> void:
 	FIELDS.app_local_dir_browse.connect("pressed", self, "prompt_local_dir_path", [], CONNECT_DEFERRED)
 	FIELDS.app_local_dir_reset_menu.connect("item_selected_value", self, "_on_app_local_dir_reset_menu_item_selected", [], CONNECT_DEFERRED)
 	FIELDS.history_size.get_line_edit().connect("text_changed", self, "preprocess_and_emit_modification_signal", ["history_size"], CONNECT_DEFERRED)
+	FIELDS.history_size.connect("value_changed", self, "preprocess_and_emit_modification_signal", ["history_size"], CONNECT_DEFERRED)
 	pass
 
 func refresh_fields_view(preferences:Dictionary) -> void:
@@ -89,8 +90,6 @@ func preprocess_and_emit_modification_signal(value, field) -> void:
 		"language":
 			value = FIELDS.language.get_item_id(value) # Convert idx to lang_id
 		"history_size":
-			# NOTE: wee need this because spinners signal `value_changed` even on changes by code,
-			# so we use the `text_changed` of their inner LineEdit:
 			value = max(0, int(value))
 	# .. then signal
 	self.emit_signal("preference_modified", field, value)
