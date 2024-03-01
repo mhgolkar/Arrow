@@ -140,7 +140,7 @@ func refresh_custom_properties_panel(_x = null) -> void:
 			field[0].set(field[1], field[2])
 	InputProperties.set_visible(show_panel)
 	# ...
-	if _OPEN_NODE.has("data") && _OPEN_NODE.data is Dictionary:
+	if variable_type != null && _OPEN_NODE.has("data") && _OPEN_NODE.data is Dictionary:
 		if _OPEN_NODE.data.has("variable") && _OPEN_NODE.data.variable ==  selected_var_id:
 			if _OPEN_NODE.data.has("custom") && _OPEN_NODE.data.custom is Array:
 				var custom_properties_size = _OPEN_NODE.data.custom.size()
