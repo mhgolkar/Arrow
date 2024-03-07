@@ -42,6 +42,10 @@ const TOOLS_MENU_BUTTON_POPUP = { # <id>:int { label:string, action:string<funct
 	5: null,
 	6: { "label": "Sort Lines (Alphabetical)", "action": "sort_items_alphabetical" },
 	7: { "label": "Move Selected Top", "action": "move_selected_top" },
+	8: { "label": "Move Selected End", "action": "move_selected_end" },
+	9: null,
+	10: { "label": "Move Selected Up", "action": "move_selected_up" },
+	11: { "label": "Move Selected Down", "action": "move_selected_down" },
 }
 var _TOOLS_ITEM_INDEX_BY_ACTION = {}
 
@@ -57,6 +61,7 @@ func register_connections() -> void:
 	LinesList.connect("multi_selected", self, "_toggle_available_tools_smartly", [], CONNECT_DEFERRED)
 	LinesList.connect("item_rmb_selected", self, "_on_right_click_item_selection", [], CONNECT_DEFERRED)
 	LinesList.connect("item_activated", self, "_on_double_click_item_activated", [], CONNECT_DEFERRED)
+	LinesList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
 	pass
 	
 func load_tools_menu() -> void:
@@ -102,11 +107,45 @@ func move_selected_top(selected_lines_idxs:Array = []) -> void:
 		if selected_lines_idxs.size() == 0:
 			selected_lines_idxs = LinesList.get_selected_items()
 		if selected_lines_idxs.size() >= 1:
-			# we shall move from the first element in order, so they keep staying in order
 			selected_lines_idxs.sort()
 			while selected_lines_idxs.size() > 0 :
 				var the_first_item = selected_lines_idxs.pop_front()
 				move_item(0, the_first_item)
+	pass
+
+func move_selected_end(selected_lines_idxs:Array = []) -> void:
+	if LinesList.get_item_count() > 1 :
+		if selected_lines_idxs.size() == 0:
+			selected_lines_idxs = LinesList.get_selected_items()
+		if selected_lines_idxs.size() >= 1:
+			selected_lines_idxs.sort()
+			var end = LinesList.get_item_count() - 1;
+			while selected_lines_idxs.size() > 0 :
+				var the_first_item = selected_lines_idxs.pop_front()
+				move_item(end, the_first_item)
+	pass
+
+func move_selected_up(selected_lines_idxs:Array = []) -> void:
+	if LinesList.get_item_count() > 1 :
+		if selected_lines_idxs.size() == 0:
+			selected_lines_idxs = LinesList.get_selected_items()
+		if selected_lines_idxs.size() >= 1:
+			selected_lines_idxs.sort()
+			while selected_lines_idxs.size() > 0 :
+				var nth = selected_lines_idxs.pop_front()
+				LinesList.move_item(nth, max(0, nth - 1))
+	pass
+
+func move_selected_down(selected_lines_idxs:Array = []) -> void:
+	if LinesList.get_item_count() > 1 :
+		if selected_lines_idxs.size() == 0:
+			selected_lines_idxs = LinesList.get_selected_items()
+		if selected_lines_idxs.size() >= 1:
+			selected_lines_idxs.sort()
+			var end = LinesList.get_item_count() - 1;
+			while selected_lines_idxs.size() > 0 :
+				var nth = selected_lines_idxs.pop_back()
+				LinesList.move_item(nth, min(end, nth + 1))
 	pass
 
 func sort_items_alphabetical() -> void:
@@ -337,4 +376,26 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 					revised[exposure[0]] = (exposure[0].substr(0, cut[0]) + new_name + exposure[0].substr(cut[1], -1))
 			for exposure in revised:
 				data.lines[idx] = data.lines[idx].replace(exposure, revised[exposure])
+	pass
+
+func _on_list_gui_input(event) -> void:
+	if event is InputEventKey && event.is_pressed():
+		match event.get_physical_scancode():
+			KEY_DELETE:
+				if LinesList.get_item_count() > LinesList.get_selected_items().size(): # (Empty list is not allowed)
+					remove_selected_lines()
+			KEY_HOME:
+				move_selected_top()
+			KEY_END:
+				move_selected_end()
+			KEY_PAGEUP:
+				move_selected_up()
+			KEY_UP:
+				if event.get_control():
+					move_selected_up()
+			KEY_PAGEDOWN:
+				move_selected_down()
+			KEY_DOWN:
+				if event.get_control():
+					move_selected_down()
 	pass
