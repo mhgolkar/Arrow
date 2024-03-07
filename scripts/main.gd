@@ -137,15 +137,23 @@ func store_window_state() -> void:
 	print_debug("window state saved: ", Configs.CONFIRMED.window)
 	pass
 
+func store_panels_state() -> void:
+	var panels_state = UI.read_panels_state()
+	Configs.TEMPORARY.panels = panels_state
+	Configs.save_configurations_and_confirm(Configs.TEMPORARY, null, false)
+	print_debug("panel state saved: ", Configs.CONFIRMED.panels)
+	pass
+
 func safe_quit_app() -> void:
+	store_panels_state()
+	store_window_state()
+	yield(TheTree, "idle_frame")
 	Mind.close_project(false, true)
 	pass
 
 func quit_app(exit_code:int = OK) -> void:
 	if exit_code != OK: # != 0
 		printerr("Quiting app due to unexpected behavior!")
-	yield(TheTree, "idle_frame")
-	store_window_state()
 	TheTree.quit(exit_code)
 	pass
 

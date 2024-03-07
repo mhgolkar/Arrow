@@ -9,6 +9,7 @@ class_name MainUserInterface
 const PANELS_PATHS = Addressbook.PANELS
 const PANELS_OPEN_BY_DEFAULT = Settings.PANELS_OPEN_BY_DEFAULT
 const BLOCKING_PANELS:Array = Settings.BLOCKING_PANELS
+const STATEFUL_PANELS:Array = Settings.STATEFUL_PANELS
 const BLOCKING_OVERLAY_PATH = Addressbook.BLOCKING_OVERLAY
 const MAIN_UI_PATHS = {
 	"app_menu": Addressbook.EDITOR.APP_MENU,
@@ -171,6 +172,27 @@ class UiManager :
 		# TODO: currently there is no satisfying way to scale UI, may be a better time.
 		return factor
 	
+	func read_panels_state() -> Dictionary:
+		var stateful: Dictionary = {}
+		for panel in STATEFUL_PANELS:
+			var as_node = PANELS[panel]
+			stateful[panel] = {
+				"size": as_node.get_size(),
+				"position": as_node.get_position(),
+				"open": is_panel_open(panel) if PANELS_OPEN_BY_DEFAULT.has(panel) else null,
+			}
+		return stateful
+	
+	func restore_panels_state(tracked: Dictionary) -> void:
+		for panel in tracked:
+			var as_node = PANELS[panel]
+			var state = tracked[panel]
+			as_node._set_size(state.size)
+			as_node._set_position(state.position)
+			if state.open is bool:
+				set_panel_visibility(panel, state.open)
+		pass
+
 	func read_window_state() -> Dictionary:
 		return {
 			"position": OS.get_window_position(),
@@ -216,4 +238,7 @@ class UiManager :
 				"window":
 					if cfg is Dictionary:
 						restore_window(cfg)
+				"panels":
+					if cfg is Dictionary:
+						restore_panels_state(cfg)
 		pass
