@@ -159,7 +159,7 @@ class UiManager :
 		if by_id < 0 || by_id > Settings.SUPPORTED_UI_LANGUAGES.size() :
 			by_id = 0
 		var lang = Settings.SUPPORTED_UI_LANGUAGES[by_id]
-		var locale = lang.locale
+		var _locale = lang.locale
 		# TODO: i18n
 		print_debug("TODO!! NOT IMPLEMENTED YET! UI Language reset to: ", lang)
 		return by_id

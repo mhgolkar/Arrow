@@ -6,42 +6,57 @@
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 246.0
-margin_bottom = 233.0
+margin_bottom = 256.0
 script = ExtResource( 1 )
 
 [node name="Rows" type="VBoxContainer" parent="."]
 margin_right = 239.0
-margin_bottom = 226.0
+margin_bottom = 249.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Character" type="HBoxContainer" parent="Rows"]
+[node name="Character" type="VBoxContainer" parent="Rows"]
 margin_right = 239.0
-margin_bottom = 20.0
+margin_bottom = 38.0
 
 [node name="Label" type="Label" parent="Rows/Character"]
-margin_top = 3.0
-margin_right = 68.0
-margin_bottom = 17.0
+margin_right = 239.0
+margin_bottom = 14.0
 text = "Character: "
 
-[node name="Selection" type="OptionButton" parent="Rows/Character"]
-margin_left = 72.0
+[node name="Filterable" type="HBoxContainer" parent="Rows/Character"]
+margin_top = 18.0
 margin_right = 239.0
+margin_bottom = 38.0
+
+[node name="Selection" type="OptionButton" parent="Rows/Character/Filterable"]
+margin_right = 223.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 clip_text = true
 
-[node name="MonologLabel" type="Label" parent="Rows"]
-margin_top = 24.0
+[node name="GlobalFilters" type="Button" parent="Rows/Character/Filterable"]
+margin_left = 227.0
 margin_right = 239.0
-margin_bottom = 38.0
+margin_bottom = 20.0
+hint_tooltip = "Apply Global Filters
+
+It will follow the same listing instructions
+that are defined in the Characters inspector.
++ Current character of the node and Anonymous are always listed."
+toggle_mode = true
+text = ""
+
+[node name="MonologLabel" type="Label" parent="Rows"]
+margin_top = 42.0
+margin_right = 239.0
+margin_bottom = 56.0
 text = "Monolog:"
 
 [node name="Monolog" type="TextEdit" parent="Rows"]
-margin_top = 42.0
+margin_top = 60.0
 margin_right = 239.0
-margin_bottom = 142.0
+margin_bottom = 165.0
 rect_min_size = Vector2( 0, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -52,9 +67,9 @@ wrap_enabled = true
 minimap_width = 25
 
 [node name="Brief" type="HBoxContainer" parent="Rows"]
-margin_top = 146.0
+margin_top = 169.0
 margin_right = 239.0
-margin_bottom = 170.0
+margin_bottom = 193.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Rows/Brief"]
@@ -82,14 +97,14 @@ hint_tooltip = "Set brief up to the cursor."
 text = ""
 
 [node name="AutoPlay" type="CheckBox" parent="Rows"]
-margin_top = 174.0
+margin_top = 197.0
 margin_right = 239.0
-margin_bottom = 198.0
+margin_bottom = 221.0
 hint_tooltip = "Prints the node and goes forward with no user interaction."
 text = "Auto-play"
 
 [node name="ClearPage" type="CheckBox" parent="Rows"]
-margin_top = 202.0
+margin_top = 225.0
 margin_right = 239.0
-margin_bottom = 226.0
+margin_bottom = 249.0
 text = "Print on Clear Page"

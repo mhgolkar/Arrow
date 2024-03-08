@@ -25,7 +25,10 @@ const RESOURCE_NAME_EXPOSURE = Settings.RESOURCE_NAME_EXPOSURE
 
 var This = self
 
-onready var Character = get_node("./Rows/Character/Selection")
+onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
+
+onready var Character = get_node("./Rows/Character/Filterable/Selection")
+onready var GlobalFilters = get_node("./Rows/Character/Filterable/GlobalFilters")
 onready var Monolog = get_node("./Rows/Monolog")
 onready var BriefLength = get_node("./Rows/Brief/Length")
 onready var BriefPick = get_node("./Rows/Brief/Pick")
@@ -37,6 +40,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
+	GlobalFilters.connect("pressed", self, "refresh_character_list", [], CONNECT_DEFERRED)
 	BriefPick.connect("pressed", self, "_pick_the_breif", [], CONNECT_DEFERRED)
 	pass
 
@@ -70,18 +74,32 @@ func refresh_character_list(select_by_res_id:int = -1) -> void:
 		Character.set_item_metadata(item_index, ANONYMOUS_UID_CONTROL_VALUE)
 		item_index += 1
 	_PROJECT_CHARACTERS_CACHE = Main.Mind.clone_dataset_of("characters")
+	var already = null
+	if a_node_is_open() && _OPEN_NODE.data.has("character") && _OPEN_NODE.data.character in _PROJECT_CHARACTERS_CACHE :
+		already = _OPEN_NODE.data.character
+	var global_filters = CharactersInspector.read_listing_instruction()
+	var apply_globals = GlobalFilters.is_pressed()
+	var listing = {}
 	for character_id in _PROJECT_CHARACTERS_CACHE:
 		var the_character = _PROJECT_CHARACTERS_CACHE[character_id]
-		Character.add_item(the_character.name, character_id)
-		Character.set_item_metadata(item_index, character_id)
+		if character_id == already || apply_globals == false || CharactersInspector.passes_filters(global_filters, character_id, the_character):
+			listing[the_character.name] = character_id
+	var listing_keys = listing.keys()
+	if apply_globals && global_filters.SORT_ALPHABETICAL:
+		listing_keys.sort()
+	for name in listing_keys:
+		var id = listing[name]
+		Character.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+		Character.set_item_metadata(item_index, id)
 		item_index += 1
 	if select_by_res_id >= 0 :
 		var character_item_index = find_listed_character_index( select_by_res_id )
-		Character.select(character_item_index )
+		Character.select( character_item_index )
 	else:
-		if a_node_is_open() && _OPEN_NODE.data.has("character") && ( _OPEN_NODE.data.character in _PROJECT_CHARACTERS_CACHE ):
-			var character_item_index_from_id = find_listed_character_index( _OPEN_NODE.data.character )
-			Character.select( character_item_index_from_id )
+		if already != null :
+			var character_item_index = find_listed_character_index(already)
+			Character.select( character_item_index )
+	pass
 	pass
 
 func _update_parameters(node_id:int, node:Dictionary) -> void:

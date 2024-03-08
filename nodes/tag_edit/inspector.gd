@@ -26,7 +26,10 @@ const METHOD_NEEDS_NO_VALUE = TagEditSharedClass.METHOD_NEEDS_NO_VALUE
 
 var This = self
 
-onready var Characters = get_node("./TagEdit/Characters")
+onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
+
+onready var Characters = get_node("./TagEdit/Filterable/Characters")
+onready var GlobalFilters = get_node("./TagEdit/Filterable/GlobalFilters")
 onready var Methods = get_node("./TagEdit/Methods")
 onready var Key = get_node("./TagEdit/Key")
 onready var Value = get_node("./TagEdit/Value")
@@ -36,6 +39,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
+	GlobalFilters.connect("pressed", self, "refresh_characters_list", [], CONNECT_DEFERRED)
 	Methods.connect("item_selected", self, "_on_method_item_selected", [], CONNECT_DEFERRED)
 	pass
 
@@ -65,19 +69,36 @@ func refresh_characters_list(select_by_res_id:int = -1) -> void:
 	Characters.clear()
 	_PROJECT_CHARACTERS_CACHE = Main.Mind.clone_dataset_of("characters")
 	if _PROJECT_CHARACTERS_CACHE.size() > 0 :
-		var item_index := 0
+		var already = null
+		if is_open_node_valid() && _OPEN_NODE.data.has("character") && _OPEN_NODE.data.character in _PROJECT_CHARACTERS_CACHE :
+			already = _OPEN_NODE.data.character
+		var global_filters = CharactersInspector.read_listing_instruction()
+		var apply_globals = GlobalFilters.is_pressed()
+		var listing = {}
 		for character_id in _PROJECT_CHARACTERS_CACHE:
 			var the_character = _PROJECT_CHARACTERS_CACHE[character_id]
-			Characters.add_item(the_character.name, character_id)
-			Characters.set_item_metadata(item_index, character_id)
-			item_index += 1
-		if select_by_res_id >= 0 :
-			var character_item_index = find_listed_character_index( select_by_res_id )
-			Characters.select( character_item_index )
+			if character_id == already || apply_globals == false || CharactersInspector.passes_filters(global_filters, character_id, the_character):
+				listing[the_character.name] = character_id
+		if listing.size() == 0:
+			Characters.add_item(NO_CHARACTER_TEXT, NO_CHARACTER_ID)
+			Characters.set_item_metadata(0, NO_CHARACTER_ID)
 		else:
-			if is_open_node_valid() && _PROJECT_CHARACTERS_CACHE.has(_OPEN_NODE.data.character):
-				var character_item_index = find_listed_character_index( _OPEN_NODE.data.character )
+			var listing_keys = listing.keys()
+			if apply_globals && global_filters.SORT_ALPHABETICAL:
+				listing_keys.sort()
+			var item_index := 0
+			for name in listing_keys:
+				var id = listing[name]
+				Characters.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+				Characters.set_item_metadata(item_index, id)
+				item_index += 1
+			if select_by_res_id >= 0 :
+				var character_item_index = find_listed_character_index( select_by_res_id )
 				Characters.select( character_item_index )
+			else:
+				if already != null :
+					var character_item_index = find_listed_character_index(already)
+					Characters.select( character_item_index )
 	else:
 		Characters.add_item(NO_CHARACTER_TEXT, NO_CHARACTER_ID)
 		Characters.set_item_metadata(0, NO_CHARACTER_ID)

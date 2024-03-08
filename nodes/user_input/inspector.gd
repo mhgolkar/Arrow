@@ -36,8 +36,11 @@ const RESOURCE_NAME_EXPOSURE = Settings.RESOURCE_NAME_EXPOSURE
 
 var This = self
 
+onready var VariablesInspector = Main.Mind.Inspector.Tab.Variables
+
 onready var Prompt = get_node("./UserInput/PromptFor")
-onready var VariablesOption = get_node("./UserInput/DirectToVariable")
+onready var Variables = get_node("./UserInput/Filterable/DirectToVariable")
+onready var GlobalFilters = get_node("./UserInput/Filterable/GlobalFilters")
 onready var InputProperties = get_node("./UserInput/Customization")
 onready var InputPropertiesByType = {
 	#
@@ -80,7 +83,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	VariablesOption.connect("item_selected", self, "refresh_custom_properties_panel", [], CONNECT_DEFERRED)
+	Variables.connect("item_selected", self, "refresh_custom_properties_panel", [], CONNECT_DEFERRED)
+	GlobalFilters.connect("pressed", self, "refresh_variables_list", [], CONNECT_DEFERRED)
 	for num_prop in InputPropertiesByType["num"].fields:
 		num_prop[0].connect("value_changed", self, "_cap_num_custom_prop_values", [], CONNECT_DEFERRED)
 	pass
@@ -96,37 +100,54 @@ func a_node_is_open() -> bool :
 		return false
 
 func find_listed_variable_index(by_id: int) -> int:
-	for idx in range(0, VariablesOption.get_item_count()):
-		if VariablesOption.get_item_metadata(idx) == by_id:
+	for idx in range(0, Variables.get_item_count()):
+		if Variables.get_item_metadata(idx) == by_id:
 			return idx
 	return -1
 
-func referesh_variables_list(select_by_res_id:int = NO_VARIABLE_ID) -> void:
-	VariablesOption.clear()
+func refresh_variables_list(select_by_res_id:int = NO_VARIABLE_ID) -> void:
+	Variables.clear()
 	_PROJECT_VARIABLES_CACHE = Main.Mind.clone_dataset_of("variables")
 	if _PROJECT_VARIABLES_CACHE.size() > 0 :
-		var item_index := 0
+		var already = null
+		if a_node_is_open() && _OPEN_NODE.data.has("variable") && _OPEN_NODE.data.variable in _PROJECT_VARIABLES_CACHE :
+			already = _OPEN_NODE.data.variable
+		var global_filters = VariablesInspector.read_listing_instruction()
+		var apply_globals = GlobalFilters.is_pressed()
+		var listing = {}
 		for variable_id in _PROJECT_VARIABLES_CACHE:
 			var the_variable = _PROJECT_VARIABLES_CACHE[variable_id]
-			VariablesOption.add_item(the_variable.name, variable_id)
-			VariablesOption.set_item_metadata(item_index, variable_id)
-			item_index += 1
-		if select_by_res_id >= 0 :
-			var variable_item_index = find_listed_variable_index( select_by_res_id )
-			VariablesOption.select(variable_item_index)
+			if variable_id == already || apply_globals == false || VariablesInspector.passes_filters(global_filters, variable_id, the_variable):
+				listing[the_variable.name] = variable_id
+		if listing.size() == 0:
+			Variables.add_item(NO_VARIABLE_TEXT, NO_VARIABLE_ID)
+			Variables.set_item_metadata(0, NO_VARIABLE_ID)
 		else:
-			if a_node_is_open() && _OPEN_NODE.data.has("variable") && ( _OPEN_NODE.data.variable in _PROJECT_VARIABLES_CACHE ):
-				var variable_item_index_from_id = find_listed_variable_index( _OPEN_NODE.data.variable )
-				VariablesOption.select( variable_item_index_from_id )
+			var listing_keys = listing.keys()
+			if apply_globals && global_filters.SORT_ALPHABETICAL:
+				listing_keys.sort()
+			var item_index := 0
+			for name in listing_keys:
+				var id = listing[name]
+				Variables.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+				Variables.set_item_metadata(item_index, id)
+				item_index += 1
+			if select_by_res_id >= 0 :
+				var variable_item_index = find_listed_variable_index( select_by_res_id )
+				Variables.select( variable_item_index )
+			else:
+				if already != null :
+					var variable_item_index = find_listed_variable_index(already)
+					Variables.select( variable_item_index )
 	else:
-		VariablesOption.add_item(NO_VARIABLE_TEXT, NO_VARIABLE_ID)
-		VariablesOption.set_item_metadata(0, NO_VARIABLE_ID)
+		Variables.add_item(NO_VARIABLE_TEXT, NO_VARIABLE_ID)
+		Variables.set_item_metadata(0, NO_VARIABLE_ID)
 	pass
 
 func refresh_custom_properties_panel(_x = null) -> void:
 	var show_panel = false
 	var variable_type = null
-	var selected_var_id = VariablesOption.get_selected_metadata()
+	var selected_var_id = Variables.get_selected_metadata()
 	if _PROJECT_VARIABLES_CACHE.has(selected_var_id):
 		variable_type = _PROJECT_VARIABLES_CACHE[selected_var_id].type
 	# ...
@@ -166,7 +187,7 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 			Prompt.set_deferred("text", node.data.prompt)
 		if node.data.has("variable") && (node.data.variable is int) && (node.data.variable >= 0) :
 			variable_id_to_select = node.data.variable
-	referesh_variables_list(variable_id_to_select)
+	refresh_variables_list(variable_id_to_select)
 	refresh_custom_properties_panel()
 	pass
 
@@ -184,7 +205,7 @@ func _cap_num_custom_prop_values(_x = null) -> void:
 	pass
 
 func read_custom_properties():
-	var selected_var_id = VariablesOption.get_selected_metadata()
+	var selected_var_id = Variables.get_selected_metadata()
 	if _PROJECT_VARIABLES_CACHE.has(selected_var_id):
 		var custom_properties = []
 		var variable_type = _PROJECT_VARIABLES_CACHE[selected_var_id].type
@@ -254,7 +275,7 @@ func create_use_command(parameters:Dictionary) -> Dictionary:
 func _read_parameters() -> Dictionary:
 	var parameters = {
 		"prompt": Prompt.get_text(),
-		"variable": (VariablesOption.get_selected_metadata() if (_PROJECT_VARIABLES_CACHE.size() > 0) else NO_VARIABLE_ID),
+		"variable": (Variables.get_selected_metadata() if (_PROJECT_VARIABLES_CACHE.size() > 0) else NO_VARIABLE_ID),
 	}
 	var custom_properties = read_custom_properties()
 	if custom_properties != null:

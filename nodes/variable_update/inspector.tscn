@@ -20,11 +20,28 @@ margin_right = 239.0
 margin_bottom = 14.0
 text = "Update variable"
 
-[node name="Variables" type="OptionButton" parent="Update"]
+[node name="Filterable" type="HBoxContainer" parent="Update"]
 margin_top = 18.0
 margin_right = 239.0
 margin_bottom = 38.0
+
+[node name="Variables" type="OptionButton" parent="Update/Filterable"]
+margin_right = 223.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
 clip_text = true
+
+[node name="GlobalFilters" type="Button" parent="Update/Filterable"]
+margin_left = 227.0
+margin_right = 239.0
+margin_bottom = 20.0
+hint_tooltip = "Apply Global Filters
+
+It will follow the same listing instructions
+that are defined in the Variables inspector.
++ Current variable of the node is always listed."
+toggle_mode = true
+text = ""
 
 [node name="By" type="Label" parent="Update"]
 margin_top = 42.0

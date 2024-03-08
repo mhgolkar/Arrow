@@ -176,9 +176,8 @@ config/quit_on_go_back=false
 
 gdscript/completion/autocomplete_setters_and_getters=true
 gdscript/warnings/unused_argument=false
+gdscript/warnings/incompatible_ternary=false
 gdscript/warnings/return_value_discarded=false
-gdscript/warnings/unsafe_property_access=true
-gdscript/warnings/unsafe_method_access=true
 gdscript/warnings/unsafe_cast=true
 gdscript/warnings/unsafe_call_argument=true
 

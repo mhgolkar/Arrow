@@ -21,12 +21,28 @@ margin_right = 200.0
 margin_bottom = 14.0
 text = "For"
 
-[node name="Variables" type="OptionButton" parent="Generate"]
+[node name="Filterable" type="HBoxContainer" parent="Generate"]
 margin_top = 18.0
 margin_right = 200.0
 margin_bottom = 38.0
+
+[node name="Variables" type="OptionButton" parent="Generate/Filterable"]
+margin_right = 184.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 clip_text = true
+
+[node name="GlobalFilters" type="Button" parent="Generate/Filterable"]
+margin_left = 188.0
+margin_right = 200.0
+margin_bottom = 20.0
+hint_tooltip = "Apply Global Filters
+
+It will follow the same listing instructions
+that are defined in the Variables inspector.
++ Current variable of the node is always listed."
+toggle_mode = true
+text = ""
 
 [node name="GenerateValue" type="Label" parent="Generate"]
 margin_top = 42.0

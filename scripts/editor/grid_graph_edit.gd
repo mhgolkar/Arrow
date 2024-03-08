@@ -567,6 +567,7 @@ func _on_node_move_end() -> void:
 		Minimap.call_deferred("refresh")
 	pass
 
+# warning-ignore:integer_division
 func update_sellected_nodes_offset(direction:Vector2, speed: float = (self.snap_distance / 2)) -> void:
 	var movement = direction * speed
 	for node_id in _ALREADY_SELECTED_NODES_BY_ID:

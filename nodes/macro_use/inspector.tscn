@@ -8,9 +8,6 @@ margin_top = 7.0
 margin_right = 246.0
 margin_bottom = 157.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Macro" type="VBoxContainer" parent="."]
 margin_right = 239.0
@@ -23,8 +20,25 @@ margin_right = 239.0
 margin_bottom = 14.0
 text = "Macro"
 
-[node name="Options" type="OptionButton" parent="Macro"]
+[node name="Filterable" type="HBoxContainer" parent="Macro"]
 margin_top = 18.0
 margin_right = 239.0
 margin_bottom = 38.0
+
+[node name="Options" type="OptionButton" parent="Macro/Filterable"]
+margin_right = 223.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
 clip_text = true
+
+[node name="GlobalFilters" type="Button" parent="Macro/Filterable"]
+margin_left = 227.0
+margin_right = 239.0
+margin_bottom = 20.0
+hint_tooltip = "Apply Global Filters
+
+It will follow the same listing instructions
+that are defined in the Macros inspector.
++ Current macro of the node is always listed."
+toggle_mode = true
+text = ""

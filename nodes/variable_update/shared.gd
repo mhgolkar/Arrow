@@ -115,6 +115,7 @@ class expression :
 				result = (left - right)
 			"div": # Division (/=)
 				if right != 0: # no support for infinity
+					# warning-ignore:integer_division
 					result = int( floor(left / right) )
 			"rem": # Remainder (%=)
 				if right != 0: # no support for NAN

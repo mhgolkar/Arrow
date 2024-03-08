@@ -19,12 +19,28 @@ margin_right = 167.0
 margin_bottom = 14.0
 text = "For"
 
-[node name="Characters" type="OptionButton" parent="TagPass"]
+[node name="Filterable" type="HBoxContainer" parent="TagPass"]
 margin_top = 18.0
 margin_right = 167.0
 margin_bottom = 38.0
+
+[node name="Characters" type="OptionButton" parent="TagPass/Filterable"]
+margin_right = 151.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 clip_text = true
+
+[node name="GlobalFilters" type="Button" parent="TagPass/Filterable"]
+margin_left = 155.0
+margin_right = 167.0
+margin_bottom = 20.0
+hint_tooltip = "Apply Global Filters
+
+It will follow the same listing instructions
+that are defined in the Characters inspector.
++ Current character of the node is always listed."
+toggle_mode = true
+text = ""
 
 [node name="Check" type="Label" parent="TagPass"]
 margin_top = 42.0

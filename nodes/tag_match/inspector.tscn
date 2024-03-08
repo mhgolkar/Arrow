@@ -6,66 +6,80 @@
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 246.0
-margin_bottom = 157.0
+margin_bottom = 220.0
 script = ExtResource( 1 )
 
 [node name="TagMatch" type="VBoxContainer" parent="."]
-margin_right = 227.0
-margin_bottom = 176.0
+margin_right = 239.0
+margin_bottom = 213.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Character" type="HBoxContainer" parent="TagMatch"]
-margin_right = 227.0
-margin_bottom = 20.0
+[node name="Character" type="VBoxContainer" parent="TagMatch"]
+margin_right = 239.0
+margin_bottom = 38.0
 
 [node name="Label" type="Label" parent="TagMatch/Character"]
-margin_top = 3.0
-margin_right = 68.0
-margin_bottom = 17.0
+margin_right = 239.0
+margin_bottom = 14.0
 text = "Character: "
 
-[node name="Selection" type="OptionButton" parent="TagMatch/Character"]
-margin_left = 72.0
-margin_right = 227.0
+[node name="Filterable" type="HBoxContainer" parent="TagMatch/Character"]
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 38.0
+
+[node name="Selection" type="OptionButton" parent="TagMatch/Character/Filterable"]
+margin_right = 223.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 clip_text = true
 
-[node name="TagKey" type="HBoxContainer" parent="TagMatch"]
-margin_top = 24.0
-margin_right = 227.0
-margin_bottom = 48.0
+[node name="GlobalFilters" type="Button" parent="TagMatch/Character/Filterable"]
+margin_left = 227.0
+margin_right = 239.0
+margin_bottom = 20.0
+hint_tooltip = "Apply Global Filters
+
+It will follow the same listing instructions
+that are defined in the Characters inspector.
++ Current character of the node is always listed."
+toggle_mode = true
+text = ""
+
+[node name="TagKey" type="VBoxContainer" parent="TagMatch"]
+margin_top = 42.0
+margin_right = 239.0
+margin_bottom = 84.0
 
 [node name="Label" type="Label" parent="TagMatch/TagKey"]
-margin_top = 5.0
-margin_right = 56.0
-margin_bottom = 19.0
+margin_right = 239.0
+margin_bottom = 14.0
 text = "Tag Key: "
 
 [node name="LineEdit" type="LineEdit" parent="TagMatch/TagKey"]
-margin_left = 60.0
-margin_right = 227.0
-margin_bottom = 24.0
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 42.0
 size_flags_horizontal = 3
 placeholder_text = "Required & non-blank"
 
 [node name="PatternsLabel" type="Label" parent="TagMatch"]
-margin_top = 52.0
-margin_right = 227.0
-margin_bottom = 66.0
+margin_top = 88.0
+margin_right = 239.0
+margin_bottom = 102.0
 text = "Patterns:"
 
 [node name="Pattern" type="HBoxContainer" parent="TagMatch"]
-margin_top = 70.0
-margin_right = 227.0
-margin_bottom = 94.0
+margin_top = 106.0
+margin_right = 239.0
+margin_bottom = 130.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Edit" type="LineEdit" parent="TagMatch/Pattern"]
-margin_right = 199.0
+margin_right = 211.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -73,8 +87,8 @@ placeholder_text = "Type in New Pattern"
 placeholder_alpha = 0.3
 
 [node name="Tools" type="MenuButton" parent="TagMatch/Pattern"]
-margin_left = 203.0
-margin_right = 227.0
+margin_left = 215.0
+margin_right = 239.0
 margin_bottom = 24.0
 size_flags_vertical = 3
 text = "..."
@@ -82,16 +96,16 @@ flat = false
 items = [ "{ tools'll be loaded by script }", null, 0, false, false, 0, 0, null, "", false ]
 
 [node name="Patterns" type="ScrollContainer" parent="TagMatch"]
-margin_top = 98.0
-margin_right = 227.0
-margin_bottom = 148.0
+margin_top = 134.0
+margin_right = 239.0
+margin_bottom = 185.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="List" type="ItemList" parent="TagMatch/Patterns"]
-margin_right = 227.0
-margin_bottom = 50.0
+margin_right = 239.0
+margin_bottom = 51.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "{patterns here}", null, false ]
@@ -99,8 +113,8 @@ select_mode = 1
 allow_rmb_select = true
 
 [node name="RegEx" type="CheckBox" parent="TagMatch"]
-margin_top = 152.0
-margin_right = 227.0
-margin_bottom = 176.0
+margin_top = 189.0
+margin_right = 239.0
+margin_bottom = 213.0
 hint_tooltip = "None-Playable TagMatchues will act like randomized replies."
 text = "RegEx"

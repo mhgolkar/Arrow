@@ -28,7 +28,10 @@ var DEFAULT_NODE_DATA = {
 
 var This = self
 
-onready var Variables = get_node("./Generate/Variables")
+onready var VariablesInspector = Main.Mind.Inspector.Tab.Variables
+
+onready var Variables = get_node("./Generate/Filterable/Variables")
+onready var GlobalFilters = get_node("./Generate/Filterable/GlobalFilters")
 onready var Methods = get_node("./Generate/Methods")
 
 onready var ArgumentsBox = get_node("./Generate/Arguments")
@@ -69,6 +72,7 @@ func _ready() -> void:
 
 func register_connections() -> void:
 	Variables.connect("item_selected", self, "_on_variables_item_selected", [], CONNECT_DEFERRED)
+	GlobalFilters.connect("pressed", self, "refresh_variables_list", [], CONNECT_DEFERRED)
 	Methods.connect("item_selected", self, "_on_method_item_selected", [], CONNECT_DEFERRED)
 	RandomIntRangeFromValue.connect("value_changed", self, "_balance_from_to_for_randi", [], CONNECT_DEFERRED)
 	RandomIntRangeToValue.connect("value_changed", self, "_balance_from_to_for_randi", [], CONNECT_DEFERRED)
@@ -113,19 +117,36 @@ func refresh_variables_list(select_by_res_id:int = -1) -> void:
 	Variables.clear()
 	_PROJECT_VARIABLES_CACHE = Main.Mind.clone_dataset_of("variables")
 	if _PROJECT_VARIABLES_CACHE.size() > 0 :
-		var item_index := 0
+		var already = null
+		if a_node_is_open() && _OPEN_NODE.data.has("variable") && _OPEN_NODE.data.variable in _PROJECT_VARIABLES_CACHE :
+			already = _OPEN_NODE.data.variable
+		var global_filters = VariablesInspector.read_listing_instruction()
+		var apply_globals = GlobalFilters.is_pressed()
+		var listing = {}
 		for variable_id in _PROJECT_VARIABLES_CACHE:
 			var the_variable = _PROJECT_VARIABLES_CACHE[variable_id]
-			Variables.add_item(the_variable.name, variable_id)
-			Variables.set_item_metadata(item_index, variable_id)
-			item_index += 1
-		if select_by_res_id >= 0 :
-			var variable_item_index = find_listed_variable_index( select_by_res_id )
-			Variables.select( variable_item_index )
+			if variable_id == already || apply_globals == false || VariablesInspector.passes_filters(global_filters, variable_id, the_variable):
+				listing[the_variable.name] = variable_id
+		if listing.size() == 0:
+			Variables.add_item(NO_VARIABLE_TEXT, NO_VARIABLE_ID)
+			Variables.set_item_metadata(0, NO_VARIABLE_ID)
 		else:
-			if a_node_is_open() && _OPEN_NODE.data.has("variable") && _OPEN_NODE.data.variable in _PROJECT_VARIABLES_CACHE :
-				var variable_item_index = find_listed_variable_index( _OPEN_NODE.data.variable )
+			var listing_keys = listing.keys()
+			if apply_globals && global_filters.SORT_ALPHABETICAL:
+				listing_keys.sort()
+			var item_index := 0
+			for name in listing_keys:
+				var id = listing[name]
+				Variables.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+				Variables.set_item_metadata(item_index, id)
+				item_index += 1
+			if select_by_res_id >= 0 :
+				var variable_item_index = find_listed_variable_index( select_by_res_id )
 				Variables.select( variable_item_index )
+			else:
+				if already != null :
+					var variable_item_index = find_listed_variable_index(already)
+					Variables.select( variable_item_index )
 	else:
 		Variables.add_item(NO_VARIABLE_TEXT, NO_VARIABLE_ID)
 		Variables.set_item_metadata(0, NO_VARIABLE_ID)

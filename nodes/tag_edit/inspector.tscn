@@ -21,12 +21,28 @@ margin_right = 200.0
 margin_bottom = 14.0
 text = "For"
 
-[node name="Characters" type="OptionButton" parent="TagEdit"]
+[node name="Filterable" type="HBoxContainer" parent="TagEdit"]
 margin_top = 18.0
 margin_right = 200.0
 margin_bottom = 38.0
+
+[node name="Characters" type="OptionButton" parent="TagEdit/Filterable"]
+margin_right = 184.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 clip_text = true
+
+[node name="GlobalFilters" type="Button" parent="TagEdit/Filterable"]
+margin_left = 188.0
+margin_right = 200.0
+margin_bottom = 20.0
+hint_tooltip = "Apply Global Filters
+
+It will follow the same listing instructions
+that are defined in the Characters inspector.
++ Current character of the node is always listed."
+toggle_mode = true
+text = ""
 
 [node name="Edit" type="Label" parent="TagEdit"]
 margin_top = 42.0
@@ -46,7 +62,7 @@ margin_top = 84.0
 margin_right = 200.0
 margin_bottom = 108.0
 size_flags_horizontal = 3
-placeholder_text = "Key"
+placeholder_text = "Key (required & non-blank)"
 
 [node name="Value" type="LineEdit" parent="TagEdit"]
 margin_top = 112.0

@@ -123,7 +123,7 @@ func read_listing_instruction() -> Dictionary:
 		"SORT_ALPHABETICAL": SortAlphabetical.is_pressed(),
 	}
 
-func filters_pass_all(character: Dictionary, _LISTING: Dictionary) -> bool:
+func passes_char_filters(character: Dictionary, _LISTING: Dictionary) -> bool:
 	var passes = true # when there is no filter
 	if _LISTING.FILTER.size() > 0:
 		var pass_name =  Utils.filter_pass(character.name, _LISTING.FILTER[0])
@@ -141,6 +141,12 @@ func filters_pass_all(character: Dictionary, _LISTING: Dictionary) -> bool:
 		passes = (pass_name && pass_tag_key && pass_tag_value)
 	return (passes if _LISTING.FILTER_REVERSE == false else (!passes))
 
+func passes_filters(instruction: Dictionary, character_id: int, character: Dictionary) -> bool:
+	if passes_char_filters(character, instruction):
+		if instruction.FILTER_FOR_SCENE == false || Main.Mind.resource_is_used_in_scene(character_id, "characters"):
+			return true
+	return false
+
 # appends a list of characters to the existing ones
 # Note: this won't refresh the current list,
 # if a character exists (by id) it'll be updated, otherwise added
@@ -148,12 +154,11 @@ func list_characters(list_to_append:Dictionary) -> void :
 	var _LISTING = read_listing_instruction()
 	for character_id in list_to_append:
 		var the_character = list_to_append[character_id]
-		if filters_pass_all(the_character, _LISTING):
-			if _LISTING.FILTER_FOR_SCENE == false || Main.Mind.resource_is_used_in_scene(character_id, "characters"):
-				if _LISTED_CHARACTERS_BY_ID.has(character_id):
-					update_character_list_item(character_id, the_character)
-				else:
-					insert_character_list_item(character_id, the_character)
+		if passes_filters(_LISTING, character_id, the_character):
+			if _LISTED_CHARACTERS_BY_ID.has(character_id):
+				update_character_list_item(character_id, the_character)
+			else:
+				insert_character_list_item(character_id, the_character)
 	CharactersList.ensure_current_is_visible()
 	if _LISTING.SORT_ALPHABETICAL:
 		CharactersList.call_deferred("sort_items_by_text")

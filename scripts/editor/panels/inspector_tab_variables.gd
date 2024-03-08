@@ -125,6 +125,13 @@ func read_listing_instruction() -> Dictionary:
 		"SORT_ALPHABETICAL": SortAlphabetical.is_pressed(),
 	}
 
+func passes_filters(instruction: Dictionary, variable_id: int, variable: Dictionary) -> bool:
+	if Utils.filter_pass(variable.name, instruction.FILTER, instruction.FILTER_REVERSE):
+		if instruction.FILTER_IN_TYPE == null || variable.type == instruction.FILTER_IN_TYPE:
+			if instruction.FILTER_FOR_SCENE == false || Main.Mind.resource_is_used_in_scene(variable_id, "variables"):
+				return true
+	return false
+
 # appends a list of variables to the existing ones
 # CAUTION! this won't refresh the current list,
 # if a variable exists (by id) it'll be updated, otherwise added
@@ -132,13 +139,11 @@ func list_variables(list_to_append:Dictionary) -> void :
 	var _LISTING = read_listing_instruction()
 	for variable_id in list_to_append:
 		var the_variable = list_to_append[variable_id]
-		if Utils.filter_pass(the_variable.name, _LISTING.FILTER, _LISTING.FILTER_REVERSE):
-			if _LISTING.FILTER_IN_TYPE == null || the_variable.type == _LISTING.FILTER_IN_TYPE:
-				if _LISTING.FILTER_FOR_SCENE == false || Main.Mind.resource_is_used_in_scene(variable_id, "variables"):
-					if _LISTED_VARIABLES_BY_ID.has(variable_id):
-						update_variable_list_item(variable_id, the_variable)
-					else:
-						insert_variable_list_item(variable_id, the_variable)
+		if passes_filters(_LISTING, variable_id, the_variable):
+			if _LISTED_VARIABLES_BY_ID.has(variable_id):
+				update_variable_list_item(variable_id, the_variable)
+			else:
+				insert_variable_list_item(variable_id, the_variable)
 	VariablesList.ensure_current_is_visible()
 	if _LISTING.SORT_ALPHABETICAL:
 		VariablesList.call_deferred("sort_items_by_text")
