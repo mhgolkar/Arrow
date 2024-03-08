@@ -45,6 +45,10 @@ const TOOLS_MENU_BUTTON_POPUP = { # <id>:int { label:string, action:string<funct
 	5: null,
 	6: { "label": "Sort Patterns (Alphabetical)", "action": "sort_items_alphabetical" },
 	7: { "label": "Move Selected Top", "action": "move_selected_top" },
+	8: { "label": "Move Selected End", "action": "move_selected_end" },
+	9: null,
+	10: { "label": "Move Selected Up", "action": "move_selected_up" },
+	11: { "label": "Move Selected Down", "action": "move_selected_down" },
 }
 var _TOOLS_ITEM_INDEX_BY_ACTION = {}
 
@@ -61,6 +65,7 @@ func register_connections() -> void:
 	PatternsList.connect("multi_selected", self, "_toggle_available_tools_smartly", [], CONNECT_DEFERRED)
 	PatternsList.connect("item_rmb_selected", self, "_on_right_click_item_selection", [], CONNECT_DEFERRED)
 	PatternsList.connect("item_activated", self, "_on_double_click_item_activated", [], CONNECT_DEFERRED)
+	PatternsList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
 	pass
 	
 func load_tools_menu() -> void:
@@ -106,11 +111,45 @@ func move_selected_top(selected_patterns_idxs:Array = []) -> void:
 		if selected_patterns_idxs.size() == 0:
 			selected_patterns_idxs = PatternsList.get_selected_items()
 		if selected_patterns_idxs.size() >= 1:
-			# we shall move from the first element in order, so they keep staying in order
 			selected_patterns_idxs.sort()
 			while selected_patterns_idxs.size() > 0 :
 				var the_first_item = selected_patterns_idxs.pop_front()
 				move_item(0, the_first_item)
+	pass
+
+func move_selected_end(selected_patterns_idxs:Array = []) -> void:
+	if PatternsList.get_item_count() > 1 :
+		if selected_patterns_idxs.size() == 0:
+			selected_patterns_idxs = PatternsList.get_selected_items()
+		if selected_patterns_idxs.size() >= 1:
+			selected_patterns_idxs.sort()
+			var end = PatternsList.get_item_count() - 1;
+			while selected_patterns_idxs.size() > 0 :
+				var the_first_item = selected_patterns_idxs.pop_front()
+				move_item(end, the_first_item)
+	pass
+
+func move_selected_up(selected_patterns_idxs:Array = []) -> void:
+	if PatternsList.get_item_count() > 1 :
+		if selected_patterns_idxs.size() == 0:
+			selected_patterns_idxs = PatternsList.get_selected_items()
+		if selected_patterns_idxs.size() >= 1:
+			selected_patterns_idxs.sort()
+			while selected_patterns_idxs.size() > 0 :
+				var nth = selected_patterns_idxs.pop_front()
+				PatternsList.move_item(nth, max(0, nth - 1))
+	pass
+
+func move_selected_down(selected_patterns_idxs:Array = []) -> void:
+	if PatternsList.get_item_count() > 1 :
+		if selected_patterns_idxs.size() == 0:
+			selected_patterns_idxs = PatternsList.get_selected_items()
+		if selected_patterns_idxs.size() >= 1:
+			selected_patterns_idxs.sort()
+			var end = PatternsList.get_item_count() - 1;
+			while selected_patterns_idxs.size() > 0 :
+				var nth = selected_patterns_idxs.pop_back()
+				PatternsList.move_item(nth, min(end, nth + 1))
 	pass
 
 func sort_items_alphabetical() -> void:
@@ -312,4 +351,26 @@ func _create_new(new_node_id:int = -1) -> Dictionary:
 func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 	if translation.ids.has(data.character):
 		data.character = translation.ids[data.character]
+	pass
+
+func _on_list_gui_input(event) -> void:
+	if event is InputEventKey && event.is_pressed():
+		match event.get_physical_scancode():
+			KEY_DELETE:
+				if PatternsList.get_item_count() > PatternsList.get_selected_items().size(): # (Empty list is not allowed)
+					remove_selected_patterns()
+			KEY_HOME:
+				move_selected_top()
+			KEY_END:
+				move_selected_end()
+			KEY_PAGEUP:
+				move_selected_up()
+			KEY_UP:
+				if event.get_control():
+					move_selected_up()
+			KEY_PAGEDOWN:
+				move_selected_down()
+			KEY_DOWN:
+				if event.get_control():
+					move_selected_down()
 	pass
