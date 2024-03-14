@@ -138,8 +138,6 @@ class UiManager :
 	# detects 'fullscreen' well, 'maximize/restore' selectively and 'always on top / keep above' almost nowhere
 	func _on_screen_resized() -> void:
 		MAIN_UI.app_menu.call_deferred("update_menu_items_view")
-		# This happens after window restoration as well, so we can make sure panels restore after the window to avoid sliding:
-		self.call_deferred("_panels_restoration_after_window")
 		pass
 
 	func get_theme_adjustment_layers() -> Array:
@@ -190,6 +188,9 @@ class UiManager :
 
 	func _panels_restoration_after_window() -> void:
 		_WINDOW_RESTORED = true
+		# We use a timeout to make sure the window has done restoration
+		# to reduce the chance of sliding in few corner cases:
+		yield(TheTree.create_timer(0.25), "timeout")
 		restore_panels_state()
 		pass
 	
@@ -236,6 +237,8 @@ class UiManager :
 					OS.call_deferred("set_window_maximized", condition)
 				# "borderless":
 					# OS.call_deferred("set_borderless_window", condition)
+		# ...
+		self.call_deferred("_panels_restoration_after_window")
 		pass
 	
 	# updates view partially or fully depending on the `configuration`
