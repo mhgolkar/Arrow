@@ -28,7 +28,7 @@ var SUB_INSPCETORS
 var _LAST_OPEN_SUB_INSPECTOR
 var _CURRENT_STATE_OF_SUB_INSPECTOR_BLOCKER = true
 
-var REFERRERS_MENU_BUTTON_TEXT_TEMPLATE = "%s"
+var REFERRERS_MENU_BUTTON_TEXT_TEMPLATE = "{0} [{1}]"
 var _CURRENT_LOCATED_REF_ID = -1
 
 const RAW_UID_TIP_TEMPLATE = "Raw UID: %s \n[press button to copy]"
@@ -55,6 +55,7 @@ onready var NodeReferrersList = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.N
 onready var NodeReferrersListPopUp = NodeReferrersList.get_popup()
 onready var NodeReferrersGoToNext = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_REFERRERS_NEXT)
 onready var NodeReferrersGoToPrevious = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_REFERRERS_PREVIOUS)
+onready var NodeReferrersFilterForScene = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.NODE_REFERRERS_FILTER_FOR_SCENE)
 onready var FocusNodeButton = get_node(Addressbook.INSPECTOR.NODE.PROPERTIES.FOCUS_NODE_BUTTON)
 
 func _ready() -> void:
@@ -70,6 +71,7 @@ func register_connections() -> void:
 	NodeReferrersListPopUp.connect("index_pressed", self, "_on_go_to_menu_button_popup_index_pressed", [], CONNECT_DEFERRED)
 	NodeReferrersGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
 	NodeReferrersGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
+	NodeReferrersFilterForScene.connect("pressed", self, "refresh_referrers_list", [], CONNECT_DEFERRED)
 	FocusNodeButton.connect("pressed", self, "focus_grid_on_inspected", [], CONNECT_DEFERRED)
 	NodeHistoryBackButton.connect("pressed", self, "rotate_node_history", [true], CONNECT_DEFERRED)
 	NodeHistoryForeButton.connect("pressed", self, "rotate_node_history", [false], CONNECT_DEFERRED)
@@ -256,15 +258,20 @@ func update_referrers_list(node_id:int = _CURRENT_INSPECTED_NODE_RESOURCE_ID) ->
 	var referrers_size = _CURRENT_INSPECTED_NODE_REFERRERS.size()
 	if referrers_size > 0 :
 		NodeReferrersGroup.set_visible(true)
-		NodeReferrersList.set_text(REFERRERS_MENU_BUTTON_TEXT_TEMPLATE % referrers_size)
 		var item_index := 0
 		for user_node_id in _CURRENT_INSPECTED_NODE_REFERRERS:
-			var user_node = _CURRENT_INSPECTED_NODE_REFERRERS[user_node_id]
-			_CURRENT_INSPECTED_NODE_REFERRERS_IDS.append(user_node_id)
-			var user_node_name = user_node.name if true|| user_node.has("name") else ("Unnamed - %s" % user_node_id)
-			NodeReferrersListPopUp.add_item(user_node_name, user_node_id)
-			NodeReferrersListPopUp.set_item_metadata(item_index, user_node_id)
-			item_index += 1
+			if NodeReferrersFilterForScene.is_pressed() == false || Main.Mind.scene_owns_node(user_node_id) != null:
+				var user_node = _CURRENT_INSPECTED_NODE_REFERRERS[user_node_id]
+				_CURRENT_INSPECTED_NODE_REFERRERS_IDS.append(user_node_id)
+				var user_node_name = user_node.name if user_node.has("name") else ("Unnamed - %s" % user_node_id)
+				NodeReferrersListPopUp.add_item(user_node_name, user_node_id)
+				NodeReferrersListPopUp.set_item_metadata(item_index, user_node_id)
+				item_index += 1
+		NodeReferrersList.set_text( REFERRERS_MENU_BUTTON_TEXT_TEMPLATE.format([item_index, referrers_size]) )
+		var no_option = (item_index == 0)
+		NodeReferrersGoToNext.set_disabled(no_option)
+		NodeReferrersList.set_disabled(no_option)
+		NodeReferrersGoToPrevious.set_disabled(no_option)
 	else:
 		NodeReferrersGroup.set_visible(false)
 	pass

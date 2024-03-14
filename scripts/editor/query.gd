@@ -13,7 +13,7 @@ onready var Grid = get_node(Addressbook.GRID)
 onready var QueryInput = get_node(Addressbook.QUERY.QUERY_INPUT)
 onready var QuerySearchButton = get_node(Addressbook.QUERY.SEARCH_BUTTON)
 onready var QueryHowOptions = get_node(Addressbook.QUERY.HOW_OPTIONS)
-onready var QueryProjectWide = get_node(Addressbook.QUERY.PROJECT_WIDE)
+onready var QueryFilterForScene = get_node(Addressbook.QUERY.FILTER_FOR_SCENE)
 onready var QueryPreviousButton = get_node(Addressbook.QUERY.PREVIOUS_BUTTON)
 onready var QueryMatchesOptionButton = get_node(Addressbook.QUERY.MATCHES_OPTION_BUTTON)
 onready var QueryMatchesOptionButtonPopup = QueryMatchesOptionButton.get_popup()
@@ -59,7 +59,7 @@ func load_how_options() -> void:
 
 func do_query(string:String = "", grab_focus:bool = false) -> void:
 	var what = (string if (string.length() > 0) else QueryInput.get_text())
-	var project_wide_search = QueryProjectWide.is_pressed()
+	var project_wide_search = (! QueryFilterForScene.is_pressed() )
 	if what.length() > 0:
 		emit_signal("request_mind", "query_nodes", {
 			"what": what,

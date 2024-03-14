@@ -17,8 +17,8 @@ var _LISTED_VARIABLES_BY_NAME = {}
 
 var _SELECTED_VARIABLE_BEING_EDITED_ID = -1
 
-var _SELECTED_VARIABLE_USERS_IN_THE_SCENE = {} # id: {id, resource, map}
-var _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE = []
+var _SELECTED_VARIABLE_USERS = {} # id: {id, resource, map}
+var _SELECTED_VARIABLE_USER_IDS = []
 
 var _CURRENT_LOCATED_REF_ID = -1
 
@@ -46,12 +46,14 @@ onready var VariablesNewButton = get_node(Addressbook.INSPECTOR.VARIABLES.NEW_BU
 const VARIABLE_TYPE_IN_SELECTION_TEXT_TEMPLATE = "{name} ({type})"
 const VARIABLE_IN_LIST_TEXT_TEMPLATE = "{name} ({type}, {init})"
 
+onready var VariableAppearancePanel = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.VARIABLE_USAGES.itself)
 onready var VariableAppearanceGoToButton = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.VARIABLE_USAGES.GO_TO_MENU_BUTTON)
 onready var VariableAppearanceGoToButtonPopup = VariableAppearanceGoToButton.get_popup()
 onready var VariableAppearanceGoToPrevious = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.VARIABLE_USAGES.GO_TO_PREVIOUS)
 onready var VariableAppearanceGoToNext = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.VARIABLE_USAGES.GO_TO_NEXT)
+onready var VariableAppearanceFilterForScene = get_node(Addressbook.INSPECTOR.VARIABLES.VARIABLE_EDITOR.VARIABLE_USAGES.FILTER_FOR_SCENE)
 
-const VARIABLE_APPEARANCE_INDICATION_TEMPLATE = "{here} : {total}"
+const VARIABLE_APPEARANCE_COUNT_TEMPLATE = "{0} [{1}]"
 const RAW_UID_TIP_TEMPLATE = "Raw UID: %s \n[press button to copy]"
 
 func _ready() -> void:
@@ -70,6 +72,7 @@ func register_connections() -> void:
 	VariableAppearanceGoToButtonPopup.connect("index_pressed", self, "_on_go_to_menu_button_popup_index_pressed", [], CONNECT_DEFERRED)
 	VariableAppearanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
 	VariableAppearanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
+	VariableAppearanceFilterForScene.connect("pressed", self, "refresh_referrers_list", [], CONNECT_DEFERRED)
 	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	FilterInType.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
@@ -256,53 +259,46 @@ func refresh_referrers_list() -> void:
 	pass
 
 func update_usage_pagination(variable_id:int) -> void:
-	refresh_variable_cache_by_id(variable_id)
-	_SELECTED_VARIABLE_USERS_IN_THE_SCENE.clear()
-	_SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.clear()
 	VariableAppearanceGoToButtonPopup.clear()
-	var count = {
-		"total": 0,
-		"here": 0
-	}
-	# sort,
-	var the_variable = _LISTED_VARIABLES_BY_ID[variable_id]
-	if the_variable.has("use"):
-		for referrer_id in the_variable.use:
-			var local_referrer_overview = Main.Mind.scene_owns_node(referrer_id)
-			if local_referrer_overview != null:
-				_SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.append(referrer_id)
-				_SELECTED_VARIABLE_USERS_IN_THE_SCENE[referrer_id] = local_referrer_overview
-		count.total = the_variable.use.size()
-		count.here = _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.size()
-	# update ...
-	VariableAppearanceGoToButton.set_text( VARIABLE_APPEARANCE_INDICATION_TEMPLATE.format(count) )
-	if count.here > 0 :
+	_SELECTED_VARIABLE_USER_IDS = []
+	_SELECTED_VARIABLE_USERS = Main.Mind.list_referrers(variable_id)
+	var referrers_size = _SELECTED_VARIABLE_USERS.size()
+	if referrers_size > 0 :
+		VariableAppearancePanel.set_visible(true)
 		var item_index := 0
-		for referrer_id in _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE:
-			VariableAppearanceGoToButtonPopup.add_item(
-				_SELECTED_VARIABLE_USERS_IN_THE_SCENE[referrer_id].resource.name,
-				referrer_id
-			)
-			VariableAppearanceGoToButtonPopup.set_item_metadata(item_index, referrer_id)
-			item_index += 1
-	var no_goto = (! (count.here > 0))
-	VariableAppearanceGoToButton.set_disabled( no_goto )
-	VariableAppearanceGoToPrevious.set_disabled( no_goto )
-	VariableAppearanceGoToNext.set_disabled( no_goto )
+		for user_node_id in _SELECTED_VARIABLE_USERS:
+			if VariableAppearanceFilterForScene.is_pressed() == false || Main.Mind.scene_owns_node(user_node_id) != null:
+				var user_node = _SELECTED_VARIABLE_USERS[user_node_id]
+				_SELECTED_VARIABLE_USER_IDS.append(user_node_id)
+				var user_node_name = user_node.name if user_node.has("name") else ("Unnamed - %s" % user_node_id)
+				VariableAppearanceGoToButtonPopup.add_item(user_node_name, user_node_id)
+				VariableAppearanceGoToButtonPopup.set_item_metadata(item_index, user_node_id)
+				item_index += 1
+		VariableAppearanceGoToButton.set_text( VARIABLE_APPEARANCE_COUNT_TEMPLATE.format([item_index, referrers_size]) )
+		var no_option = (item_index == 0)
+		VariableAppearanceGoToPrevious.set_disabled(no_option)
+		VariableAppearanceGoToButton.set_disabled(no_option)
+		VariableAppearanceGoToNext.set_disabled(no_option)
+	else:
+		VariableAppearancePanel.set_visible(false)
 	pass
 
 func _on_go_to_menu_button_popup_index_pressed(referrer_idx:int) -> void:
 	# (We can not use `id_pressed` because currently Godot support is limited to i32 item IDs.)
-	var referrer_id = _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE[referrer_idx]
+	var referrer_id = _SELECTED_VARIABLE_USER_IDS[referrer_idx]
 	if referrer_id >= 0:
 		_CURRENT_LOCATED_REF_ID = referrer_id
-		Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
+		emit_signal("relay_request_mind", "locate_node_on_grid", {
+			"id": referrer_id,
+			"highlight": true,
+			"force": true, # ... to change open scene
+		})
 	pass
 
 func _rotate_go_to(direction: int) -> void:
-	var count = _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.size()
+	var count = _SELECTED_VARIABLE_USER_IDS.size()
 	if count > 0:
-		var current_located_index = _SELECTED_VARIABLE_USER_IDS_IN_THE_SCENE.find(_CURRENT_LOCATED_REF_ID)
+		var current_located_index = _SELECTED_VARIABLE_USER_IDS.find(_CURRENT_LOCATED_REF_ID)
 		var goto = max(-1, current_located_index + direction)
 		if goto >= count:
 			goto = 0

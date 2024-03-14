@@ -23,8 +23,8 @@ var _LISTED_MACROS_BY_NAME = {}
 # > You can use `get_selected_macro_id()` for the selected one
 var _SELECTED_MACRO_BEING_EDITED_ID = -1
 
-var _SELECTED_MACRO_USERS_IN_THE_SCENE = {} # id: {id, resource, map}
-var _SELECTED_MACRO_USER_IDS_IN_THE_SCENE = []
+var _SELECTED_MACRO_USERS = {} # id: {id, resource, map}
+var _SELECTED_MACRO_USER_IDS = []
 
 var _CURRENT_LOCATED_REF_ID = -1
 
@@ -50,8 +50,9 @@ onready var MacroInstanceGoToButton = get_node(Addressbook.INSPECTOR.MACROS.MACR
 onready var MacroInstanceGoToButtonPopup = MacroInstanceGoToButton.get_popup()
 onready var MacroInstanceGoToPrevious = get_node(Addressbook.INSPECTOR.MACROS.MACRO_INSTANCES.GO_TO_PREVIOUS)
 onready var MacroInstanceGoToNext = get_node(Addressbook.INSPECTOR.MACROS.MACRO_INSTANCES.GO_TO_NEXT)
+onready var MacroInstanceFilterForScene = get_node(Addressbook.INSPECTOR.MACROS.MACRO_INSTANCES.FILTER_FOR_SCENE)
 
-const MACRO_INSTANCE_INDICATION_TEMPLATE = "{here} : {total}"
+const MACRO_USERS_COUNT_TEMPLATE = "{0} [{1}]"
 const RAW_UID_TIP_TEMPLATE = "Raw UID: %s \n[press button to copy]"
 
 func _ready() -> void:
@@ -73,6 +74,7 @@ func register_connections() -> void:
 	MacroInstanceGoToButtonPopup.connect("index_pressed", self, "_on_go_to_menu_button_popup_index_pressed", [], CONNECT_DEFERRED)
 	MacroInstanceGoToPrevious.connect("pressed", self, "_rotate_go_to", [-1], CONNECT_DEFERRED)
 	MacroInstanceGoToNext.connect("pressed", self, "_rotate_go_to", [1], CONNECT_DEFERRED)
+	MacroInstanceFilterForScene.connect("pressed", self, "refresh_referrers_list", [], CONNECT_DEFERRED)
 	Filter.connect("text_changed", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	FilterReverse.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
 	FilterForScene.connect("toggled", self, "_on_listing_instruction_change", [], CONNECT_DEFERRED)
@@ -351,55 +353,46 @@ func refresh_referrers_list() -> void:
 	pass
 
 func update_instance_pagination(macro_id:int = -1) -> void:
-	if macro_id >= 0 && _LISTED_MACROS_BY_ID.has(macro_id):
-		refresh_macro_cache_by_id(macro_id)
-		_SELECTED_MACRO_USERS_IN_THE_SCENE.clear()
-		_SELECTED_MACRO_USER_IDS_IN_THE_SCENE.clear()
-		MacroInstanceGoToButtonPopup.clear()
-		var count = {
-			"total": 0,
-			"here": 0
-		}
-		var the_macro = _LISTED_MACROS_BY_ID[macro_id]
-		if the_macro.has("use"):
-			for referrer_id in the_macro.use:
-				var local_referrer_overview = Main.Mind.scene_owns_node(referrer_id)
-				if local_referrer_overview != null:
-					_SELECTED_MACRO_USER_IDS_IN_THE_SCENE.append(referrer_id)
-					_SELECTED_MACRO_USERS_IN_THE_SCENE[referrer_id] = local_referrer_overview
-			count.total = the_macro.use.size()
-			count.here = _SELECTED_MACRO_USER_IDS_IN_THE_SCENE.size()
-		MacroInstanceGoToButton.set_text( MACRO_INSTANCE_INDICATION_TEMPLATE.format(count) )
-		if count.here > 0 :
-			var item_index := 0
-			for referrer_id in _SELECTED_MACRO_USER_IDS_IN_THE_SCENE:
-				MacroInstanceGoToButtonPopup.add_item(
-					_SELECTED_MACRO_USERS_IN_THE_SCENE[referrer_id].resource.name,
-					referrer_id
-				)
-				MacroInstanceGoToButtonPopup.set_item_metadata(item_index, referrer_id)
+	MacroInstanceGoToButtonPopup.clear()
+	_SELECTED_MACRO_USER_IDS = []
+	_SELECTED_MACRO_USERS = Main.Mind.list_referrers(macro_id)
+	var referrers_size = _SELECTED_MACRO_USERS.size()
+	if referrers_size > 0 :
+		MacroInstancePanel.set_visible(true)
+		var item_index := 0
+		for user_node_id in _SELECTED_MACRO_USERS:
+			if MacroInstanceFilterForScene.is_pressed() == false || Main.Mind.scene_owns_node(user_node_id) != null:
+				var user_node = _SELECTED_MACRO_USERS[user_node_id]
+				_SELECTED_MACRO_USER_IDS.append(user_node_id)
+				var user_node_name = user_node.name if user_node.has("name") else ("Unnamed - %s" % user_node_id)
+				MacroInstanceGoToButtonPopup.add_item(user_node_name, user_node_id)
+				MacroInstanceGoToButtonPopup.set_item_metadata(item_index, user_node_id)
 				item_index += 1
-		var no_goto = (! (count.here > 0))
-		MacroInstanceGoToButton.set_disabled( no_goto )
-		MacroInstanceGoToPrevious.set_disabled( no_goto )
-		MacroInstanceGoToNext.set_disabled( no_goto )
-		MacroInstancePanel.set("visible", true)
+		MacroInstanceGoToButton.set_text( MACRO_USERS_COUNT_TEMPLATE.format([item_index, referrers_size]) )
+		var no_option = (item_index == 0)
+		MacroInstanceGoToPrevious.set_disabled(no_option)
+		MacroInstanceGoToButton.set_disabled(no_option)
+		MacroInstanceGoToNext.set_disabled(no_option)
 	else:
-		MacroInstancePanel.set("visible", false)
+		MacroInstancePanel.set_visible(false)
 	pass
 
 func _on_go_to_menu_button_popup_index_pressed(referrer_idx:int) -> void:
 	# (We can not use `id_pressed` because currently Godot support is limited to i32 item IDs.)
-	var referrer_id = _SELECTED_MACRO_USER_IDS_IN_THE_SCENE[referrer_idx]
+	var referrer_id = _SELECTED_MACRO_USER_IDS[referrer_idx]
 	if referrer_id >= 0:
 		_CURRENT_LOCATED_REF_ID = referrer_id
-		Grid.call_deferred("go_to_offset_by_node_id", referrer_id, true)
+		emit_signal("relay_request_mind", "locate_node_on_grid", {
+			"id": referrer_id,
+			"highlight": true,
+			"force": true, # ... to change open scene
+		})
 	pass
 
 func _rotate_go_to(direction: int) -> void:
-	var count = _SELECTED_MACRO_USER_IDS_IN_THE_SCENE.size()
+	var count = _SELECTED_MACRO_USER_IDS.size()
 	if count > 0:
-		var current_located_index = _SELECTED_MACRO_USER_IDS_IN_THE_SCENE.find(_CURRENT_LOCATED_REF_ID)
+		var current_located_index = _SELECTED_MACRO_USER_IDS.find(_CURRENT_LOCATED_REF_ID)
 		var goto = max(-1, current_located_index + direction)
 		if goto >= count:
 			goto = 0

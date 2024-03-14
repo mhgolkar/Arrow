@@ -184,6 +184,7 @@ const INSPECTOR = {
 			"NODE_REFERRERS_MENU_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel/NodeRefs/Referrers",
 			"NODE_REFERRERS_NEXT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel/NodeRefs/Next",
 			"NODE_REFERRERS_PREVIOUS": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel/NodeRefs/Previous",
+			"NODE_REFERRERS_FILTER_FOR_SCENE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel/NodeRefs/FilterForScene",
 			"SUB_INSPECTOR_HOLDER": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/VSplitContainer/SubInspectorHolder",
 			"NODE_NOTES_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/VSplitContainer/NodeNotes/Edit",
 			"FOCUS_NODE_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeState/ShowFocusNode",
@@ -245,6 +246,7 @@ const INSPECTOR = {
 			"GO_TO_MENU_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination/GoToInstance",
 			"GO_TO_PREVIOUS": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination/PreviousInstance",
 			"GO_TO_NEXT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination/NextInstance",
+			"FILTER_FOR_SCENE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination/FilterForScene",
 		}
 	},
 	"VARIABLES": {
@@ -264,6 +266,7 @@ const INSPECTOR = {
 				"GO_TO_MENU_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination/GoToUsage",
 				"GO_TO_PREVIOUS": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination/PreviousUsage",
 				"GO_TO_NEXT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination/NextUsage",
+				"FILTER_FOR_SCENE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination/FilterForScene",
 			},
 			"RAW_UID": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer/RawUID",
 			"NAME_EDIT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/HBoxContainer/VariablesNameEdit",
@@ -309,6 +312,7 @@ const INSPECTOR = {
 			"GO_TO_MENU_BUTTON": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination/GoToAppearance",
 			"GO_TO_PREVIOUS": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination/PreviousAppearance",
 			"GO_TO_NEXT": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination/NextAppearance",
+			"FILTER_FOR_SCENE": "/root/Main/FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination/FilterForScene",
 		}
 	}
 }
@@ -336,7 +340,7 @@ const QUERY = {
 	"QUERY_INPUT": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/QueryInput",
 	"SEARCH_BUTTON": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/Search",
 	"HOW_OPTIONS": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/How",
-	"PROJECT_WIDE": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/ProjectWide",
+	"FILTER_FOR_SCENE": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/FilterForScene",
 	"PREVIOUS_BUTTON": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/PreviousMatch",
 	"MATCHES_OPTION_BUTTON": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/Matches",
 	"NEXT_BUTTON": "/root/Main/Editor/Bottom/QueryPanel/HBoxContainer/NextMatch",

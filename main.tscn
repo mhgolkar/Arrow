@@ -2509,6 +2509,13 @@ margin_bottom = 27.0
 hint_tooltip = "Locate Next Referrer"
 text = ""
 
+[node name="FilterForScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties/NodeRefPanel/NodeRefs"]
+margin_right = 24.0
+margin_bottom = 23.0
+hint_tooltip = "Filter for Scene"
+toggle_mode = true
+text = ""
+
 [node name="NodeState" type="HBoxContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Node/Properties"]
 margin_top = 332.0
 margin_right = 253.0
@@ -2805,6 +2812,13 @@ margin_right = 108.0
 margin_bottom = 23.0
 hint_tooltip = "Locate Next Referrer"
 text = ""
+
+[node name="FilterForScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer/MacroInstances/MacroInstancesPagination"]
+margin_right = 24.0
+margin_bottom = 23.0
+hint_tooltip = "Filter for Scene"
+toggle_mode = true
+text = ""
 
 [node name="OpenMacroConfigs" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Macros/VBoxContainer"]
 margin_top = 292.0
@@ -3112,6 +3126,13 @@ margin_bottom = 23.0
 hint_tooltip = "Locate Next Referrer"
 text = ""
 
+[node name="FilterForScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer/VariableEditor/VBoxContainer/VariableUsages/VariableUsagesPagination"]
+margin_right = 24.0
+margin_bottom = 23.0
+hint_tooltip = "Filter for Scene"
+toggle_mode = true
+text = ""
+
 [node name="PanelContainer" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Variables/VBoxContainer"]
 margin_top = 337.0
 margin_right = 278.0
@@ -3375,6 +3396,13 @@ margin_right = 108.0
 margin_bottom = 23.0
 hint_tooltip = "Locate Next Referrer"
 text = ""
+
+[node name="FilterForScene" type="Button" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer/CharacterEditor/VBoxContainer/CharacterAppearance/CharacterAppearancePagination"]
+margin_right = 24.0
+margin_bottom = 23.0
+hint_tooltip = "Filter for Scene"
+toggle_mode = true
+text = ""
 
 [node name="CharacterCreate" type="PanelContainer" parent="FloatToolsLayer/Container/Inspector/VBoxContainer/TabContainer/Characters/VBoxContainer"]
 margin_top = 337.0
@@ -4322,11 +4350,12 @@ text = "{ how }"
 items = [ "{ how }", null, false, 0, null ]
 selected = 0
 
-[node name="ProjectWide" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
+[node name="FilterForScene" type="Button" parent="Editor/Bottom/QueryPanel/HBoxContainer"]
 margin_left = 329.0
 margin_right = 358.0
 margin_bottom = 27.0
-hint_tooltip = "Search Project Wide (otherwise only in the current open scene)"
+hint_tooltip = "Filter for Scene
+(otherwise search project wide)"
 size_flags_horizontal = 3
 toggle_mode = true
 text = ""
