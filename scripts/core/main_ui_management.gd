@@ -138,6 +138,8 @@ class UiManager :
 	# detects 'fullscreen' well, 'maximize/restore' selectively and 'always on top / keep above' almost nowhere
 	func _on_screen_resized() -> void:
 		MAIN_UI.app_menu.call_deferred("update_menu_items_view")
+		# This happens after window restoration as well, so we can make sure panels restore after the window to avoid sliding:
+		self.call_deferred("_panels_restoration_after_window")
 		pass
 
 	func get_theme_adjustment_layers() -> Array:
@@ -183,14 +185,27 @@ class UiManager :
 			}
 		return stateful
 	
-	func restore_panels_state(tracked: Dictionary) -> void:
-		for panel in tracked:
-			var as_node = PANELS[panel]
-			var state = tracked[panel]
-			as_node._set_size(state.size)
-			as_node._set_position(state.position)
-			if state.open is bool:
-				set_panel_visibility(panel, state.open)
+	var _WINDOW_RESTORED: bool = false
+	var _PANELS_TRACKED: Dictionary = {}
+
+	func _panels_restoration_after_window() -> void:
+		_WINDOW_RESTORED = true
+		restore_panels_state()
+		pass
+	
+	func restore_panels_state(tracked = null) -> void:
+		if tracked is Dictionary:
+			_PANELS_TRACKED = tracked
+		if _WINDOW_RESTORED && _PANELS_TRACKED.size() > 0:
+			print_debug("restoring panels state: ", _PANELS_TRACKED)
+			for panel in _PANELS_TRACKED:
+				var as_node = PANELS[panel]
+				var state = _PANELS_TRACKED[panel]
+				as_node.call_deferred("_set_size", state.size)
+				as_node.call_deferred("_set_position", state.position)
+				if state.open is bool:
+					self.call_deferred("set_panel_visibility", panel, state.open)
+			_PANELS_TRACKED = {}
 		pass
 
 	func read_window_state() -> Dictionary:
