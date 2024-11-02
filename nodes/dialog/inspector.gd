@@ -416,3 +416,10 @@ func _on_list_gui_input(event) -> void:
 				if event.get_control():
 					move_selected_down()
 	pass
+
+static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
+	var base_key = String(id) + "-dialog-line-"
+	var i18n = {}
+	for idx in range(0, node.data.lines.size()):
+		i18n[base_key + String(idx)] = node.data.lines[idx]
+	return i18n

@@ -45,6 +45,7 @@ const MORE_TOOLS_MENU_BUTTON_POPUP = {
 	2: null, # separator
 	3: { "label": "Export JSON", "action": "request_json_export" },
 	4: { "label": "Export HTML", "action": "request_html_export" },
+	5: { "label": "Export CSV", "action": "request_csv_export" },
 }
 var _MORE_TOOLS_ITEM_INDEX_BY_ACTION = {}
 
@@ -274,6 +275,13 @@ func request_html_export() -> void:
 		emit_signal("relay_request_mind", "export_project_from_browser", "html")
 	else:
 		prompt_for_save( Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.EXPORT_HTML, ["html"] )
+	pass
+
+func request_csv_export() -> void:
+	if Html5Helpers.Utils.is_browser():
+		emit_signal("relay_request_mind", "export_project_from_browser", "csv")
+	else:
+		prompt_for_save( Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.EXPORT_CSV, ["csv"] )
 	pass
 
 func proceed_export(path:String, format = null) -> void:

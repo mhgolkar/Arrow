@@ -54,6 +54,7 @@ const PROJECT_FILE_NAME_PURGED_WORDS_REPLACEMENT = "_"
 const PROJECT_FILE_RESTRICTED_NAMES = ["projects", "config", ""] # Final filenames can not be any of these
 # ...
 const PROJECT_FILE_JSON_DEFAULT_IDENT = "\t"
+const CSV_EXPORT_SEPARATOR = "\t"
 # ...
 # Binary save files are deprecated.
 # You can open and automatically (re-)save them in textual format; 
@@ -272,6 +273,12 @@ const PATH_DIALOG_PROPERTIES = {
 			"mode": FileDialog.MODE_SAVE_FILE,
 			"access": FileDialog.ACCESS_FILESYSTEM,
 			"filters": PoolStringArray(["*.html ; Playable HTML"])
+		},
+		"EXPORT_CSV": {
+			"window_title": "Export CSV (Translation)",
+			"mode": FileDialog.MODE_SAVE_FILE,
+			"access": FileDialog.ACCESS_FILESYSTEM,
+			"filters": PoolStringArray(["*.csv ; Translation File"])
 		}
 	},
 	"DIRECTORY" : {

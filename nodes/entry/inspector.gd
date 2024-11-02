@@ -78,3 +78,9 @@ func _read_parameters() -> Dictionary:
 func _create_new(new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
+
+static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
+	var base_key = String(id) + "-entry-"
+	return {
+		base_key + "plaque": node.data.plaque,
+	}

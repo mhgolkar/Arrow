@@ -175,3 +175,12 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 				for exposure in revised:
 					data[field] = data[field].replace(exposure, revised[exposure])
 	pass
+
+static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
+	var base_key = String(id) + "-content-"
+	var i18n = {}
+	if node.data.has("title"):
+		i18n[base_key + "title"] = node.data.title
+	if node.data.has("content"):
+		i18n[base_key + "content"] = node.data.content
+	return i18n

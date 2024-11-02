@@ -715,3 +715,44 @@ class Generators:
 		print_debug("random: ", from, to, negative, even, odd, " -- result --> ", result)
 		return result
 	
+class Mood:
+	
+	var snippet: String = ""
+	var purged: String
+	
+	var kind: String = ""
+	var level: int = 0
+	var reset: bool = true
+	
+	# Moods are tags added at the beginning of a content mostly as machine readable metadata.
+	# This patterns helps extracting mood snippets like [code]Happy,2,true[/code] (inside brackets) (i.e. mood-kind, level, auto-reset)
+	# from beginning of a string. We should ignore similar snippets if they are not at the beginning.
+	const _REGEX_MOOD_SNIPPET_PATTERN := "^\\s*\\[([a-zA-z \\-_]*)?\\s*,?\\s*(\\-?\\+?[0-9]*)?\\s*,?\\s*(false|keep|~|true|reset)?\\]\\s*"
+	
+	# This method tries to default for each mood segment (even for empty array) to `["", 0, true]`.
+	# It also returns an object with blank snippet and default parameters if no mood is there.
+	# This method accepts the sign `~` and "keep" as alternatives for `false` reset value, and every thing else for `true`.
+	# For example, `[Excited,~]` is equal to `[Excited,false]`.
+	func _init(from: String):
+		var regex = RegEx.new()
+		var compiled = regex.compile(_REGEX_MOOD_SNIPPET_PATTERN)
+		self.purged = from
+		if compiled == OK:
+			var matched = regex.search(from)
+			if matched != null:
+				self.snippet = matched.get_string(0)
+				self.purged = from.replace(matched.get_string(0), "")
+				self.kind = matched.get_string(1).strip_edges()
+				self.level = int(matched.get_string(2).strip_edges())
+				self.reset = false if ["false", "keep", "~"].has(matched.get_string(3).strip_edges().to_lower()) else true
+		else:
+			printerr("Unexpectedly unable to compile the Mood._REGEX_MOOD_SNIPPET_PATTERN to extract moods")
+
+	static func purge(from: String) -> String:
+		var regex = RegEx.new()
+		var compiled = regex.compile(_REGEX_MOOD_SNIPPET_PATTERN)
+		if compiled == OK:
+			var matched = regex.search(from)
+			if matched != null:
+				return from.replace(matched.get_string(0), "")
+		return from

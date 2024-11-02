@@ -2623,6 +2623,8 @@ class Mind :
 						saved = ProMan.save_playable_html(full_export_file_path, _PROJECT)
 						if saved == OK :
 							OS.shell_open(full_export_file_path)
+					"csv":
+						saved = ProMan.save_project_csv(full_export_file_path, _PROJECT)
 				if saved != OK:
 					printerr('Unable to Read template or Write to the file!', full_export_file_path, saved)
 					show_error(
@@ -2658,6 +2660,10 @@ class Mind :
 						JavaScript.download_buffer(html.to_utf8(), suggested_filename + ".html")
 					else:
 						printerr("Unable to parse_playable_html", html)
+				"csv":
+					var path = suggested_filename + ".csv"
+					var csv = ProMan.parse_project_csv(_PROJECT, path, Settings.CSV_EXPORT_SEPARATOR)
+					JavaScript.download_buffer(csv.to_utf8(), path)
 			_QUICK_EXPORT_FORMAT = format
 		else:
 			printerr("Trying to export_project_from_browser out of the context!")

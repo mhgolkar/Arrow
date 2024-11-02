@@ -219,3 +219,9 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 				for exposure in revised:
 					data[field] = data[field].replace(exposure, revised[exposure])
 	pass
+
+static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
+	var base_key = String(id) + "-monolog-"
+	return {
+		base_key + "monolog": node.data.monolog,
+	}

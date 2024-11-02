@@ -604,3 +604,88 @@ class ProjectManager :
 		)
 		pass
 	
+	# Other exports
+
+	static func _sort_csv_by_key_ascending(a, b):
+		return a[0].naturalnocasecmp_to(b[0]) < 0
+
+	func recreate_csv_rows(project: Dictionary, try_update_existing_path: String = "", separator: String = Settings.CSV_EXPORT_SEPARATOR) -> Array: # ... of PoolStringArray lines
+		var csv_columns_labels = []
+		var mapping = {}
+		# Read the existing csv file to update if any and remap
+		if try_update_existing_path.length() > 0:
+			var file = File.new()
+			var existing = file.open(try_update_existing_path, File.READ)
+			if existing == OK:
+				var file_length = file.get_len()
+				while file.get_position() < file_length:
+					var line = file.get_csv_line(separator)
+					if csv_columns_labels.size() == 0: # first line is expected to always include the table headings
+						csv_columns_labels = line
+					else: # other lines
+						mapping[line[0]] = {}
+						for c in range(0, csv_columns_labels.size()):
+							mapping[line[0]][csv_columns_labels[c]] = line[c]
+				file.close()
+			else:
+				print_debug("Warn! no such file existed to recreate CSV, *creating from scratch*")
+		# If there was no previously made file, we use default columns
+		if csv_columns_labels.size() < 2:
+			csv_columns_labels = ["key", "original"] # Note also that we always expect that the first and second columns, no matter the label, to be the key and the original value
+		# Now update the data mapping
+		var keys_alive = [] # We also keep the keys that are met, to purge the dopped data from CSV file.
+		for node_id in project.resources.nodes:
+			var node = project.resources.nodes[node_id]
+			var type_inspector = _MAIN.Mind.NODE_TYPES_LIST[node.type].inspector.instance()
+			var parts_mapping =  type_inspector.map_i18n_data(node_id, node) if type_inspector.has_method("map_i18n_data") else {}
+			for part_key in parts_mapping:
+				keys_alive.push_back(part_key)
+				if mapping.has(part_key) == false:
+					mapping[part_key] = {}
+				if (
+					mapping[part_key].has(csv_columns_labels[1]) == false ||
+					(
+						mapping[part_key][csv_columns_labels[1]] != parts_mapping[part_key] &&
+						# NOTE: purged form of the original value is considered unchanged as well
+						mapping[part_key][csv_columns_labels[1]] != Helpers.Mood.purge(parts_mapping[part_key])
+					)
+				):
+					mapping[part_key][csv_columns_labels[1]] = parts_mapping[part_key]
+					for other in range(2, csv_columns_labels.size()):
+						mapping[part_key][csv_columns_labels[other]] = ""
+		# Recreate lines and sort them
+		var csv = []
+		for key in mapping:
+			if keys_alive.has(key):
+				var line = PoolStringArray()
+				line.push_back(key)
+				for i in range(1, csv_columns_labels.size()):
+					line.push_back(mapping[key][csv_columns_labels[i]] if mapping[key].has(csv_columns_labels[i]) else "")
+				csv.push_back(line)
+		csv.sort_custom(ProjectManager, "_sort_csv_by_key_ascending")
+		csv.push_front(csv_columns_labels)
+		# ...
+		return csv
+
+	func parse_project_csv(project: Dictionary, try_update_existing_path: String = "", separator: String = Settings.CSV_EXPORT_SEPARATOR) -> String:
+		var csv_rows = recreate_csv_rows(project, try_update_existing_path, separator)
+		var processed_rows = []
+		for row in csv_rows:
+			var processed_columns = []
+			for column in row:
+				var processed = column.replace('"', '""')
+				processed = processed if processed.find("\n") == -1 && processed.find(separator) == -1 && processed.find('""') == -1 else "\"" + processed + "\""
+				processed_columns.push_back(processed)
+			processed_rows.push_back(separator.join(processed_columns))
+		return "\n".join(processed_rows) + "\n"
+	
+	func save_project_csv(full_export_file_path:String, project:Dictionary, separator: String = Settings.CSV_EXPORT_SEPARATOR):
+		var csv_doc = parse_project_csv(project, full_export_file_path, separator)
+		var file = File.new()
+		var open_file = file.open(full_export_file_path, File.WRITE)
+		if open_file == OK:
+			file.store_string(csv_doc)
+			file.close()
+			return OK
+		else:
+			return open_file

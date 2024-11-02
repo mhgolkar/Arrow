@@ -334,3 +334,10 @@ func _on_list_gui_input(event) -> void:
 				if event.get_control():
 					move_selected_down()
 	pass
+
+static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
+	var base_key = String(id) + "-interaction-action-"
+	var i18n = {}
+	for idx in range(0, node.data.actions.size()):
+		i18n[base_key + String(idx)] = node.data.actions[idx]
+	return i18n

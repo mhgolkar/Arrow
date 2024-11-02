@@ -310,3 +310,18 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 				for exposure in revised:
 					data[field] = data[field].replace(exposure, revised[exposure])
 	pass
+
+static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
+	var base_key = String(id) + "-user_input-"
+	var i18n = {
+		base_key + "prompt": node.data.prompt,
+	}
+	if node.data.custom.size() == 3: # str or bool
+		if node.data.custom[2] is String: # str: [pattern, default, extra] (all strings)
+			# DEV: Default value is not UI information so we do not translate it. If you need that uncomment the following line.
+			# i18n[base_key + "custom-default"] = node.data.custom[1]
+			i18n[base_key + "custom-extra"] = node.data.custom[2]
+		else: # bool: [negative, positive, default-state] (two strings and a boolean)
+			i18n[base_key + "custom-negative"] = node.data.custom[0]
+			i18n[base_key + "custom-positive"] = node.data.custom[1]
+	return i18n

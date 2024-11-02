@@ -173,3 +173,10 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 	if translation.ids.has(data.character):
 		data.character = translation.ids[data.character]
 	pass
+
+#static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
+#	var base_key = String(id) + "-tag_edit-"
+#	return {
+#		base_key + "name": node.data.edit[1],
+#		base_key + "value": node.data.edit[2],
+#	}
