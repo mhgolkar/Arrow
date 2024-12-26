@@ -20,6 +20,7 @@ onready var Grid = get_node(Addressbook.GRID)
 # Quick Preferences (defaults)
 export var _AUTO_INSPECT:bool = true
 export var _AUTO_NODE_UPDATE:bool = true
+export var _RESET_ON_REINSPECTION:bool = true
 export var _QUICK_NODE_INSERTION:bool = true
 export var _CONNECTION_ASSIST:bool = true
 export var _AUTO_REBUILD_RUNTIME_TEMPLATES:bool = false
@@ -89,6 +90,8 @@ func set_quick_preferences(preference:String, new_state:bool, refresh_view:bool 
 			_AUTO_INSPECT = new_state
 		"auto_node_update":
 			_AUTO_NODE_UPDATE = new_state
+		"reset_on_reinspection":
+			_RESET_ON_REINSPECTION = new_state
 		"quick_node_insertion":
 			_QUICK_NODE_INSERTION = new_state
 			Grid._ALLOW_QUICK_NODE_INSERTION = new_state
@@ -108,6 +111,8 @@ func toggle_quick_preferences(preference:String, refresh_view:bool = true):
 			new_state = ( ! _AUTO_INSPECT )
 		"auto_node_update":
 			new_state = ( ! _AUTO_NODE_UPDATE )
+		"reset_on_reinspection":
+			new_state = ( ! _RESET_ON_REINSPECTION )
 		"quick_node_insertion":
 			new_state = ( ! _QUICK_NODE_INSERTION )
 		"connection_assist":

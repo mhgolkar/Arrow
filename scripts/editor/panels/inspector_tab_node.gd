@@ -128,14 +128,15 @@ func toggle_sub_inspector_block(force = null) -> void:
 	pass
 
 func update_node_tab(node_id:int, node:Dictionary, node_map:Dictionary, reset_history_rotator:bool = true) -> void:
-	# keep a reference to it for later update requests to the mind,
-	_CURRENT_INSPECTED_NODE = node
-	_CURRENT_INSPECTED_NODE_MAP = node_map
-	_CURRENT_INSPECTED_NODE_RESOURCE_ID = node_id
-	# inspect the node
-	update_referrers_list()
 	var the_sub_inspector = SUB_INSPCETORS[node.type]
-	update_parameters(node_id, node, node_map, the_sub_inspector)
+	if node_id != _CURRENT_INSPECTED_NODE_RESOURCE_ID || Main._RESET_ON_REINSPECTION:
+		_CURRENT_INSPECTED_NODE = node
+		_CURRENT_INSPECTED_NODE_MAP = node_map
+		_CURRENT_INSPECTED_NODE_RESOURCE_ID = node_id
+		if reset_history_rotator:
+			reset_node_history_rotation(node_id)
+		update_referrers_list()
+		update_parameters(node_id, node, node_map, the_sub_inspector)
 	# keep track of the last open sub-inspector
 	if _LAST_OPEN_SUB_INSPECTOR != null:
 		_LAST_OPEN_SUB_INSPECTOR.set_deferred("visible", false)
@@ -143,8 +144,6 @@ func update_node_tab(node_id:int, node:Dictionary, node_map:Dictionary, reset_hi
 		toggle_sub_inspector_block(false)
 	the_sub_inspector.set_deferred("visible", true)
 	_LAST_OPEN_SUB_INSPECTOR = the_sub_inspector
-	if reset_history_rotator:
-		reset_node_history_rotation(node_id)
 	pass
 
 func update_parameters(node_id:int, node:Dictionary, node_map:Dictionary, sub_inspector = null, update_sub_inspector:bool = true) -> void:
@@ -237,8 +236,7 @@ func toggle_node_skip(change:bool, send_request:bool = false) -> void:
 
 func reset_inspection() -> void:
 	if _CURRENT_INSPECTED_NODE_RESOURCE_ID >= 0 :
-		# `inspect_node` request will make the central mind to refresh the tab with saved project data
-		emit_signal("relay_request_mind", "inspect_node", _CURRENT_INSPECTED_NODE_RESOURCE_ID)
+		update_parameters(_CURRENT_INSPECTED_NODE_RESOURCE_ID, _CURRENT_INSPECTED_NODE, _CURRENT_INSPECTED_NODE_MAP, _LAST_OPEN_SUB_INSPECTOR)
 	pass
 
 func focus_grid_on_inspected() -> void:
