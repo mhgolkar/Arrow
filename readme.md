@@ -1,25 +1,29 @@
-<!-- Arrow Logo -->
-<div style="padding: 1rem 0; margin: 0;">
-    <img src="https://raw.githubusercontent.com/mhgolkar/Arrow/main/icon.png" style="height: 64px; width: 64px;" alt="">
-</div>
-
+![][arrow-logo]
 
 # Arrow
-## Web App Branch
+## Website
 
-This branch of [Arrow][arrow-root]
-serves `HTML5` export of the project
-as a [Progressive Web App][arrow-pwa]
-on github-pages.
+This branch of [Arrow][arrow-root] serves its website
+and the *[Progressive Web App][arrow-pwa] (HTML5)* releases of the project
+as github-pages.
 
 Arrow is the free, open-source and feature-rich tool for
 *game narrative* design, *text-adventure* development,
 and creation of *interactive nonlinear storytelling* documents.
 
-For full source code and more, checkout the [`main`][arrow-main] branch.
+For full source code and more, check the [`main`][arrow-main] branch.
 
 
-<!-- absolute -->
+<!-- References -->
+[arrow-logo]: ./icon.svg#icon
 [arrow-root]: https://github.com/mhgolkar/Arrow
 [arrow-pwa]: https://mhgolkar.github.io/Arrow/
 [arrow-main]: https://github.com/mhgolkar/Arrow/tree/main
+<!-- Styling -->
+<style type="text/css" rel="stylesheet">
+img[src*='#icon'] {
+    width: 5em; max-width: 64px; height: auto;
+    display: inline-block;
+    vertical-align: bottom;
+}
+</style>

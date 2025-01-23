@@ -5,57 +5,61 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="robots" content="noindex, nofollow">
-	<title>You are offline</title>
+	<meta name="darkreader-lock">
+	<title>You are offline!</title>
 	<style>
 		html {
-			background-color: #1e1e1e;
-			color: #ffffff;
+			--cc-00: #333333;
+			--cc-01: #6d6d6d;
+			--cc-02: #ffffff;
+			--cc-03: #00ffc4;
+			--cc-04: #93ffe6;
+			/* ... */
+			background-color: var(--cc-00);
+			color: var(--cc-02);
+			font-family: monospace;
+			font-size: 16px;
 		}
-
 		body {
 			font-family: monospace;
-			margin: 2rem;
+			margin: 3rem;
 		}
-
+		h1 {
+			font-size: 2rem;
+		}
 		p {
-			margin-block: 1rem;
-			font-size: 1.1rem;
+			font-size: 1rem;
+			line-height: 75%;
 		}
-
 		button {
 			display: block;
 			padding: 1rem 2rem;
-			margin: 3rem auto 0;
+			margin: 3rem 0;
 			font-size: 1.5em;
 			font-family: monospace;
 			font-weight: bolder;
-			background-color: #00ffc4;
+			background-color: var(--cc-03);
 			border: #000000;
 			border-radius: 0.25em;
 			cursor: pointer;
 		}
-
 		button:hover {
-			background-color: #ffae00;
+			background-color: var(--cc-02);
 		}
-
 		ul {
-			color: #3b8b79;
+			padding: 0;
+			color: var(--cc-01);
 		}
-
 		a, a:visited {
-			color: #00ffc4;
+			color: var(--cc-03);
 		}
-
 		a:hover {
-			color: #ffffff;
+			color: var(--cc-02);
 			font-weight: bolder;
 		}
-
 		menu {
-			font-size: 1.1rem;
-			margin: 0;
-			margin-top: 1rem;
+			font-size: 1.25rem;
+			margin: 1rem 0;
 			padding: 0;
 			text-align: left;
 		}
@@ -66,20 +70,16 @@
 	<p>This application requires an Internet connection to run for the first time.</p>
 	<p>Press the button below to try reloading:</p>
 	<button type="button">Reload</button>
-
 	<script>
 		document.querySelector("button").addEventListener("click", () => {
 			window.location.reload();
 		});
 	</script>
-
 	<menu>
 		<ul>
 			<li><a href="https://mhgolkar.github.io/Arrow/">Home</a></li>
-			<br/>
-			<li><a href="https://github.com/mhgolkar/Arrow/releases">Download App</a></li>
-			<li><a href="https://github.com/mhgolkar/Arrow/wiki">Online Documentation</a></li>
-			<li><a href="https://github.com/mhgolkar/Arrow">Source: Git Repository</a></li>
+			<li><a href="https://github.com/mhgolkar/Arrow">Repository</a></li>
+			<li><a href="https://github.com/mhgolkar/Arrow/wiki">Documentation</a></li>
 		</ul>
 	</menu>
 </body>

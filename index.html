@@ -7,171 +7,48 @@
 	<meta name="keywords" content="Arrow,Game,Narrative,Interactive,Nonlinear,Storytelling,Design,Development,App">
 	<meta name="author" content="Mor. H. Golkar">
 	<meta name="robots" content="index, follow">
+	<meta name="darkreader-lock">
 	<title>Arrow</title>
-	<style>
-		:root {
-			--body-padding: 1.25rem;
-			font-size: 12pt;
-		}
-		body {
-			margin: 0;
-			border: 0 none;
-			padding: var(--body-padding);
-			background-color: #1e1e1e;
-			color: white;
-			font-family: monospace;
-			font-size: 1rem;
-		}
-		h1 {
-			font-size: 3em;
-			display: inline-block;
-			position: relative;
-			margin: 0;
-		}
-		h1 > img {
-			z-index: -1;
-			position: relative;			
-			width: 1.5em;
-			height: auto;
-			object-fit: contain;
-			object-position: center;
-			display: inline-block;
-			margin: 0 0 0 0.25rem;
-			vertical-align: bottom;
-			box-shadow: 0 0 10rem 10rem #383838;
-			border-radius: 100%;
-		}
-		a, a:visited {
-			color: #00ffc4;
-		}
-		a:hover {
-			color: #ffffff;
-			font-weight: bolder;
-		}
-		#background {
-			z-index: -99;
-			position: absolute;
-			width: 70vw;
-			max-height: 100vh;
-			object-fit: contain;
-			top: 0;
-			right: 0;
-			filter: opacity(0.5);
-		}
-		.button {
-			display: inline-block;
-			padding: 1rem;
-			font-size: 1.5em;
-			font-weight: bolder;
-			font-family: monospace;
-			color: #000000 !important;
-			text-decoration: none;
-			background-color: #00ffc4;
-			border: #000000;
-			border-radius: 0.25em;
-			cursor: pointer;
-			box-shadow: 0 0 1rem 1rem rgba(30, 30, 30, 0.75);
-		}
-		.button:hover {
-			background-color: #ffae00;
-		}
-		main > aside {
-			color: #4aaf99;
-			font-size: 0.8rem;
-			padding: 0;
-		}
-		main > aside > a {
-			color: #52c0a8;
-		}
-		main > aside:first-of-type {
-			margin-top: 0.5rem;
-		}
-		main p {
-			background-color: rgba(30, 30, 30, 0.75);
-			font-size: 1.1rem;
-			padding: 1.1em;
-		}
-		menu {
-			font-size: 1.25rem;
-			margin: 2rem 1rem 3rem 1rem;
-			padding: 0;
-			text-align: left;
-		}
-		menu > ul {
-			padding: 0;
-		}
-		article {
-			background-color: rgba(40, 40, 40, 0.75);
-			width: calc(100vw - (var(--body-padding) * 2));
-			position: relative;
-			left: calc( var(--body-padding) * -1);
-			--article-padding: calc( var(--body-padding) / 4) var(--body-padding);
-			padding: var(--article-padding);
-		}
-		article img {
-			max-width: 100%;
-			border: #383838 dashed 0.125rem;
-			border-radius: 0.25rem;
-		}
-		article section div h3 {
-			border-left: #383838 solid 0.5rem;
-			padding-left: 0.5rem;
-		}
-		article section .center {
-			text-align: center;
-		}
-		article section div img {
-			display: inline-block;
-			object-position: center;
-		}
-		article section div p br {
-			display: block;
-		}
-		footer {
-			text-align: center;
-			margin: 4rem 0 0 1rem;
-			opacity: 0.5;
-		}
-		@media screen and (orientation:landscape) {
-			main p {
-				max-width: 50%;
-			}
-		}
-	</style>
+	<link rel="icon" href="./icon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="./index.css"/>
+	<script language="javascript" type="text/javascript" src="./index.js"></script>
 </head>
 <body>
-	<header>
-		<h1>Arrow<img src="./images/logo_icon.png"></h1>
-		<h2>The Game Narrative Design Tool</h2>
-	</header>
-	<img id='background' src="./images/logo_splash.png">
+	<!-- NOTE: Default theme data, including `html[data-theme]` is set by the script -->
+	<a id="theme-switcher"></a>
+	<div id="decoration"></div>
 	<main>
+		<h1>
+			<img src="./icon.svg"/>
+			Arrow
+		</h1>
+		<h2>The Narrative Design Tool</h2>
 		<p>
-			Arrow is the free, open-source and feature-rich tool for
-			game narrative design, text-adventure development,
-			and creation of interactive nonlinear storytelling documents.
+			Arrow is the free, open-source and feature-rich tool for game narrative design, text-adventure development,
+			and creation of interactive nonlinear storytelling documents in general.
 		</p>
-		<a class='button' href="./v2">Use Arrow Online !</a>
-		<aside>Experience best on desktop screens.</aside>
-		<aside>Older generation: <a href="./v1">Arrow v1.x</a>.</aside>
-	</main>
-	<menu>
-		<ul>
-			<li><a href="https://github.com/mhgolkar/Arrow">Source</a></li>
-			<li><a href="https://github.com/mhgolkar/Arrow/releases">Download</a></li>
-			<li><a href="https://github.com/mhgolkar/Arrow/wiki">Documentation</a></li>
-		</ul>
-	</menu>
-	<article>
+		<menu>
+			<ul>
+				<li><a href="https://github.com/mhgolkar/Arrow/releases/">Download</a></li>
+				<li><a href="https://github.com/mhgolkar/Arrow">Repository</a></li>
+				<li><a href="https://github.com/mhgolkar/Arrow/wiki">Documentation</a></li>
+			</ul>
+		</menu>
+		<a class="button" href="./v3" target="_blank">Use Arrow v3.x Online</a>
+		<div>
+			For older generations of Arrow, try <a href="./v1">v1.x</a>, <a href="./v2">v2.x</a>.<br/>
+			Experience best on desktop (~ medium-large screens).</br>
+		</div>
+		<br/>
+		<img class="wide" src="./media/overview.v3.png#dark" alt="screenshot of an Arrow project in default dark mode">
+		<img class="wide" src="./media/overview.v3.light.png#light" alt="screenshot of an Arrow project in light theme">
 		<h2>Features</h2>
-		<img src="./images/screenshot_overall.png" alt="screenshot of an Arrow project">
 		<p>
-			Arrow supports a rich palette of features, from scenes and macros, to variables and characters.
-			It also comes with built-in common node types, providing logic, interactive navigation, random data generation,
-			state management, and more.
+			Arrow supports a wide variety of features, from scenes and macros, to variables and characters.
+			It also comes with a rich palette of built-in node types, providing logic, interactive navigation,
+			random data generation, state management, and more.
 		</p>
-		<p>Here are few notable features:</p>
-		<section>
+		<section class="flexible">
 			<div>
 				<h3>Free as in Freedom</h3>
 				<p>
@@ -190,29 +67,28 @@
 				<p>
 					Arrow is designed with authors and artists in mind.<br>
 					It takes a graph (node-and-link), or no-coding development approach.
-					Nodes, the most common resources constructing narrative/game-play and
-					<a href="https://github.com/mhgolkar/Arrow/wiki/variables-and-logic">logic</a>,
+					Nodes, the most common resources constructing narrative/game-play and logic,
 					are mainly organized on a grid and connected using graph links,
 					to form series that define in what order these building blocks will be played.
 				</p>
 			</div>
 			<div>
-				<h3>Extensible Node System</h3>
+				<h3>Advanced Node System</h3>
 				<p>
 					The editor comes with a handy and complete set of built-in node types,
-					allowing users to quickly design their narrative.<br>
-					This set is open-source and you can modify or extend it.<br>
+					allowing users to quickly design their narrative.
+					The set is open-source and you can modify or extend it.<br>
 					Arrow project's <a href="https://github.com/mhgolkar/Arrow/wiki">Wiki</a>
-					include a dedicated page for each of these built-in nodes.
+					includes a dedicated page for each of these built-in nodes.
 				</p>
 			</div>
 			<div>
-				<h3>VCS-Friendly Save Files & JSON Export</h3>
+				<h3>VCS-Friendly Save Files</h3>
 				<p>
-					Arrow uses <code>JSON</code> format for its saved projects.
-					The format is textual and widely supported by game engines and programming languages.
-					Resource in Arrow projects are managed under unique identifiers and sorted by creation time,
-					forming easily manageable blocks (hunks) of data.
+					Arrow uses <code>JSON</code> (text) format for its saved documents.
+					The format is widely supported by game engines, web, and programming languages.
+					Resources in Arrow projects are managed under unique identifiers and sorted by creation time,
+					forming easily manageable blocks (hunks) of data as well.
 					This structure makes project revision using VCS tools such as Git much easier.<br>
 				</p>
 			</div>
@@ -222,10 +98,10 @@
 					We can play our games directly in the Arrow editor's Console, to test and debug them.
 					Porting that small part of the source to any programming language, we can create an interpreter
 					and take advantage of Arrow's exports as assets for our games.
-					Following this idea, Arrow utilizes its own bundled browser-based
-					<a href="https://github.com/mhgolkar/Arrow/tree/main/runtimes/html-js/">Official Runtime</a>
-					to export playable <code>HTML+JS</code> documents from the editor. This means
-					you can export your game as a text adventure with one click (approximately)!
+					Following this idea, Arrow utilizes its own bundled
+					<a href="https://github.com/mhgolkar/Arrow/tree/main/runtimes/html-js/">Official HTML+JS Runtime</a>
+					to produce playable documents for modern browsers, right from the editor. This means
+					you can export your game as a text adventure with approximately one click!
 				</p>
 			</div>
 			<div>
@@ -244,22 +120,28 @@
 					it knows how resources depend on one another, and performs many checks to eliminate
 					mistakes such as accidentally removing a variable used by different conditional nodes.
 					These tracked relations are also used to automate tasks, such as renaming a resource
-					that is exposed in tens of textual nodes.
+					that is exposed in tens of text nodes.
+				</p>
+			</div>
+			<div>
+				<h3>And ...</h3>
+				<p>
+					More features including:
+					<ul>
+						<li>CSV (I18n) Export</li>
+						<li>RTL, CJK and CTL support</li>
+						<li>In-editor Test & Debug Facilities</li>
+						<li>Eye-Friendly Dark (& Light) Themes</li>
+						<li>Available for All Major Desktop Platforms</li>
+						<li>etc.</li>
+					</ul>
 				</p>
 			</div>
 		</section>
-	</article>
-	<p>
-		Make sure to browse project's 
-		<a href="https://github.com/mhgolkar/Arrow">Repository</a> and
-		<a href="https://github.com/mhgolkar/Arrow/wiki">Wiki</a>,
-		for more information, detailed instructions and guides.
-	</p>
+	</main>
 	<footer>
-		<p>
-			<a href="https://github.com/mhgolkar/">Mor. H. Golkar</a> © 2021;
-			with Love & <a href="https://godotengine.org/">Godot Engine</a>
-		</p>
+		[ <a href="https://github.com/mhgolkar/Arrow">Repository</a> | <a href="https://github.com/mhgolkar/Arrow/wiki">Documentation</a> ]
+		<span>❤ M. H. Golkar</span>
 	</footer>
 </body>
 </html>
