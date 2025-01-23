@@ -1,6 +1,13 @@
-![][arrow-logo]
+<!-- Arrow Logo -->
+<h1 style="font-size: 3rem; line-height: 100%;">
+    <span>Arrow</span>
+    <img
+        src="./icon.svg"
+        style="width: 1em; height: auto; display: inline-block; vertical-align: bottom;"
+        alt="Arrow's logo"
+    >
+</h1>
 
-# Arrow
 ## Website
 
 This branch of [Arrow][arrow-root] serves its website
@@ -15,15 +22,6 @@ For full source code and more, check the [`main`][arrow-main] branch.
 
 
 <!-- References -->
-[arrow-logo]: ./icon.svg#icon
 [arrow-root]: https://github.com/mhgolkar/Arrow
 [arrow-pwa]: https://mhgolkar.github.io/Arrow/
 [arrow-main]: https://github.com/mhgolkar/Arrow/tree/main
-<!-- Styling -->
-<style type="text/css" rel="stylesheet">
-img[src*='#icon'] {
-    width: 5em; max-width: 64px; height: auto;
-    display: inline-block;
-    vertical-align: bottom;
-}
-</style>
