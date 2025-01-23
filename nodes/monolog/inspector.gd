@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Monolog Node Type Inspector
-extends ScrollContainer
+# Monolog Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const ANONYMOUS_CHARACTER = MonologSharedClass.ANONYMOUS_CHARACTER
 const DEFAULT_NODE_DATA = MonologSharedClass.DEFAULT_NODE_DATA
@@ -25,28 +25,28 @@ const RESOURCE_NAME_EXPOSURE = Settings.RESOURCE_NAME_EXPOSURE
 
 var This = self
 
-onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
+@onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
 
-onready var Character = get_node("./Rows/Character/Filterable/Selection")
-onready var GlobalFilters = get_node("./Rows/Character/Filterable/GlobalFilters")
-onready var Monolog = get_node("./Rows/Monolog")
-onready var BriefLength = get_node("./Rows/Brief/Length")
-onready var BriefPick = get_node("./Rows/Brief/Pick")
-onready var AutoPlay = get_node("./Rows/AutoPlay")
-onready var ClearPage = get_node("./Rows/ClearPage")
+@onready var Character = $Selector/List
+@onready var GlobalFilters = $Selector/Filtered
+@onready var Monolog = $Monolog
+@onready var BriefLength = $Brief/Length
+@onready var BriefPick = $Brief/Pick
+@onready var AutoPlay = $AutoPlay
+@onready var ClearPage = $ClearPage
 
 func _ready() -> void:
 	register_connections()
 	pass
 
 func register_connections() -> void:
-	GlobalFilters.connect("pressed", self, "refresh_character_list", [], CONNECT_DEFERRED)
-	BriefPick.connect("pressed", self, "_pick_the_breif", [], CONNECT_DEFERRED)
+	GlobalFilters.pressed.connect(self.refresh_character_list, CONNECT_DEFERRED)
+	BriefPick.pressed.connect(self._pick_the_brief, CONNECT_DEFERRED)
 	pass
 
-func _pick_the_breif() -> void:
-	Monolog.select(0, 0, Monolog.cursor_get_line(), Monolog.cursor_get_column())
-	BriefLength.set_value( Monolog.get_selection_text().length() )
+func _pick_the_brief() -> void:
+	Monolog.select(0, 0, Monolog.get_caret_line(), Monolog.get_caret_column())
+	BriefLength.set_value( Monolog.get_selected_text().length() )
 	pass
 	
 func a_node_is_open() -> bool :
@@ -69,7 +69,7 @@ func refresh_character_list(select_by_res_id:int = -1) -> void:
 	Character.clear()
 	var item_index := 0
 	if ALLOW_ANONYMOUS_MONOLOGS == true:
-		# (Our conventional `-1` conflicts with the default behavior of `add_item` method, so we use a `..._CONTROLL_VALUE`)
+		# (Our conventional `-1` conflicts with the default behavior of `add_item` method, so we use a `..._CONTROL_VALUE`)
 		Character.add_item(ANONYMOUS_CHARACTER.name, ANONYMOUS_UID_CONTROL_VALUE)
 		Character.set_item_metadata(item_index, ANONYMOUS_UID_CONTROL_VALUE)
 		item_index += 1
@@ -87,9 +87,9 @@ func refresh_character_list(select_by_res_id:int = -1) -> void:
 	var listing_keys = listing.keys()
 	if apply_globals && global_filters.SORT_ALPHABETICAL:
 		listing_keys.sort()
-	for name in listing_keys:
-		var id = listing[name]
-		Character.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+	for char_name in listing_keys:
+		var id = listing[char_name]
+		Character.add_item(char_name if already != id || apply_globals == false else "["+ char_name +"]", id)
 		Character.set_item_metadata(item_index, id)
 		item_index += 1
 	if select_by_res_id >= 0 :
@@ -173,6 +173,7 @@ func _read_parameters() -> Dictionary:
 	# Optionals (to avoid bloat:)
 	# > brief
 	var brief_length = int( BriefLength.get_value() )
+	@warning_ignore("INCOMPATIBLE_TERNARY") 
 	parameters["brief"] = brief_length if SAVE_UNOPTIMIZED || brief_length != DEFAULT_NODE_DATA.brief else null
 	# > auto-play
 	var auto = AutoPlay.is_pressed()
@@ -195,7 +196,7 @@ func _read_parameters() -> Dictionary:
 	# ...
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 
@@ -221,7 +222,7 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 	pass
 
 static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
-	var base_key = String(id) + "-monolog-"
+	var base_key = String.num_int64(id) + "-monolog-"
 	return {
 		base_key + "monolog": node.data.monolog,
 	}

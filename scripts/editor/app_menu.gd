@@ -5,41 +5,38 @@
 # App Menu
 extends MenuButton
 
-onready var TheTree = get_tree()
-onready var Main = TheTree.get_root().get_child(0)
+@onready var TheTree = get_tree()
+@onready var TheWindow = TheTree.get_root()
+@onready var Main = TheWindow.get_child(0)
 
-onready var popup = self.get_popup()
+@onready var popup = self.get_popup()
 
 var _MENU_ITEMS = [
 	"PREFERENCES",
 	null,
 	"FULLSCREEN",
 	"ALWAYS_ON_TOP",
-	# "BORDERLESS", # not supported enough yet!
-	"MAXIMIZE",
-	"MINIMIZE",
 	"REFRESH",
 	null,
 	"ABOUT",
 	null,
-	"QUIT",
 	"CLEAR",
+	null,
+	"QUIT",
 ]
 
 var _MENU_ITEMS_DATA = [
 	{ "text": "Preferences" },
 	null,
 	{ "text": "Fullscreen (F11)", "text_toggled": "Exit Fullscreen (F11)" },
-	{ "text": "Keep Above", "text_toggled": "Don't Keep Above", "html5": false },
-	# { "text": "Go Borderless", "text_toggled": "Show Borders", "html5": false },
-	{ "text": "Maximize", "text_toggled": "Restore", "html5": false },
-	{ "text": "Minimize", "html5": false },
+	{ "text": "Stay Above", "text_toggled": "Leave Above", "html5": false },
 	{ "text": "Refresh", "html5": true },
 	null,
 	{ "text": "About" },
 	null,
-	{ "text": "Quit", "html5": false },
 	{ "text": "Clear", "html5": true },
+	null,
+	{ "text": "Quit" },
 ]
 
 # items listed by key to ...
@@ -49,7 +46,7 @@ var _ID = {} # ids
 func _ready() -> void:
 	self.create_menu_items()
 	self.update_menu_items_view()
-	popup.connect("id_pressed", self, "_on_self_popup_item_id_pressed", [], CONNECT_DEFERRED)
+	popup.id_pressed.connect(self._on_self_popup_item_id_pressed, CONNECT_DEFERRED)
 	pass
 
 func create_menu_items() -> void:
@@ -72,26 +69,16 @@ func create_menu_items() -> void:
 	pass
 
 func update_menu_items_view() -> void:
-	if Html5Helpers.Utils.is_browser():
-		# fullscreen is the only available item with switchable state in browser
-		if OS.is_window_fullscreen() :
-			popup.set_item_text(_IDX.FULLSCREEN, _MENU_ITEMS_DATA[_ID.FULLSCREEN].text_toggled)
-		else:
-			popup.set_item_text(_IDX.FULLSCREEN, _MENU_ITEMS_DATA[_ID.FULLSCREEN].text)
-	else:
-		# fullscreen
-			# also updates maximize/restore because it's not portable/safe to let maximize happen on a fullscreen window
-		if OS.is_window_fullscreen() :
-			popup.set_item_text(_IDX.FULLSCREEN, _MENU_ITEMS_DATA[_ID.FULLSCREEN].text_toggled)
-			popup.set_item_disabled(_IDX.MAXIMIZE, true)
-		else:
-			popup.set_item_text(_IDX.FULLSCREEN, _MENU_ITEMS_DATA[_ID.FULLSCREEN].text)
-			popup.set_item_disabled(_IDX.MAXIMIZE, false)
-		# others
-		popup.set_item_text(_IDX.ALWAYS_ON_TOP, (_MENU_ITEMS_DATA[_ID.ALWAYS_ON_TOP].text_toggled if OS.is_window_always_on_top() else _MENU_ITEMS_DATA[_ID.ALWAYS_ON_TOP].text))
-		# popup.set_item_text(_IDX.BORDERLESS, (_MENU_ITEMS_DATA[_ID.BORDERLESS].text_toggled if OS.get_borderless_window() else _MENU_ITEMS_DATA[_ID.BORDERLESS].text))
-		popup.set_item_text(_IDX.MAXIMIZE, (_MENU_ITEMS_DATA[_ID.MAXIMIZE].text_toggled if OS.is_window_maximized() else _MENU_ITEMS_DATA[_ID.MAXIMIZE].text))
-		print_debug('window state', ' -full:', OS.is_window_fullscreen(), ' -max:', OS.is_window_maximized(), ' -top:', OS.is_window_always_on_top())
+	var is_fullscreen = (DisplayServer.window_get_mode() >= DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN)
+	popup.set_item_text(
+		_IDX.FULLSCREEN,
+		_MENU_ITEMS_DATA[_ID.FULLSCREEN].text_toggled if is_fullscreen else _MENU_ITEMS_DATA[_ID.FULLSCREEN].text
+	)
+	if _IDX.has("ALWAYS_ON_TOP"):
+		popup.set_item_text(
+			_IDX.ALWAYS_ON_TOP,
+			_MENU_ITEMS_DATA[_ID.ALWAYS_ON_TOP].text_toggled if TheWindow.always_on_top else _MENU_ITEMS_DATA[_ID.ALWAYS_ON_TOP].text
+		)
 	pass
 
 func force_clear_browser_storage() -> void:
@@ -131,12 +118,6 @@ func _on_self_popup_item_id_pressed(id:int) -> void:
 			Main.UI.call_deferred("toggle_fullscreen")
 		_ID.ALWAYS_ON_TOP:
 			Main.UI.call_deferred("toggle_always_on_top")
-		#_ID.BORDERLESS:
-		#	Main.UI.call_deferred("toggle_borderless_window")
-		_ID.MAXIMIZE:
-			Main.UI.call_deferred("toggle_maximized")
-		_ID.MINIMIZE:
-			Main.UI.call_deferred("minimize_window")
 		_ID.REFRESH:
 			Html5Helpers.Utils.refresh_window()
 		_ID.ABOUT:

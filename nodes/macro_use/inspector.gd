@@ -2,14 +2,14 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Macro_Use Node Type Inspector
-extends ScrollContainer
+# Macro-Use Sub-Inspector
+extends Control
 
 # Note:
 # 'macros' are `scenes` which are marked with `macro: true`
 # and receive special treatments from the editor and runtime(s)
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const NO_MACRO_TEXT = "No Macro Available"
 const NO_MACRO_ID = -1
@@ -23,10 +23,10 @@ var _OPEN_NODE
 
 var This = self
 
-onready var MacrosInspector = Main.Mind.Inspector.Tab.Macros
+@onready var MacrosInspector = Main.Mind.Inspector.Tab.Macros
 
-onready var MacroOptions = get_node("./Macro/Filterable/Options")
-onready var GlobalFilters = get_node("./Macro/Filterable/GlobalFilters")
+@onready var MacroOptions = $Macro/List
+@onready var GlobalFilters = $Macro/Filtered
 const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS else "{name} ({uid})" 
 
 var _CACHED_MACROS_LIST = {}
@@ -36,7 +36,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	GlobalFilters.connect("pressed", self, "refresh_macro_list", [], CONNECT_DEFERRED)
+	GlobalFilters.pressed.connect(self.refresh_macro_list, CONNECT_DEFERRED)
 	pass
 
 func a_node_is_open() -> bool :
@@ -78,11 +78,11 @@ func refresh_macro_list(select_by_res_id:int = NO_MACRO_ID) -> void:
 			if apply_globals && global_filters.SORT_ALPHABETICAL:
 				listing_keys.sort()
 			var item_index := 0
-			for name in listing_keys:
-				var id = listing[name]
+			for macro_name in listing_keys:
+				var id = listing[macro_name]
 				var the_macro_ident = MACRO_IDENTITY_FORMAT_STRING.format({
 					"uid": id,
-					"name": name if already != id || apply_globals == false else "["+ name +"]"
+					"name": macro_name if already != id || apply_globals == false else "["+ macro_name +"]"
 				})
 				MacroOptions.add_item(the_macro_ident, id)
 				MacroOptions.set_item_metadata(item_index, id)
@@ -96,7 +96,7 @@ func refresh_macro_list(select_by_res_id:int = NO_MACRO_ID) -> void:
 			else: # if there is nothing to select
 				MacroOptions.select(0) # just select the first one
 				if MacroOptions.get_selected_metadata() == _current_open_scene_id && MacroOptions.get_item_count() > 1:
-					MacroOptions.select(1) # ... or the seccond one, if the first is looper
+					MacroOptions.select(1) # ... or the second one, if the first is looper
 			# to avoid creation of loopers (macro_use of the open macro in itself)
 			# hide the open macro from list in case
 			if _CACHED_MACROS_LIST.has(_current_open_scene_id):
@@ -140,7 +140,7 @@ func _read_parameters() -> Dictionary:
 			printerr("Caution! You can't run a macro inside the same macro, it makes a unsafe loop. Please read documentations for more information and workarounds.")
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 

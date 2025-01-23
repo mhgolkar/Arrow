@@ -1,167 +1,88 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bqrqm6j4xc7ut"]
 
-[ext_resource path="res://nodes/tag_pass/console.gd" type="Script" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 4.0
-content_margin_right = 4.0
-content_margin_top = 4.0
-content_margin_bottom = 4.0
-bg_color = Color( 0.247059, 0.247059, 0.247059, 0 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0.498039, 0.498039, 0.498039, 1 )
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[ext_resource type="Texture2D" uid="uid://b568msdfakrr1" path="res://nodes/tag_pass/icon.svg" id="1_k7ju6"]
+[ext_resource type="Script" path="res://nodes/tag_pass/console.gd" id="1_v4yj5"]
 
 [node name="TagPass" type="PanelContainer"]
-margin_right = 143.0
-margin_bottom = 138.0
+offset_right = 256.0
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+script = ExtResource("1_v4yj5")
 
-[node name="TagPassPlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 136.0
-margin_bottom = 131.0
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+icon = ExtResource("1_k7ju6")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Name" type="Label" parent="Play/Head"]
+layout_mode = 2
+text = "[Character Name]"
+
+[node name="Body" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Color" type="ColorRect" parent="Play/Body"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
 mouse_filter = 2
 
-[node name="Header" type="HBoxContainer" parent="TagPassPlay"]
-margin_right = 129.0
-margin_bottom = 14.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="TagPassPlay/Header"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_bottom = 14.0
-text = ""
-
-[node name="Method" type="Label" parent="TagPassPlay/Header"]
-self_modulate = Color( 1, 1, 1, 0.501961 )
-margin_left = 4.0
-margin_right = 64.0
-margin_bottom = 14.0
-size_flags_vertical = 8
-text = "{method}"
-
-[node name="Character" type="HBoxContainer" parent="TagPassPlay"]
-margin_top = 18.0
-margin_right = 129.0
-margin_bottom = 32.0
-
-[node name="Color" type="ColorRect" parent="TagPassPlay/Character"]
-margin_right = 14.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 14, 14 )
-size_flags_vertical = 0
-size_flags_stretch_ratio = 2.0
-color = Color( 0.0588235, 0.407843, 0.956863, 0.435294 )
-
-[node name="Name" type="Label" parent="TagPassPlay/Character"]
-margin_left = 18.0
-margin_right = 129.0
-margin_bottom = 14.0
+[node name="Checkables" type="VBoxContainer" parent="Play/Body"]
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 8.0
-text = "{character-name}"
-autowrap = true
 
-[node name="Invalid" type="Label" parent="TagPassPlay"]
+[node name="Method" type="Label" parent="Play/Body/Checkables"]
+layout_mode = 2
+text = "[Method]"
+horizontal_alignment = 1
+
+[node name="Invalid" type="Label" parent="Play/Body/Checkables"]
 visible = false
-margin_top = 36.0
-margin_right = 129.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
+layout_mode = 2
 text = "Invalid!"
-align = 1
-valign = 1
+horizontal_alignment = 1
 
-[node name="Scroll" type="ScrollContainer" parent="TagPassPlay"]
-margin_top = 36.0
-margin_right = 129.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 0, 64 )
+[node name="Margin" type="MarginContainer" parent="Play/Body/Checkables"]
+layout_mode = 2
+
+[node name="Tags" type="HFlowContainer" parent="Play/Body/Checkables/Margin"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tags" type="HFlowContainer" parent="TagPassPlay/Scroll"]
-margin_right = 129.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="NoTagsToCheck" type="Label" parent="Play/Body/Checkables/Margin"]
+layout_mode = 2
+text = "No Tags To Check!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="NoTagsToCheck" type="Label" parent="TagPassPlay/Scroll"]
-margin_right = 129.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
-text = "No Tags To Check"
-align = 1
-valign = 1
-
-[node name="TagTemplate" type="Label" parent="TagPassPlay/Scroll"]
+[node name="TagTemplate" type="Label" parent="Play/Body/Checkables/Margin"]
 visible = false
-margin_right = 114.0
-margin_bottom = 22.0
-custom_styles/normal = SubResource( 1 )
-text = "{ tag-key: value }"
-align = 1
-valign = 1
+layout_mode = 2
+text = "[Tag-Key: Value]"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Outcomes" type="HBoxContainer" parent="TagPassPlay"]
-margin_top = 104.0
-margin_right = 129.0
-margin_bottom = 124.0
-mouse_filter = 2
+[node name="Actions" type="HBoxContainer" parent="Play/Body/Checkables"]
+layout_mode = 2
 alignment = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="False" type="Button" parent="TagPassPlay/Outcomes"]
-self_modulate = Color( 0.815686, 0.0588235, 0.956863, 1 )
-margin_left = 40.0
-margin_right = 85.0
-margin_bottom = 20.0
-size_flags_horizontal = 8
-size_flags_vertical = 4
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+[node name="False" type="Button" parent="Play/Body/Checkables/Actions"]
+layout_mode = 2
+theme_type_variation = &"TagPassConsoleFalse"
 text = "False"
 
-[node name="Label" type="Label" parent="TagPassPlay/Outcomes/False"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_vertical = 1
-text = "False"
-align = 1
-valign = 1
-
-[node name="True" type="Button" parent="TagPassPlay/Outcomes"]
-self_modulate = Color( 0, 1, 0.952941, 1 )
-margin_left = 89.0
-margin_right = 129.0
-margin_bottom = 20.0
-size_flags_horizontal = 8
-size_flags_vertical = 4
+[node name="True" type="Button" parent="Play/Body/Checkables/Actions"]
+layout_mode = 2
+theme_type_variation = &"TagPassConsoleTrue"
 text = "True"
-
-[node name="Label" type="Label" parent="TagPassPlay/Outcomes/True"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_vertical = 1
-text = "True"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}

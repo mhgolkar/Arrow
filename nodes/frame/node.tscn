@@ -1,131 +1,66 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://d4cou2f1ci35"]
 
-[ext_resource path="res://nodes/frame/node.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://bfwq660mjjbvh" path="res://nodes/frame/icon.svg" id="1_1aa52"]
+[ext_resource type="Script" path="res://nodes/frame/node.gd" id="1_62jka"]
+[ext_resource type="Theme" uid="uid://7iui7va3jch8" path="res://assets/themes/dark.tres" id="1_frbiq"]
+[ext_resource type="Texture2D" uid="uid://ewpcrgloao1w" path="res://nodes/frame/interface.svg" id="2_cs7cu"]
 
-[sub_resource type="StyleBoxFlat" id=5]
-content_margin_bottom = 0.0
-bg_color = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
-border_width_left = 2
-border_width_top = 36
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 1, 1, 1, 1 )
-expand_margin_left = 8.0
-expand_margin_top = 8.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dto0"]
+atlas = ExtResource("2_cs7cu")
+region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="StyleBoxFlat" id=4]
-content_margin_bottom = 0.0
-bg_color = Color( 0.501961, 0.501961, 0.501961, 0.643137 )
-border_width_left = 2
-border_width_top = 36
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 1, 1, 1, 1 )
-expand_margin_left = 8.0
-expand_margin_top = 8.0
-
-[sub_resource type="StyleBoxFlat" id=6]
-content_margin_bottom = 0.0
-bg_color = Color( 0.501961, 0.501961, 0.501961, 0 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.0784314, 1, 0, 1 )
-expand_margin_left = 12.0
-expand_margin_right = 5.0
-expand_margin_top = 12.0
-expand_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxFlat" id=7]
-content_margin_bottom = 0.0
-bg_color = Color( 0.501961, 0.501961, 0.501961, 0 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 1, 0, 0, 1 )
-expand_margin_left = 12.0
-expand_margin_right = 5.0
-expand_margin_top = 12.0
-expand_margin_bottom = 5.0
-
-[node name="FrameNode" type="GraphNode"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
+[node name="Frame" type="GraphNode"]
+offset_right = 256.0
+offset_bottom = 104.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 1
-size_flags_horizontal = 7
-size_flags_vertical = 7
-custom_colors/title_color = Color( 0, 0, 0, 1 )
-custom_constants/port_offset = 3
-custom_constants/close_offset = 18
-custom_constants/separation = 1
-custom_constants/title_offset = 20
-custom_styles/frame = SubResource( 5 )
-custom_styles/selectedframe = SubResource( 4 )
-custom_styles/position = SubResource( 6 )
-custom_styles/breakpoint = SubResource( 7 )
-title = "{title}"
+theme = ExtResource("1_frbiq")
+theme_type_variation = &"Frame"
 resizable = true
+title = "[Node Name]"
 slot/0/left_enabled = false
 slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
 slot/0/right_enabled = false
-slot/0/right_type = 1
-slot/0/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_62jka")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-margin_left = 2.0
-margin_top = 36.0
-margin_right = 126.0
-margin_bottom = 128.0
-mouse_filter = 1
-size_flags_horizontal = 7
-size_flags_vertical = 7
-custom_constants/margin_right = 8
-custom_constants/margin_top = 0
-custom_constants/margin_left = 8
-custom_constants/margin_bottom = 8
+[node name="Display" type="VBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_left = 8.0
-margin_right = 116.0
-margin_bottom = 84.0
-size_flags_horizontal = 7
-size_flags_vertical = 7
+[node name="Head" type="HBoxContainer" parent="Display"]
+layout_mode = 2
 
-[node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_right = 108.0
-margin_bottom = 20.0
-hint_tooltip = "Use `Alt + Double-click` to select nodes all or the one under the cursor."
+[node name="Kind" type="Button" parent="Display/Head"]
+layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+text = "Frame"
+icon = ExtResource("1_1aa52")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
 
-[node name="NodeLabel" type="Label" parent="MarginContainer/VBoxContainer/Header"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_top = 3.0
-margin_right = 44.0
-margin_bottom = 17.0
-text = " Frame"
-
-[node name="Spacer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Header"]
-margin_left = 48.0
-margin_right = 92.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-
-[node name="CollapseToggle" type="Button" parent="MarginContainer/VBoxContainer/Header"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_left = 96.0
-margin_right = 108.0
-margin_bottom = 20.0
-hint_tooltip = "Toggle Collapse"
+[node name="Collapse" type="Button" parent="Display/Head"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+focus_mode = 0
 toggle_mode = true
-text = "ﬔ"
+icon = SubResource("AtlasTexture_8dto0")
+icon_alignment = 1
+expand_icon = true
 
-[node name="FrameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
-margin_top = 24.0
-margin_right = 108.0
-margin_bottom = 38.0
-text = "{Frame Label}"
+[node name="Info" type="RichTextLabel" parent="Display"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+bbcode_enabled = true
+text = "[Rich [color=red]Frame [/color] [color=green]Label[/color] with [i]BBCode[/i] support]"
+fit_content = true

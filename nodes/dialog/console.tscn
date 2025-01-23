@@ -1,114 +1,63 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bgov58p6hh2on"]
 
-[ext_resource path="res://nodes/dialog/console.gd" type="Script" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 14.0
-content_margin_right = 4.0
-content_margin_top = 8.0
-content_margin_bottom = 8.0
-bg_color = Color( 1, 1, 1, 0 )
-draw_center = false
-border_width_left = 2
-border_color = Color( 1, 1, 1, 0.709804 )
+[ext_resource type="Script" path="res://nodes/dialog/console.gd" id="1_jd0kk"]
+[ext_resource type="Texture2D" uid="uid://bijot6p0ir6m0" path="res://nodes/dialog/icon.svg" id="1_rethm"]
 
 [node name="Dialog" type="PanelContainer"]
-margin_top = 150.0
-margin_right = 221.0
-margin_bottom = 242.0
-script = ExtResource( 1 )
+offset_right = 256.0
+size_flags_horizontal = 3
+script = ExtResource("1_jd0kk")
 
-[node name="DialogPlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 214.0
-margin_bottom = 85.0
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+icon = ExtResource("1_rethm")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Name" type="Label" parent="Play/Head"]
+layout_mode = 2
+text = "[Character Name]"
+
+[node name="Body" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+theme_type_variation = &"BoxGap8"
+
+[node name="Color" type="ColorRect" parent="Play/Body"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
 mouse_filter = 2
 
-[node name="Header" type="HBoxContainer" parent="DialogPlay"]
-margin_right = 207.0
-margin_bottom = 14.0
-
-[node name="Icon" type="Label" parent="DialogPlay/Header"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 4.0
-margin_bottom = 14.0
-text = " "
-
-[node name="CharacterProfile" type="HBoxContainer" parent="DialogPlay/Header"]
-margin_left = 8.0
-margin_right = 207.0
-margin_bottom = 14.0
-mouse_filter = 2
+[node name="Lines" type="VBoxContainer" parent="Play/Body"]
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="Color" type="ColorRect" parent="DialogPlay/Header/CharacterProfile"]
-margin_right = 14.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 14, 14 )
-mouse_filter = 2
-size_flags_vertical = 4
-size_flags_stretch_ratio = 2.0
-color = Color( 1, 1, 1, 0.709804 )
-
-[node name="Spacer" type="MarginContainer" parent="DialogPlay/Header/CharacterProfile"]
-margin_left = 18.0
-margin_right = 22.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 4, 0 )
-size_flags_vertical = 3
-
-[node name="Name" type="Label" parent="DialogPlay/Header/CharacterProfile"]
-margin_left = 26.0
-margin_right = 199.0
-margin_bottom = 14.0
+[node name="Choices" type="VBoxContainer" parent="Play/Body/Lines"]
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 8.0
-text = "{character-name}"
-autowrap = true
 
-[node name="Box" type="PanelContainer" parent="DialogPlay"]
-margin_top = 18.0
-margin_right = 207.0
-margin_bottom = 78.0
-size_flags_horizontal = 3
+[node name="SampleX" type="Button" parent="Play/Body/Lines/Choices"]
+layout_mode = 2
 size_flags_vertical = 3
-custom_styles/panel = SubResource( 1 )
+text = "Dialog line X."
 
-[node name="Rows" type="VBoxContainer" parent="DialogPlay/Box"]
-margin_left = 14.0
-margin_top = 8.0
-margin_right = 203.0
-margin_bottom = 52.0
-size_flags_horizontal = 3
+[node name="SampleY" type="Button" parent="Play/Body/Lines/Choices"]
+layout_mode = 2
 size_flags_vertical = 3
-alignment = 1
+text = "Dialog line Y!"
 
-[node name="PlayableLines" type="VBoxContainer" parent="DialogPlay/Box/Rows"]
-margin_right = 189.0
-margin_bottom = 44.0
-
-[node name="LineA" type="Button" parent="DialogPlay/Box/Rows/PlayableLines"]
-margin_right = 189.0
-margin_bottom = 20.0
-text = "{ dialog line x }"
-clip_text = true
-align = 0
-
-[node name="LineB" type="Button" parent="DialogPlay/Box/Rows/PlayableLines"]
-margin_top = 24.0
-margin_right = 189.0
-margin_bottom = 44.0
-text = "{ another dialogue line }"
-clip_text = true
-align = 0
-
-[node name="Played" type="Label" parent="DialogPlay/Box/Rows"]
+[node name="Chosen" type="Label" parent="Play/Body/Lines"]
 visible = false
-margin_top = 48.0
-margin_right = 193.0
-margin_bottom = 62.0
-size_flags_horizontal = 3
-text = "{ played line or chosen reply }"
-autowrap = true
+layout_mode = 2
+text = "[Played Action]"
+autowrap_mode = 3

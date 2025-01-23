@@ -4,41 +4,41 @@
 
 # Editor
 # (base)
-extends VBoxContainer
+extends Control
 
-signal request_mind
+signal request_mind()
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 # top
 	# history
-onready var HistoryUndo = get_node( Addressbook.EDITOR.HISTORY.UNDO )
-onready var HistoryRedo = get_node( Addressbook.EDITOR.HISTORY.REDO )
+@onready var HistoryUndo = $/root/Main/Editor/Top/Bar/History/Tools/Undo
+@onready var HistoryRedo = $/root/Main/Editor/Top/Bar/History/Tools/Redo
 	# title
-onready var ProjectTitle = get_node( Addressbook.EDITOR.PROJECT_TITLE )
+@onready var ProjectTitle = $/root/Main/Editor/Top/Bar/ProjectTitle
 	# save
-onready var SaveButton = get_node(Addressbook.EDITOR.QUICK_TOOLS.SAVE)
-onready var SaveIndicator = get_node(Addressbook.EDITOR.QUICK_TOOLS.SAVE_INDICATOR)
+@onready var SaveButton = $/root/Main/Editor/Top/Bar/Save
+@onready var SaveIndicator = $/root/Main/Editor/Top/Bar/Save/Indicator
 	# play modes
-onready var PlayFromSelectedNodeButton = get_node(Addressbook.EDITOR.PLAY.FROM_SELECTED_NODE)
-onready var PlayFromSceneEntryButton = get_node(Addressbook.EDITOR.PLAY.FROM_SCENE_ENTRY)
-onready var PlayFromProjectEntryButton = get_node(Addressbook.EDITOR.PLAY.FROM_PROJECT_ENTRY)
-onready var PlayFromLeftConsoleButton = get_node(Addressbook.EDITOR.PLAY.FROM_LEFT_CONSOLE)
+@onready var PlayFromSelectedNodeButton = $/root/Main/Editor/Top/Bar/Play/From/SelectedNode
+@onready var PlayFromSceneEntryButton = $/root/Main/Editor/Top/Bar/Play/From/SceneEntry
+@onready var PlayFromProjectEntryButton = $/root/Main/Editor/Top/Bar/Play/From/ProjectEntry
+@onready var PlayFromLeftConsoleButton = $/root/Main/Editor/Top/Bar/Play/From/ShowConsole
 # bottom
-onready var OpenSceneTitle = get_node(Addressbook.EDITOR.OPEN_SCENE_TITLE)
+@onready var OpenSceneTitle = $/root/Main/Editor/Bottom/Bar/SceneTitle
 
 func _ready() -> void:
 	register_connections()
 	pass
 
 func register_connections() -> void:
-	HistoryUndo.connect("pressed", self, "_request_mind", ["history_rotate", -1])
-	HistoryRedo.connect("pressed", self, "_request_mind", ["history_rotate", +1])
-	SaveButton.connect("pressed", self, "_request_mind", ["save_project"])
-	PlayFromSceneEntryButton.connect("pressed", self, "_request_mind", ["console_play_from", "scene_entry"])
-	PlayFromProjectEntryButton.connect("pressed", self, "_request_mind", ["console_play_from", "project_entry"])
-	PlayFromLeftConsoleButton.connect("pressed", self, "_request_mind", ["console_play_from", "left_console"])
-	PlayFromSelectedNodeButton.connect("pressed", self, "_request_mind", ["console_play_from", "selected_node"])
+	HistoryUndo.pressed.connect(self._request_mind.bind("history_rotate", -1))
+	HistoryRedo.pressed.connect(self._request_mind.bind("history_rotate", +1))
+	SaveButton.pressed.connect(self._request_mind.bind("save_project"))
+	PlayFromSceneEntryButton.pressed.connect(self._request_mind.bind("console_play_from", "scene_entry"))
+	PlayFromProjectEntryButton.pressed.connect(self._request_mind.bind("console_play_from", "project_entry"))
+	PlayFromLeftConsoleButton.pressed.connect(self._request_mind.bind("console_play_from", "left_console"))
+	PlayFromSelectedNodeButton.pressed.connect(self._request_mind.bind("console_play_from", "selected_node"))
 	pass
 
 func set_project_title(title:String) -> void:
@@ -60,5 +60,5 @@ func reset_history_tools(current_index: int, history_size: int, is_locked: bool 
 	pass
 
 func _request_mind(req:String, args = null) -> void:
-	emit_signal("request_mind", req, args)
+	self.request_mind.emit(req, args)
 	pass

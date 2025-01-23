@@ -21,7 +21,7 @@ const DEFAULT_NODE_DATA = {
 	"clear": false,
 }
 
-# Monolog follwos the same convention that other character related nodes have.
+# Monolog follows the same convention that other character related nodes have.
 const ANONYMOUS_CHARACTER = {
 	"name": "Anonymous" ,
 	"color": "ffffff", # white

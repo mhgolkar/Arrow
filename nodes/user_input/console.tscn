@@ -1,116 +1,81 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://dg02wk5v73xx6"]
 
-[ext_resource path="res://nodes/user_input/console.gd" type="Script" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 4.0
-content_margin_right = 4.0
-content_margin_top = 4.0
-content_margin_bottom = 4.0
-bg_color = Color( 0, 0, 0, 0 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0.5, 0.5, 0.5, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+[ext_resource type="Texture2D" uid="uid://diuv2wwle6ofn" path="res://nodes/user_input/icon.svg" id="1_cupyp"]
+[ext_resource type="Script" path="res://nodes/user_input/console.gd" id="1_wnsuf"]
 
 [node name="UserInput" type="PanelContainer"]
-margin_right = 233.0
-margin_bottom = 80.0
+offset_right = 256.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+script = ExtResource("1_wnsuf")
 
-[node name="UserInputPlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 226.0
-margin_bottom = 113.0
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
+disabled = true
+icon = ExtResource("1_cupyp")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="Header" type="HBoxContainer" parent="UserInputPlay"]
-margin_right = 219.0
-margin_bottom = 14.0
-
-[node name="Icon" type="Label" parent="UserInputPlay/Header"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 4.0
-margin_bottom = 14.0
-size_flags_vertical = 7
-text = "﬍ "
-valign = 1
-
-[node name="Prompt" type="Label" parent="UserInputPlay/Header"]
-margin_left = 8.0
-margin_right = 219.0
-margin_bottom = 14.0
+[node name="Prompt" type="Label" parent="Play/Head"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
 size_flags_horizontal = 3
-text = "{ question }"
-autowrap = true
+size_flags_vertical = 1
+text = "[Prompt Question]"
+autowrap_mode = 3
 
-[node name="Input" type="MarginContainer" parent="UserInputPlay"]
-margin_top = 18.0
-margin_right = 219.0
-margin_bottom = 38.0
+[node name="Input" type="MarginContainer" parent="Play"]
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="String" type="LineEdit" parent="UserInputPlay/Input"]
+[node name="String" type="LineEdit" parent="Play/Input"]
 visible = false
-margin_right = 219.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
+layout_mode = 2
+placeholder_text = "Str Value"
+alignment = 1
 
-[node name="Number" type="SpinBox" parent="UserInputPlay/Input"]
+[node name="Number" type="SpinBox" parent="Play/Input"]
 visible = false
-margin_right = 219.0
-margin_bottom = 24.0
-rounded = true
+layout_mode = 2
 allow_greater = true
 allow_lesser = true
+alignment = 1
 
-[node name="Boolean" type="OptionButton" parent="UserInputPlay/Input"]
-margin_right = 219.0
-margin_bottom = 20.0
-text = "Positive (True) "
-items = [ "Negative (False)", null, false, 0, null, "Positive (True) ", null, false, 1, null ]
-selected = 1
+[node name="Boolean" type="OptionButton" parent="Play/Input"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "True"
+popup/item_0/id = 1
+popup/item_1/text = "False"
+popup/item_1/id = 1
 
-[node name="Invalid" type="Label" parent="UserInputPlay"]
-margin_top = 42.0
-margin_right = 219.0
-margin_bottom = 56.0
-text = "* Invalid input"
+[node name="Invalid" type="Label" parent="Play"]
+layout_mode = 2
+text = "* Invalid Input!"
 
-[node name="Result" type="Label" parent="UserInputPlay"]
-margin_top = 60.0
-margin_right = 219.0
-margin_bottom = 82.0
-size_flags_horizontal = 3
-size_flags_vertical = 7
-custom_styles/normal = SubResource( 1 )
-text = "{ result }"
-autowrap = true
+[node name="Result" type="Label" parent="Play"]
+layout_mode = 2
+text = "[Result]"
 
-[node name="Actions" type="HBoxContainer" parent="UserInputPlay"]
-margin_top = 86.0
-margin_right = 219.0
-margin_bottom = 106.0
-size_flags_horizontal = 3
+[node name="Actions" type="HBoxContainer" parent="Play"]
+layout_mode = 2
 alignment = 2
 
-[node name="Skip" type="Button" parent="UserInputPlay/Actions"]
-margin_left = 132.0
-margin_right = 170.0
-margin_bottom = 20.0
-size_flags_horizontal = 8
+[node name="Skip" type="Button" parent="Play/Actions"]
+layout_mode = 2
 text = "Skip"
 
-[node name="Enter" type="Button" parent="UserInputPlay/Actions"]
-margin_left = 174.0
-margin_right = 219.0
-margin_bottom = 20.0
-size_flags_horizontal = 8
-text = "Enter"
+[node name="Submit" type="Button" parent="Play/Actions"]
+layout_mode = 2
+text = "Submit"

@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# User_Input Node Type Inspector
-extends ScrollContainer
+# User-Input Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const NO_VARIABLE_TEXT = "No Variable Available"
 const NO_VARIABLE_ID = -1
@@ -36,44 +36,44 @@ const RESOURCE_NAME_EXPOSURE = Settings.RESOURCE_NAME_EXPOSURE
 
 var This = self
 
-onready var VariablesInspector = Main.Mind.Inspector.Tab.Variables
+@onready var VariablesInspector = Main.Mind.Inspector.Tab.Variables
 
-onready var Prompt = get_node("./UserInput/PromptFor")
-onready var Variables = get_node("./UserInput/Filterable/DirectToVariable")
-onready var GlobalFilters = get_node("./UserInput/Filterable/GlobalFilters")
-onready var InputProperties = get_node("./UserInput/Customization")
-onready var InputPropertiesByType = {
+@onready var Prompt = $Prompt
+@onready var Variables = $Variable/List
+@onready var GlobalFilters = $Variable/Filtered
+@onready var InputProperties = $Customization
+@onready var InputPropertiesByType = {
 	#
 	# CAUTION!
-	# Order of elements in each `fields` property is crutial for each variable type to be stored and run properly.
+	# Order of elements in each `fields` property is crucial for each variable type to be stored and run properly.
 	# They should represent the same order in which parameters are stored in the project file (i.e. node data,)
 	# in other words the order console and runtimes depend on, to run the node properly.
 	# Check out `DEFAULT_NODE_DATA` for more information.
 	#
 	"str": {
-		"group": get_node("./UserInput/Customization/PanelContainer/String"),
+		"group": $Customization/String,
 		"fields": [
 			# [node, parameter, default-value]
-			[get_node("./UserInput/Customization/PanelContainer/String/Pattern/LineEdit"), "text", ""],
-			[get_node("./UserInput/Customization/PanelContainer/String/Default/LineEdit"), "text", ""],
-			[get_node("./UserInput/Customization/PanelContainer/String/Extra/LineEdit"), "text", ""],
+			[$Customization/String/Pattern/LineEdit, "text", ""],
+			[$Customization/String/Default/LineEdit, "text", ""],
+			[$Customization/String/Extra/LineEdit, "text", ""],
 		]
 	},
 	"num": {
-		"group": get_node("./UserInput/Customization/PanelContainer/Number"),
+		"group": $Customization/Number,
 		"fields": [
-			[get_node("./UserInput/Customization/PanelContainer/Number/Min/SpinBox"), "value", -100],
-			[get_node("./UserInput/Customization/PanelContainer/Number/Max/SpinBox"), "value", 100],
-			[get_node("./UserInput/Customization/PanelContainer/Number/Step/SpinBox"), "value", 1],
-			[get_node("./UserInput/Customization/PanelContainer/Number/Value/SpinBox"), "value", 0],
+			[$Customization/Number/Min/SpinBox, "value", -100],
+			[$Customization/Number/Max/SpinBox, "value", 100],
+			[$Customization/Number/Step/SpinBox, "value", 1],
+			[$Customization/Number/Value/SpinBox, "value", 0],
 		]
 	},
 	"bool": {
-		"group": get_node("./UserInput/Customization/PanelContainer/Boolean"),
+		"group": $Customization/Boolean,
 		"fields": [
-			[get_node("./UserInput/Customization/PanelContainer/Boolean/False/LineEdit"), "text", ""],
-			[get_node("./UserInput/Customization/PanelContainer/Boolean/True/LineEdit"), "text", ""],
-			[get_node("./UserInput/Customization/PanelContainer/Boolean/Default/CheckButton"), "pressed", true],
+			[$Customization/Boolean/False/LineEdit, "text", ""],
+			[$Customization/Boolean/True/LineEdit, "text", ""],
+			[$Customization/Boolean/Default/CheckButton, "pressed", true],
 		]
 	},
 }
@@ -83,10 +83,10 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	Variables.connect("item_selected", self, "refresh_custom_properties_panel", [], CONNECT_DEFERRED)
-	GlobalFilters.connect("pressed", self, "refresh_variables_list", [], CONNECT_DEFERRED)
+	Variables.item_selected.connect(self.refresh_custom_properties_panel, CONNECT_DEFERRED)
+	GlobalFilters.pressed.connect(self.refresh_variables_list, CONNECT_DEFERRED)
 	for num_prop in InputPropertiesByType["num"].fields:
-		num_prop[0].connect("value_changed", self, "_cap_num_custom_prop_values", [], CONNECT_DEFERRED)
+		num_prop[0].value_changed.connect(self._cap_num_custom_prop_values, CONNECT_DEFERRED)
 	pass
 
 func a_node_is_open() -> bool :
@@ -127,9 +127,9 @@ func refresh_variables_list(select_by_res_id:int = NO_VARIABLE_ID) -> void:
 			if apply_globals && global_filters.SORT_ALPHABETICAL:
 				listing_keys.sort()
 			var item_index := 0
-			for name in listing_keys:
-				var id = listing[name]
-				Variables.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+			for var_name in listing_keys:
+				var id = listing[var_name]
+				Variables.add_item(var_name if already != id || apply_globals == false else "["+ var_name +"]", id)
 				Variables.set_item_metadata(item_index, id)
 				item_index += 1
 			if select_by_res_id >= 0 :
@@ -286,7 +286,7 @@ func _read_parameters() -> Dictionary:
 		parameters._use = _use
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 
@@ -312,7 +312,7 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 	pass
 
 static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
-	var base_key = String(id) + "-user_input-"
+	var base_key = String.num_int64(id) + "-user_input-"
 	var i18n = {
 		base_key + "prompt": node.data.prompt,
 	}

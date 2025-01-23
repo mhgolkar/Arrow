@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Interaction Node Type Console
-extends PanelContainer
+# Interaction Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,7 +11,7 @@ signal status_code
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const AUTO_PLAY_SLOT = -1
 
@@ -27,13 +27,13 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var ActionsHolder = get_node("./InteractionPlay/Box/Rows/Actions")
-onready var PlayedAction = get_node("./InteractionPlay/Box/Rows/ActionPlayed")
-onready var PlayedActionLabel = get_node("./InteractionPlay/Box/Rows/ActionPlayed/Label")
+@onready var NodeName = $Play/Head/Name
+@onready var ActionsHolder = $Play/Choices
+@onready var PlayedAction = $Play/Chosen
 
 const ACTIONS_SHARED_PROPERTIES = {
 	"clip_text": true,
-	"align": Button.ALIGN_LEFT
+	"alignment": HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
 }
 
 func _ready() -> void:
@@ -81,11 +81,12 @@ func clean_all_actions() -> void:
 	pass
 
 func listen_to_action(action:Button, action_idx:int) -> void:
-	action.connect("pressed", self, "play_forward_from", [action_idx], CONNECT_DEFERRED)
+	action.pressed.connect(self.play_forward_from.bind(action_idx), CONNECT_DEFERRED)
 	pass
 
 func setup_view() -> void:
 	clean_all_actions()
+	NodeName.set_text(_NODE_RESOURCE.name)
 	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("actions") && (_NODE_RESOURCE.data.actions is Array):
 		for action_idx in range(0, _NODE_RESOURCE.data.actions.size()):
 			var the_action_button = Button.new()
@@ -131,9 +132,9 @@ func play_forward_from(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 
@@ -145,7 +146,7 @@ func set_view_played_on_ready(slot_idx:int) -> void:
 	pass
 
 func set_view_unplayed() -> void:
-	PlayedActionLabel.set_text("")
+	PlayedAction.set_text("")
 	PlayedAction.set_visible(false)
 	ActionsHolder.set_visible(true)
 	pass
@@ -155,7 +156,7 @@ func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 		if _NODE_RESOURCE.data.actions.size() > slot_idx:
 			var action_text = _NODE_RESOURCE.data.actions[slot_idx]
 			var reformatted_action_text = action_text.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
-			PlayedActionLabel.set_text(reformatted_action_text)
+			PlayedAction.set_text(reformatted_action_text)
 			PlayedAction.set_visible(true)
 			ActionsHolder.set_visible(false)
 	pass

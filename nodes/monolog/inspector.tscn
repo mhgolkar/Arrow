@@ -1,110 +1,82 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://d0u8xw1ujt4pe"]
 
-[ext_resource path="res://nodes/monolog/inspector.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="1_1pyhs"]
+[ext_resource type="Script" path="res://nodes/monolog/inspector.gd" id="1_f7lwo"]
 
-[node name="MonologType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 256.0
-script = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccitl"]
+atlas = ExtResource("1_1pyhs")
+region = Rect2(192, 192, 48, 48)
 
-[node name="Rows" type="VBoxContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 249.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkcvu"]
+atlas = ExtResource("1_1pyhs")
+region = Rect2(192, 144, 48, 48)
+
+[node name="Monolog" type="VBoxContainer"]
+offset_right = 256.0
+offset_bottom = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_f7lwo")
 
-[node name="Character" type="VBoxContainer" parent="Rows"]
-margin_right = 239.0
-margin_bottom = 38.0
+[node name="Character" type="Label" parent="."]
+layout_mode = 2
+text = "Character"
 
-[node name="Label" type="Label" parent="Rows/Character"]
-margin_right = 239.0
-margin_bottom = 14.0
-text = "Character: "
+[node name="Selector" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Filterable" type="HBoxContainer" parent="Rows/Character"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 38.0
-
-[node name="Selection" type="OptionButton" parent="Rows/Character/Filterable"]
-margin_right = 223.0
-margin_bottom = 20.0
+[node name="List" type="OptionButton" parent="Selector"]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true
 
-[node name="GlobalFilters" type="Button" parent="Rows/Character/Filterable"]
-margin_left = 227.0
-margin_right = 239.0
-margin_bottom = 20.0
-hint_tooltip = "Apply Global Filters
+[node name="Filtered" type="Button" parent="Selector"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Apply Global Filters
 
 It will follow the same listing instructions
 that are defined in the Characters inspector.
 + Current character of the node and Anonymous are always listed."
 toggle_mode = true
-text = ""
+icon = SubResource("AtlasTexture_ccitl")
+icon_alignment = 1
+expand_icon = true
 
-[node name="MonologLabel" type="Label" parent="Rows"]
-margin_top = 42.0
-margin_right = 239.0
-margin_bottom = 56.0
-text = "Monolog:"
+[node name="MonologLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Monolog"
 
-[node name="Monolog" type="TextEdit" parent="Rows"]
-margin_top = 60.0
-margin_right = 239.0
-margin_bottom = 165.0
-rect_min_size = Vector2( 0, 100 )
-size_flags_horizontal = 3
+[node name="Monolog" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-breakpoint_gutter = true
-fold_gutter = true
-wrap_enabled = true
-minimap_width = 25
+wrap_mode = 1
 
-[node name="Brief" type="HBoxContainer" parent="Rows"]
-margin_top = 169.0
-margin_right = 239.0
-margin_bottom = 193.0
-size_flags_horizontal = 3
+[node name="Brief" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="Rows/Brief"]
-margin_top = 5.0
-margin_right = 34.0
-margin_bottom = 19.0
-text = "Brief:"
+[node name="Label" type="Label" parent="Brief"]
+layout_mode = 2
+text = "Brief"
 
-[node name="Length" type="SpinBox" parent="Rows/Brief"]
-margin_left = 38.0
-margin_right = 223.0
-margin_bottom = 24.0
-hint_tooltip = "Length of the brief display of this monolog on the grid.
-`-1` previews all."
+[node name="Length" type="SpinBox" parent="Brief"]
+layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
 rounded = true
 allow_greater = true
 
-[node name="Pick" type="Button" parent="Rows/Brief"]
-margin_left = 227.0
-margin_right = 239.0
-margin_bottom = 24.0
-hint_tooltip = "Set brief up to the cursor."
-text = ""
+[node name="Pick" type="Button" parent="Brief"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Sets brief length up to the the text cursor's position."
+icon = SubResource("AtlasTexture_fkcvu")
+expand_icon = true
 
-[node name="AutoPlay" type="CheckBox" parent="Rows"]
-margin_top = 197.0
-margin_right = 239.0
-margin_bottom = 221.0
-hint_tooltip = "Prints the node and goes forward with no user interaction."
-text = "Auto-play"
+[node name="AutoPlay" type="CheckBox" parent="."]
+layout_mode = 2
+text = "Auto Play"
 
-[node name="ClearPage" type="CheckBox" parent="Rows"]
-margin_top = 225.0
-margin_right = 239.0
-margin_bottom = 249.0
-text = "Print on Clear Page"
+[node name="ClearPage" type="CheckBox" parent="."]
+layout_mode = 2
+text = "Clear Page"

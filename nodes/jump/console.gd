@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Jump Node Type Console
-extends PanelContainer
+# Jump Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,7 +11,7 @@ signal status_code
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 var _NODE_ID:int
 var _NODE_RESOURCE:Dictionary
@@ -23,8 +23,8 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY:bool = false
 
-onready var Reason:Label = get_node("./JumpPlay/Header/Reason")
-onready var Action:Button = get_node("./JumpPlay/Link/Action")
+@onready var Reason:Label = $Play/Head/Reason
+@onready var Action:Button = $Play/Action
 
 const REASON_TEXT_UNSET_MESSAGE = "No Reason"
 const JUMP_TARGET_LABEL_FORMAT_STRING = (
@@ -42,7 +42,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	Action.connect("pressed", self, "play_forward_the_jump", [], CONNECT_DEFERRED)
+	Action.pressed.connect(self.play_forward_the_jump, CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -70,7 +70,7 @@ func setup_view() -> void:
 	else:
 		Reason.set_text( REASON_TEXT_UNSET_MESSAGE )
 	# ...
-	This.set("hint_tooltip", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else ""))
+	This.set("tooltip_text", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else ""))
 	pass
 	
 func setup_play(
@@ -103,9 +103,9 @@ func proceed_auto_play() -> void:
 
 func play_forward_the_jump() -> void:
 	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("target") && (_NODE_RESOURCE.data.target is int) && _NODE_RESOURCE.data.target >= 0 :
-		emit_signal("play_forward", _NODE_RESOURCE.data.target, 0)
+		self.play_forward.emit(_NODE_RESOURCE.data.target, 0)
 	else:
-		emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+		self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 	set_view_played_on_ready()
 	pass
 
@@ -127,10 +127,9 @@ func set_view_played() -> void:
 	pass
 
 func skip_play() -> void:
-	emit_signal("status_code", CONSOLE_STATUS_CODE.NO_DEFAULT)
+	self.status_code.emit(CONSOLE_STATUS_CODE.NO_DEFAULT)
 	pass
 
 func step_back() -> void:
 	set_view_unplayed()
 	pass
-	

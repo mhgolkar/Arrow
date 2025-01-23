@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Tag-Match Node Type Console
-extends PanelContainer
+# Tag-Match Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,9 +11,7 @@ signal status_code
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var Utils = Helpers.Utils
+@onready var Main = get_tree().get_root().get_child(0)
 
 const AUTO_PLAY_SLOT = -1
 
@@ -29,20 +27,20 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var CharacterProfileName  = get_node("./TagMatchPlay/Header/CharacterProfile/Name")
-onready var CharacterProfileColor = get_node("./TagMatchPlay/Header/CharacterProfile/Color")
-onready var TagKey = get_node("./TagMatchPlay/TagKey")
-onready var Matchables = get_node("./TagMatchPlay/Rows/Matchables")
-onready var PatternsSelector = get_node("./TagMatchPlay/Rows/Matchables/Patterns")
-onready var ManualEolButton = get_node("./TagMatchPlay/Rows/Matchables/Actions/Eol")
-onready var ManualMatchButton = get_node("./TagMatchPlay/Rows/Matchables/Actions/Match")
-onready var MatchedPattern = get_node("./TagMatchPlay/Rows/MatchedPattern")
+@onready var CharacterProfileName  = $Play/Head/Name
+@onready var CharacterProfileColor = $Play/Body/Color
+@onready var TagKey = $Play/Body/Matchable/Tag
+@onready var PatternsSelector = $Play/Body/Matchable/Manual/Patterns
+@onready var Manual = $Play/Body/Matchable/Manual
+@onready var ManualEolButton = $Play/Body/Matchable/Manual/Actions/Eol
+@onready var ManualMatchButton = $Play/Body/Matchable/Manual/Actions/Match
+@onready var MatchedPattern = $Play/Body/Matchable/Matched
 
 const ANONYMOUS_CHARACTER = TagMatchSharedClass.INVALID_CHARACTER
 const DEFAULT_NODE_DATA = TagMatchSharedClass.DEFAULT_NODE_DATA
 
 const INVALID_TAG_KEY_ERROR = "Invalid Tag Key"
-const MATCHING_FORMAT_STRING = "`{value}` matched `{pattern}`"
+const MATCHING_FORMAT_STRING = "`{value}` ~= `{pattern}`"
 const NO_MATCH = "No Match (EOL)"
 
 func _ready() -> void:
@@ -56,8 +54,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	ManualEolButton.connect("pressed", self, "play_eol", [], CONNECT_DEFERRED)
-	ManualMatchButton.connect("pressed", self, "play_selected_pattern", [], CONNECT_DEFERRED)
+	ManualEolButton.pressed.connect(self.play_eol, CONNECT_DEFERRED)
+	ManualMatchButton.pressed.connect(self.play_selected_pattern, CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -72,7 +70,7 @@ func update_character(profile:Dictionary) -> void:
 	if profile.has("name") && (profile.name is String):
 		CharacterProfileName.set("text", profile.name)
 	if profile.has("color") && (profile.color is String):
-		CharacterProfileColor.set("color", Utils.rgba_hex_to_color(profile.color))
+		CharacterProfileColor.set("color", Helpers.Utils.rgba_hex_to_color(profile.color))
 	pass
 
 func set_character_anonymous() -> void:
@@ -155,7 +153,7 @@ func play_matching_or_eol() -> void:
 		
 func setup_play(
 	node_id:int, node_resource:Dictionary, node_map:Dictionary, _playing_in_slot:int = -1,
-	variables_current:Dictionary={}, characters_current:Dictionary={}
+	_variables_current:Dictionary={}, characters_current:Dictionary={}
 ) -> void:
 	_NODE_ID = node_id
 	_NODE_RESOURCE = node_resource
@@ -184,9 +182,9 @@ func proceed_auto_play() -> void:
 func play_forward_from(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	if slot_idx >= 0 && _NODE_SLOTS_MAP.has(slot_idx):
 		var next = _NODE_SLOTS_MAP[slot_idx]
-		self.emit_signal("play_forward", next.id, next.slot)
+		self.play_forward.emit(next.id, next.slot)
 	else:
-		emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+		self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 	set_view_played_on_ready(slot_idx)
 	pass
 
@@ -200,7 +198,7 @@ func set_view_played_on_ready(slot_idx:int) -> void:
 func set_view_unplayed() -> void:
 	MatchedPattern.set_text("")
 	MatchedPattern.set_visible(false)
-	Matchables.set_visible(true)
+	Manual.set_visible(true)
 	pass
 
 func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
@@ -227,7 +225,7 @@ func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 					})
 				)
 	MatchedPattern.set_visible(true)
-	Matchables.set_visible(false)
+	Manual.set_visible(false)
 	pass
 
 func skip_play() -> void:

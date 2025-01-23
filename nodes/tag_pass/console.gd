@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Tag-Pass Node Type Console
-extends PanelContainer
+# Tag-Pass Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,9 +11,7 @@ signal status_code
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var Utils = Helpers.Utils
+@onready var Main = get_tree().get_root().get_child(0)
 
 const FALSE_SLOT = 0
 const TRUE_SLOT  = 1
@@ -44,17 +42,15 @@ const METHODS_ENUM = TagPassSharedClass.METHODS_ENUM
 const METHOD_INVALID = ""
 const METHOD_INVALID_HINT = ""
 
-onready var Method = get_node("./TagPassPlay/Header/Method")
-onready var CharacterProfile = get_node("./TagPassPlay/Character")
-onready var CharacterProfileColor = get_node("./TagPassPlay/Character/Color")
-onready var CharacterProfileName = get_node("./TagPassPlay/Character/Name")
-onready var Invalid = get_node("./TagPassPlay/Invalid")
-onready var TagTemplate = get_node("./TagPassPlay/Scroll/TagTemplate")
-onready var TagBox = get_node("./TagPassPlay/Scroll")
-onready var Tags = get_node("./TagPassPlay/Scroll/Tags")
-onready var TagNoneMessage = get_node("./TagPassPlay/Scroll/NoTagsToCheck")
-onready var TheFalse = get_node("./TagPassPlay/Outcomes/False")
-onready var TheTrue = get_node("./TagPassPlay/Outcomes/True")
+@onready var Method = $Play/Body/Checkables/Method
+@onready var CharacterProfileColor = $Play/Body/Color
+@onready var CharacterProfileName = $Play/Head/Name
+@onready var Invalid = $Play/Body/Checkables/Invalid
+@onready var TagTemplate = $Play/Body/Checkables/Margin/TagTemplate
+@onready var Tags = $Play/Body/Checkables/Margin/Tags
+@onready var TagNoneMessage = $Play/Body/Checkables/Margin/NoTagsToCheck
+@onready var TheFalse = $Play/Body/Checkables/Actions/False
+@onready var TheTrue = $Play/Body/Checkables/Actions/True
 
 func _ready() -> void:
 	register_connections()
@@ -67,8 +63,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	TheTrue.connect("pressed", self, "play_forward_from", [TRUE_SLOT], CONNECT_DEFERRED)
-	TheFalse.connect("pressed", self, "play_forward_from", [FALSE_SLOT], CONNECT_DEFERRED)
+	TheTrue.pressed.connect(self.play_forward_from.bind(TRUE_SLOT), CONNECT_DEFERRED)
+	TheFalse.pressed.connect(self.play_forward_from.bind(FALSE_SLOT), CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -86,7 +82,7 @@ func update_character(profile:Dictionary) -> void:
 	)
 	CharacterProfileColor.set(
 		"color",
-		Utils.rgba_hex_to_color(
+		Helpers.Utils.rgba_hex_to_color(
 			profile.color if profile.has("color") && (profile.color is String) else ANONYMOUS_CHARACTER.color
 		)
 	)
@@ -129,11 +125,12 @@ func setup_view() -> void:
 		else:
 			is_valid = false
 	Invalid.set_deferred("visible", (! is_valid))
-	TagBox.set_deferred("visible", is_valid)
-	TheTrue.set_deferred("hint_tooltip", method_hint)
+	Tags.set_deferred("visible", is_valid)
+	TheTrue.set_deferred("tooltip_text", method_hint)
 	Method.set_deferred("text", method_text)
 	Method.set_deferred("visible", is_valid)
-	CharacterProfile.set_deferred("visible", is_valid)
+	CharacterProfileColor.set_deferred("visible", is_valid)
+	CharacterProfileName.set_deferred("visible", is_valid)
 	refresh_tag_box(_NODE_RESOURCE.data.pass[1] if is_valid else [])
 	set_view_unplayed()
 	pass
@@ -190,9 +187,9 @@ func play_forward_from(slot_idx:int) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 

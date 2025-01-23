@@ -2,27 +2,27 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Variable_Update Node Type
+# Variable-Update Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
-onready var Expr = get_node("./VBoxContainer/Expression")
+@onready var Expr = $Display/Expression
 
 const UNSET_OR_INVALID_MESSAGE = "Unset"
-onready var VarUpExpr = VariableUpdateSharedClass.expression.new(Main.Mind)
+@onready var VarUpExpr = VariableUpdateSharedClass.expression.new(Main.Mind)
 
 #func _ready() -> void:
 #	register_connections()
 #	pass
 
 #func register_connections() -> void:
-#	# e.g. SOME_CHILD.connect("the_signal", self, "the_handler_on_self", [], CONNECT_DEFERRED)
+#	# e.g. SOME_CHILD.connect("the_signal", self.the_handler_on_self.bind(...), CONNECT_DEFERRED)
 #	pass
 
 func _update_node(data:Dictionary) -> void:

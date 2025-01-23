@@ -25,7 +25,7 @@ const METHOD_ACCEPTS_KEY_ONCE = [
 	METHODS_ENUM.ALL
 ]
 
-# Tag-Pass follwos the same convention that other character related nodes have.
+# Tag-Pass follows the same convention that other character related nodes have.
 
 const DEFAULT_NODE_DATA = {
 	"character": -1, # ~ invalid anonymous unset (hardcoded convention)

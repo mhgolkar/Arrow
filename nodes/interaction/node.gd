@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Interaction Node Type
+# Interaction Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const OUT_SLOT_COLOR = Settings.GRID_NODE_SLOT.DEFAULT.OUT.COLOR
 # settings for the dynamically generated outgoing slots
@@ -16,11 +16,11 @@ const OUT_SLOT_TYPE_LEFT    = OUT_SLOT_TYPE_RIGHT
 const OUT_SLOT_COLOR_RIGHT  = OUT_SLOT_COLOR
 const OUT_SLOT_COLOR_LEFT   = OUT_SLOT_COLOR
 
-const ACTION_SLOT_ALIGN = Label.ALIGN_RIGHT
-const ACTION_AUTO_WRAP = true
+const ACTION_SLOT_ALIGN = HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
+const ACTION_AUTO_WRAP = TextServer.AutowrapMode.AUTOWRAP_WORD_SMART
 
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
@@ -47,8 +47,8 @@ func _update_node(data:Dictionary) -> void:
 			if action_text is String:
 				var action_slot = Label.new()
 				action_slot.set_text(action_text)
-				action_slot.set_align(ACTION_SLOT_ALIGN)
-				action_slot.set_autowrap(ACTION_AUTO_WRAP)
+				action_slot.set_horizontal_alignment(ACTION_SLOT_ALIGN)
+				action_slot.set_autowrap_mode(ACTION_AUTO_WRAP)
 				This.add_child(action_slot)
 				This.set_slot(
 					idx,

@@ -1,28 +1,62 @@
-Copyright Information & Thirdparty Licenses
+Copyright, Licenses & Attributions
 
-This software uses [Godot Engine](https://godotengine.org/), available under the
-[MIT](https://github.com/godotengine/godot/blob/master/LICENSE.txt) license.
-Copyright (c) 2007-2022 Juan Linietsky, Ariel Manzur.
-Copyright (c) 2014-2022 Godot Engine contributors.
+# NOTE!
+# This file is a template. To get complete copyright information
+# open the application and checkout About panel from Arrow menu.
 
-Godot Engine uses FreeType to render fonts, therefore:
+Arrow is a free and open-source software available under MIT license.
 
-    Portions of this software are copyright © 2022 The FreeType Project (www.freetype.org).
-    All rights reserved.
+@Import:ARROW_LICENSE
 
-Godot Engine uses MBedTLS for secure HTTPS requests.
-Arrow uses HTTPS to check if new releases are available,
-therefore the MBedTLS Apache license needs to be complied:
+[Disclaimer!]
 
-    Copyright The Mbed TLS Contributors
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and limitations under the License.
+This document, including the explanations of license terms and their implications do not constitute legal advice.
+It reflects our team's understanding of license terms for this particular project.
+Authors of this project disclaim any responsibility regarding correctness and/or sufficiency of copyright information for derivatives or works based on, including or using their product, and/or any damage resulting by such works or information.
 
-Fonts used in this project may be available under different licenses.
-For more information, please check out `resources/fonts/.info` file.
+[Notices]
 
+Hereby we acknowledge use of the following projects (material, libraries, etc.) in production of this software.
+
+Licenses may be given in summarized form, with their copyright short name (or SPDX identifier), for example in `project/package (license-identifier): holder(s,)` format.
+Generic or dedicated copies of the licenses are included in plain text where proper at this document for those that require reproduction of the license text in the distribution.
+For more details, please check each individual project.
+
+Also note that the exact copyright for each file in any mentioned component or project *may* differ, and some files or code snippets might be distributed under other compatible licenses (e.g. a public domain dedication), but as far as this product is concerned each component or project is considered as a whole under the mentioned license.
+
+Note: Depending on the exact version, build, etc. your copy of this product may not contain some of the resources mentioned here.
+
+[+ Godot Copyright]
+
+Arrow can be considered as game/app projects made with Godot Engine.
+In this regard, we hereby acknowledge that:
+
+This software uses Godot Engine v@GODOT_VERSION, available under the following license (as provided by the engine binary):
+
+@Import:GODOT_LICENSE_FROM_ENGINE
+
+[+ Godot Third-party Licenses]
+
+Godot contains software written by third parties, which is compatible with, but not covered by Godot's MIT license.
+These components (of the Godot engine and/or editor) are listed below and generic copies of the licenses are included where proper at this document for those that require reproduction of the license text in the distribution.
+Godot source files where each component is used or the license may be applied is also mentioned. Globbing patterns (e.g. "Files: *") mean that they affect all corresponding files (also recursively in sub-folders), apart from those with a more explicit copyright statement.
+
+The mentioned components list is in summarized format as follows:
+
+@Import:GODOT_THIRD_PARTY_COMPONENTS_FROM_ENGINE
+
+For more information please check out Godot's copyright and license documentations including from following links for the used version of the engine:
++ https://godotengine.org/license/
++ https://github.com/godotengine/godot/blob/master/COPYRIGHT.txt
+
+[Licenses]
+
+In this section we display generic copies of the licenses for those that require reproduction of the license text in the distribution.
+
+Note: depending on the exact build, version, etc. your copy of this product may not contain resources covered by one or more of the licenses listed here.
+
+@Import:GODOT_LICENSES_TEXT_FROM_ENGINE
+
+[Other Notices]
+
+@Import:COPYRIGHT_PLUS_FILES

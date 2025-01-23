@@ -1,27 +1,31 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://b8vhsxc8h4i3y"]
 
-[ext_resource path="res://nodes/hub/node.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/hub/node.gd" id="1_clcer"]
+[ext_resource type="Texture2D" uid="uid://csd3jcsheiq0c" path="res://nodes/hub/icon.svg" id="1_nlr1k"]
 
-[node name="HubNode" type="GraphNode"]
-margin_right = 58.0
-margin_bottom = 44.0
+[node name="Hub" type="GraphNode"]
+offset_right = 128.0
+offset_bottom = 86.0
 mouse_filter = 1
+resizable = true
 slot/0/left_enabled = false
 slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
 slot/0/right_enabled = true
-slot/0/right_type = 1
-slot/0/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_clcer")
 
-[node name="Head" type="VBoxContainer" parent="."]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 46.0
-margin_bottom = 38.0
-
-[node name="Label" type="Label" parent="Head"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 30.0
-margin_bottom = 14.0
-text = " Hub"
+[node name="Kind" type="Button" parent="."]
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+text = "Hub"
+icon = ExtResource("1_nlr1k")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true

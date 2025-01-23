@@ -1,38 +1,8 @@
-# Git
-.gitignore
-.git/
-
 # Godot 4+ specific ignores
 .godot/
+/android/
 
-# Godot-specific ignores
-# + may contain sensitive credentials such as the Android keystore 
-.import/
-export.cfg
-export_presets.cfg
-
-# Imported translations (automatically generated from CSV files)
-*.translation
-
-# Mono-specific ignores
-.mono/
-data_*/
-mono_crash.*.json
-
-# Editor-specific ignores
-.vscode/
-*.code-workspace
-
-# System/tool-specific ignores
-.DS_Store
-.directory
-*~
-
-# Misc
-.wiki/
-.extra/
-.website/
-.releases/
-project.md
+# Arrow ignores
 *.arrow
-run
+.arrow.config
+.arrow.project

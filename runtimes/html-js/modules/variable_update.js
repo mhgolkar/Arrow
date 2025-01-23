@@ -176,9 +176,9 @@ class VariableUpdateExpression {
         const KEYS_NEEDED_TO_PARSE = ["variable", "operator", "with"];
         
         const EXPRESSION_TEMPLATE = "{ident} {operator_sign} {parameter}";
-        const UPDATED_WITH_SELF_INITIAL_RIGHT_SIDE = "Self (Intial Value)";
+        const UPDATED_WITH_SELF_INITIAL_RIGHT_SIDE = "Self (Initial Value)";
         
-        const STRING_VALUE_FORMATING_TEMPLATE = "`%s`";
+        const STRING_VALUE_FORMATTING_TEMPLATE = "`%s`";
     
         this.parse = function(){
             var parsed = null;
@@ -191,7 +191,7 @@ class VariableUpdateExpression {
                 switch ( this.data.with[0] ){
                     case PARAMETER_MODES_ENUM_CODE.value:
                         if (this.variable.type == "str"){
-                            this.expression.parameter = STRING_VALUE_FORMATING_TEMPLATE.replace("%s", this.data.with[1]);
+                            this.expression.parameter = STRING_VALUE_FORMATTING_TEMPLATE.replace("%s", this.data.with[1]);
                         } else {
                             this.expression.parameter = this.data.with[1];
                         }

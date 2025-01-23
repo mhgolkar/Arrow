@@ -1,85 +1,63 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://dcelougln5njh"]
 
-[ext_resource path="res://nodes/frame/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/frame/inspector.gd" id="1_8qlpy"]
 
-[node name="FrameType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 157.0
-scroll_horizontal_enabled = false
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Frame" type="VBoxContainer" parent="."]
-margin_right = 227.0
-margin_bottom = 212.0
+[node name="Frame" type="VBoxContainer"]
+offset_right = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_8qlpy")
 
-[node name="ColorLabel" type="Label" parent="Frame"]
-margin_right = 227.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
+[node name="Color" type="Label" parent="."]
+layout_mode = 2
 text = "Color"
 
-[node name="ColorPicker" type="ColorPickerButton" parent="Frame"]
-margin_top = 18.0
-margin_right = 227.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 50, 30 )
-size_flags_horizontal = 7
-size_flags_vertical = 5
-color = Color( 0.0588235, 0.796078, 0.956863, 1 )
-edit_alpha = false
+[node name="ColorPicker" type="ColorPickerButton" parent="."]
+layout_mode = 2
+text = "[Frame Color]"
+color = Color(0, 0.643137, 0.392157, 1)
 
-[node name="LabelLabel" type="Label" parent="Frame"]
-margin_top = 52.0
-margin_right = 227.0
-margin_bottom = 66.0
-size_flags_horizontal = 3
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
 text = "Label"
 
-[node name="LabelEdit" type="TextEdit" parent="Frame"]
-margin_top = 70.0
-margin_right = 227.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 0, 50 )
-size_flags_horizontal = 3
+[node name="TextEdit" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SizeXLabel" type="Label" parent="Frame"]
-margin_top = 124.0
-margin_right = 227.0
-margin_bottom = 138.0
+[node name="Width" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Width"]
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Width"
 
-[node name="SizeX" type="SpinBox" parent="Frame"]
-margin_top = 142.0
-margin_right = 227.0
-margin_bottom = 166.0
+[node name="Value" type="SpinBox" parent="Width"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 min_value = 128.0
-max_value = 256.0
-value = 256.0
+max_value = 999.0
+value = 128.0
 rounded = true
 allow_greater = true
 
-[node name="SizeYLabel" type="Label" parent="Frame"]
-margin_top = 170.0
-margin_right = 227.0
-margin_bottom = 184.0
+[node name="Height" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Height"]
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Height"
 
-[node name="SizeY" type="SpinBox" parent="Frame"]
-margin_top = 188.0
-margin_right = 227.0
-margin_bottom = 212.0
+[node name="Value" type="SpinBox" parent="Height"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 min_value = 128.0
-max_value = 256.0
-value = 256.0
+max_value = 999.0
+value = 128.0
 rounded = true
 allow_greater = true

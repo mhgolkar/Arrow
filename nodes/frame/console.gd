@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Frame Node Type Console
-extends PanelContainer
+# Frame Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,9 +11,7 @@ signal status_code
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var Utils = Helpers.Utils
+@onready var Main = get_tree().get_root().get_child(0)
 
 # NOTE:
 # Currently frames accept no incoming or outgoing slots,
@@ -31,8 +29,8 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var FrameName:Label = get_node("./FramePlay/Head/FrameName")
-onready var FrameLabel:Button = get_node("./FramePlay/FrameLabel")
+@onready var FrameName:Label = $Play/Head/Name
+@onready var FrameLabel:Button = $Play/Action
 
 const LABEL_UNSET_MESSAGE = "Unlabeled"
 const LABEL_UNSET_SELF_MODULATION_COLOR  = Color(1, 1, 1, 0.30)
@@ -50,7 +48,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	FrameLabel.connect("pressed", self, "play_forward_from", [AUTO_PLAY_SLOT], CONNECT_DEFERRED)
+	FrameLabel.pressed.connect(self.play_forward_from.bind(AUTO_PLAY_SLOT), CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -68,8 +66,8 @@ func setup_view() -> void:
 	else:
 		FrameLabel.set_text(LABEL_UNSET_MESSAGE)
 		FrameLabel.set_deferred("self_modulate", LABEL_UNSET_SELF_MODULATION_COLOR)
-	FrameLabel.set("hint_tooltip", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else NO_NOTES_MESSAGE))
-	self.set("self_modulate", Utils.rgba_hex_to_color(_NODE_RESOURCE.data.color))
+	FrameLabel.set("tooltip_text", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else NO_NOTES_MESSAGE))
+	self.set("self_modulate", Helpers.Utils.rgba_hex_to_color(_NODE_RESOURCE.data.color))
 	pass
 	
 func setup_play(
@@ -103,9 +101,9 @@ func play_forward_from(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 
@@ -121,7 +119,7 @@ func set_view_unplayed() -> void:
 	FrameLabel.set("disabled", false)
 	pass
 
-func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
+func set_view_played(_slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	FrameLabel.set("flat", true)
 	FrameLabel.set("disabled", true)
 	pass

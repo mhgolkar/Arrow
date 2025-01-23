@@ -6,47 +6,47 @@
 # Other scripts use this class as a centralized set of configurations
 class_name Settings
 
-const ARROW_VERSION = "2.3.0"
+const ARROW_VERSION = "3.0.0-rc1"
 const ARROW_WEBSITE = "https://mhgolkar.github.io/Arrow/"
 
-const CURRENT_RELEASE_TAG = "v2.3.0"
+const CURRENT_RELEASE_TAG = "v3.0.0-rc1"
 const ARROW_RELEASES_ARCHIVE = "https://github.com/mhgolkar/Arrow/releases/"
 const LATEST_RELEASE_CHECK_API = "https://api.github.com/repos/mhgolkar/Arrow/releases/latest"
 
 # Sandbox
 
-# This mode (true) won't auto generate files (including `arrow.config` if there is no one found.)
+# This mode (true) won't auto generate files (including `.arrow.config` if there is no one found.)
 # This setting is exported by `/root/Main` node and may be changed in the editor. It can also be set using `--sandbox` cli argument.
 const RUN_IN_SANDBOX = false
 
 # User Configurations File
 
-# Arrow searchs for a user configuration file on startup.
-# The file contains UI preferences, app local/working directory (where projects are saved,) etc.
-const CONFIG_FILE_NAME = "config.arrow"
+# Arrow searches for a user configuration file on startup.
+# The file contains UI preferences, app local/working directory (where documents are saved), etc.
+const CONFIG_FILE_NAME = ".arrow.config"
 const CONFIG_FILES_SUB_PATH_DIR_PRIORITY = ["user://", "res://"]
 # The file will be automatically generated in the directory with lowest priority if there is no one found.
 # A custom base-directory path for the configuration file also be set using `--config-dir` cli argument:
-# $ arrow --config-dir '/home/user/.config'
+# $ arrow --config-dir '/home/USER/.config/'
 # The work (or project management) directory may also be overridden using `--work-dir` cli argument.
 # Note that in `HTML5` exports, only `user://` is writable, so this process will not apply. 
 
 # Main User Interface
 
 const PANELS_OPEN_BY_DEFAULT = ["inspector"]
-const BLOCKING_PANELS = ["preferences", "authors", "new_project_prompt", "about", "welcome", "notification"]
+const BLOCKING_PANELS = ["preferences", "authors", "new_project_prompt", "about", "notification"]
 const STATEFUL_PANELS = ["inspector", "console"]
 
 # Helpers::Utils
 
-const EVER_THERE_RES_FILE = "res://icon.png" # A file that ALWAYS EXISTS in `res://`, to get absolute path there via a workaround.
+const EVER_THERE_RES_FILE = "res://icon.svg" # A file that ALWAYS EXISTS in `res://`, to get absolute path there via a workaround.
 const DISCOURAGED_FILENAME_CHARACTERS = [" ", ":", "?", "*", "|", "%", "<", ">", "#", "."]
 const TIME_STAMP_TEMPLATE = "{year}.{month}.{day} {hour}:{minute}:{second}"
 const TIME_STAMP_TEMPLATE_UTC_MARK = " UTC"
 
 # Project Management
 
-const PROJECT_LIST_FILE_NAME = "projects.arrow"
+const PROJECT_LIST_FILE_NAME = ".arrow.project"
 # ...
 const PROJECT_FILE_EXTENSION = ".arrow" # CAUTION! change `PATH_DIALOG_PROPERTIES` respectively.
 const PROJECT_FILE_NAME_PURGED_WORDS = [] # These words will be automatically replaced in a file name
@@ -102,12 +102,19 @@ const SKIP_NODE_SELF_MODULATION_COLOR_ON  = Color( 0.75, 0.75, 0.75, 0.75)
 const SKIP_NODE_SELF_MODULATION_COLOR_OFF = Color( 1, 1, 1, 1 )
 const GRID_GO_TO_AUTO_ADJUSTMENT_FACTOR = Vector2(0.5, 0.5) # it moves view offset
 const NODE_FLICK_FADE_TIME_OUT = 1.0 # Seconds
+# NOTE: Theme variation affixes are styling keywords used to distinguish different states of graph nodes.
+const NODE_THEME_VARIATION_AFFIX_FLICK = "_FLICK"
+const NODE_THEME_VARIATION_AFFIX_HIGHLIGHT = {
+	CLIPBOARD_MODE.COPY: "_COPY",
+	CLIPBOARD_MODE.CUT: "_CUT",
+}
 
 const QUICK_INSERT_NODES_ON_SINGLE_CLICK = false
 const INVALID_QUICK_CONNECTION = {
-	"TO":   ["entry"],
-	"FROM": ["jump"]
+	"TO":   ["entry", "frame"],
+	"FROM": ["jump", "frame"]
 }
+const LOCALLY_HANDLED_RESIZABLE_NODES = ["frame"]
 
 # [ Modular Node Type System ]
 # Node Types
@@ -119,12 +126,13 @@ const NODES_RES_DIR = "res://nodes/"
 const NODE_TYPE_NODE_FILE_NAME = "node.tscn"
 const NODE_TYPE_INSPECTOR_FILE_NAME = "inspector.tscn"
 const NODE_TYPE_CONSOLE_FILE_NAME = "console.tscn"
+const NODE_TYPE_ICON_FILE_NAME = "icon.svg"
 # 	Note: If you plan to use a custom node type and export your project with default runtime(s) such as built-in 'html-js',
 # 	... you may also checkout `res://runtimes` and do some developments there as well.
 const GRID_NODE_SLOT = {
 	"DEFAULT": {
-		"IN": { "TYPE": 0, "COLOR": Color.white },
-		"OUT":{ "TYPE": 1, "COLOR": Color.white }
+		"IN": { "TYPE": 0, "COLOR": Color.WHITE },
+		"OUT":{ "TYPE": 1, "COLOR": Color.WHITE }
 	}
 }
 const GRID_VALID_CONNECTIONS = {
@@ -182,7 +190,7 @@ const VARIABLE_TYPES_ENUM = {
 # and *is case-sensitive*. Scenes and macros share the same scope.
 #
 # CAUTION!
-# All Affixes below shall be at least 1 charecter.
+# All Affixes below shall be at least 1 character.
 
 const FORCE_UNIQUE_NAMES_FOR_VARIABLES = true
 const REUSED_VARIABLE_NAMES_AUTO_POSTFIX = "_"
@@ -227,10 +235,10 @@ const MINIMAP_CROSSHAIR_WIDTH = 2
 
 # Color Palette
 
-const INFO_COLOR = Color.greenyellow
-const CAUTION_COLOR = Color.yellow
-const WARNING_COLOR = Color("ff0bb1") # redish
-const PEACE_COLOR = Color("0fcbf4") # cyanish
+const INFO_COLOR = Color.GREEN_YELLOW
+const CAUTION_COLOR = Color.YELLOW
+const WARNING_COLOR = Color("ff0bb1") # ~ red
+const PEACE_COLOR = Color("0fcbf4") # ~ cyan
 
 # Notifications
 
@@ -240,7 +248,7 @@ const NOTIFICATION_COLOR_BAND_DEFAULT_COLOR = INFO_COLOR
 
 const CONSOLE_MESSAGE_DEFAULT_COLOR = INFO_COLOR
 # ... and modulation color for skipped nodes
-const CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_ON = Color.darkgray
+const CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_ON = Color.DARK_GRAY
 const CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_OFF = Color( 1, 1, 1, 1 )
 
 # Editor
@@ -251,42 +259,42 @@ const PROJECT_SAVE_INDICATION_COLOR = PEACE_COLOR
 const PATH_DIALOG_PROPERTIES = {
 	"PROJECT_FILE" : {
 		"OPEN" : {
-			"window_title": "Select a Project File",
-			"mode": FileDialog.MODE_OPEN_FILE,
+			"title": "Select an Arrow Document",
+			"file_mode": FileDialog.FileMode.FILE_MODE_OPEN_FILE,
 			"access": FileDialog.ACCESS_FILESYSTEM,
-			"filters": PoolStringArray(["*.arrow ; Arrow Project", "*.json ; Exported Arrow Project"])
+			"filters": ["*.arrow;Arrow Document"]
 		},
 		"SAVE": {
-			"window_title": "Save Project as File",
-			"mode": FileDialog.MODE_SAVE_FILE,
+			"title": "Save Document",
+			"file_mode": FileDialog.FileMode.FILE_MODE_SAVE_FILE,
 			"access": FileDialog.ACCESS_FILESYSTEM,
-			"filters": PoolStringArray(["*.arrow ; Arrow Project"])
+			"filters": ["*.arrow;Arrow Document"]
 		},
 		"EXPORT_JSON": {
-			"window_title": "Save Project with JSON Format",
-			"mode": FileDialog.MODE_SAVE_FILE,
+			"title": "Export as JSON",
+			"file_mode": FileDialog.FileMode.FILE_MODE_SAVE_FILE,
 			"access": FileDialog.ACCESS_FILESYSTEM,
-			"filters": PoolStringArray(["*.json ; Exported Arrow Project"])
+			"filters": ["*.json;Purged Arrow Export"]
 		},
 		"EXPORT_HTML": {
-			"window_title": "Export Playable HTML",
-			"mode": FileDialog.MODE_SAVE_FILE,
+			"title": "Export Playable HTML",
+			"file_mode": FileDialog.FileMode.FILE_MODE_SAVE_FILE,
 			"access": FileDialog.ACCESS_FILESYSTEM,
-			"filters": PoolStringArray(["*.html ; Playable HTML"])
+			"filters": ["*.html;Playable HTML"]
 		},
 		"EXPORT_CSV": {
-			"window_title": "Export CSV (Translation)",
-			"mode": FileDialog.MODE_SAVE_FILE,
+			"title": "Export CSV (Translation)",
+			"file_mode": FileDialog.FileMode.FILE_MODE_SAVE_FILE,
 			"access": FileDialog.ACCESS_FILESYSTEM,
-			"filters": PoolStringArray(["*.csv ; Translation File"])
+			"filters": ["*.csv;Translation File"]
 		}
 	},
 	"DIRECTORY" : {
 		"LOCAL_APP" : {
-			"window_title": "Select App Local Directory",
-			"mode": FileDialog.MODE_OPEN_DIR,
+			"title": "Select App Local Directory",
+			"file_mode": FileDialog.FileMode.FILE_MODE_OPEN_DIR,
 			"access": FileDialog.ACCESS_FILESYSTEM,
-			"filters": PoolStringArray([])
+			"filters": []
 		}
 	}
 }
@@ -302,7 +310,7 @@ const OS_CLIPBOARD_MERGE_MODE = { "REUSE":0, "RECREATE":1 }
 const HTML_JS_RUNTIME_INDEX = 'res://runtimes/html-js/index.html'
 const HTML_JS_SINGLE_FILE_TEMPLATE_PATH = 'res://runtimes/html-js.arrow-runtime'
 
-const PURGE_DEVELOPMENT_DATA_FROM_PLAYABLES = true
+const PURGE_DEVELOPMENT_DATA_FROM_PLAYABLE = true
 const DATA_TO_BE_PURGED_FROM_PLAYABLE_METADATA:Array = [
 	'offline', 'remote', 'last_save', # 'editor',
 	'authors', # 'chapter',
@@ -315,23 +323,10 @@ const INLINED_JSON_DEFAULT_IDENT = "\t" # e.g. `\t` (tab) for readability or emp
 # App UI
 
 const THEMES = {
-	0: { "name": "Dark Night",  "resource": preload("res://resources/themes/dark_night.tres") },
-	1: { "name": "Godot",  "resource": preload("res://resources/themes/godot_default.tres") },
-	2: { "name": "Alien",  "resource": preload("res://resources/themes/godot_alien.tres") },
-	3: { "name": "Gray",  "resource": preload("res://resources/themes/godot_gray.tres") },
-	4: { "name": "Light",  "resource": preload("res://resources/themes/godot_light.tres") }
+	0: { "name": "Dark",  "resource": preload("res://assets/themes/dark.tres") },
+	1: { "name": "Light",  "resource": preload("res://assets/themes/light.tres") },
 }
-
-# TODO!
-# Internationalization is not yet implemented,
-# only preference setting functions is prototyped.
 
 const SUPPORTED_UI_LANGUAGES = {
-	0: { "name": "English", "code": "en-US", "locale": "en" }
+	0: { "name": "English", "code": "en-US", "locale": "en" },
 }
-
-# TODO!
-# Scaling UI is not implemented yet.
-
-# The medium scale, which is the center of the range control in the prefs panel
-const SCALE_RANGE_CENTER = 1

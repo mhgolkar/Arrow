@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Entry Node Type Inspector
-extends ScrollContainer
+# Entry Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const DEFAULT_NODE_DATA = {
 	"plaque": "",
@@ -21,10 +21,9 @@ var _ALREADY_PROJECT_ENTRY = false
 
 var This = self
 
-onready var Plaque = get_node("./Entry/Plaque")
-onready var SetAsProjectEntry = get_node("./Entry/SetAsProjectEntry")
-onready var SetAsSceneOrMacroEntry = get_node("./Entry/SetAsSceneOrMacroEntry")
-onready var AtLeastOneEntryMessage = get_node("./Entry/AtLeastOneEntryMessage")
+@onready var Plaque = $Plaque
+@onready var SetAsProjectEntry = $ForProject
+@onready var SetAsSceneOrMacroEntry = $ForScene
 
 #func _ready() -> void:
 #	register_connections()
@@ -48,7 +47,6 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 	# when the node is already an active entry of some kind
 	_ALREADY_SCENE_ENTRY = ( Main.Mind.get_scene_entry() == _OPEN_NODE_ID)
 	_ALREADY_PROJECT_ENTRY = ( Main.Mind.get_project_entry() == _OPEN_NODE_ID )
-	AtLeastOneEntryMessage.set("visible", (_ALREADY_SCENE_ENTRY || _ALREADY_PROJECT_ENTRY))
 	SetAsSceneOrMacroEntry.set_disabled(_ALREADY_SCENE_ENTRY)
 	SetAsSceneOrMacroEntry.set_pressed(_ALREADY_SCENE_ENTRY)
 	SetAsProjectEntry.set_disabled(_ALREADY_PROJECT_ENTRY)
@@ -75,12 +73,12 @@ func _read_parameters() -> Dictionary:
 			parameters["_as_entry"] = _as_entry
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 
 static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
-	var base_key = String(id) + "-entry-"
+	var base_key = String.num_int64(id) + "-entry-"
 	return {
 		base_key + "plaque": node.data.plaque,
 	}

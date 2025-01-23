@@ -5,25 +5,23 @@
 # Main (root)
 extends Node
 
-signal mind_initialized
+signal mind_initialized()
 
-export var _SANDBOX:bool = Settings.RUN_IN_SANDBOX
+@export var _SANDBOX:bool = Settings.RUN_IN_SANDBOX
 
-var Utils = Helpers.Utils
-
-onready var TheTree:SceneTree = self.get_tree()
-onready var UI = MainUserInterface.UiManager.new(self)
-onready var Configs = Configuration.ConfigHandler.new(self)
-onready var Mind = CentralMind.Mind.new(self)
-onready var Grid = get_node(Addressbook.GRID)
+@onready var TheTree:SceneTree = self.get_tree()
+@onready var UI = MainUserInterface.UiManager.new(self)
+@onready var Configs = Configuration.ConfigHandler.new(self)
+@onready var Mind = CentralMind.Mind.new(self)
+@onready var Grid = $/root/Main/Editor/Center/Grid
 
 # Quick Preferences (defaults)
-export var _AUTO_INSPECT:bool = true
-export var _AUTO_NODE_UPDATE:bool = true
-export var _RESET_ON_REINSPECTION:bool = true
-export var _QUICK_NODE_INSERTION:bool = true
-export var _CONNECTION_ASSIST:bool = true
-export var _AUTO_REBUILD_RUNTIME_TEMPLATES:bool = false
+@export var _AUTO_INSPECT:bool = true
+@export var _AUTO_NODE_UPDATE:bool = true
+@export var _RESET_ON_REINSPECTION:bool = true
+@export var _QUICK_NODE_INSERTION:bool = true
+@export var _CONNECTION_ASSIST:bool = true
+@export var _AUTO_REBUILD_RUNTIME_TEMPLATES:bool = false
 
 func _ready() -> void:
 	# print startup messages
@@ -36,11 +34,11 @@ func _ready() -> void:
 	UI.setup_defaults_on_ui_and_quick_preferences()
 	UI.update_view_from_configuration(Configs.CONFIRMED)
 	Mind.post_initialization()
-	self.emit_signal("mind_initialized")
+	self.mind_initialized.emit()
 	self.set_process_input(true)
-	# show welcome panel for browser version
+	# show about/welcome panel for browser version
 	if Html5Helpers.Utils.is_browser():
-		toggle_welcome()
+		toggle_about()
 	# and finally, report app state
 	print("Sandbox: ", ("ON" if _SANDBOX else "OFF"))
 	pass
@@ -57,22 +55,22 @@ func handle_cli_arguments():
 	# 3. --config-dir <path>
 	var custom_config_path_index = (args.find("--config-dir") + 1)
 	if custom_config_path_index > 0 && args.size() > custom_config_path_index :
-		Configs._CONFIG_FILE_BASE_DIR = Utils.safe_base_dir( args[custom_config_path_index] ) # will stay null or a safe path ending with "/"
+		Configs._CONFIG_FILE_BASE_DIR = Helpers.Utils.safe_base_dir( args[custom_config_path_index] ) # will stay null or a safe path ending with "/"
 	# 4. --work-dir <path>
 	var custom_local_app_dir_path_index = (args.find("--work-dir") + 1)
 	if custom_local_app_dir_path_index > 0 && args.size() > custom_local_app_dir_path_index :
 		var new_app_local_dir_path = args[custom_local_app_dir_path_index]
-		if new_app_local_dir_path is String && Utils.is_abs_or_rel_path(new_app_local_dir_path):
+		if new_app_local_dir_path is String && Helpers.Utils.is_abs_or_rel_path(new_app_local_dir_path):
 			self.call_deferred("change_local_app_dir_path_preference_in_runtime", new_app_local_dir_path)
 	pass
 
 func change_local_app_dir_path_preference_in_runtime(new_app_local_dir_path: String):
 	# following will call the `dynamically_update_local_app_dir` back from main after some work
-	Configs.emulate_prefrence_modification_and_save("app_local_dir_path", new_app_local_dir_path)
+	Configs.emulate_preference_modification_and_save("app_local_dir_path", new_app_local_dir_path)
 	pass
 
 func dynamically_update_local_app_dir(new_app_local_dir_path:String) -> void:
-	if new_app_local_dir_path is String && (new_app_local_dir_path.is_abs_path() || new_app_local_dir_path.is_rel_path()):
+	if new_app_local_dir_path is String && (new_app_local_dir_path.is_absolute_path() || new_app_local_dir_path.is_relative_path()):
 		Mind.ProMan.hold_local_app_dir(new_app_local_dir_path)
 		Mind.reset_project_save_status(false)
 		Mind.load_projects_list()
@@ -101,7 +99,7 @@ func set_quick_preferences(preference:String, new_state:bool, refresh_view:bool 
 		"auto_rebuild_runtime_templates":
 			_AUTO_REBUILD_RUNTIME_TEMPLATES = new_state
 	if refresh_view != false :
-		UI.update_quick_preferences_switchs_view()
+		UI.update_quick_preferences_switches_view()
 	pass
 
 func toggle_quick_preferences(preference:String, refresh_view:bool = true):
@@ -127,10 +125,6 @@ func toggle_about() -> void:
 	UI.toggle_panel_visibility("about")
 	pass
 
-func toggle_welcome() -> void:
-	UI.toggle_panel_visibility("welcome")
-	pass
-
 func toggle_authors() -> void:
 	UI.toggle_panel_visibility("authors")
 	pass
@@ -152,19 +146,22 @@ func store_panels_state() -> void:
 func safe_quit_app() -> void:
 	store_panels_state()
 	store_window_state()
-	yield(TheTree, "idle_frame")
+	await TheTree.process_frame
 	Mind.close_project(false, true)
 	pass
 
-func quit_app(exit_code:int = OK) -> void:
-	if exit_code != OK: # != 0
-		printerr("Quiting app due to unexpected behavior!")
-	TheTree.quit(exit_code)
+func quit_app(exit_code:int = 0) -> void:
+	if exit_code != 0:
+		printerr("Quitting app due to unexpected behavior!")
+	if Html5Helpers.Utils.is_browser():
+		Html5Helpers.Utils.close()
+	else:
+		TheTree.quit(exit_code)
 	pass
 
 # handling quit signal(s) from window manager
 func _notification(what) -> void:
-	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		safe_quit_app()
 	pass
 

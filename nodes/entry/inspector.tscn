@@ -1,58 +1,54 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://rea3c3umehws"]
 
-[ext_resource path="res://nodes/entry/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/entry/inspector.gd" id="1_61hvh"]
+[ext_resource type="Texture2D" uid="uid://dd1eyrl7g6b00" path="res://nodes/entry/interface.svg" id="1_akn8x"]
 
-[node name="EntryType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 181.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5h66"]
+atlas = ExtResource("1_akn8x")
+region = Rect2(0, 0, 48, 48)
 
-[node name="Entry" type="VBoxContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 174.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_hp71p"]
+atlas = ExtResource("1_akn8x")
+region = Rect2(48, 0, 48, 48)
+
+[node name="Entry" type="VBoxContainer"]
+offset_right = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_61hvh")
 
-[node name="PlaqueLabel" type="Label" parent="Entry"]
-margin_right = 239.0
-margin_bottom = 14.0
+[node name="PlaqueLabel" type="Label" parent="."]
+layout_mode = 2
 text = "Plaque"
 
-[node name="Plaque" type="LineEdit" parent="Entry"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 42.0
-placeholder_text = "eg. Alt. Start"
+[node name="Plaque" type="LineEdit" parent="."]
+layout_mode = 2
 
-[node name="FlagsLabel" type="Label" parent="Entry"]
-margin_top = 46.0
-margin_right = 239.0
-margin_bottom = 60.0
-text = "Active entry for the ..."
+[node name="Active" type="Label" parent="."]
+layout_mode = 2
+tooltip_text = "⚠ Every project and all its scenes
+require an entry node to play properly."
+mouse_filter = 0
+text = "Active entry for"
 
-[node name="SetAsSceneOrMacroEntry" type="CheckBox" parent="Entry"]
-margin_top = 64.0
-margin_right = 239.0
-margin_bottom = 88.0
-size_flags_horizontal = 9
-text = "Scene / Macro"
-
-[node name="SetAsProjectEntry" type="CheckBox" parent="Entry"]
-margin_top = 92.0
-margin_right = 239.0
-margin_bottom = 116.0
-size_flags_horizontal = 9
+[node name="ForProject" type="CheckBox" parent="."]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
+disabled = true
 text = "Project"
+icon = SubResource("AtlasTexture_p5h66")
+flat = true
+icon_alignment = 2
+expand_icon = true
 
-[node name="AtLeastOneEntryMessage" type="Label" parent="Entry"]
-margin_top = 120.0
-margin_right = 239.0
-margin_bottom = 151.0
-text = "* One active entry node is required per scene and project."
-align = 1
-autowrap = true
+[node name="ForScene" type="CheckBox" parent="."]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
+disabled = true
+text = "Scene"
+icon = SubResource("AtlasTexture_hp71p")
+flat = true
+icon_alignment = 2
+expand_icon = true

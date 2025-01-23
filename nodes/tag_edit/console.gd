@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Tag-Edit Node Type Console
-extends PanelContainer
+# Tag-Edit Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,9 +11,7 @@ signal status_code
 # signal reset_variables
 signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var Utils = Helpers.Utils
+@onready var Main = get_tree().get_root().get_child(0)
 
 # will be played forward after automatic process (update) or by a user choice
 const ONLY_PLAY_SLOT = 0
@@ -41,13 +39,11 @@ const METHODS = TagEditSharedClass.METHODS
 const METHODS_HINTS = TagEditSharedClass.METHODS_HINTS
 const METHODS_ENUM = TagEditSharedClass.METHODS_ENUM
 
-onready var Method = get_node("./TagEditPlay/PanelContainer/VBoxContainer/Header/Method")
-onready var Tag = get_node("./TagEditPlay/PanelContainer/VBoxContainer/Tag")
-onready var CharacterProfile = get_node("./TagEditPlay/PanelContainer/VBoxContainer/Character")
-onready var CharacterProfileColor = get_node("./TagEditPlay/PanelContainer/VBoxContainer/Character/Color")
-onready var CharacterProfileName = get_node("./TagEditPlay/PanelContainer/VBoxContainer/Character/Name")
-onready var Skip = get_node("./TagEditPlay/Actions/Skip")
-onready var Apply = get_node("./TagEditPlay/Actions/Apply")
+@onready var Tag = $Play/Body/Tag
+@onready var CharacterColor = $Play/Body/Color
+@onready var CharacterName = $Play/Head/Name
+@onready var Skip = $Play/Actions/Skip
+@onready var Apply = $Play/Actions/Apply
 
 func _ready() -> void:
 	register_connections()
@@ -60,8 +56,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	Apply.connect("pressed", self, "process_tag_edit_forward", [], CONNECT_DEFERRED)
-	Skip.connect("pressed", self, "skip_play", [], CONNECT_DEFERRED)
+	Apply.pressed.connect(self.process_tag_edit_forward, CONNECT_DEFERRED)
+	Skip.pressed.connect(self.skip_play, CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -73,13 +69,13 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 	pass
 
 func update_character(profile:Dictionary) -> void:
-	CharacterProfileName.set(
+	CharacterName.set(
 		"text",
 		profile.name if profile.has("name") && (profile.name is String) else ANONYMOUS_CHARACTER.name
 	)
-	CharacterProfileColor.set(
+	CharacterColor.set(
 		"color",
-		Utils.rgba_hex_to_color(
+		Helpers.Utils.rgba_hex_to_color(
 			profile.color if profile.has("color") && (profile.color is String) else ANONYMOUS_CHARACTER.color
 		)
 	)
@@ -106,11 +102,10 @@ func setup_view() -> void:
 		else:
 			is_valid = false
 	Apply.set_deferred("text", method_text)
-	Apply.set_deferred("hint_tooltip", method_hint)
-	Method.set_deferred("text", method_text)
+	Apply.set_deferred("tooltip_text", method_hint)
 	Tag.set_deferred("text", tag_text)
-	Method.set_deferred("visible", is_valid)
-	CharacterProfile.set_deferred("visible", is_valid)
+	CharacterColor.set_deferred("visible", is_valid)
+	CharacterName.set_deferred("visible", is_valid)
 	set_view_unplayed()
 	pass
 
@@ -177,7 +172,7 @@ func process_tag_edit_forward() -> void:
 					update_instruction[edit_key] = null
 					_THE_TARGET_CHARACTER_REVERT_INSTRUCTION[edit_key] = current_tags[edit_key]
 		# ...
-		emit_signal("reset_characters_tags", {
+		self.reset_characters_tags.emit({
 			_THE_TARGET_CHARACTER_ID: update_instruction
 		})
 		play_forward_from(ONLY_PLAY_SLOT)
@@ -189,9 +184,9 @@ func play_forward_from(slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 
@@ -207,12 +202,11 @@ func set_view_unplayed() -> void:
 	# ... let user choose
 	var is_valid = _NODE_RESOURCE.has("data") && TagEditSharedClass.data_is_valid(_NODE_RESOURCE.data)
 	Apply.set_deferred("disabled", (! is_valid))
-	Apply.set_deferred("visible", true)
 	Skip.set_deferred("visible", true)
 	pass
 
-func set_view_played(slot_idx:int = ONLY_PLAY_SLOT) -> void:
-	Apply.set_deferred("visible", false)
+func set_view_played(_slot_idx:int = ONLY_PLAY_SLOT) -> void:
+	Apply.set_deferred("disabled", true)
 	Skip.set_deferred("visible", false)
 	pass
 
@@ -224,7 +218,7 @@ func step_back() -> void:
 	# Stepping back, we should undo the changes we've made to the variable as well,
 	# so the user can inspect the previous value, before manually playing or skipping the node.
 	if _THE_TARGET_CHARACTER_REVERT_INSTRUCTION.size() > 0:
-		emit_signal("reset_characters_tags", {
+		self.reset_characters_tags.emit({
 			_THE_TARGET_CHARACTER_ID: _THE_TARGET_CHARACTER_REVERT_INSTRUCTION
 		})
 	# ...

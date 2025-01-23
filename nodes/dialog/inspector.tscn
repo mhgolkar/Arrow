@@ -1,104 +1,73 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://6lowkluyc5vv"]
 
-[ext_resource path="res://nodes/dialog/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/dialog/inspector.gd" id="1_d7svk"]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="1_msre5"]
 
-[node name="DialogType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 173.0
-script = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="AtlasTexture_r16v1"]
+atlas = ExtResource("1_msre5")
+region = Rect2(192, 192, 48, 48)
 
-[node name="Dialog" type="VBoxContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 166.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_0itlp"]
+atlas = ExtResource("1_msre5")
+region = Rect2(240, 48, 48, 48)
+
+[node name="Dialog" type="VBoxContainer"]
+offset_right = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_d7svk")
 
-[node name="Character" type="VBoxContainer" parent="Dialog"]
-margin_right = 239.0
-margin_bottom = 38.0
+[node name="Character" type="Label" parent="."]
+layout_mode = 2
+text = "Character"
 
-[node name="Label" type="Label" parent="Dialog/Character"]
-margin_right = 239.0
-margin_bottom = 14.0
-text = "Character: "
+[node name="Selector" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Filterable" type="HBoxContainer" parent="Dialog/Character"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 38.0
-
-[node name="Selection" type="OptionButton" parent="Dialog/Character/Filterable"]
-margin_right = 223.0
-margin_bottom = 20.0
+[node name="List" type="OptionButton" parent="Selector"]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true
 
-[node name="GlobalFilters" type="Button" parent="Dialog/Character/Filterable"]
-margin_left = 227.0
-margin_right = 239.0
-margin_bottom = 20.0
-hint_tooltip = "Apply Global Filters
+[node name="Filtered" type="Button" parent="Selector"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Apply Global Filters
 
 It will follow the same listing instructions
 that are defined in the Characters inspector.
 + Current character of the node and Anonymous are always listed."
 toggle_mode = true
-text = ""
+icon = SubResource("AtlasTexture_r16v1")
+icon_alignment = 1
+expand_icon = true
 
-[node name="LinesLabel" type="Label" parent="Dialog"]
-margin_top = 42.0
-margin_right = 239.0
-margin_bottom = 56.0
-text = "Lines:"
+[node name="Entries" type="Label" parent="."]
+layout_mode = 2
+text = "Lines"
 
-[node name="Line" type="HBoxContainer" parent="Dialog"]
-margin_top = 60.0
-margin_right = 239.0
-margin_bottom = 84.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Line" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Edit" type="LineEdit" parent="Dialog/Line"]
-margin_right = 211.0
-margin_bottom = 24.0
+[node name="Edit" type="LineEdit" parent="Line"]
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-placeholder_text = "Type in New Line"
-placeholder_alpha = 0.3
 
-[node name="Tools" type="MenuButton" parent="Dialog/Line"]
-margin_left = 215.0
-margin_right = 239.0
-margin_bottom = 24.0
-size_flags_vertical = 3
-text = "..."
+[node name="Tools" type="MenuButton" parent="Line"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+icon = SubResource("AtlasTexture_0itlp")
 flat = false
-items = [ "{ tools'll be loaded by script }", null, 0, false, false, 0, 0, null, "", false ]
+icon_alignment = 1
+expand_icon = true
 
-[node name="Lines" type="ScrollContainer" parent="Dialog"]
-margin_top = 88.0
-margin_right = 239.0
-margin_bottom = 138.0
-rect_min_size = Vector2( 0, 50 )
-size_flags_horizontal = 3
+[node name="Lines" type="ItemList" parent="."]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
 size_flags_vertical = 3
-
-[node name="List" type="ItemList" parent="Dialog/Lines"]
-margin_right = 239.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-items = [ "{lines here}", null, false ]
 select_mode = 1
 allow_rmb_select = true
 
-[node name="Playable" type="CheckBox" parent="Dialog"]
-margin_top = 142.0
-margin_right = 239.0
-margin_bottom = 166.0
-hint_tooltip = "None-Playable Dialogues will act like randomized replies."
-pressed = true
+[node name="Playable" type="CheckBox" parent="."]
+layout_mode = 2
+button_pressed = true
 text = "Playable"

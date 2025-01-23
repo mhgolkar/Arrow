@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Interaction Node Type Inspector
-extends ScrollContainer
+# Interaction Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 var ListHelpers = Helpers.ListHelpers
 
@@ -20,10 +20,10 @@ const RESOURCE_NAME_EXPOSURE = Settings.RESOURCE_NAME_EXPOSURE
 
 var This = self
 
-onready var Action = get_node("./Interaction/Action/Edit")
-onready var Tools = get_node("./Interaction/Action/Tools")
-onready var ToolsPopup = Tools.get_popup()
-onready var ActionsList = get_node("./Interaction/Actions/List")
+@onready var Action = $Choice/Edit
+@onready var Tools = $Choice/Tools
+@onready var ToolsPopup = Tools.get_popup()
+@onready var ActionsList = $Actions
 
 const TOOLS_MENU_BUTTON_POPUP = { # <id>:int { label:string, action:string<function-ident-to-be-called> }
 	0: { "label": "Append New Action", "action": "append_new_action" },
@@ -47,13 +47,13 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	ToolsPopup.connect("id_pressed", self, "_on_tools_popup_menu_id_pressed", [], CONNECT_DEFERRED)
-	Action.connect("text_changed", self, "_toggle_available_tools_smartly", [], CONNECT_DEFERRED)
-	Action.connect("text_entered", self, "append_new_action", [], CONNECT_DEFERRED)
-	ActionsList.connect("multi_selected", self, "_toggle_available_tools_smartly", [], CONNECT_DEFERRED)
-	ActionsList.connect("item_rmb_selected", self, "_on_right_click_item_selection", [], CONNECT_DEFERRED)
-	ActionsList.connect("item_activated", self, "_on_double_click_item_activated", [], CONNECT_DEFERRED)
-	ActionsList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
+	ToolsPopup.id_pressed.connect(self._on_tools_popup_menu_id_pressed, CONNECT_DEFERRED)
+	Action.text_changed.connect(self._toggle_available_tools_smartly, CONNECT_DEFERRED)
+	Action.text_submitted.connect(self.append_new_action, CONNECT_DEFERRED)
+	ActionsList.multi_selected.connect(self._toggle_available_tools_smartly, CONNECT_DEFERRED)
+	ActionsList.item_activated.connect(self._on_double_click_item_activated, CONNECT_DEFERRED)
+	ActionsList.item_clicked.connect(self._on_item_clicked, CONNECT_DEFERRED)
+	ActionsList.gui_input.connect(self._on_list_gui_input, CONNECT_DEFERRED)
 	pass
 	
 func load_tools_menu() -> void:
@@ -75,7 +75,7 @@ func _on_tools_popup_menu_id_pressed(pressed_item_id:int) -> void:
 	pass
 
 # Note: it needs `x,y,z` nulls, because it's connected to different signals with different number of passed arguments
-func _toggle_available_tools_smartly(x=null, y=null, z=null) -> void:
+func _toggle_available_tools_smartly(_x=null, _y=null, _z=null) -> void:
 	var new_string_is_blank = ( Action.get_text().length() == 0 )
 	var selection_size = ActionsList.get_selected_items().size()
 	var all_items_count = ActionsList.get_item_count()
@@ -94,49 +94,49 @@ func move_item(to_final_idx:int = 0, from:int = -1) -> void:
 			ActionsList.move_item(from, to_final_idx)
 	pass
 
-func move_selected_top(selected_actions_idxs:Array = []) -> void:
+func move_selected_top(selected_actions_indices:Array = []) -> void:
 	if ActionsList.get_item_count() > 1 :
-		if selected_actions_idxs.size() == 0:
-			selected_actions_idxs = ActionsList.get_selected_items()
-		if selected_actions_idxs.size() >= 1:
-			selected_actions_idxs.sort()
-			while selected_actions_idxs.size() > 0 :
-				var the_first_item = selected_actions_idxs.pop_front()
+		if selected_actions_indices.size() == 0:
+			selected_actions_indices = ActionsList.get_selected_items()
+		if selected_actions_indices.size() >= 1:
+			selected_actions_indices.sort()
+			while selected_actions_indices.size() > 0 :
+				var the_first_item = selected_actions_indices.pop_front()
 				move_item(0, the_first_item)
 	pass
 
-func move_selected_end(selected_lines_idxs:Array = []) -> void:
+func move_selected_end(selected_lines_indices:Array = []) -> void:
 	if ActionsList.get_item_count() > 1 :
-		if selected_lines_idxs.size() == 0:
-			selected_lines_idxs = ActionsList.get_selected_items()
-		if selected_lines_idxs.size() >= 1:
-			selected_lines_idxs.sort()
+		if selected_lines_indices.size() == 0:
+			selected_lines_indices = ActionsList.get_selected_items()
+		if selected_lines_indices.size() >= 1:
+			selected_lines_indices.sort()
 			var end = ActionsList.get_item_count() - 1;
-			while selected_lines_idxs.size() > 0 :
-				var the_first_item = selected_lines_idxs.pop_front()
+			while selected_lines_indices.size() > 0 :
+				var the_first_item = selected_lines_indices.pop_front()
 				move_item(end, the_first_item)
 	pass
 
-func move_selected_up(selected_lines_idxs:Array = []) -> void:
+func move_selected_up(selected_lines_indices:Array = []) -> void:
 	if ActionsList.get_item_count() > 1 :
-		if selected_lines_idxs.size() == 0:
-			selected_lines_idxs = ActionsList.get_selected_items()
-		if selected_lines_idxs.size() >= 1:
-			selected_lines_idxs.sort()
-			while selected_lines_idxs.size() > 0 :
-				var nth = selected_lines_idxs.pop_front()
+		if selected_lines_indices.size() == 0:
+			selected_lines_indices = ActionsList.get_selected_items()
+		if selected_lines_indices.size() >= 1:
+			selected_lines_indices.sort()
+			while selected_lines_indices.size() > 0 :
+				var nth = selected_lines_indices.pop_front()
 				ActionsList.move_item(nth, max(0, nth - 1))
 	pass
 
-func move_selected_down(selected_lines_idxs:Array = []) -> void:
+func move_selected_down(selected_lines_indices:Array = []) -> void:
 	if ActionsList.get_item_count() > 1 :
-		if selected_lines_idxs.size() == 0:
-			selected_lines_idxs = ActionsList.get_selected_items()
-		if selected_lines_idxs.size() >= 1:
-			selected_lines_idxs.sort()
+		if selected_lines_indices.size() == 0:
+			selected_lines_indices = ActionsList.get_selected_items()
+		if selected_lines_indices.size() >= 1:
+			selected_lines_indices.sort()
 			var end = ActionsList.get_item_count() - 1;
-			while selected_lines_idxs.size() > 0 :
-				var nth = selected_lines_idxs.pop_back()
+			while selected_lines_indices.size() > 0 :
+				var nth = selected_lines_indices.pop_back()
 				ActionsList.move_item(nth, min(end, nth + 1))
 
 func sort_items_alphabetical() -> void:
@@ -154,11 +154,11 @@ func append_new_action(text:String = "") -> void:
 		ActionsList.ensure_current_is_visible()
 	pass
 
-func extract_selected_action(selected_actions_idxs:Array = []) -> void:
-	if selected_actions_idxs.size() == 0:
-		selected_actions_idxs = ActionsList.get_selected_items()
-	if selected_actions_idxs.size() >= 1:
-		var item_idx_to_extract = selected_actions_idxs[0]
+func extract_selected_action(selected_actions_indices:Array = []) -> void:
+	if selected_actions_indices.size() == 0:
+		selected_actions_indices = ActionsList.get_selected_items()
+	if selected_actions_indices.size() >= 1:
+		var item_idx_to_extract = selected_actions_indices[0]
 		var item_text = ActionsList.get_item_text(item_idx_to_extract)
 		Action.set_text(item_text)
 		ActionsList.remove_item(item_idx_to_extract)
@@ -166,34 +166,37 @@ func extract_selected_action(selected_actions_idxs:Array = []) -> void:
 	_toggle_available_tools_smartly()
 	pass
 	
-func replace_selected_action(selected_actions_idxs:Array = []) -> void:
-	if selected_actions_idxs.size() == 0:
-		selected_actions_idxs = ActionsList.get_selected_items()
-	if selected_actions_idxs.size() >= 1:
-		var to_idx_for_replacement = selected_actions_idxs[0]
-		remove_selected_actions(selected_actions_idxs)
+func replace_selected_action(selected_actions_indices:Array = []) -> void:
+	if selected_actions_indices.size() == 0:
+		selected_actions_indices = ActionsList.get_selected_items()
+	if selected_actions_indices.size() >= 1:
+		var to_idx_for_replacement = selected_actions_indices[0]
+		remove_selected_actions(selected_actions_indices)
 		var new_action = Action.get("text")
 		ActionsList.add_item( new_action )
 		Action.clear()
 		move_item(to_idx_for_replacement) # by default moves the last item
 	pass
 
-func remove_selected_actions(selected_actions_idxs:Array = []) -> void:
-	if selected_actions_idxs.size() == 0:
-		selected_actions_idxs = ActionsList.get_selected_items()
+func remove_selected_actions(selected_actions_indices:Array = []) -> void:
+	if selected_actions_indices.size() == 0:
+		selected_actions_indices = ActionsList.get_selected_items()
 	# we shall remove items from the last one because 
 	# removal of a preceding item will change indices for others and you may remove innocent items!
-	if selected_actions_idxs.size() >= 1:
-		selected_actions_idxs.sort()
-		while selected_actions_idxs.size() > 0 :
-			var the_last_item = selected_actions_idxs.pop_back()
+	if selected_actions_indices.size() >= 1:
+		selected_actions_indices.sort()
+		while selected_actions_indices.size() > 0 :
+			var the_last_item = selected_actions_indices.pop_back()
 			ActionsList.remove_item(the_last_item)
 	pass
 
-func _on_right_click_item_selection(item_idx:int, _click_position:Vector2) -> void:
-	var all_items_count = ActionsList.get_item_count()
-	if all_items_count > 1 :
-		extract_selected_action([item_idx])
+func _on_item_clicked(item_idx:int, _click_position:Vector2, mouse_button_index:int) -> void:
+	match mouse_button_index:
+		# Extract on right-click
+		MOUSE_BUTTON_RIGHT:
+			var all_items_count = ActionsList.get_item_count()
+			if all_items_count > 1 :
+				extract_selected_action([item_idx])
 	pass
 
 func _on_double_click_item_activated(item_idx:int) -> void:
@@ -291,7 +294,7 @@ func _read_parameters() -> Dictionary:
 		parameters._use = _use
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 
@@ -315,7 +318,7 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 
 func _on_list_gui_input(event) -> void:
 	if event is InputEventKey && event.is_pressed():
-		match event.get_physical_scancode():
+		match event.get_physical_keycode():
 			KEY_DELETE:
 				if ActionsList.get_item_count() > ActionsList.get_selected_items().size(): # (Empty list is not allowed)
 					remove_selected_actions()
@@ -326,18 +329,18 @@ func _on_list_gui_input(event) -> void:
 			KEY_PAGEUP:
 				move_selected_up()
 			KEY_UP:
-				if event.get_control():
+				if event.is_ctrl_pressed():
 					move_selected_up()
 			KEY_PAGEDOWN:
 				move_selected_down()
 			KEY_DOWN:
-				if event.get_control():
+				if event.is_ctrl_pressed():
 					move_selected_down()
 	pass
 
 static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
-	var base_key = String(id) + "-interaction-action-"
+	var base_key = String.num_int64(id) + "-interaction-action-"
 	var i18n = {}
 	for idx in range(0, node.data.actions.size()):
-		i18n[base_key + String(idx)] = node.data.actions[idx]
+		i18n[base_key + String.num_int64(idx)] = node.data.actions[idx]
 	return i18n

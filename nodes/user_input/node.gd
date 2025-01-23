@@ -2,19 +2,19 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# User_Input Node Type
+# User-Input Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
-onready var Prompt   = get_node("./VBoxContainer/Prompt")
-onready var TargetVariableName = get_node("./VBoxContainer/TargetVariable/Name")
-onready var TargetVariableType = get_node("./VBoxContainer/TargetVariable/Type")
+@onready var Prompt = $Display/Prompt
+@onready var TargetVariableName = $Display/Target/Name
+@onready var TargetVariableType = $Display/Target/Type
 
 const NO_PROMPT_TEXT_MESSAGE = "Unset"
 const NO_TARGET_VARIABLE = { "type": "nil", "name": "undefined" } 

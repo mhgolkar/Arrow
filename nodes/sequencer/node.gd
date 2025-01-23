@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Sequencer Node Type
+# Sequencer Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const MINIMUM_ACCEPTABLE_OUT_SLOTS = SequencerSharedClass.SEQUENCER_MINIMUM_ACCEPTABLE_OUT_SLOTS
 
@@ -19,12 +19,12 @@ const OUT_SLOT_TYPE_LEFT    = OUT_SLOT_TYPE_RIGHT
 const OUT_SLOT_COLOR_RIGHT  = OUT_SLOT_COLOR
 const OUT_SLOT_COLOR_LEFT   = OUT_SLOT_COLOR
 
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
-# onready var X = get_node("./X")
+# @onready var X = get_node("./X")
 
 #func _ready() -> void:
 #	register_connections()

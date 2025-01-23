@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Arrow Tag-Pass Node Icon</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="9.302083"
+     inkscape:cx="29.50952"
+     inkscape:cy="33.164615"
+     inkscape:window-width="1876"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="tag_pass"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none">
+    <path
+       d="m 14.060849,27.99424 q -1.672006,-0.09289 -2.786677,-1.207561 -1.114671,-1.114671 -1.114671,-2.786677 0,-1.672007 1.114671,-2.786678 1.114671,-1.114671 2.786677,-1.114671 1.672007,0 2.833123,1.114671 1.161115,1.114671 1.161115,2.786678 0,1.672006 -1.161115,2.786677 -1.161116,1.114672 -2.833123,1.207561 z m 11.2396,-7.988476 Q 24,16.475972 21.027544,14.339519 q -2.972457,-2.136453 -6.966695,-2.229342 -5.0160194,0.09289 -8.3600327,3.483347 -3.3440132,3.390458 -3.5297917,8.406478 0.1857785,5.01602 3.5297917,8.406477 3.3440133,3.390458 8.3600327,3.483348 3.994238,-0.09289 6.966695,-2.229343 Q 24,31.524032 25.300449,27.99424 h 8.638701 v 7.895587 h 7.895587 V 27.99424 h 3.994238 v -7.988476 z"
+       id="text2"
+       style="font-size:47.5593px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';fill:#ffffff;stroke-width:14.8623;stroke-linecap:round;stroke-dasharray:14.8623, 29.7247;stroke-opacity:0.5"
+       inkscape:label="icon"
+       aria-label="" />
+    <text
+       xml:space="preserve"
+       style="font-size:47.5593px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:none;fill:#ffffff;stroke-width:14.8623;stroke-linecap:round;stroke-dasharray:14.8623, 29.7247;stroke-opacity:0.5"
+       x="2.1710246"
+       y="40.464622"
+       id="text1"
+       inkscape:label="nerd"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="2.1710246"
+         y="40.464622"
+         style="font-size:47.5593px;stroke-width:14.8623"></tspan></text>
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Arrow Tag-Pass Node Icon</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. H. Golkar</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

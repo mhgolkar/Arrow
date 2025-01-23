@@ -6,23 +6,37 @@
 # (general UI functionalities such as tracking main panels and their state of visibility)
 class_name MainUserInterface
 
-const PANELS_PATHS = Addressbook.PANELS
+const PANELS_PATHS = {
+	"inspector": "/root/Main/FloatingTools/Control/Inspector",
+	"preferences": "/root/Main/Overlays/Control/Preferences",
+	"authors": "/root/Main/Overlays/Control/Authors",
+	"new_project_prompt":  "/root/Main/Overlays/Control/NewDocument",
+	"console": "/root/Main/FloatingTools/Control/Console",
+	"about": "/root/Main/Overlays/Control/About",
+	"notification": "/root/Main/Overlays/Control/Notification",
+}
 const PANELS_OPEN_BY_DEFAULT = Settings.PANELS_OPEN_BY_DEFAULT
 const BLOCKING_PANELS:Array = Settings.BLOCKING_PANELS
 const STATEFUL_PANELS:Array = Settings.STATEFUL_PANELS
-const BLOCKING_OVERLAY_PATH = Addressbook.BLOCKING_OVERLAY
+const BLOCKING_OVERLAY_PATH = "/root/Main/Overlays/Control/Blocker"
 const MAIN_UI_PATHS = {
-	"app_menu": Addressbook.EDITOR.APP_MENU,
-	"quick_preferences": Addressbook.EDITOR.QUICK_PREFERENCES_MENU_BUTTON,
-	"inspector_view_toggle": Addressbook.EDITOR.INSPECTOR_VIEW_TOGGLE,
+	"app_menu": "/root/Main/Editor/Top/Bar/AppMenu",
+	"quick_preferences": "/root/Main/Editor/Bottom/Bar/Quick/Access/SpecialPreferences",
+	"inspector_view_toggle": "/root/Main/Editor/Bottom/Bar/Quick/Access/InspectorVisibility",
 }
 
-const THEME_ADJUSTMENT_LAYERS = Addressbook.THEME_ADJUSTMENT_LAYERS
+const THEME_ADJUSTMENT_LAYERS = [
+	"/root/Main",
+	"/root/Main/Overlays/Control",
+	"/root/Main/FloatingTools/Control"
+]
 
 class UiManager :
 	
 	var Main
 	var TheTree
+	var TheViewport
+	var TheWindow
 	var PANELS = {}
 	var MAIN_UI = {}
 	var BLOCKING_OVERLAY
@@ -32,6 +46,8 @@ class UiManager :
 	func _init(main) -> void:
 		Main = main
 		TheTree = main.get_tree()
+		TheWindow = TheTree.get_root()
+		TheViewport = main.get_viewport()
 		# fin Ui components and reference to them
 		for component in MAIN_UI_PATHS:
 			MAIN_UI[component] = Main.get_node(MAIN_UI_PATHS[component])
@@ -43,18 +59,18 @@ class UiManager :
 		pass
 		
 	func register_connections():
-		TheTree.connect("screen_resized", self, "_on_screen_resized")
-		MAIN_UI.inspector_view_toggle.connect("toggled", self, "_on_inspector_view_toggle", [], CONNECT_DEFERRED)
-		MAIN_UI.quick_preferences.connect("quick_preference", self, "_on_quick_preference", [], CONNECT_DEFERRED)
-		PANELS.preferences.connect("preference_modifications_done", Main.Configs, "_on_preference_modifications_done", [], CONNECT_DEFERRED)
-		PANELS.preferences.connect("preference_modified", Main.Configs, "_on_preference_modified", [], CONNECT_DEFERRED)
+		TheViewport.size_changed.connect(self._on_screen_resized)
+		MAIN_UI.inspector_view_toggle.toggled.connect(self._on_inspector_view_toggle, CONNECT_DEFERRED)
+		MAIN_UI.quick_preferences.quick_preference.connect(self._on_quick_preference, CONNECT_DEFERRED)
+		PANELS.preferences.preference_modifications_done.connect(Main.Configs._on_preference_modifications_done, CONNECT_DEFERRED)
+		PANELS.preferences.preference_modified.connect(Main.Configs._on_preference_modified, CONNECT_DEFERRED)
 		pass
 	
 	func setup_defaults_on_ui_and_quick_preferences() -> void:
 		for default_open_panel in PANELS_OPEN_BY_DEFAULT:
 			set_panel_visibility(default_open_panel, true)
 			# Note: it also sets MAIN_UI.inspector_view_toggle
-		update_quick_preferences_switchs_view() # ... to the defaults
+		update_quick_preferences_switches_view() # ... to the defaults
 		pass
 	
 	func _on_inspector_view_toggle(new_state:bool) -> void:
@@ -66,7 +82,7 @@ class UiManager :
 		Main.set_quick_preferences(command, new_state, true)
 		pass
 	
-	func update_quick_preferences_switchs_view() -> void:
+	func update_quick_preferences_switches_view() -> void:
 		MAIN_UI.quick_preferences.call_deferred("refresh_quick_preferences_menu_view")
 		pass
 	
@@ -111,31 +127,20 @@ class UiManager :
 		pass
 	
 	func toggle_fullscreen() -> void:
-		OS.set_deferred("window_fullscreen", (! OS.is_window_fullscreen()) )
+		var is_fullscreen = (DisplayServer.window_get_mode() >= DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN)
+		DisplayServer.window_set_mode.call_deferred(
+			DisplayServer.WindowMode.WINDOW_MODE_WINDOWED if is_fullscreen else DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN
+		)
+		# Setting the window to full screen forcibly sets the borderless flag to true, so we should set it back to false when not wanted.
+		TheWindow.set_deferred("borderless", !is_fullscreen)
+		MAIN_UI.app_menu.call_deferred("update_menu_items_view")
 		pass
 
 	func toggle_always_on_top() -> void:
-		OS.set_window_always_on_top( ! OS.is_window_always_on_top() )
-		# `always on top / keep above` is not detected by `screen_resized` so we do update manually
+		TheWindow.set_deferred("always_on_top", !TheWindow.always_on_top)
 		MAIN_UI.app_menu.call_deferred("update_menu_items_view")
 		pass
 	
-	# NOTE: borderless window seems not supported perfectly yet; resize and drag doesn't work as expected.
-#	func toggle_borderless_window() -> void:
-#		OS.call_deferred("set_borderless_window", (! OS.get_borderless_window()) )
-#		# TODO: Keep in the preferences/config file
-#		pass
-	
-	func toggle_maximized() -> void:
-		OS.set_window_maximized(! OS.is_window_maximized())
-		pass
-	
-	func minimize_window() -> void:
-		OS.set_deferred("window_minimized" , true )
-		pass
-	
-	# NOTE: there seems to be some glitches on some desktop environments:
-	# detects 'fullscreen' well, 'maximize/restore' selectively and 'always on top / keep above' almost nowhere
 	func _on_screen_resized() -> void:
 		MAIN_UI.app_menu.call_deferred("update_menu_items_view")
 		pass
@@ -159,27 +164,19 @@ class UiManager :
 		if by_id < 0 || by_id > Settings.SUPPORTED_UI_LANGUAGES.size() :
 			by_id = 0
 		var lang = Settings.SUPPORTED_UI_LANGUAGES[by_id]
-		var _locale = lang.locale
-		# TODO: i18n
-		print_debug("TODO!! NOT IMPLEMENTED YET! UI Language reset to: ", lang)
+		TranslationServer.set_locale(lang.locale)
 		return by_id
-	
-	func reset_scale(factor) -> Vector2:
-		if (factor is Vector2) == false:
-			var scale = float(factor)
-			factor = Vector2(scale, scale)
-			factor = factor / Settings.SCALE_RANGE_CENTER
-		# TODO: currently there is no satisfying way to scale UI, may be a better time.
-		return factor
 	
 	func read_panels_state() -> Dictionary:
 		var stateful: Dictionary = {}
 		for panel in STATEFUL_PANELS:
 			var as_node = PANELS[panel]
+			@warning_ignore("INCOMPATIBLE_TERNARY")
+			var is_open = is_panel_open(panel) if PANELS_OPEN_BY_DEFAULT.has(panel) else null
 			stateful[panel] = {
 				"size": as_node.get_size(),
 				"position": as_node.get_position(),
-				"open": is_panel_open(panel) if PANELS_OPEN_BY_DEFAULT.has(panel) else null,
+				"open": is_open,
 			}
 		return stateful
 	
@@ -190,7 +187,7 @@ class UiManager :
 		_WINDOW_RESTORED = true
 		# We use a timeout to make sure the window has done restoration
 		# to reduce the chance of sliding in few corner cases:
-		yield(TheTree.create_timer(0.25), "timeout")
+		await TheTree.create_timer(0.25).timeout
 		restore_panels_state()
 		pass
 	
@@ -211,14 +208,11 @@ class UiManager :
 
 	func read_window_state() -> Dictionary:
 		return {
-			"position": OS.get_window_position(),
-			"size": OS.get_window_size(),
-			"full_screen": OS.is_window_fullscreen(),
-			"always_on_top": OS.is_window_always_on_top(),
-			"maximized": OS.is_window_maximized(),
-			# "borderless": OS.get_borderless_window(),
+			"position": DisplayServer.window_get_position(),
+			"size": DisplayServer.window_get_size(),
+			"full_screen": DisplayServer.window_get_mode(),
+			"always_on_top": TheWindow.always_on_top,
 		}
-		pass
 	
 	func restore_window(state:Dictionary) -> void:
 		print_debug("restoring window state: ", state)
@@ -226,17 +220,13 @@ class UiManager :
 			var condition = state[tracked]
 			match tracked:
 				"position":
-					OS.call_deferred("set_window_position", condition)
+					DisplayServer.window_set_position.call_deferred(condition)
 				"size":
-					OS.call_deferred("set_window_size", condition)
+					DisplayServer.window_set_size.call_deferred(condition)
 				"full_screen":
-					OS.call_deferred("set_window_fullscreen", condition)
+					DisplayServer.window_set_mode.call_deferred(condition)
 				"always_on_top":
-					OS.call_deferred("set_window_always_on_top", condition)
-				"maximized":
-					OS.call_deferred("set_window_maximized", condition)
-				# "borderless":
-					# OS.call_deferred("set_borderless_window", condition)
+					TheWindow.set_deferred("always_on_top", condition)
 		# ...
 		self.call_deferred("_panels_restoration_after_window")
 		pass
@@ -247,8 +237,6 @@ class UiManager :
 		for config in configuration:
 			var cfg = configuration[config]
 			match config:
-				"ui_scale":
-					reset_scale( cfg )
 				"appearance_theme":
 					reset_theme( cfg )
 				"language":

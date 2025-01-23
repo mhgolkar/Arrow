@@ -1,47 +1,54 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://d1784pokxcows"]
 
-[ext_resource path="res://nodes/generator/node.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/generator/node.gd" id="1_bm164"]
+[ext_resource type="Texture2D" uid="uid://352dfaufpmcc" path="res://nodes/generator/icon.svg" id="1_jimer"]
 
-[node name="GeneratorNode" type="GraphNode"]
-margin_right = 119.0
-margin_bottom = 98.0
-mouse_filter = 1
+[node name="Generator" type="GraphNode"]
+offset_right = 256.0
+resizable = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
 slot/0/right_enabled = true
-slot/0/right_type = 1
-slot/0/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_bm164")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 103.0
-margin_bottom = 92.0
+[node name="Display" type="VBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 87.0
-margin_bottom = 14.0
-text = " Generator"
+[node name="Kind" type="Button" parent="Display"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+text = "Generator"
+icon = ExtResource("1_jimer")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
 
-[node name="Method" type="Label" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 87.0
-margin_bottom = 32.0
-text = "{ method }"
+[node name="Method" type="Label" parent="Display"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "[Method]"
+horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="Arguments" type="Label" parent="VBoxContainer"]
-margin_top = 36.0
-margin_right = 87.0
-margin_bottom = 50.0
-text = "{ arguments }"
-autowrap = true
+[node name="Arguments" type="Label" parent="Display"]
+layout_mode = 2
+text = "[Arguments]"
+horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="Target" type="Label" parent="VBoxContainer"]
-margin_top = 54.0
-margin_right = 87.0
-margin_bottom = 68.0
-text = "{ target var }"
-autowrap = true
+[node name="Target" type="Label" parent="Display"]
+layout_mode = 2
+text = "[Target]"
+horizontal_alignment = 1
+autowrap_mode = 3

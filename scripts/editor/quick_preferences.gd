@@ -5,11 +5,11 @@
 # Quick Preferences
 extends MenuButton
 
-signal quick_preference
+signal quick_preference()
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-onready var QuickPreferencesPopup = self.get_popup()
+@onready var QuickPreferencesPopup = self.get_popup()
 
 const QUICK_PREFERENCES_MENU = {
 	0: { "label": "Auto Inspection", "is_checkbox": true , "preference": "_AUTO_INSPECT", "command": "auto_inspect" },
@@ -22,7 +22,7 @@ const QUICK_PREFERENCES_MENU = {
 
 func _ready() -> void:
 	load_quick_preferences_menu()
-	QuickPreferencesPopup.connect("id_pressed", self, "_on_quick_preferences_popup_item_id_pressed", [], CONNECT_DEFERRED)
+	QuickPreferencesPopup.id_pressed.connect(self._on_quick_preferences_popup_item_id_pressed, CONNECT_DEFERRED)
 	pass
 
 func load_quick_preferences_menu() -> void:
@@ -48,8 +48,7 @@ func refresh_quick_preferences_menu_view() -> void:
 
 func _on_quick_preferences_popup_item_id_pressed(id) -> void:
 	# print_debug("Quick Preference Pressed: ", id, QUICK_PREFERENCES_MENU[id])
-	self.emit_signal(
-		"quick_preference",
+	self.quick_preference.emit(
 		( ! Main[ QUICK_PREFERENCES_MENU[id].preference ] ),
 		QUICK_PREFERENCES_MENU[id].command
 	)

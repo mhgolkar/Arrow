@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Arrow Macro-Use Node Icon</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="9.3020835"
+     inkscape:cx="35.099663"
+     inkscape:cy="40.152295"
+     inkscape:window-width="1876"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="macro_use"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none">
+    <path
+       d="m 46.072719,32.262765 q 0,2.158531 -1.18371,3.597551 -1.183711,1.415811 -3.272612,1.415811 -0.88198,0 -1.67112,-0.30173 -0.789141,-0.30173 -1.369391,-0.71951 -0.58025,-0.440991 -1.1605,-0.858771 -0.557041,-0.44099 -1.276551,-0.74272 -0.71951,-0.30173 -1.531861,-0.30173 -2.924461,0 -2.924461,3.272611 0,1.021241 0.41778,3.040511 0.440991,2.042481 0.417781,3.063722 v 0.13926 q -0.580251,0 -0.881981,0.02321 -0.9284,0.09284 -2.599521,0.30173 -1.647911,0.20889 -3.040511,0.34815 -1.369391,0.13926 -2.599521,0.13926 -1.624701,0 -2.738781,-0.6963 -1.114081,-0.696301 -1.114081,-2.204951 0,-0.974821 0.4642,-1.880011 0.464201,-0.90519 0.998031,-1.508651 0.55704,-0.60346 1.02124,-1.57828 0.4642,-0.974821 0.4642,-2.042481 0,-2.088901 -1.43902,-3.272611 -1.415811,-1.183711 -3.574342,-1.183711 -2.228161,0 -3.806441,1.230131 -1.555071,1.20692 -1.555071,3.365451 0,1.13729 0.39457,2.204951 0.41778,1.04445 0.881981,1.694331 0.48741,0.64988 0.88198,1.3926 0.41778,0.74272 0.41778,1.346181 0,1.18371 -1.23013,2.367421 -0.974821,0.9284 -3.110142,0.9284 -2.6227307,0 -6.4988023,-0.62667 Q 3.6216116,44.19271 3.1342014,44.12308 2.6467912,44.05345 2.4146911,44.00703 L 2.066541,43.9374 q -0.02321,0 -0.06963,-0.02321 -0.06963,0 -0.06963,-0.02321 V 16.735269 q 0.04642,0.02321 0.4642002,0.09284 0.4177802,0.06963 0.9051904,0.13926 0.4874102,0.04642 0.5570402,0.06963 4.0385417,0.64988 6.4988023,0.64988 2.135321,0 3.110142,-0.9284 1.23013,-1.183711 1.23013,-2.367421 0,-0.603461 -0.41778,-1.346181 -0.39457,-0.74272 -0.88198,-1.392601 -0.464201,-0.67309 -0.881981,-1.7175403 -0.39457,-1.0676604 -0.39457,-2.2049509 0,-2.1585309 1.555071,-3.3654514 1.57828,-1.2069205 3.829651,-1.2069205 2.135321,0 3.551132,1.1837105 1.43902,1.1837105 1.43902,3.2726114 0,1.0676604 -0.4642,2.0424808 -0.4642,0.9516104 -1.02124,1.5550704 -0.53383,0.60346 -0.998031,1.508651 -0.4642,0.90519 -0.4642,1.880011 0,1.50865 1.114081,2.228161 1.13729,0.6963 2.738781,0.6963 1.67112,0 4.758052,-0.39457 3.110141,-0.39457 4.340271,-0.464201 v 0.06963 q -0.02321,0.04642 -0.09284,0.4642 -0.06963,0.41778 -0.13926,0.90519 -0.06963,0.48741 -0.09284,0.55704 -0.64988,4.038542 -0.64988,6.498803 0,2.135321 0.9284,3.110141 1.160501,1.206921 2.367421,1.206921 0.603461,0 1.346181,-0.39457 0.74272,-0.394571 1.392601,-0.881981 0.67309,-0.48741 1.71754,-0.88198 1.067661,-0.39457 2.204951,-0.39457 2.181741,0 3.388662,1.55507 1.20692,1.555071 1.20692,3.783232 z"
+       id="text1"
+       style="font-size:47.5341px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';fill:#ffffff;stroke-width:14.8544;stroke-linecap:round;stroke-dasharray:14.8544, 29.7088;stroke-opacity:0.5"
+       inkscape:label="icon"
+       aria-label="" />
+    <text
+       xml:space="preserve"
+       style="font-size:47.5341px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:none;fill:#ffffff;stroke-width:14.8544;stroke-linecap:round;stroke-dasharray:14.8544, 29.7088;stroke-opacity:0.5"
+       x="1.9272809"
+       y="40.455898"
+       id="text2"
+       inkscape:label="nerd"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="1.9272809"
+         y="40.455898"
+         style="font-size:47.5341px;stroke-width:14.8544"></tspan></text>
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Arrow Macro-Use Node Icon</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. H. Golkar</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

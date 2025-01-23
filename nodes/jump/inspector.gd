@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Jump Node Type Inspector
-extends ScrollContainer
+# Jump Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const DEFAULT_NODE_DATA = {
 	"target": -1, # node resource-id to get jumped into 
@@ -17,16 +17,16 @@ var _OPEN_NODE
 
 var This = self
 
-onready var Destination = get_node("./Jump/Destination")
-onready var Reason = get_node("./Jump/Reason")
-onready var SuggestionBox = get_node("./Jump/Suggestion")
-onready var SuggestionList = get_node("./Jump/Suggestion/List")
+@onready var Destination = $Destination
+@onready var Reason = $Reason
+@onready var SuggestionBox = $Suggestion
+@onready var SuggestionList = $Suggestion/List
 
 # the function `query_nodes_by_name` uses `matchn`,
 # so we add asterisks (*) to make auto-suggestion query more user-friendly
 const NODE_NAME_QUERY_REFACTORING = "*%s*"
 const MINIMUM_QUERY_STRING_LENGTH_TO_REFRESH_SUGGESTIONS = 3 # 2 asterisks (automatically added) + 1 min characters
-const DO_NOT_SHOW_EXATC_MATCH_AS_SUGGESTION = true
+const DO_NOT_SHOW_EXACT_MATCH_AS_SUGGESTION = true
 
 const SUGGESTION_ITEM_TEMPLATE = (
 	"{name} - {capitalized_type}" if Settings.FORCE_UNIQUE_NAMES_FOR_NODES else "{name} - {capitalized_type} ({id})"
@@ -37,8 +37,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	Destination.connect("text_changed", self, "_on_destination_text_input", [], CONNECT_DEFERRED)
-	SuggestionList.connect("item_activated", self, "_on_suggestion_item_activated", [], CONNECT_DEFERRED)
+	Destination.text_changed.connect(self._on_destination_text_input, CONNECT_DEFERRED)
+	SuggestionList.item_activated.connect(self._on_suggestion_item_activated, CONNECT_DEFERRED)
 	pass
 
 var _suggestion_is_visible:bool = true
@@ -96,7 +96,7 @@ func refresh_suggestions(query:String = "") -> void:
 			if similar_nodes_count == 1:
 				var only_one_id = _SUGGESTION_NODES.keys()[0]
 				var the_one_found =  _SUGGESTION_NODES[ only_one_id ]
-				if DO_NOT_SHOW_EXATC_MATCH_AS_SUGGESTION && the_one_found.name == Destination.text:
+				if DO_NOT_SHOW_EXACT_MATCH_AS_SUGGESTION && the_one_found.name == Destination.text:
 					show_suggestions = false
 					_ACTIVATED_SUGGESTION_NODE_ID = only_one_id
 		else: # ... or there is no suggestion
@@ -107,7 +107,7 @@ func refresh_suggestions(query:String = "") -> void:
 		set_suggestion_view(false)
 	pass
 
-func _on_destination_text_input(new_text:String) -> void:
+func _on_destination_text_input(_new_text:String) -> void:
 	var full_destination_text = (NODE_NAME_QUERY_REFACTORING % Destination.text)
 	refresh_suggestions(full_destination_text)
 	pass
@@ -146,7 +146,7 @@ func _update_parameters(node_id:int, node:Dictionary, do_cache:bool = true) -> v
 	set_suggestion_view(false)
 	pass
 
-func warn_jump_loop(extra_message:String = "Parameter reseted!") -> void:
+func warn_jump_loop(extra_message:String = "Parameter reset!") -> void:
 	printerr("Warn! You shall not make loop jumps. They will crash your project. ", extra_message)
 	pass
 
@@ -168,7 +168,7 @@ func _read_parameters() -> Dictionary:
 		# (if cached, node-id is expected to related to the same name)
 		if _SUGGESTION_NODES[new_target_id].name != target_name:
 			printerr(
-				"unexpected behavior! jump target node id from name differes from cache: ",
+				"unexpected behavior! jump target node id from name differs from cache: ",
 				target_name, " - ", _SUGGESTION_NODE_ID_LIST_BY_NAME[target_name], " -x-> ", new_target_id
 			)
 		# and to avoid loopers check it for ...
@@ -201,7 +201,7 @@ func _read_parameters() -> Dictionary:
 			parameters._use = _use
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 

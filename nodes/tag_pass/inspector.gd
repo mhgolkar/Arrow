@@ -2,12 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Tag-Pass Node Type Inspector
-extends ScrollContainer
+# Tag-Pass Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var Utils = Helpers.Utils
+@onready var Main = get_tree().get_root().get_child(0)
 
 var _OPEN_NODE_ID
 var _OPEN_NODE
@@ -29,17 +27,17 @@ const METHOD_ACCEPTS_KEY_ONCE = TagPassSharedClass.METHOD_ACCEPTS_KEY_ONCE
 
 var This = self
 
-onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
+@onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
 
-onready var Characters = get_node("./TagPass/Filterable/Characters")
-onready var GlobalFilters = get_node("./TagPass/Filterable/GlobalFilters")
-onready var Methods = get_node("./TagPass/Methods")
-onready var TagBox = get_node("./TagPass/Checkables/Rows/TagBox/Scroll/Tags")
-onready var TagNoneMessage = get_node("./TagPass/Checkables/Rows/TagBox/Scroll/NoTagsToCheck")
-onready var TagEditKey = get_node("./TagPass/Checkables/Rows/Edit/Entity/Key")
-onready var TagEditValue = get_node("./TagPass/Checkables/Rows/Edit/Entity/Value")
-onready var TagEditKeyOnly = get_node("./TagPass/Checkables/Rows/Edit/Check/KeyOnly")
-onready var TagEditAdd = get_node("./TagPass/Checkables/Rows/Edit/Check/Add")
+@onready var Characters = $Selector/List
+@onready var GlobalFilters = $Selector/Filtered
+@onready var Methods = $Method
+@onready var TagBox = $Checkables/Parts/Scroll/Flow
+@onready var TagNoneMessage = $Checkables/Parts/Scroll/NoTagsToCheck
+@onready var TagEditKey = $Checkables/Parts/Edit/Params/Key
+@onready var TagEditValue = $Checkables/Parts/Edit/Params/Value
+@onready var TagEditKeyOnly = $Checkables/Parts/Edit/Check/KeyOnly
+@onready var TagEditAdd = $Checkables/Parts/Edit/Check/Add
 
 var _CHECKABLES_CACHE: Array = []
 
@@ -48,10 +46,10 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	GlobalFilters.connect("pressed", self, "refresh_characters_list", [], CONNECT_DEFERRED)
-	Methods.connect("item_selected", self, "_on_method_item_selected", [], CONNECT_DEFERRED)
-	TagEditKeyOnly.connect("toggled", self, "_on_key_only_toggled", [], CONNECT_DEFERRED)
-	TagEditAdd.connect("pressed", self, "read_and_add_checkable", [], CONNECT_DEFERRED)
+	GlobalFilters.pressed.connect(self.refresh_characters_list, CONNECT_DEFERRED)
+	Methods.item_selected.connect(self._on_method_item_selected, CONNECT_DEFERRED)
+	TagEditKeyOnly.toggled.connect(self._on_key_only_toggled, CONNECT_DEFERRED)
+	TagEditAdd.pressed.connect(self.read_and_add_checkable, CONNECT_DEFERRED)
 	pass
 
 func refresh_methods_list(select_by_method_id: int = -1) -> void:
@@ -98,9 +96,9 @@ func refresh_characters_list(select_by_res_id:int = -1) -> void:
 			if apply_globals && global_filters.SORT_ALPHABETICAL:
 				listing_keys.sort()
 			var item_index := 0
-			for name in listing_keys:
-				var id = listing[name]
-				Characters.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+			for char_name in listing_keys:
+				var id = listing[char_name]
+				Characters.add_item(char_name if already != id || apply_globals == false else "["+ char_name +"]", id)
 				Characters.set_item_metadata(item_index, id)
 				item_index += 1
 			if select_by_res_id >= 0 :
@@ -136,8 +134,8 @@ func drop_all_duplicated_keys(refresh_view: bool = true) -> void:
 			erasure.append(entity)
 		else:
 			kept_keys.append(entity[0])
-	for duplicate in erasure:
-		_CHECKABLES_CACHE.erase(duplicate)
+	for dup in erasure:
+		_CHECKABLES_CACHE.erase(dup)
 	if refresh_view:
 		refresh_checkable_tags(false) # ~ from cache not scratch 
 	pass
@@ -147,15 +145,15 @@ func drop_matching_checkable(key: String, value, key_is_enough: bool, refresh_vi
 	for entity in _CHECKABLES_CACHE:
 		if entity[0] == key && (key_is_enough || (entity.size() >= 2 && entity[1] == value)):
 			erasure.append(entity)
-	for duplicate in erasure:
-		while _CHECKABLES_CACHE.has(duplicate):
-			_CHECKABLES_CACHE.erase(duplicate)
+	for dup in erasure:
+		while _CHECKABLES_CACHE.has(dup):
+			_CHECKABLES_CACHE.erase(dup)
 	if refresh_view:
 		refresh_checkable_tags(false) # ~ from cache not scratch
 	pass
 
 func read_and_add_checkable() -> void:
-	var key = Utils.exposure_safe_resource_name( TagEditKey.get_text() )
+	var key = Helpers.Utils.exposure_safe_resource_name( TagEditKey.get_text() )
 	TagEditKey.set_text(key) # ... so the user can see the safe key if we have changed it
 	var only_key = TagEditKeyOnly.is_pressed()
 	var value = null if only_key else TagEditValue.get_text()
@@ -195,7 +193,7 @@ func append_tag_to_box(key: String, value) -> void:
 	})
 	var the_tag = MenuButton.new()
 	the_tag.set_text(key_value_display)
-	# the_tag.set_tooltip(key_value_display)
+	# the_tag.set_tooltip_text(key_value_display)
 	the_tag.set_flat(false)
 	var the_popup = the_tag.get_popup()
 	the_popup.add_item(key_value_display, 0)
@@ -203,7 +201,7 @@ func append_tag_to_box(key: String, value) -> void:
 	the_popup.add_separator("", 0)
 	the_popup.add_item("Edit", 1)
 	the_popup.add_item("Drop", 2)
-	the_popup.connect("id_pressed", self, "take_tag_menu_action", [key, value], CONNECT_DEFERRED)
+	the_popup.id_pressed.connect(self.take_tag_menu_action.bind(key, value), CONNECT_DEFERRED)
 	# ...
 	TagBox.add_child(the_tag)
 	pass
@@ -225,7 +223,7 @@ func _on_method_item_selected(item_index:int = -1) -> void:
 	if item_index < 0:
 		item_index = Methods.get_selected()
 	var selected_method = Methods.get_item_id(item_index)
-	Methods.set_tooltip( METHODS_HINTS[selected_method] )
+	Methods.set_tooltip_text( METHODS_HINTS[selected_method] )
 	if METHOD_ACCEPTS_KEY_ONCE.has(selected_method):
 		drop_all_duplicated_keys(true)
 	pass
@@ -269,7 +267,7 @@ func _read_parameters() -> Dictionary:
 		parameters._use.field = "characters"
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 

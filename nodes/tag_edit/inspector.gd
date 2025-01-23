@@ -2,12 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Tag-Edit Node Type Inspector
-extends ScrollContainer
+# Tag-Edit Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var Utils = Helpers.Utils
+@onready var Main = get_tree().get_root().get_child(0)
 
 var _OPEN_NODE_ID
 var _OPEN_NODE
@@ -26,21 +24,21 @@ const METHOD_NEEDS_NO_VALUE = TagEditSharedClass.METHOD_NEEDS_NO_VALUE
 
 var This = self
 
-onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
+@onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
 
-onready var Characters = get_node("./TagEdit/Filterable/Characters")
-onready var GlobalFilters = get_node("./TagEdit/Filterable/GlobalFilters")
-onready var Methods = get_node("./TagEdit/Methods")
-onready var Key = get_node("./TagEdit/Key")
-onready var Value = get_node("./TagEdit/Value")
+@onready var Characters = $Selector/List
+@onready var GlobalFilters = $Selector/Filtered
+@onready var Methods = $Method
+@onready var Key = $Key
+@onready var Value = $Value
 
 func _ready() -> void:
 	register_connections()
 	pass
 
 func register_connections() -> void:
-	GlobalFilters.connect("pressed", self, "refresh_characters_list", [], CONNECT_DEFERRED)
-	Methods.connect("item_selected", self, "_on_method_item_selected", [], CONNECT_DEFERRED)
+	GlobalFilters.pressed.connect( self.refresh_characters_list, CONNECT_DEFERRED)
+	Methods.item_selected.connect( self._on_method_item_selected, CONNECT_DEFERRED)
 	pass
 
 func refresh_methods_list(select_by_method_id: int = -1) -> void:
@@ -87,9 +85,9 @@ func refresh_characters_list(select_by_res_id:int = -1) -> void:
 			if apply_globals && global_filters.SORT_ALPHABETICAL:
 				listing_keys.sort()
 			var item_index := 0
-			for name in listing_keys:
-				var id = listing[name]
-				Characters.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+			for char_name in listing_keys:
+				var id = listing[char_name]
+				Characters.add_item(char_name if already != id || apply_globals == false else "["+ char_name +"]", id)
 				Characters.set_item_metadata(item_index, id)
 				item_index += 1
 			if select_by_res_id >= 0 :
@@ -115,7 +113,7 @@ func _on_method_item_selected(item_index:int = -1) -> void:
 		item_index = Methods.get_selected()
 	var selected_method = Methods.get_item_id(item_index)
 	Value.set_editable( (! METHOD_NEEDS_NO_VALUE.has(selected_method)) )
-	Methods.set_tooltip( METHODS_HINTS[selected_method] )
+	Methods.set_tooltip_text( METHODS_HINTS[selected_method] )
 	pass
 
 func is_open_node_valid() -> bool :
@@ -145,7 +143,7 @@ func _read_parameters() -> Dictionary:
 		"character": Characters.get_selected_metadata(),
 		"edit": [
 			Methods.get_selected_id(),
-			Utils.exposure_safe_resource_name( Key.get_text() ),
+			Helpers.Utils.exposure_safe_resource_name( Key.get_text() ),
 			Value.get_text(),
 		],
 	}
@@ -165,7 +163,7 @@ func _read_parameters() -> Dictionary:
 		parameters._use.field = "characters"
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 
@@ -175,7 +173,7 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 	pass
 
 #static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
-#	var base_key = String(id) + "-tag_edit-"
+#	var base_key = String.num_int64(id) + "-tag_edit-"
 #	return {
 #		base_key + "name": node.data.edit[1],
 #		base_key + "value": node.data.edit[2],

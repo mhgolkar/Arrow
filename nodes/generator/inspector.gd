@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Generator Node Type Inspector
-extends ScrollContainer
+# Generator Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 var _OPEN_NODE_ID
 var _OPEN_NODE
@@ -28,17 +28,17 @@ var DEFAULT_NODE_DATA = {
 
 var This = self
 
-onready var VariablesInspector = Main.Mind.Inspector.Tab.Variables
+@onready var VariablesInspector = Main.Mind.Inspector.Tab.Variables
 
-onready var Variables = get_node("./Generate/Filterable/Variables")
-onready var GlobalFilters = get_node("./Generate/Filterable/GlobalFilters")
-onready var Methods = get_node("./Generate/Methods")
+@onready var Variables = $Variable/List
+@onready var GlobalFilters = $Variable/Filtered
+@onready var Methods = $Method
 
-onready var ArgumentsBox = get_node("./Generate/Arguments")
-onready var ArgumentsFormForMethod = {
-	"randi": get_node("./Generate/Arguments/RandomInt"),
-	"ascii": get_node("./Generate/Arguments/RandomAscii"),
-	"strst": get_node("./Generate/Arguments/FromStrSet"),
+@onready var ArgumentsBox = $Arguments
+@onready var ArgumentsFormForMethod = {
+	"randi": $Arguments/RandomInt,
+	"ascii": $Arguments/RandomAscii,
+	"strst": $Arguments/FromStrSet,
 	"rnbln": null,
 }
 const ArgumentsGetterForMethod = {
@@ -53,35 +53,34 @@ const ArgumentsSetterForMethod = {
 	"strst": "load_strst_arguments",
 	"rnbln": null,
 }
-onready var RandomIntRangeFromValue = get_node("./Generate/Arguments/RandomInt/Range/From/Value")
-onready var RandomIntRangeToValue = get_node("./Generate/Arguments/RandomInt/Range/To/Value")
-onready var RandomIntModifiersNegative = get_node("./Generate/Arguments/RandomInt/Modifiers/Negative")
-onready var RandomIntModifiersEven = get_node("./Generate/Arguments/RandomInt/Modifiers/Even")
-onready var RandomIntModifiersOdd = get_node("./Generate/Arguments/RandomInt/Modifiers/Odd")
-onready var RandomAsciiLength = get_node("./Generate/Arguments/RandomAscii/Length/Value")
-onready var RandomAsciiPoolString = get_node("./Generate/Arguments/RandomAscii/Pool/String")
-onready var StrSetPool = get_node("./Generate/Arguments/FromStrSet/StrSetPool")
+@onready var RandomIntRangeFromValue = $Arguments/RandomInt/From/Value
+@onready var RandomIntRangeToValue = $Arguments/RandomInt/To/Value
+@onready var RandomIntModifiersNegative = $Arguments/RandomInt/Modifiers/Negative
+@onready var RandomIntModifiersEven = $Arguments/RandomInt/Modifiers/Even
+@onready var RandomIntModifiersOdd = $Arguments/RandomInt/Modifiers/Odd
+@onready var RandomAsciiLength = $Arguments/RandomAscii/Length/Value
+@onready var RandomAsciiPoolString = $Arguments/RandomAscii/Pool/Value
+@onready var StrSetPool = $Arguments/FromStrSet/Pool
 
-const STRSET_DELIMITER_HINT_MESSAGE = "* Separate with `%s`"
-onready var StrSetDelimiterHint = get_node("./Generate/Arguments/FromStrSet/Hint")
+const STRST_DELIMITER_HINT_MESSAGE = "* Separate with `%s`"
 
 func _ready() -> void:
 	register_connections()
-	update_strset_delimiter_hint()
+	update_strst_delimiter_hint()
 	pass
 
 func register_connections() -> void:
-	Variables.connect("item_selected", self, "_on_variables_item_selected", [], CONNECT_DEFERRED)
-	GlobalFilters.connect("pressed", self, "refresh_variables_list", [], CONNECT_DEFERRED)
-	Methods.connect("item_selected", self, "_on_method_item_selected", [], CONNECT_DEFERRED)
-	RandomIntRangeFromValue.connect("value_changed", self, "_balance_from_to_for_randi", [], CONNECT_DEFERRED)
-	RandomIntRangeToValue.connect("value_changed", self, "_balance_from_to_for_randi", [], CONNECT_DEFERRED)
+	Variables.item_selected.connect(self._on_variables_item_selected, CONNECT_DEFERRED)
+	GlobalFilters.pressed.connect(self.refresh_variables_list, CONNECT_DEFERRED)
+	Methods.item_selected.connect(self._on_method_item_selected, CONNECT_DEFERRED)
+	RandomIntRangeFromValue.value_changed.connect(self._balance_from_to_for_randi, CONNECT_DEFERRED)
+	RandomIntRangeToValue.value_changed.connect(self._balance_from_to_for_randi, CONNECT_DEFERRED)
 	pass
 
-func update_strset_delimiter_hint() -> void:
-	StrSetDelimiterHint.set_deferred(
-		"text",
-		STRSET_DELIMITER_HINT_MESSAGE % GeneratorSharedClass.STRING_SET_DELIMITER
+func update_strst_delimiter_hint() -> void:
+	StrSetPool.set_deferred(
+		"placeholder",
+		STRST_DELIMITER_HINT_MESSAGE % GeneratorSharedClass.STRING_SET_DELIMITER
 	)
 	pass
 
@@ -135,9 +134,9 @@ func refresh_variables_list(select_by_res_id:int = -1) -> void:
 			if apply_globals && global_filters.SORT_ALPHABETICAL:
 				listing_keys.sort()
 			var item_index := 0
-			for name in listing_keys:
-				var id = listing[name]
-				Variables.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+			for var_name in listing_keys:
+				var id = listing[var_name]
+				Variables.add_item(var_name if already != id || apply_globals == false else "["+ var_name +"]", id)
 				Variables.set_item_metadata(item_index, id)
 				item_index += 1
 			if select_by_res_id >= 0 :
@@ -152,7 +151,7 @@ func refresh_variables_list(select_by_res_id:int = -1) -> void:
 		Variables.set_item_metadata(0, NO_VARIABLE_ID)
 	pass
 
-func _on_variables_item_selected(item_index:int) -> void:
+func _on_variables_item_selected(_item_index:int) -> void:
 	refresh_methods_list()
 	pass
 
@@ -301,7 +300,7 @@ func _read_parameters() -> Dictionary:
 		parameters._use.field = "variables"
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 

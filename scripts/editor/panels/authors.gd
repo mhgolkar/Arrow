@@ -1,23 +1,23 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# About Panel
-extends PanelContainer
+# Authors Panel
+extends Control
 
-signal request_mind
+signal request_mind()
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-onready var CloseButton = get_node(Addressbook.AUTHORS.CLOSE_BUTTON)
-onready var AuthorsList = get_node(Addressbook.AUTHORS.LIST)
-onready var AuthorsIdSpinBox = get_node(Addressbook.AUTHORS.AUTHOR_ID)
-onready var AuthorsInfoEdit = get_node(Addressbook.AUTHORS.INFO_EDIT)
-onready var AuthorActiveCheckbox = get_node(Addressbook.AUTHORS.ACTIVE_CHECKBOX)
-onready var AuthorEditRemove = get_node(Addressbook.AUTHORS.EDIT_REMOVE)
-onready var AuthorEditSave = get_node(Addressbook.AUTHORS.EDIT_SAVE)
-onready var ChapterPanel = get_node(Addressbook.AUTHORS.CHAPTER_PANEL)
-onready var ChapterIdSpinBox = get_node(Addressbook.AUTHORS.CHAPTER_ID)
-onready var UptadeChapter = get_node(Addressbook.AUTHORS.UPTADE_CHAPTER)
+@onready var CloseButton = $/root/Main/Overlays/Control/Authors/Margin/Sections/Toolbar/Close
+@onready var AuthorsList = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/List
+@onready var AuthorsIdSpinBox = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Unique/Uid
+@onready var AuthorsInfoEdit = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Information/Input
+@onready var AuthorActiveCheckbox = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Unique/Active
+@onready var AuthorEditRemove = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Actions/Remove
+@onready var AuthorEditSave = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Actions/Apply
+@onready var ChapterPanel = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter
+@onready var ChapterIdSpinBox = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor/Id
+@onready var UpdateChapter = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor/Update
 
 const ACTIVE_AUTHOR_MARKER = "[✓] "
 
@@ -26,12 +26,12 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	CloseButton.connect("pressed", self, "_toggle", [], CONNECT_DEFERRED)
-	AuthorsList.connect("item_selected", self, "_on_item_selected", [], CONNECT_DEFERRED)
-	AuthorsIdSpinBox.connect("value_changed", self, "_on_edit_id_value_changed", [], CONNECT_DEFERRED)
-	AuthorEditSave.connect("pressed", self, "_on_save_author", [], CONNECT_DEFERRED)
-	AuthorEditRemove.connect("pressed", self, "_on_remove_author", [], CONNECT_DEFERRED)
-	UptadeChapter.connect("pressed", self, "_on_update_chapter", [], CONNECT_DEFERRED)
+	CloseButton.pressed.connect(self._toggle, CONNECT_DEFERRED)
+	AuthorsList.item_selected.connect(self._on_item_selected, CONNECT_DEFERRED)
+	AuthorsIdSpinBox.value_changed.connect(self._on_edit_id_value_changed, CONNECT_DEFERRED)
+	AuthorEditSave.pressed.connect(self._on_save_author, CONNECT_DEFERRED)
+	AuthorEditRemove.pressed.connect(self._on_remove_author, CONNECT_DEFERRED)
+	UpdateChapter.pressed.connect(self._on_update_chapter, CONNECT_DEFERRED)
 	pass
 
 func _toggle() -> void:
@@ -48,7 +48,7 @@ func reset_authors(project_meta:Dictionary, active_one = null, auto_select:bool 
 	AuthorsList.clear()
 	print_debug("authors listed: ", project_meta.authors)
 	var is_snow_flaker = (project_meta.has("epoch") && project_meta.epoch is int && project_meta.epoch > 0)
-	var author_id_limit = (Flake.Snow.AUTHOR_ID_EXCLUSIVE_LIMITT if is_snow_flaker else Flake.Native.AUTHOR_ID_EXCLUSIVE_LIMITT);
+	var author_id_limit = (Flake.Snow.AUTHOR_ID_EXCLUSIVE_LIMIT if is_snow_flaker else Flake.Native.AUTHOR_ID_EXCLUSIVE_LIMIT);
 	var all_ids = project_meta.authors.keys()
 	if (active_one is int) == false || all_ids.has(active_one) == false:
 		active_one = all_ids[0]
@@ -60,7 +60,7 @@ func reset_authors(project_meta:Dictionary, active_one = null, auto_select:bool 
 				var author_seed = project_meta.authors[author_id][1]
 				var author_item = (
 					(ACTIVE_AUTHOR_MARKER if author_id == active_one else "") +
-					String(author_id) + ": " + author_info + " (" + String(author_seed) + ")"
+					String.num_int64(author_id) + ": " + author_info + " (" + String.num_int64(author_seed) + ")"
 				)
 				AuthorsList.call_deferred("add_item", author_item)
 				AuthorsList.call_deferred("set_item_metadata", index, author_id)
@@ -124,7 +124,7 @@ func _on_update_chapter() -> void:
 	pass
 
 func request_update_author(id:int, info: String, active:bool) -> void:
-	emit_signal("request_mind", "update_author", {
+	self.request_mind.emit("update_author", {
 		"id": id,
 		"info": info,
 		"active": active,
@@ -132,9 +132,9 @@ func request_update_author(id:int, info: String, active:bool) -> void:
 	pass
 	
 func request_remove_author(id:int) -> void:
-	emit_signal("request_mind", "remove_author", id)
+	self.request_mind.emit("remove_author", id)
 	pass
 
 func request_update_chapter(id:int) -> void:
-	emit_signal("request_mind", "update_chapter", id)
+	self.request_mind.emit("update_chapter", id)
 	pass

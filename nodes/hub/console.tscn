@@ -1,42 +1,40 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://brhu4tt1ad502"]
 
-[ext_resource path="res://nodes/hub/console.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/hub/console.gd" id="1_ai6l0"]
+[ext_resource type="Texture2D" uid="uid://csd3jcsheiq0c" path="res://nodes/hub/icon.svg" id="1_kot3m"]
 
 [node name="Hub" type="PanelContainer"]
-margin_top = 24.0
-margin_right = 233.0
-margin_bottom = 44.0
-rect_min_size = Vector2( 0, 20 )
+offset_right = 256.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+script = ExtResource("1_ai6l0")
 
-[node name="HubPlay" type="HBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 226.0
-margin_bottom = 27.0
+[node name="Play" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
-
-[node name="Icon" type="Label" parent="HubPlay"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_top = 3.0
-margin_right = 4.0
-margin_bottom = 17.0
-text = " "
-
-[node name="HubName" type="Button" parent="HubPlay"]
-margin_left = 8.0
-margin_right = 133.0
-margin_bottom = 20.0
-mouse_filter = 1
-size_flags_horizontal = 3
-text = "{name}"
+disabled = true
+icon = ExtResource("1_kot3m")
 flat = true
-clip_text = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="SlotsCount" type="Label" parent="HubPlay"]
-margin_left = 137.0
-margin_top = 3.0
-margin_right = 219.0
-margin_bottom = 17.0
-text = "{slots-count}"
+[node name="Name" type="Button" parent="Play"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[Name]"
+autowrap_mode = 3
+
+[node name="SlotsCount" type="Label" parent="Play"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "[Slots]"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

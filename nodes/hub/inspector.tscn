@@ -1,32 +1,22 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://ffuht6nyivjj"]
 
-[ext_resource path="res://nodes/hub/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/hub/inspector.gd" id="1_cqbq8"]
 
-[node name="HubType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 157.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Hub" type="VBoxContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 150.0
+[node name="Hub" type="VBoxContainer"]
+offset_right = 256.0
+offset_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_cqbq8")
 
-[node name="Label" type="Label" parent="Hub"]
-margin_right = 239.0
-margin_bottom = 14.0
-text = "Number of input slots"
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Input slots count"
 
-[node name="Slots" type="SpinBox" parent="Hub"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 42.0
+[node name="Slots" type="SpinBox" parent="."]
+layout_mode = 2
+min_value = 2.0
 max_value = 10.0
 value = 2.0
 rounded = true
+alignment = 1

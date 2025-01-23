@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Arrow Randomizer Node Icon</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="9.302083"
+     inkscape:cx="31.44457"
+     inkscape:cy="30.047034"
+     inkscape:window-width="1876"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="randomizer"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none">
+    <path
+       d="m 18.302608,15.313101 q -1.386437,2.122983 -3.379441,6.758883 -0.519914,-1.12648 -0.90985,-1.819699 -0.368272,-0.693219 -1.018165,-1.581406 -0.628229,-0.888186 -1.256459,-1.386437 -0.628229,-0.498251 -1.559742,-0.84486 -0.9315129,-0.34661 -2.0146672,-0.34661 H 2.6185336 q -0.3466093,0 -0.5849033,-0.238294 -0.2166309,-0.238294 -0.2166309,-0.584903 v -4.722553 q 0,-0.346609 0.2166309,-0.5849033 0.238294,-0.238294 0.5849033,-0.238294 h 5.5457502 q 6.1956432,0 10.1383242,5.5890763 z m 27.880393,19.756735 q 0,0.389935 -0.216631,0.606566 l -7.92869,7.885364 q -0.238294,0.259957 -0.56324,0.259957 -0.303283,0 -0.56324,-0.259957 -0.238294,-0.259957 -0.238294,-0.56324 v -4.722553 q -0.801535,0 -2.339614,0 -1.47309,0.04333 -2.859527,0.02166 -1.364775,-0.02166 -2.577907,-0.151642 -1.19147,-0.129978 -2.361277,-0.476588 -1.148143,-0.346609 -2.209635,-0.953176 -1.039828,-0.606566 -2.079656,-1.603068 -1.039828,-0.996502 -2.03633,-2.426266 1.429764,-2.209634 3.379441,-6.758883 0.519914,1.126481 0.888187,1.8197 0.389935,0.693218 1.018165,1.581405 0.649893,0.888187 1.278122,1.386438 0.62823,0.498251 1.559742,0.84486 0.931513,0.346609 2.014667,0.346609 h 6.325622 v -4.722553 q 0,-0.346609 0.21663,-0.584903 0.238294,-0.238294 0.584904,-0.238294 0.28162,0 0.584903,0.259957 l 7.907027,7.885364 q 0.216631,0.216631 0.216631,0.56324 z m 0,-22.183001 q 0,0.389936 -0.216631,0.606567 l -7.92869,7.885363 q -0.238294,0.259957 -0.56324,0.259957 -0.324947,0 -0.56324,-0.238294 -0.238294,-0.238294 -0.238294,-0.584903 v -4.722553 h -6.325622 q -1.191469,0 -2.166308,0.368273 -0.953176,0.368272 -1.689721,1.104817 -0.736545,0.736545 -1.278122,1.516416 -0.519914,0.779871 -1.104818,1.906352 -0.953175,1.863025 -1.949677,4.245965 -0.714882,1.646394 -1.234796,2.751212 -0.498251,1.104817 -1.321449,2.59957 -0.823197,1.494753 -1.581405,2.491255 -0.758208,0.996502 -1.841362,2.057993 -1.083155,1.061491 -2.231298,1.689721 -1.126481,0.628229 -2.621234,1.039828 -1.4947526,0.411599 -3.1628102,0.411599 H 2.6185336 q -0.3466093,0 -0.5849033,-0.238294 -0.2166309,-0.238294 -0.2166309,-0.584904 v -4.722552 q 0,-0.34661 0.2166309,-0.584904 0.238294,-0.238294 0.5849033,-0.238294 h 5.5457502 q 1.1914697,0 2.1446452,-0.368272 0.974839,-0.368273 1.711384,-1.104818 0.736545,-0.736545 1.256459,-1.516416 0.541577,-0.779871 1.126481,-1.906351 0.84486,-1.646395 1.928014,-4.245965 0.714882,-1.646395 1.234796,-2.772875 0.519914,-1.126481 1.343112,-2.599571 0.823197,-1.47309 1.559742,-2.469592 0.758208,-0.996501 1.841362,-2.057993 1.083155,-1.061491 2.231298,-1.68972 1.148144,-0.62823 2.642897,-1.039829 1.494753,-0.4115983 3.16281,-0.4115983 h 6.325622 V 5.0014719 q 0,-0.3466094 0.21663,-0.5849034 0.238294,-0.2382939 0.584904,-0.2382939 0.28162,0 0.584903,0.259957 l 7.907027,7.8853634 q 0.216631,0.216631 0.216631,0.56324 z"
+       id="text1"
+       style="font-size:44.366px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';fill:#ffffff;stroke-width:13.8643;stroke-linecap:round;stroke-dasharray:13.8643, 27.7287;stroke-opacity:0.5"
+       inkscape:label="icon"
+       aria-label="" />
+    <text
+       xml:space="preserve"
+       style="font-size:44.366px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:none;fill:#ffffff;stroke-width:13.8643;stroke-linecap:round;stroke-dasharray:13.8643, 27.7287;stroke-opacity:0.5"
+       x="1.8169994"
+       y="39.359127"
+       id="text2"
+       inkscape:label="nerd"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="1.8169994"
+         y="39.359127"
+         style="font-size:44.366px;stroke-width:13.8643"></tspan></text>
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Arrow Randomizer Node Icon</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. H. Golkar</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -2,21 +2,18 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Marker Node Type
+# Marker Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-var Utils = Helpers.Utils
+const NO_LABEL_MESSAGE = ""
+const SET_SLOT_COLORS := false
 
-const NO_LABEL_MESSAGE = "No Label!"
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
-var _node_id
-var _node_resource
-
-var This = self
-
-onready var MarkerLabel = get_node("./VBoxContainer/MarkerLabel")
+@onready var MarkerLabel = $Display/MarkerLabel
 
 #func _ready() -> void:
 #	register_connections()
@@ -32,5 +29,9 @@ func _update_node(data:Dictionary) -> void:
 	else:
 		MarkerLabel.set_deferred("text", NO_LABEL_MESSAGE)
 	if data.has("color") && (data.color is String):
-		This.set("self_modulate", Utils.rgba_hex_to_color(data.color))
+		var the_color = Helpers.Utils.rgba_hex_to_color(data.color)
+		self.set("self_modulate", the_color)
+		if SET_SLOT_COLORS:
+			self.set_slot_color_left(0, the_color)
+			self.set_slot_color_right(0, the_color)
 	pass

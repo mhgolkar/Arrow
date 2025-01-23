@@ -5,11 +5,6 @@
 # Shared helper classes
 class_name Helpers
 
-# Constants
-const EVER_THERE_RES_FILE = Settings.EVER_THERE_RES_FILE
-
-# Classes
-
 # Utilities 
 class Utils:
 	
@@ -22,11 +17,10 @@ class Utils:
 		return dir_path
 		
 	# Getting base directory from a path
-	# Note: types are NOT annotated (dir:String -> String) because some funcs may give it a `null` and/or expect a null in cases.
+	# Note: types are NOT annotated (dir:String -> String) because some functions may give it a `null` and/or expect a null in cases.
 	static func safe_base_dir(dir) :
 		if dir is String :
-			var check = Directory.new()
-			if check.dir_exists(dir):
+			if DirAccess.dir_exists_absolute(dir):
 				dir = normalize_dir_path(dir)
 			else:
 				dir = dir.get_base_dir()
@@ -40,20 +34,18 @@ class Utils:
 	
 	static func is_abs_or_rel_path(path) -> bool:
 		if path is String:
-			return ( path.is_abs_path() || path.is_rel_path() )
+			return ( path.is_absolute_path() || path.is_relative_path() )
 		return false
 	
 	# This function finds absolute path to `res://`
 	# by fetching base directory of an absolute path to a file that we sure is always there!
 	static func get_absolute_path_to_res_dir(normalize:bool) -> String:
-		var the_file = File.new();
-		the_file.open(EVER_THERE_RES_FILE, File.READ)
+		var the_file = FileAccess.open(Settings.EVER_THERE_RES_FILE, FileAccess.READ)
 		var res_abs_dir = the_file.get_path_absolute().get_base_dir()
 		the_file.close()
 		if normalize != false:
 			res_abs_dir = normalize_dir_path(res_abs_dir)
 		return res_abs_dir
-		pass
 	
 	static func try_making_clean_relative_dir(path:String, normalize:bool = true):
 		var abs_res_dir  = get_absolute_path_to_res_dir(false)
@@ -80,20 +72,19 @@ class Utils:
 				get_absolute_path_to_res_dir(true)
 			)
 		else:
-			var dir = Directory.new()
-			if dir.dir_exists(path):
-				if dir.open(path) == OK:
-					absolute_path = normalize_dir_path( dir.get_current_dir() )
+			var dir = DirAccess.open(path)
+			if dir != null:
+				absolute_path = normalize_dir_path( dir.get_current_dir() )
 		return absolute_path
 	
-	static func is_access_granted_to_dir(path:String, access_type = File.WRITE_READ) -> bool:
+	static func is_access_granted_to_dir(path:String, access_type = FileAccess.WRITE_READ) -> bool:
 		var base = safe_base_dir(path)
 		if base is String:
 			var temp_file_path = base + 'wr_access_check.temp'
-			var dir = Directory.new()
-			if dir.open( base ) == OK :
-				var temp_file = File.new()
-				if temp_file.open(temp_file_path, access_type) == OK :
+			var dir = DirAccess.open(base)
+			if dir != null:
+				var temp_file = FileAccess.open(temp_file_path, access_type)
+				if temp_file != null:
 					temp_file.close()
 					dir.remove(temp_file_path)
 					return true
@@ -101,56 +92,55 @@ class Utils:
 					return false
 			else:
 				return false
-			pass
 		else:
 			printerr("Unexpected Behavior! Trying check [mode-", access_type, "] access permission to invalid path: ", path)
 			return false
 	
 	static func file_exists(path: String) -> bool:
-		var file = File.new()
-		return file.file_exists(path)
+		return FileAccess.file_exists(path)
 	
 	# Caution!
 	# using File.Write or File.WRITE_READ will truncate the file or (re-)create it,
-	# so be carefull about the parameter `mode`
-	static func file_is_accessible(path:String, mode = File.READ_WRITE) -> bool:
-		var file = File.new()
-		if file.file_exists(path) :
-			if file.open(path, mode) == OK:
+	# so be careful about the parameter `mode`
+	static func file_is_accessible(path:String, mode = FileAccess.READ_WRITE) -> bool:
+		if FileAccess.file_exists(path):
+			var file = FileAccess.open(path, mode)
+			if file != null:
 				file.close()
 				return true
 		return false
 	
 	static func parse_json(text: String):
-		var parsed:JSONParseResult = JSON.parse(text)
-		if parsed.error == OK:
-			return parsed.get_result()
-		return null
+		# var json = JSON.new()
+		# var parsed = json.parse(text)
+		# if parsed == OK:
+		# 	return json.data
+		# return null
+		## Alternatively, because we return null on error anyway, we can use the new GD4 API:
+		return JSON.parse_string(text)
 	
 	static func read_and_parse_json_file(path:String):
-		var file = File.new()
-		if file.file_exists(path) :
-			if file.open(path, File.READ) == OK:
-				var json_string = file.get_as_text()
-				file.close()
-				var parsed_or_null = parse_json(json_string)
-				return parsed_or_null
+		var file = FileAccess.open(path, FileAccess.READ)
+		if file != null:
+			var json_string = file.get_as_text()
+			file.close()
+			var parsed_or_null = parse_json(json_string)
+			return parsed_or_null
 		return null
 
-	static func stringify_json(data, indent:String = Settings.PROJECT_FILE_JSON_DEFAULT_IDENT, sort_keys:bool = false) -> String:
-		return JSON.print(data, indent, sort_keys)
+	static func stringify_json(data, indent:String = Settings.PROJECT_FILE_JSON_DEFAULT_IDENT, sort_keys:bool = false, full_precision:bool = false) -> String:
+		return JSON.stringify(data, indent, sort_keys, full_precision)
 	
-	static func save_data_as_json_file(data, path:String, indent:String = "", sort_keys:bool = false):
-		var data_stringified = JSON.print(data, indent, sort_keys)
+	static func save_data_as_json_file(data, path:String, indent:String = "", sort_keys:bool = false, full_precision:bool = false):
+		var data_stringified = JSON.stringify(data, indent, sort_keys, full_precision)
 		if data_stringified is String:
-			var file = File.new()
-			var open_file = file.open(path, File.WRITE)
-			if open_file == OK:
+			var file = FileAccess.open(path, FileAccess.WRITE)
+			if file != null:
 				file.store_string(data_stringified)
 				file.close()
 				return OK
 			else:
-				return open_file
+				return file
 		else:
 			print_stack()
 			print_debug("Trying to save data as json: ", data)
@@ -165,114 +155,122 @@ class Utils:
 	
 	static func save_from_template_file(template_path:String, save_path:String, replacements:Dictionary = {}):
 		if is_a_file_path(template_path) && is_a_file_path(save_path):
-			var tmpl_file = File.new()
-			var tmpl_access_state = tmpl_file.open(template_path, File.READ)
-			if tmpl_access_state == OK:
-				var new_file = File.new()
-				var new_file_write_access_state = new_file.open(save_path, File.WRITE)
-				if new_file_write_access_state == OK:
+			var template_file = FileAccess.open(template_path, FileAccess.READ)
+			if template_file != null:
+				var new_file = FileAccess.open(save_path, FileAccess.WRITE)
+				if new_file != null:
 					# Copy the template line by line, replacing the tags
 					var the_content_line:String
-					while tmpl_file.eof_reached() == false:
-						the_content_line = tmpl_file.get_line()
+					while template_file.eof_reached() == false:
+						the_content_line = template_file.get_line()
 						for tag in replacements:
 							the_content_line = the_content_line.replace( tag, replacements[tag] )
 						new_file.store_line(the_content_line)
 					# ...
 					new_file.close()
-					tmpl_file.close()
+					template_file.close()
 					return OK
 				else:
-					return new_file_write_access_state
+					return new_file.get_error()
 			else:
-				return tmpl_access_state
+				return template_file.get_error()
 		else:
 			return ERR_INVALID_PARAMETER
-		pass
 	
 	static func parse_template(template_path:String, replacements:Dictionary = {}):
 		if is_a_file_path(template_path):
-			var tmpl_file = File.new()
-			var tmpl_access_state = tmpl_file.open(template_path, File.READ)
-			if tmpl_access_state == OK:
+			var template_file = FileAccess.open(template_path, FileAccess.READ)
+			if template_file != null:
 				var parsed: String = ""
 				# Copy the template line by line, replacing the tags
 				var the_content_line:String
-				while tmpl_file.eof_reached() == false:
-					the_content_line = tmpl_file.get_line()
+				while template_file.eof_reached() == false:
+					the_content_line = template_file.get_line()
 					for tag in replacements:
 						the_content_line = the_content_line.replace( tag, replacements[tag] )
 					parsed = parsed + the_content_line + "\n"
 					# (^ It's a line by line append, and `get_line` seems not to keep line-feed so we add it)
 				# ...
-				tmpl_file.close()
+				template_file.close()
 				return parsed
 			else:
-				return tmpl_access_state
+				return template_file.get_error()
 		else:
 			return ERR_INVALID_PARAMETER
-		pass
+	
+	static func read_text_extended(path: String, strip_comment_lines: StringName = "", return_joined: bool = true):
+		var file = FileAccess.open(path, FileAccess.READ)
+		if file != null:
+			var content = []
+			while file.eof_reached() == false:
+				var line = file.get_line()
+				if strip_comment_lines == "" || false == line.begins_with(strip_comment_lines):
+					content.push_back(line)
+			file.close()
+			if return_joined:
+				return "\n".join(content)
+			else:
+				return content
+		return null
 	
 	static func read_text_file(path: String):
-		var file = File.new()
-		if file.file_exists(path):
-			if file.open(path, File.READ) == OK:
-				var content = file.get_as_text()
-				file.close()
-				return content
+		var file = FileAccess.open(path, FileAccess.READ)
+		if file != null:
+			var content = file.get_as_text()
+			file.close()
+			return content
 		return null
 	
 	# Returns OK if write is done or File Error
 	static func write_text_file(path: String, content: String):
-		var file = File.new()
-		var file_state = file.open(path, File.WRITE)
-		if file_state == OK:
+		var file = FileAccess.open(path, FileAccess.WRITE)
+		if file != null:
 			file.store_string(content)
 			file.close()
-		return file_state
+			return OK
+		else:
+			return file.get_error()
 	
 	# Returns last modification time of a file, 0 for non-existent and -1 for error
 	static func get_modification_time(path: String) -> int:
-		var file = File.new()
-		var mod_time = file.get_modified_time(path)
-		return (mod_time if mod_time is int else -1)
+		var mod_time = FileAccess.get_modified_time(path)
+		return (mod_time if mod_time is int && mod_time > 0 else -1)
 
-	const SCRIPT_REGEX = "<script[a-z1-9\"'\/ =]*?src=['|\"](.*?)[\"|'][a-z1-9\"'\/ =]*?>.*</script>"
-	const STYLE_REGEX = "<link[a-z1-9\"'\/ =]*?href=['|\"](.*?)[\"|'][a-z1-9\"'\/ =]*?>"
+	const SCRIPT_REGEX = r"<script[a-z1-9\"'\/ =]*?src=['|\"](.*?)[\"|'][a-z1-9\"'\/ =]*?>.*</script>"
+	const STYLE_REGEX =  r"<link[a-z1-9\"'\/ =]*?href=['|\"](.*?)[\"|'][a-z1-9\"'\/ =]*?>"
 	static func read_html_head_imports(
 		path: String, return_source: bool = false,
 		start_mark: String = "@inline", end_mark: String = "@inline-end"
 	):
-		var file = File.new()
-		if file.file_exists(path) :
-			if file.open(path, File.READ) == OK:
-				var source = file.get_as_text()
-				file.close()
-				var imports = { "styles": [], "scripts": [] }
-				var lookup_start = source.find(start_mark)
-				var lookup_end = source.find(end_mark)
-				# Scripts
-				var scripts_regex = RegEx.new()
-				scripts_regex.compile(SCRIPT_REGEX)
-				var scripts = scripts_regex.search_all(source, lookup_start, lookup_end)
-				for scripts_regex_match in scripts:
-					imports.scripts.append({
-						"block": scripts_regex_match.get_string(0),
-						"src": scripts_regex_match.get_string(1)
-					})
-				# Style sheets
-				var styles_regex = RegEx.new()
-				styles_regex.compile(STYLE_REGEX)
-				var styles = styles_regex.search_all(source, lookup_start, lookup_end)
-				for styles_regex_match in styles:
-					imports.styles.append({
-						"block": styles_regex_match.get_string(0),
-						"href": styles_regex_match.get_string(1)
-					})
-				# ...
-				if return_source:
-					imports["source"] = source
-				return imports
+		var file = FileAccess.open(path, FileAccess.READ)
+		if file != null:
+			var source = file.get_as_text()
+			file.close()
+			var imports = { "styles": [], "scripts": [] }
+			var lookup_start = source.find(start_mark)
+			var lookup_end = source.find(end_mark)
+			# Scripts
+			var scripts_regex = RegEx.new()
+			scripts_regex.compile(SCRIPT_REGEX)
+			var scripts = scripts_regex.search_all(source, lookup_start, lookup_end)
+			for scripts_regex_match in scripts:
+				imports.scripts.append({
+					"block": scripts_regex_match.get_string(0),
+					"src": scripts_regex_match.get_string(1)
+				})
+			# Style sheets
+			var styles_regex = RegEx.new()
+			styles_regex.compile(STYLE_REGEX)
+			var styles = styles_regex.search_all(source, lookup_start, lookup_end)
+			for styles_regex_match in styles:
+				imports.styles.append({
+					"block": styles_regex_match.get_string(0),
+					"href": styles_regex_match.get_string(1)
+				})
+			# ...
+			if return_source:
+				imports["source"] = source
+			return imports
 		return null
 
 	static func inline_html_head_imports(index_path: String) -> String:
@@ -299,27 +297,27 @@ class Utils:
 		return index_source
 	
 	static func read_and_parse_variant_file(path:String):
-		var file = File.new()
-		if file.file_exists(path) :
-			if file.open(path, File.READ) == OK:
-				var variant = file.get_var(true)
-				file.close()
-				return variant
+		var file = FileAccess.open(path, FileAccess.READ)
+		if file != null:
+			var variant = file.get_var(true)
+			file.close()
+			return variant
 		return null
 	
 	static func save_data_as_variant_file(data, path:String):
-		var file = File.new()
-		var open_file = file.open(path, File.WRITE)
-		if open_file == OK:
+		var file = FileAccess.open(path, FileAccess.WRITE)
+		if file != null:
 			file.store_var(data, true)
 			file.close()
 			return OK
 		else:
-			return open_file
+			return file.get_error()
 	
-	static func remove_file(path:String):
-		var dir = Directory.new()
-		return dir.remove(path)
+	static func remove_file(path:String, move_to_trash:bool = true):
+		return (
+			OS.move_to_trash(ProjectSettings.globalize_path(path)) if move_to_trash
+			else DirAccess.remove_absolute(path)
+		)
 	
 	static func parse_time_stamp(
 		time_stamp, mark_utc:bool = false, convert_to_local_time: bool = false, custom_template:String = ""
@@ -364,10 +362,10 @@ class Utils:
 	static func vector2_to_array(from:Vector2) -> Array:
 		return [from.x, from.y]
 	
-	static func refactor_array(left: Array, factor: float, devide: bool = false) -> Array:
+	static func refactor_array(left: Array, factor: float, divide: bool = false) -> Array:
 		var right = []
 		for num in left:
-			right.append( (num * factor) if devide == false else (num / factor) )
+			right.append( (num * factor) if divide == false else (num / factor) )
 		return right
 
 	static func int_to_base36(val:int = 0) -> String:
@@ -376,22 +374,17 @@ class Utils:
 		if val == 0:
 			result = "0"
 		else:
-			while (val > 0 ):
+			while (val > 0):
 				result = base36[val % 36] + result
-				# warning-ignore:integer_division
+				@warning_ignore("INTEGER_DIVISION")
 				val = val / 36
 		return result
 	
 	static func color_to_rgba_hex(from: Color, with_alpha: bool = true) -> String:
-		# (Godot considers HTML color to be ARGB but CSS prefers RGBA and it's more common elsewhere.)
-		var argb = from.to_html()
-		var rgba = argb.substr(2, -1) + (argb.substr(0, 2) if with_alpha else "")
-		return rgba.to_lower()
+		return from.to_html(with_alpha)
 	
 	static func rgba_hex_to_color(from: String) -> Color:
-		var alpha = from.substr(6, 2) if from.length() >= 8 else "ff"
-		var argb = (alpha + from.substr(0, 6))
-		return Color( argb.to_lower() )
+		return Color.html(from)
 
 	static func objects_differ(left, right) -> bool:
 		if typeof(left) == typeof(right):
@@ -416,7 +409,7 @@ class Utils:
 			elif left is Array:
 				if left.hash() == right.hash():
 					return false
-				# though we care about order in Arrays, but arrays may contain dictionares
+				# though we care about order in Arrays, but arrays may contain dictionaries
 				# so we need to recursively check for items all
 				else:
 					if left.size() == right.size():
@@ -431,27 +424,27 @@ class Utils:
 			return true
 	
 	static func recursively_update_dictionary(original:Dictionary, modification:Dictionary, ignore_new_and_strange_pairs:bool = true, updates_to_null_is_erase:bool = false, duplication:bool = false) -> Dictionary:
-		var updatee = ( original if (duplication != true) else original.duplicate(true) )
+		var updating = ( original if (duplication != true) else original.duplicate(true) )
 		for key in modification:
 			# update if the pairs are of the same type ...
-			if updatee.has(key) && (typeof(updatee[key]) == typeof(modification[key])):
-				if updatee[key] is Dictionary:
+			if updating.has(key) && (typeof(updating[key]) == typeof(modification[key])):
+				if updating[key] is Dictionary:
 					# it doesn't need to duplicate original part again, because it's already a deep clone if duplication=true
-					updatee[key] = recursively_update_dictionary(updatee[key], modification[key], ignore_new_and_strange_pairs, updates_to_null_is_erase, false)
+					updating[key] = recursively_update_dictionary(updating[key], modification[key], ignore_new_and_strange_pairs, updates_to_null_is_erase, false)
 				else:
-					updatee[key] = modification[key]
+					updating[key] = modification[key]
 			# otherwise don't update unless ...
 			elif modification[key] == null && updates_to_null_is_erase == true:
-				updatee.erase(key)
+				updating.erase(key)
 			elif ignore_new_and_strange_pairs == false:
-				updatee[key] = modification[key]
-		return updatee
+				updating[key] = modification[key]
+		return updating
 	
 	static func recursively_convert_numbers_to_int(data):
 		if data is float:
 			data = int(data)
 		# stringified numbers in data may be a number-only title or str value, so let's keep them
-		#elif data is String && String(int(data)) == data:
+		#elif data is String && String.num_int64(int(data)) == data:
 		#	data = int(data)
 		elif data is Array:
 			for index in range(0, data.size()):
@@ -460,7 +453,7 @@ class Utils:
 			var data_with_converted_keys = {}
 			for key in data:
 				# well, the key itself might also be a stringified int
-				if String(int(key)) == key:
+				if String.num_int64( int(key) ) == key:
 					var key_int = int(key)
 					var value = ( data[key].duplicate(true) if (data[key] is Dictionary || data[key] is Array) else data[key] )
 					data_with_converted_keys[ key_int ]  = recursively_convert_numbers_to_int( value )
@@ -521,6 +514,16 @@ class Utils:
 		filter = "*" + filter + "*"
 		var passes = text.matchn(filter) if ci else text.match(filter)
 		return ( passes if reverse == false else (! passes ) )
+	
+	static func find_focal(node: Control):
+		for c in range(node.get_child_count() -1, -1, -1):
+			var child = node.get_child(c)
+			if child is Control:
+				if child.get_child_count() > 0:
+					return find_focal(child)
+				elif child.get_focus_mode() != Control.FocusMode.FOCUS_NONE:
+					return child
+		return node if node.get_focus_mode() != Control.FocusMode.FOCUS_NONE else null
 
 # List Node Helpers
 class ListHelpers:
@@ -547,7 +550,6 @@ class ListHelpers:
 			if target_meta_data == list.get_item_metadata(idx):
 				return idx
 		return -1
-		pass
 
 class Vector2d:
 	
@@ -574,49 +576,49 @@ class Vector2d:
 		limited = limit_vector2_x(limited, by, limit_down, limit_padding.x)
 		return limited
 
-# Dragable (Movable) Controls
-class Dragable:
+# Draggable (Movable) Controls
+class Draggable:
 	
 	var LIMIT_PADDING = Vector2(25, 50) # pixels
 	
-	var _DRAGABLE:Node
+	var _DRAGGABLE:Node
 	var _DRAG_POINT:Node
 	var _VIEWPORT:Node
 	var _COMPETE_FOR_PARENT_TOP_VIEW:bool = false
 	var _PARENT:Node
 	
-	func _init(dragable:Node, drag_point:Node, compete_for_parent_top_layer:bool = true) -> void:
-		_DRAGABLE = dragable
+	func _init(draggable:Node, drag_point:Node, compete_for_parent_top_layer:bool = true) -> void:
+		_DRAGGABLE = draggable
 		_DRAG_POINT = drag_point
-		_VIEWPORT = _DRAGABLE.get_viewport()
+		_VIEWPORT = _DRAGGABLE.get_viewport()
 		if compete_for_parent_top_layer:
 			_COMPETE_FOR_PARENT_TOP_VIEW = true
-			_PARENT = _DRAGABLE.get_parent()
+			_PARENT = _DRAGGABLE.get_parent()
 		connect_drag()
 		pass
 		
 	func connect_drag() -> void:
-		_DRAG_POINT.connect("gui_input", self, "drag_element")
-		if _COMPETE_FOR_PARENT_TOP_VIEW && _DRAGABLE.has_signal("visibility_changed"):
-			_DRAGABLE.connect("visibility_changed", self, "steal_top", [], CONNECT_DEFERRED)
+		_DRAG_POINT.gui_input.connect(self.drag_element)
+		if _COMPETE_FOR_PARENT_TOP_VIEW && _DRAGGABLE.has_signal("visibility_changed"):
+			_DRAGGABLE.visibility_changed.connect(self.steal_top, CONNECT_DEFERRED)
 		pass
 	
 	func drag_element(event:InputEvent) -> void:
 		if event is InputEventMouseMotion:
-			if event.get_button_mask() == BUTTON_LEFT:
+			if event.get_button_mask() == MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
 				var rel_mouse_position = event.get_relative() # ... to its previous pos
-				var current_dragable_position  = _DRAGABLE.get_position()
+				var current_draggable_position  = _DRAGGABLE.get_position()
 				var the_viewport_size = _VIEWPORT.get_size()
-				var new_dragable_position = (current_dragable_position + rel_mouse_position)
-				new_dragable_position = Vector2d.limit_vector2(new_dragable_position, the_viewport_size, true, LIMIT_PADDING)
-				_DRAGABLE.set_position(new_dragable_position)
+				var new_draggable_position = (current_draggable_position + rel_mouse_position)
+				new_draggable_position = Vector2d.limit_vector2(new_draggable_position, the_viewport_size, true, LIMIT_PADDING)
+				_DRAGGABLE.set_position(new_draggable_position)
 		if event is InputEventMouseButton:
 			if event.is_pressed() && _COMPETE_FOR_PARENT_TOP_VIEW == true:
 				steal_top()
 		pass
 	
 	func steal_top() -> void:
-		_PARENT.move_child(_DRAGABLE, _PARENT.get_child_count())
+		_PARENT.move_child(_DRAGGABLE, _PARENT.get_child_count())
 		pass
 
 # Resizable Controls
@@ -640,12 +642,12 @@ class Resizable:
 		pass
 		
 	func connect_resize() -> void:
-		_RESIZE_POINT.connect("gui_input", self, "resize_element")
+		_RESIZE_POINT.gui_input.connect(self.resize_element)
 		pass
 	
 	func resize_element(event:InputEvent) -> void:
 		if event is InputEventMouseMotion:
-			if event.get_button_mask() == BUTTON_LEFT:
+			if event.get_button_mask() == MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
 				var rel_mouse_position = event.get_relative() # ... to its previous pos
 				if _USE_REVERSE_MOUSE_Y:
 					rel_mouse_position.y = (rel_mouse_position.y * ( -1 ))
@@ -664,12 +666,14 @@ class Resizable:
 # ... to make random variants
 class Generators:
 	
-	static func create_random_color() -> Color:
+	## This method is opinionated, trying to make acceptable colors for Characters or node types such as Marker and Frame.
+	## NOTE: Negative `alpha` means to use a random value, and the values higher than 1 will be capped.
+	static func create_random_color(alpha: float = 1.0) -> Color:
 		var the_color:Color = Color.from_hsv(
-			rand_range(0.0, 1), # hue
-			rand_range(0.5, 1), # saturation
-			rand_range(0.7, 1), # velocity
-			1 # alpha 100%
+			randf_range(0.0, 1.0), # hue
+			randf_range(0.7, 1.0), # saturation
+			randf_range(0.8, 1.0), # velocity
+			min(alpha, 1.0) if alpha >= 0 else randf_range(0.5, 1.0) # alpha
 		)
 		return the_color
 
@@ -702,7 +706,7 @@ class Generators:
 			# we need at least one odd and one even number in the possibilities
 			to += 1
 		while result == null:
-			result = int( rand_range( float(from), float(to) ) )
+			result = randi_range(from, to)
 			if even != odd : # to be either odd or even
 				# (both true or both false means ignore)
 				var is_even = (result % 2 == 0)

@@ -1,60 +1,36 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://b6my1050o1uc5"]
 
-[ext_resource path="res://nodes/jump/console.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/jump/console.gd" id="1_ma8vl"]
+[ext_resource type="Texture2D" uid="uid://dpp1oe52rw7d5" path="res://nodes/jump/icon.svg" id="1_vheil"]
 
 [node name="Jump" type="PanelContainer"]
-margin_top = 142.0
-margin_right = 233.0
-margin_bottom = 162.0
-rect_min_size = Vector2( 0, 20 )
+offset_right = 256.0
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+script = ExtResource("1_ma8vl")
 
-[node name="JumpPlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 226.0
-margin_bottom = 45.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Header" type="HBoxContainer" parent="JumpPlay"]
-margin_right = 219.0
-margin_bottom = 14.0
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
+disabled = true
+icon = ExtResource("1_vheil")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
 
-[node name="Icon" type="Label" parent="JumpPlay/Header"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_bottom = 14.0
-text = ""
-
-[node name="Reason" type="Label" parent="JumpPlay/Header"]
-margin_left = 4.0
-margin_right = 219.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 64, 0 )
+[node name="Reason" type="Label" parent="Play/Head"]
+layout_mode = 2
 size_flags_horizontal = 3
-text = "{Jump Reason}"
-align = 1
-autowrap = true
+text = "[Reason]"
+horizontal_alignment = 1
 
-[node name="Link" type="HBoxContainer" parent="JumpPlay"]
-margin_top = 18.0
-margin_right = 219.0
-margin_bottom = 38.0
-
-[node name="GoToIcon" type="Label" parent="JumpPlay/Link"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_top = 3.0
-margin_right = 4.0
-margin_bottom = 17.0
-text = " "
-
-[node name="Action" type="Button" parent="JumpPlay/Link"]
-margin_left = 8.0
-margin_right = 219.0
-margin_bottom = 20.0
-mouse_filter = 1
-size_flags_horizontal = 3
-text = "{target name}"
-clip_text = true
+[node name="Action" type="Button" parent="Play"]
+layout_mode = 2
+text = "[Destination Name]"

@@ -1,44 +1,38 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://bs3uhk8tysnxm"]
 
-[ext_resource path="res://nodes/macro_use/inspector.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="1_fdbdm"]
+[ext_resource type="Script" path="res://nodes/macro_use/inspector.gd" id="1_ql46j"]
 
-[node name="MacroUseType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 157.0
-script = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0vxc"]
+atlas = ExtResource("1_fdbdm")
+region = Rect2(192, 192, 48, 48)
 
-[node name="Macro" type="VBoxContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 150.0
+[node name="MacroUse" type="VBoxContainer"]
+offset_right = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_ql46j")
 
-[node name="Label" type="Label" parent="Macro"]
-margin_right = 239.0
-margin_bottom = 14.0
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
 text = "Macro"
 
-[node name="Filterable" type="HBoxContainer" parent="Macro"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 38.0
+[node name="Macro" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Options" type="OptionButton" parent="Macro/Filterable"]
-margin_right = 223.0
-margin_bottom = 20.0
+[node name="List" type="OptionButton" parent="Macro"]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true
 
-[node name="GlobalFilters" type="Button" parent="Macro/Filterable"]
-margin_left = 227.0
-margin_right = 239.0
-margin_bottom = 20.0
-hint_tooltip = "Apply Global Filters
+[node name="Filtered" type="Button" parent="Macro"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Apply Global Filters
 
 It will follow the same listing instructions
 that are defined in the Macros inspector.
 + Current macro of the node is always listed."
 toggle_mode = true
-text = ""
+icon = SubResource("AtlasTexture_e0vxc")
+icon_alignment = 1
+expand_icon = true

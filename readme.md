@@ -1,18 +1,11 @@
-<!-- Arrow Logo -->
-<h1 style="font-size: 3rem; line-height: 100%;">
-    <span>Arrow</span>
-    <img
-        src="./icon.png"
-        style="width: 1em; height: auto; display: inline-block; vertical-align: bottom;"
-        alt="Arrow's logo"
-    >
-</h1>
+![][arrow-icon]
 
+Arrow
+=====
 
-<!-- # Arrow -->
 ***The Game Narrative Design Tool***
 
-[Download](#download) | [Contribution](#contribution-to-arrow) | [Runtimes](#runtime-projects) | [Guides](#guides)
+[Download](#download) | [Runtimes](#runtime-projects) | [Web App](#web-app) | [Guides](#guides)
 
 Arrow is the free, open-source and feature-rich tool for
 *game narrative* design, *text-adventure* development,
@@ -24,10 +17,12 @@ Notable Features:
 
 + Free as in Freedom
 + 100% Visual Development
-+ Extensible Node System
-+ VCS-Friendly Save Files & JSON Export
-+ One-Click Playable Export (HTML)
++ Advanced Node System
++ VCS-Friendly Save Files
 + Support for Distributed Workflows
++ One-Click Playable Export (HTML)
++ CSV (I18n) Export
++ RTL, CJK and CTL support
 + Continuum Safety
 
 Arrow supports a rich palette of features, from scenes and macros, to variables and characters.
@@ -41,23 +36,22 @@ state management, and more.
 
 Arrow prebuilt executables are available to download from the archive of [releases].
 
-Following links are to the *latest* stable versions:
+Following links are to the *fairly stable most recent* versions:
 
-Linux (X11) [x86 (32-bit)][linux-x11-x86-latest] | [x86_64 (64-bit)][linux-x11-x86-64-latest]
++ Linux (X11) [x86_64 (64-bit)][linux-x11-x86-64-latest]
++ Windows [64-bit][win-64-latest]
 
-Windows [32-bit][win-32-latest] | [64-bit][win-64-latest]
-
-> MacOS builds are not available at this time.  
-> Mac users can easily [build Arrow from source][wiki-build-from-source].
+> For other platforms and architectures, or to take advantage of the latest features in the main branch
+> consider [building or running Arrow from source][wiki-build-from-source].
 
 
 ## Web App
 
-[Arrow Progressive Web App][web-app] is also available.
+Arrow is also available as a [Progressive Web App][web-app].
 
-This version provides full features as the latest downloadable releases.  
-**It stores project data and configurations in your browser.**  
-Convenience import/export options are available to ease working with file-system of devices as well.
+The app provides all the features as the most recent downloadable releases.  
+The main difference is that ***it stores project data and configurations in your browser***.
+Additionally import/export conveniences are available to ease working with file-system of your device as well.
 
 > The experience is optimized for desktop (mode/) screens.
 
@@ -79,18 +73,9 @@ including a [Quick Start Guide][wiki-quick-start-guide] as well as,
 detailed instructions, documentation of the built-in nodes, and more.
 
 
-## Contribution to Arrow
-
-Contributions are welcome and appreciated.  
-Please browse [Contribution][wiki-contribution] wiki page,
-to find how you can help Arrow most.  
-
-Thanks in advance.
-
-
 ## Licenses
 
-Copyright (c) 2021-2022 Mor. H. Golkar and contributors
+Copyright (c) 2021-present Mor. H. Golkar and contributors
 
 Unless otherwise specified, Arrow and files in this repository are
 available under `MIT` license.
@@ -101,23 +86,28 @@ Have a Good Time
 
 
 
-<!-- download -->
+<!-- Download -->
 [releases]: https://github.com/mhgolkar/Arrow/releases
-[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.3.0/Arrow-v2.3.0-linux-x86_64.tar.gz
-[linux-x11-x86-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.3.0/Arrow-v2.3.0-linux-x86.tar.gz
-[win-32-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.3.0/Arrow-v2.3.0-win.32.zip
-[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v2.3.0/Arrow-v2.3.0-win.64.zip
-<!-- pwa -->
+[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v3.0.0-rc1/Arrow-v3.0.0-rc1-linux-x86_64.tar.gz
+[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v3.0.0-rc1/Arrow-v3.0.0-rc1-win.64.zip
+<!-- PWA -->
 [web-app]: https://mhgolkar.github.io/Arrow/
-<!-- wiki -->
+<!-- Wiki -->
 [wiki-home]: https://github.com/mhgolkar/Arrow/wiki/
 [wiki-build-from-source]: https://github.com/mhgolkar/Arrow/wiki/build-from-source
 [wiki-quick-start-guide]: https://github.com/mhgolkar/Arrow/wiki/quick-start-guide
-[wiki-contribution]: https://github.com/mhgolkar/Arrow/wiki/contribution
-<!-- relative -->
+<!-- Relative -->
 [runtime-html-js]: ./runtimes/html-js/
 [license-file]: ./license
 [copyright-file]: ./copyright
-<!-- resources -->
-<!-- [arrow-logo]: ./icon.png -->
-[arrow-screenshot]: https://mhgolkar.github.io/Arrow/images/screenshot_overall.png
+<!-- Resources -->
+[arrow-icon]: ./icon.svg#icon
+[arrow-screenshot]: https://mhgolkar.github.io/Arrow/media/overview.v3.png
+<!-- Styling -->
+<style type="text/css" rel="stylesheet">
+img[src*='#icon'] {
+    width: 5em; max-width: 64px; height: auto;
+    display: inline-block;
+    vertical-align: bottom;
+}
+</style>

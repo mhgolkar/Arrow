@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Variable_Update Node Type Console
-extends PanelContainer
+# Variable-Update Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,7 +11,7 @@ signal status_code
 signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 # will be played forward after automatic evaluation (update)
 # or by a user choice (Apply or Dismiss)
@@ -32,11 +32,11 @@ var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
 const UNSET_OR_INVALID_MESSAGE = "Unset !"
-onready var VarUpExpression = VariableUpdateSharedClass.expression.new(Main.Mind)
+@onready var VarUpExpression = VariableUpdateSharedClass.expression.new(Main.Mind)
 
-onready var TheExpression = get_node("./VariableUpdatePlay/Information/Expression")
-onready var Apply = get_node("./VariableUpdatePlay/Application/Apply")
-onready var Dismiss = get_node("./VariableUpdatePlay/Application/Dismiss")
+@onready var TheExpression = $Play/Head/Expression
+@onready var Apply = $Play/Actions/Apply
+@onready var Dismiss = $Play/Actions/Dismiss
 
 func _ready() -> void:
 	register_connections()
@@ -49,8 +49,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	Apply.connect("pressed", self, "evaluate_and_play_forward", [true], CONNECT_DEFERRED)
-	Dismiss.connect("pressed", self, "evaluate_and_play_forward", [false], CONNECT_DEFERRED)
+	Apply.pressed.connect(self.evaluate_and_play_forward.bind(true), CONNECT_DEFERRED)
+	Dismiss.pressed.connect(self.evaluate_and_play_forward.bind(false), CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -126,7 +126,7 @@ func evaluate_and_play_forward(do_apply:bool = true) -> void:
 			printerr("Evaluation of Update Failed! Data: ", _NODE_RESOURCE.data, " Variables Current: ", _VARIABLES_CURRENT)
 		else:
 			if do_apply:
-				emit_signal("reset_variables", {
+				self.reset_variables.emit({
 					_THE_VARIABLE_ID: new_value
 				})
 	play_forward_from(ONLY_PLAY_SLOT)
@@ -136,9 +136,9 @@ func play_forward_from(slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 
@@ -156,7 +156,7 @@ func set_view_unplayed() -> void:
 	Dismiss.set_deferred("visible", true)
 	pass
 
-func set_view_played(slot_idx:int = ONLY_PLAY_SLOT) -> void:
+func set_view_played(_slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	Apply.set_deferred("visible", false)
 	Dismiss.set_deferred("visible", false)
 	pass
@@ -169,7 +169,7 @@ func step_back() -> void:
 	# Stepping back, we should undo the changes we've made to the variable as well,
 	# so the user can inspect the previous value, before manually playing or skipping the node.
 	if _THE_VARIABLE_ID >= 0:
-		emit_signal("reset_variables", {
+		self.reset_variables.emit({
 			_THE_VARIABLE_ID: _THE_VARIABLE_ORIGINAL_VALUE
 		})
 	# ...

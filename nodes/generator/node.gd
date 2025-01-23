@@ -2,19 +2,19 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Generator Node Type
+# Generator Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
-onready var Method = get_node("./VBoxContainer/Method")
-onready var Arguments = get_node("./VBoxContainer/Arguments")
-onready var Target = get_node("./VBoxContainer/Target")
+@onready var Method = $Display/Method
+@onready var Arguments = $Display/Arguments
+@onready var Target = $Display/Target
 
 const UNSET_OR_INVALID_TARGET_VAR_MESSAGE = "Undefined"
 const TARGET_VARIABLE_MESSAGE_TEMPLATE = "{name} ({type})"

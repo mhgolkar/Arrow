@@ -1,116 +1,56 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bl0ist2e7qgp1"]
 
-[ext_resource path="res://nodes/tag_edit/console.gd" type="Script" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 4.0
-content_margin_right = 4.0
-content_margin_top = 6.0
-content_margin_bottom = 6.0
-bg_color = Color( 0.247059, 0.247059, 0.247059, 0 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.498039, 0.498039, 0.498039, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+[ext_resource type="Texture2D" uid="uid://b76d3868erbte" path="res://nodes/tag_edit/icon.svg" id="1_1ud8y"]
+[ext_resource type="Script" path="res://nodes/tag_edit/console.gd" id="1_jhmsq"]
 
 [node name="TagEdit" type="PanelContainer"]
-margin_right = 145.0
-margin_bottom = 108.0
+offset_right = 256.0
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+script = ExtResource("1_jhmsq")
 
-[node name="TagEditPlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 138.0
-margin_bottom = 101.0
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+icon = ExtResource("1_1ud8y")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Name" type="Label" parent="Play/Head"]
+layout_mode = 2
+text = "[Character Name]"
+
+[node name="Body" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Color" type="ColorRect" parent="Play/Body"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
 mouse_filter = 2
 
-[node name="PanelContainer" type="MarginContainer" parent="TagEditPlay"]
-margin_right = 131.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 0, 25 )
-mouse_filter = 2
+[node name="Tag" type="Label" parent="Play/Body"]
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/margin_bottom = 8
+text = "[Tag: Value]"
+horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TagEditPlay/PanelContainer"]
-margin_right = 131.0
-margin_bottom = 62.0
-
-[node name="Header" type="HBoxContainer" parent="TagEditPlay/PanelContainer/VBoxContainer"]
-margin_right = 131.0
-margin_bottom = 14.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Icon" type="Label" parent="TagEditPlay/PanelContainer/VBoxContainer/Header"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_bottom = 14.0
-text = ""
-
-[node name="Method" type="Label" parent="TagEditPlay/PanelContainer/VBoxContainer/Header"]
-self_modulate = Color( 1, 1, 1, 0.501961 )
-margin_left = 4.0
-margin_right = 64.0
-margin_bottom = 14.0
-size_flags_vertical = 8
-text = "{method}"
-
-[node name="Character" type="HBoxContainer" parent="TagEditPlay/PanelContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 131.0
-margin_bottom = 32.0
-
-[node name="Color" type="ColorRect" parent="TagEditPlay/PanelContainer/VBoxContainer/Character"]
-margin_right = 14.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 14, 14 )
-size_flags_vertical = 0
-size_flags_stretch_ratio = 2.0
-color = Color( 0.0588235, 0.407843, 0.956863, 0.435294 )
-
-[node name="Name" type="Label" parent="TagEditPlay/PanelContainer/VBoxContainer/Character"]
-margin_left = 18.0
-margin_right = 131.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 8.0
-text = "{character-name}"
-autowrap = true
-
-[node name="Tag" type="Label" parent="TagEditPlay/PanelContainer/VBoxContainer"]
-margin_top = 36.0
-margin_right = 131.0
-margin_bottom = 62.0
-size_flags_horizontal = 3
-custom_styles/normal = SubResource( 1 )
-text = "{ tag-key: value }"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="Actions" type="HBoxContainer" parent="TagEditPlay"]
-margin_top = 74.0
-margin_right = 131.0
-margin_bottom = 94.0
-mouse_filter = 2
+[node name="Actions" type="HBoxContainer" parent="Play"]
+layout_mode = 2
 alignment = 2
 
-[node name="Skip" type="Button" parent="TagEditPlay/Actions"]
-margin_left = 17.0
-margin_right = 55.0
-margin_bottom = 20.0
+[node name="Skip" type="Button" parent="Play/Actions"]
+layout_mode = 2
 text = "Skip"
 
-[node name="Apply" type="Button" parent="TagEditPlay/Actions"]
-margin_left = 59.0
-margin_right = 131.0
-margin_bottom = 20.0
-text = "{method}"
+[node name="Apply" type="Button" parent="Play/Actions"]
+layout_mode = 2
+text = "[Method]"

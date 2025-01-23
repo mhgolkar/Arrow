@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="96"
+   height="48"
+   viewBox="0 0 96 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="interface.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Arrow Tag-Match Node Interface Symbols</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="6.5775662"
+     inkscape:cx="51.15874"
+     inkscape:cy="23.640963"
+     inkscape:window-width="1876"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g2"
+     showguides="true">
+    <sodipodi:guide
+       position="48,48"
+       orientation="-1,0"
+       id="guide1"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,134,229)" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="tag_match"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none">
+    <g
+       inkscape:groupmode="layer"
+       id="layer2"
+       inkscape:label="2"
+       style="display:inline">
+      <rect
+         style="display:inline;fill:none;stroke:none;stroke-width:20;stroke-linecap:round;stroke-dasharray:20, 40;stroke-opacity:0.5"
+         id="rect1"
+         width="48"
+         height="48"
+         x="48"
+         y="0"
+         inkscape:label="boundary"
+         sodipodi:insensitive="true" />
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="g2"
+       inkscape:label="1">
+      <rect
+         style="display:none;fill:none;stroke:none;stroke-width:20;stroke-linecap:round;stroke-dasharray:20, 40;stroke-opacity:0.5"
+         id="rect2"
+         width="48"
+         height="48"
+         x="0"
+         y="0"
+         inkscape:label="boundary"
+         sodipodi:insensitive="true" />
+      <path
+         id="rect3"
+         style="fill:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+         d="M 29.201761,2.00879 A 0.99609839,0.96090377 0 0 0 28.203714,2.9697275 V 12.586915 L 19.258401,7.3701181 a 0.99609839,0.96090377 0 0 0 -1.378906,0.34375 l -1.773438,2.9746099 a 0.99609839,0.96090377 0 0 0 0.388672,1.322265 l 9.53125,4.982422 -9.533203,5.007813 a 0.99609839,0.96090377 0 0 0 -0.384765,1.328125 l 1.773437,2.943359 a 0.99609839,0.96090377 0 0 0 1.376953,0.339844 l 8.945313,-5.216797 v 9.617187 a 0.99609839,0.96090377 0 0 0 0.998047,0.960938 h 3.578124 a 0.99609839,0.96090377 0 0 0 0.996094,-0.960938 v -9.617187 l 8.947266,5.216797 a 0.99609839,0.96090377 0 0 0 1.376953,-0.339844 l 1.773437,-2.943359 A 0.99609839,0.96090377 0 0 0 45.48887,22.000978 l -9.533203,-5.007813 9.53125,-4.982422 a 0.99609839,0.96090377 0 0 0 0.388672,-1.322265 L 44.102151,7.7138681 a 0.99609839,0.96090377 0 0 0 -1.378906,-0.34375 L 33.775979,12.586915 V 2.9697275 A 0.99609839,0.96090377 0 0 0 32.779885,2.00879 Z M 4.7584015,30.991212 c -1.5335812,0 -2.7675781,1.233997 -2.7675781,2.767578 v 9.464844 c 0,1.533581 1.2339969,2.767578 2.7675781,2.767578 h 9.4648435 c 1.533581,0 2.767578,-1.233997 2.767578,-2.767578 V 33.75879 c 0,-1.533581 -1.233997,-2.767578 -2.767578,-2.767578 z"
+         inkscape:label="icon" />
+    </g>
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Arrow Tag-Match Node Interface Symbols</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. H. Golkar</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

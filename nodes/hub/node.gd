@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Hub Node Type
+# Hub Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 # A hub is by definition, to merge inputs,
 # so there must be at least two incoming slots for any hub
@@ -20,12 +20,10 @@ const IN_SLOT_TYPE_RIGHT   = IN_SLOT_TYPE_LEFT
 const IN_SLOT_COLOR_LEFT   = IN_SLOT_COLOR
 const IN_SLOT_COLOR_RIGHT  = IN_SLOT_COLOR
 
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
-
-# onready var X = get_node("./X")
 
 #func _ready() -> void:
 #	register_connections()

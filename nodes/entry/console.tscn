@@ -1,59 +1,65 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://b6my1050o1uc5"]
 
-[ext_resource path="res://nodes/entry/console.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://4xglpbpbvntu" path="res://nodes/entry/icon.svg" id="1_nfyq4"]
+[ext_resource type="Script" path="res://nodes/entry/console.gd" id="1_qu4w8"]
+[ext_resource type="Texture2D" uid="uid://dd1eyrl7g6b00" path="res://nodes/entry/interface.svg" id="2_v773j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixm1o"]
+atlas = ExtResource("2_v773j")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kerq1"]
+atlas = ExtResource("2_v773j")
+region = Rect2(48, 0, 48, 48)
 
 [node name="Entry" type="PanelContainer"]
-margin_right = 233.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 0, 20 )
+offset_right = 256.0
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+script = ExtResource("1_qu4w8")
 
-[node name="EntryPlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 226.0
-margin_bottom = 45.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Header" type="HBoxContainer" parent="EntryPlay"]
-margin_right = 219.0
-margin_bottom = 14.0
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
+disabled = true
+icon = ExtResource("1_nfyq4")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
 
-[node name="Icon" type="Label" parent="EntryPlay/Header"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_bottom = 14.0
-text = ""
-
-[node name="Plaque" type="Label" parent="EntryPlay/Header"]
-margin_left = 4.0
-margin_right = 180.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 64, 0 )
+[node name="Plaque" type="Label" parent="Play/Head"]
+layout_mode = 2
 size_flags_horizontal = 3
-text = "{Entry Plaque}"
-align = 1
-autowrap = true
+text = "[Plaque]"
+horizontal_alignment = 1
 
-[node name="IsSceneEntryIndicator" type="Label" parent="EntryPlay/Header"]
-margin_left = 184.0
-margin_right = 199.0
-margin_bottom = 14.0
-text = "[S]"
+[node name="ForProject" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
+disabled = true
+icon = SubResource("AtlasTexture_ixm1o")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="IsProjectEntryIndicator" type="Label" parent="EntryPlay/Header"]
-margin_left = 203.0
-margin_right = 219.0
-margin_bottom = 14.0
-text = "[P]"
+[node name="ForScene" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
+disabled = true
+icon = SubResource("AtlasTexture_kerq1")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="Action" type="Button" parent="EntryPlay"]
-margin_top = 18.0
-margin_right = 219.0
-margin_bottom = 38.0
-mouse_filter = 1
-size_flags_horizontal = 3
-text = "{name}"
-clip_text = true
+[node name="Action" type="Button" parent="Play"]
+layout_mode = 2
+text = "[Node Name]"

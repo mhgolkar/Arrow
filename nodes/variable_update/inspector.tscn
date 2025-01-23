@@ -1,117 +1,94 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://bs3uhk8tysnxm"]
 
-[ext_resource path="res://nodes/variable_update/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/variable_update/inspector.gd" id="1_wf655"]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="2_xyrmn"]
 
-[node name="VariableUpdateType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 157.0
-script = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="AtlasTexture_8w2qn"]
+atlas = ExtResource("2_xyrmn")
+region = Rect2(192, 192, 48, 48)
 
-[node name="Update" type="VBoxContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 150.0
+[node name="VariableUpdate" type="VBoxContainer"]
+offset_right = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_wf655")
 
-[node name="UpdateVariable" type="Label" parent="Update"]
-margin_right = 239.0
-margin_bottom = 14.0
-text = "Update variable"
+[node name="Update" type="Label" parent="."]
+layout_mode = 2
+text = "Update"
 
-[node name="Filterable" type="HBoxContainer" parent="Update"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 38.0
+[node name="Variable" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Variables" type="OptionButton" parent="Update/Filterable"]
-margin_right = 223.0
-margin_bottom = 20.0
+[node name="List" type="OptionButton" parent="Variable"]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true
 
-[node name="GlobalFilters" type="Button" parent="Update/Filterable"]
-margin_left = 227.0
-margin_right = 239.0
-margin_bottom = 20.0
-hint_tooltip = "Apply Global Filters
+[node name="Filtered" type="Button" parent="Variable"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Apply Global Filters
 
 It will follow the same listing instructions
 that are defined in the Variables inspector.
 + Current variable of the node is always listed."
 toggle_mode = true
-text = ""
+icon = SubResource("AtlasTexture_8w2qn")
+icon_alignment = 1
+expand_icon = true
 
-[node name="By" type="Label" parent="Update"]
-margin_top = 42.0
-margin_right = 239.0
-margin_bottom = 56.0
+[node name="By" type="Label" parent="."]
+layout_mode = 2
 text = "by"
 
-[node name="Operator" type="OptionButton" parent="Update"]
-margin_top = 60.0
-margin_right = 239.0
-margin_bottom = 80.0
-clip_text = true
+[node name="Operator" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="To" type="Label" parent="Update"]
-margin_top = 84.0
-margin_right = 239.0
-margin_bottom = 98.0
+[node name="To" type="Label" parent="."]
+layout_mode = 2
 text = "with/to"
 
-[node name="With" type="PanelContainer" parent="Update"]
-margin_top = 102.0
-margin_right = 239.0
-margin_bottom = 136.0
+[node name="With" type="PanelContainer" parent="."]
+layout_mode = 2
 
-[node name="Parameter" type="HBoxContainer" parent="Update/With"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 232.0
-margin_bottom = 27.0
+[node name="Parameter" type="HBoxContainer" parent="With"]
+layout_mode = 2
 
-[node name="Type" type="OptionButton" parent="Update/With/Parameter"]
-margin_right = 67.0
-margin_bottom = 20.0
-text = "{type}"
-items = [ "{type}", null, false, 0, null ]
-selected = 0
+[node name="Mode" type="OptionButton" parent="With/Parameter"]
+layout_mode = 2
 
-[node name="Mode" type="MarginContainer" parent="Update/With/Parameter"]
-margin_left = 71.0
-margin_right = 225.0
-margin_bottom = 20.0
+[node name="Value" type="MarginContainer" parent="With/Parameter"]
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Value" type="MarginContainer" parent="Update/With/Parameter/Mode"]
-margin_right = 154.0
-margin_bottom = 20.0
-
-[node name="String" type="LineEdit" parent="Update/With/Parameter/Mode/Value"]
+[node name="Static" type="MarginContainer" parent="With/Parameter/Value"]
 visible = false
-margin_right = 154.0
-margin_bottom = 24.0
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Number" type="SpinBox" parent="Update/With/Parameter/Mode/Value"]
+[node name="String" type="LineEdit" parent="With/Parameter/Value/Static"]
+layout_mode = 2
+placeholder_text = "Str Value"
+alignment = 1
+
+[node name="Number" type="SpinBox" parent="With/Parameter/Value/Static"]
 visible = false
-margin_right = 154.0
-margin_bottom = 24.0
+layout_mode = 2
 allow_greater = true
 allow_lesser = true
+alignment = 1
 
-[node name="Boolean" type="OptionButton" parent="Update/With/Parameter/Mode/Value"]
-margin_right = 154.0
-margin_bottom = 20.0
-text = "True"
-items = [ "True", null, false, 1, null, "False", null, false, 0, null ]
-selected = 0
-
-[node name="Variable" type="OptionButton" parent="Update/With/Parameter/Mode"]
+[node name="Boolean" type="OptionButton" parent="With/Parameter/Value/Static"]
 visible = false
-margin_right = 154.0
-margin_bottom = 20.0
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "True"
+popup/item_0/id = 1
+popup/item_1/text = "False"
+popup/item_1/id = 1
+
+[node name="Variable" type="OptionButton" parent="With/Parameter/Value"]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true

@@ -8,8 +8,8 @@ class_name CONSOLE_STATUS_CODE
 
 # the outgoing played slot is connected to no other node
 const END_EDGE = 0
-const END_EDGE_MESSAGE = "錄 EOL: {name} ({uid})"
+const END_EDGE_MESSAGE = "◆ EOL: {name} ({uid})"
 
 # no default action is taken by the node (e.g. due to being skipped)
 const NO_DEFAULT = 1
-const NO_DEFAULT_MESSAGE = " No DEFAULT: {name} ({uid})"
+const NO_DEFAULT_MESSAGE = "⚠ No DEFAULT: {name} ({uid})"

@@ -1,80 +1,56 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bh4ghjjhaot1k"]
 
-[ext_resource path="res://nodes/macro_use/console.gd" type="Script" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 8.0
-bg_color = Color( 0, 0, 0, 0 )
-border_width_left = 2
-border_color = Color( 0.701961, 0.701961, 0.701961, 0.701961 )
+[ext_resource type="Texture2D" uid="uid://brbd17qb1dm1l" path="res://nodes/macro_use/icon.svg" id="1_cbg1x"]
+[ext_resource type="Script" path="res://nodes/macro_use/console.gd" id="1_e678b"]
 
 [node name="MacroUse" type="PanelContainer"]
-margin_top = 166.0
-margin_right = 233.0
-margin_bottom = 198.0
-script = ExtResource( 1 )
+offset_right = 256.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+script = ExtResource("1_e678b")
 
-[node name="MacroUsePlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 226.0
-margin_bottom = 49.0
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
+disabled = true
+icon = ExtResource("1_cbg1x")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="MacroUseTitle" type="HBoxContainer" parent="MacroUsePlay"]
-margin_right = 219.0
-margin_bottom = 14.0
-mouse_filter = 2
-
-[node name="Icon" type="Label" parent="MacroUsePlay/MacroUseTitle"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_bottom = 14.0
-text = ""
-
-[node name="Label" type="Label" parent="MacroUsePlay/MacroUseTitle"]
-margin_left = 4.0
-margin_right = 219.0
-margin_bottom = 14.0
+[node name="Title" type="Label" parent="Play/Head"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
 size_flags_horizontal = 3
-text = "{label}"
-align = 1
-valign = 1
-autowrap = true
+size_flags_vertical = 1
+text = "[Macro Title]"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="MacroUsePlay"]
-margin_top = 18.0
-margin_right = 219.0
-margin_bottom = 18.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/panel = SubResource( 1 )
+[node name="SubConsole" type="PanelContainer" parent="Play"]
+layout_mode = 2
 
-[node name="MacroUseSubConsole" type="VBoxContainer" parent="MacroUsePlay/PanelContainer"]
-margin_left = 8.0
-margin_right = 219.0
-size_flags_horizontal = 3
+[node name="Terminal" type="VBoxContainer" parent="Play/SubConsole"]
+layout_mode = 2
 
-[node name="Actions" type="HBoxContainer" parent="MacroUsePlay"]
-margin_top = 22.0
-margin_right = 219.0
-margin_bottom = 42.0
-size_flags_horizontal = 3
+[node name="Actions" type="HBoxContainer" parent="Play"]
+layout_mode = 2
 alignment = 2
 
-[node name="Replay" type="Button" parent="MacroUsePlay/Actions"]
-margin_left = 123.0
-margin_right = 177.0
-margin_bottom = 20.0
-mouse_filter = 1
-size_flags_horizontal = 8
-disabled = true
-text = "Replay"
-
-[node name="Skip" type="Button" parent="MacroUsePlay/Actions"]
-margin_left = 181.0
-margin_right = 219.0
-margin_bottom = 20.0
-mouse_filter = 1
-size_flags_horizontal = 8
+[node name="Skip" type="Button" parent="Play/Actions"]
+layout_mode = 2
 text = "Skip"
+
+[node name="Replay" type="Button" parent="Play/Actions"]
+layout_mode = 2
+disabled = true
+text = "Play"

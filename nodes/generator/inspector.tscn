@@ -1,231 +1,156 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://bs3uhk8tysnxm"]
 
-[ext_resource path="res://nodes/generator/inspector.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="1_cw7dx"]
+[ext_resource type="Script" path="res://nodes/generator/inspector.gd" id="1_v2nbu"]
 
-[node name="GeneratorType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 207.0
-margin_bottom = 187.0
-size_flags_horizontal = 3
-script = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="AtlasTexture_txcjx"]
+atlas = ExtResource("1_cw7dx")
+region = Rect2(192, 192, 48, 48)
 
-[node name="Generate" type="VBoxContainer" parent="."]
-margin_right = 200.0
-margin_bottom = 180.0
+[node name="Generator" type="VBoxContainer"]
+offset_right = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_v2nbu")
 
-[node name="For" type="Label" parent="Generate"]
-margin_right = 200.0
-margin_bottom = 14.0
+[node name="For" type="Label" parent="."]
+layout_mode = 2
 text = "For"
 
-[node name="Filterable" type="HBoxContainer" parent="Generate"]
-margin_top = 18.0
-margin_right = 200.0
-margin_bottom = 38.0
+[node name="Variable" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Variables" type="OptionButton" parent="Generate/Filterable"]
-margin_right = 184.0
-margin_bottom = 20.0
+[node name="List" type="OptionButton" parent="Variable"]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true
 
-[node name="GlobalFilters" type="Button" parent="Generate/Filterable"]
-margin_left = 188.0
-margin_right = 200.0
-margin_bottom = 20.0
-hint_tooltip = "Apply Global Filters
+[node name="Filtered" type="Button" parent="Variable"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Apply Global Filters
 
 It will follow the same listing instructions
 that are defined in the Variables inspector.
 + Current variable of the node is always listed."
 toggle_mode = true
-text = ""
+icon = SubResource("AtlasTexture_txcjx")
+icon_alignment = 1
+expand_icon = true
 
-[node name="GenerateValue" type="Label" parent="Generate"]
-margin_top = 42.0
-margin_right = 200.0
-margin_bottom = 56.0
+[node name="Generate" type="Label" parent="."]
+layout_mode = 2
 text = "Generate"
 
-[node name="Methods" type="OptionButton" parent="Generate"]
-margin_top = 60.0
-margin_right = 200.0
-margin_bottom = 80.0
+[node name="Method" type="OptionButton" parent="."]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true
 
-[node name="Arguments" type="PanelContainer" parent="Generate"]
+[node name="Arguments" type="PanelContainer" parent="."]
 visible = false
-margin_top = 84.0
-margin_right = 188.0
-margin_bottom = 182.0
-size_flags_horizontal = 3
+layout_mode = 2
 
-[node name="RandomInt" type="VBoxContainer" parent="Generate/Arguments"]
+[node name="RandomInt" type="VBoxContainer" parent="Arguments"]
 visible = false
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 181.0
-margin_bottom = 91.0
-size_flags_horizontal = 3
-alignment = 1
+layout_mode = 2
 
-[node name="Range" type="VBoxContainer" parent="Generate/Arguments/RandomInt"]
-margin_right = 174.0
-margin_bottom = 52.0
-size_flags_horizontal = 3
-alignment = 1
+[node name="From" type="HBoxContainer" parent="Arguments/RandomInt"]
+layout_mode = 2
 
-[node name="From" type="HBoxContainer" parent="Generate/Arguments/RandomInt/Range"]
-margin_right = 174.0
-margin_bottom = 24.0
+[node name="Label" type="Label" parent="Arguments/RandomInt/From"]
+layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
-
-[node name="Label" type="Label" parent="Generate/Arguments/RandomInt/Range/From"]
-margin_top = 5.0
-margin_right = 33.0
-margin_bottom = 19.0
 text = "From"
 
-[node name="Value" type="SpinBox" parent="Generate/Arguments/RandomInt/Range/From"]
-margin_left = 37.0
-margin_right = 174.0
-margin_bottom = 24.0
+[node name="Value" type="SpinBox" parent="Arguments/RandomInt/From"]
+layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 allow_greater = true
-
-[node name="To" type="HBoxContainer" parent="Generate/Arguments/RandomInt/Range"]
-margin_top = 28.0
-margin_right = 174.0
-margin_bottom = 52.0
-size_flags_horizontal = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="Generate/Arguments/RandomInt/Range/To"]
-margin_top = 5.0
-margin_right = 31.0
-margin_bottom = 19.0
-text = "    To"
+[node name="To" type="HBoxContainer" parent="Arguments/RandomInt"]
+layout_mode = 2
 
-[node name="Value" type="SpinBox" parent="Generate/Arguments/RandomInt/Range/To"]
-margin_left = 35.0
-margin_right = 174.0
-margin_bottom = 24.0
+[node name="Label" type="Label" parent="Arguments/RandomInt/To"]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "To"
+
+[node name="Value" type="SpinBox" parent="Arguments/RandomInt/To"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 min_value = 2.0
 value = 100.0
 allow_greater = true
+alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Generate/Arguments/RandomInt"]
-margin_top = 56.0
-margin_right = 174.0
-margin_bottom = 56.0
+[node name="Modifiers" type="HBoxContainer" parent="Arguments/RandomInt"]
+layout_mode = 2
 
-[node name="Modifiers" type="HBoxContainer" parent="Generate/Arguments/RandomInt"]
-margin_top = 60.0
-margin_right = 174.0
-margin_bottom = 84.0
-
-[node name="Negative" type="CheckBox" parent="Generate/Arguments/RandomInt/Modifiers"]
-margin_right = 53.0
-margin_bottom = 24.0
+[node name="Negative" type="CheckBox" parent="Arguments/RandomInt/Modifiers"]
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Neg"
 
-[node name="Even" type="CheckBox" parent="Generate/Arguments/RandomInt/Modifiers"]
-margin_left = 57.0
-margin_right = 115.0
-margin_bottom = 24.0
+[node name="Even" type="CheckBox" parent="Arguments/RandomInt/Modifiers"]
+layout_mode = 2
 size_flags_horizontal = 3
-pressed = true
+button_pressed = true
 text = "Even"
 
-[node name="Odd" type="CheckBox" parent="Generate/Arguments/RandomInt/Modifiers"]
-margin_left = 119.0
-margin_right = 174.0
-margin_bottom = 24.0
+[node name="Odd" type="CheckBox" parent="Arguments/RandomInt/Modifiers"]
+layout_mode = 2
 size_flags_horizontal = 3
-pressed = true
+button_pressed = true
 text = "Odd"
 
-[node name="RandomAscii" type="VBoxContainer" parent="Generate/Arguments"]
+[node name="RandomAscii" type="VBoxContainer" parent="Arguments"]
 visible = false
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 193.0
-margin_bottom = 59.0
+layout_mode = 2
+
+[node name="Pool" type="HBoxContainer" parent="Arguments/RandomAscii"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Arguments/RandomAscii/Pool"]
+layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
+text = "Pool"
 
-[node name="Pool" type="HBoxContainer" parent="Generate/Arguments/RandomAscii"]
-margin_right = 186.0
-margin_bottom = 24.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Generate/Arguments/RandomAscii/Pool"]
-margin_top = 5.0
-margin_right = 60.0
-margin_bottom = 19.0
-text = "Char Pool"
-
-[node name="String" type="LineEdit" parent="Generate/Arguments/RandomAscii/Pool"]
-margin_left = 64.0
-margin_right = 186.0
-margin_bottom = 24.0
+[node name="Value" type="LineEdit" parent="Arguments/RandomAscii/Pool"]
+layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "or En Alphanumeric"
-
-[node name="Length" type="HBoxContainer" parent="Generate/Arguments/RandomAscii"]
-margin_top = 28.0
-margin_right = 186.0
-margin_bottom = 52.0
+size_flags_stretch_ratio = 3.0
+placeholder_text = "ASCII Characters (En Alphanumeric)"
 alignment = 1
 
-[node name="Label" type="Label" parent="Generate/Arguments/RandomAscii/Length"]
-margin_top = 5.0
-margin_right = 43.0
-margin_bottom = 19.0
+[node name="Length" type="HBoxContainer" parent="Arguments/RandomAscii"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Arguments/RandomAscii/Length"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Length"
 
-[node name="Value" type="SpinBox" parent="Generate/Arguments/RandomAscii/Length"]
-margin_left = 47.0
-margin_right = 186.0
-margin_bottom = 24.0
+[node name="Value" type="SpinBox" parent="Arguments/RandomAscii/Length"]
+layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 min_value = 1.0
 value = 1.0
 allow_greater = true
-
-[node name="FromStrSet" type="VBoxContainer" parent="Generate/Arguments"]
-visible = false
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 194.0
-margin_bottom = 91.0
-size_flags_horizontal = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="Generate/Arguments/FromStrSet"]
-margin_right = 187.0
-margin_bottom = 14.0
+[node name="FromStrSet" type="VBoxContainer" parent="Arguments"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Arguments/FromStrSet"]
+layout_mode = 2
 text = "Pool of Strings"
 
-[node name="StrSetPool" type="TextEdit" parent="Generate/Arguments/FromStrSet"]
-margin_top = 18.0
-margin_right = 187.0
-margin_bottom = 66.0
-rect_min_size = Vector2( 0, 48 )
-size_flags_horizontal = 3
+[node name="Pool" type="TextEdit" parent="Arguments/FromStrSet"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
 size_flags_vertical = 3
-
-[node name="Hint" type="Label" parent="Generate/Arguments/FromStrSet"]
-self_modulate = Color( 0.5, 0.5, 0.5, 1 )
-margin_top = 70.0
-margin_right = 187.0
-margin_bottom = 84.0
-text = "* Separate with `{delimiter}`"
-align = 2
+placeholder_text = "* Separated with [delimiter]"

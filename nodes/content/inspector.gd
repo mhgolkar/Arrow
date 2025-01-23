@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Content Node Type Inspector
-extends ScrollContainer
+# Content Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const DEFAULT_NODE_DATA = ContentSharedClass.DEFAULT_NODE_DATA
 
@@ -19,24 +19,24 @@ const RESOURCE_NAME_EXPOSURE = Settings.RESOURCE_NAME_EXPOSURE
 
 var This = self
 
-onready var Title = get_node("./Content/Title")
-onready var BriefLength = get_node("./Content/Brief/Length")
-onready var BriefPick = get_node("./Content/Brief/Pick")
-onready var Content = get_node("./Content/Content")
-onready var AutoPlay = get_node("./Content/AutoPlay")
-onready var ClearPage = get_node("./Content/ClearPage")
+@onready var Title = $Title
+@onready var BriefLength = $Brief/Length
+@onready var BriefPick = $Brief/Pick
+@onready var Content = $Content
+@onready var AutoPlay = $AutoPlay
+@onready var ClearPage = $ClearPage
 
 func _ready() -> void:
 	register_connections()
 	pass
 
 func register_connections() -> void:
-	BriefPick.connect("pressed", self, "_pick_the_breif", [], CONNECT_DEFERRED)
+	BriefPick.pressed.connect(self._pick_the_brief, CONNECT_DEFERRED)
 	pass
 
-func _pick_the_breif() -> void:
-	Content.select(0, 0, Content.cursor_get_line(), Content.cursor_get_column())
-	BriefLength.set_value( Content.get_selection_text().length() )
+func _pick_the_brief() -> void:
+	Content.select(0, 0, Content.get_caret_line(), Content.get_caret_column())
+	BriefLength.set_value( Content.get_selected_text().length() )
 	pass
 
 func _update_parameters(node_id:int, node:Dictionary) -> void:
@@ -137,6 +137,7 @@ func _read_parameters() -> Dictionary:
 	parameters["content"] = content if SAVE_UNOPTIMIZED || content != DEFAULT_NODE_DATA.content else null
 	# > brief
 	var brief_length = int( BriefLength.get_value() )
+	@warning_ignore("INCOMPATIBLE_TERNARY") 
 	parameters["brief"] = brief_length if SAVE_UNOPTIMIZED || brief_length != DEFAULT_NODE_DATA.brief else null
 	# > auto-play
 	var auto = AutoPlay.is_pressed()
@@ -153,7 +154,7 @@ func _read_parameters() -> Dictionary:
 	# ...
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 
@@ -177,7 +178,7 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 	pass
 
 static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
-	var base_key = String(id) + "-content-"
+	var base_key = String.num_int64(id) + "-content-"
 	var i18n = {}
 	if node.data.has("title"):
 		i18n[base_key + "title"] = node.data.title

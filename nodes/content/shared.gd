@@ -12,7 +12,7 @@ class_name ContentSharedClass
 # It's advised to be used on versions with universally trusted defaults (i.e. most of recent stable releases.)
 const SAVE_UNOPTIMIZED = false
 
-# NOTE: All `Content` parameters are optional with following defualts:
+# NOTE: All `Content` parameters are optional with following defaults:
 const DEFAULT_NODE_DATA = {
 	"title": "",
 	"content": "",

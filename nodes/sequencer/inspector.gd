@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Sequencer Node Type Inspector
-extends ScrollContainer
+# Sequencer Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const DEFAULT_NODE_DATA = {
 	"slots": SequencerSharedClass.SEQUENCER_MINIMUM_ACCEPTABLE_OUT_SLOTS
@@ -16,7 +16,7 @@ var _OPEN_NODE
 
 var This = self
 
-onready var Slots = get_node("./Sequencer/Slots")
+@onready var Slots = $Slots
 
 func _ready() -> void:
 	Slots.set_max(SequencerSharedClass.SEQUENCER_MAXIMUM_ACCEPTABLE_OUT_SLOTS)
@@ -53,7 +53,6 @@ func _read_parameters() -> Dictionary:
 	}
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
-

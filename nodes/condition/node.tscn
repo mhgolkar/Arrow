@@ -1,68 +1,73 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://d2dxje4r5bikq"]
 
-[ext_resource path="res://nodes/condition/node.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/condition/node.gd" id="1_5rgjk"]
+[ext_resource type="Texture2D" uid="uid://dcy0o5rrn15bo" path="res://nodes/condition/icon.svg" id="1_das48"]
 
-[node name="ConditionNode" type="GraphNode"]
+[node name="Condition" type="GraphNode"]
+offset_right = 256.0
 mouse_filter = 1
+resizable = true
 slot/0/left_enabled = false
 slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
 slot/0/right_enabled = false
-slot/0/right_type = 1
-slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
 slot/1/left_enabled = false
 slot/1/left_type = 0
-slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
 slot/1/right_enabled = true
-slot/1/right_type = 1
-slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/1/right_type = 0
+slot/1/right_color = Color(0.9, 0, 0, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
 slot/2/left_enabled = true
 slot/2/left_type = 0
-slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
 slot/2/right_enabled = false
-slot/2/right_type = 1
-slot/2/right_color = Color( 1, 1, 1, 1 )
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
 slot/3/left_enabled = false
 slot/3/left_type = 0
-slot/3/left_color = Color( 1, 1, 1, 1 )
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
 slot/3/right_enabled = true
-slot/3/right_type = 1
-slot/3/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+slot/3/right_type = 0
+slot/3/right_color = Color(0, 1, 0.7, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+script = ExtResource("1_5rgjk")
 
-[node name="Label" type="Label" parent="."]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 112.0
-margin_bottom = 38.0
-text = " Condition"
+[node name="Kind" type="Button" parent="."]
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+text = "Condition"
+icon = ExtResource("1_das48")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
 
 [node name="False" type="Label" parent="."]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_left = 16.0
-margin_top = 39.0
-margin_right = 112.0
-margin_bottom = 53.0
-text = "False "
-align = 2
+layout_mode = 2
+text = "False"
+horizontal_alignment = 2
 
-[node name="Condition" type="Label" parent="."]
-margin_left = 16.0
-margin_top = 54.0
-margin_right = 112.0
-margin_bottom = 68.0
-rect_min_size = Vector2( 96, 0 )
-size_flags_horizontal = 7
-text = "{statement}"
-align = 1
-autowrap = true
+[node name="Statement" type="Label" parent="."]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "[Statement]"
+autowrap_mode = 3
 
 [node name="True" type="Label" parent="."]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_left = 16.0
-margin_top = 69.0
-margin_right = 112.0
-margin_bottom = 83.0
-text = "True "
-align = 2
+layout_mode = 2
+text = "True"
+horizontal_alignment = 2

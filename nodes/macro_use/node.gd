@@ -2,21 +2,21 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Macro_Use Node Type
+# Macro-Use Graph Node
 extends GraphNode
 
 # Note:
 # 'macros' are `scenes` which are marked with `macro: true`
 # and receive special treatments from the editor and runtime(s)
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
-onready var MacroIdentity = get_node("./VBoxContainer/MacroIdentity")
+@onready var MacroIdentity = $Display/Title
 
 const MACRO_USE_TARGET_FAILED_MESSAGE = "No Macro"
 const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS else "{name} ({uid})"
@@ -31,8 +31,8 @@ const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR
 
 func _gui_input(event) -> void:
 	if event is InputEventMouseButton:
-		if event.is_doubleclick():
-			if event.get_alt() == true:
+		if event.is_double_click():
+			if event.is_alt_pressed() == true:
 				if _node_resource.has("data"):
 					var data = _node_resource.data
 					if data.has("macro") && (data.macro is int) && data.macro >= 0:

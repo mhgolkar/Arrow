@@ -2,18 +2,18 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Jump Node Type
+# Jump Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
-onready var Destination = get_node("./Slot/Destination")
-onready var Reason = get_node("./Slot/Reason")
+@onready var Destination = $Display/Destination
+@onready var Reason = $Display/Reason
 
 const DESTINATION_FORMAT_STRING = (
 	"{target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_NODES else "{target_name} ({target_uid})"
@@ -31,8 +31,8 @@ const HIDE_REASON_IF_UNSET = true
 
 func _gui_input(event) -> void:
 	if event is InputEventMouseButton:
-		if event.is_doubleclick():
-			if event.get_alt() == true:
+		if event.is_double_click():
+			if event.is_alt_pressed() == true:
 				if _node_resource.has("data"):
 					var data = _node_resource.data
 					if data.has("target") && (data.target is int) && data.target >= 0:

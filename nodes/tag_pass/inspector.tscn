@@ -1,151 +1,105 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://bdyve8hjda5hg"]
 
-[ext_resource path="res://nodes/tag_pass/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/tag_pass/inspector.gd" id="1_y715l"]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="2_qknmn"]
 
-[node name="TagPassType" type="ScrollContainer"]
-margin_right = 167.0
-margin_bottom = 220.0
-size_flags_horizontal = 3
-script = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7lj0"]
+atlas = ExtResource("2_qknmn")
+region = Rect2(192, 192, 48, 48)
 
-[node name="TagPass" type="VBoxContainer" parent="."]
-margin_right = 167.0
-margin_bottom = 220.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqrsk"]
+atlas = ExtResource("2_qknmn")
+region = Rect2(96, 144, 48, 48)
+
+[node name="TagPass" type="VBoxContainer"]
+offset_right = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_y715l")
 
-[node name="For" type="Label" parent="TagPass"]
-margin_right = 167.0
-margin_bottom = 14.0
-text = "For"
+[node name="Character" type="Label" parent="."]
+layout_mode = 2
+text = "Character"
 
-[node name="Filterable" type="HBoxContainer" parent="TagPass"]
-margin_top = 18.0
-margin_right = 167.0
-margin_bottom = 38.0
+[node name="Selector" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Characters" type="OptionButton" parent="TagPass/Filterable"]
-margin_right = 151.0
-margin_bottom = 20.0
+[node name="List" type="OptionButton" parent="Selector"]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true
 
-[node name="GlobalFilters" type="Button" parent="TagPass/Filterable"]
-margin_left = 155.0
-margin_right = 167.0
-margin_bottom = 20.0
-hint_tooltip = "Apply Global Filters
+[node name="Filtered" type="Button" parent="Selector"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Apply Global Filters
 
 It will follow the same listing instructions
 that are defined in the Characters inspector.
 + Current character of the node is always listed."
 toggle_mode = true
-text = ""
+icon = SubResource("AtlasTexture_j7lj0")
+icon_alignment = 1
+expand_icon = true
 
-[node name="Check" type="Label" parent="TagPass"]
-margin_top = 42.0
-margin_right = 167.0
-margin_bottom = 56.0
+[node name="Check" type="Label" parent="."]
+layout_mode = 2
 text = "Check"
 
-[node name="Methods" type="OptionButton" parent="TagPass"]
-margin_top = 60.0
-margin_right = 167.0
-margin_bottom = 80.0
-size_flags_horizontal = 3
-clip_text = true
+[node name="Method" type="OptionButton" parent="."]
+layout_mode = 2
 
-[node name="Checkables" type="PanelContainer" parent="TagPass"]
-margin_top = 84.0
-margin_right = 167.0
-margin_bottom = 216.0
-size_flags_horizontal = 3
+[node name="Checkables" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="Rows" type="VBoxContainer" parent="TagPass/Checkables"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 160.0
-margin_bottom = 125.0
-size_flags_horizontal = 3
+[node name="Parts" type="VBoxContainer" parent="Checkables"]
+layout_mode = 2
 
-[node name="TagBox" type="PanelContainer" parent="TagPass/Checkables/Rows"]
-margin_right = 153.0
-margin_bottom = 62.0
-size_flags_horizontal = 3
+[node name="Scroll" type="ScrollContainer" parent="Checkables/Parts"]
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="Scroll" type="ScrollContainer" parent="TagPass/Checkables/Rows/TagBox"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 146.0
-margin_bottom = 55.0
-rect_min_size = Vector2( 0, 48 )
+[node name="Flow" type="HFlowContainer" parent="Checkables/Parts/Scroll"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Tags" type="HFlowContainer" parent="TagPass/Checkables/Rows/TagBox/Scroll"]
-margin_right = 139.0
-margin_bottom = 48.0
+[node name="NoTagsToCheck" type="Label" parent="Checkables/Parts/Scroll"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="Tag" type="MenuButton" parent="TagPass/Checkables/Rows/TagBox/Scroll/Tags"]
-margin_right = 60.0
-margin_bottom = 20.0
-hint_tooltip = "Tag Value"
-focus_mode = 2
-text = "Tag Key"
-flat = false
-items = [ "Tag Value", null, 0, false, true, -1, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Edit", null, 0, false, false, 0, 0, null, "", false, "Remove", null, 0, false, false, 1, 0, null, "", false ]
-
-[node name="NoTagsToCheck" type="Label" parent="TagPass/Checkables/Rows/TagBox/Scroll"]
-margin_right = 139.0
-margin_bottom = 48.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
 text = "No Tags To Check"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Edit" type="VBoxContainer" parent="TagPass/Checkables/Rows"]
-margin_top = 66.0
-margin_right = 153.0
-margin_bottom = 118.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Edit" type="VBoxContainer" parent="Checkables/Parts"]
+layout_mode = 2
 
-[node name="Entity" type="HBoxContainer" parent="TagPass/Checkables/Rows/Edit"]
-margin_right = 153.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
+[node name="Params" type="HBoxContainer" parent="Checkables/Parts/Edit"]
+layout_mode = 2
 
-[node name="Key" type="LineEdit" parent="TagPass/Checkables/Rows/Edit/Entity"]
-margin_right = 74.0
-margin_bottom = 24.0
+[node name="Key" type="LineEdit" parent="Checkables/Parts/Edit/Params"]
+layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Key"
 
-[node name="Value" type="LineEdit" parent="TagPass/Checkables/Rows/Edit/Entity"]
-margin_left = 78.0
-margin_right = 153.0
-margin_bottom = 24.0
+[node name="Value" type="LineEdit" parent="Checkables/Parts/Edit/Params"]
+layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Value"
 
-[node name="Check" type="HBoxContainer" parent="TagPass/Checkables/Rows/Edit"]
-margin_top = 28.0
-margin_right = 153.0
-margin_bottom = 52.0
-size_flags_horizontal = 3
+[node name="Check" type="HBoxContainer" parent="Checkables/Parts/Edit"]
+layout_mode = 2
 
-[node name="KeyOnly" type="CheckBox" parent="TagPass/Checkables/Rows/Edit/Check"]
-margin_right = 129.0
-margin_bottom = 24.0
+[node name="KeyOnly" type="CheckBox" parent="Checkables/Parts/Edit/Check"]
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Check Key Only"
 
-[node name="Add" type="Button" parent="TagPass/Checkables/Rows/Edit/Check"]
-margin_left = 133.0
-margin_right = 153.0
-margin_bottom = 24.0
-text = "+"
+[node name="Add" type="Button" parent="Checkables/Parts/Edit/Check"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = SubResource("AtlasTexture_uqrsk")
+icon_alignment = 1
+expand_icon = true

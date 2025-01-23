@@ -1,47 +1,40 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://chii7vvbxwilm"]
 
-[ext_resource path="res://nodes/frame/console.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/frame/console.gd" id="1_hdtj8"]
+[ext_resource type="Theme" uid="uid://7iui7va3jch8" path="res://assets/themes/dark.tres" id="1_jrkrv"]
+[ext_resource type="Texture2D" uid="uid://bfwq660mjjbvh" path="res://nodes/frame/icon.svg" id="1_yh8tb"]
 
 [node name="Frame" type="PanelContainer"]
-self_modulate = Color( 0.815686, 0.0588235, 0.956863, 1 )
-margin_right = 233.0
-margin_bottom = 52.0
-rect_min_size = Vector2( 0, 20 )
+self_modulate = Color(0, 0.643137, 0.392157, 1)
+offset_right = 256.0
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+theme = ExtResource("1_jrkrv")
+theme_type_variation = &"FrameConsole"
+script = ExtResource("1_hdtj8")
 
-[node name="FramePlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 226.0
-margin_bottom = 45.0
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
-
-[node name="Head" type="HBoxContainer" parent="FramePlay"]
-margin_right = 219.0
-margin_bottom = 14.0
-mouse_filter = 2
-
-[node name="Icon" type="Label" parent="FramePlay/Head"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_bottom = 14.0
-text = ""
-
-[node name="FrameName" type="Label" parent="FramePlay/Head"]
-margin_left = 4.0
-margin_right = 219.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "{ frame name }"
-align = 2
-valign = 1
-
-[node name="FrameLabel" type="Button" parent="FramePlay"]
-margin_top = 18.0
-margin_right = 219.0
-margin_bottom = 38.0
-mouse_filter = 1
-size_flags_horizontal = 3
-text = "{ frame label }"
+disabled = true
+icon = ExtResource("1_yh8tb")
 flat = true
+text_overrun_behavior = 3
+expand_icon = true
+
+[node name="Name" type="Label" parent="Play/Head"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[Node Name]"
+horizontal_alignment = 1
+
+[node name="Action" type="Button" parent="Play"]
+layout_mode = 2
+text = "[Frame Label]"

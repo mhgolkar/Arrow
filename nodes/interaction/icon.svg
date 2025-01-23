@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Arrow Interaction Node Icon</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="13.155133"
+     inkscape:cx="26.871641"
+     inkscape:cy="20.030205"
+     inkscape:window-width="1876"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="interaction"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none">
+    <text
+       xml:space="preserve"
+       style="font-size:48.7879px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:none;fill:#ffffff;stroke-width:15.2462;stroke-linecap:round;stroke-dasharray:15.2462, 30.4925;stroke-opacity:0.5"
+       x="9.302043"
+       y="40.88995"
+       id="text1"
+       inkscape:label="nerd"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="9.302043"
+         y="40.88995"
+         style="font-size:48.7879px;stroke-width:15.2462"></tspan></text>
+    <path
+       d="m 35.887636,13.256179 q 0.500267,0.547911 0.190578,1.214933 l -14.698307,31.49297 q -0.357334,0.690844 -1.143467,0.690844 -0.07147,0 -0.2144,-0.04764 -0.119111,-0.02382 -0.166755,-0.02382 -0.452622,-0.142933 -0.690844,-0.524088 -0.2144,-0.381156 -0.119112,-0.809956 L 24.405328,23.26151 13.35182,26.001065 q -0.119111,0.02382 -0.333511,0.02382 -0.500267,0 -0.833778,-0.285867 -0.476444,-0.381155 -0.357333,-1.072 l 5.47911,-22.4643495 q 0.238222,-0.8575998 1.19111,-0.8575998 h 8.933332 q 0.524088,0 0.857599,0.333511 0.357334,0.3335111 0.357334,0.8099554 0,0.1905777 -0.119111,0.4764443 L 23.857417,15.590756 34.648881,12.922668 q 0.02382,0 0.142933,-0.02382 0.119112,-0.04765 0.190578,-0.04765 0.500267,0 0.905244,0.404978 z"
+       id="text2"
+       style="font-size:48.7879px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';fill:#ffffff;stroke-width:15.2462;stroke-linecap:round;stroke-dasharray:15.2462, 30.4925;stroke-opacity:0.5"
+       inkscape:label="icon"
+       aria-label="" />
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Arrow Interaction Node Icon</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. H. Golkar</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

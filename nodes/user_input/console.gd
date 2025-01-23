@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# User_Input Node Type Console
-extends PanelContainer
+# User-Input Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,7 +11,7 @@ signal status_code
 signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const ONLY_PLAY_SLOT = 0
 
@@ -42,17 +42,17 @@ const DEFAULT_CUSTOM = {
 	"bool": ["Negative (False)", "Positive (True)", true],
 }
 
-onready var Prompt:Label = get_node("./UserInputPlay/Header/Prompt")
-onready var Enter:Button = get_node("./UserInputPlay/Actions/Enter")
-onready var Skip:Button = get_node("./UserInputPlay/Actions/Skip")
-onready var InputsHolder = get_node("./UserInputPlay/Input")
-onready var Inputs = {
-	"str":  get_node("./UserInputPlay/Input/String"),
-	"num":  get_node("./UserInputPlay/Input/Number"),
-	"bool": get_node("./UserInputPlay/Input/Boolean"),
+@onready var Prompt:Label = $Play/Head/Prompt
+@onready var Enter:Button = $Play/Actions/Submit
+@onready var Skip:Button = $Play/Actions/Skip
+@onready var InputsHolder = $Play/Input
+@onready var Inputs = {
+	"str":  $Play/Input/String,
+	"num":  $Play/Input/Number,
+	"bool": $Play/Input/Boolean,
 }
-onready var Invalid = get_node("./UserInputPlay/Invalid")
-onready var Result = get_node("./UserInputPlay/Result")
+@onready var Invalid = $Play/Invalid
+@onready var Result = $Play/Result
 
 func _ready() -> void:
 	register_connections()
@@ -65,10 +65,10 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	Enter.connect("pressed", self, "read_and_try_playing_forward", [true], CONNECT_DEFERRED)
-	Skip.connect("pressed", self, "skip_play", [], CONNECT_DEFERRED)
+	Enter.pressed.connect(self.read_and_try_playing_forward.bind(true), CONNECT_DEFERRED)
+	Skip.pressed.connect(self.skip_play, CONNECT_DEFERRED)
 	for type in Inputs:
-		Inputs[type].connect("gui_input", self, "_reset_input_validity_state", [], CONNECT_DEFERRED)
+		Inputs[type].gui_input.connect(self._reset_input_validity_state, CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -190,7 +190,7 @@ func validate_input(input):
 				"str":
 					# For `str`s only pattern (first, most significant element)
 					# is what we need to check, and require it to be a string:
-					if custom[0] is String: # (We checked above for the aray to at least have 1 element)
+					if custom[0] is String: # (We checked above for the array to at least have 1 element)
 						if custom[0].length() > 0: # (Conventionally we don't check for blank patterns and pass)
 							var regex = RegEx.new()
 							var compiled = regex.compile(custom[0])
@@ -239,7 +239,7 @@ func validate_input(input):
 						input = null
 						error = "we expect at least 3 numeral values [min, max, step, ...] to validate input."
 				"bool":
-					# NOTE: custom properties for boolean does not enfore any validation.
+					# NOTE: custom properties for boolean does not enforce any validation.
 					pass
 			if error is String: # where invalidated
 				printerr("User-input (#%s) node's `custom` parameter(s) are invalid; " % _NODE_ID + error + " > ", _NODE_RESOURCE, _THE_VARIABLE)
@@ -254,7 +254,7 @@ func read_and_try_playing_forward(apply_change:bool = true) -> void:
 	if apply_change != false:
 		var new_var_value = validate_input( read_input() )
 		if new_var_value != null:
-			self.emit_signal("reset_variables", {
+			self.reset_variables.emit({
 				_THE_VARIABLE_ID: new_var_value
 			})
 			set_result(new_var_value, true)
@@ -273,9 +273,9 @@ func play_forward_from(slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 	
@@ -286,17 +286,17 @@ func set_view_played_on_ready(slot_idx:int) -> void:
 		_DEFERRED_VIEW_PLAY_SLOT = slot_idx
 	pass
 
-func set_result(value, show:bool = true, unset = ""):
+func set_result(value, make_visible:bool = true, unset = ""):
 	var text = (
 		unset if value == null else
 		DONE_RESULT_TEMPLATE.format({
 			"variable_name": _THE_VARIABLE.name,
 			"original_value": _THE_VARIABLE_ORIGINAL_VALUE,
-			"new_value": String(value),
+			"new_value": "%s" % value,
 		})
 	)
 	Result.set_text(text)
-	Result.set("visible", show)
+	Result.set("visible", make_visible)
 	pass
 
 func _reset_input_validity_state(_force = null) -> void:
@@ -307,32 +307,32 @@ func _reset_input_validity_state(_force = null) -> void:
 
 func set_input_view() -> void:
 	var custom = _get_custom_input_properties()
-	var size = custom.size()
+	var array_size = custom.size()
 	match _THE_VARIABLE.type:
 		"str": # [pattern, default, extra]
-			Inputs["str"].set_text( custom[1] if size >= 2 && custom[1] is String else DEFAULT_CUSTOM.str[1] )
-			Inputs["str"].set_placeholder( custom[2] if size >= 3 && custom[2] is String else DEFAULT_CUSTOM.str[2] )
+			Inputs["str"].set_text( custom[1] if array_size >= 2 && custom[1] is String else DEFAULT_CUSTOM.str[1] )
+			Inputs["str"].set_placeholder( custom[2] if array_size >= 3 && custom[2] is String else DEFAULT_CUSTOM.str[2] )
 		"num": # [min, max, step, value]
-			var has_min = (size >= 1 && custom[0] is int)
+			var has_min = (array_size >= 1 && custom[0] is int)
 			Inputs["num"].set_min( custom[0] if has_min else DEFAULT_CUSTOM.num[0] )
 			Inputs["num"].set_allow_lesser( has_min == false )
 			# ...
-			var has_max = (size >= 2 && custom[1] is int)
+			var has_max = (array_size >= 2 && custom[1] is int)
 			Inputs["num"].set_max( custom[1] if has_max else DEFAULT_CUSTOM.num[1] )
 			Inputs["num"].set_allow_greater( has_max == false )
 			# ...
-			Inputs["num"].set_step( max( abs(custom[2]), 1 ) if size >= 3 && custom[2] is int else DEFAULT_CUSTOM.num[2] )
+			Inputs["num"].set_step( max( abs(custom[2]), 1 ) if array_size >= 3 && custom[2] is int else DEFAULT_CUSTOM.num[2] )
 			# ...
-			Inputs["num"].set_value( custom[3] if size >= 4 && custom[3] is int else DEFAULT_CUSTOM.num[3] )
+			Inputs["num"].set_value( custom[3] if array_size >= 4 && custom[3] is int else DEFAULT_CUSTOM.num[3] )
 		"bool": # [negative, positive, default-state]
 			Inputs["bool"].set_item_text(
-				0, (custom[0] if size >= 1 && custom[0] is String && custom[0].length() > 0 else DEFAULT_CUSTOM.bool[0])
+				0, (custom[0] if array_size >= 1 && custom[0] is String && custom[0].length() > 0 else DEFAULT_CUSTOM.bool[0])
 			)
 			Inputs["bool"].set_item_text(
-				1, (custom[1] if size >= 2 && custom[1] is String && custom[1].length() > 0 else DEFAULT_CUSTOM.bool[1])
+				1, (custom[1] if array_size >= 2 && custom[1] is String && custom[1].length() > 0 else DEFAULT_CUSTOM.bool[1])
 			)
 			Inputs["bool"].set("selected", (
-				custom[2] if size >= 3 && custom[2] is bool else (1 if DEFAULT_CUSTOM.bool[2] == true else 0)
+				custom[2] if array_size >= 3 && custom[2] is bool else (1 if DEFAULT_CUSTOM.bool[2] == true else 0)
 			))
 	for type in Inputs:
 		Inputs[type].set("visible", (type == _THE_VARIABLE.type))
@@ -354,7 +354,7 @@ func set_view_unplayed() -> void:
 	Skip.set("visible", true)
 	pass
 
-func set_view_played(slot_idx:int = ONLY_PLAY_SLOT) -> void:
+func set_view_played(_slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	InputsHolder.set("visible", false)
 	Enter.set("visible", false)
 	Skip.set("visible", false)
@@ -369,7 +369,7 @@ func step_back() -> void:
 	# Stepping back, we should undo the changes we've made to the variable as well,
 	# so the user can inspect the previous value, before manually playing or skipping the node.
 	if _THE_VARIABLE_ID >= 0:
-		emit_signal("reset_variables", {
+		self.reset_variables.emit({
 			_THE_VARIABLE_ID: _THE_VARIABLE_ORIGINAL_VALUE
 		})
 	# ...

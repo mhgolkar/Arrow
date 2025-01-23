@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Dialog Node Type Console
-extends PanelContainer
+# Dialog Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,9 +11,7 @@ signal status_code
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var Utils = Helpers.Utils
+@onready var Main = get_tree().get_root().get_child(0)
 
 const AUTO_PLAY_SLOT = -1
 
@@ -30,18 +28,17 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var CharacterProfileName  = get_node("./DialogPlay/Header/CharacterProfile/Name")
-onready var CharacterProfileColor = get_node("./DialogPlay/Header/CharacterProfile/Color")
-onready var PlayBox = get_node("./DialogPlay/Box")
-onready var PlayableLines = get_node("./DialogPlay/Box/Rows/PlayableLines")
-onready var PlayedLine = get_node("./DialogPlay/Box/Rows/Played")
+@onready var CharacterName  = $Play/Head/Name
+@onready var CharacterColor = $Play/Body/Color
+@onready var PlayableLines = $Play/Body/Lines/Choices
+@onready var PlayedLine = $Play/Body/Lines/Chosen
 
 const ANONYMOUS_CHARACTER = DialogSharedClass.ANONYMOUS_CHARACTER
 const DEFAULT_NODE_DATA = DialogSharedClass.DEFAULT_NODE_DATA
 
 const LINES_SHARED_PROPERTIES = {
 	"clip_text": true,
-	"align": Button.ALIGN_LEFT
+	"alignment": HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
 }
 
 func _ready() -> void:
@@ -84,13 +81,9 @@ func create_current_characters_exposure(characters:Dictionary) -> void:
 
 func update_character(profile:Dictionary) -> void:
 	if profile.has("name") && (profile.name is String):
-		CharacterProfileName.set("text", profile.name)
+		CharacterName.set("text", profile.name)
 	if profile.has("color") && (profile.color is String):
-		CharacterProfileColor.set("color", Utils.rgba_hex_to_color(profile.color))
-		# And colorize the box's boarder
-		var colorized = PlayBox.get_stylebox("panel").duplicate()
-		colorized.border_color = Utils.rgba_hex_to_color(profile.color)
-		PlayBox.add_stylebox_override("panel", colorized)
+		CharacterColor.set("color", Helpers.Utils.rgba_hex_to_color(profile.color))
 	pass
 
 func set_character_anonymous() -> void:
@@ -115,7 +108,7 @@ func clean_all_lines() -> void:
 	pass
 
 func listen_to_line(line:Button, line_idx:int) -> void:
-	line.connect("pressed", self, "play_forward_from", [line_idx], CONNECT_DEFERRED)
+	line.pressed.connect(self.play_forward_from.bind(line_idx), CONNECT_DEFERRED)
 	pass
 
 func setup_view() -> void:
@@ -182,9 +175,9 @@ func play_forward_from(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 
@@ -225,4 +218,3 @@ func skip_play() -> void:
 func step_back() -> void:
 	set_view_unplayed()
 	pass
-	

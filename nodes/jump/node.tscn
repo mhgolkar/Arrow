@@ -1,43 +1,48 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cwu3cef3pj2fe"]
 
-[ext_resource path="res://nodes/jump/node.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://dpp1oe52rw7d5" path="res://nodes/jump/icon.svg" id="1_ks8le"]
+[ext_resource type="Script" path="res://nodes/jump/node.gd" id="1_ma3sh"]
 
-[node name="JumpNode" type="GraphNode"]
-mouse_filter = 1
-size_flags_horizontal = 5
-size_flags_vertical = 5
+[node name="Jump" type="GraphNode"]
+offset_right = 256.0
+resizable = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
 slot/0/right_enabled = false
 slot/0/right_type = 0
-slot/0/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_ma3sh")
 
-[node name="Slot" type="VBoxContainer" parent="."]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 98.0
-margin_bottom = 74.0
-size_flags_horizontal = 7
-size_flags_vertical = 7
+[node name="Display" type="VBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="Slot"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 82.0
-margin_bottom = 14.0
-text = " Jump to"
+[node name="Kind" type="Button" parent="Display"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+text = "Jump"
+icon = ExtResource("1_ks8le")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
 
-[node name="Destination" type="Label" parent="Slot"]
-margin_top = 18.0
-margin_right = 82.0
-margin_bottom = 32.0
-size_flags_horizontal = 5
-text = "{destination}"
+[node name="Destination" type="Label" parent="Display"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "[Destination]"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Reason" type="Label" parent="Slot"]
-margin_top = 36.0
-margin_right = 82.0
-margin_bottom = 50.0
-text = "{reason}"
-autowrap = true
+[node name="Reason" type="Label" parent="Display"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "[Reason]"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 4

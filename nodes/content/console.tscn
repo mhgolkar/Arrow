@@ -1,90 +1,57 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bl0ist2e7qgp1"]
 
-[ext_resource path="res://nodes/content/console.gd" type="Script" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_top = 8.0
-content_margin_bottom = 8.0
-bg_color = Color( 0, 0, 0, 0 )
-border_width_bottom = 2
-border_color = Color( 1, 1, 1, 0.247059 )
-border_blend = true
+[ext_resource type="Script" path="res://nodes/content/console.gd" id="1_eh460"]
+[ext_resource type="Texture2D" uid="uid://bpus4yo1eik44" path="res://nodes/content/icon.svg" id="1_t6viu"]
 
 [node name="Content" type="PanelContainer"]
-margin_top = 46.0
-margin_right = 221.0
-margin_bottom = 146.0
-script = ExtResource( 1 )
-
-[node name="ContentPlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 214.0
-margin_bottom = 131.0
-mouse_filter = 2
-alignment = 1
-
-[node name="Header" type="HBoxContainer" parent="ContentPlay"]
-margin_right = 207.0
-margin_bottom = 31.0
+offset_right = 256.0
+offset_bottom = 100.0
 size_flags_horizontal = 3
+script = ExtResource("1_eh460")
 
-[node name="Icon" type="Label" parent="ContentPlay/Header"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_top = 8.0
-margin_right = 4.0
-margin_bottom = 22.0
-text = " "
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Title" type="RichTextLabel" parent="ContentPlay/Header"]
-margin_left = 8.0
-margin_right = 207.0
-margin_bottom = 31.0
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
+disabled = true
+icon = ExtResource("1_t6viu")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Title" type="RichTextLabel" parent="Play/Head"]
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 10.0
-custom_styles/normal = SubResource( 1 )
+mouse_filter = 2
+theme_type_variation = &"RichTextLabelH3"
 bbcode_enabled = true
-bbcode_text = "{ Rich [color=red]Title[/color] }"
-text = "{ Rich Title }"
-fit_content_height = true
+text = "[Rich [color=yellow]Title[/color]]"
+fit_content = true
 
-[node name="Spacer" type="MarginContainer" parent="ContentPlay"]
-margin_top = 35.0
-margin_right = 207.0
-margin_bottom = 39.0
-custom_constants/margin_top = 4
-
-[node name="Brief" type="RichTextLabel" parent="ContentPlay"]
-margin_top = 43.0
-margin_right = 207.0
-margin_bottom = 58.0
+[node name="BriefLegacy" type="RichTextLabel" parent="Play"]
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 bbcode_enabled = true
-bbcode_text = "{ Rich text with [color=green] Brief[/color] }"
-text = "{ Rich text with  Brief }"
-fit_content_height = true
+text = "[Rich [color=green]Brief[/color] (legacy)]"
+fit_content = true
 
-[node name="Content" type="RichTextLabel" parent="ContentPlay"]
-margin_top = 62.0
-margin_right = 207.0
-margin_bottom = 92.0
+[node name="Content" type="RichTextLabel" parent="Play"]
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 bbcode_enabled = true
-bbcode_text = "{ Rich [color=yellow]Content[/color] with BBCode support }"
-text = "{ Rich Content with BBCode support }"
-fit_content_height = true
+text = "[Rich [color=red]Content [/color] all with [i]BBCode[/i] support]"
+fit_content = true
 
-[node name="Spacer2" type="MarginContainer" parent="ContentPlay"]
-margin_top = 96.0
-margin_right = 207.0
-margin_bottom = 100.0
-custom_constants/margin_top = 4
-
-[node name="Continue" type="Button" parent="ContentPlay"]
-margin_left = 138.0
-margin_top = 104.0
-margin_right = 207.0
-margin_bottom = 124.0
+[node name="Continue" type="Button" parent="Play"]
+layout_mode = 2
 size_flags_horizontal = 8
 text = "Continue"

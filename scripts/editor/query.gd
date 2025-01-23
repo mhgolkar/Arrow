@@ -3,21 +3,21 @@
 # Mor. H. Golkar
 
 # Query Toolbox
-extends PanelContainer
+extends Control
 
-signal request_mind
+signal request_mind()
 
-onready var Main = get_tree().get_root().get_child(0)
-onready var Grid = get_node(Addressbook.GRID)
+@onready var Main = get_tree().get_root().get_child(0)
+@onready var Grid = $/root/Main/Editor/Center/Grid
 
-onready var QueryInput = get_node(Addressbook.QUERY.QUERY_INPUT)
-onready var QuerySearchButton = get_node(Addressbook.QUERY.SEARCH_BUTTON)
-onready var QueryHowOptions = get_node(Addressbook.QUERY.HOW_OPTIONS)
-onready var QueryFilterForScene = get_node(Addressbook.QUERY.FILTER_FOR_SCENE)
-onready var QueryPreviousButton = get_node(Addressbook.QUERY.PREVIOUS_BUTTON)
-onready var QueryMatchesOptionButton = get_node(Addressbook.QUERY.MATCHES_OPTION_BUTTON)
-onready var QueryMatchesOptionButtonPopup = QueryMatchesOptionButton.get_popup()
-onready var QueryNextButton = get_node(Addressbook.QUERY.NEXT_BUTTON)
+@onready var QueryInput = $/root/Main/Editor/Bottom/Bar/Query/Tools/Input
+@onready var QuerySearchButton = $/root/Main/Editor/Bottom/Bar/Query/Tools/Search
+@onready var QueryHowOptions = $/root/Main/Editor/Bottom/Bar/Query/Tools/Mode
+@onready var QueryFilterForScene = $/root/Main/Editor/Bottom/Bar/Query/Tools/Scoped
+@onready var QueryPreviousButton = $/root/Main/Editor/Bottom/Bar/Query/Tools/References/Previous
+@onready var QueryMatchesMenuButton = $/root/Main/Editor/Bottom/Bar/Query/Tools/References/Matches
+@onready var QueryMatchesMenuButtonPopup = QueryMatchesMenuButton.get_popup()
+@onready var QueryNextButton = $/root/Main/Editor/Bottom/Bar/Query/Tools/References/Next
 
 const NO_ITEM_IN_MATCH_OPTIONS_TEXT = "No Match"
 const MATCH_OPTION_BUTTON_TEXT_TEMPLATE = "{current} : {total} Matches"
@@ -43,11 +43,13 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	QueryInput.connect("text_entered", self, "do_query")
-	QuerySearchButton.connect("pressed", self, "do_query")
-	QueryMatchesOptionButtonPopup.connect("id_pressed", self, "jump_to_match_by_id")
-	QueryNextButton.connect("pressed", self, "rotate_matches", [1], CONNECT_DEFERRED)
-	QueryPreviousButton.connect("pressed", self, "rotate_matches", [-1], CONNECT_DEFERRED)
+	QueryInput.text_submitted.connect(self.do_query)
+	QuerySearchButton.pressed.connect(self.do_query)
+	QueryFilterForScene.pressed.connect(self._re_query)
+	QueryHowOptions.get_popup().id_pressed.connect(self._re_query)
+	QueryMatchesMenuButtonPopup.id_pressed.connect(self.jump_to_match_by_id)
+	QueryNextButton.pressed.connect(self.rotate_matches.bind(1), CONNECT_DEFERRED)
+	QueryPreviousButton.pressed.connect(self.rotate_matches.bind(-1), CONNECT_DEFERRED)
 	pass
 
 
@@ -57,11 +59,11 @@ func load_how_options() -> void:
 		QueryHowOptions.add_item(HOWS[id].text, id)
 	pass
 
-func do_query(string:String = "", grab_focus:bool = false) -> void:
+func do_query(string:String = "", and_focus:bool = false) -> void:
 	var what = (string if (string.length() > 0) else QueryInput.get_text())
 	var project_wide_search = (! QueryFilterForScene.is_pressed() )
 	if what.length() > 0:
-		emit_signal("request_mind", "query_nodes", {
+		self.request_mind.emit("query_nodes", {
 			"what": what,
 			"how": HOWS[ QueryHowOptions.get_selected_id() ].command,
 			 # -1 current scene, -2 or undefined all the scenes project wide
@@ -69,18 +71,22 @@ func do_query(string:String = "", grab_focus:bool = false) -> void:
 		})
 	else:
 		cleanup_query()
-	if grab_focus:
+	if and_focus:
 		QueryInput.grab_focus()
 	pass
 
+func _re_query(_x=null, _y=null) -> void:
+	do_query.call_deferred()
+	pass
+
 func reset_match_statistics_text() -> void:
-	QueryMatchesOptionButton.set_text(
+	QueryMatchesMenuButton.set_text(
 		MATCH_OPTION_BUTTON_TEXT_TEMPLATE.format(_STATISTICS)
 	)
 	pass
 
 func set_match_locator_controls_status(enabled:bool) -> void:
-	QueryMatchesOptionButton.set_disabled( !enabled )
+	QueryMatchesMenuButton.set_disabled( !enabled )
 	QueryNextButton.set_disabled( !enabled )
 	QueryPreviousButton.set_disabled( !enabled )
 	pass
@@ -93,7 +99,7 @@ func cleanup_query() -> void:
 	_STATISTICS.total = 0
 	_STATISTICS.current = 0
 	reset_match_statistics_text()
-	QueryMatchesOptionButtonPopup.clear()
+	QueryMatchesMenuButtonPopup.clear()
 	set_match_locator_controls_status(false)
 	pass
 
@@ -109,7 +115,7 @@ func update_query_results(nodes_dataset:Dictionary = {}) -> void:
 		# update match button
 		for node_id in _QUERIED_NODES_BY_ID:
 			var the_node = _QUERIED_NODES_BY_ID[node_id]
-			QueryMatchesOptionButtonPopup.add_item(MATCH_ITEM_TEXT_TEMPLATE.format({
+			QueryMatchesMenuButtonPopup.add_item(MATCH_ITEM_TEXT_TEMPLATE.format({
 					"name": the_node.name,
 					"capitalized_type": the_node.type.capitalize()
 				}), node_id)
@@ -118,7 +124,7 @@ func update_query_results(nodes_dataset:Dictionary = {}) -> void:
 
 func jump_to_match_by_id(node_id:int = -1) -> void:
 	if node_id >= 0:
-		emit_signal("request_mind", "locate_node_on_grid", { "id": node_id, "highlight": true } )
+		self.request_mind.emit("locate_node_on_grid", { "id": node_id, "highlight": true } )
 	pass
 	
 func rotate_matches(direction:int = 1) -> void:

@@ -1,33 +1,40 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bogei2s7lsm2b"]
 
-[ext_resource path="res://nodes/macro_use/node.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://brbd17qb1dm1l" path="res://nodes/macro_use/icon.svg" id="1_545ix"]
+[ext_resource type="Script" path="res://nodes/macro_use/node.gd" id="1_brkvu"]
 
-[node name="MacroUseNode" type="GraphNode"]
-mouse_filter = 1
+[node name="MacroUse" type="GraphNode"]
+offset_right = 256.0
+resizable = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
 slot/0/right_enabled = true
-slot/0/right_type = 1
-slot/0/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_brkvu")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 112.0
-margin_bottom = 56.0
+[node name="Display" type="VBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 96.0
-margin_bottom = 14.0
-text = " Macro"
+[node name="Kind" type="Button" parent="Display"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+text = "Macro Use"
+icon = ExtResource("1_545ix")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
 
-[node name="MacroIdentity" type="Label" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 96.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 96, 0 )
-text = "{macro-ident}"
-autowrap = true
+[node name="Title" type="Label" parent="Display"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "[Macro Title]"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Condition Node Type Console
-extends PanelContainer
+# Condition Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,7 +11,7 @@ signal status_code
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const AUTO_PLAY_SLOT = -1
 
@@ -33,11 +33,11 @@ var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
 const UNSET_OR_INVALID_MESSAGE = "Unset !"
-onready var ConditionStatement = ConditionSharedClass.Statement.new(Main.Mind)
+@onready var ConditionStatement = ConditionSharedClass.Statement.new(Main.Mind)
 
-onready var Statement = get_node("./ConditionPlay/Statement")
-onready var TheFalse = get_node("./ConditionPlay/False")
-onready var TheTrue = get_node("./ConditionPlay/True")
+@onready var Statement = $Play/Statement
+@onready var TheFalse = $Play/False
+@onready var TheTrue = $Play/True
 
 func _ready() -> void:
 	register_connections()
@@ -50,8 +50,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	TheTrue.connect("pressed", self, "play_forward_from", [TRUE_SLOT], CONNECT_DEFERRED)
-	TheFalse.connect("pressed", self, "play_forward_from", [FALSE_SLOT], CONNECT_DEFERRED)
+	TheTrue.pressed.connect(self.play_forward_from.bind(TRUE_SLOT), CONNECT_DEFERRED)
+	TheFalse.pressed.connect(self.play_forward_from.bind(FALSE_SLOT), CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -113,9 +113,9 @@ func play_forward_from(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 
@@ -154,5 +154,4 @@ func skip_play() -> void:
 
 func step_back() -> void:
 	set_view_unplayed()
-	pass
-	
+	pass	

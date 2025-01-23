@@ -12,8 +12,6 @@ class ConfigHandler :
 	
 	var Main
 
-	var Utils = Helpers.Utils
-	
 	# base directory path to the config file being used
 	# Note: it's NOT necessarily the same as `_ALDP` (app local/work directory path)
 	# `--config-dir <path>` cli argument overrides this variable
@@ -29,7 +27,6 @@ class ConfigHandler :
 	# default configurations
 	# CAUTION! this is the CONSTANT default configuration, used in config file generation, resets, etc.
 	const DEFAULT = {
-		"ui_scale": Settings.SCALE_RANGE_CENTER,
 		"appearance_theme": 0,
 		"language": 0,
 		"app_local_dir_path": "user://", # (IMPORTANT: Only `user://` works in `HTML5` exports)
@@ -38,10 +35,10 @@ class ConfigHandler :
 		"history_size": 0,
 	}
 	# active configurations
-	var TEMPORARY = {} # middle/preview state (active but not confiremd yet)
+	var TEMPORARY = {} # middle/preview state (active but not confirmed yet)
 	var CONFIRMED = {} # in-memory state of changes made, confirmed by the user and saved to the config file
 	
-	func emulate_prefrence_modification_and_save(field:String, new_value) -> void :
+	func emulate_preference_modification_and_save(field:String, new_value) -> void :
 		_on_preference_modified(field, new_value)
 		_on_preference_modifications_done(true)
 		# we also need to update the fields in the preferences panel, because they're not modified by the user before we get here
@@ -52,16 +49,16 @@ class ConfigHandler :
 		# check for validity of the modification
 		var is_valid_and_ok = true
 		var end_user_error:Dictionary = {}
-		var error = "Preference Modification Faild! "
+		var error = "Preference Modification Failed! "
 		if field in DEFAULT:
 			print_debug("Preference Modification > ", field, " : ", new_value)
 			# precautions:
 			match field:
 				"app_local_dir_path":
 					# app local dir should end with "/"
-					new_value = Utils.normalize_dir_path(new_value)
+					new_value = Helpers.Utils.normalize_dir_path(new_value)
 					# ... and 'WR' access shall be granted,
-					is_valid_and_ok = Utils.is_access_granted_to_dir(new_value, File.WRITE_READ)
+					is_valid_and_ok = Helpers.Utils.is_access_granted_to_dir(new_value, FileAccess.WRITE_READ)
 					if is_valid_and_ok == false: # otherwise ...
 						error += "Write & Read Access to App Local Directory Denied!"
 						# ... we need to reset preferences panel,
@@ -112,15 +109,14 @@ class ConfigHandler :
 		var generate_config_file:bool = false
 		var config_file_path = null
 		var loaded_configs_from_file = {}
-		var file_handle = File.new()
 		# 1. try using a custom path from cli ...
 		if _CONFIG_FILE_BASE_DIR != null:
 			config_file_path = (_CONFIG_FILE_BASE_DIR + CONFIG_FILE_NAME)
-			if file_handle.file_exists( config_file_path ) :
+			if FileAccess.file_exists( config_file_path ) :
 				use_customized_path = true
 			else:
 				config_file_path = null
-				if Utils.is_access_granted_to_dir(_CONFIG_FILE_BASE_DIR, File.WRITE_READ):
+				if Helpers.Utils.is_access_granted_to_dir(_CONFIG_FILE_BASE_DIR, FileAccess.WRITE_READ):
 					generate_config_file = true
 					use_customized_path = true
 				else:
@@ -132,19 +128,25 @@ class ConfigHandler :
 			for priority in range(0, CONFIG_FILES_SUB_PATH_DIR_PRIORITY.size()):
 				var possible_config_path_base_dir = CONFIG_FILES_SUB_PATH_DIR_PRIORITY[priority]
 				var possible_config_file_path = (possible_config_path_base_dir + CONFIG_FILE_NAME)
-				if file_handle.file_exists( possible_config_file_path ) :
+				if FileAccess.file_exists( possible_config_file_path ) :
 					print_debug("Configuration File Found: ", possible_config_file_path)
 					config_file_path = possible_config_file_path
 					_CONFIG_FILE_BASE_DIR = possible_config_path_base_dir
 					break
 		if config_file_path != null && generate_config_file == false:
-			if file_handle.open(config_file_path, File.READ) == OK:
-				loaded_configs_from_file = file_handle.get_var(true)
+			var file_handle = FileAccess.open(config_file_path, FileAccess.READ)
+			if file_handle != null:
+				# DEV:
+				# Older versions of Arrow store configs using Godot binary variant serialization,
+				# we now go with a textual representation, making manually editing the file easier.
+				# loaded_configs_from_file = file_handle.get_var(true)
+				var config_var_str = file_handle.get_as_text()
 				file_handle.close()
+				loaded_configs_from_file = str_to_var(config_var_str)
 			else:
-				print_debug("Unable to Read `arrow.config` File! Access Denied! Detected Path: ", config_file_path)
+				print_debug("Unable to Read `.arrow.config` File! Access Denied! Detected Path: ", config_file_path)
 		else:
-			print_debug("No `arrow.config` File is Found! We'll Use Default Preferences ...")
+			print_debug("No `.arrow.config` File is Found! We'll Use Default Preferences ...")
 			if Main._SANDBOX != true:
 				generate_config_file = true
 				print_debug("... and Try to Auto Generate a Config File.")
@@ -200,25 +202,29 @@ class ConfigHandler :
 			final_configuration = CONFIRMED
 		# now save it ...
 		if Main._SANDBOX != true :
-			var the_saveing_path_base = Utils.safe_base_dir(custom_base_dir)
-			if the_saveing_path_base == null:
-				the_saveing_path_base = _CONFIG_FILE_BASE_DIR
-			var config_file_path = (the_saveing_path_base + CONFIG_FILE_NAME)
-			var config_file_handle = File.new()
-			if config_file_handle.open( config_file_path, File.WRITE ) == OK:
-				config_file_handle.store_var(final_configuration, true)
+			var the_saving_path_base = Helpers.Utils.safe_base_dir(custom_base_dir)
+			if the_saving_path_base == null:
+				the_saving_path_base = _CONFIG_FILE_BASE_DIR
+			var config_file_path = (the_saving_path_base + CONFIG_FILE_NAME)
+			var config_file_handle = FileAccess.open( config_file_path, FileAccess.WRITE )
+			if config_file_handle != null:
+				# DEV:
+				# Older versions of Arrow store configs using Godot binary variant serialization,
+				# we now go with a textual representation, making manually editing the file easier.
+				# config_file_handle.store_var(final_configuration, true)
+				var config_var_str = var_to_str(final_configuration)
+				config_file_handle.store_string(config_var_str)
+				# ...
 				config_file_handle.close()
 				# finally if every thing is gone right, update the in-memory state of confirmed configs too
 				CONFIRMED = final_configuration
 				print_debug("Config File Saved: ", config_file_path)
 				return true
 			else:
-				printerr("Unable to Write `arrow.config` File! Access Denied! ", config_file_path)
+				printerr("Unable to Write `.arrow.config` File! Access Denied! ", config_file_path)
 				return false
 		else:
 			print_debug("CAUTION! App is running in Sandbox mode; Configurations are NOT SAVED.")
 			# update confirmed preferences anyway
 			CONFIRMED = final_configuration
 			return false
-		pass
-

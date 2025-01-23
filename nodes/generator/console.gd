@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Generator Node Type Console
-extends PanelContainer
+# Generator Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,7 +11,7 @@ signal status_code
 signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 # will be played forward after automatic process (update) or by a user choice
 const ONLY_PLAY_SLOT = 0
@@ -37,13 +37,13 @@ const HIDE_ARGUMENTS_IF_UNSET = true
 
 const OPERATION_STATE_FORMAT_STRING = "{name} `{original}` : {updated}"
 
-onready var TheGenerator = GeneratorSharedClass.generator.new(Main.Mind)
+@onready var TheGenerator = GeneratorSharedClass.generator.new(Main.Mind)
 
-onready var Method = get_node("./GeneratorPlay/PanelContainer/VBoxContainer/HBoxContainer/Method")
-onready var Arguments = get_node("./GeneratorPlay/PanelContainer/VBoxContainer/Arguments")
-onready var Target = get_node("./GeneratorPlay/PanelContainer/VBoxContainer/Target")
-onready var Redo = get_node("./GeneratorPlay/Application/Redo")
-onready var Skip = get_node("./GeneratorPlay/Application/Skip")
+@onready var Method = $Play/Head/Method
+@onready var Arguments = $Play/Arguments
+@onready var Target = $Play/Target
+@onready var Redo = $Play/Actions/Redo
+@onready var Skip = $Play/Actions/Skip
 
 func _ready() -> void:
 	register_connections()
@@ -56,8 +56,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	Redo.connect("pressed", self, "generate_set_and_play_forward", [true], CONNECT_DEFERRED)
-	Skip.connect("pressed", self, "skip_play", [], CONNECT_DEFERRED)
+	Redo.pressed.connect(self.generate_set_and_play_forward.bind(true), CONNECT_DEFERRED)
+	Skip.pressed.connect(self.skip_play, CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -156,7 +156,7 @@ func generate_set_and_play_forward(proceed_update:bool = true) -> void:
 			print_debug("Data Generation Result: ", new_value)
 			if proceed_update:
 				reset_operation_view(new_value)
-				emit_signal("reset_variables", {
+				self.reset_variables.emit({
 					_THE_TARGET_VARIABLE_ID: new_value
 				})
 	play_forward_from(ONLY_PLAY_SLOT)
@@ -166,9 +166,9 @@ func play_forward_from(slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 
@@ -186,7 +186,7 @@ func set_view_unplayed() -> void:
 	Skip.set_deferred("visible", true)
 	pass
 
-func set_view_played(slot_idx:int = ONLY_PLAY_SLOT) -> void:
+func set_view_played(_slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	Redo.set_deferred("visible", false)
 	Skip.set_deferred("visible", false)
 	pass
@@ -201,7 +201,7 @@ func step_back() -> void:
 	# so the user can inspect the previous value, before manually playing or skipping the node.
 	if _THE_TARGET_VARIABLE_ID >= 0:
 		reset_operation_view()
-		emit_signal("reset_variables", {
+		self.reset_variables.emit({
 			_THE_TARGET_VARIABLE_ID: _THE_TARGET_VARIABLE_ORIGINAL_VALUE
 		})
 	# ...

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Arrow Tag-Match Node Icon</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="9.3020833"
+     inkscape:cx="32.519597"
+     inkscape:cy="36.282195"
+     inkscape:window-width="1876"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="tag_match"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none">
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:7.4466;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 44.2767,3.7232992 H 28.065634 V 44.276701 H 44.2767"
+       id="path1"
+       sodipodi:nodetypes="cccc"
+       inkscape:label="match" />
+    <path
+       d="m 15.270267,24.017429 c 0,-0.999204 -0.354369,-1.853175 -1.063106,-2.561912 -0.708737,-0.708737 -1.562708,-1.063106 -2.561912,-1.063106 -0.987585,-0.01162 -1.8357468,0.33694 -2.5444847,1.045679 -0.7087373,0.708737 -1.063106,1.562708 -1.0631061,2.561911 2e-7,0.999204 0.354369,1.853175 1.0631063,2.561912 0.7087374,0.708737 1.5627085,1.063106 2.5619125,1.063107 0.999204,0 1.853175,-0.354369 2.561912,-1.063106 0.708738,-0.708738 1.057297,-1.5569 1.045678,-2.544485 z M 46.936892,13.695853 c 0,0.985876 1.045679,1.533662 1.045678,2.509628 L 48,31.777093 c -0.02324,0.999205 -0.383418,1.847366 -1.080534,2.544484 -0.708738,0.708737 -1.55109,1.063106 -2.527056,1.063106 l -28.494736,-0.01743 c -0.987585,0.01162 -2.085547,-0.226563 -3.293887,-0.714546 -1.196721,-0.499602 -2.055431,-1.199087 -2.8407593,-1.795082 L 1.4673128,26.561912 C 0.77019392,25.864794 0.42163447,25.016633 0.42163447,24.017428 c 0,-0.999203 0.26035048,-1.948488 1.04567823,-2.544482 l 8.2957147,-6.295715 c 0.7087376,-0.708738 1.6614666,-1.312908 2.8581876,-1.812509 1.196721,-0.499602 2.300492,-0.743594 3.311315,-0.731975 l 28.459878,-0.01743 c 0.999204,0.02324 2.544484,0.09466 2.544484,1.080534 z"
+       id="text2"
+       style="font-size:50.4768px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';fill:#ffffff;stroke:none;stroke-width:15.774;stroke-linecap:round;stroke-dasharray:15.774, 31.5481;stroke-opacity:0.5"
+       inkscape:label="tag"
+       aria-label=""
+       sodipodi:nodetypes="cscssssscsccscccscsscsccss" />
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Arrow Tag-Match Node Icon</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. H. Golkar</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

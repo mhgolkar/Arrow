@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="96"
+   height="48"
+   viewBox="0 0 96 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="interface.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Arrow Dialog Node Interface Symbols</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="6.577566"
+     inkscape:cx="51.158742"
+     inkscape:cy="35.651486"
+     inkscape:window-width="1876"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2"
+     showguides="true">
+    <sodipodi:guide
+       position="48,48"
+       orientation="-1,0"
+       id="guide1"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,134,229)" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="dialog"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none">
+    <g
+       inkscape:groupmode="layer"
+       id="layer2"
+       inkscape:label="2"
+       style="display:inline">
+      <rect
+         style="display:inline;fill:none;stroke:none;stroke-width:20;stroke-linecap:round;stroke-dasharray:20, 40;stroke-opacity:0.5"
+         id="rect1"
+         width="48"
+         height="48"
+         x="48"
+         y="0"
+         inkscape:label="boundary"
+         sodipodi:insensitive="true" />
+      <text
+         xml:space="preserve"
+         style="font-size:50.8192px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:none;fill:#ffffff;stroke:none;stroke-width:15.881;stroke-linecap:round;stroke-dasharray:15.881, 31.762;stroke-opacity:0.5"
+         x="52.942802"
+         y="41.59317"
+         id="text1"
+         inkscape:label="nerd"><tspan
+           sodipodi:role="line"
+           id="tspan1"
+           x="0"
+           y="0"
+           style="font-size:50.8192px;stroke-width:15.881"></tspan></text>
+      <path
+         d="m 57.210821,4.9428009 h 29.578362 q 1.786612,0 3.027315,1.240703 1.240703,1.2407031 1.240703,3.0273156 V 38.789181 q 0,1.786613 -1.240703,3.027316 Q 88.575795,43.0572 86.789183,43.0572 H 57.210821 q -1.786612,0 -3.027315,-1.240703 -1.240704,-1.240703 -1.240704,-3.027316 V 9.2108195 q 0,-1.7866125 1.240704,-3.0273156 1.240703,-1.240703 3.027315,-1.240703 z m 4.168762,4.2680186 q -1.786612,0 -2.977687,1.1910745 -1.191075,1.191075 -1.191075,2.977688 0,1.786612 1.191075,3.027315 1.191075,1.240704 2.977687,1.240704 1.786613,0 3.027316,-1.240704 1.240703,-1.240703 1.240703,-3.027315 0,-1.786613 -1.240703,-2.977688 Q 63.166196,9.2108195 61.379583,9.2108195 Z M 82.62042,30.3524 q -1.786612,0 -3.027315,1.240703 -1.240703,1.240703 -1.240703,3.027316 0,1.786612 1.240703,2.977687 1.240703,1.191075 3.027315,1.191075 1.786613,0 2.977688,-1.191075 1.191075,-1.191075 1.191075,-2.977687 0,-1.786613 -1.191075,-3.027316 Q 84.407033,30.3524 82.62042,30.3524 Z m 0,-21.1415805 q -1.786612,0 -3.027315,1.1910745 -1.240703,1.191075 -1.240703,2.977688 0,1.786612 1.240703,3.027315 1.240703,1.240704 3.027315,1.240704 1.786613,0 2.977688,-1.240704 1.191075,-1.240703 1.191075,-3.027315 0,-1.786613 -1.191075,-2.977688 Q 84.407033,9.2108195 82.62042,9.2108195 Z M 72.000002,19.731982 q -1.786613,0.09926 -2.977688,1.290331 Q 67.83124,22.213388 67.83124,24 q 0,1.786613 1.191074,2.977688 1.191075,1.191075 2.977688,1.191075 1.786612,0 2.977687,-1.191075 Q 76.168764,25.786613 76.168764,24 q 0,-1.786612 -1.191075,-2.977687 -1.191075,-1.191075 -2.977687,-1.290331 z M 61.379583,30.3524 q -1.786612,0 -2.977687,1.240703 -1.191075,1.240703 -1.191075,3.027316 0,1.786612 1.191075,2.977687 1.191075,1.191075 2.977687,1.191075 1.786613,0 3.027316,-1.191075 1.240703,-1.191075 1.240703,-2.977687 0,-1.786613 -1.240703,-3.027316 Q 63.166196,30.3524 61.379583,30.3524 Z"
+         id="text5"
+         style="font-size:50.8192px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';fill:#ffffff;stroke-width:15.881;stroke-linecap:round;stroke-dasharray:15.881, 31.762;stroke-opacity:0.5"
+         inkscape:label="icon"
+         aria-label="" />
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="g2"
+       inkscape:label="1">
+      <rect
+         style="display:none;fill:none;stroke:none;stroke-width:20;stroke-linecap:round;stroke-dasharray:20, 40;stroke-opacity:0.5"
+         id="rect2"
+         width="48"
+         height="48"
+         x="0"
+         y="0"
+         inkscape:label="boundary"
+         sodipodi:insensitive="true" />
+      <text
+         xml:space="preserve"
+         style="font-size:54.7465px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:none;fill:#ffffff;stroke:none;stroke-width:17.1083;stroke-linecap:round;stroke-dasharray:17.1083, 34.2166;stroke-opacity:0.5"
+         x="3.4700632"
+         y="42.952766"
+         id="text2"
+         inkscape:label="nerd"><tspan
+           sodipodi:role="line"
+           id="tspan2"
+           x="3.4700632"
+           y="42.952766"
+           style="font-size:54.7465px;stroke-width:17.1083"></tspan></text>
+      <path
+         d="M 44.529937,17.156687 H 30.843312 v 29.618711 h -4.59785 V 33.088773 h -4.490924 v 13.686625 h -4.59785 V 17.156687 H 3.4700632 v -4.59785 H 44.529937 Z M 24,1.2246006 q 1.924682,0 3.207803,1.2831211 1.283121,1.283121 1.283121,3.2078026 0,1.9246816 -1.283121,3.261266 Q 25.924682,10.313375 24,10.313375 q -1.924682,0 -3.207803,-1.3365847 -1.283121,-1.3365844 -1.283121,-3.261266 0,-1.9246816 1.283121,-3.2078026 Q 22.075318,1.2246006 24,1.2246006 Z"
+         id="text4"
+         style="font-size:54.7465px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';fill:#ffffff;stroke-width:17.1083;stroke-linecap:round;stroke-dasharray:17.1083, 34.2166;stroke-opacity:0.5"
+         inkscape:label="icon"
+         aria-label="" />
+    </g>
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Arrow Dialog Node Interface Symbols</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. H. Golkar</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

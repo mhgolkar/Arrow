@@ -1,51 +1,40 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://chii7vvbxwilm"]
 
-[ext_resource path="res://nodes/marker/console.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://b6pts0rtjdq3q" path="res://nodes/marker/icon.svg" id="1_4a30v"]
+[ext_resource type="Script" path="res://nodes/marker/console.gd" id="1_n01uq"]
+[ext_resource type="Theme" uid="uid://7iui7va3jch8" path="res://assets/themes/dark.tres" id="1_ryvu8"]
 
 [node name="Marker" type="PanelContainer"]
-self_modulate = Color( 0.815686, 0.0588235, 0.956863, 1 )
-margin_right = 233.0
-margin_bottom = 52.0
-rect_min_size = Vector2( 0, 20 )
+self_modulate = Color(0.512, 0.64, 0, 1)
+offset_right = 256.0
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+theme = ExtResource("1_ryvu8")
+theme_type_variation = &"MarkerConsole"
+script = ExtResource("1_n01uq")
 
-[node name="MarkerPlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 226.0
-margin_bottom = 45.0
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
-
-[node name="Head" type="HBoxContainer" parent="MarkerPlay"]
-margin_right = 219.0
-margin_bottom = 14.0
-mouse_filter = 2
-
-[node name="Icon" type="Label" parent="MarkerPlay/Head"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_bottom = 14.0
-text = ""
-
-[node name="MarkerLabel" type="Label" parent="MarkerPlay/Head"]
-margin_left = 4.0
-margin_right = 219.0
-margin_bottom = 14.0
-hint_tooltip = "{note}"
-mouse_filter = 1
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "{ marker label }"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="Action" type="Button" parent="MarkerPlay"]
-margin_top = 18.0
-margin_right = 219.0
-margin_bottom = 38.0
-mouse_filter = 1
-size_flags_horizontal = 3
-text = "{ marker name }"
+disabled = true
+icon = ExtResource("1_4a30v")
 flat = true
-clip_text = true
+text_overrun_behavior = 3
+expand_icon = true
+
+[node name="Name" type="Label" parent="Play/Head"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[Node Name]"
+horizontal_alignment = 1
+
+[node name="Action" type="Button" parent="Play"]
+layout_mode = 2
+text = "[Marker Label]"

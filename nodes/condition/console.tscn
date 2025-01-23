@@ -1,81 +1,48 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://drfnj72b5eid1"]
 
-[ext_resource path="res://nodes/condition/console.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://dcy0o5rrn15bo" path="res://nodes/condition/icon.svg" id="1_jg108"]
+[ext_resource type="Script" path="res://nodes/condition/console.gd" id="1_r5l4s"]
 
 [node name="Condition" type="PanelContainer"]
-margin_right = 221.0
-margin_bottom = 42.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_right = 256.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+script = ExtResource("1_r5l4s")
 
-[node name="ConditionPlay" type="HBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 214.0
-margin_bottom = 35.0
+[node name="Play" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+disabled = true
+icon = ExtResource("1_jg108")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="Label" type="Label" parent="ConditionPlay"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_top = 7.0
-margin_bottom = 21.0
-text = ""
-
-[node name="Statement" type="Label" parent="ConditionPlay"]
-margin_left = 4.0
-margin_right = 114.0
-margin_bottom = 28.0
+[node name="Statement" type="Label" parent="Play"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "{ statement }"
-align = 1
-valign = 1
-autowrap = true
+text = "[Statement]"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="False" type="Button" parent="ConditionPlay"]
-self_modulate = Color( 0.815686, 0.0588235, 0.956863, 1 )
-margin_left = 118.0
-margin_top = 4.0
-margin_right = 163.0
-margin_bottom = 24.0
-size_flags_horizontal = 8
+[node name="False" type="Button" parent="Play"]
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_type_variation = &"ConditionConsoleFalse"
 text = "False"
 
-[node name="Label" type="Label" parent="ConditionPlay/False"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_vertical = 1
-text = "False"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="True" type="Button" parent="ConditionPlay"]
-self_modulate = Color( 0, 1, 0.952941, 1 )
-margin_left = 167.0
-margin_top = 4.0
-margin_right = 207.0
-margin_bottom = 24.0
-size_flags_horizontal = 8
+[node name="True" type="Button" parent="Play"]
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_type_variation = &"ConditionConsoleTrue"
 text = "True"
-
-[node name="Label" type="Label" parent="ConditionPlay/True"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_vertical = 1
-text = "True"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}

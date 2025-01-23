@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="96"
+   height="48"
+   viewBox="0 0 96 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="interface.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Arrow Frame Node Interface Symbols</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="6.577566"
+     inkscape:cx="51.462806"
+     inkscape:cy="35.651486"
+     inkscape:window-width="1876"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g2"
+     showguides="true">
+    <sodipodi:guide
+       position="48,48"
+       orientation="-1,0"
+       id="guide1"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,134,229)" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="frame"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none">
+    <g
+       inkscape:groupmode="layer"
+       id="layer2"
+       inkscape:label="2"
+       style="display:inline">
+      <rect
+         style="display:inline;fill:none;stroke:none;stroke-width:20;stroke-linecap:round;stroke-dasharray:20, 40;stroke-opacity:0.5"
+         id="rect1"
+         width="48"
+         height="48"
+         x="48"
+         y="0"
+         inkscape:label="boundary"
+         sodipodi:insensitive="true" />
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="g2"
+       inkscape:label="1">
+      <rect
+         style="display:none;fill:none;stroke:none;stroke-width:20;stroke-linecap:round;stroke-dasharray:20, 40;stroke-opacity:0.5"
+         id="rect2"
+         width="48"
+         height="48"
+         x="0"
+         y="0"
+         inkscape:label="boundary"
+         sodipodi:insensitive="true" />
+      <path
+         id="path5"
+         style="fill:#ffffff;stroke:none;-inkscape-font-specification:'DejaVuSansMono NF';stroke-linecap:round;stroke-linejoin:round"
+         d="M 40.900391 3.0390625 A 1.0001 1.0001 0 0 0 40.554688 3.0703125 A 1.0001 1.0001 0 0 0 40.105469 3.328125 L 31.724609 11.708984 L 31.724609 6.0332031 A 1.0001 1.0001 0 0 0 30.724609 5.0332031 L 26.207031 5.0332031 A 1.0001 1.0001 0 0 0 25.207031 6.0332031 L 25.207031 21.792969 A 1.0001 1.0001 0 0 0 26.207031 22.792969 L 41.966797 22.792969 A 1.0001 1.0001 0 0 0 42.966797 21.792969 L 42.966797 17.275391 A 1.0001 1.0001 0 0 0 41.966797 16.275391 L 36.291016 16.275391 L 44.671875 7.8945312 A 1.0001 1.0001 0 0 0 44.671875 6.4804688 L 41.519531 3.328125 A 1.0001 1.0001 0 0 0 40.900391 3.0390625 z M 6.0332031 25.207031 A 1.0001 1.0001 0 0 0 5.0332031 26.207031 L 5.0332031 30.724609 A 1.0001 1.0001 0 0 0 6.0332031 31.724609 L 11.708984 31.724609 L 3.328125 40.105469 A 1.0001 1.0001 0 0 0 3.328125 41.519531 L 6.4804688 44.671875 A 1.0001 1.0001 0 0 0 7.8945312 44.671875 L 16.275391 36.291016 L 16.275391 41.966797 A 1.0001 1.0001 0 0 0 17.275391 42.966797 L 21.792969 42.966797 A 1.0001 1.0001 0 0 0 22.792969 41.966797 L 22.792969 26.207031 A 1.0001 1.0001 0 0 0 21.792969 25.207031 L 6.0332031 25.207031 z "
+         inkscape:label="icon" />
+      <text
+         xml:space="preserve"
+         style="font-size:53.7976px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:none;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="4.0360351"
+         y="42.624279"
+         id="text2"
+         inkscape:label="nerd"><tspan
+           sodipodi:role="line"
+           id="tspan2"
+           x="4.0360351"
+           y="42.624279"
+           style="fill:#ffffff;fill-opacity:1;stroke-width:2;stroke-dasharray:none">ﬔ</tspan></text>
+    </g>
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Arrow Frame Node Interface Symbols</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. H. Golkar</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

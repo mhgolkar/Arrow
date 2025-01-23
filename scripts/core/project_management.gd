@@ -10,8 +10,6 @@ const JSON_FLOAT_PRECISION_HACK = 10_000_000
 
 class ProjectManager :
 	
-	var Utils = Helpers.Utils
-	var Generators = Helpers.Generators
 	var PROJECT_FILE_EXTENSION_WITHOUT_DOT = Settings.PROJECT_FILE_EXTENSION.replacen(".", "")
 	
 	var _MAIN
@@ -27,11 +25,11 @@ class ProjectManager :
 		pass
 	
 	func hold_local_app_dir(app_local_dir:String) -> void:
-		_ALDP = Utils.normalize_dir_path(app_local_dir)
+		_ALDP = Helpers.Utils.normalize_dir_path(app_local_dir)
 		print_debug("Project Manager Holding Local App Directory: ", _ALDP)
 		# check _ALDP for access
-		if Utils.is_access_granted_to_dir(_ALDP, File.WRITE_READ):
-			# ... and neccessary files (discover or create)
+		if Helpers.Utils.is_access_granted_to_dir(_ALDP, FileAccess.WRITE_READ):
+			# ... and necessary files (discover or create)
 			_PROJECT_LIST = read_project_list_file(true)
 		else:
 			printerr("ACCESS FAILED! RW Permission to Local App/Work Directory is NOT GRANTED!")
@@ -48,15 +46,14 @@ class ProjectManager :
 	func read_project_list_file(force_creation:bool = false):
 		var project_list = null
 		var project_list_file_path = _ALDP + PROJECT_LIST_FILE_NAME
-		var file = File.new()
-		if file.file_exists( project_list_file_path ):
-			file.open(project_list_file_path, File.READ)
+		var file = FileAccess.open(project_list_file_path, FileAccess.READ)
+		if file != null:
 			var read_list;
 			# First try to open the list as JSON:
 			var file_content = file.get_as_text()
-			var parsed_list = Utils.parse_json(file_content)
+			var parsed_list = Helpers.Utils.parse_json(file_content)
 			if parsed_list is Dictionary:
-				read_list = Utils.recursively_convert_numbers_to_int(parsed_list)
+				read_list = Helpers.Utils.recursively_convert_numbers_to_int(parsed_list)
 			else:
 				# Try to open the list as stored variant (legacy:)
 				read_list = file.get_var(true)
@@ -69,10 +66,11 @@ class ProjectManager :
 		else:
 			project_list = Embedded.Data.Blank_Project_List.duplicate(true)
 			if force_creation == true:
-				if file.open(project_list_file_path, File.WRITE_READ) == OK:
-					var json_list = Utils.stringify_json(project_list)
-					file.store_string(json_list)
-					file.close()
+				var new_file = FileAccess.open(project_list_file_path, FileAccess.WRITE_READ)
+				if new_file != null:
+					var json_list = Helpers.Utils.stringify_json(project_list)
+					new_file.store_string(json_list)
+					new_file.close()
 					print_debug("New project list file created. ", project_list_file_path)
 				else:
 					printerr("No Project List File Exists and we CAN NOT CREATE one!", _ALDP)
@@ -83,9 +81,9 @@ class ProjectManager :
 	
 	func save_project_list_file() -> void:
 		var project_list_file_path = _ALDP + PROJECT_LIST_FILE_NAME
-		var file = File.new()
-		if file.open(project_list_file_path, File.WRITE_READ) == OK:
-			var json_list = Utils.stringify_json(_PROJECT_LIST)
+		var file = FileAccess.open(project_list_file_path, FileAccess.WRITE_READ)
+		if file != null:
+			var json_list = Helpers.Utils.stringify_json(_PROJECT_LIST)
 			file.store_string(json_list)
 			file.close()
 		else:
@@ -109,7 +107,7 @@ class ProjectManager :
 		var untitled_project = Embedded.Data.Untitled_Project.duplicate(true)
 		if Settings.FORCE_SNOWFLAKE_UID_FOR_NEW_PROJECTS == true:
 			untitled_project.meta.epoch = Flake.Snow._unsafe_unix_now_millisecond()
-		print_debug("holding untitle (blank) project: ", untitled_project.meta)
+		print_debug("holding untitled (blank) project: ", untitled_project.meta)
 		return untitled_project
 	
 	func is_project_listed(project_uid:int = _ACTIVE_PROJECT_UID) -> bool:
@@ -134,12 +132,12 @@ class ProjectManager :
 		# ... so if project is listed, there is a path
 		if project_file_path is String :
 			# but file might not be where listed or accessible anymore, so check:
-			if Utils.file_is_accessible(project_file_path):
+			if Helpers.Utils.file_is_accessible(project_file_path):
 				return true
 			else:
-				printerr("Project File Inaccessible! Either project list file is corrupted or state of the project file (existance, RW permission) is changed! Inspect this path: ", project_file_path)
+				printerr("Project File Inaccessible! Either project list file is corrupted or state of the project file (existence, RW permission) is changed! Inspect this path: ", project_file_path)
 		else:
-			printerr("Unexpected Behavior! Trying to check existance of none-listed project = %s !" % project_file_path)
+			printerr("Unexpected Behavior! Trying to check existence of none-listed project = %s !" % project_file_path)
 		return false
 	
 	func is_authors_dictionary_valid(checked) -> bool:
@@ -197,33 +195,33 @@ class ProjectManager :
 						) && # anyway they need to have valid `entry` node:
 						(project.entry is int) && project.resources.nodes.has(project.entry)
 					):
-						for set in project.resources:
-							for uid in project.resources[set]:
+						for field in project.resources:
+							for uid in project.resources[field]:
 								if (
 									((uid is int) != true) ||
-									((project.resources[set][uid] is Dictionary) != true) ||
-									(project.resources[set][uid].has_all( DATASET_ITEM_MANDATORY_FIELDS_FOR_SET[set] ) != true)
+									((project.resources[field][uid] is Dictionary) != true) ||
+									(project.resources[field][uid].has_all( DATASET_ITEM_MANDATORY_FIELDS_FOR_SET[field] ) != true)
 								):
 									# doesn't pass general dataset checks
 									return false
 								else:
 									# passes? what about dataset special checks?
-									match set:
+									match field:
 										"scenes":
-											for map_uid in project.resources[set][uid].map:
+											for map_uid in project.resources[field][uid].map:
 												if (
 													((map_uid is int) != true) ||
-													((project.resources[set][uid].map[map_uid] is Dictionary) != true) ||
+													((project.resources[field][uid].map[map_uid] is Dictionary) != true) ||
 													(
 														# offset is mandatory
-														project.resources[set][uid].map[map_uid].has("offset") != true ||
-														(project.resources[set][uid].map[map_uid].offset is Array) != true ||
-														project.resources[set][uid].map[map_uid].offset.size() != 2 # [x, y]
+														project.resources[field][uid].map[map_uid].has("offset") != true ||
+														(project.resources[field][uid].map[map_uid].offset is Array) != true ||
+														project.resources[field][uid].map[map_uid].offset.size() != 2 # [x, y]
 													)
 												):
 													return false
 										"nodes":
-											if (project.resources[set][uid].data is Dictionary) != true:
+											if (project.resources[field][uid].data is Dictionary) != true:
 												return false
 										"variables":
 											pass
@@ -236,8 +234,8 @@ class ProjectManager :
 	
 	# JSON keys can only be strings, while our resource keys are integers, so...
 	# we need to refactor them
-	func refactore_parsed_json_project_data(data:Dictionary) -> Dictionary:
-		var refactoring = Utils.recursively_convert_numbers_to_int(data)
+	func refactor_parsed_json_project_data(data:Dictionary) -> Dictionary:
+		var refactoring = Helpers.Utils.recursively_convert_numbers_to_int(data)
 		# print_debug("Refactored JSON project: ", refactoring)
 		return refactoring
 	
@@ -246,7 +244,7 @@ class ProjectManager :
 		var full_project_file_path:String
 		if project_uid_or_file_path is int:
 			full_project_file_path = get_project_file_path(project_uid_or_file_path)
-		elif Utils.is_abs_or_rel_path(project_uid_or_file_path):
+		elif Helpers.Utils.is_abs_or_rel_path(project_uid_or_file_path):
 			full_project_file_path = project_uid_or_file_path
 		else:
 			printerr("Unexpected Behavior! function `read_project_file_data` called with wrong argument: ", project_uid_or_file_path)
@@ -256,11 +254,11 @@ class ProjectManager :
 			var project_file_data = null
 			var parsed_project_file_data = null
 			if Settings.USE_DEPRECATED_BIN_SAVE != true || try_json == true:
-				parsed_project_file_data = Utils.read_and_parse_json_file(full_project_file_path)
+				parsed_project_file_data = Helpers.Utils.read_and_parse_json_file(full_project_file_path)
 			if parsed_project_file_data is Dictionary:
-				project_file_data = refactore_parsed_json_project_data(parsed_project_file_data)
+				project_file_data = refactor_parsed_json_project_data(parsed_project_file_data)
 			else :
-				project_file_data = Utils.read_and_parse_variant_file(full_project_file_path)
+				project_file_data = Helpers.Utils.read_and_parse_variant_file(full_project_file_path)
 			# validate the project file
 			if project_file_data is Dictionary:
 				if validate_project_data(project_file_data) == true:
@@ -268,13 +266,11 @@ class ProjectManager :
 		return null
 	
 	func read_browsed_project_content(json: String):
-		var parsed: JSONParseResult = JSON.parse(json)
-		if parsed.error == OK:
-			var parsed_project_file_data = parsed.get_result()
-			if parsed_project_file_data is Dictionary:
-				var project_file_data = refactore_parsed_json_project_data(parsed_project_file_data)
-				if validate_project_data(project_file_data) == true:
-					return project_file_data
+		var parsed = JSON.parse_string(json)
+		if parsed is Dictionary:
+			var project_file_data = refactor_parsed_json_project_data(parsed)
+			if validate_project_data(project_file_data) == true:
+				return project_file_data
 		return null
 	
 	func hold_project_by_id(project_uid:int = -1):
@@ -336,7 +332,7 @@ class ProjectManager :
 			if is_project_listed(project_uid) && (scene_uid >= 0) :
 				if _PROJECT_LIST.projects[project_uid].has("last_view") == false:
 					_PROJECT_LIST.projects[project_uid].last_view = {}
-				_PROJECT_LIST.projects[project_uid].last_view[scene_uid] = Utils.refactor_array(state, JSON_FLOAT_PRECISION_HACK, false)
+				_PROJECT_LIST.projects[project_uid].last_view[scene_uid] = Helpers.Utils.refactor_array(state, JSON_FLOAT_PRECISION_HACK, false)
 				print_debug("project %s last view set: " % project_uid, _PROJECT_LIST.projects[project_uid].last_view)
 		else:
 			printerr("Unexpected Behavior! Invalid state to set_project_last_view: ", state)
@@ -349,7 +345,7 @@ class ProjectManager :
 				if _PROJECT_LIST.projects[project_uid].last_view.has(scene_uid):
 					print_debug("project %s last view get: " % project_uid, _PROJECT_LIST.projects[project_uid].last_view)
 					var state = _PROJECT_LIST.projects[project_uid].last_view[scene_uid]
-					return Utils.refactor_array(state, JSON_FLOAT_PRECISION_HACK, true) # to correct precision
+					return Helpers.Utils.refactor_array(state, JSON_FLOAT_PRECISION_HACK, true) # to correct precision
 		return [0, 0, 1]
 	
 	func get_project_active_author(project_uid:int = -1):
@@ -383,9 +379,9 @@ class ProjectManager :
 			# blank suggestion?! let's suggest a random one
 			suggestion = (
 				Settings.RANDOM_PROJECT_NAME_PREFIX +
-				Generators.create_random_string( Settings.RANDOM_PROJECT_NAME_AFFIX_LENGTH )
+				Helpers.Generators.create_random_string( Settings.RANDOM_PROJECT_NAME_AFFIX_LENGTH )
 			)
-		var result = Utils.valid_filename(suggestion, false)
+		var result = Helpers.Utils.valid_filename(suggestion, false)
 		var all_project_filenames = []
 		for project_id in _PROJECT_LIST.projects:
 			all_project_filenames.append(_PROJECT_LIST.projects[project_id].filename)
@@ -432,7 +428,7 @@ class ProjectManager :
 			var entry = project_data.entry
 			var entry_node = project_data.resources.nodes[entry]
 			if entry_node.has("notes"):
-				var description = String(entry_node.notes)
+				var description = "%s" % entry_node.notes
 				if (
 					_PROJECT_LIST.projects[project_uid].has("description") == false ||
 					_PROJECT_LIST.projects[project_uid].description != description
@@ -449,7 +445,7 @@ class ProjectManager :
 				# remove file in case
 				if remove_file_too == true:
 					var path = get_project_file_path(project_uid, true)
-					var removed = Utils.remove_file(path)
+					var removed = Helpers.Utils.remove_file(path)
 					if removed == OK:
 						print_debug("Alert! Project file removed: ", path)
 					else:
@@ -459,7 +455,7 @@ class ProjectManager :
 				save_project_list_file()
 				print_debug("Project unlisted: ", project_uid)
 			else:
-				printerr("Unexbected Behavior! Trying to unlist a none-listed project with id: ", project_uid)
+				printerr("Unexpected Behavior! Trying to unlist a none-listed project with id: ", project_uid)
 		else:
 			printerr("Disallowed Operation! You can't unlist currently active project.")
 		pass
@@ -467,9 +463,9 @@ class ProjectManager :
 	func save_project_native_file(project_data:Dictionary, full_path:String, prefer_json = null):
 		var done
 		if prefer_json == true || ( prefer_json != false && Settings.USE_DEPRECATED_BIN_SAVE != true ) :
-			done = Utils.save_data_as_json_file(project_data, full_path, Settings.PROJECT_FILE_JSON_DEFAULT_IDENT, false)
+			done = Helpers.Utils.save_data_as_json_file(project_data, full_path, Settings.PROJECT_FILE_JSON_DEFAULT_IDENT, false)
 		else:
-			done = Utils.save_data_as_variant_file(project_data, full_path)
+			done = Helpers.Utils.save_data_as_variant_file(project_data, full_path)
 		return done
 	
 	func save_project_into(project_uid:int, project_data:Dictionary, duplicate:bool = false, textual = null):
@@ -511,7 +507,7 @@ class ProjectManager :
 	
 	func revise_play_ready(project: Dictionary) -> Dictionary:
 		var duplicated_project = project.duplicate(true)
-		if Settings.PURGE_DEVELOPMENT_DATA_FROM_PLAYABLES == true:
+		if Settings.PURGE_DEVELOPMENT_DATA_FROM_PLAYABLE == true:
 			if Settings.DATA_TO_BE_PURGED_FROM_PLAYABLE_METADATA is Array && project.has('meta'):
 				for key in Settings.DATA_TO_BE_PURGED_FROM_PLAYABLE_METADATA:
 					duplicated_project.meta.erase(key)
@@ -527,41 +523,41 @@ class ProjectManager :
 	
 	func save_play_ready_json(full_export_file_path:String, project:Dictionary):
 		var play_ready_project = revise_play_ready(project)
-		var done = Utils.save_data_as_json_file(
+		var done = Helpers.Utils.save_data_as_json_file(
 			play_ready_project, full_export_file_path, Settings.PROJECT_FILE_JSON_DEFAULT_IDENT, false
 		)
 		return done
 	
 	func print_play_ready(project: Dictionary) -> String:
 		var play_ready = revise_play_ready(project)
-		return JSON.print(play_ready, Settings.INLINED_JSON_DEFAULT_IDENT, false)
+		return JSON.stringify(play_ready, Settings.INLINED_JSON_DEFAULT_IDENT, false)
 	
 	func tag_replacements_from(project: Dictionary) -> Dictionary:
 		return {
 			'{{project_title}}':     project.title,
 			'{/*project_json*/}':    print_play_ready(project),
-			'{{project_last_save}}': Utils.parse_time_stamp(project.meta.last_save, true, false),
+			'{{project_last_save}}': Helpers.Utils.parse_time_stamp(project.meta.last_save, true, false),
 			'{{arrow_website}}':     Settings.ARROW_WEBSITE,
 			'{{arrow_version}}':     Settings.ARROW_VERSION
 		}
 	
 	func is_html_js_runtime_modified() -> bool:
-		var template_mod_time = Utils.get_modification_time(Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH)
-		var source_index_mod_time = Utils.get_modification_time(Settings.HTML_JS_RUNTIME_INDEX)
-		var source_dir = Utils.safe_base_dir(Settings.HTML_JS_RUNTIME_INDEX)
+		var template_mod_time = Helpers.Utils.get_modification_time(Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH)
+		var source_index_mod_time = Helpers.Utils.get_modification_time(Settings.HTML_JS_RUNTIME_INDEX)
+		var source_dir = Helpers.Utils.safe_base_dir(Settings.HTML_JS_RUNTIME_INDEX)
 		print_debug("html-js source dir:", source_dir)
 		if source_index_mod_time > template_mod_time:
 			print_debug("Runtime index file modified: ", source_index_mod_time)
 			return true
-		var head_imports = Utils.read_html_head_imports(Settings.HTML_JS_RUNTIME_INDEX)
+		var head_imports = Helpers.Utils.read_html_head_imports(Settings.HTML_JS_RUNTIME_INDEX)
 		if head_imports is Dictionary:
 			for css in head_imports.styles:
-				var css_mod_time = Utils.get_modification_time(source_dir + css.href)
+				var css_mod_time = Helpers.Utils.get_modification_time(source_dir + css.href)
 				if css_mod_time > template_mod_time:
 					print_debug("Style sheet file modified: ", css, " @ ", css_mod_time)
 					return true
 			for js in head_imports.scripts:
-				var js_mod_time = Utils.get_modification_time(source_dir + js.src)
+				var js_mod_time = Helpers.Utils.get_modification_time(source_dir + js.src)
 				if js_mod_time > template_mod_time:
 					print_debug("Script file modified: ", js, " @ ", js_mod_time)
 					return true
@@ -571,12 +567,12 @@ class ProjectManager :
 	
 	func prepare_html_js_template() -> void:
 		var rebuild = (
-			Utils.file_exists(Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH) == false ||
+			Helpers.Utils.file_exists(Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH) == false ||
 			( _MAIN._AUTO_REBUILD_RUNTIME_TEMPLATES && is_html_js_runtime_modified() )
 		)
 		if rebuild:
-			var rebuilt_template = Utils.inline_html_head_imports(Settings.HTML_JS_RUNTIME_INDEX)
-			var stored = Utils.write_text_file(Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH, rebuilt_template)
+			var rebuilt_template = Helpers.Utils.inline_html_head_imports(Settings.HTML_JS_RUNTIME_INDEX)
+			var stored = Helpers.Utils.write_text_file(Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH, rebuilt_template)
 			if stored == OK:
 				print_debug("HTML-JS runtime is re-built: ", Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH)
 			else:
@@ -589,34 +585,31 @@ class ProjectManager :
 	func save_playable_html(full_export_file_path:String, project:Dictionary):
 		# use official html-js runtime template to make playable html (single page) export
 		prepare_html_js_template()
-		return Utils.save_from_template_file (
+		return Helpers.Utils.save_from_template_file (
 				Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH,
 				full_export_file_path,
 				tag_replacements_from(project)
 		)
-		pass
 	
 	func parse_playable_html(project:Dictionary):
 		prepare_html_js_template()
-		return Utils.parse_template(
+		return Helpers.Utils.parse_template(
 				Settings.HTML_JS_SINGLE_FILE_TEMPLATE_PATH,
 				tag_replacements_from(project)
 		)
-		pass
 	
 	# Other exports
 
 	static func _sort_csv_by_key_ascending(a, b):
 		return a[0].naturalnocasecmp_to(b[0]) < 0
 
-	func recreate_csv_rows(project: Dictionary, try_update_existing_path: String = "", separator: String = Settings.CSV_EXPORT_SEPARATOR) -> Array: # ... of PoolStringArray lines
+	func recreate_csv_rows(project: Dictionary, try_update_existing_path: String = "", separator: String = Settings.CSV_EXPORT_SEPARATOR) -> Array: # ... of PackedStringArray lines
 		var csv_columns_labels = []
 		var mapping = {}
 		# Read the existing csv file to update if any and remap
 		if try_update_existing_path.length() > 0:
-			var file = File.new()
-			var existing = file.open(try_update_existing_path, File.READ)
-			if existing == OK:
+			var file = FileAccess.open(try_update_existing_path, FileAccess.READ)
+			if file != null:
 				var file_length = file.get_len()
 				while file.get_position() < file_length:
 					var line = file.get_csv_line(separator)
@@ -633,10 +626,10 @@ class ProjectManager :
 		if csv_columns_labels.size() < 2:
 			csv_columns_labels = ["key", "original"] # Note also that we always expect that the first and second columns, no matter the label, to be the key and the original value
 		# Now update the data mapping
-		var keys_alive = [] # We also keep the keys that are met, to purge the dopped data from CSV file.
+		var keys_alive = [] # We also keep the keys that are met, to purge the dropped data from CSV file.
 		for node_id in project.resources.nodes:
 			var node = project.resources.nodes[node_id]
-			var type_inspector = _MAIN.Mind.NODE_TYPES_LIST[node.type].inspector.instance()
+			var type_inspector = _MAIN.Mind.NODE_TYPES_LIST[node.type].inspector.instantiate()
 			var parts_mapping =  type_inspector.map_i18n_data(node_id, node) if type_inspector.has_method("map_i18n_data") else {}
 			for part_key in parts_mapping:
 				keys_alive.push_back(part_key)
@@ -657,12 +650,12 @@ class ProjectManager :
 		var csv = []
 		for key in mapping:
 			if keys_alive.has(key):
-				var line = PoolStringArray()
+				var line = PackedStringArray()
 				line.push_back(key)
 				for i in range(1, csv_columns_labels.size()):
 					line.push_back(mapping[key][csv_columns_labels[i]] if mapping[key].has(csv_columns_labels[i]) else "")
 				csv.push_back(line)
-		csv.sort_custom(ProjectManager, "_sort_csv_by_key_ascending")
+		csv.sort_custom(ProjectManager._sort_csv_by_key_ascending)
 		csv.push_front(csv_columns_labels)
 		# ...
 		return csv
@@ -681,11 +674,10 @@ class ProjectManager :
 	
 	func save_project_csv(full_export_file_path:String, project:Dictionary, separator: String = Settings.CSV_EXPORT_SEPARATOR):
 		var csv_doc = parse_project_csv(project, full_export_file_path, separator)
-		var file = File.new()
-		var open_file = file.open(full_export_file_path, File.WRITE)
-		if open_file == OK:
+		var file = FileAccess.open(full_export_file_path, FileAccess.WRITE)
+		if file != null:
 			file.store_string(csv_doc)
 			file.close()
 			return OK
 		else:
-			return open_file
+			return file.get_error()

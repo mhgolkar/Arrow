@@ -1,43 +1,29 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://ffuht6nyivjj"]
 
-[ext_resource path="res://nodes/sequencer/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/sequencer/inspector.gd" id="1_1dnp5"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_top = 8.0
-content_margin_bottom = 8.0
-bg_color = Color( 0, 0, 0, 0 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 1, 0, 0, 1 )
-
-[node name="SequencerType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 214.0
-margin_bottom = 99.0
+[node name="Sequencer" type="VBoxContainer"]
+offset_right = 256.0
+offset_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 1 )
+script = ExtResource("1_1dnp5")
 
-[node name="Sequencer" type="VBoxContainer" parent="."]
-margin_right = 207.0
-margin_bottom = 92.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Sequence length"
 
-[node name="Margin" type="MarginContainer" parent="Sequencer"]
-margin_right = 207.0
-margin_bottom = 46.0
-custom_constants/margin_top = 8
-custom_constants/margin_bottom = 8
+[node name="Slots" type="SpinBox" parent="."]
+layout_mode = 2
+min_value = 2.0
+max_value = 10.0
+value = 2.0
+rounded = true
+alignment = 1
 
-[node name="Caution" type="Label" parent="Sequencer/Margin"]
-margin_top = 8.0
-margin_right = 207.0
-margin_bottom = 38.0
-hint_tooltip = "Handle with Extensive Care!
+[node name="Warning" type="Label" parent="."]
+layout_mode = 2
+tooltip_text = "Handle with Extensive Care!
 
 Although sequencers play their connected nodes in slots order,
 depending on playing nodes and runtime implementations,
@@ -51,24 +37,9 @@ printing contents in surprising ways,
 etc.
 
 --------------
+Note!
 Skipped sequencers only run their last connected slot."
-mouse_filter = 1
-size_flags_horizontal = 3
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-custom_styles/normal = SubResource( 1 )
-text = " Unsafe Operation!"
-align = 1
-autowrap = true
-
-[node name="Label" type="Label" parent="Sequencer"]
-margin_top = 50.0
-margin_right = 207.0
-margin_bottom = 64.0
-text = "Sequence Length:"
-
-[node name="Slots" type="SpinBox" parent="Sequencer"]
-margin_top = 68.0
-margin_right = 207.0
-margin_bottom = 92.0
-value = 2.0
-rounded = true
+mouse_filter = 0
+mouse_default_cursor_shape = 16
+theme_type_variation = &"LabelTransparent"
+text = "* Handle with Care!"

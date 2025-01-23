@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Dialog Node Type Inspector
-extends ScrollContainer
+# Dialog Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 var ListHelpers = Helpers.ListHelpers
 
@@ -26,15 +26,15 @@ const RESOURCE_NAME_EXPOSURE = Settings.RESOURCE_NAME_EXPOSURE
 
 var This = self
 
-onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
+@onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
 
-onready var Character = get_node("./Dialog/Character/Filterable/Selection")
-onready var GlobalFilters = get_node("./Dialog/Character/Filterable/GlobalFilters")
-onready var Line = get_node("./Dialog/Line/Edit")
-onready var Tools = get_node("./Dialog/Line/Tools")
-onready var ToolsPopup = Tools.get_popup()
-onready var LinesList = get_node("./Dialog/Lines/List")
-onready var Playable = get_node("./Dialog/Playable")
+@onready var Character = $Selector/List
+@onready var GlobalFilters = $Selector/Filtered
+@onready var Line = $Line/Edit
+@onready var Tools = $Line/Tools
+@onready var ToolsPopup = Tools.get_popup()
+@onready var LinesList = $Lines
+@onready var Playable = $Playable
 
 const TOOLS_MENU_BUTTON_POPUP = { # <id>:int { label:string, action:string<function-ident-to-be-called> }
 	0: { "label": "Append New Line", "action": "append_new_line" },
@@ -58,14 +58,14 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	GlobalFilters.connect("pressed", self, "refresh_character_list", [], CONNECT_DEFERRED)
-	ToolsPopup.connect("id_pressed", self, "_on_tools_popup_menu_id_pressed", [], CONNECT_DEFERRED)
-	Line.connect("text_changed", self, "_toggle_available_tools_smartly", [], CONNECT_DEFERRED)
-	Line.connect("text_entered", self, "append_new_line", [], CONNECT_DEFERRED)
-	LinesList.connect("multi_selected", self, "_toggle_available_tools_smartly", [], CONNECT_DEFERRED)
-	LinesList.connect("item_rmb_selected", self, "_on_right_click_item_selection", [], CONNECT_DEFERRED)
-	LinesList.connect("item_activated", self, "_on_double_click_item_activated", [], CONNECT_DEFERRED)
-	LinesList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
+	GlobalFilters.pressed.connect(self.refresh_character_list, CONNECT_DEFERRED)
+	ToolsPopup.id_pressed.connect(self._on_tools_popup_menu_id_pressed, CONNECT_DEFERRED)
+	Line.text_changed.connect(self._toggle_available_tools_smartly, CONNECT_DEFERRED)
+	Line.text_submitted.connect(self.append_new_line, CONNECT_DEFERRED)
+	LinesList.multi_selected.connect(self._toggle_available_tools_smartly, CONNECT_DEFERRED)
+	LinesList.item_activated.connect(self._on_double_click_item_activated, CONNECT_DEFERRED)
+	LinesList.item_clicked.connect(self._on_item_clicked, CONNECT_DEFERRED)
+	LinesList.gui_input.connect(self._on_list_gui_input, CONNECT_DEFERRED)
 	pass
 	
 func load_tools_menu() -> void:
@@ -87,7 +87,7 @@ func _on_tools_popup_menu_id_pressed(pressed_item_id:int) -> void:
 	pass
 
 # Note: it needs `x,y,z` nulls, because it's connected to different signals with different number of passed arguments
-func _toggle_available_tools_smartly(x=null, y=null, z=null) -> void:
+func _toggle_available_tools_smartly(_x=null, _y=null, _z=null) -> void:
 	var new_string_is_blank = ( Line.get_text().length() == 0 )
 	var selection_size = LinesList.get_selected_items().size()
 	var all_items_count = LinesList.get_item_count()
@@ -106,49 +106,49 @@ func move_item(to_final_idx:int = 0, from:int = -1) -> void:
 			LinesList.move_item(from, to_final_idx)
 	pass
 
-func move_selected_top(selected_lines_idxs:Array = []) -> void:
+func move_selected_top(selected_lines_indices:Array = []) -> void:
 	if LinesList.get_item_count() > 1 :
-		if selected_lines_idxs.size() == 0:
-			selected_lines_idxs = LinesList.get_selected_items()
-		if selected_lines_idxs.size() >= 1:
-			selected_lines_idxs.sort()
-			while selected_lines_idxs.size() > 0 :
-				var the_first_item = selected_lines_idxs.pop_front()
+		if selected_lines_indices.size() == 0:
+			selected_lines_indices = LinesList.get_selected_items()
+		if selected_lines_indices.size() >= 1:
+			selected_lines_indices.sort()
+			while selected_lines_indices.size() > 0 :
+				var the_first_item = selected_lines_indices.pop_front()
 				move_item(0, the_first_item)
 	pass
 
-func move_selected_end(selected_lines_idxs:Array = []) -> void:
+func move_selected_end(selected_lines_indices:Array = []) -> void:
 	if LinesList.get_item_count() > 1 :
-		if selected_lines_idxs.size() == 0:
-			selected_lines_idxs = LinesList.get_selected_items()
-		if selected_lines_idxs.size() >= 1:
-			selected_lines_idxs.sort()
+		if selected_lines_indices.size() == 0:
+			selected_lines_indices = LinesList.get_selected_items()
+		if selected_lines_indices.size() >= 1:
+			selected_lines_indices.sort()
 			var end = LinesList.get_item_count() - 1;
-			while selected_lines_idxs.size() > 0 :
-				var the_first_item = selected_lines_idxs.pop_front()
+			while selected_lines_indices.size() > 0 :
+				var the_first_item = selected_lines_indices.pop_front()
 				move_item(end, the_first_item)
 	pass
 
-func move_selected_up(selected_lines_idxs:Array = []) -> void:
+func move_selected_up(selected_lines_indices:Array = []) -> void:
 	if LinesList.get_item_count() > 1 :
-		if selected_lines_idxs.size() == 0:
-			selected_lines_idxs = LinesList.get_selected_items()
-		if selected_lines_idxs.size() >= 1:
-			selected_lines_idxs.sort()
-			while selected_lines_idxs.size() > 0 :
-				var nth = selected_lines_idxs.pop_front()
+		if selected_lines_indices.size() == 0:
+			selected_lines_indices = LinesList.get_selected_items()
+		if selected_lines_indices.size() >= 1:
+			selected_lines_indices.sort()
+			while selected_lines_indices.size() > 0 :
+				var nth = selected_lines_indices.pop_front()
 				LinesList.move_item(nth, max(0, nth - 1))
 	pass
 
-func move_selected_down(selected_lines_idxs:Array = []) -> void:
+func move_selected_down(selected_lines_indices:Array = []) -> void:
 	if LinesList.get_item_count() > 1 :
-		if selected_lines_idxs.size() == 0:
-			selected_lines_idxs = LinesList.get_selected_items()
-		if selected_lines_idxs.size() >= 1:
-			selected_lines_idxs.sort()
+		if selected_lines_indices.size() == 0:
+			selected_lines_indices = LinesList.get_selected_items()
+		if selected_lines_indices.size() >= 1:
+			selected_lines_indices.sort()
 			var end = LinesList.get_item_count() - 1;
-			while selected_lines_idxs.size() > 0 :
-				var nth = selected_lines_idxs.pop_back()
+			while selected_lines_indices.size() > 0 :
+				var nth = selected_lines_indices.pop_back()
 				LinesList.move_item(nth, min(end, nth + 1))
 	pass
 
@@ -167,11 +167,11 @@ func append_new_line(text:String = "") -> void:
 		LinesList.ensure_current_is_visible()
 	pass
 
-func extract_selected_line(selected_lines_idxs:Array = []) -> void:
-	if selected_lines_idxs.size() == 0:
-		selected_lines_idxs = LinesList.get_selected_items()
-	if selected_lines_idxs.size() >= 1:
-		var item_idx_to_extract = selected_lines_idxs[0]
+func extract_selected_line(selected_lines_indices:Array = []) -> void:
+	if selected_lines_indices.size() == 0:
+		selected_lines_indices = LinesList.get_selected_items()
+	if selected_lines_indices.size() >= 1:
+		var item_idx_to_extract = selected_lines_indices[0]
 		var item_text = LinesList.get_item_text(item_idx_to_extract)
 		Line.set_text(item_text)
 		LinesList.remove_item(item_idx_to_extract)
@@ -179,34 +179,37 @@ func extract_selected_line(selected_lines_idxs:Array = []) -> void:
 	_toggle_available_tools_smartly()
 	pass
 	
-func replace_selected_line(selected_lines_idxs:Array = []) -> void:
-	if selected_lines_idxs.size() == 0:
-		selected_lines_idxs = LinesList.get_selected_items()
-	if selected_lines_idxs.size() >= 1:
-		var to_idx_for_replacement = selected_lines_idxs[0]
-		remove_selected_lines(selected_lines_idxs)
+func replace_selected_line(selected_lines_indices:Array = []) -> void:
+	if selected_lines_indices.size() == 0:
+		selected_lines_indices = LinesList.get_selected_items()
+	if selected_lines_indices.size() >= 1:
+		var to_idx_for_replacement = selected_lines_indices[0]
+		remove_selected_lines(selected_lines_indices)
 		var new_line = Line.get("text")
 		LinesList.add_item( new_line )
 		Line.clear()
 		move_item(to_idx_for_replacement) # by default moves the last item
 	pass
 
-func remove_selected_lines(selected_lines_idxs:Array = []) -> void:
-	if selected_lines_idxs.size() == 0:
-		selected_lines_idxs = LinesList.get_selected_items()
+func remove_selected_lines(selected_lines_indices:Array = []) -> void:
+	if selected_lines_indices.size() == 0:
+		selected_lines_indices = LinesList.get_selected_items()
 	# we shall remove items from the last one because 
 	# removal of a preceding item will change indices for others and you may remove innocent items!
-	if selected_lines_idxs.size() >= 1:
-		selected_lines_idxs.sort()
-		while selected_lines_idxs.size() > 0 :
-			var the_last_item = selected_lines_idxs.pop_back()
+	if selected_lines_indices.size() >= 1:
+		selected_lines_indices.sort()
+		while selected_lines_indices.size() > 0 :
+			var the_last_item = selected_lines_indices.pop_back()
 			LinesList.remove_item(the_last_item)
 	pass
 
-func _on_right_click_item_selection(item_idx:int, _click_position:Vector2) -> void:
-	var all_items_count = LinesList.get_item_count()
-	if all_items_count > 1 :
-		extract_selected_line([item_idx])
+func _on_item_clicked(item_idx:int, _click_position:Vector2, mouse_button_index:int) -> void:
+	match mouse_button_index:
+		# Extract on right-click
+		MOUSE_BUTTON_RIGHT:
+			var all_items_count = LinesList.get_item_count()
+			if all_items_count > 1 :
+				extract_selected_line([item_idx])
 	pass
 
 func _on_double_click_item_activated(item_idx:int) -> void:
@@ -235,7 +238,7 @@ func refresh_character_list(select_by_res_id:int = -1) -> void:
 	Character.clear()
 	var item_index := 0
 	if ALLOW_ANONYMOUS_DIALOGS == true:
-		# (Our conventional `-1` conflicts with the default behavior of `add_item` method, so we use a `..._CONTROLL_VALUE`)
+		# (Our conventional `-1` conflicts with the default behavior of `add_item` method, so we use a `..._CONTROL_VALUE`)
 		Character.add_item(ANONYMOUS_CHARACTER.name, ANONYMOUS_UID_CONTROL_VALUE)
 		Character.set_item_metadata(item_index, ANONYMOUS_UID_CONTROL_VALUE)
 		item_index += 1
@@ -253,9 +256,9 @@ func refresh_character_list(select_by_res_id:int = -1) -> void:
 	var listing_keys = listing.keys()
 	if apply_globals && global_filters.SORT_ALPHABETICAL:
 		listing_keys.sort()
-	for name in listing_keys:
-		var id = listing[name]
-		Character.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+	for char_name in listing_keys:
+		var id = listing[char_name]
+		Character.add_item(char_name if already != id || apply_globals == false else "["+ char_name +"]", id)
 		Character.set_item_metadata(item_index, id)
 		item_index += 1
 	if select_by_res_id >= 0 :
@@ -371,7 +374,7 @@ func _read_parameters() -> Dictionary:
 		parameters._use = _use
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 
@@ -397,7 +400,7 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 
 func _on_list_gui_input(event) -> void:
 	if event is InputEventKey && event.is_pressed():
-		match event.get_physical_scancode():
+		match event.get_physical_keycode():
 			KEY_DELETE:
 				if LinesList.get_item_count() > LinesList.get_selected_items().size(): # (Empty list is not allowed)
 					remove_selected_lines()
@@ -408,18 +411,18 @@ func _on_list_gui_input(event) -> void:
 			KEY_PAGEUP:
 				move_selected_up()
 			KEY_UP:
-				if event.get_control():
+				if event.is_ctrl_pressed():
 					move_selected_up()
 			KEY_PAGEDOWN:
 				move_selected_down()
 			KEY_DOWN:
-				if event.get_control():
+				if event.is_ctrl_pressed():
 					move_selected_down()
 	pass
 
 static func map_i18n_data(id: int, node: Dictionary) -> Dictionary:
-	var base_key = String(id) + "-dialog-line-"
+	var base_key = String.num_int64(id) + "-dialog-line-"
 	var i18n = {}
 	for idx in range(0, node.data.lines.size()):
-		i18n[base_key + String(idx)] = node.data.lines[idx]
+		i18n[base_key + String.num_int64(idx)] = node.data.lines[idx]
 	return i18n

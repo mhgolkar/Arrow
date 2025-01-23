@@ -6,10 +6,10 @@
 # (right-click popup)
 extends PopupPanel
 
-signal request_mind
+signal request_mind()
 
-onready var Main = get_tree().get_root().get_child(0)
-onready var Grid = get_node(Addressbook.GRID)
+@onready var Main = get_tree().get_root().get_child(0)
+@onready var Grid = $/root/Main/Editor/Center/Grid
 
 # cached click point position
 # (where user has right-clicked and probably wants the node to be placed)
@@ -18,16 +18,17 @@ var _CLICK_POINT_OFFSET:Vector2
 var _QUICK_INSERT_MODE:bool = false
 var _QUICK_INSERT_TARGET = null
 
-onready var NodeInsertFilterForm = get_node(Addressbook.GRID_CONTEXT_MENU.NODE_INSERT_FILTER_FORM)
-onready var NodeInsertFilterInput = get_node(Addressbook.GRID_CONTEXT_MENU.NODE_INSERT_FILTER_INPUT)
-onready var NodeInsertList = get_node(Addressbook.GRID_CONTEXT_MENU.NODE_INSERT_LIST)
-onready var InsertNodesButton = get_node(Addressbook.GRID_CONTEXT_MENU.INSERT_BUTTON)
-onready var EditToolBox = get_node(Addressbook.GRID_CONTEXT_MENU.EDIT_TOOLS_BOX)
-onready var CleanClipboardButton = get_node(Addressbook.GRID_CONTEXT_MENU.CLEAN_CLIPBOARD_BUTTON)
-onready var CopyNodesButton = get_node(Addressbook.GRID_CONTEXT_MENU.COPY_BUTTON)
-onready var CutNodesButton = get_node(Addressbook.GRID_CONTEXT_MENU.CUT_BUTTON)
-onready var PasteClipboardButton = get_node(Addressbook.GRID_CONTEXT_MENU.PASTE_BUTTON)
-onready var RemoveNodesButton = get_node(Addressbook.GRID_CONTEXT_MENU.REMOVE_BUTTON)
+@onready var MenuBox = $/root/Main/FloatingTools/Control/Context/Menu
+@onready var NodeInsertFilterForm = $/root/Main/FloatingTools/Control/Context/Menu/Node/Types/Actions
+@onready var NodeInsertFilterInput = $/root/Main/FloatingTools/Control/Context/Menu/Node/Types/Actions/Filter
+@onready var NodeInsertList = $/root/Main/FloatingTools/Control/Context/Menu/Node/Types/List
+@onready var InsertNodesButton = $/root/Main/FloatingTools/Control/Context/Menu/Node/Types/Actions/Insert
+@onready var EditToolBox = $/root/Main/FloatingTools/Control/Context/Menu/Tools
+@onready var ClearClipboardButton = $/root/Main/FloatingTools/Control/Context/Menu/Tools/ClearClipboard
+@onready var CopyNodesButton = $/root/Main/FloatingTools/Control/Context/Menu/Tools/Copy
+@onready var CutNodesButton = $/root/Main/FloatingTools/Control/Context/Menu/Tools/Cut
+@onready var PasteClipboardButton = $/root/Main/FloatingTools/Control/Context/Menu/Tools/Paste
+@onready var RemoveNodesButton = $/root/Main/FloatingTools/Control/Context/Menu/Tools/Remove
 
 const CLIPBOARD_MODE = Settings.CLIPBOARD_MODE
 
@@ -38,18 +39,19 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	self.connect("about_to_show", self, "_on_about_to_show", [], 0)
-	Main.connect("mind_initialized", self, "try_cache_node_type_list_from_mind", [true], CONNECT_ONESHOT)
-	NodeInsertFilterInput.connect("text_changed", self, "filter_node_insert_list_items_view", [], CONNECT_DEFERRED)
-	NodeInsertList.connect("multi_selected", self, "_on_node_insert_list_selection_altered", [], CONNECT_DEFERRED)
-	NodeInsertList.connect("item_selected", self, "_on_node_insert_list_selection_altered", [null], CONNECT_DEFERRED)
-	NodeInsertList.connect("item_activated", self, "_on_node_insert_list_item_activated", [], CONNECT_DEFERRED)
-	InsertNodesButton.connect("pressed", self, "_on_node_insert_selected_type_button_pressed", [], CONNECT_DEFERRED)
-	RemoveNodesButton.connect("pressed", self, "request_mind", ["remove_selected_nodes", null, true], CONNECT_DEFERRED)
-	CleanClipboardButton.connect("pressed", self, "request_mind", ["clean_clipboard", null, true], CONNECT_DEFERRED)
-	CopyNodesButton.connect("pressed", self, "request_mind", ["clipboard_push_selection", CLIPBOARD_MODE.COPY, true], CONNECT_DEFERRED)
-	CutNodesButton.connect("pressed", self, "request_mind", ["clipboard_push_selection", CLIPBOARD_MODE.CUT, true], CONNECT_DEFERRED)
-	PasteClipboardButton.connect("pressed", self, "request_clipboard_pull", [], CONNECT_DEFERRED)
+	self.about_to_popup.connect(self._on_about_to_popup)
+	self.window_input.connect(self._on_window_input)
+	Main.mind_initialized.connect(self.try_cache_node_type_list_from_mind.bind(true), CONNECT_ONE_SHOT)
+	NodeInsertFilterInput.text_changed.connect(self.filter_node_insert_list_items_view, CONNECT_DEFERRED)
+	NodeInsertList.multi_selected.connect(self._on_node_insert_list_selection_altered, CONNECT_DEFERRED)
+	NodeInsertList.item_selected.connect(self._on_node_insert_list_selection_altered.bind(null), CONNECT_DEFERRED)
+	NodeInsertList.item_activated.connect(self._on_node_insert_list_item_activated, CONNECT_DEFERRED)
+	InsertNodesButton.pressed.connect(self._on_node_insert_selected_type_button_pressed, CONNECT_DEFERRED)
+	RemoveNodesButton.pressed.connect(self._request_mind.bind("remove_selected_nodes", null, true), CONNECT_DEFERRED)
+	ClearClipboardButton.pressed.connect(self._request_mind.bind("clean_clipboard", null, true), CONNECT_DEFERRED)
+	CopyNodesButton.pressed.connect(self._request_mind.bind("clipboard_push_selection", CLIPBOARD_MODE.COPY, true), CONNECT_DEFERRED)
+	CutNodesButton.pressed.connect(self._request_mind.bind("clipboard_push_selection", CLIPBOARD_MODE.CUT, true), CONNECT_DEFERRED)
+	PasteClipboardButton.pressed.connect(self.request_clipboard_pull, CONNECT_DEFERRED)
 	pass
 
 func try_cache_node_type_list_from_mind(refresh_list:bool = true):
@@ -60,13 +62,30 @@ func try_cache_node_type_list_from_mind(refresh_list:bool = true):
 		filter_node_insert_list_items_view()
 	pass
 
-func show_up(position:Vector2, offset:Vector2, quick_insertion = null) -> void:
-	_CLICK_POINT_POSITION = position
+func show_up(on_position:Vector2, offset:Vector2, quick_insertion = null) -> void:
+	_CLICK_POINT_POSITION = on_position
 	_CLICK_POINT_OFFSET = offset
 	disable_insert_button_if_nothing_is_there()
 	set_quick_insert_mode(quick_insertion)
-	self.set_position(position)
+	self.set_position(on_position)
 	self.popup()
+	pass
+
+func _on_about_to_popup() -> void:
+	reset_quick_edit_buttons()
+	NodeInsertList.grab_focus.call_deferred()
+	NodeInsertList.ensure_current_is_visible.call_deferred()
+	pass
+
+func _on_window_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		# DEV: PopupPanel in previous versions of Godot (v3.x) would not block a second right-click on the underlying grid;
+		# so we could re-open context menu in another position without first closing the popup.
+		# In this version (v4.3 stable) we need to have a workaround for that:
+		if event.is_pressed() && event.get_button_mask() == MouseButtonMask.MOUSE_BUTTON_MASK_RIGHT:
+			var click_pose = event.get_position()
+			if ! MenuBox.get_rect().has_point(click_pose):
+				Grid._on_popup_request()
 	pass
 
 func disable_insert_button_if_nothing_is_there(force_disabled:bool = false) -> void:
@@ -88,34 +107,26 @@ func set_quick_insert_mode(target = null) -> void:
 	EditToolBox.set_visible( ! _QUICK_INSERT_MODE )
 	NodeInsertList.set_select_mode( ItemList.SELECT_SINGLE if _QUICK_INSERT_MODE else ItemList.SELECT_MULTI )
 	NodeInsertList.set_default_cursor_shape(
-		CURSOR_POINTING_HAND
-		if
-		( _QUICK_INSERT_MODE && Settings.QUICK_INSERT_NODES_ON_SINGLE_CLICK )
-		else
-		CURSOR_ARROW
+		Control.CursorShape.CURSOR_POINTING_HAND if ( _QUICK_INSERT_MODE && Settings.QUICK_INSERT_NODES_ON_SINGLE_CLICK )
+		else Control.CursorShape.CURSOR_ARROW
 	)
 	pass
 
 func reset_quick_edit_buttons():
 	var there_is_selection = (Grid._ALREADY_SELECTED_NODE_IDS.size() > 0)
 	var there_is_highlight = (Grid._HIGHLIGHTED_NODES.size() > 0)
-	var selected_nodes_are_removeable = there_is_selection && Main.Mind.batch_remove_resources(Grid._ALREADY_SELECTED_NODE_IDS, "nodes", true, true) # check-only
+	var selected_nodes_are_removable = there_is_selection && Main.Mind.batch_remove_resources(Grid._ALREADY_SELECTED_NODE_IDS, "nodes", true, true) # check-only
 	var selected_nodes_are_moveable = there_is_selection && (Main.Mind.immovable_nodes(Grid._ALREADY_SELECTED_NODE_IDS).size() == 0)
 	var clipboard_has_copy_or_paste = Main.Mind.clipboard_available()
 	PasteClipboardButton.set_disabled( clipboard_has_copy_or_paste == false )
-	RemoveNodesButton.set_disabled( selected_nodes_are_removeable == false )
+	RemoveNodesButton.set_disabled( selected_nodes_are_removable == false )
 	CutNodesButton.set_disabled( selected_nodes_are_moveable == false )
 	# copy and clean-clipboard buttons will switch visibility when there_is_selection
-	CleanClipboardButton.set("visible", there_is_selection == false && (clipboard_has_copy_or_paste || there_is_highlight))
-	CleanClipboardButton.set_disabled( there_is_selection || there_is_highlight == false )
+	ClearClipboardButton.set("visible", there_is_selection == false && (clipboard_has_copy_or_paste || there_is_highlight))
+	ClearClipboardButton.set_disabled( there_is_selection || there_is_highlight == false )
 	CopyNodesButton.set("visible", there_is_selection ||  clipboard_has_copy_or_paste == false )
 	CopyNodesButton.set_disabled( there_is_selection == false )
-	# Note: `InsertNodesButton` & `NodeInsertList` are handled elsewheres.
-	pass
-
-func _on_about_to_show() -> void:
-	NodeInsertList.ensure_current_is_visible()
-	reset_quick_edit_buttons()
+	# Note: `InsertNodesButton` & `NodeInsertList` are handled elsewhere.
 	pass
 
 func get_restricted_types() -> Array:
@@ -156,7 +167,7 @@ func _on_node_insert_list_selection_altered(_index, _selected) -> void:
 		insert_selected_nodes_from_list()
 	pass
 
-func _on_node_insert_list_item_activated(item_index:int) -> void:
+func _on_node_insert_list_item_activated(_item_index:int) -> void:
 	insert_selected_nodes_from_list()
 	pass
 
@@ -168,7 +179,7 @@ func insert_selected_nodes_from_list() -> void:
 	var items_indices = NodeInsertList.get_selected_items()
 	if items_indices.size() > 0 :
 		if _QUICK_INSERT_MODE:
-			request_mind("quick_insert_node", {
+			_request_mind("quick_insert_node", {
 				"node": NodeInsertList.get_item_metadata(items_indices[0]).type,
 				"offset": _CLICK_POINT_OFFSET,
 				"connection": _QUICK_INSERT_TARGET
@@ -178,15 +189,15 @@ func insert_selected_nodes_from_list() -> void:
 			for item_index in items_indices:
 				var item_type = NodeInsertList.get_item_metadata(item_index).type
 				item_types.push_back(item_type)
-			request_mind("insert_node", { "nodes": item_types, "offset": _CLICK_POINT_OFFSET }, true )
+			_request_mind("insert_node", { "nodes": item_types, "offset": _CLICK_POINT_OFFSET }, true )
 	pass
 
 func request_clipboard_pull() -> void:
-	request_mind("clipboard_pull", _CLICK_POINT_OFFSET, true)
+	_request_mind("clipboard_pull", _CLICK_POINT_OFFSET, true)
 	pass
 
-func request_mind(req:String, args, hide_menu:bool = false) -> void:
-	self.emit_signal("request_mind", req, args)
+func _request_mind(req:String, args, hide_menu:bool = false) -> void:
+	self.request_mind.emit(req, args)
 	# ... and close the grid context menu (popup)
 	if hide_menu:
 		self.hide()

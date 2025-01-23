@@ -1,66 +1,40 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://6lowkluyc5vv"]
 
-[ext_resource path="res://nodes/interaction/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/interaction/inspector.gd" id="1_sdbjx"]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="2_d4pg3"]
 
-[node name="InteractionType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 157.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_hea0a"]
+atlas = ExtResource("2_d4pg3")
+region = Rect2(240, 48, 48, 48)
 
-[node name="Interaction" type="VBoxContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 150.0
+[node name="Interaction" type="VBoxContainer"]
+offset_right = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_sdbjx")
 
-[node name="Label" type="Label" parent="Interaction"]
-margin_right = 239.0
-margin_bottom = 14.0
-text = "Actions"
+[node name="Entries" type="Label" parent="."]
+layout_mode = 2
+text = "Lines"
 
-[node name="Action" type="HBoxContainer" parent="Interaction"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 42.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Choice" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Edit" type="LineEdit" parent="Interaction/Action"]
-margin_right = 211.0
-margin_bottom = 24.0
+[node name="Edit" type="LineEdit" parent="Choice"]
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-placeholder_text = "Type in New Action"
-placeholder_alpha = 0.3
 
-[node name="Tools" type="MenuButton" parent="Interaction/Action"]
-margin_left = 215.0
-margin_right = 239.0
-margin_bottom = 24.0
-size_flags_vertical = 3
-text = "..."
+[node name="Tools" type="MenuButton" parent="Choice"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+icon = SubResource("AtlasTexture_hea0a")
 flat = false
-items = [ "{it'll be set by script}", null, 0, false, false, 0, 0, null, "", false ]
+icon_alignment = 1
+expand_icon = true
 
-[node name="Actions" type="ScrollContainer" parent="Interaction"]
-margin_top = 46.0
-margin_right = 239.0
-margin_bottom = 150.0
-rect_min_size = Vector2( 0, 50 )
-size_flags_horizontal = 3
+[node name="Actions" type="ItemList" parent="."]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
 size_flags_vertical = 3
-
-[node name="List" type="ItemList" parent="Interaction/Actions"]
-margin_right = 239.0
-margin_bottom = 104.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-items = [ "{ actions here }", null, false ]
 select_mode = 1
 allow_rmb_select = true

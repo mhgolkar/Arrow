@@ -157,7 +157,7 @@ class ConditionStatement {
                 "gt": { "text": "is Greater", "sign": ">" },
                 "gte": { "text": "is Greater or Equal", "sign": ">=" },
                 "ls": { "text": "is Lesser", "sign": "<" },
-                "lse": { "text": "is Lesser or Equa)", "sign": "<=" },
+                "lse": { "text": "is Lesser or Equal", "sign": "<=" },
             },
             "str": {
                 "rgx":{ "text": "Matches RegEx Pattern", "sign": "~=" },
@@ -178,9 +178,9 @@ class ConditionStatement {
         const KEYS_NEEDED_TO_PARSE = ["variable", "operator", "with"];
         
         const STATEMENT_TEMPLATE = "{ident} {operator_sign} {parameter}";
-        const COMPARED_TO_SELF_INITIAL_RIGHT_SIDE = "Self (Intial Value)";
+        const COMPARED_TO_SELF_INITIAL_RIGHT_SIDE = "Self (Initial Value)";
         
-        const STRING_VALUE_FORMATING_TEMPLATE = "`%s`";
+        const STRING_VALUE_FORMATTING_TEMPLATE = "`%s`";
     
         this.parse = function(){
             var parsed = null;
@@ -193,7 +193,7 @@ class ConditionStatement {
                 switch ( this.data.with[0] ){
                     case PARAMETER_MODES_ENUM_CODE.value:
                         if (this.variable.type == "str"){
-                            this.statement.parameter = STRING_VALUE_FORMATING_TEMPLATE.replace("%s", this.data.with[1]);
+                            this.statement.parameter = STRING_VALUE_FORMATTING_TEMPLATE.replace("%s", this.data.with[1]);
                         } else {
                             this.statement.parameter = this.data.with[1];
                         }
@@ -343,7 +343,7 @@ class ConditionStatement {
                         }
                         break;
                 }
-                // now we have whatever we need, just make sure the comparee value is right
+                // now we have whatever we need, just make sure the compared value is right
                 if ( with_value !== null ) {
                     if ( type == "str" && ( typeof with_value != 'string') ){
                         with_value = with_value.toString();

@@ -1,62 +1,53 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cgpylq3ks6osm"]
 
-[ext_resource path="res://nodes/user_input/node.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://diuv2wwle6ofn" path="res://nodes/user_input/icon.svg" id="1_bu2qu"]
+[ext_resource type="Script" path="res://nodes/user_input/node.gd" id="1_x273w"]
 
-[node name="UserInputNode" type="GraphNode"]
-margin_right = 218.0
-margin_bottom = 98.0
+[node name="UserInput" type="GraphNode"]
+offset_right = 256.0
 mouse_filter = 1
+resizable = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
 slot/0/right_enabled = true
-slot/0/right_type = 1
-slot/0/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_x273w")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 202.0
-margin_bottom = 92.0
+[node name="Display" type="VBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Ask" type="Label" parent="VBoxContainer"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 186.0
-margin_bottom = 14.0
-text = "﬍ Ask :"
+[node name="Icon" type="Button" parent="Display"]
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+text = "User Input"
+icon = ExtResource("1_bu2qu")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
 
-[node name="Prompt" type="Label" parent="VBoxContainer"]
-margin_top = 18.0
-margin_right = 186.0
-margin_bottom = 32.0
+[node name="Target" type="HBoxContainer" parent="Display"]
+layout_mode = 2
+
+[node name="Type" type="Label" parent="Display/Target"]
+layout_mode = 2
+text = "[Type]"
+
+[node name="Name" type="Label" parent="Display/Target"]
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 7
-text = "{the prompt question}"
-autowrap = true
+text = "[Variable Name]"
+horizontal_alignment = 1
 
-[node name="Set" type="Label" parent="VBoxContainer"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_top = 36.0
-margin_right = 186.0
-margin_bottom = 50.0
-text = "Set response to :"
-
-[node name="TargetVariable" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 54.0
-margin_right = 186.0
-margin_bottom = 68.0
-
-[node name="Type" type="Label" parent="VBoxContainer/TargetVariable"]
-margin_right = 38.0
-margin_bottom = 14.0
-text = "{type}"
-
-[node name="Name" type="Label" parent="VBoxContainer/TargetVariable"]
-margin_left = 42.0
-margin_right = 186.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-size_flags_vertical = 7
-text = "{target variable name}"
-autowrap = true
+[node name="Prompt" type="RichTextLabel" parent="Display"]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "[Prompt Question]"
+fit_content = true

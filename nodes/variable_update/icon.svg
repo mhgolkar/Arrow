@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Arrow Variable-Update Node Icon</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="9.3020835"
+     inkscape:cx="35.099663"
+     inkscape:cy="40.152295"
+     inkscape:window-width="1876"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="variable_update"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none">
+    <path
+       d="m 23.999999,45.971531 q -3.90605,0 -7.323844,-0.488256 Q 13.258361,44.995018 10.695016,44.14057 8.1316714,43.286121 6.6363867,42.157029 5.1411019,41.027936 5.1411019,39.685232 q 0,-1.403737 0,-2.960054 0,-1.556317 0,-3.326246 0,-0.366192 0.2136121,-0.7629 0.2136121,-0.396708 0.4577403,-0.7629 0.7934164,0.976512 2.5023132,1.861477 1.7088965,0.884964 4.0891455,1.495284 2.380249,0.610321 5.340303,0.976513 2.960053,0.366192 6.255783,0.366192 3.295729,0 6.255783,-0.366192 2.960053,-0.366192 5.340303,-0.976513 2.380249,-0.61032 4.089146,-1.495284 1.708897,-0.884965 2.502313,-1.861477 0.244128,0.366192 0.45774,0.7629 0.213612,0.396708 0.213612,0.7629 0,1.403737 0,2.899022 0,1.495285 0,3.387278 0,1.342704 -1.495284,2.471797 -1.495285,1.129092 -4.05863,1.983541 -2.563346,0.854448 -5.98114,1.342705 -3.417793,0.488256 -7.323843,0.488256 z m 0,-12.572599 q -3.90605,0 -7.323844,-0.488256 Q 13.258361,32.42242 10.695016,31.567972 8.1316714,30.713523 6.6363867,29.584431 5.1411019,28.455338 5.1411019,27.173665 q 0,-1.464768 0,-3.021085 0,-1.556317 0,-3.265214 0,-0.244128 0.091548,-0.488256 0.091548,-0.244128 0.2136121,-0.488256 v 0 q 0.061032,-0.183096 0.1830961,-0.335676 0.122064,-0.152581 0.1830961,-0.274645 0.7934164,1.037545 2.5023132,1.891993 1.7088966,0.854449 4.0891456,1.464769 2.380249,0.61032 5.340303,0.976513 Q 20.704269,24 23.999999,24 q 3.295729,0 6.255783,-0.366192 2.960053,-0.366193 5.340303,-0.976513 2.380249,-0.61032 4.089146,-1.464769 1.708897,-0.854448 2.502313,-1.891993 0.06103,0.122064 0.183096,0.274645 0.122064,0.15258 0.183096,0.335676 v 0 q 0.122064,0.244128 0.213612,0.488256 0.09155,0.244128 0.09155,0.488256 0,1.342705 0,2.83799 0,1.495284 0,3.448309 0,1.281673 -1.495284,2.410766 -1.495285,1.129092 -4.05863,1.983541 -2.563346,0.854448 -5.98114,1.342704 -3.417795,0.488256 -7.323845,0.488256 z m 0,-12.511566 q -3.90605,0 -7.323844,-0.488256 Q 13.258361,19.910854 10.695016,19.056405 8.1316714,18.201957 6.6363867,17.042348 5.1411019,15.88274 5.1411019,14.601067 q 0,-0.732384 0,-1.525801 0,-0.793416 0,-1.647865 0,-0.732384 0,-1.495284 0,-0.7629004 0,-1.6173489 0,-1.2816726 1.4952848,-2.4412812 1.4952847,-1.1596086 4.0586293,-2.014057 2.563345,-0.8544484 5.981139,-1.3427047 3.417794,-0.4882562 7.323844,-0.4882562 3.90605,0 7.323843,0.4882562 3.417794,0.4882563 5.98114,1.3427047 2.563345,0.8544484 4.05863,2.014057 1.495284,1.1596086 1.495284,2.4412812 0,0.7323844 0,1.5258008 0,0.7934161 0,1.5868321 0,0.732385 0,1.525801 0,0.793417 0,1.647865 0,1.281673 -1.495284,2.441281 -1.495285,1.159609 -4.05863,2.014057 -2.563346,0.854449 -5.98114,1.342705 -3.417793,0.488256 -7.323843,0.488256 z m 0,-15.6852315 q -5.187723,0 -8.880161,0.9154804 Q 11.4274,7.0330954 11.4274,8.314768 q 0,1.2816727 3.692438,2.197153 3.692438,0.91548 8.880161,0.91548 5.187722,0 8.88016,-0.91548 3.692438,-0.9154803 3.692438,-2.197153 0,-1.2816727 -3.692438,-2.1971531 -3.692438,-0.9154804 -8.88016,-0.9154804 z"
+       id="text1"
+       style="font-size:62.4968px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';fill:#ffffff;stroke-width:19.5302;stroke-linecap:round;stroke-dasharray:19.5302, 39.0605;stroke-opacity:0.5"
+       inkscape:label="icon"
+       aria-label="" />
+    <text
+       xml:space="preserve"
+       style="font-size:62.4968px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:none;fill:#ffffff;stroke-width:19.5302;stroke-linecap:round;stroke-dasharray:19.5302, 39.0605;stroke-opacity:0.5"
+       x="5.1411023"
+       y="45.635857"
+       id="text2"
+       inkscape:label="nerd"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="5.1411023"
+         y="45.635857"
+         style="font-size:62.4968px;stroke-width:19.5302"></tspan></text>
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Arrow Variable-Update Node Icon</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. H. Golkar</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -1,308 +1,227 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://c3u40mxoyeflm"]
 
-[ext_resource path="res://nodes/user_input/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/user_input/inspector.gd" id="1_dffcf"]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="2_l147b"]
 
-[node name="UserInputType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 271.0
-script = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="AtlasTexture_ns8q2"]
+atlas = ExtResource("2_l147b")
+region = Rect2(192, 192, 48, 48)
 
-[node name="UserInput" type="VBoxContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 264.0
+[node name="UserInput" type="VBoxContainer"]
+offset_right = 256.0
+offset_bottom = 216.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_dffcf")
 
-[node name="PromptFroLabel" type="Label" parent="UserInput"]
-margin_right = 239.0
-margin_bottom = 14.0
-text = "Ask player:"
+[node name="Ask" type="Label" parent="."]
+layout_mode = 2
+text = "Ask player"
 
-[node name="PromptFor" type="TextEdit" parent="UserInput"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 74.0
-rect_min_size = Vector2( 0, 50 )
-size_flags_horizontal = 3
+[node name="Prompt" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 5.0
-breakpoint_gutter = true
-fold_gutter = true
-wrap_enabled = true
+wrap_mode = 1
 
-[node name="DirectToLabel" type="Label" parent="UserInput"]
-margin_top = 78.0
-margin_right = 239.0
-margin_bottom = 92.0
-text = "Direct user input to:"
+[node name="Target" type="Label" parent="."]
+layout_mode = 2
+text = "Set user input to"
 
-[node name="Filterable" type="HBoxContainer" parent="UserInput"]
-margin_top = 96.0
-margin_right = 239.0
-margin_bottom = 116.0
+[node name="Variable" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="DirectToVariable" type="OptionButton" parent="UserInput/Filterable"]
-margin_right = 223.0
-margin_bottom = 20.0
+[node name="List" type="OptionButton" parent="Variable"]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true
 
-[node name="GlobalFilters" type="Button" parent="UserInput/Filterable"]
-margin_left = 227.0
-margin_right = 239.0
-margin_bottom = 20.0
-hint_tooltip = "Apply Global Filters
+[node name="Filtered" type="Button" parent="Variable"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Apply Global Filters
 
 It will follow the same listing instructions
 that are defined in the Variables inspector.
 + Current variable of the node is always listed."
 toggle_mode = true
-text = ""
+icon = SubResource("AtlasTexture_ns8q2")
+icon_alignment = 1
+expand_icon = true
 
-[node name="Customization" type="VBoxContainer" parent="UserInput"]
-margin_top = 120.0
-margin_right = 239.0
-margin_bottom = 248.0
+[node name="Customize" type="Label" parent="."]
+layout_mode = 2
+text = "Cstomize controls"
 
-[node name="Label" type="Label" parent="UserInput/Customization"]
-margin_right = 239.0
-margin_bottom = 14.0
-text = "Input Properties:"
+[node name="Customization" type="PanelContainer" parent="."]
+layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="UserInput/Customization"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 128.0
-
-[node name="String" type="VBoxContainer" parent="UserInput/Customization/PanelContainer"]
+[node name="String" type="VBoxContainer" parent="Customization"]
 visible = false
-margin_left = 7.0
-margin_top = -95.0
-margin_right = 232.0
-margin_bottom = -15.0
+layout_mode = 2
 
-[node name="Pattern" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/String"]
-margin_right = 225.0
-margin_bottom = 24.0
+[node name="Pattern" type="HBoxContainer" parent="Customization/String"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/String/Pattern"]
-margin_top = 5.0
-margin_right = 50.0
-margin_bottom = 19.0
-text = "Pattern:"
-
-[node name="LineEdit" type="LineEdit" parent="UserInput/Customization/PanelContainer/String/Pattern"]
-margin_left = 54.0
-margin_right = 225.0
-margin_bottom = 24.0
-hint_tooltip = "User data shall match this RegEx pattern in order to be input.
-Empty pattern allows any value."
+[node name="Label" type="Label" parent="Customization/String/Pattern"]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "Pattern"
+
+[node name="LineEdit" type="LineEdit" parent="Customization/String/Pattern"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 placeholder_text = "Regular Expression"
 
-[node name="Default" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/String"]
-margin_top = 28.0
-margin_right = 225.0
-margin_bottom = 52.0
+[node name="Default" type="HBoxContainer" parent="Customization/String"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/String/Default"]
-margin_top = 5.0
-margin_right = 50.0
-margin_bottom = 19.0
-text = "Default:"
-
-[node name="LineEdit" type="LineEdit" parent="UserInput/Customization/PanelContainer/String/Default"]
-margin_left = 54.0
-margin_right = 225.0
-margin_bottom = 24.0
-hint_tooltip = "Default or preset value for the input.
-Runtime behvaior for values not matching the pattern, depends on implementation."
+[node name="Label" type="Label" parent="Customization/String/Default"]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "Default"
+
+[node name="LineEdit" type="LineEdit" parent="Customization/String/Default"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 placeholder_text = "Preset value"
 
-[node name="Extra" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/String"]
-margin_top = 56.0
-margin_right = 225.0
-margin_bottom = 80.0
+[node name="Extra" type="HBoxContainer" parent="Customization/String"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/String/Extra"]
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 19.0
-text = "Extra:"
-
-[node name="LineEdit" type="LineEdit" parent="UserInput/Customization/PanelContainer/String/Extra"]
-margin_left = 39.0
-margin_right = 225.0
-margin_bottom = 24.0
-hint_tooltip = "Depending on the runtime implementation, extra can be used as hint, placeholder, tooltip, etc."
+[node name="Label" type="Label" parent="Customization/String/Extra"]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "Extra"
+
+[node name="LineEdit" type="LineEdit" parent="Customization/String/Extra"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 placeholder_text = "Placeholder, Hint, etc."
 
-[node name="Number" type="VBoxContainer" parent="UserInput/Customization/PanelContainer"]
+[node name="Number" type="VBoxContainer" parent="Customization"]
 visible = false
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 232.0
-margin_bottom = 115.0
+layout_mode = 2
 
-[node name="Min" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Number"]
-margin_right = 225.0
-margin_bottom = 24.0
+[node name="Min" type="HBoxContainer" parent="Customization/Number"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Number/Min"]
-margin_top = 5.0
-margin_right = 28.0
-margin_bottom = 19.0
-text = "Min:"
-
-[node name="SpinBox" type="SpinBox" parent="UserInput/Customization/PanelContainer/Number/Min"]
-margin_left = 32.0
-margin_right = 225.0
-margin_bottom = 24.0
-hint_tooltip = "Minimum acceptable value
-(inclusive.)"
+[node name="Label" type="Label" parent="Customization/Number/Min"]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "Min"
+
+[node name="SpinBox" type="SpinBox" parent="Customization/Number/Min"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 min_value = -100.0
 value = -100.0
 rounded = true
 allow_greater = true
 allow_lesser = true
+alignment = 1
 
-[node name="Max" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Number"]
-margin_top = 28.0
-margin_right = 225.0
-margin_bottom = 52.0
+[node name="Max" type="HBoxContainer" parent="Customization/Number"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Number/Max"]
-margin_top = 5.0
-margin_right = 30.0
-margin_bottom = 19.0
-text = "Max:"
-
-[node name="SpinBox" type="SpinBox" parent="UserInput/Customization/PanelContainer/Number/Max"]
-margin_left = 34.0
-margin_right = 225.0
-margin_bottom = 24.0
-hint_tooltip = "Maximum acceptable value
-(inclusive.)"
+[node name="Label" type="Label" parent="Customization/Number/Max"]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "Max"
+
+[node name="SpinBox" type="SpinBox" parent="Customization/Number/Max"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 min_value = -100.0
 value = 100.0
 rounded = true
 allow_greater = true
 allow_lesser = true
+alignment = 1
 
-[node name="Step" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Number"]
-margin_top = 56.0
-margin_right = 225.0
-margin_bottom = 80.0
+[node name="Step" type="HBoxContainer" parent="Customization/Number"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Number/Step"]
-margin_top = 5.0
-margin_right = 32.0
-margin_bottom = 19.0
-text = "Step:"
-
-[node name="SpinBox" type="SpinBox" parent="UserInput/Customization/PanelContainer/Number/Step"]
-margin_left = 36.0
-margin_right = 225.0
-margin_bottom = 24.0
-hint_tooltip = "Non-zero absolute value for input steps."
+[node name="Label" type="Label" parent="Customization/Number/Step"]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "Step"
+
+[node name="SpinBox" type="SpinBox" parent="Customization/Number/Step"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 min_value = -100.0
 value = 1.0
 rounded = true
 allow_greater = true
 allow_lesser = true
+alignment = 1
 
-[node name="Value" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Number"]
-margin_top = 84.0
-margin_right = 225.0
-margin_bottom = 108.0
+[node name="Value" type="HBoxContainer" parent="Customization/Number"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Number/Value"]
-margin_top = 5.0
-margin_right = 39.0
-margin_bottom = 19.0
-text = "Value:"
-
-[node name="SpinBox" type="SpinBox" parent="UserInput/Customization/PanelContainer/Number/Value"]
-margin_left = 43.0
-margin_right = 225.0
-margin_bottom = 24.0
-hint_tooltip = "Default or preset value.
-Runtime behvaior for values out of bound, depends on implementation."
+[node name="Label" type="Label" parent="Customization/Number/Value"]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "Value"
+
+[node name="SpinBox" type="SpinBox" parent="Customization/Number/Value"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 min_value = -100.0
 rounded = true
 allow_greater = true
 allow_lesser = true
+alignment = 1
 
-[node name="Boolean" type="VBoxContainer" parent="UserInput/Customization/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 232.0
-margin_bottom = 103.0
+[node name="Boolean" type="VBoxContainer" parent="Customization"]
+layout_mode = 2
 
-[node name="False" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Boolean"]
-margin_right = 225.0
-margin_bottom = 24.0
+[node name="False" type="HBoxContainer" parent="Customization/Boolean"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Boolean/False"]
-margin_top = 5.0
-margin_right = 37.0
-margin_bottom = 19.0
-text = "False:"
-
-[node name="LineEdit" type="LineEdit" parent="UserInput/Customization/PanelContainer/Boolean/False"]
-margin_left = 41.0
-margin_right = 225.0
-margin_bottom = 24.0
+[node name="Label" type="Label" parent="Customization/Boolean/False"]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "False"
+
+[node name="LineEdit" type="LineEdit" parent="Customization/Boolean/False"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 placeholder_text = "Negative"
 
-[node name="True" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Boolean"]
-margin_top = 28.0
-margin_right = 225.0
-margin_bottom = 52.0
+[node name="True" type="HBoxContainer" parent="Customization/Boolean"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Boolean/True"]
-margin_top = 5.0
-margin_right = 32.0
-margin_bottom = 19.0
-text = "True:"
-
-[node name="LineEdit" type="LineEdit" parent="UserInput/Customization/PanelContainer/Boolean/True"]
-margin_left = 36.0
-margin_right = 225.0
-margin_bottom = 24.0
+[node name="Label" type="Label" parent="Customization/Boolean/True"]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "True"
+
+[node name="LineEdit" type="LineEdit" parent="Customization/Boolean/True"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 placeholder_text = "Positive"
 
-[node name="Default" type="HBoxContainer" parent="UserInput/Customization/PanelContainer/Boolean"]
-margin_top = 56.0
-margin_right = 225.0
-margin_bottom = 96.0
+[node name="Default" type="HBoxContainer" parent="Customization/Boolean"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="UserInput/Customization/PanelContainer/Boolean/Default"]
-margin_top = 13.0
-margin_right = 81.0
-margin_bottom = 27.0
-text = "Preset State:"
-
-[node name="CheckButton" type="CheckButton" parent="UserInput/Customization/PanelContainer/Boolean/Default"]
-margin_left = 85.0
-margin_right = 161.0
-margin_bottom = 40.0
-hint_tooltip = "Whether the False or True case should be selected when input is prompted."
-pressed = true
-
-[node name="MarginContainer" type="MarginContainer" parent="UserInput"]
-margin_top = 252.0
-margin_right = 239.0
-margin_bottom = 264.0
+[node name="Label" type="Label" parent="Customization/Boolean/Default"]
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+text = "Default"
+
+[node name="CheckButton" type="CheckButton" parent="Customization/Boolean/Default"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+button_pressed = true
+text = "Preset True"

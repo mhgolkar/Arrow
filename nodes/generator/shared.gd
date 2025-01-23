@@ -25,9 +25,6 @@ const DEFAULT_CHARACTER_POOL = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXx
 
 const MAX_ARGS_PREVIEW_LENGTH = 10
 
-const Generators = Helpers.Generators
-const Utils = Helpers.Utils
-
 # Returns a preview of arguments for easier review or null when it does not need to be shown.
 # Any other value shall be interpreted as invalid state.
 static func render_arguments_message(data: Dictionary):
@@ -44,14 +41,14 @@ static func render_arguments_message(data: Dictionary):
 				if args is Array && args.size() == 2:
 					arguments_str = "{length} of {pool}".format({
 						"length": args[1],
-						"pool": "`" + Utils.ellipsis(
+						"pool": "`" + Helpers.Utils.ellipsis(
 							args[0] if args[0].length() > 0 else DEFAULT_CHARACTER_POOL,
 							MAX_ARGS_PREVIEW_LENGTH
 						) + "`"
 					})
 			"strst":
 				if args is String && args.length() > 0:
-					arguments_str = "`" + Utils.ellipsis(args, MAX_ARGS_PREVIEW_LENGTH) + "`"
+					arguments_str = "`" + Helpers.Utils.ellipsis(args, MAX_ARGS_PREVIEW_LENGTH) + "`"
 			"rnbln":
 				arguments_str = null
 	return arguments_str
@@ -65,7 +62,7 @@ class generator :
 		pass
 	
 	# returns the new value on successful evaluation, otherwise `null`
-	func generate(node_data:Dictionary, variables_current:Dictionary):
+	func generate(node_data:Dictionary, _variables_current:Dictionary):
 		var result = null
 		if node_data.has_all(["variable", "method"]) && (node_data.variable is int) && (node_data.variable >= 0):
 			var target_var = Mind.lookup_resource(node_data.variable, "variables")
@@ -88,7 +85,7 @@ class generator :
 				arguments[0] is int && arguments[0] >= 0 &&
 				arguments[1] is int && arguments[1] >= 1
 			):
-				result = Generators.advance_random_integer(
+				result = Helpers.Generators.advance_random_integer(
 					arguments[0], arguments[1], # from, to,
 					arguments[2], # negative,
 					arguments[3], arguments[4] #  even, odd 
@@ -120,5 +117,4 @@ class generator :
 		return result
 
 	func generate_rnbln(_null) -> bool:
-		return Generators.random_boolean()
-	
+		return Helpers.Generators.random_boolean()

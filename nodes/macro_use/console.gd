@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Macro_Use Node Type Console
-extends PanelContainer
+# Macro-Use Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,7 +11,7 @@ signal status_code
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 # there is only one slot that may be connected
 # (to another node in the parent scene)
@@ -27,11 +27,11 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var MacroUseLabel = get_node("./MacroUsePlay/MacroUseTitle/Label")
-onready var SkipButton = get_node("./MacroUsePlay/Actions/Skip")
-onready var ReplayButton = get_node("./MacroUsePlay/Actions/Replay")
+@onready var MacroUseLabel = $Play/Head/Title
+@onready var SkipButton = $Play/Actions/Skip
+@onready var ReplayButton = $Play/Actions/Replay
 
-onready var TERMINAL = get_node("./MacroUsePlay/PanelContainer/MacroUseSubConsole")
+@onready var TERMINAL = $Play/SubConsole/Terminal
 
 const MACRO_USE_LABEL_FORMAT_STRING = (
 	"{user}: {target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS else "{user}: {target_name} ({target_uid})"
@@ -48,8 +48,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	SkipButton.connect("pressed", self, "play_forward_from", [], CONNECT_DEFERRED)
-	ReplayButton.connect("pressed", self, "replay_macro", [], CONNECT_DEFERRED)
+	SkipButton.pressed.connect(self.play_forward_from, CONNECT_DEFERRED)
+	ReplayButton.pressed.connect(self.replay_macro, CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -108,7 +108,7 @@ func replay_macro() -> void:
 			the_macro is Dictionary &&
 			the_macro.has("entry") && the_macro.entry is int && the_macro.entry >= 0
 		):
-			self.emit_signal("play_forward", the_macro.entry, 0)
+			self.play_forward.emit(the_macro.entry, 0)
 		else:
 			print(
 				"Macro-use %s skipped, trying to run macro %s with no valid entry (%s)"
@@ -133,9 +133,9 @@ func play_forward_from(slot_idx:int = PLAY_MACRO_END_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 
@@ -150,7 +150,7 @@ func set_view_unplayed() -> void:
 	SkipButton.set("visible", true)
 	pass
 
-func set_view_played(slot_idx:int = PLAY_MACRO_END_SLOT) -> void:
+func set_view_played(_slot_idx:int = PLAY_MACRO_END_SLOT) -> void:
 	SkipButton.set("visible", false)
 	reset_replay(false)
 	pass

@@ -2,18 +2,16 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Tag-Match Node Type Inspector
-extends ScrollContainer
+# Tag-Match Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var ListHelpers = Helpers.ListHelpers
+@onready var Main = get_tree().get_root().get_child(0)
 
 const DEFAULT_NODE_DATA = TagMatchSharedClass.DEFAULT_NODE_DATA
 
 const SAVE_UNOPTIMIZED = TagMatchSharedClass.SAVE_UNOPTIMIZED
 
-const DONT_ALLOW_BLANK_PATTERNS = false # ~ tag values can be blank by convention
+const DO_NOT_ALLOW_BLANK_PATTERNS = false # ~ tag values can be blank by convention
 const NO_CHARACTER_TEXT = "No Character Available"
 const NO_CHARACTER_ID = -254
 const RESERVED_BLANK_KEYWORD = "--BLANK--"
@@ -25,16 +23,16 @@ var _PROJECT_CHARACTERS_CACHE = {}
 
 var This = self
 
-onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
+@onready var CharactersInspector = Main.Mind.Inspector.Tab.Characters
 
-onready var Character = get_node("./TagMatch/Character/Filterable/Selection")
-onready var GlobalFilters = get_node("./TagMatch/Character/Filterable/GlobalFilters")
-onready var TagKey = get_node("./TagMatch/TagKey/LineEdit")
-onready var Pattern = get_node("./TagMatch/Pattern/Edit")
-onready var Tools = get_node("./TagMatch/Pattern/Tools")
-onready var ToolsPopup = Tools.get_popup()
-onready var PatternsList = get_node("./TagMatch/Patterns/List")
-onready var RegEx = get_node("./TagMatch/RegEx")
+@onready var Character = $Selector/List
+@onready var GlobalFilters = $Selector/Filtered
+@onready var TagKey = $TagKey
+@onready var Pattern = $Pattern/Edit
+@onready var Tools = $Pattern/Tools
+@onready var ToolsPopup = Tools.get_popup()
+@onready var PatternsList = $Patterns
+@onready var RegExp = $RegExp
 
 const TOOLS_MENU_BUTTON_POPUP = { # <id>:int { label:string, action:string<function-ident-to-be-called> }
 	0: { "label": "Append New Pattern", "action": "append_new_pattern" },
@@ -58,14 +56,14 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	GlobalFilters.connect("pressed", self, "refresh_character_list", [], CONNECT_DEFERRED)
-	ToolsPopup.connect("id_pressed", self, "_on_tools_popup_menu_id_pressed", [], CONNECT_DEFERRED)
-	Pattern.connect("text_changed", self, "_toggle_available_tools_smartly", [], CONNECT_DEFERRED)
-	Pattern.connect("text_entered", self, "append_new_pattern", [], CONNECT_DEFERRED)
-	PatternsList.connect("multi_selected", self, "_toggle_available_tools_smartly", [], CONNECT_DEFERRED)
-	PatternsList.connect("item_rmb_selected", self, "_on_right_click_item_selection", [], CONNECT_DEFERRED)
-	PatternsList.connect("item_activated", self, "_on_double_click_item_activated", [], CONNECT_DEFERRED)
-	PatternsList.connect("gui_input", self, "_on_list_gui_input", [], CONNECT_DEFERRED)
+	GlobalFilters.pressed.connect(self.refresh_character_list, CONNECT_DEFERRED)
+	ToolsPopup.id_pressed.connect(self._on_tools_popup_menu_id_pressed, CONNECT_DEFERRED)
+	Pattern.text_changed.connect(self._toggle_available_tools_smartly, CONNECT_DEFERRED)
+	Pattern.text_submitted.connect(self.append_new_pattern, CONNECT_DEFERRED)
+	PatternsList.multi_selected.connect(self._toggle_available_tools_smartly, CONNECT_DEFERRED)
+	PatternsList.item_activated.connect(self._on_double_click_item_activated, CONNECT_DEFERRED)
+	PatternsList.item_clicked.connect(self._on_item_clicked, CONNECT_DEFERRED)
+	PatternsList.gui_input.connect(self._on_list_gui_input, CONNECT_DEFERRED)
 	pass
 	
 func load_tools_menu() -> void:
@@ -87,8 +85,8 @@ func _on_tools_popup_menu_id_pressed(pressed_item_id:int) -> void:
 	pass
 
 # Note: it needs `x,y,z` nulls, because it's connected to different signals with different number of passed arguments
-func _toggle_available_tools_smartly(x=null, y=null, z=null) -> void:
-	var new_string_is_blank = DONT_ALLOW_BLANK_PATTERNS && ( Pattern.get_text().length() == 0 )
+func _toggle_available_tools_smartly(_x=null, _y=null, _z=null) -> void:
+	var new_string_is_blank = DO_NOT_ALLOW_BLANK_PATTERNS && ( Pattern.get_text().length() == 0 )
 	var selection_size = PatternsList.get_selected_items().size()
 	var all_items_count = PatternsList.get_item_count()
 	ToolsPopup.set_item_disabled( _TOOLS_ITEM_INDEX_BY_ACTION["append_new_pattern"], new_string_is_blank )
@@ -106,49 +104,49 @@ func move_item(to_final_idx:int = 0, from:int = -1) -> void:
 			PatternsList.move_item(from, to_final_idx)
 	pass
 
-func move_selected_top(selected_patterns_idxs:Array = []) -> void:
+func move_selected_top(selected_patterns_indices:Array = []) -> void:
 	if PatternsList.get_item_count() > 1 :
-		if selected_patterns_idxs.size() == 0:
-			selected_patterns_idxs = PatternsList.get_selected_items()
-		if selected_patterns_idxs.size() >= 1:
-			selected_patterns_idxs.sort()
-			while selected_patterns_idxs.size() > 0 :
-				var the_first_item = selected_patterns_idxs.pop_front()
+		if selected_patterns_indices.size() == 0:
+			selected_patterns_indices = PatternsList.get_selected_items()
+		if selected_patterns_indices.size() >= 1:
+			selected_patterns_indices.sort()
+			while selected_patterns_indices.size() > 0 :
+				var the_first_item = selected_patterns_indices.pop_front()
 				move_item(0, the_first_item)
 	pass
 
-func move_selected_end(selected_patterns_idxs:Array = []) -> void:
+func move_selected_end(selected_patterns_indices:Array = []) -> void:
 	if PatternsList.get_item_count() > 1 :
-		if selected_patterns_idxs.size() == 0:
-			selected_patterns_idxs = PatternsList.get_selected_items()
-		if selected_patterns_idxs.size() >= 1:
-			selected_patterns_idxs.sort()
+		if selected_patterns_indices.size() == 0:
+			selected_patterns_indices = PatternsList.get_selected_items()
+		if selected_patterns_indices.size() >= 1:
+			selected_patterns_indices.sort()
 			var end = PatternsList.get_item_count() - 1;
-			while selected_patterns_idxs.size() > 0 :
-				var the_first_item = selected_patterns_idxs.pop_front()
+			while selected_patterns_indices.size() > 0 :
+				var the_first_item = selected_patterns_indices.pop_front()
 				move_item(end, the_first_item)
 	pass
 
-func move_selected_up(selected_patterns_idxs:Array = []) -> void:
+func move_selected_up(selected_patterns_indices:Array = []) -> void:
 	if PatternsList.get_item_count() > 1 :
-		if selected_patterns_idxs.size() == 0:
-			selected_patterns_idxs = PatternsList.get_selected_items()
-		if selected_patterns_idxs.size() >= 1:
-			selected_patterns_idxs.sort()
-			while selected_patterns_idxs.size() > 0 :
-				var nth = selected_patterns_idxs.pop_front()
+		if selected_patterns_indices.size() == 0:
+			selected_patterns_indices = PatternsList.get_selected_items()
+		if selected_patterns_indices.size() >= 1:
+			selected_patterns_indices.sort()
+			while selected_patterns_indices.size() > 0 :
+				var nth = selected_patterns_indices.pop_front()
 				PatternsList.move_item(nth, max(0, nth - 1))
 	pass
 
-func move_selected_down(selected_patterns_idxs:Array = []) -> void:
+func move_selected_down(selected_patterns_indices:Array = []) -> void:
 	if PatternsList.get_item_count() > 1 :
-		if selected_patterns_idxs.size() == 0:
-			selected_patterns_idxs = PatternsList.get_selected_items()
-		if selected_patterns_idxs.size() >= 1:
-			selected_patterns_idxs.sort()
+		if selected_patterns_indices.size() == 0:
+			selected_patterns_indices = PatternsList.get_selected_items()
+		if selected_patterns_indices.size() >= 1:
+			selected_patterns_indices.sort()
 			var end = PatternsList.get_item_count() - 1;
-			while selected_patterns_idxs.size() > 0 :
-				var nth = selected_patterns_idxs.pop_back()
+			while selected_patterns_indices.size() > 0 :
+				var nth = selected_patterns_indices.pop_back()
 				PatternsList.move_item(nth, min(end, nth + 1))
 	pass
 
@@ -166,11 +164,11 @@ func append_new_pattern(text:String = "") -> void:
 	PatternsList.ensure_current_is_visible()
 	pass
 
-func extract_selected_pattern(selected_patterns_idxs:Array = []) -> void:
-	if selected_patterns_idxs.size() == 0:
-		selected_patterns_idxs = PatternsList.get_selected_items()
-	if selected_patterns_idxs.size() >= 1:
-		var item_idx_to_extract = selected_patterns_idxs[0]
+func extract_selected_pattern(selected_patterns_indices:Array = []) -> void:
+	if selected_patterns_indices.size() == 0:
+		selected_patterns_indices = PatternsList.get_selected_items()
+	if selected_patterns_indices.size() >= 1:
+		var item_idx_to_extract = selected_patterns_indices[0]
 		var item_text = PatternsList.get_item_text(item_idx_to_extract)
 		Pattern.set_text(item_text)
 		PatternsList.remove_item(item_idx_to_extract)
@@ -178,34 +176,37 @@ func extract_selected_pattern(selected_patterns_idxs:Array = []) -> void:
 	_toggle_available_tools_smartly()
 	pass
 	
-func replace_selected_pattern(selected_patterns_idxs:Array = []) -> void:
-	if selected_patterns_idxs.size() == 0:
-		selected_patterns_idxs = PatternsList.get_selected_items()
-	if selected_patterns_idxs.size() >= 1:
-		var to_idx_for_replacement = selected_patterns_idxs[0]
-		remove_selected_patterns(selected_patterns_idxs)
+func replace_selected_pattern(selected_patterns_indices:Array = []) -> void:
+	if selected_patterns_indices.size() == 0:
+		selected_patterns_indices = PatternsList.get_selected_items()
+	if selected_patterns_indices.size() >= 1:
+		var to_idx_for_replacement = selected_patterns_indices[0]
+		remove_selected_patterns(selected_patterns_indices)
 		var new_pattern = Pattern.get("text")
 		PatternsList.add_item( new_pattern if new_pattern.length() > 0 else RESERVED_BLANK_KEYWORD )
 		Pattern.clear()
 		move_item(to_idx_for_replacement) # by default moves the last item
 	pass
 
-func remove_selected_patterns(selected_patterns_idxs:Array = []) -> void:
-	if selected_patterns_idxs.size() == 0:
-		selected_patterns_idxs = PatternsList.get_selected_items()
+func remove_selected_patterns(selected_patterns_indices:Array = []) -> void:
+	if selected_patterns_indices.size() == 0:
+		selected_patterns_indices = PatternsList.get_selected_items()
 	# we shall remove items from the last one because 
 	# removal of a preceding item will change indices for others and you may remove innocent items!
-	if selected_patterns_idxs.size() >= 1:
-		selected_patterns_idxs.sort()
-		while selected_patterns_idxs.size() > 0 :
-			var the_last_item = selected_patterns_idxs.pop_back()
+	if selected_patterns_indices.size() >= 1:
+		selected_patterns_indices.sort()
+		while selected_patterns_indices.size() > 0 :
+			var the_last_item = selected_patterns_indices.pop_back()
 			PatternsList.remove_item(the_last_item)
 	pass
 
-func _on_right_click_item_selection(item_idx:int, _click_position:Vector2) -> void:
-	var all_items_count = PatternsList.get_item_count()
-	if all_items_count > 1 :
-		extract_selected_pattern([item_idx])
+func _on_item_clicked(item_idx:int, _click_position:Vector2, mouse_button_index:int) -> void:
+	match mouse_button_index:
+		# Extract on right-click
+		MOUSE_BUTTON_RIGHT:
+			var all_items_count = PatternsList.get_item_count()
+			if all_items_count > 1 :
+				extract_selected_pattern([item_idx])
 	pass
 
 func _on_double_click_item_activated(item_idx:int) -> void:
@@ -252,9 +253,9 @@ func refresh_character_list(select_by_res_id:int = -1) -> void:
 			if apply_globals && global_filters.SORT_ALPHABETICAL:
 				listing_keys.sort()
 			var item_index := 0
-			for name in listing_keys:
-				var id = listing[name]
-				Character.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+			for char_name in listing_keys:
+				var id = listing[char_name]
+				Character.add_item(char_name if already != id || apply_globals == false else "["+ char_name +"]", id)
 				Character.set_item_metadata(item_index, id)
 				item_index += 1
 			if select_by_res_id >= 0 :
@@ -273,7 +274,7 @@ func update_patterns_list(patterns:Array = [], clear:bool = false) -> void:
 	if clear:
 		PatternsList.clear()
 	for pattern in patterns:
-		if pattern is String && (pattern.length() > 0 || false == DONT_ALLOW_BLANK_PATTERNS):
+		if pattern is String && (pattern.length() > 0 || false == DO_NOT_ALLOW_BLANK_PATTERNS):
 			PatternsList.add_item(pattern if pattern.length() > 0 else RESERVED_BLANK_KEYWORD)
 	pass
 
@@ -294,9 +295,9 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 		else:
 			update_patterns_list(DEFAULT_NODE_DATA.patterns, true)
 		if node.data.has("regex") && node.data.regex is bool:
-			RegEx.set_deferred("pressed", node.data.regex)
+			RegExp.set_deferred("pressed", node.data.regex)
 		else:
-			RegEx.set_deferred("pressed", DEFAULT_NODE_DATA.regex)
+			RegExp.set_deferred("pressed", DEFAULT_NODE_DATA.regex)
 	pass
 
 func cut_off_dropped_connections() -> void:
@@ -318,7 +319,7 @@ func create_use_command(parameters:Dictionary) -> Dictionary:
 func _read_parameters() -> Dictionary:
 	cut_off_dropped_connections()
 	var user_defined_tag_key = TagKey.get_text();
-	var pattern_candidates = ListHelpers.get_item_list_as_text_array(PatternsList)
+	var pattern_candidates = Helpers.ListHelpers.get_item_list_as_text_array(PatternsList)
 	var revised_patterns = []
 	for candidate in pattern_candidates:
 		revised_patterns.append("" if candidate == RESERVED_BLANK_KEYWORD else candidate)
@@ -330,7 +331,7 @@ func _read_parameters() -> Dictionary:
 	}
 	# Optionals (to avoid bloat:)
 	# > regex (otherwise randomly auto-played)
-	var regex = RegEx.is_pressed()
+	var regex = RegExp.is_pressed()
 	parameters["regex"] = regex if SAVE_UNOPTIMIZED || regex != DEFAULT_NODE_DATA.regex else null
 	# ...
 	# NOTE:
@@ -344,7 +345,7 @@ func _read_parameters() -> Dictionary:
 		parameters._use = _use
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 
@@ -355,7 +356,7 @@ func _translate_internal_ref(data: Dictionary, translation: Dictionary) -> void:
 
 func _on_list_gui_input(event) -> void:
 	if event is InputEventKey && event.is_pressed():
-		match event.get_physical_scancode():
+		match event.get_physical_keycode():
 			KEY_DELETE:
 				if PatternsList.get_item_count() > PatternsList.get_selected_items().size(): # (Empty list is not allowed)
 					remove_selected_patterns()
@@ -366,11 +367,11 @@ func _on_list_gui_input(event) -> void:
 			KEY_PAGEUP:
 				move_selected_up()
 			KEY_UP:
-				if event.get_control():
+				if event.is_ctrl_pressed():
 					move_selected_up()
 			KEY_PAGEDOWN:
 				move_selected_down()
 			KEY_DOWN:
-				if event.get_control():
+				if event.is_ctrl_pressed():
 					move_selected_down()
 	pass

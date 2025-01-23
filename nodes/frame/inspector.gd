@@ -2,13 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Frame Node Type Inspector
-extends ScrollContainer
+# Frame Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var Generators = Helpers.Generators # ... for random color
-var Utils = Helpers.Utils
+@onready var Main = get_tree().get_root().get_child(0)
 
 const DEFAULT_NODE_DATA = {
 	"label": "",
@@ -21,11 +18,10 @@ var _OPEN_NODE
 
 var This = self
 
-onready var ColorInput = get_node("./Frame/ColorPicker")
-onready var LabelEdit = get_node("./Frame/LabelEdit")
-onready var SizeXEdit = get_node("./Frame/SizeX")
-onready var SizeYEdit = get_node("./Frame/SizeY")
-
+@onready var ColorInput = $ColorPicker
+@onready var LabelEdit = $TextEdit
+@onready var SizeXEdit = $Width/Value
+@onready var SizeYEdit = $Height/Value
 
 #func _ready() -> void:
 #	register_connections()
@@ -45,10 +41,10 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 		if node.data.has("label") && node.data.label is String:
 			LabelEdit.set_text(node.data.label)
 		if node.data.has("color") && node.data.color is String:
-			var the_color = Utils.rgba_hex_to_color(node.data.color)
+			var the_color = Helpers.Utils.rgba_hex_to_color(node.data.color)
 			ColorInput.set_pick_color(the_color)
 		else:
-			ColorInput.set_pick_color( Generators.create_random_color() )
+			ColorInput.set_pick_color( Helpers.Generators.create_random_color() )
 		if node.data.has("rect") && node.data.rect is Array && node.data.rect.size() >= 2:
 			SizeXEdit.set_value(node.data.rect[0])
 			SizeYEdit.set_value(node.data.rect[1])
@@ -57,7 +53,7 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 func _read_parameters() -> Dictionary:
 	var parameters = {
 		"label": LabelEdit.get_text(),
-		"color": Utils.color_to_rgba_hex(ColorInput.color),
+		"color": Helpers.Utils.color_to_rgba_hex(ColorInput.color),
 		"rect": [
 			SizeXEdit.get_value(),
 			SizeYEdit.get_value(),
@@ -65,8 +61,7 @@ func _read_parameters() -> Dictionary:
 	}
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
-	data.color = Utils.color_to_rgba_hex(Generators.create_random_color())
+	data.color = Helpers.Utils.color_to_rgba_hex(Helpers.Generators.create_random_color(0.5))
 	return data
-

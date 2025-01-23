@@ -2,16 +2,14 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Tag-Pass Node Type
+# Tag-Pass Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
-onready var Mind = Main.Mind
+@onready var Main = get_tree().get_root().get_child(0)
+@onready var Mind = Main.Mind
 
-var Utils = Helpers.Utils
-
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
@@ -25,15 +23,15 @@ const METHODS_ENUM = TagPassSharedClass.METHODS_ENUM
 
 const METHOD_INVALID = ""
 
-onready var Method = get_node("./Pass/Header/Method")
-onready var CharacterProfile = get_node("./Pass/Character")
-onready var CharacterProfileColor = get_node("./Pass/Character/Color")
-onready var CharacterProfileName = get_node("./Pass/Character/Name")
-onready var Invalid = get_node("./Pass/Invalid")
-onready var TagTemplate = get_node("./Pass/Scroll/TagTemplate")
-onready var TagBox = get_node("./Pass/Scroll")
-onready var Tags = get_node("./Pass/Scroll/Tags")
-onready var TagNoneMessage = get_node("./Pass/Scroll/NoTagsToCheck")
+@onready var Method = $Pass/Method
+@onready var CharacterProfile = $Pass/Character
+@onready var CharacterProfileColor = $Pass/Character/Color
+@onready var CharacterProfileName = $Pass/Character/Name
+@onready var Invalid = $Pass/Invalid
+@onready var TagTemplate = $Pass/Margin/TagTemplate
+@onready var TagBox = $Pass/Margin/Checks
+@onready var Tags = $Pass/Margin/Checks/Tags
+@onready var TagNoneMessage = $Pass/Margin/NoTagsToCheck
 
 #func _ready() -> void:
 #	register_connections()
@@ -50,7 +48,7 @@ func update_character(profile:Dictionary) -> void:
 	)
 	CharacterProfileColor.set(
 		"color",
-		Utils.rgba_hex_to_color(
+		Helpers.Utils.rgba_hex_to_color(
 			profile.color if profile.has("color") && (profile.color is String) else ANONYMOUS_CHARACTER.color
 		)
 	)

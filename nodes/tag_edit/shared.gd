@@ -34,7 +34,7 @@ const METHOD_NEEDS_NO_VALUE = [
 	METHODS_ENUM.UNSET
 ]
 
-# Tag-Edit follwos the same convention that other character related nodes have.
+# Tag-Edit follows the same convention that other character related nodes have.
 
 const DEFAULT_NODE_DATA = {
 	"character": -1, # ~ invalid anonymous unset (hardcoded convention)

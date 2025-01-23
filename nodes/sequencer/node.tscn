@@ -1,27 +1,30 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://b8vhsxc8h4i3y"]
 
-[ext_resource path="res://nodes/sequencer/node.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/sequencer/node.gd" id="1_3pdth"]
+[ext_resource type="Texture2D" uid="uid://x1lbui84eybk" path="res://nodes/sequencer/icon.svg" id="1_txaqm"]
 
-[node name="SequencerNode" type="GraphNode"]
-margin_right = 108.0
-margin_bottom = 44.0
+[node name="Sequencer" type="GraphNode"]
+offset_right = 168.0
 mouse_filter = 1
+resizable = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
-slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
 slot/0/right_enabled = false
 slot/0/right_type = 0
-slot/0/right_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_3pdth")
 
-[node name="Head" type="VBoxContainer" parent="."]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 92.0
-margin_bottom = 38.0
-
-[node name="Label" type="Label" parent="Head"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 76.0
-margin_bottom = 14.0
-text = " Seq."
+[node name="Kind" type="Button" parent="."]
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+text = "Sequencer"
+icon = ExtResource("1_txaqm")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true

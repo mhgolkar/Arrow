@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Sequencer Node Type Console
-extends PanelContainer
+# Sequencer Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,7 +11,7 @@ signal status_code
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 # if `true` tries to automatically run the sequence
 const AUTO_PLAY = true
@@ -27,10 +27,10 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAYED:bool = false
 
-onready var SequencerName:Label = get_node("./SequencerPlay/Identity/SequencerName")
-onready var SlotsCount:Label = get_node("./SequencerPlay/Identity/SlotsCount")
-onready var Play:Button = get_node("./SequencerPlay/Actions/Play")
-onready var Skip:Button = get_node("./SequencerPlay/Actions/Skip")
+@onready var SequencerName:Label = $Play/Head/Name
+@onready var SlotsCount:Label = $Play/Head/SlotsCount
+@onready var Play:Button = $Play/Actions/Play
+@onready var Skip:Button = $Play/Actions/Skip
 
 const ERROR_SLOT_NUMBER_MESSAGE = "ERR"
 const SLOTS_COUNT_TEMPLATE = "[%s]"
@@ -46,8 +46,8 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	Play.connect("pressed", self, "play_sequence_forward", [], CONNECT_DEFERRED)
-	Skip.connect("pressed", self, "skip_play", [], CONNECT_DEFERRED)
+	Play.pressed.connect(self.play_sequence_forward, CONNECT_DEFERRED)
+	Skip.pressed.connect(self.skip_play, CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -70,7 +70,7 @@ func setup_view() -> void:
 		SlotsCount.set_text( SLOTS_COUNT_TEMPLATE % _NODE_RESOURCE.data.slots )
 	else:
 		SlotsCount.set_text( ERROR_SLOT_NUMBER_MESSAGE )
-		printerr("Unexpected Behavior! Hub doesn't have data/propert `slots`.")
+		printerr("Unexpected Behavior! Hub doesn't have `slots` data/property.")
 	pass
 	
 func setup_play(
@@ -107,7 +107,7 @@ func play_sequence_forward() -> void:
 			request_play_forward(order) # will be played
 			nothing  = false
 	if nothing:
-		emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+		self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 	set_view_played_on_ready()
 	pass
 
@@ -119,7 +119,7 @@ func play_last_connected_slot() -> void:
 			nothing = false
 			break # and only the one
 	if nothing:
-		emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+		self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 	set_view_played_on_ready()
 	pass
 
@@ -127,7 +127,7 @@ func request_play_forward(slot_idx:int = -1) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 	pass
 
 func set_view_played_on_ready() -> void:

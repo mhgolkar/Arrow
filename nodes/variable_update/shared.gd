@@ -2,7 +2,7 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Variable_Update Node Type Shared Class
+# Variable-Update Node Type Shared Class
 # (a set of constants and functions used by different scripts of Variable_Update node type)
 class_name VariableUpdateSharedClass
 
@@ -60,7 +60,7 @@ class expression :
 			var expression = { "lhs": null, "operator": null, "rhs": null }
 			var lhs = (variables_current[data.variable] if variables_current != null else Mind.lookup_resource(data.variable,"variables"))
 			if lhs is Dictionary && lhs.has_all(["name", "type", "init"]):
-				expression.lhs = lhs.name + ((" `" + String(lhs.value if lhs.has("value") else lhs.init) + "`") if variables_current != null else "")
+				expression.lhs = lhs.name + ((" `%s`" % (lhs.value if lhs.has("value") else lhs.init)) if variables_current != null else "")
 				expression.operator = UPDATE_OPERATORS[lhs.type][data.operator].sign
 				if data.with.size() == 2 :
 					match data.with[0] :
@@ -68,11 +68,11 @@ class expression :
 							expression.rhs = "`%s`" % data.with[1]
 						PARAMETER_MODES_ENUM_CODE.variable:
 							if data.with[1] == data.variable : # the variable is compared to self (initial value)
-								expression.rhs = "Self (Initial `" + String(lhs.init) + "`)"
+								expression.rhs = "Self (Initial `%s`)" % lhs.init
 							else: # or another variable
 								var rhs = (variables_current[data.with[1]] if variables_current != null else Mind.lookup_resource(data.with[1],"variables"))
 								if rhs is Dictionary && rhs.has_all(["name", "type", "init"]):
-									expression.rhs = (("`" + String(rhs.value if rhs.has("value") else rhs.init) + "` ") if variables_current != null else "") + rhs.name
+									expression.rhs = (("`%s` " % (rhs.value if rhs.has("value") else rhs.init)) if variables_current != null else "") + rhs.name
 								else:
 									expression.rhs = "[Invalid]"
 					parsed = "{lhs} {operator} {rhs}".format(expression)
@@ -115,7 +115,7 @@ class expression :
 				result = (left - right)
 			"div": # Division (/=)
 				if right != 0: # no support for infinity
-					# warning-ignore:integer_division
+					@warning_ignore("INTEGER_DIVISION")
 					result = int( floor(left / right) )
 			"rem": # Remainder (%=)
 				if right != 0: # no support for NAN
@@ -126,11 +126,10 @@ class expression :
 				result = pow(left, right)
 			"abs": # Absolute (=||)
 				result = abs(right)
+		@warning_ignore("INCOMPATIBLE_TERNARY")
 		return (
 			# rounds to the nearest whole number 2.9 -> 3 not 2
-			int ( round ( result ) )
-			if result != null
-			else null
+			int (round (result)) if result != null else null
 		)
 		
 	func evaluate_str_update(left:String, operation:String, right:String):
@@ -184,7 +183,7 @@ class expression :
 				result = left.replacen(replacement[0], replacement[1])
 		return result
 		
-	func evaluate_bool_update(left:bool, operation:String, right:bool):
+	func evaluate_bool_update(_left:bool, operation:String, right:bool):
 		var result = null # updates `left` by ...
 		match operation:
 			"set": # Set (=)

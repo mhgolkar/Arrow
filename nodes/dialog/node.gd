@@ -2,12 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Dialog Node Type
+# Dialog Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var Utils = Helpers.Utils
+@onready var Main = get_tree().get_root().get_child(0)
 
 const OUT_SLOT_COLOR = Settings.GRID_NODE_SLOT.DEFAULT.OUT.COLOR
 # settings for the dynamically generated outgoing slots
@@ -18,24 +16,21 @@ const OUT_SLOT_TYPE_LEFT    = OUT_SLOT_TYPE_RIGHT
 const OUT_SLOT_COLOR_RIGHT  = OUT_SLOT_COLOR
 const OUT_SLOT_COLOR_LEFT   = OUT_SLOT_COLOR
 
-const LINE_SLOT_ALIGN = Label.ALIGN_RIGHT
-const LINE_AUTO_WRAP = true
+const LINE_SLOT_ALIGN = HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
+const LINE_AUTO_WRAP = TextServer.AutowrapMode.AUTOWRAP_WORD_SMART
 
 const ANONYMOUS_CHARACTER = DialogSharedClass.ANONYMOUS_CHARACTER
 const DEFAULT_NODE_DATA = DialogSharedClass.DEFAULT_NODE_DATA
 
-const PLAYABLE_STATUS_MESSAGE = " Playable"
-const AUTOPLAY_STATUS_MESSAGE = " Auto"
-
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
-onready var Playable  = get_node("./Head/HBoxContainer/Playable")
-# onready var CharacterProfile  = get_node("./Head/CharacterProfile")
-onready var CharacterProfileName  = get_node("./Head/CharacterProfile/Name")
-onready var CharacterProfileColor = get_node("./Head/CharacterProfile/Color")
+@onready var Playable = $Head/State/Playable
+@onready var Auto = $Head/State/Auto
+@onready var CharacterName  = $Head/Character/Name
+@onready var CharacterColor = $Head/Character/Color
 
 #func _ready() -> void:
 #	register_connections()
@@ -60,8 +55,8 @@ func update_lines(lines:Array, clear_first:bool = true) -> void:
 		if line_text is String:
 			var line_slot = Label.new()
 			line_slot.set_text(line_text)
-			line_slot.set_align(LINE_SLOT_ALIGN)
-			line_slot.set_autowrap(LINE_AUTO_WRAP)
+			line_slot.set_horizontal_alignment(LINE_SLOT_ALIGN)
+			line_slot.set_autowrap_mode(LINE_AUTO_WRAP)
 			This.add_child(line_slot)
 			This.set_slot(
 				idx,
@@ -73,9 +68,9 @@ func update_lines(lines:Array, clear_first:bool = true) -> void:
 
 func update_character(profile:Dictionary) -> void:
 	if profile.has("name") && (profile.name is String):
-		CharacterProfileName.set("text", profile.name)
+		CharacterName.set("text", profile.name)
 	if profile.has("color") && (profile.color is String):
-		CharacterProfileColor.set("color", Utils.rgba_hex_to_color(profile.color))
+		CharacterColor.set("color", Helpers.Utils.rgba_hex_to_color(profile.color))
 	pass
 
 func set_character_anonymous() -> void:
@@ -83,7 +78,8 @@ func set_character_anonymous() -> void:
 	pass
 
 func set_playable(manual:bool) -> void:
-	Playable.set_text( PLAYABLE_STATUS_MESSAGE if manual else AUTOPLAY_STATUS_MESSAGE )
+	Playable.set_visible(manual)
+	Auto.set_visible(!manual)
 	pass
 
 func _update_node(data:Dictionary) -> void:

@@ -1,90 +1,61 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bh4ghjjhaot1k"]
 
-[ext_resource path="res://nodes/generator/console.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://352dfaufpmcc" path="res://nodes/generator/icon.svg" id="1_3irxj"]
+[ext_resource type="Script" path="res://nodes/generator/console.gd" id="1_lpx3e"]
 
 [node name="Generator" type="PanelContainer"]
-margin_top = 84.0
-margin_right = 233.0
-margin_bottom = 136.0
+offset_right = 256.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+script = ExtResource("1_lpx3e")
 
-[node name="GeneratorPlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 226.0
-margin_bottom = 81.0
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
+disabled = true
+icon = ExtResource("1_3irxj")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="PanelContainer" type="MarginContainer" parent="GeneratorPlay"]
-margin_right = 219.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 25 )
-mouse_filter = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GeneratorPlay/PanelContainer"]
-margin_right = 219.0
-margin_bottom = 50.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GeneratorPlay/PanelContainer/VBoxContainer"]
-margin_right = 219.0
-margin_bottom = 14.0
-
-[node name="Icon" type="Label" parent="GeneratorPlay/PanelContainer/VBoxContainer/HBoxContainer"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 4.0
-margin_bottom = 14.0
-text = " "
-
-[node name="Method" type="Label" parent="GeneratorPlay/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 8.0
-margin_right = 219.0
-margin_bottom = 14.0
+[node name="Method" type="Label" parent="Play/Head"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "{ generator method }"
-align = 1
-valign = 1
-autowrap = true
+text = "[Method]"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Arguments" type="Label" parent="GeneratorPlay/PanelContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 219.0
-margin_bottom = 32.0
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "{ generator args }"
-align = 1
-valign = 1
-autowrap = true
+[node name="Arguments" type="Label" parent="Play"]
+layout_mode = 2
+text = "[Arguments]"
+horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="Target" type="Label" parent="GeneratorPlay/PanelContainer/VBoxContainer"]
-margin_top = 36.0
-margin_right = 219.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "{ target variable }"
-align = 1
-valign = 1
-autowrap = true
+[node name="Target" type="Label" parent="Play"]
+layout_mode = 2
+text = "[Target]"
+horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="Application" type="HBoxContainer" parent="GeneratorPlay"]
-margin_top = 54.0
-margin_right = 219.0
-margin_bottom = 74.0
-mouse_filter = 2
+[node name="Actions" type="HBoxContainer" parent="Play"]
+layout_mode = 2
 alignment = 2
 
-[node name="Skip" type="Button" parent="GeneratorPlay/Application"]
-margin_left = 133.0
-margin_right = 171.0
-margin_bottom = 20.0
+[node name="Skip" type="Button" parent="Play/Actions"]
+layout_mode = 2
 text = "Skip"
 
-[node name="Redo" type="Button" parent="GeneratorPlay/Application"]
-margin_left = 175.0
-margin_right = 219.0
-margin_bottom = 20.0
-text = "Redo"
+[node name="Redo" type="Button" parent="Play/Actions"]
+layout_mode = 2
+text = "Proceed"

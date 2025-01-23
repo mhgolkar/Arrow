@@ -1,120 +1,80 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://bdyve8hjda5hg"]
 
-[ext_resource path="res://nodes/tag_match/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/tag_match/inspector.gd" id="1_lrar4"]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="2_ogosw"]
 
-[node name="TagMatchType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 220.0
-script = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tsxu"]
+atlas = ExtResource("2_ogosw")
+region = Rect2(192, 192, 48, 48)
 
-[node name="TagMatch" type="VBoxContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 213.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x4sk"]
+atlas = ExtResource("2_ogosw")
+region = Rect2(240, 48, 48, 48)
+
+[node name="TagMatch" type="VBoxContainer"]
+offset_right = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_lrar4")
 
-[node name="Character" type="VBoxContainer" parent="TagMatch"]
-margin_right = 239.0
-margin_bottom = 38.0
+[node name="Character" type="Label" parent="."]
+layout_mode = 2
+text = "Character"
 
-[node name="Label" type="Label" parent="TagMatch/Character"]
-margin_right = 239.0
-margin_bottom = 14.0
-text = "Character: "
+[node name="Selector" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Filterable" type="HBoxContainer" parent="TagMatch/Character"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 38.0
-
-[node name="Selection" type="OptionButton" parent="TagMatch/Character/Filterable"]
-margin_right = 223.0
-margin_bottom = 20.0
+[node name="List" type="OptionButton" parent="Selector"]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true
 
-[node name="GlobalFilters" type="Button" parent="TagMatch/Character/Filterable"]
-margin_left = 227.0
-margin_right = 239.0
-margin_bottom = 20.0
-hint_tooltip = "Apply Global Filters
+[node name="Filtered" type="Button" parent="Selector"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Apply Global Filters
 
 It will follow the same listing instructions
 that are defined in the Characters inspector.
 + Current character of the node is always listed."
 toggle_mode = true
-text = ""
+icon = SubResource("AtlasTexture_2tsxu")
+icon_alignment = 1
+expand_icon = true
 
-[node name="TagKey" type="VBoxContainer" parent="TagMatch"]
-margin_top = 42.0
-margin_right = 239.0
-margin_bottom = 84.0
+[node name="Tag" type="Label" parent="."]
+layout_mode = 2
+text = "Tag Key"
 
-[node name="Label" type="Label" parent="TagMatch/TagKey"]
-margin_right = 239.0
-margin_bottom = 14.0
-text = "Tag Key: "
+[node name="TagKey" type="LineEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Required & Non-blank"
 
-[node name="LineEdit" type="LineEdit" parent="TagMatch/TagKey"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 42.0
+[node name="Entries" type="Label" parent="."]
+layout_mode = 2
+text = "Patterns"
+
+[node name="Pattern" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Edit" type="LineEdit" parent="Pattern"]
+layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Required & non-blank"
 
-[node name="PatternsLabel" type="Label" parent="TagMatch"]
-margin_top = 88.0
-margin_right = 239.0
-margin_bottom = 102.0
-text = "Patterns:"
-
-[node name="Pattern" type="HBoxContainer" parent="TagMatch"]
-margin_top = 106.0
-margin_right = 239.0
-margin_bottom = 130.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Edit" type="LineEdit" parent="TagMatch/Pattern"]
-margin_right = 211.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-placeholder_text = "Type in New Pattern"
-placeholder_alpha = 0.3
-
-[node name="Tools" type="MenuButton" parent="TagMatch/Pattern"]
-margin_left = 215.0
-margin_right = 239.0
-margin_bottom = 24.0
-size_flags_vertical = 3
-text = "..."
+[node name="Tools" type="MenuButton" parent="Pattern"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+icon = SubResource("AtlasTexture_7x4sk")
 flat = false
-items = [ "{ tools'll be loaded by script }", null, 0, false, false, 0, 0, null, "", false ]
+icon_alignment = 1
+expand_icon = true
 
-[node name="Patterns" type="ScrollContainer" parent="TagMatch"]
-margin_top = 134.0
-margin_right = 239.0
-margin_bottom = 185.0
-rect_min_size = Vector2( 0, 50 )
-size_flags_horizontal = 3
+[node name="Patterns" type="ItemList" parent="."]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
 size_flags_vertical = 3
-
-[node name="List" type="ItemList" parent="TagMatch/Patterns"]
-margin_right = 239.0
-margin_bottom = 51.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-items = [ "{patterns here}", null, false ]
 select_mode = 1
 allow_rmb_select = true
 
-[node name="RegEx" type="CheckBox" parent="TagMatch"]
-margin_top = 189.0
-margin_right = 239.0
-margin_bottom = 213.0
-hint_tooltip = "None-Playable TagMatchues will act like randomized replies."
+[node name="RegExp" type="CheckBox" parent="."]
+layout_mode = 2
 text = "RegEx"

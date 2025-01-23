@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Arrow User-Input Node Icon</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="9.3020835"
+     inkscape:cx="35.099663"
+     inkscape:cy="40.152295"
+     inkscape:window-width="1876"
+     inkscape:window-height="1172"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="user_input"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="fill:none;stroke:none">
+    <text
+       xml:space="preserve"
+       style="font-size:52.1668px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:none;fill:#ffffff;stroke-width:16.3021;stroke-linecap:round;stroke-dasharray:16.3021, 32.6042;stroke-opacity:0.5"
+       x="2.2977955"
+       y="42.0597"
+       id="text1"
+       inkscape:label="nerd"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="0"
+         y="0"
+         style="font-size:52.1668px;stroke-width:16.3021">﬍</tspan></text>
+    <path
+       d="M 34.902046,13.097955 H 45.702205 V 34.902048 H 34.902046 v 4.279308 q 0,0.916995 0.61133,1.528324 0.61133,0.61133 1.528324,0.713218 h 4.381197 v 4.279308 h -5.501968 q -0.916994,0 -2.037765,-0.61133 -1.120772,-0.611329 -1.22266,-1.528324 -0.101888,0.916995 -1.171715,1.528324 -1.069827,0.61133 -2.08871,0.61133 H 24 v -4.279308 h 4.381196 Q 29.298191,41.32101 29.909521,40.70968 30.52085,40.098351 30.52085,39.181356 V 8.8186473 q 0,-0.9169945 -0.611329,-1.5283242 -0.61133,-0.6113297 -1.528325,-0.713218 H 24 v -4.279308 h 5.400079 q 1.018883,0 2.08871,0.6113298 1.069827,0.6113297 1.171715,1.5283242 0.101888,-0.9169945 1.22266,-1.5283242 1.120771,-0.6113298 2.037765,-0.6113298 h 5.501968 v 4.279308 H 37.0417 q -0.916994,0.1018883 -1.528324,0.713218 -0.61133,0.6113297 -0.61133,1.5283242 z m -32.6042505,0 H 26.139654 v 4.381196 H 6.5771035 V 30.520852 H 26.139654 v 4.381196 H 2.2977955 Z M 41.422897,30.520852 V 17.479151 h -6.520851 v 13.041701 z"
+       id="text2"
+       style="font-size:52.1668px;font-family:'DejaVuSansMono NF';-inkscape-font-specification:'DejaVuSansMono NF';fill:#ffffff;stroke-width:16.3021;stroke-linecap:round;stroke-dasharray:16.3021, 32.6042;stroke-opacity:0.5"
+       inkscape:label="icon"
+       aria-label="﬍" />
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Arrow User-Input Node Icon</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. H. Golkar</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

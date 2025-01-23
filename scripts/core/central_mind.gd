@@ -6,17 +6,17 @@
 # (the core!)
 class_name CentralMind
 
-const PREF_PANEL = Addressbook.PANELS.preferences
-const EDITOR = Addressbook.EDITOR.itself
-const GRID = Addressbook.GRID
-const INSPECTOR = Addressbook.INSPECTOR.itself
-const QUERY = Addressbook.QUERY.itself
-const GRID_CONTEXT_MENU = Addressbook.GRID_CONTEXT_MENU.itself
-const NEW_PROJECT_PROMPT = Addressbook.PANELS.new_project_prompt
-const PATH_DIALOGE = Addressbook.PATH_DIALOGUE
-const CONSOLE = Addressbook.CONSOLE.itself
-const NOTIFIER = Addressbook.NOTIFICATION.itself
-const AUTHORS = Addressbook.AUTHORS.itself
+const PREF_PANEL = "/root/Main/Overlays/Control/Preferences"
+const EDITOR = "/root/Main/Editor"
+const GRID = "/root/Main/Editor/Center/Grid"
+const INSPECTOR = "/root/Main/FloatingTools/Control/Inspector"
+const QUERY = "/root/Main/Editor/Bottom/Bar/Query"
+const GRID_CONTEXT_MENU = "/root/Main/FloatingTools/Control/Context"
+const NEW_PROJECT_PROMPT = "/root/Main/Overlays/Control/NewDocument"
+const PATH_DIALOG = "/root/Main/Overlays/Control/PathDialog"
+const CONSOLE = "/root/Main/FloatingTools/Control/Console"
+const NOTIFIER = "/root/Main/Overlays/Control/Notification"
+const AUTHORS = "/root/Main/Overlays/Control/Authors"
 
 # nodes which may send `request_mind` signal
 const TRANSMITTERS = [
@@ -32,10 +32,6 @@ const TRANSMITTERS = [
 const NODE_INITIAL_NAME_TEMPLATE = Settings.NODE_INITIAL_NAME_TEMPLATE
 const NODE_INITIAL_NAME_PREFIX_FOR_SCENES = Settings.NODE_INITIAL_NAME_PREFIX_FOR_SCENES
 const NODE_INITIAL_NAME_PREFIX_FOR_MACROS = Settings.NODE_INITIAL_NAME_PREFIX_FOR_MACROS
-
-const CLIPBOARD_MODE = Settings.CLIPBOARD_MODE
-const OS_CLIPBOARD_MERGE_MODE = Settings.OS_CLIPBOARD_MERGE_MODE
-
 
 class Mind :
 	
@@ -53,9 +49,6 @@ class Mind :
 	
 	var ProMan # ProjectManager
 	
-	var Utils = Helpers.Utils
-	var Generators = Helpers.Generators
-	
 	var NODE_TYPES_LIST
 	
 	# the active project (in-memory)
@@ -70,7 +63,7 @@ class Mind :
 	var _SNAPSHOT_INDEX_OF_PREVIEW:int = -1
 	
 	var _CLIPBOARD:Dictionary = {
-		"MODE": CLIPBOARD_MODE.EMPTY,
+		"MODE": Settings.CLIPBOARD_MODE.EMPTY,
 		"DATA": []
 	}
 
@@ -95,7 +88,7 @@ class Mind :
 		Inspector = Main.get_node(INSPECTOR)
 		Query = Main.get_node(QUERY)
 		NewProjectPrompt = Main.get_node(NEW_PROJECT_PROMPT)
-		PathDialog = Main.get_node(PATH_DIALOGE)
+		PathDialog = Main.get_node(PATH_DIALOG)
 		Console = Main.get_node(CONSOLE)
 		Notifier = Main.get_node(NOTIFIER)
 		Authors = Main.get_node(AUTHORS)
@@ -111,12 +104,13 @@ class Mind :
 		# `request_mind` transmitters
 		for t in TRANSMITTERS:
 			var tx = Main.get_node(t)
-			tx.connect("request_mind", self, "central_event_dispatcher", [t, tx], 0)
+			tx.connect("request_mind", self.central_event_dispatcher.bind(t, tx))
 		pass
 	
 	func load_node_types() -> void:
 		var node_types_handler = NodeTypes.NodeTypesHandler.new(Main)
 		NODE_TYPES_LIST = node_types_handler.load_node_types()
+		# print_debug("Node types loaded: ", NODE_TYPES_LIST)
 		pass
 		
 	func load_projects_list() -> void:
@@ -154,10 +148,10 @@ class Mind :
 						prompt_path_to(self, "import_project_from_file", [-2], Settings.PATH_DIALOG_PROPERTIES.PROJECT_FILE.OPEN)
 					"from_browsed":
 						if Html5Helpers.Utils.is_browser():
-							_BROWSER_READER_HELPER.read_file_then(self, "import_project_from_browsed")
+							_BROWSER_READER_HELPER.read_file_then(self.import_project_from_browsed)
 			"node_selection":
 				track_nodes_selection(args, true)
-			"node_unselection":
+			"node_deselection":
 				track_nodes_selection(args, false)
 			"branch_selection":
 				select_branch(args[0], args[1], args[2])
@@ -197,7 +191,7 @@ class Mind :
 			"os_clipboard_pull":
 				os_clipboard_pull(args[0], args[1])
 			"clean_clipboard":
-				clipboard_push([], CLIPBOARD_MODE.EMPTY)
+				clipboard_clear()
 			"clipboard_pull":
 				clipboard_pull(args)
 			"save_project":
@@ -219,7 +213,7 @@ class Mind :
 			"remove_author":
 				remove_project_author(args)
 			"update_chapter":
-				upate_project_chapter(args)
+				update_project_chapter(args)
 			"take_snapshot":
 				take_snapshot()
 			"toggle_snapshot_preview":
@@ -265,6 +259,7 @@ class Mind :
 	func drop_current_project() -> void:
 		_PROJECT.clear()
 		clean_snapshots_all()
+		clipboard_clear()
 		forget_history()
 		_CURRENT_OPEN_SCENE_ID = -1
 		_SELECTED_NODES_IDS.clear()
@@ -310,8 +305,8 @@ class Mind :
 						(
 							("We can not find and read selected project (#%s.) \n" % project_id) +
 							"The file might be inaccessible due to lack of proper permission, " +
-							"or lost (i.e. renamed or removed before unlisting.) " +
-							"Manually edited or corrupted projects list files can also cause this issue. \n" +
+							"or lost (i.e. renamed or deleted.) " +
+							"Manually edited or corrupted projects listing files can also cause this issue. \n" +
 							(
 								( "\nExpected file: " + expected.filename + Settings.PROJECT_FILE_EXTENSION + "\n")
 								if expected is Dictionary && expected.has("filename") else ""
@@ -453,7 +448,6 @@ class Mind :
 			"view": get_current_view_state(),
 			"open_scene": _CURRENT_OPEN_SCENE_ID,
 		}
-		pass
 	
 	func load_full_project_image(snapshot: Dictionary) -> void:
 		load_project( snapshot.project.duplicate(true), false, true )
@@ -465,7 +459,7 @@ class Mind :
 		if _SNAPSHOT_INDEX_OF_PREVIEW < 0:
 			if Main.Configs.CONFIRMED.history_size > 0:
 				if _HISTORY.INDEX < (_HISTORY.MEMORY.size() - 1) : # to avoid possible conflicts with new history,
-					_HISTORY.MEMORY.resize(_HISTORY.INDEX + 1) # droping the redo (after index)
+					_HISTORY.MEMORY.resize(_HISTORY.INDEX + 1) # dropping the redo (after index)
 				# ...
 				_HISTORY.MEMORY.push_back( capture_full_project_image("_history_checkpoint") )
 				# ...
@@ -489,7 +483,7 @@ class Mind :
 					_HISTORY.INDEX = _HISTORY.MEMORY.size() - 1
 				# ...
 				if already != _HISTORY.INDEX:
-					clipboard_push([], CLIPBOARD_MODE.EMPTY) # to avoid trying to move nodes not existing anymore
+					clipboard_clear() # to avoid trying to move nodes that do not exist anymore
 					load_full_project_image( _HISTORY.MEMORY[_HISTORY.INDEX] )
 					reset_project_save_status(false, false)
 					print_debug("History rotation %s: index %s, size %s" % [direction, _HISTORY.INDEX, _HISTORY.MEMORY.size()])
@@ -508,12 +502,12 @@ class Mind :
 		pass
 	
 	func get_current_view_state() -> Array:
-		var current = Utils.vector2_to_array( Grid.get_scroll_ofs() )
+		var current = Helpers.Utils.vector2_to_array( Grid.get_scroll_offset() )
 		current.append( Grid.get_zoom() )
 		return current
 	
 	func track_last_view(offset: Vector2 = Vector2.INF, zoom: float = -INF, scene_id: int = -1) -> void:
-		var state = Utils.vector2_to_array(offset if offset < Vector2.INF else Grid.get_scroll_ofs())
+		var state = Helpers.Utils.vector2_to_array(offset if offset < Vector2.INF else Grid.get_scroll_offset())
 		state.append(zoom if zoom > 0 else Grid.get_zoom())
 		ProMan.set_project_last_view(state, (scene_id if scene_id >= 0 else _CURRENT_OPEN_SCENE_ID))
 		pass
@@ -546,7 +540,7 @@ class Mind :
 		pass
 
 	func reset_node_id_generator() -> void:
-		standardize_authors_list() # (automatic compatiblity update)
+		standardize_authors_list() # (automatic compatibility update)
 		# We expect projects to have at least one (even 0-Anonymous) author.
 		var active_author = ProMan.get_project_active_author() # (current record in projects list or null)
 		if (active_author is int) == false || _PROJECT.meta.authors.has(active_author) == false:
@@ -590,7 +584,7 @@ class Mind :
 	
 	func remove_project_author(id:int, forced: bool = false) -> void:
 		if _PROJECT.meta.authors.has(id):
-			if _PROJECT.meta.authors.size() > 1: # ( At least one author sould remain in the list, and
+			if _PROJECT.meta.authors.size() > 1: # ( At least one author should remain in the list, and
 				# the removed author better not to have any UID created yet.)
 				if _PROJECT.meta.authors[id][1] <= 0 || forced == true:
 					_PROJECT.meta.authors.erase(id)
@@ -607,7 +601,7 @@ class Mind :
 			printerr("Trying to remove non-existent author: ", id, " from: ", _PROJECT.meta.authors)
 		pass
 	
-	func upate_project_chapter(id: int, quick: bool = false) -> void:
+	func update_project_chapter(id: int, quick: bool = false) -> void:
 		if quick:
 			_PROJECT.meta.chapter = id
 		else:
@@ -621,7 +615,7 @@ class Mind :
 					"Also note that this update will only affect new resource UIDs (i.e. new nodes, scenes, etc.) " +
 					"Previously created resources (including default nodes) will keep their current UIDs."
 				),
-				[ { "label": "OK; I'm Sure", "callee": Main.Mind, "method": "upate_project_chapter", "arguments": [id, true] },],
+				[ { "label": "OK; I'm Sure", "callee": Main.Mind, "method": "update_project_chapter", "arguments": [id, true] },],
 				Settings.CAUTION_COLOR
 			)
 		pass
@@ -658,36 +652,37 @@ class Mind :
 		ProMan.set_project_last_open_scene(scene_id)
 		pass
 	
-	func load_scene(scene_id:int = -1, node_id:int = -1) -> void:
+	func load_scene(scene_id:int = -1, focus_node_id:int = -1) -> void:
 		var the_scene = get_scene(scene_id, true) # updates `_CURRENT_OPEN_SCENE_ID` or resets it to the project entry
 		scene_id =_CURRENT_OPEN_SCENE_ID # ... so we have a reevaluated `scene_id` here
 		# load the scene in the editor
 		Grid.call_deferred("clean_grid")
 		if the_scene && the_scene.has("map"):
 			# ... draw nodes in the grid based on the scene's map
-			for node_id in the_scene.map:
-				var the_node = _PROJECT.resources.nodes[node_id]
-				var the_map  = the_scene.map[node_id]
+			for each_nid in the_scene.map:
+				var the_node = _PROJECT.resources.nodes[each_nid]
+				var the_map  = the_scene.map[each_nid]
 				var the_type = NODE_TYPES_LIST[the_node.type]
 				if  the_map && the_node && the_type :
-					Grid.call_deferred("draw_node", node_id, the_node, the_map, the_type)
+					Grid.call_deferred("draw_node", each_nid, the_node, the_map, the_type)
 				else:
 					print_stack()
 					printerr(
 						"Unexpected Behavior! Node inconsistency: Trying to draw a node that may not exist " +
-						"in the scene map or dataset or node types ! node = " + node_id + " scene = " + scene_id
+						"in the scene map or dataset or node types! node = " + String.num_int64(each_nid) +
+						" scene = " + String.num_int64(scene_id)
 					)
 			Grid.call_deferred("draw_queued_connection")
 			Grid.call_deferred("reset_view_to_initial")
 			# load the scene title / name
 			Editor.call_deferred("set_scene_name", the_scene.name)
 			# then jump to a node if annotated
-			if node_id >= 0:
-				if the_scene.map.has(node_id):
-					jump_to_node(node_id)
+			if focus_node_id >= 0:
+				if the_scene.map.has(focus_node_id):
+					jump_to_node(focus_node_id)
 				else:
 					print_stack()
-					printerr(("Trying to jump to nonexistent node = %s" % node_id), (" in the scene = %s " % scene_id))
+					printerr(("Trying to jump to nonexistent node = %s" % focus_node_id), (" in the scene = %s " % scene_id))
 			else:
 				_SELECTED_NODES_IDS.clear()
 			react_to_scene_change(scene_id)
@@ -809,13 +804,13 @@ class Mind :
 				_filtered = _PROJECT.resources[field].duplicate(true)
 			else:
 				# filter it by a special pair in each item of the dataset, e.g. { macro: true }
-				# it can check only for existance of the key if value is `null`
+				# it can check only for existence of the key if value is `null`
 				for item in _PROJECT.resources[field]:
 					for key in filters:
 						if _PROJECT.resources[field][item].has(key):
 							if filters[key] == null || _PROJECT.resources[field][item][key] == filters[key]:
 								_filtered[item] = _PROJECT.resources[field][item]
-			# then exclude unwanteds
+			# then exclude unwanted ones
 			var result
 			if exclusion.size() == 0:
 				result = _filtered
@@ -828,7 +823,7 @@ class Mind :
 						if ( _filtered[item].has(key) == false ):
 							result[item] = _filtered[item]
 						else:
-						# and exclude those wich have the key, unless the value is not the same
+						# and exclude those which have the key, unless the value is not the same
 							if exclusion[key] != null && _filtered[item][key] != exclusion[key]:
 								result[item] = _filtered[item]
 			return result.duplicate(true)
@@ -855,7 +850,7 @@ class Mind :
 					print_stack()
 					printerr("Unexpected Behavior! Tracking Invalid or None-existing Node-id ! ", node_id)
 			else: # == false
-				# unselection
+				# deselection
 				if is_already_selected :
 					_SELECTED_NODES_IDS.erase(node_id)
 					react_to_selection_change()
@@ -867,7 +862,7 @@ class Mind :
 			return is_already_selected 
 		return false
 
-	func force_unsellect_all() -> void:
+	func force_unselect_all() -> void:
 		_SELECTED_NODES_IDS.clear()
 		react_to_selection_change()
 		Grid.call_deferred("force_unselect_all")
@@ -875,7 +870,7 @@ class Mind :
 	
 	func force_select_group(list: Array, clear: bool = false) -> void:
 		if clear:
-			force_unsellect_all()
+			force_unselect_all()
 		for node_id in list:
 			if _SELECTED_NODES_IDS.has(node_id) == false:
 				_SELECTED_NODES_IDS.push_front(node_id)
@@ -1001,7 +996,6 @@ class Mind :
 		else:
 			printerr("Invalid state of Flaker!")
 			return -888
-		pass
 	
 	func create_new_resource_id() -> int:
 		var new_uid = null
@@ -1020,17 +1014,17 @@ class Mind :
 		return _CACHED_COMPILED_REGEXES[pattern]
 
 	# creation and caching of the node type name abbreviations (on demand) to use on new node naming
-	var _chached_type_abbreviations_by_name = {}
-	var _chached_type_abbreviations = {}
-	const ALL_VOWELS_BUT_FIRST_CHAR_REGEX_PATTERN = "(\\B[AaEeYyUuIiOo]|\\W|_)*" # ~ /\B[AaEeYyUuIiOo]*/ all vovels other than the character
+	var _cached_type_abbreviations_by_name = {}
+	var _cached_type_abbreviations = {}
+	const ALL_VOWELS_BUT_FIRST_CHAR_REGEX_PATTERN = "(\\B[AaEeYyUuIiOo]|\\W|_)*" # ~ /\B[AaEeYyUuIiOo]*/ all vowels other than the character
 	const WHITE_SPACE_REGEX_PATTERN = "_"
 	const ABBREVIATION_WHITE_SPACE_REPLACEMENT = "_"
 	
 	func get_type_name_abbreviation(type_name:String) -> String:
 		var type_abbreviation
 		# we have made abbreviation already? return from cache
-		if _chached_type_abbreviations_by_name.has(type_name):
-			type_abbreviation = _chached_type_abbreviations_by_name[type_name]
+		if _cached_type_abbreviations_by_name.has(type_name):
+			type_abbreviation = _cached_type_abbreviations_by_name[type_name]
 		# otherwise make abbreviation, cache and return it
 		else:
 			var abbreviation_length = Settings.MINIMUM_TYPE_ABBREVIATION_LENGTH
@@ -1040,9 +1034,9 @@ class Mind :
 				consonant_only_type_name = compiled_regex_from(WHITE_SPACE_REGEX_PATTERN).sub(type_name, ABBREVIATION_WHITE_SPACE_REPLACEMENT, true)
 			# now cut the word to a short sub string
 			# and go for a little longer version if the abbreviation is used already for another type
-			while _chached_type_abbreviations_by_name.has(type_name) == false :
+			while _cached_type_abbreviations_by_name.has(type_name) == false :
 				type_abbreviation = consonant_only_type_name.substr(0, abbreviation_length).capitalize()
-				if _chached_type_abbreviations.has(type_abbreviation):
+				if _cached_type_abbreviations.has(type_abbreviation):
 					abbreviation_length += 1
 					# ready for almost impossible situation?
 					# in case that any substring of `consonant_only_type_name` is used for other types (?!) ...
@@ -1051,11 +1045,11 @@ class Mind :
 						abbreviation_length = Settings.MINIMUM_TYPE_ABBREVIATION_LENGTH
 						consonant_only_type_name = (
 							compiled_regex_from(WHITE_SPACE_REGEX_PATTERN).sub(type_name, ABBREVIATION_WHITE_SPACE_REPLACEMENT, true) +
-							Generators.create_random_string( abbreviation_length, true, "\\W|\\d" )
+							Helpers.Generators.create_random_string( abbreviation_length, true, "\\W|\\d" )
 						)
 				else:
-					_chached_type_abbreviations[type_abbreviation] = type_name
-					_chached_type_abbreviations_by_name[type_name] = type_abbreviation
+					_cached_type_abbreviations[type_abbreviation] = type_name
+					_cached_type_abbreviations_by_name[type_name] = type_abbreviation
 		return type_abbreviation
 	
 	# Unlike `query_nodes_by_name`, it works for any resource and detects only the one with identical name.
@@ -1080,7 +1074,7 @@ class Mind :
 	func make_node_name_from(prefix:String, node_id:int, type_name:String) -> String:
 		var node_name = NODE_INITIAL_NAME_TEMPLATE.format({
 			"node_id":  node_id,
-			"node_id_base36":  Utils.int_to_base36(node_id).to_lower(),
+			"node_id_base36": Helpers.Utils.int_to_base36(node_id).to_lower(),
 			"prefix": prefix,
 			"type_abbreviation": get_type_name_abbreviation(type_name)
 		})
@@ -1118,12 +1112,12 @@ class Mind :
 		if name_prefix.length() == 0:
 			var open_scene_is_macro = is_scene_macro(_CURRENT_OPEN_SCENE_ID)
 			var scene_type_prefix = (NODE_INITIAL_NAME_PREFIX_FOR_MACROS if open_scene_is_macro else NODE_INITIAL_NAME_PREFIX_FOR_SCENES)
-			name_prefix = (scene_type_prefix + Utils.int_to_base36(_CURRENT_OPEN_SCENE_ID).to_lower())
+			name_prefix = (scene_type_prefix + Helpers.Utils.int_to_base36(_CURRENT_OPEN_SCENE_ID).to_lower())
 		if type in NODE_TYPES_LIST:
 			return {
 				"type": type,
 				"name": make_node_name_from(name_prefix, new_node_seed_uid, type),
-				"data": Inspector.Tab.Node.SUB_INSPCETORS[type]._create_new(new_node_seed_uid)
+				"data": Inspector.Tab.Node.SUB_INSPECTORS[type]._create_new(new_node_seed_uid)
 			}
 		return null
 	
@@ -1133,7 +1127,7 @@ class Mind :
 		var the_node = create_new_node(type, new_node_seed_uid, name_prefix)
 		if the_node != null:
 			var the_type = NODE_TYPES_LIST[type]
-			var the_map  = { "offset": Utils.vector2_to_array(offset) }
+			var the_map  = { "offset": Helpers.Utils.vector2_to_array(offset) }
 			# add it to resource datasets of the project
 			write_resource("nodes", the_node, new_node_seed_uid, false)
 			write_node_map(new_node_seed_uid, the_map, scene_id, false)
@@ -1182,7 +1176,7 @@ class Mind :
 			entry_node_id = _PROJECT.resources.scenes[scene_id].entry
 			if _PROJECT.resources.nodes.has(entry_node_id) == false :
 				printerr(
-					"Unexpected Behaviour! Entry node = %s" % entry_node_id,
+					"Unexpected Behavior! Entry node = %s" % entry_node_id,
 					" from scene = %s" % scene_id, " doesn't exist in the nodes dataset!"
 				)
 				entry_node_id = -1
@@ -1244,27 +1238,29 @@ class Mind :
 					return true
 		return false
 	
-	func update_scene_entry(node_id:int) -> void:
+	func update_scene_entry(node_id:int) -> int:
 		var the_owner_scene_id = find_scene_owner_of_node(node_id)
 		if the_owner_scene_id >= 0 :
 			var the_scene = _PROJECT.resources.scenes[the_owner_scene_id]
-			var current_scene_entry = the_scene.entry
-			if node_id != current_scene_entry:
+			var previous_scene_entry = the_scene.entry
+			if node_id != previous_scene_entry:
 				the_scene.entry = node_id
-		pass
+				return previous_scene_entry
+		return -1
 	
-	func update_project_entry(node_id:int) -> void:
+	func update_project_entry(node_id:int) -> int:
 		var the_owner_scene_id = find_scene_owner_of_node(node_id)
 		if the_owner_scene_id >= 0 : # a scene must own this node
 			var the_scene = _PROJECT.resources.scenes[the_owner_scene_id] 
 			# but the owner scene shall not be a macro
 			if the_scene.has("macro") == false || the_scene.macro == false:
-				var current_project_entry = _PROJECT.entry
-				if node_id != current_project_entry:
+				var previous_project_entry = _PROJECT.entry
+				if node_id != previous_project_entry:
 					_PROJECT.entry = node_id
+					return previous_project_entry
 			else:
 				show_error("Invalid Operation!", "Macros are repeatable scenes, they are not designed to own the project entry node!")
-		pass
+		return -1
 	
 	# because there must always be an entry it can only set/update entry and never unset/remove
 	func handle_as_entry_command_parameter(_as_entry:Dictionary) -> void:
@@ -1272,12 +1268,16 @@ class Mind :
 		# Note: scene_id is auto-detected, first from the open scene, then by looking all the scenes up
 		if _as_entry.has("node_id") && _as_entry.node_id is int && _PROJECT.resources.nodes.has(_as_entry.node_id):
 			if _as_entry.has("for_scene") && _as_entry.for_scene == true:
-				update_scene_entry(_as_entry.node_id)
+				var previous = update_scene_entry(_as_entry.node_id)
+				if previous >= 0:
+					Grid.call_deferred("update_grid_node_box", previous, lookup_resource(previous, "nodes", false))
 			if _as_entry.has("for_project") && _as_entry.for_project == true:
-				update_project_entry(_as_entry.node_id)
+				var previous = update_project_entry(_as_entry.node_id)
+				if previous >= 0:
+					Grid.call_deferred("update_grid_node_box", previous, lookup_resource(previous, "nodes", false))
 		else:
 			print_stack()
-			printerr("Unexpected Behaviour! Invalid _as_entry command or trying to make a nonexistent node as entry point. _as_entry: ", _as_entry)
+			printerr("Unexpected Behavior! Invalid _as_entry command or trying to make a nonexistent node as entry point. _as_entry: ", _as_entry)
 		pass
 	
 	func handle_use_command_parameter(user_resource_id:int, _use:Dictionary) -> void:
@@ -1299,30 +1299,30 @@ class Mind :
 		var the_user_resource_original = lookup_resource(user_resource_id, "nodes", false)
 		# now do the drop jobs
 		for job_resource_id in drops:
-			var droping = lookup_resource(job_resource_id, lookup_priority_field, false)
-			if droping is Dictionary && droping.has("use"):
-				if droping.use is Array && droping.use.has(user_resource_id):
-					droping.use.erase(user_resource_id)
+			var dropping = lookup_resource(job_resource_id, lookup_priority_field, false)
+			if dropping is Dictionary && dropping.has("use"):
+				if dropping.use is Array && dropping.use.has(user_resource_id):
+					dropping.use.erase(user_resource_id)
 				else:
-					print_debug("Warn! Tring to drop nonexistent link! user = %s & _use: " % user_resource_id, _use, " used: ", droping)
+					print_debug("Warn! Trying to drop nonexistent link! user = %s & _use: " % user_resource_id, _use, " used: ", dropping)
 				# `use` is an optional (array) so when empty, it can be removed from file to optimize size:
-				if (droping.use is Array) == false || droping.use.size() == 0:
-					droping.erase("use")
-		# ... and remove refrences from user resource as well
+				if (dropping.use is Array) == false || dropping.use.size() == 0:
+					dropping.erase("use")
+		# ... and remove references from user resource as well
 		if the_user_resource_original.has("ref") && the_user_resource_original.ref is Array:
 			for job_resource_id in drops:
 				if the_user_resource_original.ref.has(job_resource_id):
 					the_user_resource_original.ref.erase(job_resource_id)
 		# and referencing jobs
 		for job_resource_id in refers:
-			var referencee = lookup_resource(job_resource_id, lookup_priority_field, false)
-			if referencee is Dictionary:
-				if referencee.has("use") == false || (referencee.use is Array) == false:
-					referencee.use = [user_resource_id]
+			var referenced = lookup_resource(job_resource_id, lookup_priority_field, false)
+			if referenced is Dictionary:
+				if referenced.has("use") == false || (referenced.use is Array) == false:
+					referenced.use = [user_resource_id]
 				else:
-					if referencee.use.has(user_resource_id) == false: # avoid duplicate reference
-						referencee.use.append(user_resource_id)
-		# ... and add new refrences to user resource as well
+					if referenced.use.has(user_resource_id) == false: # avoid duplicate reference
+						referenced.use.append(user_resource_id)
+		# ... and add new references to user resource as well
 		if (the_user_resource_original.has("ref") == false) || ((the_user_resource_original.ref is Array) == false) :
 			the_user_resource_original.ref = []
 		for job_resource_id in refers:
@@ -1359,23 +1359,23 @@ class Mind :
 	) -> void:
 		var old_exposure = "{" + ((old_parent + ".") if old_parent.length() > 0 else "") + old_name + "}"
 		var new_exposure = "{" + ((new_parent + ".") if new_parent.length() > 0 else "") + new_name + "}"
-		for referer_resource_id in referrers_list:
-			var referrer_original = lookup_resource(referer_resource_id, "nodes", false) # only nodes can expose variables
+		for referrer_resource_id in referrers_list:
+			var referrer_original = lookup_resource(referrer_resource_id, "nodes", false) # only nodes can expose variables
 			if referrer_original.has("data") && referrer_original.data is Dictionary:
 				var data_modification = {
-					"data": Utils.recursively_replace_string(referrer_original.data, old_exposure, new_exposure, true)
+					"data": Helpers.Utils.recursively_replace_string(referrer_original.data, old_exposure, new_exposure, true)
 				}
 				if Settings.NODE_TYPES_WITH_DIRECT_EXPOSURES.has(referrer_original.type):
-					data_modification.data = Utils.recursively_replace_string(data_modification.data, old_name, new_name, true)
+					data_modification.data = Helpers.Utils.recursively_replace_string(data_modification.data, old_name, new_name, true)
 				if data_modification.data.size() > 0:
-					update_resource(referer_resource_id, data_modification, "nodes")
+					update_resource(referrer_resource_id, data_modification, "nodes")
 		pass
 	
 	# updates existing resource. To create one use `write_resource`
 	func update_resource(resource_uid:int, modification:Dictionary, field:String = "", is_auto_update:bool = false) -> void:
 		var validated_field = find_resource_field(resource_uid, field)
 		var the_resource = lookup_resource(resource_uid, validated_field, false) # duplicate = false ...
-		# ... so we can directrly update the resource 
+		# ... so we can directly update the resource 
 		if the_resource is Dictionary:
 			var the_resource_old_name = the_resource.name if the_resource.has("name") else null
 			# handing special command/parameters (_use, _as_entry, etc.)
@@ -1401,7 +1401,7 @@ class Mind :
 					modification.data.erase("_exposure_revision")
 			# update the resource
 				# passed parameters: 'false: to add optional pairs like notes, true: to remove empty pair keys, false : to edit the original'
-			Utils.recursively_update_dictionary(the_resource, modification, false, true, false)
+			Helpers.Utils.recursively_update_dictionary(the_resource, modification, false, true, false)
 			# finally...
 			# post update actions
 			match validated_field:
@@ -1439,7 +1439,7 @@ class Mind :
 			# print_debug("Update resource call: ", resource_uid, " = ", the_resource, " * ", modification, " = ", lookup_resource(resource_uid, field, false))
 		elif is_auto_update != true: # inspector may try to auto update a recently deleted node automatically
 			print_stack()
-			printerr("Unexpected Behaviour! Trying to update resource = %s which is not Dictionary!" % resource_uid)
+			printerr("Unexpected Behavior! Trying to update resource = %s which is not Dictionary!" % resource_uid)
 		pass
 	
 	# this will remove a resource by id in any field it resides, the argument `field` is just for optimization
@@ -1465,7 +1465,7 @@ class Mind :
 				# this resource might be *user* of other nodes/resources, so...
 				if the_resource.has("ref") && (the_resource.ref is Array) && the_resource.ref.size() > 0:
 					handle_use_command_parameter(resource_uid, {
-						# drop all the resources (`ref`erences) this resource is using
+						# drop all the resources (`ref`s) this resource is using
 						"drop": the_resource.ref.duplicate(true)
 					})
 				# it might also be in the clipboard and cause trouble on paste, so we remove it there too
@@ -1482,7 +1482,7 @@ class Mind :
 						# update the grid view
 						Grid.call_deferred("clean_node_off", resource_uid)
 						# Note: `Grid` will call for `map::io` updates on the other or both side(s)
-						# but this side's map shall be removed compeletely from the scene
+						# but this side's map shall be removed completely from the scene
 						var the_owner_scene_id = find_scene_owner_of_node(resource_uid)
 						var the_scene_map = _PROJECT.resources.scenes[the_owner_scene_id].map
 						if the_scene_map.has(resource_uid):
@@ -1518,8 +1518,9 @@ class Mind :
 						if field == "scenes" else ""
 					) +
 					(
-						"\nReferenced resources are: \n\n\t" + PoolStringArray(none_removables.names).join(", ")
-						if none_removables is Dictionary else ""
+						"\nReferenced resources are: \n\n\t" + ", ".join(none_removables.names)
+						if none_removables is Dictionary
+						else ""
 					)
 				)
 		else:
@@ -1534,7 +1535,7 @@ class Mind :
 		var list = (resource_id_list.duplicate(true) if duplicate_list_before_use else resource_id_list)
 		var drop = [] # [[<res_id>, [<user_id, ...>]], ...]
 		var nope = []
-		var nopee_names = []
+		var nope_names = []
 		var scene_entry = get_scene_entry(-1)
 		var project_entry = get_project_entry()
 		for res_id in list:
@@ -1550,7 +1551,7 @@ class Mind :
 					for user_id in res.use: # unless all the user-resources are also in the drops
 						if list.has(user_id) == false:
 							nope.append([res_id, res.use])
-							nopee_names.append(res.name)
+							nope_names.append(res.name)
 							do_drop = false
 							break
 						else:
@@ -1559,13 +1560,13 @@ class Mind :
 						drop.append([res_id, res.use])
 			else:
 				nope.append([res_id, "Scene or Project Entry!"])
-				nopee_names.append( lookup_resource(res_id, "nodes").name )
+				nope_names.append( lookup_resource(res_id, "nodes").name )
 		var check_result
 		if nope.size() == 0:
 			if check_only != true:
-				# let's sort dropees first, to make sure user-resources will be removed first
+				# let's sort dropping ones first, to make sure user-resources will be removed first
 				for __ in range(0, drop.size()):
-					drop.sort_custom(self, "resource_referrer_custom_sorter")
+					drop.sort_custom(self.resource_referrer_custom_sorter)
 				print_debug("Batch removal: ", drop)
 				for idx in range(0, drop.size()):
 					remove_resource(drop[idx][0], field, true)
@@ -1577,7 +1578,7 @@ class Mind :
 					(
 						"At least one the resources you want to remove is required by another resource or node. " +
 						"We can't proceed this operation, unless you remove referrers as well. \n\n" +
-						"Used resource(s) are: " + Utils.stringify_json(nopee_names, "") + "\n"
+						"Used resource(s) are: " + Helpers.Utils.stringify_json(nope_names, "") + "\n"
 					)
 				)
 				printerr("Batch remove operation discarded due to existing use cases: ", nope)
@@ -1585,7 +1586,7 @@ class Mind :
 		return (
 			{
 				"ids"  : nope,
-				"names": nopee_names
+				"names": nope_names
 			}
 			if return_non_removables_list
 			else check_result
@@ -1617,7 +1618,7 @@ class Mind :
 						( owner_scene_id != destination_scene && get_scene_entry(owner_scene_id) == uid ) ||
 						( uid == project_entry && is_scene_macro(destination_scene) )
 					)
-				# (Currentyl only entry nodes can be unsafe to move)
+				# (Currently only entry nodes can be unsafe to move)
 			# ...
 			if unsafe:
 				unsafe_to_move.append(uid)
@@ -1629,7 +1630,7 @@ class Mind :
 		if _PROJECT.resources.scenes[scene_id].map.has(node_id) == false:
 			scene_id = find_scene_owner_of_node(node_id)
 		if scene_id >= 0:
-			# bacause maps are dictionaries...
+			# because maps are dictionaries...
 			var original_map = _PROJECT.resources.scenes[scene_id].map[node_id] # this will point to the very data in the_project
 			for key in modification:
 				match key:
@@ -1670,7 +1671,7 @@ class Mind :
 						if modification.offset is Array && modification.offset.size() == 2:
 							new_offset = modification.offset
 						elif modification.offset is Vector2:
-							new_offset = Utils.vector2_to_array(modification.offset)
+							new_offset = Helpers.Utils.vector2_to_array(modification.offset)
 						if new_offset != null:
 							original_map.offset = new_offset
 						else:
@@ -1714,7 +1715,7 @@ class Mind :
 	func create_variable_name_from_id(id:int) -> String:
 		var the_name = (
 			Settings.VARIABLE_NAMES_PREFIX +
-			Utils.int_to_base36(id).to_lower()
+			Helpers.Utils.int_to_base36(id).to_lower()
 		)
 		if Settings.FORCE_UNIQUE_NAMES_FOR_VARIABLES:
 			while is_resource_name_duplicate(the_name, "variables"):
@@ -1737,7 +1738,7 @@ class Mind :
 	func create_character_name_from_id(id:int) -> String:
 		var the_name = (
 			Settings.CHARACTER_NAMES_PREFIX +
-			Utils.int_to_base36(id).to_lower()
+			Helpers.Utils.int_to_base36(id).to_lower()
 		)
 		if Settings.FORCE_UNIQUE_NAMES_FOR_CHARACTERS:
 			while is_resource_name_duplicate(the_name, "characters"):
@@ -1748,7 +1749,7 @@ class Mind :
 		var new_res_seed_id = create_new_resource_id()
 		var the_new_character = {
 			"name": create_character_name_from_id(new_res_seed_id),
-			"color": Utils.color_to_rgba_hex(Generators.create_random_color(), false)
+			"color": Helpers.Utils.color_to_rgba_hex(Helpers.Generators.create_random_color(), false)
 		}
 		write_resource("characters", the_new_character, new_res_seed_id, false)
 		Inspector.Tab.Characters.call_deferred("list_characters", ({ new_res_seed_id: the_new_character }))
@@ -1758,7 +1759,7 @@ class Mind :
 		var new_scene_seed_id = create_new_resource_id()
 		var new_scene_name = (
 			(Settings.MACRO_NAME_PREFIX if is_macro else Settings.SCENE_NAME_PREFIX)
-			+ Utils.int_to_base36(new_scene_seed_id).to_lower()
+			+ Helpers.Utils.int_to_base36(new_scene_seed_id).to_lower()
 		)
 		if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS:
 			while is_resource_name_duplicate(new_scene_name, "scenes"):
@@ -1775,10 +1776,10 @@ class Mind :
 		var new_node_seed_uid = create_new_resource_id()
 		var required_entry_type = Settings.NEW_SCENE_OR_MACRO_REQUIRED_INITIAL_ENTRY_NODE_TYPE
 		var scene_type_prefix = (NODE_INITIAL_NAME_PREFIX_FOR_MACROS if is_macro else NODE_INITIAL_NAME_PREFIX_FOR_SCENES)
-		var name_prefix = scene_type_prefix + String(new_scene_seed_id)
+		var name_prefix = scene_type_prefix + String.num_int64(new_scene_seed_id)
 		var the_node = create_new_node(required_entry_type, new_node_seed_uid, name_prefix)
 		if the_node != null:
-			var the_map  = { "offset": Utils.vector2_to_array(Settings.NEW_SCENE_OR_MACRO_REQUIRED_INITIAL_ENTRY_NODE_OFFSET) }
+			var the_map  = { "offset": Helpers.Utils.vector2_to_array(Settings.NEW_SCENE_OR_MACRO_REQUIRED_INITIAL_ENTRY_NODE_OFFSET) }
 			write_resource("nodes", the_node, new_node_seed_uid, false)
 			write_node_map(new_node_seed_uid, the_map, new_scene_seed_id, false)
 			# ... and update the new scene's entry, manually.
@@ -1844,11 +1845,10 @@ class Mind :
 						result.append(item)
 						if brake_on_level:
 							break
-				elif value != null :
-					var value_string = String(value)
-					if value_string.length() > 0 :
+				elif value is String:
+					if value.length() > 0 :
 						for query in what:
-							if (regexp == true && query.search(value_string)) || (regexp == false && value_string.matchn(query)):
+							if (regexp == true && query.search(value) != null) || (regexp == false && value.matchn(query)):
 								result.append(item)
 								break
 		return result
@@ -1860,28 +1860,31 @@ class Mind :
 		Query.call_deferred("update_query_results", report)
 		pass
 	
-	func clipboard_push(nodes_list:Array, mode:int = CLIPBOARD_MODE.EMPTY) -> void:
-		if mode is int && mode >= 0 && mode < CLIPBOARD_MODE.size():
+	func clipboard_push(nodes_list:Array, mode:int = Settings.CLIPBOARD_MODE.EMPTY) -> void:
+		if mode is int && mode >= 0 && mode < Settings.CLIPBOARD_MODE.size():
 			if nodes_list is Array && nodes_list.size() > 0:
 				_CLIPBOARD.MODE = mode
 				_CLIPBOARD.DATA = nodes_list.duplicate(true)
 			else:
-				_CLIPBOARD.MODE = CLIPBOARD_MODE.EMPTY
+				_CLIPBOARD.MODE = Settings.CLIPBOARD_MODE.EMPTY
 				_CLIPBOARD.DATA = []
-			print_debug("Clipboard (%s) : " % CLIPBOARD_MODE.keys()[_CLIPBOARD.MODE], _CLIPBOARD.DATA)
+			print_debug("Clipboard (%s) : " % Settings.CLIPBOARD_MODE.keys()[_CLIPBOARD.MODE], _CLIPBOARD.DATA)
 		else:
 			print_stack()
-			printerr("Unexpected clipboard mode: ", mode, ". Expected values are indices from ", CLIPBOARD_MODE)
-		var priority = (null if _CLIPBOARD.MODE == CLIPBOARD_MODE.EMPTY else (true if _CLIPBOARD.MODE == CLIPBOARD_MODE.CUT else false))
-		Grid.call_deferred("highlight_nodes", _CLIPBOARD.DATA, true, priority)
+			printerr("Unexpected clipboard mode: ", mode, ". Expected values are indices from ", Settings.CLIPBOARD_MODE)
+		@warning_ignore("INCOMPATIBLE_TERNARY")
+		Grid.call_deferred("highlight_nodes", _CLIPBOARD.DATA, true, _CLIPBOARD.MODE)
 		pass
 	
+	func clipboard_clear() -> void:
+		clipboard_push([], Settings.CLIPBOARD_MODE.EMPTY)
+
 	func clipboard_drop(node_list: Array) -> void:
 		for node_id in node_list:
 			while _CLIPBOARD.DATA.has(node_id): # (to make sure no duplicated node_id is there)
 				_CLIPBOARD.DATA.erase(node_id)
 		if _CLIPBOARD.DATA.size() == 0:
-			_CLIPBOARD.MODE = CLIPBOARD_MODE.EMPTY
+			_CLIPBOARD.MODE = Settings.CLIPBOARD_MODE.EMPTY
 		Grid.call_deferred("highlight_nodes", _CLIPBOARD.DATA, true, null)
 		pass
 	
@@ -1922,7 +1925,7 @@ class Mind :
 	
 	func clipboard_available() -> bool:
 		# print_debug("Clipboard: ", _CLIPBOARD)
-		if _CLIPBOARD.MODE != CLIPBOARD_MODE.EMPTY:
+		if _CLIPBOARD.MODE != Settings.CLIPBOARD_MODE.EMPTY:
 			if _CLIPBOARD.DATA is Array && _CLIPBOARD.DATA.size() > 0 :
 				return true
 		return false
@@ -1935,14 +1938,14 @@ class Mind :
 		# find the closest one to corner (0,0)
 		for original_id in copying_nodes_id_list:
 			maps_reference[original_id] = lookup_map_by_node_id(original_id, false)
-			if Utils.array_to_vector2(maps_reference[original_id].offset).length() < Utils.array_to_vector2(maps_reference[closest].offset).length():
+			if Helpers.Utils.array_to_vector2(maps_reference[original_id].offset).length() < Helpers.Utils.array_to_vector2(maps_reference[closest].offset).length():
 				closest = original_id
-		var offset_adjustment_vector = (offset - Utils.array_to_vector2(maps_reference[closest].offset))
+		var offset_adjustment_vector = (offset - Helpers.Utils.array_to_vector2(maps_reference[closest].offset))
 		# then create copies
 		var id_conversation_table = {}
 		for original_id in copying_nodes_id_list:
 			var original = lookup_resource(original_id, "nodes", false)
-			var the_offset = (offset_adjustment_vector + Utils.array_to_vector2(maps_reference[original_id].offset))
+			var the_offset = (offset_adjustment_vector + Helpers.Utils.array_to_vector2(maps_reference[original_id].offset))
 			var the_resource_update = { "data": original.data.duplicate(true) }
 			if original.has("ref") && original.ref is Array && original.ref.size() > 0:
 				the_resource_update.data._use = { "refer": original.ref.duplicate(true) }
@@ -1968,11 +1971,11 @@ class Mind :
 		# find the closest one to corner (0,0)
 		for moving_id in moving_nodes_id_list:
 			maps_reference[moving_id] = lookup_map_by_node_id(moving_id, false)
-			if Utils.array_to_vector2(maps_reference[moving_id].offset).length() < Utils.array_to_vector2(maps_reference[closest].offset).length():
+			if Helpers.Utils.array_to_vector2(maps_reference[moving_id].offset).length() < Helpers.Utils.array_to_vector2(maps_reference[closest].offset).length():
 				closest = moving_id
-		var offset_adjustment_vector = (offset - Utils.array_to_vector2(maps_reference[closest].offset))
+		var offset_adjustment_vector = (offset - Helpers.Utils.array_to_vector2(maps_reference[closest].offset))
 		# disconnect moving ones from nodes which aren't in the move list
-		# Note: one side of every link keeps the connection data, so we have to iterrate over all the node maps in the same scene
+		# Note: one side of every link keeps the connection data, so we have to iterate over all the node maps in the same scene
 		var the_origin_scene = _PROJECT.resources.scenes[origin_scene_id]
 		var lost_connections = [] # keep connections so we can update view later
 		for node_map_id in the_origin_scene.map:
@@ -1989,8 +1992,8 @@ class Mind :
 		# ... then, 
 		for moving_id in moving_nodes_id_list:
 			# update maps to new offset
-			var destination_offset = (offset_adjustment_vector + Utils.array_to_vector2(maps_reference[moving_id].offset))
-			maps_reference[moving_id].offset = Utils.vector2_to_array(destination_offset)
+			var destination_offset = (offset_adjustment_vector + Helpers.Utils.array_to_vector2(maps_reference[moving_id].offset))
+			maps_reference[moving_id].offset = Helpers.Utils.vector2_to_array(destination_offset)
 			# now data is updated, but...
 			# if they're going to be moved to another scene, the map data shall be moved there too
 			if origin_scene_id != destination_scene_id:
@@ -2019,11 +2022,11 @@ class Mind :
 			if drop.size() > 0: # (`drop` includes the immovable nodes confirmed to be left off after the prompt below)
 				clipboard_drop(drop)
 			offset = offset.floor()
-			print_debug("Paste (%s) " % CLIPBOARD_MODE.keys()[_CLIPBOARD.MODE], "at %s :" % offset, _CLIPBOARD.DATA)
+			print_debug("Paste (%s) " % Settings.CLIPBOARD_MODE.keys()[_CLIPBOARD.MODE], "at %s :" % offset, _CLIPBOARD.DATA)
 			match _CLIPBOARD.MODE:
-				CLIPBOARD_MODE.COPY:
+				Settings.CLIPBOARD_MODE.COPY:
 					copy_nodes_to_offset(offset, _CLIPBOARD.DATA)
-				CLIPBOARD_MODE.CUT:
+				Settings.CLIPBOARD_MODE.CUT:
 					var immovable_here = immovable_nodes(_CLIPBOARD.DATA);
 					if immovable_here.size() == 0:
 						# clipboard pulls replace one another, so all the nodes listed there are from one owner scene
@@ -2032,7 +2035,7 @@ class Mind :
 						# so we'll use the default of the move and give only two first parameters
 						move_nodes_to_offset(offset, _CLIPBOARD.DATA)
 						# and finally clean up the clipboard after move
-						clipboard_push([], CLIPBOARD_MODE.EMPTY)
+						clipboard_clear()
 					else:
 						# print("Caution! Not movable clipboard: ", _CLIPBOARD, " due to ", immovable_here)
 						var movable_size = _CLIPBOARD.DATA.size() - immovable_here.size()
@@ -2045,7 +2048,7 @@ class Mind :
 							(
 								"At least one of the selected nodes is not moveable.\n" +
 								"We can not move all or some of the nodes due to continuum safety (e.g. scene entry.) \n\n" +
-								"Immovable(s): " + Utils.stringify_json(immovable_names, "") + "\n"
+								"Immovable(s): " + Helpers.Utils.stringify_json(immovable_names, "") + "\n"
 							),
 							[{
 								"label": ("Move What's Safe (%s)" % movable_size),
@@ -2077,9 +2080,9 @@ class Mind :
 					# we'll take a scene shell (without all the nodes but this collected one and the entry)
 					var owner_shell = lookup_resource(owner_scene_id, "scenes", true)
 					owner_shell.map = { list_or_one: owner_shell.map[list_or_one] }
-					# we need to update shalls to keep map data for previously collected nodes as well
+					# we need to update shells to keep map data for previously collected nodes as well
 					if found.has(owner_scene_id):
-						Utils.recursively_update_dictionary(owner_shell, found[owner_scene_id], false)
+						Helpers.Utils.recursively_update_dictionary(owner_shell, found[owner_scene_id], false)
 					found[owner_scene_id] = {
 						"resources": { "scenes": { owner_scene_id: owner_shell } },
 						"dependencies": [owner_shell.entry]
@@ -2102,8 +2105,8 @@ class Mind :
 					found[ref_id] = collect_resources(ref_id)
 		# finally mix all the resources
 		for res_id in found:
-			# (recursive update is necessary becase we may collect pieces of a single resource _e.g. scene map_ in multiple steps)
-			Utils.recursively_update_dictionary(collected.resources, found[res_id].resources, false)
+			# (recursive update is necessary because we may collect pieces of a single resource _e.g. scene map_ in multiple steps)
+			Helpers.Utils.recursively_update_dictionary(collected.resources, found[res_id].resources, false)
 		return collected
 	
 	# copies selected resources and their dependencies into OS clipboard
@@ -2142,7 +2145,7 @@ class Mind :
 					else:
 						data.erase("use")
 		# finally pack the collection with some metadata and set it into the OS clipboard
-		var data = {
+		var packed = {
 			"arrow": { "version": Settings.ARROW_VERSION },
 			"chunk": {
 				"title": _PROJECT.title,
@@ -2151,9 +2154,9 @@ class Mind :
 				"resources": collected.resources,
 			}
 		};
-		var data_as_text = Utils.stringify_json(data)
-		OS.set_clipboard(data_as_text)
-		return data
+		var packed_as_text = Helpers.Utils.stringify_json(packed)
+		DisplayServer.clipboard_set(packed_as_text)
+		return packed
 	
 	# cache for data pulled from the OS clipboard
 	var _OS_CLIPBOARD_PULLED: Dictionary = {}
@@ -2162,30 +2165,30 @@ class Mind :
 	func os_clipboard_pull(merge_mode = null, offset_for_nodes = null) -> void:
 		if merge_mode == null:
 			_OS_CLIPBOARD_PULLED = {}
-			var os_clipbard = OS.get_clipboard()
-			if os_clipbard.find("arrow") >= 0:
-				var pulled = Utils.recursively_convert_numbers_to_int( Utils.parse_json(os_clipbard) );
+			var os_clipboard = DisplayServer.clipboard_get()
+			if os_clipboard.find("arrow") >= 0:
+				var pulled = Helpers.Utils.recursively_convert_numbers_to_int( Helpers.Utils.parse_json(os_clipboard) );
 				if pulled is Dictionary && pulled.has_all(["arrow", "chunk"]):
 					_OS_CLIPBOARD_PULLED = pulled
 					var allow_reuse = (pulled.chunk.chapter != _PROJECT.meta.chapter)
 					var statistics = ""
 					for field in pulled.chunk.resources:
-						statistics += "\n• " + String(pulled.chunk.resources[field].size()) + " " + field
+						statistics += "\n• " + String.num_uint64(pulled.chunk.resources[field].size()) + " " + field
 					Notifier.call_deferred(
 						"show_notification",
 						"Merger Detected [Experimental!]",
 						(
 							"You are trying to paste resources from `" + pulled.chunk.title +
-							"` (chapter " + String(pulled.chunk.chapter) + "), including: " + statistics + "\n" +
-							"in which " + String(pulled.chunk.list.size()) +
+							"` (chapter " + String.num_int64(pulled.chunk.chapter) + "), including: " + statistics + "\n" +
+							"in which " + String.num_uint64(pulled.chunk.list.size()) +
 							" are the main resource(s) and the rest are the referenced dependencies.\n\n" +
 							("Please choose your merger strategy if sharable resources with similar UIDs exist:" if allow_reuse else "")
 						),
 						[
-							{ "label": "Reuse", "callee": Main.Mind, "method": "os_clipboard_pull", "arguments": [OS_CLIPBOARD_MERGE_MODE.REUSE, offset_for_nodes] },
-							{ "label": "Recreate", "callee": Main.Mind, "method": "os_clipboard_pull", "arguments": [OS_CLIPBOARD_MERGE_MODE.RECREATE, offset_for_nodes] },
+							{ "label": "Reuse", "callee": Main.Mind, "method": "os_clipboard_pull", "arguments": [Settings.OS_CLIPBOARD_MERGE_MODE.REUSE, offset_for_nodes] },
+							{ "label": "Recreate", "callee": Main.Mind, "method": "os_clipboard_pull", "arguments": [Settings.OS_CLIPBOARD_MERGE_MODE.RECREATE, offset_for_nodes] },
 						] if allow_reuse else [
-							{ "label": "Recreate", "callee": Main.Mind, "method": "os_clipboard_pull", "arguments": [OS_CLIPBOARD_MERGE_MODE.RECREATE, offset_for_nodes] },
+							{ "label": "Recreate", "callee": Main.Mind, "method": "os_clipboard_pull", "arguments": [Settings.OS_CLIPBOARD_MERGE_MODE.RECREATE, offset_for_nodes] },
 						],
 						Settings.INFO_COLOR
 					)
@@ -2204,13 +2207,13 @@ class Mind :
 					var existing = lookup_resource_tagged(pulled_id, field, false)
 					# if the pulled UID is not used in this document, our priority is to reuse the UID, unless recreation is explicitly decided
 					if existing.data == null:
-						import_table.ids[pulled_id] = create_new_resource_id() if merge_mode == OS_CLIPBOARD_MERGE_MODE.RECREATE else pulled_id
+						import_table.ids[pulled_id] = create_new_resource_id() if merge_mode == Settings.OS_CLIPBOARD_MERGE_MODE.RECREATE else pulled_id
 					else:
 						# if a resource with identical UID exists, depending on the chosen strategy:
 						var new_id = null
 						match merge_mode:
-							OS_CLIPBOARD_MERGE_MODE.REUSE:
-								# the existing data ould be used and resources from the pulled ones will be ignored,
+							Settings.OS_CLIPBOARD_MERGE_MODE.REUSE:
+								# the existing data should be used and resources from the pulled ones will be ignored,
 								# unless the data type is different from the clipboard data or is not sharable
 								if (
 									["characters", "variables"].has(field) == false ||
@@ -2219,8 +2222,8 @@ class Mind :
 								):
 									new_id = create_new_resource_id()
 								# (else: new_id = null) resources that has no ID in the table would not be imported
-							OS_CLIPBOARD_MERGE_MODE.RECREATE:
-								# or we assigne a new UID to every clipboard resource anyway and import them as totaly new data
+							Settings.OS_CLIPBOARD_MERGE_MODE.RECREATE:
+								# or we assign a new UID to every clipboard resource anyway and import them as totally new data
 								new_id = create_new_resource_id()
 						# make sure this new ID would not collide with any of the IDs used directly from the pulled data
 						# (i.e. with those reused because of `existing.data == null`)
@@ -2290,9 +2293,9 @@ class Mind :
 									if moving_list.has(old_id):
 										# may be placed to the currently open grid in the destination
 										new_moving_list.append(new_id)
-									# nodes that keep references internally (e.g. contition, content, jump, etc.) may update them as well
-									if Inspector.Tab.Node.SUB_INSPCETORS[import.type].has_method("_translate_internal_ref"):
-										Inspector.Tab.Node.SUB_INSPCETORS[import.type]._translate_internal_ref(import.data, import_table)
+									# nodes that keep references internally (e.g. condition, content, jump, etc.) may update them as well
+									if Inspector.Tab.Node.SUB_INSPECTORS[import.type].has_method("_translate_internal_ref"):
+										Inspector.Tab.Node.SUB_INSPECTORS[import.type]._translate_internal_ref(import.data, import_table)
 							"variables":
 								# currently, only generals may apply
 								pass
@@ -2438,16 +2441,16 @@ class Mind :
 		var to_be_snapshot_index = _SNAPSHOTS.size()
 		if _SNAPSHOT_INDEX_OF_PREVIEW < 0 :
 			_SNAPSHOTS_COUNT_PURE_ONES += 1
-			version = String(_SNAPSHOTS_COUNT_PURE_ONES)
+			version = String.num_uint64(_SNAPSHOTS_COUNT_PURE_ONES)
 			print_debug("New Snapshot! v%s " % version)
 		else:
 			var base = _SNAPSHOTS[_SNAPSHOT_INDEX_OF_PREVIEW]
-			version = base.version + "." + String(base.branchs.size() + 1)
+			version = base.version + "." + String.num_uint64(base.branches.size() + 1)
 			# append index of the to-be-added snapshot as the branch of the base
-			base.branchs.push_back( to_be_snapshot_index )
+			base.branches.push_back( to_be_snapshot_index )
 			print_debug("A Snapshot of another snapshot made! v%s" % version)
 		var snapshot = capture_full_project_image(version)
-		snapshot["branchs"] = []
+		snapshot["branches"] = []
 		_SNAPSHOTS.push_back(snapshot)
 		# list it
 		if custom_version_prefix.length() == 0 :
@@ -2610,11 +2613,11 @@ class Mind :
 		pass
 	
 	func export_project_as(format, filename:String, base_directory:String) -> void:
-		if filename.is_valid_filename() && Utils.is_abs_or_rel_path(base_directory):
+		if filename.is_valid_filename() && Helpers.Utils.is_abs_or_rel_path(base_directory):
 			if format is String && format.length() > 0:
-				var formated_filename = (filename + "." + format)
-				var full_export_file_path = (Utils.normalize_dir_path(base_directory) + formated_filename)
-				print_debug("Saving a Copy of the Project as `%s` to: "% (formated_filename), base_directory )
+				var formatted_filename = (filename + "." + format)
+				var full_export_file_path = (Helpers.Utils.normalize_dir_path(base_directory) + formatted_filename)
+				print_debug("Saving a Copy of the Project as `%s` to: "% (formatted_filename), base_directory )
 				var saved;
 				match format.to_lower():
 					"json":
@@ -2638,32 +2641,32 @@ class Mind :
 				_QUICK_EXPORT_BASE_DIR = base_directory
 			else:
 				# format is not specified so use native project format
-				var full_export_file_path = (Utils.normalize_dir_path(base_directory) + filename + Settings.PROJECT_FILE_EXTENSION)
+				var full_export_file_path = (Helpers.Utils.normalize_dir_path(base_directory) + filename + Settings.PROJECT_FILE_EXTENSION)
 				ProMan.save_project_native_file(_PROJECT, full_export_file_path, (Settings.USE_DEPRECATED_BIN_SAVE != true))
 				print_debug("Saving a Copy of the Project as `%s` to: "% (filename + Settings.PROJECT_FILE_EXTENSION), base_directory )
 		pass
 	
 	func export_project_from_browser(format: String) -> void:
 		if Html5Helpers.Utils.is_browser():
-			var suggested_filename = Utils.valid_filename(_PROJECT.title)
+			var suggested_filename = Helpers.Utils.valid_filename(_PROJECT.title)
 			match format.to_lower():
 				"full-copy":
-					var full_json = Utils.stringify_json(_PROJECT)
-					JavaScript.download_buffer(full_json.to_utf8(), suggested_filename + Settings.PROJECT_FILE_EXTENSION)
+					var full_json = Helpers.Utils.stringify_json(_PROJECT)
+					JavaScriptBridge.download_buffer(full_json.to_utf8_buffer(), suggested_filename + Settings.PROJECT_FILE_EXTENSION)
 				"json":
 					var play_ready = ProMan.revise_play_ready(_PROJECT);
-					var play_json = Utils.stringify_json(play_ready)
-					JavaScript.download_buffer(play_json.to_utf8(), suggested_filename + ".json")
+					var play_json = Helpers.Utils.stringify_json(play_ready)
+					JavaScriptBridge.download_buffer(play_json.to_utf8_buffer(), suggested_filename + ".json")
 				"html":
 					var html = ProMan.parse_playable_html(_PROJECT)
 					if html is String:
-						JavaScript.download_buffer(html.to_utf8(), suggested_filename + ".html")
+						JavaScriptBridge.download_buffer(html.to_utf8_buffer(), suggested_filename + ".html")
 					else:
 						printerr("Unable to parse_playable_html", html)
 				"csv":
 					var path = suggested_filename + ".csv"
 					var csv = ProMan.parse_project_csv(_PROJECT, path, Settings.CSV_EXPORT_SEPARATOR)
-					JavaScript.download_buffer(csv.to_utf8(), path)
+					JavaScriptBridge.download_buffer(csv.to_utf8_buffer(), path)
 			_QUICK_EXPORT_FORMAT = format
 		else:
 			printerr("Trying to export_project_from_browser out of the context!")
@@ -2700,7 +2703,7 @@ class Mind :
 					console( _SELECTED_NODES_IDS[0], false, true )
 		pass
 	
-	func locate_node_on_grid(node_id:int = -1, hightlight:bool = true, force_change_scene:bool = true) -> void:
+	func locate_node_on_grid(node_id:int = -1, highlight:bool = true, force_change_scene:bool = true) -> void:
 		if node_id >= 0:
 			var owner_scene = find_scene_owner_of_node(node_id)
 			if owner_scene >= 0:
@@ -2708,7 +2711,7 @@ class Mind :
 					scene_editorial_open(owner_scene, false)
 				# now if we can (~ we was or we are in the scene,) we jump
 				if _CURRENT_OPEN_SCENE_ID == owner_scene:
-					Grid.call_deferred("go_to_offset_by_node_id", node_id, hightlight)
+					Grid.call_deferred("go_to_offset_by_node_id", node_id, highlight)
 		pass
 
 	func show_error(heading:String = "Error!", message:String = "Something's going wrong. Check stdout for more information", color:Color = Settings.WARNING_COLOR, actions:Array = []) -> void:
@@ -2736,7 +2739,7 @@ class Mind :
 		elif event.is_action_pressed("arrow_focus_node"):
 			Inspector.Tab.Node.call_deferred("focus_grid_on_inspected")
 		elif event.is_action_pressed("arrow_unselect_nodes_all"):
-			force_unsellect_all()
+			force_unselect_all()
 		elif event.is_action_pressed("arrow_switch_auto_inspection"):
 			Main.call_deferred("toggle_quick_preferences", "auto_inspect", true)
 		elif event.is_action_pressed("arrow_switch_auto_node_update"):

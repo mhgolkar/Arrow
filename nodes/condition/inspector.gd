@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Condition Node Type Inspector
-extends ScrollContainer
+# Condition Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 var _OPEN_NODE_ID
 var _OPEN_NODE
@@ -36,18 +36,18 @@ var DEFAULT_NODE_DATA = {
 
 var This = self
 
-onready var VariablesInspector = Main.Mind.Inspector.Tab.Variables
+@onready var VariablesInspector = Main.Mind.Inspector.Tab.Variables
 
-onready var Variables = get_node("./Condition/Filterable/Variables")
-onready var GlobalFilters = get_node("./Condition/Filterable/GlobalFilters")
-onready var Operators = get_node("./Condition/Operator")
-onready var ParameterType = get_node("./Condition/With/Parameter/Type")
-onready var ParameterVariable = get_node("./Condition/With/Parameter/Mode/Variable")
-onready var ParameterValue = get_node("./Condition/With/Parameter/Mode/Value")
-onready var ParameterValueTypes = {
-	"str": get_node("./Condition/With/Parameter/Mode/Value/String"),
-	"num": get_node("./Condition/With/Parameter/Mode/Value/Number"),
-	"bool": get_node("./Condition/With/Parameter/Mode/Value/Boolean"),
+@onready var Variables = $Variable/Selector
+@onready var GlobalFilters = $Variable/Filtered
+@onready var Operators = $Operator
+@onready var ParameterType = $Rhs/Mode
+@onready var ParameterVariable = $Rhs/Parameter/Variable
+@onready var ParameterValue = $Rhs/Parameter/Value
+@onready var ParameterValueTypes = {
+	"str":  $Rhs/Parameter/Value/String,
+	"num":  $Rhs/Parameter/Value/Number,
+	"bool": $Rhs/Parameter/Value/Boolean,
 }
 
 func _ready() -> void:
@@ -63,10 +63,10 @@ func load_parameter_types() -> void:
 	pass
 
 func register_connections() -> void:
-	Variables.connect("item_selected", self, "_on_variables_item_selected", [], CONNECT_DEFERRED)
-	GlobalFilters.connect("pressed", self, "refresh_variables_list", [], CONNECT_DEFERRED)
-	# Operators.connect("item_selected", self, "_on_operators_item_selected", [], CONNECT_DEFERRED)
-	ParameterType.connect("item_selected", self, "_on_parameter_type_item_selected", [], CONNECT_DEFERRED)
+	Variables.item_selected.connect(self._on_variables_item_selected, CONNECT_DEFERRED)
+	GlobalFilters.pressed.connect(self.refresh_variables_list, CONNECT_DEFERRED)
+	# Operators.item_selected.connect(self._on_operators_item_selected, CONNECT_DEFERRED)
+	ParameterType.item_selected.connect(self._on_parameter_type_item_selected, CONNECT_DEFERRED)
 	pass
 
 func refresh_operators_list() -> void:
@@ -118,9 +118,9 @@ func refresh_variables_list(select_by_res_id:int = -1) -> void:
 			if apply_globals && global_filters.SORT_ALPHABETICAL:
 				listing_keys.sort()
 			var item_index := 0
-			for name in listing_keys:
-				var id = listing[name]
-				Variables.add_item(name if already != id || apply_globals == false else "["+ name +"]", id)
+			for var_name in listing_keys:
+				var id = listing[var_name]
+				Variables.add_item(var_name if already != id || apply_globals == false else "["+ var_name +"]", id)
 				Variables.set_item_metadata(item_index, id)
 				item_index += 1
 			if select_by_res_id >= 0 :
@@ -135,7 +135,7 @@ func refresh_variables_list(select_by_res_id:int = -1) -> void:
 		Variables.set_item_metadata(0, NO_VARIABLE_ID)
 	pass
 
-func _on_variables_item_selected(item_index:int) -> void:
+func _on_variables_item_selected(_item_index:int) -> void:
 	refresh_operators_list()
 	refresh_comparison_parameter()
 	pass
@@ -159,10 +159,10 @@ func _on_parameter_type_item_selected(item_index:int) -> void:
 func refresh_comparison_parameter_value(value = null) -> void:
 	# value can only be of the same type as the selected variable,
 	# so the form inputs should correspond to the selected target variable
-	var slected_check_var_id = Variables.get_selected_metadata()
+	var selected_check_var_id = Variables.get_selected_metadata()
 	var selected_check_var_type = NO_VARIABLE_VAR_TYPE
-	if _PROJECT_VARIABLES_CACHE.has(slected_check_var_id):
-		selected_check_var_type = _PROJECT_VARIABLES_CACHE[ slected_check_var_id ].type
+	if _PROJECT_VARIABLES_CACHE.has(selected_check_var_id):
+		selected_check_var_type = _PROJECT_VARIABLES_CACHE[ selected_check_var_id ].type
 	for type in ParameterValueTypes:
 		ParameterValueTypes[type].set_deferred("visible", (true if (type == selected_check_var_type) else false))
 	if value == null:
@@ -170,7 +170,7 @@ func refresh_comparison_parameter_value(value = null) -> void:
 		# but can we use the value from current state of the node ?
 		if a_node_is_open() && (_OPEN_NODE.data.variable is int && _OPEN_NODE.data.variable >= 0) && _PROJECT_VARIABLES_CACHE.has(_OPEN_NODE.data.variable):
 			var open_node_variable_type = _PROJECT_VARIABLES_CACHE[ _OPEN_NODE.data.variable ].type
-			if (selected_check_var_type == open_node_variable_type) && ( slected_check_var_id == _OPEN_NODE.data.variable) :
+			if (selected_check_var_type == open_node_variable_type) && ( selected_check_var_id == _OPEN_NODE.data.variable) :
 				# we can, so...
 				value = _OPEN_NODE.data.with[1]
 	match selected_check_var_type:
@@ -191,14 +191,14 @@ func find_listed_parameter_variable_index(by_id: int) -> int:
 func refresh_comparison_parameters_variable_list(select_by_variable_id:int = -1) -> void:
 	ParameterVariable.clear()
 	# Note: it currently happens after `refresh_variables_list`, so we can use cache
-	var slected_check_var_id = Variables.get_selected_metadata()
-	var type_of_slected_check_var_id = _PROJECT_VARIABLES_CACHE[ slected_check_var_id ].type
+	var selected_check_var_id = Variables.get_selected_metadata()
+	var type_of_selected_check_var_id = _PROJECT_VARIABLES_CACHE[ selected_check_var_id ].type
 	var item_index := 0
 	for variable_id in _PROJECT_VARIABLES_CACHE:
 		var the_variable = _PROJECT_VARIABLES_CACHE[variable_id]
 		# only variables of the same type can be compared, so ...
-		if the_variable.type == type_of_slected_check_var_id:
-			var the_param_var_item_text = ( the_variable.name if ( variable_id != slected_check_var_id ) else (COMPARE_TO_INITIAL_VALUE_OF_VAR_TEXT_TEMPLATE.format({ "self": the_variable.name })) )
+		if the_variable.type == type_of_selected_check_var_id:
+			var the_param_var_item_text = ( the_variable.name if ( variable_id != selected_check_var_id ) else (COMPARE_TO_INITIAL_VALUE_OF_VAR_TEXT_TEMPLATE.format({ "self": the_variable.name })) )
 			ParameterVariable.add_item(the_param_var_item_text, variable_id)
 			ParameterVariable.set_item_metadata(item_index, variable_id)
 			item_index += 1
@@ -254,9 +254,9 @@ func read_the_parameter_with() -> Array:
 	var the_value = null
 	match mode_enum:
 		PARAMETER_MODES_ENUM_CODE.value:
-			var slected_check_var_id = Variables.get_selected_metadata()
-			if _PROJECT_VARIABLES_CACHE.has(slected_check_var_id):
-				var selected_check_var_type = _PROJECT_VARIABLES_CACHE[ slected_check_var_id ].type
+			var selected_check_var_id = Variables.get_selected_metadata()
+			if _PROJECT_VARIABLES_CACHE.has(selected_check_var_id):
+				var selected_check_var_type = _PROJECT_VARIABLES_CACHE[ selected_check_var_id ].type
 				match selected_check_var_type:
 					"str":
 						the_value = ParameterValueTypes["str"].get_text()
@@ -309,7 +309,7 @@ func _read_parameters() -> Dictionary:
 		parameters._use.field = "variables"
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
 

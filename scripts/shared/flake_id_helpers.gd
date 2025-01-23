@@ -33,7 +33,7 @@ class Native:
 	## Maximum Number of Authors
 	# With 6 bits dedicated to unique author-id we can have maximum `2^6 = 64` authors (including `0`)
 	# which sounds reasonable for number of authors working on the same project at the same time.
-	const AUTHOR_ID_EXCLUSIVE_LIMITT = int( pow( 2, BIT_SIZE[1] ) )
+	const AUTHOR_ID_EXCLUSIVE_LIMIT = int( pow( 2, BIT_SIZE[1] ) )
 
 	## Maximum number of resource IDs per author per chapter (by default `2^37 = 137_438_953_472` including `0`)
 	const RESOURCE_SEED_EXCLUSIVE_LIMIT = int( pow( 2, BIT_SIZE[2] ) )
@@ -80,7 +80,7 @@ class Native:
 		var their_next_seed: int = _PROJECT_META.authors[active_author][1]
 		if (
 			chapter < CHAPTER_ID_EXCLUSIVE_LIMIT &&
-			active_author < AUTHOR_ID_EXCLUSIVE_LIMITT &&
+			active_author < AUTHOR_ID_EXCLUSIVE_LIMIT &&
 			their_next_seed < RESOURCE_SEED_EXCLUSIVE_LIMIT
 		):
 			var next_uid = _calculate_unchecked(chapter, active_author, their_next_seed)
@@ -110,9 +110,9 @@ class Snow:
 	## Maximum Number of Authors
 	# With 6 bits dedicated to unique author-id we can have maximum `2^6` authors (including `0`)
 	# working on the same project at the same time, which sounds reasonable.
-	const AUTHOR_ID_EXCLUSIVE_LIMITT = 64
+	const AUTHOR_ID_EXCLUSIVE_LIMIT = 64
 
-	## Sequense Size per Millisecond
+	## Sequence Size per Millisecond
 	# Using a sequence number we can produce multiple IDs in each millisecond.
 	# The size of sequence (so the higher index limit) is `2^16`.
 	const SEQUENCE_SIZE_EXCLUSIVE_LIMIT = 65_536
@@ -131,14 +131,14 @@ class Snow:
 
 	func _init(epoch:int, producer:int) -> void:
 		_EPOCH = epoch
-		_UNIQUE_PRODUCER = producer % AUTHOR_ID_EXCLUSIVE_LIMITT
+		_UNIQUE_PRODUCER = producer % AUTHOR_ID_EXCLUSIVE_LIMIT
 		_TIME_SPAN = _unsafe_unix_now_millisecond()
 		_SEQUENCE_IDX = SEQUENCE_SIZE_EXCLUSIVE_LIMIT - 1 # (so the first `...next` call will reset timer) 
 		print_debug("snowflake generator (re-)initialized with epoch: ", _EPOCH, " and producer: ", _UNIQUE_PRODUCER)
 		pass
 	
 	func reset_producer(producer:int) -> void:
-		_UNIQUE_PRODUCER = producer % AUTHOR_ID_EXCLUSIVE_LIMITT
+		_UNIQUE_PRODUCER = producer % AUTHOR_ID_EXCLUSIVE_LIMIT
 		print_debug("flake generator updated with epoch: ", _EPOCH, " and producer: ", _UNIQUE_PRODUCER)
 		pass
 	
@@ -152,7 +152,7 @@ class Snow:
 		# 	(
 		# 		OS.get_unix_time() # seconds
 		# 		* 1_000_000 # as microseconds
-		# 		+ ( OS.get_ticks_usec() ) % 1_000_1000 # plus microticks
+		# 		+ ( OS.get_ticks_usec() ) % 1_000_1000 # plus micro-ticks
 		# 	) / 1000 # converted to milliseconds
 		# )
 		# ... thanks to new `Time` singleton
@@ -173,7 +173,7 @@ class Snow:
 	func _calculate_unchecked(time:int, producer:int, index:int) -> int:
 		return (
 			# > Godot `int` is i64 so we can directly shift them:
-			(time << 22) # 🡠 22 bits left shift (= for 6 Author (Producer/Machine) ID + 16 Secquence)
+			(time << 22) # 🡠 22 bits left shift (= for 6 Author (Producer/Machine) ID + 16 Sequence)
 			| (producer << 16) # 🡠 16 bits left shift (for Sequence)
 			| index # fills up the rest of (16) bits
 		)
@@ -191,7 +191,7 @@ class Snow:
 		# ...
 		# Now we are either in the new generation (later timestamp:)
 		if now > _TIME_SPAN:
-			# where we shall reset sequnce,
+			# where we shall reset sequence,
 			_SEQUENCE_IDX = 0
 			# and update the internal state:
 			_TIME_SPAN = now

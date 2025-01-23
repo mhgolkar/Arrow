@@ -2,23 +2,21 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Tag-Edit Node Type
+# Tag-Edit Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-var Utils = Helpers.Utils
-
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
-onready var Method = get_node("./Rows/Header/Method")
-onready var Tag = get_node("./Rows/Tag")
-onready var CharacterProfile = get_node("./Rows/Character")
-onready var CharacterProfileColor = get_node("./Rows/Character/Color")
-onready var CharacterProfileName = get_node("./Rows/Character/Name")
+@onready var Method = $Display/Method
+@onready var Tag = $Display/Tag
+@onready var CharacterProfile = $Display/Character
+@onready var CharacterProfileColor = $Display/Character/Color
+@onready var CharacterProfileName = $Display/Character/Name
 
 const TAG_EDIT_INVALID = "Invalid!"
 const TAG_KEY_VALUE_FORMAT_STRING = "{key}: `{value}`"
@@ -41,7 +39,7 @@ func update_character(profile:Dictionary) -> void:
 	)
 	CharacterProfileColor.set(
 		"color",
-		Utils.rgba_hex_to_color(
+		Helpers.Utils.rgba_hex_to_color(
 			profile.color if profile.has("color") && (profile.color is String) else ANONYMOUS_CHARACTER.color
 		)
 	)

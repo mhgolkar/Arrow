@@ -1,67 +1,36 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://c13p6th8mv2x8"]
 
-[ext_resource path="res://nodes/jump/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/jump/inspector.gd" id="1_ebnsr"]
 
-[node name="JumpType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 246.0
-margin_bottom = 164.0
-scroll_horizontal_enabled = false
-script = ExtResource( 1 )
-
-[node name="Jump" type="VBoxContainer" parent="."]
-margin_right = 239.0
-margin_bottom = 157.0
+[node name="Jump" type="VBoxContainer"]
+offset_right = 256.0
+offset_bottom = 156.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_ebnsr")
 
-[node name="ReasonLabel" type="Label" parent="Jump"]
-margin_right = 239.0
-margin_bottom = 14.0
+[node name="ReasonLabel" type="Label" parent="."]
+layout_mode = 2
 text = "Reason"
 
-[node name="Reason" type="LineEdit" parent="Jump"]
-margin_top = 18.0
-margin_right = 239.0
-margin_bottom = 42.0
-placeholder_text = "eg. Level Up"
+[node name="Reason" type="LineEdit" parent="."]
+layout_mode = 2
+placeholder_text = "e.g. Leve Up, Next Scene ..."
 
-[node name="DestinationLabel" type="Label" parent="Jump"]
-margin_top = 46.0
-margin_right = 239.0
-margin_bottom = 60.0
-size_flags_horizontal = 3
+[node name="DestinationLabel" type="Label" parent="."]
+layout_mode = 2
 text = "Destination"
 
-[node name="Destination" type="LineEdit" parent="Jump"]
-margin_top = 64.0
-margin_right = 239.0
-margin_bottom = 88.0
+[node name="Destination" type="LineEdit" parent="."]
+layout_mode = 2
 placeholder_text = "Node UID"
 
-[node name="Suggestion" type="HBoxContainer" parent="Jump"]
-margin_top = 92.0
-margin_right = 239.0
-margin_bottom = 157.0
-size_flags_horizontal = 3
+[node name="Suggestion" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
 
-[node name="MarginContainer" type="MarginContainer" parent="Jump/Suggestion"]
-margin_right = 11.0
-margin_bottom = 65.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
-
-[node name="List" type="ItemList" parent="Jump/Suggestion"]
-margin_left = 15.0
-margin_right = 239.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 0, 64 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 9.5
-items = [ "{auto fill suggestions}", null, false ]
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="List" type="ItemList" parent="Suggestion"]
+layout_mode = 2

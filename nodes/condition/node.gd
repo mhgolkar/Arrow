@@ -2,20 +2,20 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Condition Node Type
+# Condition Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
-onready var Condition = get_node("./Condition")
+@onready var Condition = $Statement
 
 const UNSET_OR_INVALID_MESSAGE = "Unset !"
-onready var ConditionStatement = ConditionSharedClass.Statement.new(Main.Mind)
+@onready var ConditionStatement = ConditionSharedClass.Statement.new(Main.Mind)
 
 #func _ready() -> void:
 #	register_connections()

@@ -61,7 +61,7 @@ class Statement :
 			var statement = { "lhs": null, "operator": null, "rhs": null }
 			var lhs = (variables_current[data.variable] if variables_current != null else Mind.lookup_resource(data.variable,"variables"))
 			if lhs is Dictionary && lhs.has_all(["name", "type", "init"]):
-				statement.lhs = lhs.name + ((" `" + String(lhs.value if lhs.has("value") else lhs.init) + "`") if variables_current != null else "")
+				statement.lhs = lhs.name + ((" `%s`" % (lhs.value if lhs.has("value") else lhs.init)) if variables_current != null else "")
 				statement.operator = COMPARISON_OPERATORS[lhs.type][data.operator].sign
 				if data.with.size() == 2 :
 					match data.with[0]:
@@ -69,11 +69,11 @@ class Statement :
 							statement.rhs = "`%s`" % data.with[1]
 						PARAMETER_MODES_ENUM_CODE.variable:
 							if data.with[1] == data.variable : # the variable is compared to self (initial value)
-								statement.rhs = "Self (Initial `" + String(lhs.init) + "`)"
+								statement.rhs = "Self (Initial `%s`)" % lhs.init
 							else: # or another variable
 								var rhs = (variables_current[data.with[1]] if variables_current != null else Mind.lookup_resource(data.with[1],"variables"))
 								if rhs is Dictionary && rhs.has_all(["name", "type", "init"]):
-									statement.rhs = (("`" + String(rhs.value if rhs.has("value") else rhs.init) + "` ") if variables_current != null else "") + rhs.name
+									statement.rhs = (("`%s` " % (rhs.value if rhs.has("value") else rhs.init)) if variables_current != null else "") + rhs.name
 								else:
 									statement.rhs = "[Invalid]"
 					parsed = "{lhs} {operator} {rhs}".format(statement)
@@ -100,7 +100,7 @@ class Statement :
 								with_value = variables_current[the_second_variable_id].init
 							else:
 								with_value = variables_current[the_second_variable_id].value
-					# now we have whatever we need, just make sure the comparee value is right
+					# now we have whatever we need, just make sure the compared value is right
 					if type == "str" && (with_value is String) == false:
 						with_value = String(with_value)
 					elif type == "num" && (with_value is int) == false:
@@ -117,7 +117,7 @@ class Statement :
 	func smart_length_parse(string:String) -> int:
 		# if string is only a number inputted as string, it will be parsed as length
 		# otherwise length of the string is the result
-		return (int(string) if ( string == String(int(string)) ) else string.length())
+		return (int(string) if ( string == String.num_uint64(int(string)) ) else string.length())
 	
 	func evaluate_str_comparison(left:String, operation:String, right:String):
 		var result = null

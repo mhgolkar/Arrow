@@ -3,28 +3,26 @@
 # Mor. H. Golkar
 
 # Console Panel
-extends PanelContainer
+extends Control
 
-signal request_mind
+signal request_mind()
 
-onready var TheTree = get_tree()
-onready var Main = TheTree.get_root().get_child(0)
+@onready var TheTree = get_tree()
+@onready var Main = TheTree.get_root().get_child(0)
 
-var Utils = Helpers.Utils
-
-onready var Terminal = get_node(Addressbook.CONSOLE.TERMINAL)
-onready var TerminalScroll = get_node(Addressbook.CONSOLE.TERMINAL_SCROLL_CONTAINER)
-onready var ClearConsoleButton = get_node(Addressbook.CONSOLE.CLEAR)
-onready var CloseConsoleButton = get_node(Addressbook.CONSOLE.CLOSE)
-onready var PlayStepBackButton = get_node(Addressbook.CONSOLE.BACK)
-onready var SettingsMenuButton = get_node(Addressbook.CONSOLE.SETTINGS)
-onready var SettingsMenuButtonPopup = SettingsMenuButton.get_popup()
+@onready var TerminalScroll = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/Display/Scroll
+@onready var Terminal = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/Display/Scroll/Terminal
+@onready var ClearConsoleButton = $/root/Main/FloatingTools/Control/Console/Sections/Toolbar/Clear
+@onready var CloseConsoleButton = $/root/Main/FloatingTools/Control/Console/Sections/Toolbar/Close
+@onready var PlayStepBackButton = $/root/Main/FloatingTools/Control/Console/Sections/Toolbar/Back
+@onready var SettingsMenuButton = $/root/Main/FloatingTools/Control/Console/Sections/Toolbar/Settings
+@onready var SettingsMenuButtonPopup = SettingsMenuButton.get_popup()
 
 const CONSOLE_MESSAGE_DEFAULT_COLOR = Settings.CONSOLE_MESSAGE_DEFAULT_COLOR
-const CONSOLE_MESSAGE_PRINET_PROPERTIES = {
-	"v_size_flags": Control.SIZE_EXPAND_FILL,
-	"align": Label.ALIGN_LEFT,
-	"autowrap": true,
+const CONSOLE_MESSAGE_PRINT_PROPERTIES = {
+	"size_flags_vertical": Control.SizeFlags.SIZE_EXPAND_FILL,
+	"horizontal_alignment": HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT,
+	"autowrap_mode": TextServer.AutowrapMode.AUTOWRAP_WORD_SMART,
 }
 
 var _CACHED_TYPES:Dictionary = {}
@@ -43,7 +41,7 @@ var _INSPECT_CHAR_TAGS:bool = false
 var _SHOW_SKIPPED_NODES:bool = false
 
 const CLEARANCE_PREVENTION_MESSAGE = "Clearance ignored."
-const CLEARANCE_PREVENTION_MESSAGE_COLOR = Color.yellow
+const CLEARANCE_PREVENTION_MESSAGE_COLOR = Color.YELLOW
 
 const CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_ON = Settings.CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_ON
 const CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_OFF = Settings.CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_OFF
@@ -59,24 +57,26 @@ const CONSOLE_SETTINGS_MENU = {
 }
 var _CONSOLE_SETTINGS_MENU_ITEM_INDEX_BY_ACTION = {}
 
-onready var VariablesInspectorPanel = get_node(Addressbook.CONSOLE.VARIABLE_INSPECTOR.itself)
-onready var VariableInspectorSelect = get_node(Addressbook.CONSOLE.VARIABLE_INSPECTOR.VARIABLE_SELECT)
-onready var VariableInspectorCurrentValue = {
-	"itself": get_node(Addressbook.CONSOLE.VARIABLE_INSPECTOR.VALUE_EDITS.itself),
-	"str": get_node(Addressbook.CONSOLE.VARIABLE_INSPECTOR.VALUE_EDITS["str"]),
-	"num": get_node(Addressbook.CONSOLE.VARIABLE_INSPECTOR.VALUE_EDITS["num"]),
-	"bool": get_node(Addressbook.CONSOLE.VARIABLE_INSPECTOR.VALUE_EDITS["bool"])
-}
-onready var VariableInspectorUpdateButton = get_node(Addressbook.CONSOLE.VARIABLE_INSPECTOR.UPDATE_BUTTON)
+@onready var DisplayStatesSplitter = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split
 
-onready var CharTagsInspectorPanel = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.itself)
-onready var CharTagsInspectorSelect = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.CHAR_SELECTOR)
-onready var CharTagsInspectorCurrent = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.CURRENT)
-onready var CharTagsInspectorTagBox = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.TAGBOX)
-onready var CharTagsInspectorNoneMessage = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.NO_TAG_MESSAGE)
-onready var CharTagsInspectorEditKey = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.TAG_EDIT_KEY)
-onready var CharTagsInspectorEditValue = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.TAG_EDIT_VALUE)
-onready var CharTagsInspectorEditOverset = get_node(Addressbook.CONSOLE.CHAR_TAGS_INSPECTOR.TAG_EDIT_OVERSET)
+@onready var VariablesInspectorPanel = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables
+@onready var VariableInspectorSelect = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/List
+@onready var VariableInspectorCurrentValue = {
+	"itself": $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value,
+	"str": $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value/String,
+	"num": $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value/Number,
+	"bool": $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value/Boolean,
+}
+@onready var VariableInspectorUpdateButton = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Update
+
+@onready var CharTagsInspectorPanel = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters
+@onready var CharTagsInspectorSelect = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/List
+@onready var CharTagsInspectorCurrent = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current
+@onready var CharTagsInspectorTagBox = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Scroll/Pairs
+@onready var CharTagsInspectorNoneMessage = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Scroll/None
+@onready var CharTagsInspectorEditKey = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Edit/Key
+@onready var CharTagsInspectorEditValue = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Edit/Value
+@onready var CharTagsInspectorEditOverset = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Edit/Overset
 
 const CHAR_TAG_KEY_VALUE_DISPLAY_TEMPLATE = "`{value}`" # also available: {key}
 
@@ -86,18 +86,18 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	ClearConsoleButton.connect("pressed", self, "_request_mind", ["console_clear"], CONNECT_DEFERRED)
-	CloseConsoleButton.connect("pressed", self, "_request_mind", ["console_close"], CONNECT_DEFERRED)
-	PlayStepBackButton.connect("pressed", self, "play_step_back", [], CONNECT_DEFERRED)
-	SettingsMenuButtonPopup.connect("id_pressed", self, "_on_console_settings_popup_menu_id_pressed", [], CONNECT_DEFERRED)
-	VariableInspectorSelect.connect("item_selected", self, "_on_variable_inspector_item_select", [], CONNECT_DEFERRED)
-	VariableInspectorUpdateButton.connect("pressed", self, "update_current_inspected_variable", [], CONNECT_DEFERRED)
-	CharTagsInspectorSelect.connect("item_selected", self, "_on_char_tags_inspector_item_select", [], CONNECT_DEFERRED)
-	CharTagsInspectorEditOverset.connect("pressed", self, "read_and_overset_current_inspected_char_tag", [], CONNECT_DEFERRED)
+	ClearConsoleButton.pressed.connect(self._request_mind.bind("console_clear"), CONNECT_DEFERRED)
+	CloseConsoleButton.pressed.connect(self._request_mind.bind("console_close"), CONNECT_DEFERRED)
+	PlayStepBackButton.pressed.connect(self.play_step_back, CONNECT_DEFERRED)
+	SettingsMenuButtonPopup.id_pressed.connect(self._on_console_settings_popup_menu_id_pressed, CONNECT_DEFERRED)
+	VariableInspectorSelect.item_selected.connect(self._on_variable_inspector_item_select, CONNECT_DEFERRED)
+	VariableInspectorUpdateButton.pressed.connect(self.update_current_inspected_variable, CONNECT_DEFERRED)
+	CharTagsInspectorSelect.item_selected.connect(self._on_char_tags_inspector_item_select, CONNECT_DEFERRED)
+	CharTagsInspectorEditOverset.pressed.connect(self.read_and_overset_current_inspected_char_tag, CONNECT_DEFERRED)
 	pass
 
 func _request_mind(req:String, args = null) -> void:
-	emit_signal("request_mind", req, args)
+	self.request_mind.emit(req, args)
 	pass
 
 func load_console_settings_menu() -> void:
@@ -123,7 +123,7 @@ func _on_console_settings_popup_menu_id_pressed(pressed_item_id:int) -> void:
 	pass
 
 func refresh_variables_list() -> void:
-	var the_selected_one_index_before_referesh = VariableInspectorSelect.get_selected()
+	var the_selected_one_index_before_refresh = VariableInspectorSelect.get_selected()
 	VariableInspectorSelect.clear()
 	var no_var_yet = true
 	if _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() >= 1:
@@ -135,8 +135,8 @@ func refresh_variables_list() -> void:
 				VariableInspectorSelect.set_item_metadata(item_index, variable_id)
 				item_index += 1
 			# reselect the variable after refresh
-			if the_selected_one_index_before_referesh < variables.size():
-				VariableInspectorSelect.select(the_selected_one_index_before_referesh)
+			if the_selected_one_index_before_refresh < variables.size():
+				VariableInspectorSelect.select(the_selected_one_index_before_refresh)
 			no_var_yet = false
 	if no_var_yet:
 		VariableInspectorSelect.add_item("No Variable Available", -1)
@@ -174,7 +174,7 @@ func set_variable_inspector_current_value_editor_to_type(the_type_visible:String
 		VariableInspectorCurrentValue[type].set_visible( (type == the_type_visible) )
 	pass
 
-func _on_variable_inspector_item_select(idx:int = -1) -> void:
+func _on_variable_inspector_item_select(_idx:int = -1) -> void:
 	inspect_variable()
 	pass
 
@@ -198,7 +198,7 @@ func update_current_inspected_variable() -> void:
 	pass
 
 func refresh_characters_list() -> void:
-	var the_selected_one_index_before_referesh = CharTagsInspectorSelect.get_selected()
+	var the_selected_one_index_before_refresh = CharTagsInspectorSelect.get_selected()
 	CharTagsInspectorSelect.clear()
 	var no_char_yet = true
 	if _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() >= 1:
@@ -210,8 +210,8 @@ func refresh_characters_list() -> void:
 				CharTagsInspectorSelect.set_item_metadata(item_index, character_id)
 				item_index += 1
 			# reselect the character after refresh
-			if the_selected_one_index_before_referesh < characters.size():
-				CharTagsInspectorSelect.select(the_selected_one_index_before_referesh)
+			if the_selected_one_index_before_refresh < characters.size():
+				CharTagsInspectorSelect.select(the_selected_one_index_before_refresh)
 			no_char_yet = false
 	if no_char_yet:
 		CharTagsInspectorSelect.add_item("No Character Available", -1)
@@ -249,7 +249,7 @@ func append_char_tag_to_box(char_id: int, key: String, value: String) -> void:
 	var key_value_display = CHAR_TAG_KEY_VALUE_DISPLAY_TEMPLATE.format({ "key": key, "value": value })
 	var the_tag = MenuButton.new()
 	the_tag.set_text(key)
-	the_tag.set_tooltip(key_value_display)
+	the_tag.set_tooltip_text(key_value_display)
 	the_tag.set_flat(false)
 	var the_popup = the_tag.get_popup()
 	the_popup.add_item(key_value_display, 0)
@@ -257,7 +257,7 @@ func append_char_tag_to_box(char_id: int, key: String, value: String) -> void:
 	the_popup.add_separator("", 0)
 	the_popup.add_item("Edit", 1)
 	the_popup.add_item("Unset", 2)
-	the_popup.connect("id_pressed", self, "take_char_tag_action", [char_id, key, value], CONNECT_DEFERRED)
+	the_popup.id_pressed.connect(self.take_char_tag_action.bind(char_id, key, value), CONNECT_DEFERRED)
 	# ...
 	CharTagsInspectorTagBox.add_child(the_tag)
 	pass
@@ -291,18 +291,38 @@ func inspect_character(id:int = -1) -> void:
 	CharTagsInspectorCurrent.set("visible", a_char_inspected)
 	pass
 
-func _on_char_tags_inspector_item_select(idx:int = -1) -> void:
+func _on_char_tags_inspector_item_select(_idx:int = -1) -> void:
 	inspect_character()
 	pass
 
 func read_and_overset_current_inspected_char_tag() -> void:
 	var char_id = CharTagsInspectorSelect.get_selected_metadata()
-	var key = Utils.exposure_safe_resource_name( CharTagsInspectorEditKey.get_text() )
+	var key = Helpers.Utils.exposure_safe_resource_name( CharTagsInspectorEditKey.get_text() )
 	CharTagsInspectorEditKey.set_text(key) # ... so the user can see the safe key if we have changed it
 	var value = CharTagsInspectorEditValue.get_text()
 	if key.length() > 0:
 		take_char_tag_action(3, char_id, key, value)
 	pass
+
+func update_scroll_to_v_max(forced:bool = false) -> void:
+	if _AUTOSCROLL || forced:
+		await TheTree.process_frame
+		var v_max = TerminalScroll.get_v_scroll_bar().get_max()
+		TerminalScroll.set_v_scroll( v_max )
+		TerminalScroll.queue_redraw()
+	pass
+
+func try_focus_on_playing() -> bool:
+	var in_macro = (_OPEN_MACRO != null && _OPEN_MACRO.ELEMENT.TERMINAL.get_child_count() > 0)
+	var focal = Helpers.Utils.find_focal(_OPEN_MACRO.ELEMENT.TERMINAL if in_macro else Terminal)
+	if focal != null && focal.is_visible() && focal.get("disabled") != true:
+		focal.call_deferred("grab_focus")
+		return true
+	return false
+
+func _react_to_terminal_changes() -> void:
+	update_scroll_to_v_max()
+	try_focus_on_playing()
 
 func append_to_terminal(
 	node_instance, node_uid: int = -1, node_resource = null, variables_current = null, characters_current = null
@@ -328,18 +348,18 @@ func append_to_terminal(
 	# ...
 	self.call_deferred("refresh_variables_list")
 	self.call_deferred("refresh_characters_list")
-	self.call_deferred("update_scroll_to_v_max")
+	self.call_deferred("_react_to_terminal_changes")
 	pass
 
 func print_console(message:String, color:Color = CONSOLE_MESSAGE_DEFAULT_COLOR, origin = null) -> void:
 	var message_node = Label.new()
 	message_node.set_text(message)
-	for property in CONSOLE_MESSAGE_PRINET_PROPERTIES:
-		message_node.set(property, CONSOLE_MESSAGE_PRINET_PROPERTIES[property])
-	message_node.set("custom_colors/font_color", color)
+	for property in CONSOLE_MESSAGE_PRINT_PROPERTIES:
+		message_node.set(property, CONSOLE_MESSAGE_PRINT_PROPERTIES[property])
+	message_node.add_theme_color_override("font_color", color)
 	if origin != null:
 		message_node.set_mouse_filter(MOUSE_FILTER_PASS)
-		message_node.connect("gui_input", self, "_on_playing_node_gui_input", [origin, origin._NODE_ID], CONNECT_DEFERRED)
+		message_node.gui_input.connect(self._on_playing_node_gui_input.bind(origin, origin._NODE_ID), CONNECT_DEFERRED)
 	append_to_terminal(message_node)
 	pass
 
@@ -400,16 +420,16 @@ const POSSIBLE_SIGNALS_FROM_PLAYING_NODES = {
 
 func listen_to_playing_node(node:Node, node_uid:int = -1) -> void:
 	# because in step backs we try to listen back to a playing node,
-	# we shall check for existance of the connection first to avoid error
+	# we shall check for existence of the connection first to avoid error
 	for the_signal in POSSIBLE_SIGNALS_FROM_PLAYING_NODES:
 		var the_method = POSSIBLE_SIGNALS_FROM_PLAYING_NODES[the_signal]
 		if node.has_signal(the_signal):
-			if node.is_connected(the_signal, self, the_method) == false:
-				node.connect(the_signal, self, the_method, [node, node_uid], CONNECT_DEFERRED)
+			if node.is_connected(the_signal, Callable(self, the_method)) == false:
+				node.connect(the_signal, Callable(self, the_method).bind(node, node_uid), CONNECT_DEFERRED)
 	# 'console' lets users to double click on a playing node and jump to the respective node on the gird,
 	# so we listen for that too ...
-	if node.is_connected("gui_input", self, "_on_playing_node_gui_input") == false:
-		node.connect("gui_input", self, "_on_playing_node_gui_input", [node, node_uid], CONNECT_DEFERRED)
+	if node.is_connected("gui_input", self._on_playing_node_gui_input) == false:
+		node.connect("gui_input", self._on_playing_node_gui_input.bind(node, node_uid), CONNECT_DEFERRED)
 	pass
 
 func open_macro(node_uid: int, node_resource:Dictionary, node_element:Node) -> void:
@@ -421,7 +441,7 @@ func open_macro(node_uid: int, node_resource:Dictionary, node_element:Node) -> v
 	# getting macro child nodes from the central mind
 	if node_resource.has("data") && node_resource.data.has("macro"):
 		if (node_resource.data.macro is int) && node_resource.data.macro >= 0 :
-			var the_macro_resource = Main.Mind.lookup_resource(node_resource.data.macro, "scenes", false) # ... bacause a macro is a special scene
+			var the_macro_resource = Main.Mind.lookup_resource(node_resource.data.macro, "scenes", false) # ... because a macro is a special scene
 			if the_macro_resource is Dictionary:
 				if the_macro_resource.has("map") && the_macro_resource.map is Dictionary:
 					_OPEN_MACRO.MACRO_NODES = the_macro_resource.map.keys()
@@ -430,7 +450,7 @@ func open_macro(node_uid: int, node_resource:Dictionary, node_element:Node) -> v
 
 func play_node(node_uid:int, node_resource:Dictionary, node_map:Dictionary, type:Dictionary, playing_in_slot:int = -1) -> void:
 	print_debug("Console, plays node: %s - %s" % [node_uid, node_resource.type])
-	var the_play_node = type.console.instance()
+	var the_play_node = type.console.instantiate()
 	var synced_var_set = (
 		_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL[0].duplicate(true)
 		if _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0 else
@@ -456,13 +476,13 @@ func play_node(node_uid:int, node_resource:Dictionary, node_map:Dictionary, type
 	# and...
 	if node_map.has("skip") && node_map.skip == true:
 		# the node is appended, because it's part of the continuum anyway when played, so we ask it to get skipped (hidden)
-		reset_node_skippness_view(the_play_node, (!_SHOW_SKIPPED_NODES), true)
+		reset_node_view_skipped(the_play_node, (!_SHOW_SKIPPED_NODES), true)
 		_SKIPPED_NODES[node_uid] = the_play_node
 	# finally (re-)cache types for later uses
 	_CACHED_TYPES[ node_resource.type ] = type
 	pass
 	
-func reset_node_skippness_view(element:Node, do_hide:bool = true, do_modulate = null) -> void:
+func reset_node_view_skipped(element:Node, do_hide:bool = true, do_modulate = null) -> void:
 	element.set_visible( ! do_hide )
 	# ... and do modulate if set:
 	if do_modulate is bool:
@@ -473,14 +493,6 @@ func reset_node_skippness_view(element:Node, do_hide:bool = true, do_modulate = 
 				CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_OFF
 			)
 		)
-	pass
-
-func update_scroll_to_v_max(forced:bool = false) -> void:
-	if _AUTOSCROLL || forced:
-		yield(TheTree, "idle_frame")
-		var v_max = TerminalScroll.get_v_scrollbar().get_max()
-		TerminalScroll.set_v_scroll( v_max )
-		TerminalScroll.update()
 	pass
 
 func play_step_back(how_many:int = 1) -> void:
@@ -510,7 +522,7 @@ func play_step_back(how_many:int = 1) -> void:
 			# ...
 			if last.id >= 0: # Non-node printed messages are expected to be `< 0 ~= -1`
 				last.instance.call_deferred("step_back")
-			reset_node_skippness_view(last.instance, false) # make sure it's visible even skipped
+			reset_node_view_skipped(last.instance, false) # make sure it's visible even skipped
 			self.call_deferred("update_scroll_to_v_max")
 		self.call_deferred("refresh_variables_list")
 		self.call_deferred("refresh_characters_list")
@@ -518,7 +530,7 @@ func play_step_back(how_many:int = 1) -> void:
 
 func request_play_forward(to_node_id:int = -1, to_slot:int = -1, _the_player_one = null, _the_player_one_uid = null):
 	print_debug("Play Forward! To node: ", to_node_id, " slot: ", to_slot)
-	emit_signal("request_mind", "console_play_node", {
+	self.request_mind.emit("console_play_node", {
 		"id": to_node_id,
 		"slot": to_slot
 	})
@@ -562,7 +574,7 @@ func clear_nodes_before(the_player_node, the_player_node_uid) -> void:
 		print_console( CLEARANCE_PREVENTION_MESSAGE, CLEARANCE_PREVENTION_MESSAGE_COLOR, the_player_node )
 	pass
 
-func reset_synced_variables(update_list:Dictionary, the_player_node = null, the_player_node_uid = null) -> void:
+func reset_synced_variables(update_list:Dictionary, _the_player_node = null, the_player_node_uid = null) -> void:
 	# print_debug("reset_synced_variables : ", update_list)
 	if _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
 		assert(
@@ -589,7 +601,7 @@ func reset_synced_variables(update_list:Dictionary, the_player_node = null, the_
 	refresh_variables_list()
 	pass
 
-func reset_synced_characters_tags(update_list:Dictionary, the_player_node = null, the_player_node_uid = null) -> void:
+func reset_synced_characters_tags(update_list:Dictionary, _the_player_node = null, the_player_node_uid = null) -> void:
 	# print_debug("reset_synced_characters_tags : ", update_list)
 	if _CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.size() > 0:
 		assert(
@@ -634,6 +646,8 @@ func refresh_console_setting_menu_buttons() -> void:
 		self.call_deferred("refresh_variables_list")
 	if _INSPECT_CHAR_TAGS:
 		self.call_deferred("refresh_characters_list")
+	if !(_INSPECT_VARIABLES || _INSPECT_CHAR_TAGS):
+		DisplayStatesSplitter.set_split_offset(0)
 	pass
 
 func _reset_settings_auto_scroll() -> void:
@@ -670,24 +684,24 @@ func _reset_settings_show_skipped_nodes() -> void:
 
 func refresh_skipped_nodes_view_all(do_hide:bool = true, do_modulate = null) -> void:
 	for node_uid in _SKIPPED_NODES:
-		reset_node_skippness_view(_SKIPPED_NODES[node_uid], do_hide, do_modulate)
+		reset_node_view_skipped(_SKIPPED_NODES[node_uid], do_hide, do_modulate)
 	pass
 
-func _on_playing_node_gui_input(event:InputEvent, node = null, node_uid:int = -1) -> void:
+func _on_playing_node_gui_input(event:InputEvent, _node = null, node_uid:int = -1) -> void:
 	# on mouse click
 	if event is InputEventMouseButton:
 		# ... double click
-		if event.is_doubleclick():
+		if event.is_double_click():
 			# jump to the respective node on the grid
 			if node_uid >= 0 :
 				_request_mind("locate_node_on_grid", { "id": node_uid, "highlight": true } )
 	pass
 
 # make this panel,
-# dragable
+# draggable
 # ... it also makes the panel compete for the parent's top z-index by default
-onready var drag_point = get_node(Addressbook.CONSOLE.drag_point)
-onready var dragability = Helpers.Dragable.new(self, drag_point)
+@onready var drag_point = $/root/Main/FloatingTools/Control/Console/Sections/Titlebar/Drag
+@onready var draggable = Helpers.Draggable.new(self, drag_point)
 # and resizable
-onready var resize_point = get_node(Addressbook.CONSOLE.resize_point)
-onready var resizability = Helpers.Resizable.new(self, resize_point)
+@onready var resize_point = $/root/Main/FloatingTools/Control/Console/Sections/Titlebar/Resizer
+@onready var resizable = Helpers.Resizable.new(self, resize_point)

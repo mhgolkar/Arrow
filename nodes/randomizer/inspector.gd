@@ -2,10 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Randomizer Node Type Inspector
-extends ScrollContainer
+# Randomizer Sub-Inspector
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const DEFAULT_NODE_DATA = {
 	"slots": RandomizerSharedClass.RANDOMIZER_MINIMUM_ACCEPTABLE_OUT_SLOTS
@@ -16,7 +16,7 @@ var _OPEN_NODE
 
 var This = self
 
-onready var Slots = get_node("./Randomizer/Slots")
+@onready var Slots = $Slots
 
 func _ready() -> void:
 	Slots.set_max(RandomizerSharedClass.RANDOMIZER_MAXIMUM_ACCEPTABLE_OUT_SLOTS)
@@ -53,7 +53,6 @@ func _read_parameters() -> Dictionary:
 	}
 	return parameters
 
-func _create_new(new_node_id:int = -1) -> Dictionary:
+func _create_new(_new_node_id:int = -1) -> Dictionary:
 	var data = DEFAULT_NODE_DATA.duplicate(true)
 	return data
-

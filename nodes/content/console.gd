@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Content Node Type Console
-extends PanelContainer
+# Content Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,7 +11,7 @@ signal clear_up
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 const DEFAULT_NODE_DATA = ContentSharedClass.DEFAULT_NODE_DATA
 
@@ -33,10 +33,10 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var Title = get_node("./ContentPlay/Header/Title")
-onready var Content = get_node("./ContentPlay/Content")
-onready var Brief = get_node("./ContentPlay/Brief")
-onready var Continue = get_node("./ContentPlay/Continue")
+@onready var Title = $Play/Head/Title
+@onready var Content = $Play/Content
+@onready var Brief = $Play/BriefLegacy
+@onready var Continue = $Play/Continue
 
 const CONTENT_UNSET_MESSAGE = "No Content."
 const CONTENT_UNSET_SELF_MODULATION_COLOR = Color(1, 1, 1, 0.30)
@@ -59,7 +59,7 @@ func _ready() -> void:
 
 func register_connections() -> void:
 	# clicking `Continue` button will play forward from the first and only slot (0)
-	Continue.connect("pressed", self, "play_forward_from", [ONLY_SLOT_OUT], CONNECT_DEFERRED)
+	Continue.pressed.connect(self.play_forward_from.bind(ONLY_SLOT_OUT), CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -115,7 +115,7 @@ func setup_view() -> void:
 	# ...
 	# Ask for console clearance if the behavior is intended (unless the node is skipped):
 	if bool_data_or_default("clear") && (_NODE_MAP.has("skip") == false || _NODE_MAP.skip == false):
-		emit_signal("clear_up")
+		self.clear_up.emit()
 	pass
 
 func create_current_variables_exposure(variables:Dictionary) -> void:
@@ -169,9 +169,9 @@ func play_forward_from(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			self.emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 
@@ -186,7 +186,7 @@ func set_view_unplayed() -> void:
 	Continue.set("visible", true)
 	pass
 
-func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
+func set_view_played(_slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	Continue.set("visible", false)
 	pass
 

@@ -2,12 +2,10 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Tag-Match Node Type
+# Tag-Match Graph Node
 extends GraphNode
 
-onready var Main = get_tree().get_root().get_child(0)
-
-var Utils = Helpers.Utils
+@onready var Main = get_tree().get_root().get_child(0)
 
 const OUT_SLOT_COLOR = Settings.GRID_NODE_SLOT.DEFAULT.OUT.COLOR
 # settings for the dynamically generated outgoing slots
@@ -18,24 +16,23 @@ const OUT_SLOT_TYPE_LEFT    = OUT_SLOT_TYPE_RIGHT
 const OUT_SLOT_COLOR_RIGHT  = OUT_SLOT_COLOR
 const OUT_SLOT_COLOR_LEFT   = OUT_SLOT_COLOR
 
-const LINE_SLOT_ALIGN = Label.ALIGN_RIGHT
-const LINE_AUTO_WRAP = true
+const LINE_SLOT_H_ALIGN = HorizontalAlignment.HORIZONTAL_ALIGNMENT_RIGHT
+const LINE_AUTO_WRAP = TextServer.AutowrapMode.AUTOWRAP_WORD_SMART
 
 const INVALID_CHARACTER = TagMatchSharedClass.INVALID_CHARACTER
 const DEFAULT_NODE_DATA = TagMatchSharedClass.DEFAULT_NODE_DATA
 
 const INVALID_TAG_KEY_ERROR = "Unset Tag Key!"
 
-var _node_id
-var _node_resource
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
+@warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
 
 var This = self
 
-onready var RegEx  = get_node("./Head/HBoxContainer/RegEx")
-# onready var CharacterProfile  = get_node("./Head/CharacterProfile")
-onready var CharacterProfileName  = get_node("./Head/CharacterProfile/Name")
-onready var CharacterProfileColor = get_node("./Head/CharacterProfile/Color")
-onready var TagKey = get_node("./Head/TagKey")
+@onready var RegExp  = $Head/State/RegExp
+@onready var CharacterProfileName  = $Head/Character/Name
+@onready var CharacterProfileColor = $Head/Character/Color
+@onready var TagKey = $Head/TagKey
 
 #func _ready() -> void:
 #	register_connections()
@@ -60,8 +57,8 @@ func update_patterns(patterns:Array, clear_first:bool = true) -> void:
 		if pattern_text is String:
 			var pattern_slot = Label.new()
 			pattern_slot.set_text(pattern_text)
-			pattern_slot.set_align(LINE_SLOT_ALIGN)
-			pattern_slot.set_autowrap(LINE_AUTO_WRAP)
+			pattern_slot.set_horizontal_alignment(LINE_SLOT_H_ALIGN)
+			pattern_slot.set_autowrap_mode(LINE_AUTO_WRAP)
 			This.add_child(pattern_slot)
 			This.set_slot(
 				idx,
@@ -75,7 +72,7 @@ func update_character(profile:Dictionary) -> void:
 	if profile.has("name") && (profile.name is String):
 		CharacterProfileName.set("text", profile.name)
 	if profile.has("color") && (profile.color is String):
-		CharacterProfileColor.set("color", Utils.rgba_hex_to_color(profile.color))
+		CharacterProfileColor.set("color", Helpers.Utils.rgba_hex_to_color(profile.color))
 	pass
 
 func set_character_invalid() -> void:
@@ -83,7 +80,7 @@ func set_character_invalid() -> void:
 	pass
 
 func _update_node(data:Dictionary) -> void:
-	RegEx.set_visible(
+	RegExp.set_visible(
 		data.regex
 		if data.has("regex") && (data.regex is bool)
 		else DEFAULT_NODE_DATA.regex

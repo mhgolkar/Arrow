@@ -210,6 +210,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 input[type="number"] {
     /* text-align: center; */
+    appearance: textfield;
     -moz-appearance: textfield;
 }
 select {

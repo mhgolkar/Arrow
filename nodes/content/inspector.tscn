@@ -1,93 +1,61 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://d0u8xw1ujt4pe"]
 
-[ext_resource path="res://nodes/content/inspector.gd" type="Script" id=1]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="1_1k0ii"]
+[ext_resource type="Script" path="res://nodes/content/inspector.gd" id="1_svqou"]
 
-[node name="ContentType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 223.0
-margin_bottom = 262.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4fii"]
+atlas = ExtResource("1_1k0ii")
+region = Rect2(192, 144, 48, 48)
+
+[node name="Content" type="VBoxContainer"]
+offset_right = 256.0
+offset_bottom = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 1 )
+script = ExtResource("1_svqou")
 
-[node name="Content" type="VBoxContainer" parent="."]
-margin_right = 216.0
-margin_bottom = 255.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TitleLabel" type="Label" parent="Content"]
-margin_right = 216.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 2
 text = "Title"
 
-[node name="Title" type="LineEdit" parent="Content"]
-margin_top = 18.0
-margin_right = 216.0
-margin_bottom = 42.0
-size_flags_horizontal = 3
+[node name="Title" type="LineEdit" parent="."]
+layout_mode = 2
 
-[node name="ContentLabel" type="Label" parent="Content"]
-margin_top = 46.0
-margin_right = 216.0
-margin_bottom = 60.0
-size_flags_horizontal = 3
+[node name="ContentLabel" type="Label" parent="."]
+layout_mode = 2
 text = "Content"
 
-[node name="Content" type="TextEdit" parent="Content"]
-margin_top = 64.0
-margin_right = 216.0
-margin_bottom = 171.0
-rect_min_size = Vector2( 0, 100 )
-size_flags_horizontal = 3
+[node name="Content" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-breakpoint_gutter = true
-fold_gutter = true
-wrap_enabled = true
-minimap_width = 25
+wrap_mode = 1
 
-[node name="Brief" type="HBoxContainer" parent="Content"]
-margin_top = 175.0
-margin_right = 216.0
-margin_bottom = 199.0
-size_flags_horizontal = 3
+[node name="Brief" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="Content/Brief"]
-margin_top = 5.0
-margin_right = 34.0
-margin_bottom = 19.0
-text = "Brief:"
+[node name="Label" type="Label" parent="Brief"]
+layout_mode = 2
+text = "Brief"
 
-[node name="Length" type="SpinBox" parent="Content/Brief"]
-margin_left = 38.0
-margin_right = 200.0
-margin_bottom = 24.0
-hint_tooltip = "Length of the brief display of this content on the grid.
-`-1` previews all the content."
+[node name="Length" type="SpinBox" parent="Brief"]
+layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
 rounded = true
 allow_greater = true
 
-[node name="Pick" type="Button" parent="Content/Brief"]
-margin_left = 204.0
-margin_right = 216.0
-margin_bottom = 24.0
-hint_tooltip = "Set brief up to the cursor."
-text = ""
+[node name="Pick" type="Button" parent="Brief"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Sets brief length up to the the text cursor's position."
+icon = SubResource("AtlasTexture_j4fii")
+expand_icon = true
 
-[node name="AutoPlay" type="CheckBox" parent="Content"]
-margin_top = 203.0
-margin_right = 216.0
-margin_bottom = 227.0
-hint_tooltip = "Prints the node and goes forward with no user interaction."
-text = "Auto-play"
+[node name="AutoPlay" type="CheckBox" parent="."]
+layout_mode = 2
+text = "Auto Play"
 
-[node name="ClearPage" type="CheckBox" parent="Content"]
-margin_top = 231.0
-margin_right = 216.0
-margin_bottom = 255.0
-text = "Print on Clear Page"
+[node name="ClearPage" type="CheckBox" parent="."]
+layout_mode = 2
+text = "Clear Page"

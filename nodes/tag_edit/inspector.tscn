@@ -1,72 +1,54 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://bstwph33guxjr"]
 
-[ext_resource path="res://nodes/tag_edit/inspector.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/tag_edit/inspector.gd" id="1_1l8m3"]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="2_jhwa2"]
 
-[node name="TagEditType" type="ScrollContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 207.0
-margin_bottom = 187.0
-size_flags_horizontal = 3
-script = ExtResource( 1 )
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgnlk"]
+atlas = ExtResource("2_jhwa2")
+region = Rect2(192, 192, 48, 48)
 
-[node name="TagEdit" type="VBoxContainer" parent="."]
-margin_right = 200.0
-margin_bottom = 180.0
+[node name="TagEdit" type="VBoxContainer"]
+offset_right = 256.0
+offset_bottom = 179.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_1l8m3")
 
-[node name="For" type="Label" parent="TagEdit"]
-margin_right = 200.0
-margin_bottom = 14.0
-text = "For"
+[node name="Character" type="Label" parent="."]
+layout_mode = 2
+text = "Character"
 
-[node name="Filterable" type="HBoxContainer" parent="TagEdit"]
-margin_top = 18.0
-margin_right = 200.0
-margin_bottom = 38.0
+[node name="Selector" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Characters" type="OptionButton" parent="TagEdit/Filterable"]
-margin_right = 184.0
-margin_bottom = 20.0
+[node name="List" type="OptionButton" parent="Selector"]
+layout_mode = 2
 size_flags_horizontal = 3
-clip_text = true
 
-[node name="GlobalFilters" type="Button" parent="TagEdit/Filterable"]
-margin_left = 188.0
-margin_right = 200.0
-margin_bottom = 20.0
-hint_tooltip = "Apply Global Filters
+[node name="Filtered" type="Button" parent="Selector"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Apply Global Filters
 
 It will follow the same listing instructions
 that are defined in the Characters inspector.
 + Current character of the node is always listed."
 toggle_mode = true
-text = ""
+icon = SubResource("AtlasTexture_sgnlk")
+icon_alignment = 1
+expand_icon = true
 
-[node name="Edit" type="Label" parent="TagEdit"]
-margin_top = 42.0
-margin_right = 200.0
-margin_bottom = 56.0
+[node name="Edit" type="Label" parent="."]
+layout_mode = 2
 text = "Edit"
 
-[node name="Methods" type="OptionButton" parent="TagEdit"]
-margin_top = 60.0
-margin_right = 200.0
-margin_bottom = 80.0
-size_flags_horizontal = 3
-clip_text = true
+[node name="Method" type="OptionButton" parent="."]
+layout_mode = 2
 
-[node name="Key" type="LineEdit" parent="TagEdit"]
-margin_top = 84.0
-margin_right = 200.0
-margin_bottom = 108.0
-size_flags_horizontal = 3
-placeholder_text = "Key (required & non-blank)"
+[node name="Key" type="LineEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Key (Required & Non-blank)"
 
-[node name="Value" type="LineEdit" parent="TagEdit"]
-margin_top = 112.0
-margin_right = 200.0
-margin_bottom = 136.0
-size_flags_horizontal = 3
+[node name="Value" type="LineEdit" parent="."]
+layout_mode = 2
 placeholder_text = "Value"

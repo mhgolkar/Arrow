@@ -1,97 +1,52 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bl0ist2e7qgp1"]
 
-[ext_resource path="res://nodes/monolog/console.gd" type="Script" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 14.0
-content_margin_right = 4.0
-content_margin_top = 8.0
-content_margin_bottom = 8.0
-bg_color = Color( 1, 1, 1, 0 )
-draw_center = false
-border_width_left = 2
-border_color = Color( 1, 1, 1, 0.709804 )
+[ext_resource type="Texture2D" uid="uid://b7erdxc6sh33p" path="res://nodes/monolog/icon.svg" id="1_20dbw"]
+[ext_resource type="Script" path="res://nodes/monolog/console.gd" id="1_cnae3"]
 
 [node name="Monolog" type="PanelContainer"]
-margin_top = 150.0
-margin_right = 221.0
-margin_bottom = 242.0
-script = ExtResource( 1 )
+offset_right = 256.0
+size_flags_horizontal = 3
+script = ExtResource("1_cnae3")
 
-[node name="MonologPlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 214.0
-margin_bottom = 95.0
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+icon = ExtResource("1_20dbw")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Name" type="Label" parent="Play/Head"]
+layout_mode = 2
+text = "[Character Name]"
+
+[node name="Body" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+theme_type_variation = &"BoxGap8"
+
+[node name="Color" type="ColorRect" parent="Play/Body"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
 mouse_filter = 2
 
-[node name="Header" type="HBoxContainer" parent="MonologPlay"]
-margin_right = 207.0
-margin_bottom = 14.0
-
-[node name="Icon" type="Label" parent="MonologPlay/Header"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_right = 4.0
-margin_bottom = 14.0
-text = " "
-
-[node name="CharacterProfile" type="HBoxContainer" parent="MonologPlay/Header"]
-margin_left = 8.0
-margin_right = 207.0
-margin_bottom = 14.0
+[node name="Monolog" type="RichTextLabel" parent="Play/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Color" type="ColorRect" parent="MonologPlay/Header/CharacterProfile"]
-margin_right = 14.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 14, 14 )
-mouse_filter = 2
-size_flags_vertical = 4
-size_flags_stretch_ratio = 2.0
-color = Color( 1, 1, 1, 0.709804 )
-
-[node name="Spacer" type="MarginContainer" parent="MonologPlay/Header/CharacterProfile"]
-margin_left = 18.0
-margin_right = 22.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 4, 0 )
-size_flags_vertical = 3
-
-[node name="Name" type="Label" parent="MonologPlay/Header/CharacterProfile"]
-margin_left = 26.0
-margin_right = 199.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 8.0
-text = "{character-name}"
-autowrap = true
-
-[node name="Box" type="PanelContainer" parent="MonologPlay"]
-margin_top = 18.0
-margin_right = 207.0
-margin_bottom = 64.0
-mouse_filter = 1
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/panel = SubResource( 1 )
-
-[node name="Monolog" type="RichTextLabel" parent="MonologPlay/Box"]
-margin_left = 14.0
-margin_top = 8.0
-margin_right = 203.0
-margin_bottom = 38.0
-mouse_filter = 1
 bbcode_enabled = true
-bbcode_text = "{ Rich [color=yellow]Monolog[/color] with BBCode support }"
-text = "{ Rich Monolog with BBCode support }"
-fit_content_height = true
+text = "[Rich [color=cyan]Monolog[/color] with [i]BBCode[/i] support]"
+fit_content = true
 
-[node name="Continue" type="Button" parent="MonologPlay"]
-margin_left = 138.0
-margin_top = 68.0
-margin_right = 207.0
-margin_bottom = 88.0
+[node name="Continue" type="Button" parent="Play"]
+layout_mode = 2
 size_flags_horizontal = 8
 text = "Continue"

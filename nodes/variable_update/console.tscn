@@ -1,59 +1,49 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bh4ghjjhaot1k"]
 
-[ext_resource path="res://nodes/variable_update/console.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://nodes/variable_update/console.gd" id="1_f6lt3"]
+[ext_resource type="Texture2D" uid="uid://bgcst2eb58xgr" path="res://nodes/variable_update/icon.svg" id="1_yvu5q"]
 
 [node name="VariableUpdate" type="PanelContainer"]
-margin_right = 233.0
-margin_bottom = 63.0
+offset_right = 256.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+script = ExtResource("1_f6lt3")
 
-[node name="VariableUpdatePlay" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 226.0
-margin_bottom = 56.0
-mouse_filter = 2
+[node name="Play" type="VBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="Information" type="HBoxContainer" parent="VariableUpdatePlay"]
-margin_right = 219.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 0, 25 )
+[node name="Head" type="HBoxContainer" parent="Play"]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
 mouse_filter = 2
+disabled = true
+icon = ExtResource("1_yvu5q")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Expression" type="Label" parent="Play/Head"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "[Expression]"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Icon" type="Label" parent="VariableUpdatePlay/Information"]
-self_modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
-margin_top = 5.0
-margin_bottom = 19.0
-text = ""
-
-[node name="Expression" type="Label" parent="VariableUpdatePlay/Information"]
-margin_left = 4.0
-margin_right = 219.0
-margin_bottom = 25.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "{ expression }"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="Application" type="HBoxContainer" parent="VariableUpdatePlay"]
-margin_top = 29.0
-margin_right = 219.0
-margin_bottom = 49.0
-mouse_filter = 2
+[node name="Actions" type="HBoxContainer" parent="Play"]
+layout_mode = 2
 alignment = 2
 
-[node name="Dismiss" type="Button" parent="VariableUpdatePlay/Application"]
-margin_left = 103.0
-margin_right = 167.0
-margin_bottom = 20.0
+[node name="Dismiss" type="Button" parent="Play/Actions"]
+layout_mode = 2
 text = "Dismiss"
 
-[node name="Apply" type="Button" parent="VariableUpdatePlay/Application"]
-margin_left = 171.0
-margin_right = 219.0
-margin_bottom = 20.0
+[node name="Apply" type="Button" parent="Play/Actions"]
+layout_mode = 2
 text = "Apply"

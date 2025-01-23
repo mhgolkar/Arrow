@@ -5,12 +5,11 @@
 # Minimap (Drawing)
 extends Control
 
-onready var TheTree = get_tree()
-onready var Main = TheTree.get_root().get_child(0)
-onready var Grid = get_node(Addressbook.GRID)
-onready var MinimapBox = get_parent()
-
-var Utils = Helpers.Utils
+@onready var TheTree = get_tree()
+@onready var TheViewport = get_viewport()
+@onready var Main = TheTree.get_root().get_child(0)
+@onready var Grid = $/root/Main/Editor/Center/Grid
+@onready var MinimapBox = get_parent()
 
 const PANEL_OPACITY_MODULATION_COLOR_HIDE = Settings.MINIMAP_PANEL_OPACITY_MODULATION_COLOR_HIDE
 const PANEL_OPACITY_MODULATION_COLOR_SHOW = Settings.MINIMAP_PANEL_OPACITY_MODULATION_COLOR_SHOW
@@ -35,16 +34,16 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	TheTree.connect("screen_resized", self, "refresh", [], CONNECT_DEFERRED)
-	Grid.connect("scroll_offset_changed", self, "set_crosshair", [], CONNECT_DEFERRED)
-	self.connect("mouse_entered", self, "toggle_opacity", [true], CONNECT_DEFERRED)
-	self.connect("mouse_exited", self, "toggle_opacity", [false], CONNECT_DEFERRED)
-	self.connect("gui_input", self, "_on_gui_input", [], CONNECT_DEFERRED)
+	TheViewport.size_changed.connect(self.refresh, CONNECT_DEFERRED)
+	Grid.scroll_offset_changed.connect(self.set_crosshair, CONNECT_DEFERRED)
+	self.mouse_entered.connect(self.toggle_opacity.bind(true), CONNECT_DEFERRED)
+	self.mouse_exited.connect(self.toggle_opacity.bind(false), CONNECT_DEFERRED)
+	self.gui_input.connect(self._on_gui_input, CONNECT_DEFERRED)
 	pass
 	
 func _draw() -> void:
 	# crosshair
-	# (values less than 0 for x or y means out of boundries)
+	# (values less than 0 for x or y means out of boundaries)
 	if _CROSSHAIR.x >= 0:
 		draw_line( Vector2(_CROSSHAIR.x, _CROSSHAIR.y), Vector2(_CROSSHAIR.x, _MINIMAP_SIZE.y), _CROSSHAIR_COLOR.x, CROSSHAIR_WIDTH)
 	if _CROSSHAIR.y >= 0:
@@ -66,23 +65,24 @@ func refresh() -> void:
 	for node in Grid.get_children():
 		if node is GraphNode:
 			var node_id = node._node_id
-			var color
+			var node_color
 			if node._node_resource.data.has("color") && node._node_resource.data.color is String:
-				color = Utils.rgba_hex_to_color(node._node_resource.data.color)
-			var size = node.get_size()
-			var offset = node.get_offset()
+				node_color = Helpers.Utils.rgba_hex_to_color(node._node_resource.data.color)
+			var node_size = node.get_size()
+			var node_offset = node.get_position_offset()
 			_DRAWING_BY_ID[node_id] = {
-				"offset": offset, "size": size,
-				"color": (color if color is Color else DEFAULT_NODE_DRAWING_COLOR)
+				"offset": node_offset,
+				"size": node_size,
+				"color": (node_color if node_color is Color else DEFAULT_NODE_DRAWING_COLOR)
 			}
-			if offset.y < corners.top:
-				corners.top = offset.y
-			if offset.x < corners.left:
-				corners.left = offset.x
-			if (offset.y + size.y) > corners.bottom:
-				corners.bottom = (offset.y + size.y)
-			if (offset.x + size.x) > corners.right:
-				corners.right = (offset.x + size.x)
+			if node_offset.y < corners.top:
+				corners.top = node_offset.y
+			if node_offset.x < corners.left:
+				corners.left = node_offset.x
+			if (node_offset.y + node_size.y) > corners.bottom:
+				corners.bottom = (node_offset.y + node_size.y)
+			if (node_offset.x + node_size.x) > corners.right:
+				corners.right = (node_offset.x + node_size.x)
 	_MINIMAP_SIZE = self.get_size()
 	var full_grid_size = Vector2((abs(corners.right) + abs(corners.left)), (abs(corners.bottom) + abs(corners.top)))
 	_GRID_TO_MINIMAP_RATIO = (_MINIMAP_SIZE / full_grid_size)
@@ -93,7 +93,7 @@ func refresh() -> void:
 
 func set_crosshair(offset = null) -> void:
 	if (offset is Vector2) == false:
-		offset = Grid.get_scroll_ofs()
+		offset = Grid.get_scroll_offset()
 	_MINIMAP_SIZE = self.get_size()
 	_CROSSHAIR = ((offset - _CORNER_ADJUSTMENT)) * _GRID_TO_MINIMAP_RATIO
 	# clamp crosshair to bounds
@@ -111,7 +111,7 @@ func set_crosshair(offset = null) -> void:
 
 func set_for_update():
 	if _ALREADY_SET_FOR_UPDATE == false:
-		self.call_deferred( "update" )
+		self.queue_redraw()
 		_ALREADY_SET_FOR_UPDATE = true
 	pass
 
@@ -132,8 +132,8 @@ func _on_gui_input(event:InputEvent) -> void:
 	pass
 
 func handle_seek(event:InputEventMouse) -> void:
-	var exact = (Input.is_mouse_button_pressed(BUTTON_RIGHT))
-	var adjusted = (Input.is_mouse_button_pressed(BUTTON_LEFT) || Input.is_key_pressed(KEY_ALT))
+	var exact = (Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT))
+	var adjusted = (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) || Input.is_key_pressed(KEY_ALT))
 	# ask grid to go to the offset respective to the point selected on the minimap
 	if exact || adjusted:
 		var mouse_position = event.get_position()

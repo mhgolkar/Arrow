@@ -2,8 +2,8 @@
 # Game Narrative Design Tool
 # Mor. H. Golkar
 
-# Entry Node Type Console
-extends PanelContainer
+# Entry Console Element
+extends Control
 
 signal play_forward
 signal status_code
@@ -11,7 +11,7 @@ signal status_code
 # signal reset_variables
 # signal reset_characters_tags
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
 # auto-plays the one outgoing slot
 const AUTO_PLAY_SLOT = 0
@@ -26,10 +26,10 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-onready var Plaque:Label = get_node("./EntryPlay/Header/Plaque")
-onready var IsSceneEntryIndicator = get_node("./EntryPlay/Header/IsSceneEntryIndicator")
-onready var IsProjectEntryIndicator = get_node("./EntryPlay/Header/IsProjectEntryIndicator")
-onready var Action:Button = get_node("./EntryPlay/Action")
+@onready var Plaque:Label = $Play/Head/Plaque
+@onready var IsSceneEntryIndicator = $Play/Head/ForScene
+@onready var IsProjectEntryIndicator = $Play/Head/ForProject
+@onready var Action:Button = $Play/Action
 
 func _ready() -> void:
 	register_connections()
@@ -42,7 +42,7 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	Action.connect("pressed", self, "play_forward_from", [AUTO_PLAY_SLOT], CONNECT_DEFERRED)
+	Action.pressed.connect(self.play_forward_from.bind(AUTO_PLAY_SLOT), CONNECT_DEFERRED)
 	pass
 	
 func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = _NODE_ID) -> void:
@@ -64,7 +64,7 @@ func setup_view() -> void:
 	Plaque.set_text( label.plaque )
 	IsSceneEntryIndicator.set_deferred("visible", _NODE_ID == Main.Mind.get_scene_entry())
 	IsProjectEntryIndicator.set_deferred("visible", _NODE_ID == Main.Mind.get_project_entry())
-	This.set("hint_tooltip", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else ""))
+	This.set("tooltip_text", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else ""))
 	pass
 	
 func setup_play(
@@ -98,9 +98,9 @@ func play_forward_from(slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	if slot_idx >= 0:
 		if _NODE_SLOTS_MAP.has(slot_idx):
 			var next = _NODE_SLOTS_MAP[slot_idx]
-			emit_signal("play_forward", next.id, next.slot)
+			self.play_forward.emit(next.id, next.slot)
 		else:
-			emit_signal("status_code", CONSOLE_STATUS_CODE.END_EDGE)
+			self.status_code.emit(CONSOLE_STATUS_CODE.END_EDGE)
 		set_view_played_on_ready(slot_idx)
 	pass
 
@@ -116,7 +116,7 @@ func set_view_unplayed() -> void:
 	Action.set_deferred("visible", true)
 	pass
 
-func set_view_played(slot_idx:int = AUTO_PLAY_SLOT) -> void:
+func set_view_played(_slot_idx:int = AUTO_PLAY_SLOT) -> void:
 	Action.set_deferred("flat", true)
 	Action.set_deferred("visible", false)
 	pass
@@ -128,5 +128,4 @@ func skip_play() -> void:
 
 func step_back() -> void:
 	set_view_unplayed()
-	pass
-	
+	pass	

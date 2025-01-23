@@ -3,17 +3,15 @@
 # Mor. H. Golkar
 
 # Notification Popup
-extends ColorRect
+extends Control
 
-onready var Main = get_tree().get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
 
-var Utils = Helpers.Utils
-
-onready var Heading = get_node(Addressbook.NOTIFICATION.HEADING)
-onready var Message = get_node(Addressbook.NOTIFICATION.MESSAGE)
-onready var Colorband = get_node(Addressbook.NOTIFICATION.COLORBAND)
-onready var DismissButton = get_node(Addressbook.NOTIFICATION.DISMISS_BUTTON)
-onready var CustomButtonsHolder = get_node(Addressbook.NOTIFICATION.CUSTOM_BUTTONS_HOLDER)
+@onready var Heading = $/root/Main/Overlays/Control/Notification/Panel/Margin/Sections/Heading
+@onready var Message = $/root/Main/Overlays/Control/Notification/Panel/Margin/Sections/Message
+@onready var Colorband = $/root/Main/Overlays/Control/Notification/Panel/Colorband
+@onready var DismissButton = $/root/Main/Overlays/Control/Notification/Panel/Margin/Sections/Actions/Dismiss
+@onready var CustomButtonsHolder = $/root/Main/Overlays/Control/Notification/Panel/Margin/Sections/Actions/Custom
 
 const NOTIFICATION_COLOR_BAND_DEFAULT_COLOR = Settings.NOTIFICATION_COLOR_BAND_DEFAULT_COLOR
 
@@ -29,12 +27,12 @@ func _ready() -> void:
 	pass
 
 func register_connections() -> void:
-	DismissButton.connect("pressed", self, "close_this_notification", [], CONNECT_DEFERRED)
+	DismissButton.pressed.connect(self.close_this_notification, CONNECT_DEFERRED)
 	pass
 
 func close_this_notification() -> void:
 	clear_up_notification()
-	Main.UI.call_deferred("set_panel_visibility", "notification", false)
+	Main.UI.set_panel_visibility.call_deferred("notification", false)
 	pass
 
 func clear_up_notification() -> void:
@@ -57,7 +55,7 @@ func check_and_append_custom_button(action:Dictionary) -> bool:
 			custom_button.set_text(action.label)
 			for property in CUSTOM_BUTTONS_PROPERTIES:
 				custom_button.set(property, CUSTOM_BUTTONS_PROPERTIES[property])
-			custom_button.connect("pressed", self, "call_and_close", [action.callee, action.method, extra_args], CONNECT_DEFERRED )
+			custom_button.pressed.connect(self.call_and_close.bind(action.callee, action.method, extra_args), CONNECT_DEFERRED )
 			CustomButtonsHolder.add_child(custom_button)
 			return true
 	return false
@@ -71,14 +69,19 @@ func call_and_close(callee:Object, method:String, extra_args:Array) -> void:
 # 		array<actions>[ { label:string<button_label>, callee:node, method:string<method_to_call> arguments:array'optional[] } ,... ]
 # then makes `label`ed buttons which will call the `method` on `callee` node/object if pressed by the user,
 # with the `arguments` passed to the `method` if provided.
-# there will also be a default `Dismiss` button which closes the notification with no furthur action.
-func show_notification(heading:String, rich_text_message:String, actions:Array = [], color:Color = NOTIFICATION_COLOR_BAND_DEFAULT_COLOR, hide_dismiss_button:bool = false) -> void:
+# there will also be a default `Dismiss` button which closes the notification with no further action.
+func show_notification(
+	heading:String, rich_text_message:String,
+	actions:Array = [],
+	colorband:Color = NOTIFICATION_COLOR_BAND_DEFAULT_COLOR,
+	hide_dismiss_button:bool = false
+) -> void:
 	clear_up_notification()
 	# set up fields
 	if heading.length() > 0 && rich_text_message.length() > 0 :
 		# including heading and rich text message:
 		Heading.set_text(heading)
-		Message.set_bbcode(rich_text_message)
+		Message.set_text(rich_text_message)
 		# and in case of custom actions (buttons:)
 		var has_custom_buttons:bool = false
 		if actions.size() > 0 :
@@ -93,7 +96,7 @@ func show_notification(heading:String, rich_text_message:String, actions:Array =
 		# force the `Dismiss` button to be shown by default or when there is no custom button
 		DismissButton.set_visible( (! has_custom_buttons) || (! hide_dismiss_button) )
 		# set the color
-		Colorband.set_deferred("color", color)
+		Colorband.set_deferred("color", colorband)
 		# finally, show the panel,
 		Main.UI.call_deferred("set_panel_visibility", "notification", true)
 		# ... and try to steal focus
