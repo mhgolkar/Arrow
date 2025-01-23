@@ -12,7 +12,14 @@
 <!-- # Arrow -->
 ***The Game Narrative Design Tool***
 
-[Download](#download) | [Contribution](#contribution-to-arrow) | [Runtimes](#runtime-projects) | [Guides](#guides)
+> [!WARNING]
+>
+> **Discontinued Branch!**
+>
+> This branch includes an older discontinued version of Arrow (v2.x working with Godot-v3.5.3-stable).  
+> Please check out Main branch of *[Arrow](https://github.com/mhgolkar/Arrow) for the latest features*, on top of new Godot-v4 generation.
+
+[Download](#download) | [Runtimes](#runtime-projects) | [Guides](#guides)
 
 Arrow is the free, open-source and feature-rich tool for
 *game narrative* design, *text-adventure* development,
@@ -79,15 +86,6 @@ including a [Quick Start Guide][wiki-quick-start-guide] as well as,
 detailed instructions, documentation of the built-in nodes, and more.
 
 
-## Contribution to Arrow
-
-Contributions are welcome and appreciated.  
-Please browse [Contribution][wiki-contribution] wiki page,
-to find how you can help Arrow most.  
-
-Thanks in advance.
-
-
 ## Licenses
 
 Copyright (c) 2021-2022 Mor. H. Golkar and contributors
@@ -120,4 +118,4 @@ Have a Good Time
 [copyright-file]: ./copyright
 <!-- resources -->
 <!-- [arrow-logo]: ./icon.png -->
-[arrow-screenshot]: https://mhgolkar.github.io/Arrow/images/screenshot_overall.png
+[arrow-screenshot]: https://mhgolkar.github.io/Arrow/media/overview.v2.png
