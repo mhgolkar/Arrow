@@ -161,10 +161,11 @@ img.wide {
     z-index: -1;
     opacity: 0.25;
     position: absolute;
-    border-left: 100vh solid var(--cc-01);
+    border-left: 100vw solid var(--cc-01);
     border-bottom: 100vh solid transparent;
     top: 0;
     left: 0;
+    overflow: hidden;
 }
 .flexible {
     display: flex;
@@ -175,8 +176,7 @@ img.wide {
 .flexible > div {
     flex: none;
     flex-grow: 1;
-    width: 30vw;
-    min-width: min(100%, 20em);
+    width: min(100%, 35vw);
     border: 3px dotted var(--cc-01);
     padding: 1em 2em;
     text-align: justify;
