@@ -96,7 +96,7 @@ class UiManager :
 			"preferences": 
 				PANELS.preferences.call_deferred("refresh_fields_view", Main.Configs.CONFIRMED)
 			"inspector":
-				MAIN_UI.inspector_view_toggle.set_deferred("pressed", visibility)
+				MAIN_UI.inspector_view_toggle.set_deferred("button_pressed", visibility)
 		# ... then open and track the `panel`
 		PANELS[panel].set_deferred("visible", visibility)
 		track_open_panels(panel, visibility)

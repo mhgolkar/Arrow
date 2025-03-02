@@ -290,9 +290,9 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 		else:
 			update_lines_list(DEFAULT_NODE_DATA.lines, true)
 		if node.data.has("playable") && node.data.playable is bool:
-			Playable.set_deferred("pressed", node.data.playable)
+			Playable.set_deferred("button_pressed", node.data.playable)
 		else:
-			Playable.set_deferred("pressed", DEFAULT_NODE_DATA.playable)
+			Playable.set_deferred("button_pressed", DEFAULT_NODE_DATA.playable)
 	pass
 
 func find_exposed_resources(lines:Array, return_ids:bool = true) -> Array:

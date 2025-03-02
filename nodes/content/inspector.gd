@@ -75,14 +75,14 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 		BriefLength.set_deferred("value", brief_length)
 		# Auto-play
 		if node.data.has("auto") && node.data.auto is bool :
-			AutoPlay.set_deferred("pressed", node.data.auto)
+			AutoPlay.set_deferred("button_pressed", node.data.auto)
 		else:
-			AutoPlay.set_deferred("pressed", DEFAULT_NODE_DATA.auto)
+			AutoPlay.set_deferred("button_pressed", DEFAULT_NODE_DATA.auto)
 		# Clear (print on a clear console)
 		if node.data.has("clear") && node.data.clear is bool :
-			ClearPage.set_deferred("pressed", node.data.clear)
+			ClearPage.set_deferred("button_pressed", node.data.clear)
 		else:
-			ClearPage.set_deferred("pressed", DEFAULT_NODE_DATA.clear)
+			ClearPage.set_deferred("button_pressed", DEFAULT_NODE_DATA.clear)
 	pass
 
 func find_exposed_resources(parameters:Dictionary, fields:Array, return_ids:bool = true) -> Array:

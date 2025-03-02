@@ -116,8 +116,8 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 	var brief_length = int(data.brief) if data.has("brief") else DEFAULT_NODE_DATA.brief
 	BriefLength.set_deferred("value", brief_length)
 	# Auto-play & Clear-page
-	AutoPlay.set_deferred("pressed", data.auto if data.has("auto") && data.auto is bool else DEFAULT_NODE_DATA.auto)
-	ClearPage.set_deferred("pressed", data.clear if data.has("clear") && data.clear is bool else DEFAULT_NODE_DATA.clear)
+	AutoPlay.set_deferred("button_pressed", data.auto if data.has("auto") && data.auto is bool else DEFAULT_NODE_DATA.auto)
+	ClearPage.set_deferred("button_pressed", data.clear if data.has("clear") && data.clear is bool else DEFAULT_NODE_DATA.clear)
 	pass
 
 func find_exposed_resources(parameters:Dictionary, fields:Array, return_ids:bool = true) -> Array:

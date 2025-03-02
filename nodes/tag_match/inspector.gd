@@ -295,9 +295,9 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 		else:
 			update_patterns_list(DEFAULT_NODE_DATA.patterns, true)
 		if node.data.has("regex") && node.data.regex is bool:
-			RegExp.set_deferred("pressed", node.data.regex)
+			RegExp.set_deferred("button_pressed", node.data.regex)
 		else:
-			RegExp.set_deferred("pressed", DEFAULT_NODE_DATA.regex)
+			RegExp.set_deferred("button_pressed", DEFAULT_NODE_DATA.regex)
 	pass
 
 func cut_off_dropped_connections() -> void:

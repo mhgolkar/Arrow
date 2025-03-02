@@ -99,9 +99,9 @@ func setup_view() -> void:
 	var monolog = string_data_or_default("monolog")
 	if monolog.length() > 0:
 		var reformatted_monolog = monolog.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
-		Monolog.set_deferred("bbcode_text", reformatted_monolog)
+		Monolog.set_deferred("text", reformatted_monolog)
 	else:
-		Monolog.set_deferred("bbcode_text", MONOLOG_UNSET_MESSAGE)
+		Monolog.set_deferred("text", MONOLOG_UNSET_MESSAGE)
 		Monolog.set_deferred("self_modulate", MONOLOG_UNSET_SELF_MODULATION_COLOR)
 	# Ask for console clearance if the behavior is intended (unless the node is skipped):
 	if bool_data_or_default("clear") && (_NODE_MAP.has("skip") == false || _NODE_MAP.skip == false):

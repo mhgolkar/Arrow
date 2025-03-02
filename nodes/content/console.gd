@@ -87,17 +87,17 @@ func setup_view() -> void:
 	var title = string_data_or_default("title")
 	if title.length() > 0:
 		var reformatted_title = title.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
-		Title.set_deferred("bbcode_text", reformatted_title)
+		Title.set_deferred("text", reformatted_title)
 	else:
-		Title.set_deferred("bbcode_text", TITLE_UNSET_MESSAGE)
+		Title.set_deferred("text", TITLE_UNSET_MESSAGE)
 		Title.set_deferred("visible", HIDE_UNSET_TITLE != true)
 	# Content
 	var content = string_data_or_default("content")
 	if content.length() > 0:
 		var reformatted_content = content.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
-		Content.set_deferred("bbcode_text", reformatted_content)
+		Content.set_deferred("text", reformatted_content)
 	else:
-		Content.set_deferred("bbcode_text", CONTENT_UNSET_MESSAGE)
+		Content.set_deferred("text", CONTENT_UNSET_MESSAGE)
 		Content.set_deferred("self_modulate", CONTENT_UNSET_SELF_MODULATION_COLOR)
 	# Brief
 	# > Textual **legacy** brief is deprecated;
@@ -107,10 +107,10 @@ func setup_view() -> void:
 		_NODE_RESOURCE.data.brief is String && _NODE_RESOURCE.data.brief.length() > 0
 	):
 		var reformatted_brief = _NODE_RESOURCE.data.brief.format(_CURRENT_CHAR_TAGS_EXPO).format(_CURRENT_VARS_EXPO)
-		Brief.set_deferred("bbcode_text", reformatted_brief)
+		Brief.set_deferred("text", reformatted_brief)
 		Brief.set_deferred("visible", true)
 	else:
-		Brief.set_deferred("bbcode_text", BRIEF_UNSET_MESSAGE)
+		Brief.set_deferred("text", BRIEF_UNSET_MESSAGE)
 		Brief.set_deferred("visible", HIDE_UNSET_BRIEF != true)
 	# ...
 	# Ask for console clearance if the behavior is intended (unless the node is skipped):

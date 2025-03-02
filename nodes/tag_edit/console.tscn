@@ -42,6 +42,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "[Tag: Value]"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Actions" type="HBoxContainer" parent="Play"]
 layout_mode = 2

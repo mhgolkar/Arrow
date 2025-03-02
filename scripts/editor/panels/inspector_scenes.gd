@@ -211,7 +211,7 @@ func update_scene_notes(scene_id: int = -1) -> void:
 			var the_entry = Main.Mind.lookup_resource(the_scene.entry, "nodes", false)
 			if the_entry is Dictionary && the_entry.has("notes"):
 				if the_entry.notes is String && the_entry.notes.length() > 0:
-					SceneEntryNote.set_deferred("bbcode_text", the_entry.notes)
+					SceneEntryNote.set_deferred("text", the_entry.notes)
 					SceneEntryNote.set_deferred("visible", true)
 	pass
 
