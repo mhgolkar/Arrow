@@ -617,7 +617,7 @@ func _on_node_raise_request(instance) -> void:
 
 func make_reselectable(instance) -> void:
 	# DEV: Godot v3.x GraphEdit nodes (grid) used to allow node re-selection.
-	# In current Godot version (v4.3-stable) the behavior is gone; so to achieve the same,
+	# In current Godot version (v4.x) the behavior is gone; so to achieve the same,
 	# we piggyback on the `raise_request` signal of each node:
 	instance.raise_request.connect(self._on_node_raise_request.bind(instance), CONNECT_DEFERRED)
 	pass

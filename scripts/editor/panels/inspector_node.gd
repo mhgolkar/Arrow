@@ -229,7 +229,7 @@ func try_auto_node_update(next_node_id:int = -1) -> void:
 func toggle_node_skip(change:bool, send_request:bool = false) -> void:
 	# update ui ?
 	if change != NodeIsSkippedCheck.is_pressed():
-		NodeIsSkippedCheck.set_pressed(change)
+		NodeIsSkippedCheck.set_deferred("button_pressed", change)
 	# send update request ?
 	elif send_request == true || ((_CURRENT_INSPECTED_NODE_MAP.has("skip") && _CURRENT_INSPECTED_NODE_MAP.skip != change) || (_CURRENT_INSPECTED_NODE_MAP.has("skip") == false && change == true)):
 		self.relay_request_mind.emit("update_node_map", { "id": _CURRENT_INSPECTED_NODE_RESOURCE_ID, "skip": change })

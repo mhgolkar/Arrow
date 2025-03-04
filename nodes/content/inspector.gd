@@ -68,7 +68,7 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 		# Brief length
 		# (with priority of the legacy brief length)
 		if brief_length == null:
-			if node.data.has("brief"):
+			if node.data.has("brief") && node.data.brief != null:
 				brief_length = int(node.data.brief)
 			else:
 				brief_length = DEFAULT_NODE_DATA.brief

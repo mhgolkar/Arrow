@@ -81,7 +81,7 @@ func _on_window_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		# DEV: PopupPanel in previous versions of Godot (v3.x) would not block a second right-click on the underlying grid;
 		# so we could re-open context menu in another position without first closing the popup.
-		# In this version (v4.3 stable) we need to have a workaround for that:
+		# In this version (v4.x) we need to have a workaround for that:
 		if event.is_pressed() && event.get_button_mask() == MouseButtonMask.MOUSE_BUTTON_MASK_RIGHT:
 			var click_pose = event.get_position()
 			if ! MenuBox.get_rect().has_point(click_pose):

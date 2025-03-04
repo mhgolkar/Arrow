@@ -113,7 +113,7 @@ func _update_parameters(node_id:int, node:Dictionary) -> void:
 	var monolog = data.monolog if data.has("monolog") && data.monolog is String else DEFAULT_NODE_DATA.monolog
 	Monolog.set_deferred("text", monolog)
 	# Brief-length
-	var brief_length = int(data.brief) if data.has("brief") else DEFAULT_NODE_DATA.brief
+	var brief_length = int(data.brief) if data.has("brief") && data.brief != null else DEFAULT_NODE_DATA.brief
 	BriefLength.set_deferred("value", brief_length)
 	# Auto-play & Clear-page
 	AutoPlay.set_deferred("button_pressed", data.auto if data.has("auto") && data.auto is bool else DEFAULT_NODE_DATA.auto)
