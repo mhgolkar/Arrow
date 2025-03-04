@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dg02wk5v73xx6"]
+[gd_scene load_steps=3 format=3 uid="uid://ceeoemkcmpira"]
 
 [ext_resource type="Texture2D" uid="uid://diuv2wwle6ofn" path="res://nodes/user_input/icon.svg" id="1_cupyp"]
-[ext_resource type="Script" path="res://nodes/user_input/console.gd" id="1_wnsuf"]
+[ext_resource type="Script" uid="uid://ck7n58im476do" path="res://nodes/user_input/console.gd" id="1_wnsuf"]
 
 [node name="UserInput" type="PanelContainer"]
 offset_right = 256.0

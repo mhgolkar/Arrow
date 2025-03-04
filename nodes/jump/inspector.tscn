@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://c13p6th8mv2x8"]
+[gd_scene load_steps=2 format=3 uid="uid://dmbsjuahu2g0k"]
 
-[ext_resource type="Script" path="res://nodes/jump/inspector.gd" id="1_ebnsr"]
+[ext_resource type="Script" uid="uid://cb5014v2ypw7m" path="res://nodes/jump/inspector.gd" id="1_ebnsr"]
 
 [node name="Jump" type="VBoxContainer"]
 offset_right = 256.0

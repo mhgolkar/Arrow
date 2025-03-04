@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bh4ghjjhaot1k"]
+[gd_scene load_steps=3 format=3 uid="uid://cvh7ssxuvoh1q"]
 
-[ext_resource type="Script" path="res://nodes/variable_update/console.gd" id="1_f6lt3"]
+[ext_resource type="Script" uid="uid://dj1mpv3w0m6va" path="res://nodes/variable_update/console.gd" id="1_f6lt3"]
 [ext_resource type="Texture2D" uid="uid://bgcst2eb58xgr" path="res://nodes/variable_update/icon.svg" id="1_yvu5q"]
 
 [node name="VariableUpdate" type="PanelContainer"]

@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0u8xw1ujt4pe"]
+[gd_scene load_steps=5 format=3 uid="uid://djy5fd5mr5clu"]
 
 [ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="1_1pyhs"]
-[ext_resource type="Script" path="res://nodes/monolog/inspector.gd" id="1_f7lwo"]
+[ext_resource type="Script" uid="uid://bwac07fne8a5l" path="res://nodes/monolog/inspector.gd" id="1_f7lwo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ccitl"]
 atlas = ExtResource("1_1pyhs")

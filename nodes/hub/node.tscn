@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8vhsxc8h4i3y"]
+[gd_scene load_steps=3 format=3 uid="uid://bhqd5mjh3fj1w"]
 
-[ext_resource type="Script" path="res://nodes/hub/node.gd" id="1_clcer"]
+[ext_resource type="Script" uid="uid://cgs5tgnm1i77f" path="res://nodes/hub/node.gd" id="1_clcer"]
 [ext_resource type="Texture2D" uid="uid://csd3jcsheiq0c" path="res://nodes/hub/icon.svg" id="1_nlr1k"]
 
 [node name="Hub" type="GraphNode"]

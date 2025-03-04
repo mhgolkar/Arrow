@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbb3q25safok5"]
+[gd_scene load_steps=3 format=3 uid="uid://jjgn5v6oooi4"]
 
 [ext_resource type="Texture2D" uid="uid://b568msdfakrr1" path="res://nodes/tag_pass/icon.svg" id="1_1ycxp"]
-[ext_resource type="Script" path="res://nodes/tag_pass/node.gd" id="1_ffvn2"]
+[ext_resource type="Script" uid="uid://bla78enerc6ui" path="res://nodes/tag_pass/node.gd" id="1_ffvn2"]
 
 [node name="TagPass" type="GraphNode"]
 offset_right = 256.0

@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://brhu4tt1ad502"]
+[gd_scene load_steps=3 format=3 uid="uid://clwj6u35m02ef"]
 
 [ext_resource type="Texture2D" uid="uid://dmmij6c5intyk" path="res://nodes/randomizer/icon.svg" id="1_g2aug"]
-[ext_resource type="Script" path="res://nodes/randomizer/console.gd" id="1_xpjsi"]
+[ext_resource type="Script" uid="uid://dr4w7ondkg4st" path="res://nodes/randomizer/console.gd" id="1_xpjsi"]
 
 [node name="Randomizer" type="PanelContainer"]
 offset_right = 256.0

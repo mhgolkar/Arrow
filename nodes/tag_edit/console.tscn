@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bl0ist2e7qgp1"]
+[gd_scene load_steps=3 format=3 uid="uid://gj6h5naho5xm"]
 
 [ext_resource type="Texture2D" uid="uid://b76d3868erbte" path="res://nodes/tag_edit/icon.svg" id="1_1ud8y"]
-[ext_resource type="Script" path="res://nodes/tag_edit/console.gd" id="1_jhmsq"]
+[ext_resource type="Script" uid="uid://oaqy1uya7juc" path="res://nodes/tag_edit/console.gd" id="1_jhmsq"]
 
 [node name="TagEdit" type="PanelContainer"]
 offset_right = 256.0

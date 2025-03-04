@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcelougln5njh"]
+[gd_scene load_steps=2 format=3 uid="uid://dffu1wt770j21"]
 
-[ext_resource type="Script" path="res://nodes/marker/inspector.gd" id="1_q434j"]
+[ext_resource type="Script" uid="uid://37y626xugln1" path="res://nodes/marker/inspector.gd" id="1_q434j"]
 
 [node name="Marker" type="VBoxContainer"]
 offset_right = 256.0

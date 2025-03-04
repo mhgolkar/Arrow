@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ffuht6nyivjj"]
+[gd_scene load_steps=2 format=3 uid="uid://d2uv3abgmsult"]
 
-[ext_resource type="Script" path="res://nodes/sequencer/inspector.gd" id="1_1dnp5"]
+[ext_resource type="Script" uid="uid://blc1twdikjts4" path="res://nodes/sequencer/inspector.gd" id="1_1dnp5"]
 
 [node name="Sequencer" type="VBoxContainer"]
 offset_right = 256.0

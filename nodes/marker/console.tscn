@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://chii7vvbxwilm"]
+[gd_scene load_steps=4 format=3 uid="uid://sruw78incnh3"]
 
 [ext_resource type="Texture2D" uid="uid://b6pts0rtjdq3q" path="res://nodes/marker/icon.svg" id="1_4a30v"]
-[ext_resource type="Script" path="res://nodes/marker/console.gd" id="1_n01uq"]
+[ext_resource type="Script" uid="uid://cj2ghox2h201t" path="res://nodes/marker/console.gd" id="1_n01uq"]
 [ext_resource type="Theme" uid="uid://7iui7va3jch8" path="res://assets/themes/dark.tres" id="1_ryvu8"]
 
 [node name="Marker" type="PanelContainer"]

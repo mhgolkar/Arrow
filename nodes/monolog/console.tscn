@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bl0ist2e7qgp1"]
+[gd_scene load_steps=3 format=3 uid="uid://eg7lllv6b7sf"]
 
 [ext_resource type="Texture2D" uid="uid://b7erdxc6sh33p" path="res://nodes/monolog/icon.svg" id="1_20dbw"]
-[ext_resource type="Script" path="res://nodes/monolog/console.gd" id="1_cnae3"]
+[ext_resource type="Script" uid="uid://dfahtkjifuxwx" path="res://nodes/monolog/console.gd" id="1_cnae3"]
 
 [node name="Monolog" type="PanelContainer"]
 offset_right = 256.0

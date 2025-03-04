@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1784pokxcows"]
+[gd_scene load_steps=3 format=3 uid="uid://c3b65w5oenkhe"]
 
-[ext_resource type="Script" path="res://nodes/generator/node.gd" id="1_bm164"]
+[ext_resource type="Script" uid="uid://cefhgsxqro5eo" path="res://nodes/generator/node.gd" id="1_bm164"]
 [ext_resource type="Texture2D" uid="uid://352dfaufpmcc" path="res://nodes/generator/icon.svg" id="1_jimer"]
 
 [node name="Generator" type="GraphNode"]

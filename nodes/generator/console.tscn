@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bh4ghjjhaot1k"]
+[gd_scene load_steps=3 format=3 uid="uid://ms5p6od5tdnw"]
 
 [ext_resource type="Texture2D" uid="uid://352dfaufpmcc" path="res://nodes/generator/icon.svg" id="1_3irxj"]
-[ext_resource type="Script" path="res://nodes/generator/console.gd" id="1_lpx3e"]
+[ext_resource type="Script" uid="uid://dwufab28nnxvg" path="res://nodes/generator/console.gd" id="1_lpx3e"]
 
 [node name="Generator" type="PanelContainer"]
 offset_right = 256.0

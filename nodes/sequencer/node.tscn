@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8vhsxc8h4i3y"]
+[gd_scene load_steps=3 format=3 uid="uid://dc1bgjwa1fd7x"]
 
-[ext_resource type="Script" path="res://nodes/sequencer/node.gd" id="1_3pdth"]
+[ext_resource type="Script" uid="uid://b4pdo5lhy321d" path="res://nodes/sequencer/node.gd" id="1_3pdth"]
 [ext_resource type="Texture2D" uid="uid://x1lbui84eybk" path="res://nodes/sequencer/icon.svg" id="1_txaqm"]
 
 [node name="Sequencer" type="GraphNode"]

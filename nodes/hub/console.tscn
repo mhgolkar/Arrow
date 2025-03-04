@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://brhu4tt1ad502"]
+[gd_scene load_steps=3 format=3 uid="uid://dawx78iptr3n5"]
 
-[ext_resource type="Script" path="res://nodes/hub/console.gd" id="1_ai6l0"]
+[ext_resource type="Script" uid="uid://bisv31ycdnt2k" path="res://nodes/hub/console.gd" id="1_ai6l0"]
 [ext_resource type="Texture2D" uid="uid://csd3jcsheiq0c" path="res://nodes/hub/icon.svg" id="1_kot3m"]
 
 [node name="Hub" type="PanelContainer"]

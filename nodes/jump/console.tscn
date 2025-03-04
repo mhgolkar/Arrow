@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6my1050o1uc5"]
+[gd_scene load_steps=3 format=3 uid="uid://cidyf56yey682"]
 
-[ext_resource type="Script" path="res://nodes/jump/console.gd" id="1_ma8vl"]
+[ext_resource type="Script" uid="uid://drovwwrg7htqf" path="res://nodes/jump/console.gd" id="1_ma8vl"]
 [ext_resource type="Texture2D" uid="uid://dpp1oe52rw7d5" path="res://nodes/jump/icon.svg" id="1_vheil"]
 
 [node name="Jump" type="PanelContainer"]

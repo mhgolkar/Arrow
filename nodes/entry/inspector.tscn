@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://rea3c3umehws"]
+[gd_scene load_steps=5 format=3 uid="uid://bys6jumeefm11"]
 
-[ext_resource type="Script" path="res://nodes/entry/inspector.gd" id="1_61hvh"]
+[ext_resource type="Script" uid="uid://cskkt1t8xpf0f" path="res://nodes/entry/inspector.gd" id="1_61hvh"]
 [ext_resource type="Texture2D" uid="uid://dd1eyrl7g6b00" path="res://nodes/entry/interface.svg" id="1_akn8x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p5h66"]

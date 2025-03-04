@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgpylq3ks6osm"]
+[gd_scene load_steps=3 format=3 uid="uid://c6553nm6xqvh"]
 
 [ext_resource type="Texture2D" uid="uid://diuv2wwle6ofn" path="res://nodes/user_input/icon.svg" id="1_bu2qu"]
-[ext_resource type="Script" path="res://nodes/user_input/node.gd" id="1_x273w"]
+[ext_resource type="Script" uid="uid://cq7tqtn4hpdgd" path="res://nodes/user_input/node.gd" id="1_x273w"]
 
 [node name="UserInput" type="GraphNode"]
 offset_right = 256.0

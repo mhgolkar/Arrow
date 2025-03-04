@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgov58p6hh2on"]
+[gd_scene load_steps=3 format=3 uid="uid://ci13d4xhod8ce"]
 
-[ext_resource type="Script" path="res://nodes/dialog/console.gd" id="1_jd0kk"]
+[ext_resource type="Script" uid="uid://d05lvoqy4rodu" path="res://nodes/dialog/console.gd" id="1_jd0kk"]
 [ext_resource type="Texture2D" uid="uid://bijot6p0ir6m0" path="res://nodes/dialog/icon.svg" id="1_rethm"]
 
 [node name="Dialog" type="PanelContainer"]

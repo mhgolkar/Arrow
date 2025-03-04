@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://iumhqgsw2qh4"]
+[gd_scene load_steps=3 format=3 uid="uid://cu81u1xeedg35"]
 
-[ext_resource type="Script" path="res://nodes/tag_edit/node.gd" id="1_ti8rv"]
+[ext_resource type="Script" uid="uid://cfses46r6e3m8" path="res://nodes/tag_edit/node.gd" id="1_ti8rv"]
 [ext_resource type="Texture2D" uid="uid://b76d3868erbte" path="res://nodes/tag_edit/icon.svg" id="1_xmd5k"]
 
 [node name="TagEdit" type="GraphNode"]

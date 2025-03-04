@@ -2,33 +2,33 @@
 
 [ext_resource type="Texture2D" uid="uid://c1d56i348qty0" path="res://assets/about_splash.png" id="1_ktviq"]
 [ext_resource type="Theme" uid="uid://7iui7va3jch8" path="res://assets/themes/dark.tres" id="1_nah4y"]
-[ext_resource type="Script" path="res://scripts/main.gd" id="2_nfnrg"]
-[ext_resource type="Script" path="res://scripts/editor/panels/about.gd" id="3_1hktc"]
-[ext_resource type="Script" path="res://scripts/editor/panels/preferences.gd" id="5_dexb8"]
-[ext_resource type="Script" path="res://scripts/editor/panels/preferences_ald_menu.gd" id="6_uff3i"]
+[ext_resource type="Script" uid="uid://d2dqlejd8wkmp" path="res://scripts/main.gd" id="2_nfnrg"]
+[ext_resource type="Script" uid="uid://txsvpiln3mx8" path="res://scripts/editor/panels/about.gd" id="3_1hktc"]
+[ext_resource type="Script" uid="uid://ci0xmj8gvrfrv" path="res://scripts/editor/panels/preferences.gd" id="5_dexb8"]
+[ext_resource type="Script" uid="uid://bq37p0ajhdhca" path="res://scripts/editor/panels/preferences_ald_menu.gd" id="6_uff3i"]
 [ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="7_0tmvq"]
-[ext_resource type="Script" path="res://scripts/editor/panels/authors.gd" id="8_klf5l"]
-[ext_resource type="Script" path="res://scripts/editor/panels/new_document_prompt.gd" id="9_kh4o4"]
-[ext_resource type="Script" path="res://scripts/editor/panels/path_dialog.gd" id="10_nf8xx"]
-[ext_resource type="Script" path="res://scripts/editor/panels/notification.gd" id="10_w548v"]
-[ext_resource type="Script" path="res://scripts/editor/panels/inspector.gd" id="12_renut"]
-[ext_resource type="Script" path="res://scripts/editor/panels/inspector_project.gd" id="13_xkghd"]
-[ext_resource type="Script" path="res://scripts/editor/panels/inspector_project_properties.gd" id="14_h0gnp"]
-[ext_resource type="Script" path="res://scripts/editor/panels/inspector_project_new_menu.gd" id="14_tk6u0"]
-[ext_resource type="Script" path="res://scripts/editor/panels/inspector_node.gd" id="16_v0k7j"]
-[ext_resource type="Script" path="res://scripts/editor/panels/inspector_scenes.gd" id="17_hvt6o"]
-[ext_resource type="Script" path="res://scripts/editor/panels/inspector_macros.gd" id="18_8y6h6"]
-[ext_resource type="Script" path="res://scripts/editor/panels/inspector_variables.gd" id="19_rrn5c"]
-[ext_resource type="Script" path="res://scripts/editor/panels/inspector_characters.gd" id="20_71821"]
-[ext_resource type="Script" path="res://scripts/editor/panels/console.gd" id="21_k3mxj"]
-[ext_resource type="Script" path="res://scripts/editor/grid_context_menu.gd" id="22_qw7b1"]
-[ext_resource type="Script" path="res://scripts/editor/editor.gd" id="23_850di"]
-[ext_resource type="Script" path="res://scripts/editor/app_menu.gd" id="23_s1o1v"]
-[ext_resource type="Script" path="res://scripts/editor/new_release_check.gd" id="24_2ksii"]
-[ext_resource type="Script" path="res://scripts/editor/grid_graph_edit.gd" id="25_3y1ae"]
-[ext_resource type="Script" path="res://scripts/editor/minimap.gd" id="26_g6oda"]
-[ext_resource type="Script" path="res://scripts/editor/query.gd" id="27_oamwo"]
-[ext_resource type="Script" path="res://scripts/editor/quick_preferences.gd" id="28_jwiiu"]
+[ext_resource type="Script" uid="uid://d080fqskcyp66" path="res://scripts/editor/panels/authors.gd" id="8_klf5l"]
+[ext_resource type="Script" uid="uid://bvw4nbovr3xlb" path="res://scripts/editor/panels/new_document_prompt.gd" id="9_kh4o4"]
+[ext_resource type="Script" uid="uid://si3j0l23kh4l" path="res://scripts/editor/panels/path_dialog.gd" id="10_nf8xx"]
+[ext_resource type="Script" uid="uid://bd7reaqw2uepb" path="res://scripts/editor/panels/notification.gd" id="10_w548v"]
+[ext_resource type="Script" uid="uid://dingbnv5b8yi2" path="res://scripts/editor/panels/inspector.gd" id="12_renut"]
+[ext_resource type="Script" uid="uid://bkq53dviq5vd4" path="res://scripts/editor/panels/inspector_project.gd" id="13_xkghd"]
+[ext_resource type="Script" uid="uid://7lmmabrdq1b8" path="res://scripts/editor/panels/inspector_project_properties.gd" id="14_h0gnp"]
+[ext_resource type="Script" uid="uid://bvymgyyw1dr57" path="res://scripts/editor/panels/inspector_project_new_menu.gd" id="14_tk6u0"]
+[ext_resource type="Script" uid="uid://0qu620b3n6ic" path="res://scripts/editor/panels/inspector_node.gd" id="16_v0k7j"]
+[ext_resource type="Script" uid="uid://dgwu5810elkls" path="res://scripts/editor/panels/inspector_scenes.gd" id="17_hvt6o"]
+[ext_resource type="Script" uid="uid://d2o4elkhen4as" path="res://scripts/editor/panels/inspector_macros.gd" id="18_8y6h6"]
+[ext_resource type="Script" uid="uid://bhx6pvnbf04sv" path="res://scripts/editor/panels/inspector_variables.gd" id="19_rrn5c"]
+[ext_resource type="Script" uid="uid://ciawewnvbxsrh" path="res://scripts/editor/panels/inspector_characters.gd" id="20_71821"]
+[ext_resource type="Script" uid="uid://dt088d4i2xmgk" path="res://scripts/editor/panels/console.gd" id="21_k3mxj"]
+[ext_resource type="Script" uid="uid://bp2jgos1hx3h3" path="res://scripts/editor/grid_context_menu.gd" id="22_qw7b1"]
+[ext_resource type="Script" uid="uid://qo67xt5fxmxk" path="res://scripts/editor/editor.gd" id="23_850di"]
+[ext_resource type="Script" uid="uid://yaa461su2was" path="res://scripts/editor/app_menu.gd" id="23_s1o1v"]
+[ext_resource type="Script" uid="uid://bcbgosl1ltjeu" path="res://scripts/editor/new_release_check.gd" id="24_2ksii"]
+[ext_resource type="Script" uid="uid://dtgkmktkucufh" path="res://scripts/editor/grid_graph_edit.gd" id="25_3y1ae"]
+[ext_resource type="Script" uid="uid://bahvfetu2v2m8" path="res://scripts/editor/minimap.gd" id="26_g6oda"]
+[ext_resource type="Script" uid="uid://le3w7a81gfye" path="res://scripts/editor/query.gd" id="27_oamwo"]
+[ext_resource type="Script" uid="uid://c14jytxi60272" path="res://scripts/editor/quick_preferences.gd" id="28_jwiiu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6unog"]
 atlas = ExtResource("7_0tmvq")
@@ -1397,6 +1397,7 @@ selected = 0
 fit_to_longest_item = false
 item_count = 4
 popup/item_0/text = "Any"
+popup/item_0/id = 0
 popup/item_1/text = "Num"
 popup/item_1/id = 1
 popup/item_2/text = "Str"
@@ -2176,6 +2177,7 @@ layout_mode = 2
 selected = 0
 item_count = 1
 popup/item_0/text = "[Mode]"
+popup/item_0/id = 0
 
 [node name="Scoped" type="Button" parent="Editor/Bottom/Bar/Query/Tools"]
 custom_minimum_size = Vector2(24, 24)

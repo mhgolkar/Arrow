@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmag7pahcmxoe"]
+[gd_scene load_steps=3 format=3 uid="uid://cd23ohsgswfhh"]
 
 [ext_resource type="Texture2D" uid="uid://b8w0dovf3nrpu" path="res://nodes/interaction/icon.svg" id="1_46im1"]
-[ext_resource type="Script" path="res://nodes/interaction/node.gd" id="1_uy5qr"]
+[ext_resource type="Script" uid="uid://tmqvmq5nvmiq" path="res://nodes/interaction/node.gd" id="1_uy5qr"]
 
 [node name="Interaction" type="GraphNode"]
 offset_right = 256.0

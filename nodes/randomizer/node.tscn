@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8vhsxc8h4i3y"]
+[gd_scene load_steps=3 format=3 uid="uid://b3668r6tcfg2b"]
 
-[ext_resource type="Script" path="res://nodes/randomizer/node.gd" id="1_bqq00"]
+[ext_resource type="Script" uid="uid://b1jayh7bkmsii" path="res://nodes/randomizer/node.gd" id="1_bqq00"]
 [ext_resource type="Texture2D" uid="uid://dmmij6c5intyk" path="res://nodes/randomizer/icon.svg" id="1_dnea6"]
 
 [node name="Randomizer" type="GraphNode"]

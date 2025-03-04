@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2dxje4r5bikq"]
+[gd_scene load_steps=3 format=3 uid="uid://dooq7y7b7icju"]
 
-[ext_resource type="Script" path="res://nodes/condition/node.gd" id="1_5rgjk"]
+[ext_resource type="Script" uid="uid://byj1gwlcpdfgq" path="res://nodes/condition/node.gd" id="1_5rgjk"]
 [ext_resource type="Texture2D" uid="uid://dcy0o5rrn15bo" path="res://nodes/condition/icon.svg" id="1_das48"]
 
 [node name="Condition" type="GraphNode"]

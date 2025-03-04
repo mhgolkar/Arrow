@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwu3cef3pj2fe"]
+[gd_scene load_steps=3 format=3 uid="uid://df23226gljqw3"]
 
 [ext_resource type="Texture2D" uid="uid://dpp1oe52rw7d5" path="res://nodes/jump/icon.svg" id="1_ks8le"]
-[ext_resource type="Script" path="res://nodes/jump/node.gd" id="1_ma3sh"]
+[ext_resource type="Script" uid="uid://ctjg1k5j70p4k" path="res://nodes/jump/node.gd" id="1_ma3sh"]
 
 [node name="Jump" type="GraphNode"]
 offset_right = 256.0

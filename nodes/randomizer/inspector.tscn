@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ffuht6nyivjj"]
+[gd_scene load_steps=2 format=3 uid="uid://v8ma4wqd4i2t"]
 
-[ext_resource type="Script" path="res://nodes/randomizer/inspector.gd" id="1_864vw"]
+[ext_resource type="Script" uid="uid://dag4in5pvrwja" path="res://nodes/randomizer/inspector.gd" id="1_864vw"]
 
 [node name="Randomizer" type="VBoxContainer"]
 offset_right = 256.0

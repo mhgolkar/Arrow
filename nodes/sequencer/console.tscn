@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://brhu4tt1ad502"]
+[gd_scene load_steps=3 format=3 uid="uid://dpnbgo8rrk5m"]
 
 [ext_resource type="Texture2D" uid="uid://x1lbui84eybk" path="res://nodes/sequencer/icon.svg" id="1_87qr2"]
-[ext_resource type="Script" path="res://nodes/sequencer/console.gd" id="1_joxl2"]
+[ext_resource type="Script" uid="uid://gqqjxle54rk1" path="res://nodes/sequencer/console.gd" id="1_joxl2"]
 
 [node name="Sequencer" type="PanelContainer"]
 offset_right = 256.0

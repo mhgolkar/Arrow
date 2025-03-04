@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ffuht6nyivjj"]
+[gd_scene load_steps=2 format=3 uid="uid://ufpp6vby6ei"]
 
-[ext_resource type="Script" path="res://nodes/hub/inspector.gd" id="1_cqbq8"]
+[ext_resource type="Script" uid="uid://b45onjj77djqj" path="res://nodes/hub/inspector.gd" id="1_cqbq8"]
 
 [node name="Hub" type="VBoxContainer"]
 offset_right = 256.0

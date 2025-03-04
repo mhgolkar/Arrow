@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://drfnj72b5eid1"]
+[gd_scene load_steps=3 format=3 uid="uid://bfc7r0anbuju6"]
 
 [ext_resource type="Texture2D" uid="uid://dcy0o5rrn15bo" path="res://nodes/condition/icon.svg" id="1_jg108"]
-[ext_resource type="Script" path="res://nodes/condition/console.gd" id="1_r5l4s"]
+[ext_resource type="Script" uid="uid://b3aj8qo23nmev" path="res://nodes/condition/console.gd" id="1_r5l4s"]
 
 [node name="Condition" type="PanelContainer"]
 offset_right = 256.0

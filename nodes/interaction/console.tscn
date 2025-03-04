@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgov58p6hh2on"]
+[gd_scene load_steps=3 format=3 uid="uid://h6vgr2pclvw3"]
 
-[ext_resource type="Script" path="res://nodes/interaction/console.gd" id="1_2yu6f"]
+[ext_resource type="Script" uid="uid://bi56ep45k7mm8" path="res://nodes/interaction/console.gd" id="1_2yu6f"]
 [ext_resource type="Texture2D" uid="uid://b8w0dovf3nrpu" path="res://nodes/interaction/icon.svg" id="1_g0frf"]
 
 [node name="Interaction" type="PanelContainer"]

@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bogei2s7lsm2b"]
+[gd_scene load_steps=3 format=3 uid="uid://bjnlph2cvsls8"]
 
 [ext_resource type="Texture2D" uid="uid://brbd17qb1dm1l" path="res://nodes/macro_use/icon.svg" id="1_545ix"]
-[ext_resource type="Script" path="res://nodes/macro_use/node.gd" id="1_brkvu"]
+[ext_resource type="Script" uid="uid://c6jyy4rplod17" path="res://nodes/macro_use/node.gd" id="1_brkvu"]
 
 [node name="MacroUse" type="GraphNode"]
 offset_right = 256.0

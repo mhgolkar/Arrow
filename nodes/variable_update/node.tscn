@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1784pokxcows"]
+[gd_scene load_steps=3 format=3 uid="uid://1stsb577fkwl"]
 
-[ext_resource type="Script" path="res://nodes/variable_update/node.gd" id="1_c4luj"]
+[ext_resource type="Script" uid="uid://8he10fo7xbuo" path="res://nodes/variable_update/node.gd" id="1_c4luj"]
 [ext_resource type="Texture2D" uid="uid://bgcst2eb58xgr" path="res://nodes/variable_update/icon.svg" id="1_u4hop"]
 
 [node name="VariableUpdate" type="GraphNode"]
