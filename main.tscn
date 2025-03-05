@@ -407,6 +407,7 @@ text = "Select"
 [node name="Reset" type="MenuButton" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector/Tools"]
 layout_mode = 2
 text = "Reset"
+flat = false
 script = ExtResource("6_uff3i")
 
 [node name="History" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params"]
