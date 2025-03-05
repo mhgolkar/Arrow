@@ -1,11 +1,11 @@
 <!-- Arrow Logo -->
 <h1 style="font-size: 3rem; line-height: 100%;">
-    <span>Arrow</span>
     <img
         src="./icon.svg"
-        style="width: 1em; height: auto; display: inline-block; vertical-align: bottom;"
+        style="width: 1.5em; height: auto; display: inline-block; vertical-align: text-bottom;"
         alt="Arrow's logo"
     >
+    <span>Arrow</span>
 </h1>
 
 ## Website
