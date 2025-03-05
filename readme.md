@@ -1,12 +1,7 @@
-<!-- Arrow Logo -->
-<h1 style="font-size: 3rem; line-height: 100%;">
-    <span>Arrow</span>
-    <img
-        src="./icon.svg"
-        style="width: 1em; height: auto; display: inline-block; vertical-align: bottom;"
-        alt="Arrow's logo"
-    >
-</h1>
+<img src="./icon.svg" style="width: 64px; height: auto; display: block; margin-bottom: 1rem;" alt="">
+
+Arrow
+=====
 
 ***The Game Narrative Design Tool***
 
@@ -93,8 +88,8 @@ Have a Good Time
 
 <!-- Download -->
 [releases]: https://github.com/mhgolkar/Arrow/releases
-[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v3.0.0-rc1/Arrow-v3.0.0-rc1-linux-x86_64.tar.gz
-[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v3.0.0-rc1/Arrow-v3.0.0-rc1-win.64.zip
+[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v3.0.0/Arrow-v3.0.0-linux-x86_64.tar.gz
+[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v3.0.0/Arrow-v3.0.0-win.64.zip
 <!-- PWA -->
 [web-app]: https://mhgolkar.github.io/Arrow/
 <!-- Wiki -->
