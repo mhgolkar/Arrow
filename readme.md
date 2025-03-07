@@ -22,7 +22,7 @@ Notable Features:
 + Support for Distributed Workflows
 + One-Click Playable Export (HTML)
 + CSV (I18n) Export
-+ RTL, CJK and CTL support
++ Unicode (with RTL, CJK and CTL) Support
 + Continuum Safety
 
 Arrow supports a rich palette of features, from scenes and macros, to variables and characters.
@@ -49,15 +49,20 @@ Following links are to the *fairly stable most recent* versions:
 
 Arrow is also available as a [Progressive Web App][web-app].
 
-The app provides all the features as the most recent downloadable releases.  
-The main difference is that ***it stores project data and configurations in your browser***.
-Additionally import/export conveniences are available to ease working with file-system of your device as well.
+The app tries to provide the core features on a par with the most recent downloadable releases.  
+The most critical difference is that ***it stores project data and configurations in your browser***.  
+Additional import & export conveniences are available to ease working with file-system of your device.
 
-> The experience is optimized for desktop (mode/) screens.
+> **Note!**  
+> Due to the nature of browsers, **certain features may be limited or not available in web app** versions.  
+> We *highly recommend prioritizing use of Arrow for desktop (OS platforms)* whenever possible.  
+> Currently known limited features on browsers include:
+> loading fonts from the user's system (affecting Unicode support), window management conveniences and incremental exports.  
 
 > PWA version requires your browser to have `WebGl` and `Canvas` element support,
-> available `Web-Storage`, and `Java-Script` enabled
-> (which any *modern browser* does by default).
+> available `Web-Storage`, and `Java-Script` enabled (which any *modern browser* does by default).
+
+> The experience is optimized for medium-large screens.
 
 
 ## Runtime Projects
