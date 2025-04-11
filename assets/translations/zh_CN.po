@@ -1,0 +1,757 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# 通用界面文本
+msgid "Select an Arrow Document"
+msgstr "选择Arrow文档"
+
+msgid "Fullscreen (F11)"
+msgstr "全屏(F11)"
+
+
+msgid "Stay Above"
+msgstr "保持置顶"
+
+msgid "Node"
+msgstr "节点"
+
+msgid "About"
+msgstr "关于Arrow"
+
+msgid "Quit"
+msgstr "退出"
+
+msgid "Exit Fullscreen (F11)"
+msgstr "退出全屏(F11)"
+
+msgid "Leave Above"
+msgstr "取消置顶"
+
+msgid "Save Document"
+msgstr "保存文档"
+
+msgid "Export as JSON"
+msgstr "导出为JSON"
+
+msgid "Export Playable HTML"
+msgstr "导出可播放HTML"
+
+msgid "Export CSV (Translation)"
+msgstr "导出CSV(翻译)"
+
+msgid "Select App Local Directory"
+msgstr "选择应用本地目录"
+
+msgid "Select Current Folder"
+msgstr "选择当前文件夹"
+
+msgid "Content"
+msgstr "内容"
+
+msgid "Website"
+msgstr "网站"
+
+msgid "Project"
+msgstr "项目"
+
+msgid "Scenes"
+msgstr "场景"
+
+
+msgid "Macro"
+msgstr "宏"
+
+msgid "Scene"
+msgstr "场景"
+
+msgid "Macros"
+msgstr "宏"
+
+msgid "Variables"
+msgstr "变量"
+msgid "Plaque"
+msgstr "铭牌"
+
+msgid "Active entry for"
+msgstr "活跃入口："
+
+msgid "Playable"
+msgstr "可播放"
+
+msgid "Check for variable"
+msgstr "检查变量"
+
+msgid "comparing to"
+msgstr "比较对象"
+
+#Quit
+msgid "Closing it anyway will discard unsaved changes."
+msgstr "强行关闭不会保存项目修改的内容"
+
+msgid "Close Anyway"
+msgstr "强行关闭"
+
+msgid "Save Project"
+msgstr "保存项目"
+
+msgid "Characters"
+msgstr "角色"
+
+msgid "Repository"
+msgstr "代码仓库"
+
+msgid "Clear Page"
+msgstr "清空页面"
+
+msgid "Auto Play"
+msgstr "自动播放"
+
+msgid "Documentation"
+msgstr "文档"
+
+msgid "Close"
+msgstr "关闭"
+
+# 富文本内容
+msgid "Welcome to Arrow 3.x"
+msgstr "欢迎使用Arrow 3.x"
+
+msgid "Arrow is the free, open-source and feature-rich tool for game narrative design, and creation of interactive nonlinear storytelling works."
+msgstr "Arrow是一款免费、开源且功能丰富的游戏叙事设计工具，用于创建交互式非线性故事作品。"
+
+msgid "Just a few quick notes:"
+msgstr "简要说明："
+
+msgid "PWA Data Storage"
+msgstr "PWA数据存储"
+
+msgid "Your data is all and only on this device."
+msgstr "您的数据仅存储在此设备上。"
+
+msgid "To export projects use:"
+msgstr "导出项目请使用："
+
+msgid "Inspector (panel) > Project (tab) > Export"
+msgstr "检查器(面板) > 项目(标签页) > 导出"
+
+msgid "To clean up app storage try:"
+msgstr "清理应用存储请尝试："
+
+msgid "Arrow (menu button; top-left) > Clear"
+msgstr "Arrow(左上角菜单按钮) > 清除"
+
+msgid "For more information, please browse our website and/or the project's repository."
+msgstr "更多信息，请浏览我们的网站和/或项目代码仓库。"
+
+msgid "Best regards"
+msgstr "此致"
+
+#节点 User Input
+msgid "User Input"
+msgstr "用户输入"
+
+msgid "Ask player"
+msgstr "向玩家提问的问题"
+
+msgid "Set user input to"
+msgstr "用户输入内容到下面的参数"
+
+msgid "Mor. H. Golkar and contributors"
+msgstr "Mor. H. Golkar及贡献者们"
+
+# 首选项面板文本
+msgid "Preferences"
+msgstr "首选项"
+
+msgid "Dismiss"
+msgstr "取消"
+
+msgid "Confirm"
+msgstr "确认"
+
+msgid "User Interface"
+msgstr "用户界面"
+
+msgid "Theme"
+msgstr "主题"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Data Management"
+msgstr "数据管理"
+
+msgid "Work Directory"
+msgstr "工作目录"
+
+msgid "[Working Directory Path]"
+msgstr "[工作目录路径]"
+
+msgid "Select"
+msgstr "选择"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "History (Undo/Redo)"
+msgstr "历史记录(撤销/重做)"
+
+msgid "History size defines how many steps you can move a project in time.\nCurrently history functions (undo `Ctrl+Z` & redo `Ctrl+Shift+Z`)\nwork by capturing a full image of the open project in memory.\nPerformance may vary, depending on the device specs and project size"
+msgstr "历史记录大小定义了您可以在时间线上移动项目的步数。\n当前历史记录功能(撤销`Ctrl+Z`和重做`Ctrl+Shift+Z`)\n通过捕获内存中打开项目的完整快照来工作。\n性能可能因设备规格和项目大小而异"
+
+
+# 其他界面文本
+msgid "save"
+msgstr "保存"
+
+msgid "remove"
+msgstr "删除"
+
+msgid "Website"
+msgstr "网站"
+
+msgid "Repository"
+msgstr "代码仓库"
+
+msgid "Documentation"
+msgstr "文档"
+
+msgid "[b]Welcome to Arrow 3.x[/b]\n\nArrow is the free, open-source and feature-rich tool for [i]game narrative[/i] design, and creation of [i]interactive nonlinear storytelling[/i] works.\n\nJust a few quick notes:\n\n[b]• PWA Data Storage[/b]\nArrow web app uses browser storage to manage projects.\n[i]Your data is all and only on this device.[/i]\nTo export projects use:\n[indent][bgcolor=black][color=white][i][code] Inspector (panel) > Project (tab) > Export [/code][/i][/color][/bgcolor][/indent]\nTo clean up app storage try:\n[indent][bgcolor=black][color=white][i][code] Arrow (menu button; top-left) > Clear [/code][/i][/color][/bgcolor][/indent]\n\nFor more information, please browse our website and/or the project's repository.\n\nBest regards\nMor. H. Golkar and contributors"
+msgstr "[b]欢迎使用 Arrow 3.x[/b]\n\nArrow 是一款免费、开源且功能丰富的工具，用于[i]游戏叙事[/i]设计和[i]非线性互动故事[/i]创作。\n\n简要说明：\n\n[b]• PWA 数据存储[/b]\nArrow 网页应用使用浏览器存储来管理项目。\n[i]您的数据仅存储在当前设备上。[/i]\n导出项目请使用：\n[indent][bgcolor=black][color=white][i][code] 检查器(面板) > 项目(标签页) > 导出 [/code][/i][/color][/bgcolor][/indent]\n清理应用存储请尝试：\n[indent][bgcolor=black][color=white][i][code] Arrow(菜单按钮;左上角) > 清除 [/code][/i][/color][/bgcolor][/indent]\n\n更多信息请浏览我们的网站和/或项目代码库。\n\n此致\nMor. H. Golkar 及贡献者们"
+
+msgid "TODO"
+msgstr "待办事项"
+
+msgid "Theme"
+msgstr "主题"
+
+msgid "[Working Directory Path]"
+msgstr "[工作目录路径]"
+
+msgid "Select"
+msgstr "选择"
+
+msgid "History (Undo/Redo)"
+msgstr "历史记录(撤销/重做)"
+
+msgid "Size"
+msgstr "大小"
+
+msgid "History size defines how many steps you can move a project in time.\nCurrently history functions (undo `Ctrl+Z` & redo `Ctrl+Shift+Z`)\nwork by capturing a full image of the open project in memory.\nPerformance may vary, depending on the device specs and project size"
+msgstr "历史记录大小定义了您可以在时间线上回溯项目的步数。\n当前历史记录功能(撤销`Ctrl+Z`和重做`Ctrl+Shift+Z`)\n通过捕获内存中打开项目的完整快照工作。\n性能可能因设备规格和项目大小而异"
+
+msgid "Contributors"
+msgstr "贡献者"
+
+msgid "AUID"
+msgstr "作者唯一ID"
+
+msgid "Author Unique ID acts as the 2nd segment of a resource UID's namespace,\nallowing multiple contributors to work on the same document\nsimultaneously without ID collisions."
+msgstr "作者唯一ID作为资源UID命名空间的第二部分，\n允许多个贡献者同时在同一文档上工作\n而不会发生ID冲突。"
+
+msgid "If checked, selected author will be considered as the\ncontributor of the created resources afterwards."
+msgstr "如果勾选，所选作者将被视为\n之后创建资源的贡献者。"
+
+msgid "Active Contributor"
+msgstr "活跃贡献者"
+
+msgid "Info"
+msgstr "信息"
+
+msgid "John Doe (contributor@project.tld)"
+msgstr "匿名(contributor@project.tld)"
+
+msgid "Apply"
+msgstr "应用"
+
+msgid "Chapter"
+msgstr "章节"
+
+msgid "Chapter ID is a unique identifier for each document\n(as the 1st segment of resource UIDs' namespace),\nto avoid collisions when a project is divided to multiple files."
+msgstr "章节ID是每个文档的唯一标识符\n(作为资源UID命名空间的第一部分)，\n在项目被分割为多个文件时避免冲突。"
+
+msgid "A different Chapter ID applies only to the future UIDs.\nIt would not update or affect already created resources."
+msgstr "不同的章节ID仅适用于未来的UID。\n它不会更新或影响已创建的资源。"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "New Document"
+msgstr "新建文档"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Project or Chapter Title"
+msgstr "项目或章节标题"
+
+msgid "Filename"
+msgstr "文件名"
+
+msgid "(without extension)"
+msgstr "(不含扩展名)"
+
+msgid "Filename's already used or invalid"
+msgstr "文件名已被使用或无效"
+
+msgid "Full Path"
+msgstr "完整路径"
+
+msgid "[Generated]"
+msgstr "[已生成]"
+
+msgid "Dismiss"
+msgstr "取消"
+
+msgid "Create"
+msgstr "创建"
+
+msgid "[Heading]"
+msgstr "[标题]"
+
+msgid "[i][Message Here!][/i]"
+msgstr "[i][此处显示消息!][/i]"
+
+msgid "[Action(s)]"
+msgstr "[操作]"
+
+msgid "Inspector"
+msgstr "检查器"
+
+msgid "Filter Projects"
+msgstr "筛选项目"
+
+msgid "Reverses filter:\nthose not matching will pass."
+msgstr "反转筛选条件：\n不匹配的项将通过。"
+
+msgid "Sort Alphabetical; otherwise based on UID."
+msgstr "按字母顺序排序；否则按UID排序。"
+
+msgid "[ [color=green]Project descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+msgstr "[ [color=green]项目描述[/color]取自所选项目[color=yellow]入口节点[/color]的注释 ]"
+
+msgid "New"
+msgstr "新建"
+
+msgid "Open"
+msgstr "打开"
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "[Project Title]"
+msgstr "[项目标题]"
+
+msgid "Set"
+msgstr "设置"
+
+msgid "Authors"
+msgstr "作者"
+
+msgid "Export"
+msgstr "导出"
+
+
+msgid "Latest Save"
+msgstr "最近保存"
+
+msgid "[Timestamp]"
+msgstr "[时间戳]"
+
+msgid "Revert to the Latest Save"
+msgstr "恢复到最近保存"
+
+msgid "Revert"
+msgstr "恢复"
+
+msgid "Snapshots"
+msgstr "快照"
+
+msgid "Restore"
+msgstr "恢复"
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "Rem."
+msgstr "移除"
+
+msgid "Unique Node Name"
+msgstr "唯一节点名称"
+
+msgid "Locate Inspected Node on\nthe Grid (Ctrl + Backslash)"
+msgstr "在网格中定位检查的节点(Ctrl + 反斜杠)"
+
+msgid "[Notes]"
+msgstr "[注释]"
+
+msgid "Previous Local History Modification"
+msgstr "上一个本地历史修改"
+
+msgid "Reset Node Parameters (Ctrl + Shift + Minus)"
+msgstr "重置节点参数(Ctrl + Shift + 减号)"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Next Local History Modification"
+msgstr "下一个本地历史修改"
+
+msgid "Skipped nodes would not be effective in the narrative.\nThe alternative behavior depends on the node's type."
+msgstr "跳过的节点在叙述中不会生效。\n替代行为取决于节点类型。"
+
+msgid "Skip"
+msgstr "跳过"
+
+msgid "Update Node (Ctrl + Shift + Plus)"
+msgstr "更新节点(Ctrl + Shift + 加号)"
+
+msgid "Locate Previous Referrer"
+msgstr "定位上一个引用者"
+
+msgid "0 Ref(s)"
+msgstr "0个引用"
+
+msgid "Locate Next Referrer"
+msgstr "定位下一个引用者"
+
+msgid "Scoped (Filter for Scene)"
+msgstr "限定范围(场景筛选)"
+
+msgid "Select A Node to Inspect or\nRight-Click on the Grid to\nCreate New Nodes."
+msgstr "选择要检查的节点或\n在网格上右键单击\n创建新节点。"
+
+msgid "Filter Scenes"
+msgstr "筛选场景"
+
+msgid "Unique Scene Name"
+msgstr "唯一场景名称"
+
+msgid "Filter Macros"
+msgstr "筛选宏"
+
+msgid "Unique Macro Name"
+msgstr "唯一宏名称"
+
+msgid "0 Instance(s)"
+msgstr "0个实例"
+
+msgid "Filter Variables"
+msgstr "筛选变量"
+
+msgid "Filter by Type"
+msgstr "按类型筛选"
+
+msgid "Any"
+msgstr "任意"
+
+msgid "Num"
+msgstr "数值"
+
+msgid "Str"
+msgstr "字符串"
+
+msgid "Bool"
+msgstr "布尔值"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Initial"
+msgstr "初始值"
+
+msgid "Str Value"
+msgstr "字符串值"
+
+msgid "0 Reference(s)"
+msgstr "0个引用"
+
+msgid "Filter Characters"
+msgstr "筛选角色"
+
+msgid "Unique Character Name"
+msgstr "唯一角色名称"
+
+msgid "Character Name"
+msgstr "角色名称"
+
+msgid "Monolog"
+msgstr "独白"
+
+msgid "No Initial Tag"
+msgstr "无初始标签"
+
+msgid "Key"
+msgstr "键"
+
+msgid "Value"
+msgstr "值"
+
+msgid "Oversets (adds or updates) a tag"
+msgstr "覆盖设置(添加或更新)标签"
+
+msgid "0 Appearance(s)"
+msgstr "0次出场"
+
+msgid "Console"
+msgstr "控制台"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Hides Console Preserving the State"
+msgstr "隐藏控制台但保留状态"
+
+msgid "Clears Console & State of Play"
+msgstr "清除控制台和播放状态"
+
+msgid "Clear"
+msgstr "清除"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "Filter Node Types"
+msgstr "筛选节点类型"
+
+msgid "Insert"
+msgstr "插入"
+
+msgid "Clear Clipboard"
+msgstr "清空剪贴板"
+
+msgid "Copy Node(s)"
+msgstr "复制节点"
+
+msgid "Cut Node(s)"
+msgstr "剪切节点"
+
+msgid "Paste Node(s)"
+msgstr "粘贴节点"
+
+msgid "Remove Node(s)"
+msgstr "移除节点"
+
+msgid "Arrow"
+msgstr "Arrow"
+
+msgid "[New Version ?]"
+msgstr "[新版本?]"
+
+msgid "History Undo (Ctrl + Z)"
+msgstr "历史记录撤销(Ctrl + Z)"
+
+msgid "History Redo (Ctrl + Shift + Z)"
+msgstr "历史记录重做(Ctrl + Shift + Z)"
+
+msgid "Play from Project Entry (F4)"
+msgstr "从项目入口播放(F4)"
+
+msgid "Play from Scene Entry (F5)"
+msgstr "从场景入口播放(F5)"
+
+msgid "Show Console (F6)"
+msgstr "显示控制台(F6)"
+
+msgid "Play Selected Node (F7)"
+msgstr "播放选中的节点(F7)"
+
+msgid "Save Document (Ctrl + S)"
+msgstr "保存文档(Ctrl + S)"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "[Current Scene]"
+msgstr "[当前场景]"
+
+msgid "Query"
+msgstr "查询"
+
+msgid "[Mode]"
+msgstr "[模式]"
+
+msgid "Scoped: Filter for Scene\n(otherwise search project-wide)"
+msgstr "限定范围：场景筛选\n(否则在整个项目中搜索)"
+
+msgid "Query (Ctrl + Q)"
+msgstr "查询(Ctrl + Q)"
+
+msgid "Locate Previous Match (Ctrl + 1)"
+msgstr "定位上一个匹配项(Ctrl + 1)"
+
+msgid "[S:T Matches]"
+msgstr "[S:T 匹配项]"
+
+msgid "Locate Next Match (Ctrl + 2)"
+msgstr "定位下一个匹配项(Ctrl + 2)"
+
+msgid "Toggle Inspector Panel (Ctrl + P)"
+msgstr "切换检查器面板(Ctrl + P)"
+
+msgid "Inspect."
+msgstr "检查"
+
+msgid "Quick Pref."
+msgstr "快速偏好"
+
+msgid "run"
+msgstr "运行"
+
+msgid "slots"
+msgstr "插槽"
+
+msgid "Sequence length"
+msgstr "序列长度"
+
+msgid "Handle with Extensive Care!\n\nAlthough sequencers play their connected nodes in slots order,\ndepending on playing nodes and runtime implementations,\nthey may run queued or in parallel with no guarantee.\nBranches could run in exponentially unexpected order.\n\nIt may cause many different unintended behaviors, such as\nvariable checks and updates in wrong order,\ndisplaying multiple nodes waiting for user action,\nprinting contents in surprising ways,\netc.\n\n--------------\nNote!\nSkipped sequencers only run their last connected slot."
+msgstr "请特别小心处理！\n\n虽然定序器会按插槽顺序执行连接的节点，\n但根据运行的节点和运行时实现的不同，\n它们可能以队列或并行方式运行，且无法保证顺序。\n分支可能以指数级意外顺序执行。\n\n这可能导致许多不同的意外行为，例如：\n变量检查和更新顺序错误、\n同时显示多个等待用户操作的节点、\n以意外方式打印内容等。\n\n--------------\n注意！\n跳过的定序器只会执行其最后连接的插槽。"
+
+msgid "* Handle with Care!"
+msgstr "* 请小心处理！"
+
+msgid "[Method]"
+msgstr "[方法]"
+
+msgid "Character"
+msgstr "角色"
+
+msgid "Apply Global Filters\n\nIt will follow the same listing instructions\nthat are defined in the Characters inspector.\n+ Current character of the node is always listed."
+msgstr "应用全局筛选器\n\n将遵循角色检查器中定义的相同列表指令。\n+ 节点的当前角色始终会被列出。"
+
+msgid "Tag Edit"
+msgstr "标签编辑"
+
+msgid "EOL"
+msgstr "行尾"
+
+msgid "Match"
+msgstr "匹配"
+
+msgid "Patterns"
+msgstr "模式"
+
+msgid "RegEx"
+msgstr "正则表达式"
+
+msgid "Invalid!"
+msgstr "无效！"
+
+msgid "No Tags To Check!"
+msgstr "没有可检查的标签！"
+
+msgid "Append New Pattern"
+msgstr "追加新规则"
+
+msgid "Extract Selected Pattern"
+msgstr "提取选定规则"
+
+msgid "Replace Selected Pattern"
+msgstr "替换选定规则"
+
+msgid "Remove Selected Pattern(s)"
+msgstr "删除选定规则"
+
+msgid "Sort Patterns (Alphabetical)"
+msgstr "规则排序（字母顺序）"
+
+msgid "Move Selected Top"
+msgstr "移至顶部"
+
+msgid "Move Selected End"
+msgstr "移至末尾"
+
+msgid "Move Selected Up"
+msgstr "上移选定项"
+
+msgid "Move Selected Down"
+msgstr "下移选定项"
+
+msgid "Inset"
+msgstr "内嵌"
+
+msgid "Overset"
+msgstr "覆盖设置"
+
+msgid "Outset"
+msgstr "外置"
+
+msgid "Unset"
+msgstr "未设置"
+
+msgid "Required & Non-blank"
+msgstr "必填且非空"
+
+msgid "Required"
+msgstr "必填项"
+
+msgid "Non-blank"
+msgstr "非空"
+
+msgid "variable"
+msgstr "变量"
+
+msgid "input slots count"
+msgstr "输入插槽数量"
+
+msgid "Output slots count"
+msgstr "输出插槽数量"
+
+msgid "Color"
+msgstr "颜色"
+
+msgid "Label"
+msgstr "标签"
+
+msgid "No Macro Available"
+msgstr "无可用宏"
+
+msgid "Reason"
+msgstr "原因"
+
+msgid "Destination"
+msgstr "目标位置"
+
+msgid "Append New Action"
+msgstr "添加新动作"
+
+msgid "Extract Selected Action"
+msgstr "提取选定动作"
+
+msgid "Replace Selected Action"
+msgstr "替换选定动作"
+
+msgid "Remove Selected Action(s)"
+msgstr "删除选定动作"
+
+msgid "Sort Actions (Alphabetical)"
+msgstr "动作排序(字母序)"
+
+msgid "Undefined"
+msgstr "未定义"
+
+msgid "Min"
+msgstr "最小值"
+
+msgid "Max"
+msgstr "最大值"
+
+msgid "Default"
+msgstr "默认值"
+
+msgid "Preset True"
+msgstr "预设为真"
+
+msgid "[Expression]"
+msgstr "[表达式]"
+
+msgid "Apply Global Filters\n\nIt will follow the same listing instructions\nthat are defined in the Variables inspector.\n+ Current variable of the node is always listed."
+msgstr "应用全局筛选器\n\n将遵循变量检查器中定义的相同列表指令。\n+ 节点的当前变量始终会被列出。"
+
+msgid "Variable Update"
+msgstr "变量更新"

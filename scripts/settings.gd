@@ -329,4 +329,5 @@ const THEMES = {
 
 const SUPPORTED_UI_LANGUAGES = {
 	0: { "name": "English", "code": "en-US", "locale": "en" },
+	1: { "name": "中文", "code": "zh-CN", "locale": "zh" },
 }

@@ -42,7 +42,17 @@ func _ready() -> void:
 	refresh_appearance_theme_options()
 	refresh_language_options()
 	register_connections()
+	# 初始化翻译
+	_init_translations()
 	pass
+
+func _init_translations():
+	var translation_file = "res://assets/translations/zh_CN.po"
+	if FileAccess.file_exists(translation_file):
+		var translation = ResourceLoader.load(translation_file)
+		if translation:
+			translation.locale = "zh_CN"
+			TranslationServer.add_translation(translation)
 
 func get_the_ui_nodes_all() -> void:
 	for button in PREF_PANEL_ACTION_BUTTONS:
@@ -98,6 +108,9 @@ func preprocess_and_emit_modification_signal(value, field) -> void:
 			value = FIELDS.appearance_theme.get_item_id(value) # Convert idx to theme_id
 		"language":
 			value = FIELDS.language.get_item_id(value) # Convert idx to lang_id
+			# 语言切换时重新加载翻译
+			var lang_code = Settings.SUPPORTED_UI_LANGUAGES[value].code
+			TranslationServer.set_locale(lang_code.substr(0,2)) # 使用语言代码前两位(zh/en等)
 		"history_size":
 			value = max(0, int(value))
 	# .. then signal

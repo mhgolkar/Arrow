@@ -29,7 +29,7 @@ func _ready() -> void:
 func register_connections() -> void:
 	self.mouse_exited.connect(self._on_mouse_exited, CONNECT_DEFERRED)
 	self.resize_request.connect(self._on_resize_request, CONNECT_DEFERRED)
-	self.resize_end.connect(self._on_resize_end, CONNECT_DEFERRED)
+	self.resized.connect(self._on_resized, CONNECT_DEFERRED)
 	CollapseToggle.toggled.connect(self._handle_collapse_and_size, CONNECT_DEFERRED)
 	pass
 
@@ -48,8 +48,8 @@ func _on_resize_request(new_size) -> void:
 	_on_resize(new_size)
 	pass
 
-func _on_resize_end(new_size) -> void:
-	var rect_array = _on_resize(new_size)
+func _on_resized() -> void:
+	var rect_array = _on_resize(self.size)
 	Mind.central_event_dispatcher("update_resource",
 		{
 			"id":_node_id,

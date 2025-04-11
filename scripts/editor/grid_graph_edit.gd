@@ -627,7 +627,7 @@ func make_resizable(instance) -> void:
 	if false == Settings.LOCALLY_HANDLED_RESIZABLE_NODES.has(instance._node_resource.type):
 		instance.draw.connect(self.resize_to_best_fit.bind(instance, instance._node_resource.data), CONNECT_DEFERRED)
 		instance.resize_request.connect(self._on_resize_request.bind(instance), CONNECT_DEFERRED)
-		instance.resize_end.connect(self._on_resize_end.bind(instance), CONNECT_DEFERRED)
+		instance.size_flags_changed.connect(self._on_resize_end.bind(instance), CONNECT_DEFERRED)
 	pass
 
 func _on_node_gui_input(event: InputEvent, instance) -> void:

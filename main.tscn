@@ -1394,7 +1394,6 @@ clear_button_enabled = true
 [node name="Type" type="OptionButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters"]
 layout_mode = 2
 tooltip_text = "Filter by Type"
-selected = 0
 fit_to_longest_item = false
 item_count = 4
 popup/item_0/text = "Any"
@@ -1487,7 +1486,6 @@ alignment = 1
 [node name="Boolean" type="OptionButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial/Value"]
 visible = false
 layout_mode = 2
-selected = 0
 item_count = 2
 popup/item_0/text = "True"
 popup/item_0/id = 1
@@ -1868,7 +1866,6 @@ alignment = 1
 [node name="Boolean" type="OptionButton" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value"]
 visible = false
 layout_mode = 2
-selected = 0
 item_count = 2
 popup/item_0/text = "True"
 popup/item_0/id = 1
@@ -2175,7 +2172,6 @@ clear_button_enabled = true
 
 [node name="Mode" type="OptionButton" parent="Editor/Bottom/Bar/Query/Tools"]
 layout_mode = 2
-selected = 0
 item_count = 1
 popup/item_0/text = "[Mode]"
 popup/item_0/id = 0
