@@ -1492,7 +1492,7 @@ item_count = 2
 popup/item_0/text = "True"
 popup/item_0/id = 1
 popup/item_1/text = "False"
-popup/item_1/id = 1
+popup/item_1/id = 0
 
 [node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools"]
 layout_mode = 2
@@ -1873,7 +1873,7 @@ item_count = 2
 popup/item_0/text = "True"
 popup/item_0/id = 1
 popup/item_1/text = "False"
-popup/item_1/id = 1
+popup/item_1/id = 0
 
 [node name="Update" type="Button" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State"]
 layout_mode = 2

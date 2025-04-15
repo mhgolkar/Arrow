@@ -73,7 +73,7 @@ var This = self
 		"fields": [
 			[$Customization/Boolean/False/LineEdit, "text", ""],
 			[$Customization/Boolean/True/LineEdit, "text", ""],
-			[$Customization/Boolean/Default/CheckButton, "pressed", true],
+			[$Customization/Boolean/Default/CheckButton, "button_pressed", true],
 		]
 	},
 }

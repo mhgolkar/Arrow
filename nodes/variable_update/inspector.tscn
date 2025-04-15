@@ -87,7 +87,7 @@ item_count = 2
 popup/item_0/text = "True"
 popup/item_0/id = 1
 popup/item_1/text = "False"
-popup/item_1/id = 1
+popup/item_1/id = 0
 
 [node name="Variable" type="OptionButton" parent="With/Parameter/Value"]
 layout_mode = 2

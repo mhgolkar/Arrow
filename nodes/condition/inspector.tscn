@@ -24,6 +24,7 @@ layout_mode = 2
 [node name="Selector" type="OptionButton" parent="Variable"]
 layout_mode = 2
 size_flags_horizontal = 3
+text_overrun_behavior = 3
 
 [node name="Filtered" type="Button" parent="Variable"]
 custom_minimum_size = Vector2(24, 0)
@@ -45,6 +46,7 @@ text = "if"
 [node name="Operator" type="OptionButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+text_overrun_behavior = 3
 
 [node name="ComparedTo" type="Label" parent="."]
 layout_mode = 2
@@ -56,22 +58,17 @@ layout_mode = 2
 [node name="Mode" type="OptionButton" parent="Rhs"]
 layout_mode = 2
 
-[node name="Parameter" type="Control" parent="Rhs"]
+[node name="Parameter" type="HBoxContainer" parent="Rhs"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Variable" type="OptionButton" parent="Rhs/Parameter"]
 layout_mode = 2
-offset_left = 4.0
-offset_right = 220.0
-offset_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="Value" type="MarginContainer" parent="Rhs/Parameter"]
 visible = false
 layout_mode = 2
-offset_left = -36.0
-offset_right = 90.0
-offset_bottom = 31.0
 size_flags_horizontal = 3
 
 [node name="String" type="LineEdit" parent="Rhs/Parameter/Value"]
@@ -94,4 +91,4 @@ item_count = 2
 popup/item_0/text = "True"
 popup/item_0/id = 1
 popup/item_1/text = "False"
-popup/item_1/id = 1
+popup/item_1/id = 0
