@@ -1,0 +1,76 @@
+
+# Marker Node Translation
+# =======================
+#         English        
+# =======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Marker\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Marker"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# !
+# msgid "[Marker Label]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MARKER_INSPECTOR_FIELD_COLOR"
+msgstr "Color"
+
+# !
+# msgid "[Marker Color]"
+# msgstr ""
+
+msgid "MARKER_INSPECTOR_FIELD_LABEL"
+msgstr "Label"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# msgid "Marker"
+# msgstr ""
+
+# !
+# msgid "[Marker Label]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MARKER_CONSOLE_LABEL_UNSET_MSG"
+msgstr "Unlabeled"
+
+msgid "MARKER_CONSOLE_NO_NOTES_MSG"
+msgstr "[No Notes.]"

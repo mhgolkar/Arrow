@@ -16,8 +16,8 @@ var This = self
 @onready var TargetVariableName = $Display/Target/Name
 @onready var TargetVariableType = $Display/Target/Type
 
-const NO_PROMPT_TEXT_MESSAGE = "Unset"
-const NO_TARGET_VARIABLE = { "type": "nil", "name": "undefined" } 
+const NO_PROMPT_TEXT = "USER_INPUT_NODE_NO_PROMPT_TXT" # Translated ~ "Unset!"
+const NO_TARGET_VARIABLE = { "type": "USER_INPUT_NODE_NO_TARGET_TYPE", "name": "USER_INPUT_NODE_NO_TARGET_NAME" } # Translated ~ "nil", "undefined"
 
 #func _ready() -> void:
 #	register_connections()
@@ -32,7 +32,7 @@ func _update_node(data:Dictionary) -> void:
 	if data.has("prompt") && (data.prompt is String) && data.prompt.length() > 0:
 		Prompt.set_deferred("text", data.prompt)
 	else:
-		Prompt.set_deferred("text", NO_PROMPT_TEXT_MESSAGE)
+		Prompt.set_deferred("text", NO_PROMPT_TEXT)
 	# variable
 	var var_type = NO_TARGET_VARIABLE.type
 	var var_name = NO_TARGET_VARIABLE.name

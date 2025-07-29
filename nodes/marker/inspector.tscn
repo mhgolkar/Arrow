@@ -10,7 +10,7 @@ script = ExtResource("1_q434j")
 
 [node name="Color" type="Label" parent="."]
 layout_mode = 2
-text = "Color"
+text = "MARKER_INSPECTOR_FIELD_COLOR"
 
 [node name="ColorPicker" type="ColorPickerButton" parent="."]
 layout_mode = 2
@@ -19,7 +19,7 @@ color = Color(0.513726, 0.639216, 0, 1)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-text = "Label"
+text = "MARKER_INSPECTOR_FIELD_LABEL"
 
 [node name="TextEdit" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 64)

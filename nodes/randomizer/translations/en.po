@@ -1,0 +1,50 @@
+
+# Randomizer Node Translation
+# ===========================
+#           English          
+# ===========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Randomizer\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Randomizer"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Name]"
+# msgstr ""
+
+# !
+# msgid "[Slots]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "RANDOMIZER_INSPECTOR_FIELD_SLOTS_COUNT"
+msgstr "Output Slots Count"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Randomizer"
+# msgstr ""

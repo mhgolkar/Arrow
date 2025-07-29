@@ -15,19 +15,21 @@ const METHODS_ENUM = {
 }
 
 const METHODS = {
-	METHODS_ENUM.INSET: "Inset",
-	METHODS_ENUM.RESET: "Reset",
-	METHODS_ENUM.OVERSET: "Overset",
-	METHODS_ENUM.OUTSET: "Outset",
-	METHODS_ENUM.UNSET: "Unset",
+	# All the method names are expected to be translated
+	METHODS_ENUM.INSET: "TAG_EDIT_METHOD_INSET",
+	METHODS_ENUM.RESET: "TAG_EDIT_METHOD_RESET",
+	METHODS_ENUM.OVERSET: "TAG_EDIT_METHOD_OVERSET",
+	METHODS_ENUM.OUTSET: "TAG_EDIT_METHOD_OUTSET",
+	METHODS_ENUM.UNSET: "TAG_EDIT_METHOD_UNSET",
 }
 
 const METHODS_HINTS = {
-	METHODS_ENUM.INSET: "Adds a key:value tag, only if the key does not exist.",
-	METHODS_ENUM.RESET: "Resets value of a tag, only if the key exists.",
-	METHODS_ENUM.OVERSET: "Overwrites or adds a key:value tag, whether the key exists or not.",
-	METHODS_ENUM.OUTSET: "Removes a tag if both key & value match.",
-	METHODS_ENUM.UNSET: "Removes a tag if just the key matches.",
+	# All the hints are expected to be translated
+	METHODS_ENUM.INSET: "TAG_EDIT_METHOD_HINT_INSET",
+	METHODS_ENUM.RESET: "TAG_EDIT_METHOD_HINT_RESET",
+	METHODS_ENUM.OVERSET: "TAG_EDIT_METHOD_HINT_OVERSET",
+	METHODS_ENUM.OUTSET: "TAG_EDIT_METHOD_HINT_OUTSET",
+	METHODS_ENUM.UNSET: "TAG_EDIT_METHOD_HINT_UNSET",
 }
 
 const METHOD_NEEDS_NO_VALUE = [

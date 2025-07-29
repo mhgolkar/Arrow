@@ -1,0 +1,179 @@
+
+# Condition Node Translation
+# ==========================
+#           English         
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Condition\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Condition"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Statement]"
+# msgstr ""
+
+msgid "CONDITION_CONSOLE_FALSE"
+msgstr "False"
+
+msgid "CONDITION_CONSOLE_TRUE"
+msgstr "True"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "CONDITION_INSPECTOR_CHECK_FOR_VAR"
+msgstr "Check for variable"
+
+msgid "CONDITION_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"Apply Global Filters\n"
+"\n"
+"It will follow the same listing instructions\n"
+"that are defined in the Variables inspector.\n"
+"+ Current variable of the node is always listed."
+
+msgid "CONDITION_INSPECTOR_IF"
+msgstr "if"
+
+msgid "CONDITION_INSPECTOR_COMPARING_TO"
+msgstr "comparing to"
+
+msgid "CONDITION_INSPECTOR_FALSE"
+msgstr "False"
+
+msgid "CONDITION_INSPECTOR_TRUE"
+msgstr "True"
+
+msgid "CONDITION_INSPECTOR_RHS_STR_PLACEHOLDER"
+msgstr "Str Value"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Condition"
+# msgstr ""
+
+# !
+# msgid "[Statement]"
+# msgstr ""
+
+msgid "CONDITION_NODE_FALSE"
+msgstr "False"
+
+msgid "CONDITION_NODE_TRUE"
+msgstr "True"
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "CONDITION_CONSOLE_UNSET_DATA_ERR"
+msgstr "Unset!"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+# NOTE: This is used for operator selector items formatting.
+msgid "CONDITION_INSPECTOR_OPERATOR_ITEM_TEXT_TEMPLATE"
+msgstr "{text} ({sign})"
+
+# DEV:
+# This string can accept `{self}` placeholder
+# which will be replaced by the variable name,
+# e.g. "Self (Initial Value of `{self}`)".
+msgid "CONDITION_INSPECTOR_COMPARE_TO_SELF_INITIAL"
+msgstr "Self (Initial Value)"
+
+msgid "CONDITION_INSPECTOR_NO_VARIABLE"
+msgstr "No Variable Available"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "CONDITION_NODE_UNSET_OR_INVALID"
+msgstr "Unset!"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "CONDITION_OP_EQ_NUM"
+msgstr "is Equal"
+
+msgid "CONDITION_OP_NQ_NUM"
+msgstr "is Not Equal"
+
+msgid "CONDITION_OP_GT"
+msgstr "is Greater"
+
+msgid "CONDITION_OP_GTE"
+msgstr "is Greater or Equal"
+
+msgid "CONDITION_OP_LS"
+msgstr "is Lesser"
+
+msgid "CONDITION_OP_LSE"
+msgstr "is Lesser or Equal"
+
+msgid "CONDITION_OP_RGX"
+msgstr "Matches RegEx Pattern"
+
+msgid "CONDITION_OP_CT"
+msgstr "Contains Substring"
+
+msgid "CONDITION_OP_CTS"
+msgstr "Contains Substring (Case-Sensitive)"
+
+msgid "CONDITION_OP_BGN"
+msgstr "Begins with"
+
+msgid "CONDITION_OP_END"
+msgstr "Ends with"
+
+msgid "CONDITION_OP_EQL"
+msgstr "Has Equal Length"
+
+msgid "CONDITION_OP_LNG"
+msgstr "Is Longer"
+
+msgid "CONDITION_OP_SHR"
+msgstr "Is Shorter"
+
+msgid "CONDITION_OP_EQ_BOOL"
+msgstr "Conforms"
+
+msgid "CONDITION_OP_NQ_BOOL"
+msgstr "Doesn't Conform"
+
+msgid "CONDITION_STATEMENT_RHS_IS_LHS_INIT"
+msgstr "Self (Initial `%s`)"
+
+msgid "CONDITION_RHS_INVALID"
+msgstr "[Invalid]"

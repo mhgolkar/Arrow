@@ -7,7 +7,6 @@ extends GraphNode
 
 @onready var Main = get_tree().get_root().get_child(0)
 
-const NO_LABEL_MESSAGE = ""
 const SET_SLOT_COLORS := false
 
 @warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
@@ -27,7 +26,7 @@ func _update_node(data:Dictionary) -> void:
 	if data.has("label") && (data.label is String) && data.label.length() > 0:
 		MarkerLabel.set_deferred("text", data.label)
 	else:
-		MarkerLabel.set_deferred("text", NO_LABEL_MESSAGE)
+		MarkerLabel.set_deferred("text", "") # ~ No label
 	if data.has("color") && (data.color is String):
 		var the_color = Helpers.Utils.rgba_hex_to_color(data.color)
 		self.set("self_modulate", the_color)

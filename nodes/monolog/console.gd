@@ -40,11 +40,8 @@ var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 @onready var Monolog = $Play/Body/Monolog
 @onready var Continue = $Play/Continue
 
-const MONOLOG_UNSET_MESSAGE = "No Monolog."
+const MONOLOG_UNSET_MESSAGE = "MONOLOG_CONSOLE_UNSET_MSG" # Translated ~ "No Monolog."
 const MONOLOG_UNSET_SELF_MODULATION_COLOR = Color(1, 1, 1, 0.30)
-
-const BRIEF_UNSET_MESSAGE = "No Brief."
-const HIDE_UNSET_BRIEF = true
 
 func _ready() -> void:
 	register_connections()

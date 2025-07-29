@@ -51,7 +51,7 @@ var _CURRENT_LOCATED_REF_ID = -1
 @onready var MacrosEditButton = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Actions/Open
 
 const MACRO_USERS_COUNT_TEMPLATE = "{0} [{1}]"
-const RAW_UID_TIP_TEMPLATE = "UID: %s \n[press button to copy]"
+const RAW_UID_TIP_TEMPLATE = "UID: %s"
 
 func _ready() -> void:
 	register_connections()
@@ -271,8 +271,11 @@ func prompt_to_request_macro_removal(macro_id:int = -1) -> void:
 			"show_notification",
 			"Are you sure ?",
 			(
-				"You're removing the macro `%s`, permanently.\n" % macro_name +
-				"Would you like to proceed?"
+				tr("RESOURCE_PERMANENT_REMOVAL_WARNING")
+				.format({
+					"field_name": tr("MACROS_FIELD_NAME"),
+					"res_name": macro_name,
+				})
 			),
 			[
 				{ 
@@ -314,7 +317,7 @@ func update_macro_editorial_state(macro_id:int = -1) -> void:
 	if macro_id >= 0 && _LISTED_MACROS_BY_ID.has(macro_id):
 		_SELECTED_MACRO_BEING_EDITED_ID = macro_id
 		var the_macro = _LISTED_MACROS_BY_ID[macro_id]
-		MacroRawUid.set_deferred("tooltip_text", RAW_UID_TIP_TEMPLATE % macro_id)
+		MacroRawUid.set_deferred("tooltip_text", (RAW_UID_TIP_TEMPLATE % macro_id) + tr("TYPE_INSPECTOR_RAW_UID_HINT"))
 		MacroEditorName.set_text(the_macro.name)
 		# MacroEditorBox.set("visible", true) # moved to `smartly_update_tools`
 		# this may be called by other scripts, so let's reselect the open macro

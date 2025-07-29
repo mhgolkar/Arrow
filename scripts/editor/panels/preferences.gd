@@ -59,9 +59,34 @@ func refresh_appearance_theme_options() -> void:
 	
 func refresh_language_options() -> void:
 	FIELDS.language.clear()
-	for lang_id in Settings.SUPPORTED_UI_LANGUAGES:
-		var language_item_text = LANGUAGE_ITEM_TEXT_TEMPLATE.format( Settings.SUPPORTED_UI_LANGUAGES[lang_id] )
-		FIELDS.language.add_item(language_item_text, lang_id)
+	var translations_dir = Helpers.Utils.normalize_dir_path(Settings.UI_TRANSLATIONS_DIR)
+	for each_rel_path in DirAccess.get_files_at(translations_dir):
+		var translation: Translation = ResourceLoader.load(translations_dir + each_rel_path, "Translation", ResourceLoader.CacheMode.CACHE_MODE_REUSE)
+		TranslationServer.add_translation(translation)
+	var idx = 0
+	var loaded_locals = TranslationServer.get_loaded_locales()
+	for locale in loaded_locals:
+		var language_item_text = LANGUAGE_ITEM_TEXT_TEMPLATE.format({
+			"name": tr( TranslationServer.get_locale_name(locale) ),
+			"code": locale,
+		})
+		FIELDS.language.add_item(language_item_text, idx)
+		FIELDS.language.set_item_metadata(idx, locale)
+		idx += 1
+	print_debug("%s locales loaded: %s" % [idx, loaded_locals])
+	pass
+
+func select_language_selector_for(locale = TranslationServer.get_locale()) -> int:
+	var all = FIELDS.language.get_item_count()
+	for idx in range(0, all):
+		if FIELDS.language.get_item_metadata(idx) == locale:
+			FIELDS.language.select(idx)
+			return idx
+	return -1
+
+func reset_language(by_locale:String = "en") -> void:
+	TranslationServer.set_locale(by_locale)
+	select_language_selector_for(by_locale)
 	pass
 
 func register_connections() -> void:
@@ -79,8 +104,12 @@ func register_connections() -> void:
 
 func refresh_fields_view(preferences:Dictionary) -> void:
 	for field in preferences:
-		if field in FIELDS:
-			FIELDS[field].set_deferred(FIELDS_VALUE_PROPERTY[field], preferences[field])
+		match field:
+			"language":
+				select_language_selector_for.call_deferred(preferences[field])
+			_:
+				if field in FIELDS:
+					FIELDS[field].set_deferred(FIELDS_VALUE_PROPERTY[field], preferences[field])
 	pass
 
 func _dismiss_preferences() -> void:
@@ -97,7 +126,7 @@ func preprocess_and_emit_modification_signal(value, field) -> void:
 		"appearance_theme":
 			value = FIELDS.appearance_theme.get_item_id(value) # Convert idx to theme_id
 		"language":
-			value = FIELDS.language.get_item_id(value) # Convert idx to lang_id
+			value = FIELDS.language.get_item_metadata(value)
 		"history_size":
 			value = max(0, int(value))
 	# .. then signal

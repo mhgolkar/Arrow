@@ -10,7 +10,7 @@ extends GraphNode
 
 const DEFAULT_NODE_DATA = ContentSharedClass.DEFAULT_NODE_DATA
 
-const TITLE_UNSET_MESSAGE = "Untitled"
+const TITLE_UNSET_MESSAGE = "CONTENT_NODE_UNSET_TITLE" # Translated ~ "Untitled"
 const HIDE_UNSET_TITLE = true
 
 const BRIEF_UNSET_MESSAGE = ""

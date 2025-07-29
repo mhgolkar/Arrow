@@ -16,14 +16,14 @@ script = ExtResource("1_svqou")
 
 [node name="TitleLabel" type="Label" parent="."]
 layout_mode = 2
-text = "Title"
+text = "CONTENT_INSPECTOR_FIELD_TITLE"
 
 [node name="Title" type="LineEdit" parent="."]
 layout_mode = 2
 
 [node name="ContentLabel" type="Label" parent="."]
 layout_mode = 2
-text = "Content"
+text = "CONTENT_INSPECTOR_FIELD_CONTENT"
 
 [node name="Content" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 96)
@@ -36,7 +36,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Brief"]
 layout_mode = 2
-text = "Brief"
+text = "CONTENT_INSPECTOR_FIELD_BRIEF"
 
 [node name="Length" type="SpinBox" parent="Brief"]
 layout_mode = 2
@@ -48,14 +48,14 @@ allow_greater = true
 [node name="Pick" type="Button" parent="Brief"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Sets brief length up to the the text cursor's position."
+tooltip_text = "CONTENT_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
 icon = SubResource("AtlasTexture_j4fii")
 expand_icon = true
 
 [node name="AutoPlay" type="CheckBox" parent="."]
 layout_mode = 2
-text = "Auto Play"
+text = "CONTENT_INSPECTOR_OPT_AUTO_PLAY"
 
 [node name="ClearPage" type="CheckBox" parent="."]
 layout_mode = 2
-text = "Clear Page"
+text = "CONTENT_INSPECTOR_OPT_CLEAR_PAGE"

@@ -8,10 +8,12 @@ class_name GeneratorSharedClass
 
 const METHODS = {
 	# CAUTION! this list shall correspond to the `generate_...` functions
-	"randi": "Random Integer",
-	"ascii": "Random ASCII String",
-	"strst": "From Set of Strings",
-	"rnbln": "Random Boolean",
+	# Also note that method names (values) are all expected to be translated.
+	# ...
+	"randi": "GENERATOR_METHOD_RANDOM_INTEGER", # Random Integer
+	"ascii": "GENERATOR_METHOD_RANDOM_ASCII_STRING", # Random ASCII String
+	"strst": "GENERATOR_METHOD_FROM_SET_OF_STRINGS", # From Set of Strings
+	"rnbln": "GENERATOR_METHOD_RANDOM_BOOLEAN", # Random Boolean
 }
 
 const VALID_METHODS_FOR_TYPE = {

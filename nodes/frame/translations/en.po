@@ -1,0 +1,90 @@
+
+# Frame Node Translation
+# ======================
+#         English       
+# ======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Frame\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Frame"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# !
+# msgid "[Frame Label]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "FRAME_INSPECTOR_FIELD_COLOR"
+msgstr "Color"
+
+# !
+# msgid "[Frame Color]"
+# msgstr ""
+
+msgid "FRAME_INSPECTOR_FIELD_LABEL"
+msgstr "Label"
+
+msgid "FRAME_INSPECTOR_FIELD_WIDTH"
+msgstr "Width"
+
+msgid "FRAME_INSPECTOR_FIELD_HEIGHT"
+msgstr "Height"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# msgid "Frame"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Frame [/color] [color=green]Label[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "FRAME_CONSOLE_LABEL_UNSET_MSG"
+msgstr "Unlabeled"
+
+msgid "FRAME_CONSOLE_NO_NOTES_MSG"
+msgstr "Frame Has No Extra Information."
+
+
+# -------
+# node.gd
+# -------
+
+msgid "FRAME_NODE_NO_LABEL_MSG"
+msgstr "No Label!"

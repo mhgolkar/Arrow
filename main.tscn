@@ -253,32 +253,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"RichTextLabelPadded"
 bbcode_enabled = true
-text = "[b]Welcome to Arrow 3.x[/b]
-
-Arrow is the free, open-source and feature-rich tool for [i]game narrative[/i] design, and creation of [i]interactive nonlinear storytelling[/i] works.
-
-Just a few quick notes:
-
-[b]• PWA Data Storage[/b]
-Arrow web app uses browser storage to manage projects.
-[i]Your data is all and only on this device.[/i]
-To export projects use:
-[indent][bgcolor=black][color=white][i][code] Inspector (panel) > Project (tab) > Export [/code][/i][/color][/bgcolor][/indent]
-To clean up app storage try:
-[indent][bgcolor=black][color=white][i][code] Arrow (menu button; top-left) > Clear [/code][/i][/color][/bgcolor][/indent]
-
-For more information, please browse our website and/or the project's repository.
-
-Best regards
-Mor. H. Golkar and contributors
-"
+text = "WELCOME_MESSAGE"
+text_direction = 3
 metadata/_tab_index = 0
 
 [node name="Copyright" type="RichTextLabel" parent="Overlays/Control/About/Margin/Half/Right/Tabs"]
 visible = false
 layout_mode = 2
 theme_type_variation = &"RichTextLabelPadded"
-text = "TODO"
+text = "[Will be Auto-generated]"
 metadata/_tab_index = 1
 
 [node name="Toolbar" type="HBoxContainer" parent="Overlays/Control/About/Margin/Half/Right"]
@@ -438,10 +421,7 @@ custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "History size defines how many steps you can move a project in time.
-Currently history functions (undo `Ctrl+Z` & redo `Ctrl+Shift+Z`)
-work by capturing a full image of the open project in memory.
-Performance may vary, depending on the device specs and project size"
+tooltip_text = "HISTORY_SIZE_TOOLTIP"
 mouse_filter = 0
 texture = SubResource("AtlasTexture_6unog")
 expand_mode = 3
@@ -531,14 +511,12 @@ text = "AUID"
 [node name="Uid" type="SpinBox" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Unique"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Author Unique ID acts as the 2nd segment of a resource UID's namespace,
-allowing multiple contributors to work on the same document
-simultaneously without ID collisions."
+tooltip_text = "AUID_TOOLTIP"
+alignment = 1
 
 [node name="Active" type="CheckBox" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Unique"]
 layout_mode = 2
-tooltip_text = "If checked, selected author will be considered as the
-contributor of the created resources afterwards."
+tooltip_text = "ACTIVE_CONTRIBUTOR_TOOLTIP"
 text = "Active Contributor"
 
 [node name="Information" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity"]
@@ -579,15 +557,13 @@ text = "Chapter"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
-tooltip_text = "Chapter ID is a unique identifier for each document
-(as the 1st segment of resource UIDs' namespace),
-to avoid collisions when a project is divided to multiple files."
+tooltip_text = "CHAPTER_ID_TOOLTIP"
+alignment = 1
 
 [node name="Update" type="Button" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "A different  Chapter ID applies only to the future UIDs.
-It would not update or affect already created resources."
+tooltip_text = "CHAPTER_ID_UPDATE_TOOLTIP"
 text = "Update"
 icon = SubResource("AtlasTexture_1mvp3")
 icon_alignment = 2
@@ -764,6 +740,7 @@ layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 text = "[i][Message Here!][/i]"
+text_direction = 3
 
 [node name="Actions" type="HBoxContainer" parent="Overlays/Control/Notification/Panel/Margin/Sections"]
 layout_mode = 2
@@ -787,6 +764,7 @@ text = "[Action(s)]"
 [node name="FloatingTools" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="FloatingTools"]
+layout_direction = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -808,6 +786,7 @@ anchor_bottom = 0.855
 script = ExtResource("12_renut")
 
 [node name="Sections" type="VBoxContainer" parent="FloatingTools/Control/Inspector"]
+layout_direction = 1
 layout_mode = 2
 
 [node name="Titlebar" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections"]
@@ -868,8 +847,7 @@ clear_button_enabled = true
 [node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Filters"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Reverses filter:
-those not matching will pass."
+tooltip_text = "FILTER_REVERSE_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_jgf31")
 expand_icon = true
@@ -877,7 +855,7 @@ expand_icon = true
 [node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Filters"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Sort Alphabetical; otherwise based on UID."
+tooltip_text = "SORT_AZ_OR_UID_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_fimxt")
 expand_icon = true
@@ -895,7 +873,7 @@ size_flags_vertical = 3
 visible = false
 layout_mode = 2
 bbcode_enabled = true
-text = "[ [color=green]Project descriptions[/color] are fetched from  the notes on the [color=yellow]entry node[/color] of the selected one ]"
+text = "[ [color=green]Project descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
 fit_content = true
 
 [node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing"]
@@ -1055,8 +1033,7 @@ expand_icon = true
 [node name="Focus" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Header"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Locate Inspected Node on
-the Grid (Ctrl + Backslash)"
+tooltip_text = "NODE_FOCUS_BTN_TOOLTIP"
 icon = SubResource("AtlasTexture_7jppa")
 icon_alignment = 1
 expand_icon = true
@@ -1111,8 +1088,7 @@ size_flags_horizontal = 3
 
 [node name="Skipped" type="CheckBox" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools"]
 layout_mode = 2
-tooltip_text = "Skipped nodes would not be effective in the narrative.
-The alternative behavior depends on the node's type."
+tooltip_text = "SKIP_NODES_TOOLTIP"
 text = "Skip"
 
 [node name="Update" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools"]
@@ -1132,7 +1108,7 @@ expand_icon = true
 
 [node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/References"]
 layout_mode = 2
-text = "0 Ref(s)"
+text = "Ref(s)"
 
 [node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/References"]
 custom_minimum_size = Vector2(24, 0)
@@ -1153,9 +1129,7 @@ expand_icon = true
 self_modulate = Color(1, 1, 1, 0.5)
 layout_mode = 2
 size_flags_vertical = 1
-text = "Select A Node to Inspect or
-Right-Click on the Grid to
-Create New Nodes."
+text = "NODES_TAB_BLOCKER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1180,8 +1154,7 @@ clear_button_enabled = true
 [node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Filters"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Reverses filter:
-those not matching will pass."
+tooltip_text = "FILTER_REVERSE_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_jgf31")
 expand_icon = true
@@ -1189,7 +1162,7 @@ expand_icon = true
 [node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Filters"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Sort Alphabetical; otherwise based on UID."
+tooltip_text = "SORT_AZ_OR_UID_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_fimxt")
 expand_icon = true
@@ -1207,7 +1180,7 @@ size_flags_vertical = 3
 visible = false
 layout_mode = 2
 bbcode_enabled = true
-text = "[ [color=green]Project descriptions[/color] are fetched from  the notes on the [color=yellow]entry node[/color] of the selected one ]"
+text = "[ [color=green]Scene descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
 fit_content = true
 
 [node name="Configs" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager"]
@@ -1276,8 +1249,7 @@ expand_icon = true
 [node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Filters"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Reverses filter:
-those not matching will pass."
+tooltip_text = "FILTER_REVERSE_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_jgf31")
 expand_icon = true
@@ -1285,7 +1257,7 @@ expand_icon = true
 [node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Filters"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Sort Alphabetical; otherwise based on UID."
+tooltip_text = "SORT_AZ_OR_UID_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_fimxt")
 expand_icon = true
@@ -1303,7 +1275,7 @@ size_flags_vertical = 3
 visible = false
 layout_mode = 2
 bbcode_enabled = true
-text = "[ [color=green]Project descriptions[/color] are fetched from  the notes on the [color=yellow]entry node[/color] of the selected one ]"
+text = "[ [color=green]Macro descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
 fit_content = true
 
 [node name="Configs" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager"]
@@ -1338,7 +1310,7 @@ expand_icon = true
 
 [node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Instances"]
 layout_mode = 2
-text = "0 Instance(s)"
+text = "Instance(s)"
 
 [node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Instances"]
 custom_minimum_size = Vector2(24, 0)
@@ -1417,8 +1389,7 @@ expand_icon = true
 [node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Reverses filter:
-those not matching will pass."
+tooltip_text = "FILTER_REVERSE_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_jgf31")
 expand_icon = true
@@ -1426,7 +1397,7 @@ expand_icon = true
 [node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Sort Alphabetical; otherwise based on UID."
+tooltip_text = "SORT_AZ_OR_UID_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_fimxt")
 expand_icon = true
@@ -1524,7 +1495,7 @@ expand_icon = true
 
 [node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/References"]
 layout_mode = 2
-text = "0 Reference(s)"
+text = "Reference(s)"
 
 [node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/References"]
 custom_minimum_size = Vector2(24, 0)
@@ -1582,8 +1553,7 @@ expand_icon = true
 [node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Filters"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Reverses filter:
-those not matching will pass."
+tooltip_text = "FILTER_REVERSE_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_jgf31")
 expand_icon = true
@@ -1591,7 +1561,7 @@ expand_icon = true
 [node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Filters"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Sort Alphabetical; otherwise based on UID."
+tooltip_text = "SORT_AZ_OR_UID_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_fimxt")
 expand_icon = true
@@ -1691,7 +1661,7 @@ expand_icon = true
 
 [node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Appearances"]
 layout_mode = 2
-text = "0 Appearance(s)"
+text = "Appearance(s)"
 
 [node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Appearances"]
 custom_minimum_size = Vector2(24, 0)
@@ -1736,6 +1706,7 @@ anchor_bottom = 0.855
 script = ExtResource("21_k3mxj")
 
 [node name="Sections" type="VBoxContainer" parent="FloatingTools/Control/Console"]
+layout_direction = 1
 layout_mode = 2
 
 [node name="Titlebar" type="HBoxContainer" parent="FloatingTools/Control/Console/Sections"]
@@ -2103,6 +2074,7 @@ grow_vertical = 0
 color = Color(0.74902, 0.121569, 0.54902, 1)
 
 [node name="Center" type="Control" parent="Editor"]
+layout_direction = 2
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -2183,8 +2155,7 @@ popup/item_0/id = 0
 [node name="Scoped" type="Button" parent="Editor/Bottom/Bar/Query/Tools"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-tooltip_text = "Scoped: Filter for Scene
-(otherwise search project-wide)"
+tooltip_text = "SCOPED_QUERY_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_lea63")
 expand_icon = true

@@ -10,7 +10,7 @@ extends GraphNode
 @onready var Mind = Main.Mind
 @onready var TheTree = Main.TheTree
 
-const NO_LABEL_MESSAGE = "No Label!"
+const NO_LABEL_MESSAGE = "FRAME_NODE_NO_LABEL_MSG" # Translated ~ "No Label!"
 const HIDE_EMPTY_LABEL = true
 
 var _node_id

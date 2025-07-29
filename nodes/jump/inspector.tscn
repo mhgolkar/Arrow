@@ -11,19 +11,19 @@ script = ExtResource("1_ebnsr")
 
 [node name="ReasonLabel" type="Label" parent="."]
 layout_mode = 2
-text = "Reason"
+text = "JUMP_INSPECTOR_FIELD_REASON"
 
 [node name="Reason" type="LineEdit" parent="."]
 layout_mode = 2
-placeholder_text = "e.g. Leve Up, Next Scene ..."
+placeholder_text = "JUMP_INSPECTOR_FIELD_REASON_PLACEHOLDER"
 
 [node name="DestinationLabel" type="Label" parent="."]
 layout_mode = 2
-text = "Destination"
+text = "JUMP_INSPECTOR_FIELD_DESTINATION"
 
 [node name="Destination" type="LineEdit" parent="."]
 layout_mode = 2
-placeholder_text = "Node UID"
+placeholder_text = "JUMP_INSPECTOR_FIELD_DESTINATION_PLACEHOLDER"
 
 [node name="Suggestion" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(0, 32)

@@ -18,7 +18,8 @@ var This = self
 const DESTINATION_FORMAT_STRING = (
 	"{target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_NODES else "{target_name} ({target_uid})"
 )
-const REASON_TEXT_UNSET_MESSAGE = "No Reason"
+const UNSET_TARGET_NAME = "JUMP_NODE_UNSET_TARGET_NAME" # Translated ~ "Unset"
+const UNSET_REASON_MESSAGE = "JUMP_NODE_UNSET_REASON_MSG" # Translated ~ "No Reason"
 const HIDE_REASON_IF_UNSET = true
 
 #func _ready() -> void:
@@ -40,7 +41,7 @@ func _gui_input(event) -> void:
 	pass
 
 func _update_node(data:Dictionary) -> void:
-	var destination = { "target_name": "Unset", "target_uid": "-1" }
+	var destination = { "target_name": UNSET_TARGET_NAME, "target_uid": "-1" }
 	if data.has("target") && (data.target is int) && data.target >= 0:
 		destination.target_uid = data.target
 		var target_node = Main.Mind.lookup_resource(data.target, "nodes")
@@ -51,6 +52,6 @@ func _update_node(data:Dictionary) -> void:
 		Reason.set_deferred("text", data.reason)
 		Reason.set_deferred("visible", true)
 	else:
-		Reason.set_deferred("text", REASON_TEXT_UNSET_MESSAGE)
+		Reason.set_deferred("text", UNSET_REASON_MESSAGE)
 		Reason.set_deferred("visible", (!HIDE_REASON_IF_UNSET))
 	pass

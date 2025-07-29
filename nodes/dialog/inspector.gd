@@ -37,18 +37,18 @@ var This = self
 @onready var Playable = $Playable
 
 const TOOLS_MENU_BUTTON_POPUP = { # <id>:int { label:string, action:string<function-ident-to-be-called> }
-	0: { "label": "Append New Line", "action": "append_new_line" },
+	0: { "label": "DIALOG_INSPECTOR_MENU_APPEND_NEW_LINE", "action": "append_new_line" },
 	1: null, # separator
-	2: { "label": "Extract Selected Line", "action": "extract_selected_line" },
-	3: { "label": "Replace Selected Line", "action": "replace_selected_line" },
-	4: { "label": "Remove Selected Line(s)", "action": "remove_selected_lines" },
+	2: { "label": "DIALOG_INSPECTOR_MENU_EXTRACT_SELECTED", "action": "extract_selected_line" },
+	3: { "label": "DIALOG_INSPECTOR_MENU_REPLACE_SELECTED", "action": "replace_selected_line" },
+	4: { "label": "DIALOG_INSPECTOR_MENU_REMOVE_SELECTED", "action": "remove_selected_lines" },
 	5: null,
-	6: { "label": "Sort Lines (Alphabetical)", "action": "sort_items_alphabetical" },
-	7: { "label": "Move Selected Top", "action": "move_selected_top" },
-	8: { "label": "Move Selected End", "action": "move_selected_end" },
+	6: { "label": "DIALOG_INSPECTOR_MENU_SORT_LINES_AZ", "action": "sort_items_alphabetical" },
+	7: { "label": "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_TOP", "action": "move_selected_top" },
+	8: { "label": "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_END", "action": "move_selected_end" },
 	9: null,
-	10: { "label": "Move Selected Up", "action": "move_selected_up" },
-	11: { "label": "Move Selected Down", "action": "move_selected_down" },
+	10: { "label": "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_UP", "action": "move_selected_up" },
+	11: { "label": "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_DOWN", "action": "move_selected_down" },
 }
 var _TOOLS_ITEM_INDEX_BY_ACTION = {}
 

@@ -48,9 +48,9 @@ alignment = 2
 
 [node name="Skip" type="Button" parent="Play/Actions"]
 layout_mode = 2
-text = "Skip"
+text = "MACRO_USE_CONSOLE_ACT_SKIP"
 
 [node name="Replay" type="Button" parent="Play/Actions"]
 layout_mode = 2
 disabled = true
-text = "Play"
+text = "MACRO_USE_CONSOLE_ACT_PLAY"

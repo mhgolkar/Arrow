@@ -17,7 +17,7 @@ var _METHODS_ITEM_ID_LISTED_BY_KEY = {}
 	
 # data for unset variable (view)
 const NO_VARIABLE_VAR_TYPE = "bool"
-const NO_VARIABLE_TEXT = "No Variable Available"
+const NO_VARIABLE_TEXT = "GENERATOR_INSPECTOR_NO_VARIABLE_TXT" # Translated ~ "No Variable Available"
 const NO_VARIABLE_ID = -1
 
 var DEFAULT_NODE_DATA = {
@@ -62,7 +62,7 @@ const ArgumentsSetterForMethod = {
 @onready var RandomAsciiPoolString = $Arguments/RandomAscii/Pool/Value
 @onready var StrSetPool = $Arguments/FromStrSet/Pool
 
-const STRST_DELIMITER_HINT_MESSAGE = "* Separate with `%s`"
+const STRST_DELIMITER_HINT_MESSAGE = "GENERATOR_INSPECTOR_STRST_DELIMITER_HINT_MSG" # Translated ~ "* Separate with `%s`"
 
 func _ready() -> void:
 	register_connections()
@@ -79,8 +79,8 @@ func register_connections() -> void:
 
 func update_strst_delimiter_hint() -> void:
 	StrSetPool.set_deferred(
-		"placeholder",
-		STRST_DELIMITER_HINT_MESSAGE % GeneratorSharedClass.STRING_SET_DELIMITER
+		"placeholder_text",
+		tr(STRST_DELIMITER_HINT_MESSAGE) % GeneratorSharedClass.STRING_SET_DELIMITER
 	)
 	pass
 

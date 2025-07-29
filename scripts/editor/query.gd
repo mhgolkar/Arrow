@@ -19,9 +19,6 @@ signal request_mind()
 @onready var QueryMatchesMenuButtonPopup = QueryMatchesMenuButton.get_popup()
 @onready var QueryNextButton = $/root/Main/Editor/Bottom/Bar/Query/Tools/References/Next
 
-const NO_ITEM_IN_MATCH_OPTIONS_TEXT = "No Match"
-const MATCH_OPTION_BUTTON_TEXT_TEMPLATE = "{current} : {total} Matches"
-const MATCH_ITEM_TEXT_TEMPLATE = "{name} - {capitalized_type}"
 var _QUERIED_NODES_BY_ID = {}
 var _QUERIED_NODES_IDS_LIST = []
 var _QUERIED_NODES_ROTATION_SIZE = 0
@@ -39,7 +36,7 @@ const HOWS = {
 func _ready() -> void:
 	register_connections()
 	load_how_options()
-	cleanup_query()
+	cleanup_query.call_deferred()
 	pass
 
 func register_connections() -> void:
@@ -81,7 +78,8 @@ func _re_query(_x=null, _y=null) -> void:
 
 func reset_match_statistics_text() -> void:
 	QueryMatchesMenuButton.set_text(
-		MATCH_OPTION_BUTTON_TEXT_TEMPLATE.format(_STATISTICS)
+		tr("QUERY_MATCH_OPTION_BUTTON_TEXT_TEMPLATE")
+		.format(_STATISTICS)
 	)
 	pass
 
@@ -115,10 +113,16 @@ func update_query_results(nodes_dataset:Dictionary = {}) -> void:
 		# update match button
 		for node_id in _QUERIED_NODES_BY_ID:
 			var the_node = _QUERIED_NODES_BY_ID[node_id]
-			QueryMatchesMenuButtonPopup.add_item(MATCH_ITEM_TEXT_TEMPLATE.format({
-					"name": the_node.name,
-					"capitalized_type": the_node.type.capitalize()
-				}), node_id)
+			QueryMatchesMenuButtonPopup.add_item(
+				(
+					tr("QUERY_MATCH_ITEM_TEXT_TEMPLATE")
+					.format({
+						"name": the_node.name,
+						"capitalized_type": the_node.type.capitalize()
+					})
+				),
+				node_id
+			)
 	reset_match_statistics_text()
 	pass
 

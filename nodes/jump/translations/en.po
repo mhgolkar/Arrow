@@ -1,0 +1,92 @@
+
+# Jump Node Translation
+# =====================
+#        English       
+# =====================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Jump\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Jump"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Reason]"
+# msgstr ""
+
+# !
+# msgid "[Destination Name]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "JUMP_INSPECTOR_FIELD_REASON"
+msgstr "Reason"
+
+msgid "JUMP_INSPECTOR_FIELD_REASON_PLACEHOLDER"
+msgstr "e.g. Level Up, Next Scene ..."
+
+msgid "JUMP_INSPECTOR_FIELD_DESTINATION"
+msgstr "Destination"
+
+msgid "JUMP_INSPECTOR_FIELD_DESTINATION_PLACEHOLDER"
+msgstr "Node UID"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Jump"
+# msgstr ""
+
+# !
+# msgid "[Destination]"
+# msgstr ""
+
+# !
+# msgid "[Reason]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "JUMP_CONSOLE_UNSET_REASON_MSG"
+msgstr "No Reason"
+
+msgid "JUMP_CONSOLE_INVALID_MSG"
+msgstr "Invalid!"
+
+msgid "JUMP_CONSOLE_UNSET_TARGET_MSG"
+msgstr "Unset"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "JUMP_NODE_UNSET_REASON_MSG"
+msgstr "No Reason"
+
+msgid "JUMP_NODE_UNSET_TARGET_NAME"
+msgstr "Unset"

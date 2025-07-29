@@ -37,7 +37,7 @@ var _IS_IN_PREVIEW_MODE:bool = false
 
 const MORE_TOOLS_MENU_BUTTON_POPUP = {
 	0: { "label": "Save a Copy", "action": "request_save_a_copy_file" },
-	1: { "html5": true, "label": "Download a Copy", "action": "request_copy_export" },
+	1: { "label": "Download a Copy", "action": "request_copy_export", "html5": true },
 	2: null, # separator
 	3: { "label": "Export JSON", "action": "request_json_export" },
 	4: { "label": "Export HTML", "action": "request_html_export" },
@@ -291,5 +291,5 @@ func proceed_export(path:String, format = null) -> void:
 		})
 	else:
 		printerr("Invalid export filename:", path, pure_filename)
-		Main.Mind.show_error("Invalid Filename!", "Please choose a filename of at-least 1 character length length.")
+		Main.Mind.show_error("Invalid Filename!", "INVALID_FILENAME_MSG")
 	pass

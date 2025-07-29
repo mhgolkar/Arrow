@@ -38,11 +38,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_type_variation = &"ConditionConsoleFalse"
-text = "False"
+text = "CONDITION_CONSOLE_FALSE"
 
 [node name="True" type="Button" parent="Play"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_type_variation = &"ConditionConsoleTrue"
-text = "True"
+text = "CONDITION_CONSOLE_TRUE"

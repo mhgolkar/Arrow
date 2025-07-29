@@ -29,10 +29,10 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-const METHOD_INVALID = "N/A"
-const METHOD_INVALID_HINT = "Not Applicable: The node's resource data is corrupt"
-const TAG_EDIT_INVALID = "Invalid!"
-const TAG_KEY_VALUE_FORMAT_STRING = "{key}: `{value}`"
+const METHOD_INVALID = "TAG_EDIT_CONSOLE_METHOD_INVALID" # Translated ~ "N/A"
+const METHOD_INVALID_HINT = "TAG_EDIT_CONSOLE_METHOD_INVALID_HINT" # Translated ~ "Not Applicable: The node's resource data is corrupt"
+const TAG_EDIT_INVALID = "TAG_EDIT_CONSOLE_INVALID_DATA" # Translated ~ "Invalid!"
+const TAG_KEY_VALUE_FORMAT_STRING = "TAG_EDIT_CONSOLE_TAG_KEY_VALUE_FORMAT_STR" # Translated ~ "{key}: `{value}`"
 
 const ANONYMOUS_CHARACTER = TagEditSharedClass.ANONYMOUS_CHARACTER
 const METHODS = TagEditSharedClass.METHODS
@@ -96,7 +96,7 @@ func setup_view() -> void:
 			# (shall be set only if the data is valid; other methods are depended on this fact)
 			_THE_TARGET_CHARACTER_ID = _NODE_RESOURCE.data.character
 			update_character( _CHARACTERS_CURRENT[_THE_TARGET_CHARACTER_ID] )
-			tag_text = TAG_KEY_VALUE_FORMAT_STRING.format({
+			tag_text = tr(TAG_KEY_VALUE_FORMAT_STRING).format({
 				"key": _NODE_RESOURCE.data.edit[1], "value": _NODE_RESOURCE.data.edit[2]
 			})
 		else:

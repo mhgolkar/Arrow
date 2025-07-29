@@ -15,7 +15,7 @@ script = ExtResource("1_wf655")
 
 [node name="Update" type="Label" parent="."]
 layout_mode = 2
-text = "Update"
+text = "VARIABLE_UPDATE_INSPECTOR_FIELD_UPDATE"
 
 [node name="Variable" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -27,11 +27,7 @@ size_flags_horizontal = 3
 [node name="Filtered" type="Button" parent="Variable"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Apply Global Filters
-
-It will follow the same listing instructions
-that are defined in the Variables inspector.
-+ Current variable of the node is always listed."
+tooltip_text = "VARIABLE_UPDATE_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_8w2qn")
 icon_alignment = 1
@@ -39,7 +35,7 @@ expand_icon = true
 
 [node name="By" type="Label" parent="."]
 layout_mode = 2
-text = "by"
+text = "VARIABLE_UPDATE_INSPECTOR_FIELD_BY"
 
 [node name="Operator" type="OptionButton" parent="."]
 layout_mode = 2
@@ -47,7 +43,7 @@ size_flags_horizontal = 3
 
 [node name="To" type="Label" parent="."]
 layout_mode = 2
-text = "with/to"
+text = "VARIABLE_UPDATE_INSPECTOR_FIELD_TO"
 
 [node name="With" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -69,7 +65,7 @@ size_flags_horizontal = 3
 
 [node name="String" type="LineEdit" parent="With/Parameter/Value/Static"]
 layout_mode = 2
-placeholder_text = "Str Value"
+placeholder_text = "VARIABLE_UPDATE_INSPECTOR_PARAM_STR_PLACEHOLDER"
 alignment = 1
 
 [node name="Number" type="SpinBox" parent="With/Parameter/Value/Static"]
@@ -84,9 +80,9 @@ visible = false
 layout_mode = 2
 selected = 0
 item_count = 2
-popup/item_0/text = "True"
+popup/item_0/text = "VARIABLE_UPDATE_INSPECTOR_PARAM_BOOL_TRUE"
 popup/item_0/id = 1
-popup/item_1/text = "False"
+popup/item_1/text = "VARIABLE_UPDATE_INSPECTOR_PARAM_BOOL_FALSE"
 popup/item_1/id = 0
 
 [node name="Variable" type="OptionButton" parent="With/Parameter/Value"]

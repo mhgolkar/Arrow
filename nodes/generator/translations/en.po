@@ -1,0 +1,176 @@
+
+# Generator Node Translation
+# ==========================
+#           English         
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Generator\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Generator"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+# !
+# msgid "[Arguments]"
+# msgstr ""
+
+# !
+# msgid "[Target]"
+# msgstr ""
+
+msgid "GENERATOR_CONSOLE_ACT_SKIP"
+msgstr "Skip"
+
+msgid "GENERATOR_CONSOLE_ACT_PROCEED"
+msgstr "Proceed"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "GENERATOR_INSPECTOR_FIELD_FOR"
+msgstr "For"
+
+msgid "GENERATOR_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"Apply Global Filters\n"
+"\n"
+"It will follow the same listing instructions\n"
+"that are defined in the Variables inspector.\n"
+"+ Current variable of the node is always listed."
+
+msgid "GENERATOR_INSPECTOR_FIELD_GENERATE"
+msgstr "Generate"
+
+msgid "GENERATOR_INSPECTOR_FIELD_FROM"
+msgstr "From"
+
+msgid "GENERATOR_INSPECTOR_FIELD_TO"
+msgstr "To"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_NEG"
+msgstr "Neg"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_EVEN"
+msgstr "Even"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_ODD"
+msgstr "Odd"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL"
+msgstr "Pool"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL_PLACEHOLDER"
+msgstr "ASCII Characters (En Alphanumeric)"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_LENGTH"
+msgstr "Length"
+
+msgid "GENERATOR_INSPECTOR_FROM_STR_SET_POOL"
+msgstr "Pool of Strings"
+
+# !
+# msgid "* Separated with [delimiter]"
+# msgstr ""
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "Generator"
+# msgstr ""
+
+# !
+# msgid "[Arguments]"
+# msgstr ""
+
+# !
+# msgid "[Target]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "Undefined"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "Unset"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "Null/Invalid"
+
+msgid "GENERATOR_CONSOLE_SKIPPED_MSG"
+msgstr "[Skipped]"
+
+msgid "GENERATOR_CONSOLE_OPERATION_STATE_FORMAT_STR"
+msgstr "{name} `{original}` : {updated}"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "GENERATOR_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "No Variable Available"
+
+msgid "GENERATOR_INSPECTOR_STRST_DELIMITER_HINT_MSG"
+msgstr "* Separate with `%s`"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "Undefined"
+
+msgid "GENERATOR_NODE_TARGET_VARIABLE_MSG_TEMPLATE"
+msgstr "{name} ({type})"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "Unset"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "Null/Invalid"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "GENERATOR_METHOD_RANDOM_INTEGER"
+msgstr "Random Integer"
+
+msgid "GENERATOR_METHOD_RANDOM_ASCII_STRING"
+msgstr "Random ASCII String"
+
+msgid "GENERATOR_METHOD_FROM_SET_OF_STRINGS"
+msgstr "From Set of Strings"
+
+msgid "GENERATOR_METHOD_RANDOM_BOOLEAN"
+msgstr "Random Boolean"

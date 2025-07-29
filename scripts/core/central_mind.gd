@@ -275,13 +275,11 @@ class Mind :
 				"show_notification",
 				"Discarding New Project ?",
 				(
-					(
-						"`%s` is modified. " +
-						"Creating a new blank project will discard all the unsaved data."
-					) % _PROJECT.title
+					tr("PROJECT_DISCARD_WARNING")
+					% _PROJECT.title
 				),
 				[ # options :
-					{ "label": "OK, Proceed Anyway", "callee": Main.Mind, "method": "open_new_blank_project", "arguments": [true] }
+					{ "label": "OK! Proceed Anyway", "callee": Main.Mind, "method": "open_new_blank_project", "arguments": [true] }
 					# `Dismiss` button will be added by default
 				],
 				Settings.WARNING_COLOR
@@ -303,15 +301,13 @@ class Mind :
 					"Lost Project!",
 					(
 						(
-							("We can not find and read selected project (#%s.) \n" % project_id) +
-							"The file might be inaccessible due to lack of proper permission, " +
-							"or lost (i.e. renamed or deleted.) " +
-							"Manually edited or corrupted projects listing files can also cause this issue. \n" +
-							(
-								( "\nExpected file: " + expected.filename + Settings.PROJECT_FILE_EXTENSION + "\n")
-								if expected is Dictionary && expected.has("filename") else ""
+							tr("LOST_PROJECT_WARNING") % project_id
+							+ (
+								( tr("Expected file: ") + expected.filename + Settings.PROJECT_FILE_EXTENSION + "\n" )
+								if expected is Dictionary && expected.has("filename")
+								else ""
 							)
-						) 
+						)
 					),
 					[ { "label": "Unlist Project", "callee": Main.Mind, "method": "remove_local_project", "arguments": [project_id] },],
 					Settings.WARNING_COLOR
@@ -321,11 +317,8 @@ class Mind :
 				"show_notification",
 				"Overriding Unsaved Project ?",
 				(
-					(
-						"Editor is holding modifications for `%s`. " +
-						"Opening another project will discard these unsaved data. " +
-						"Would you like to proceed anyway?"
-					) % _PROJECT.title
+					tr("UNSAVED_PROJECT_WARNING")
+					% _PROJECT.title
 				),
 				[ # options :
 					{ "label": "Yes, Open", "callee": Main.Mind, "method": "open_project", "arguments": [project_id, true] }
@@ -350,10 +343,8 @@ class Mind :
 				"show_notification",
 				"Are you sure ?!",
 				(
-					(
-						"Project `%s` is modified. " +
-						"Closing it anyway will discard unsaved changes."
-					) % _PROJECT.title
+					tr("UNSAVED_CHANGES_WARNING")
+					% _PROJECT.title
 				),
 				[ # options :
 					{ "label": "Close Anyway", "callee": Main.Mind, "method": "close_project", "arguments": [true, try_quit_app] },
@@ -379,10 +370,7 @@ class Mind :
 		Notifier.call_deferred(
 			"show_notification",
 			"Are you sure ?!",
-			(
-				"You're about to revert current project to the last physically saved state. " +
-				"This operation will drop any change in memory and re-open the project from the saved file."
-			),
+			"PROJECT_REVERT_WARNING",
 			[ { "label": "Revert; I'm Sure", "callee": Main.Mind, "method": "revert_project", "arguments": [] }, ],
 			Settings.WARNING_COLOR
 		)
@@ -608,14 +596,8 @@ class Mind :
 			Notifier.call_deferred(
 				"show_notification",
 				"Are you sure ?!",
-				(
-					"A new Chapter ID will change resource UID namespace for this project file.\n" +
-					"You only need this operation if your project is divided into multiple documents, " +
-					"and you want to avoid identifier collision by assigning a unique namespace to each one. \n" +
-					"Also note that this update will only affect new resource UIDs (i.e. new nodes, scenes, etc.) " +
-					"Previously created resources (including default nodes) will keep their current UIDs."
-				),
-				[ { "label": "OK; I'm Sure", "callee": Main.Mind, "method": "update_project_chapter", "arguments": [id, true] },],
+				"UPDATE_CHAPTER_ID_NOTIFICATION",
+				[ { "label": "OK; Update", "callee": Main.Mind, "method": "update_project_chapter", "arguments": [id, true] },],
 				Settings.CAUTION_COLOR
 			)
 		pass
@@ -1259,7 +1241,7 @@ class Mind :
 					_PROJECT.entry = node_id
 					return previous_project_entry
 			else:
-				show_error("Invalid Operation!", "Macros are repeatable scenes, they are not designed to own the project entry node!")
+				show_error("Invalid Operation!", "PROJECT_ENTRY_IN_MACRO_ERROR")
 		return -1
 	
 	# because there must always be an entry it can only set/update entry and never unset/remove
@@ -1454,12 +1436,12 @@ class Mind :
 					the_resource.has("use") == false || (the_resource.use is Array) == false ||
 					the_resource.use.size() == 0
 				)
-			var none_removables
+			var non_removables
 			if field == "scenes":
 				# check if we can remove all nodes in the scene
 				# returns list
-				none_removables = batch_remove_resources(the_resource.map.keys(), "nodes", false, true, true)
-				is_removable = (none_removables.ids.size() == 0)
+				non_removables = batch_remove_resources(the_resource.map.keys(), "nodes", false, true, true)
+				is_removable = (non_removables.ids.size() == 0)
 			# for other resources:
 			if is_removable == true || forced == true:
 				# this resource might be *user* of other nodes/resources, so...
@@ -1511,16 +1493,11 @@ class Mind :
 			else:
 				# resource is used, so can't be deleted:
 				show_error(
-					"Unsafe Operation Discarded!",
-					"The resource can not be removed, because some other nodes or resources rely on this one. " +
+					"Unsafe Operation Ignored!",
 					(
-						"For example, one of the child nodes of the scene might be referenced by a jump in another scene."
-						if field == "scenes" else ""
-					) +
-					(
-						"\nReferenced resources are: \n\n\t" + ", ".join(none_removables.names)
-						if none_removables is Dictionary
-						else ""
+						tr("USED_RESOURCE_NOT_REMOVED") +
+						( tr("MAY_BE_USED_SCENE_NOT_REMOVED") if field == "scenes" else "" ) + "\n\n" +
+						tr("Referenced resource(s): ") + Helpers.Utils.stringify_json(non_removables.names, "") + "\n"
 					)
 				)
 		else:
@@ -1574,11 +1551,10 @@ class Mind :
 		else:
 			if check_only != true:
 				show_error(
-					"Unsafe Operation Discarded.",
+					"Unsafe Operation Ignored.",
 					(
-						"At least one the resources you want to remove is required by another resource or node. " +
-						"We can't proceed this operation, unless you remove referrers as well. \n\n" +
-						"Used resource(s) are: " + Helpers.Utils.stringify_json(nope_names, "") + "\n"
+						tr("REFERENCED_RESOURCE_NOT_REMOVED") + "\n\n" +
+						tr("Referenced resource(s): ") + Helpers.Utils.stringify_json(nope_names, "") + "\n"
 					)
 				)
 				printerr("Batch remove operation discarded due to existing use cases: ", nope)
@@ -2046,12 +2022,11 @@ class Mind :
 							"show_notification",
 							"Unsafe Move Detected!",
 							(
-								"At least one of the selected nodes is not moveable.\n" +
-								"We can not move all or some of the nodes due to continuum safety (e.g. scene entry.) \n\n" +
-								"Immovable(s): " + Helpers.Utils.stringify_json(immovable_names, "") + "\n"
+								tr("IMMOVABLE_NODES_ERROR") +
+								tr("Immovable(s): ") + Helpers.Utils.stringify_json(immovable_names, "") + "\n"
 							),
 							[{
-								"label": ("Move What's Safe (%s)" % movable_size),
+								"label": ( tr("Move What's Safe (%s)") % movable_size ),
 								"callee": Main.Mind, "method": "clipboard_pull", "arguments": [offset, immovable_here]
 							}],
 							Settings.CAUTION_COLOR
@@ -2173,16 +2148,28 @@ class Mind :
 					var allow_reuse = (pulled.chunk.chapter != _PROJECT.meta.chapter)
 					var statistics = ""
 					for field in pulled.chunk.resources:
-						statistics += "\n• " + String.num_uint64(pulled.chunk.resources[field].size()) + " " + field
+						var count_by_field = pulled.chunk.resources[field].size()
+						var field_name = field.to_upper() + "_FIELD_NAME"
+						var field_name_plural = field_name + "_PLURAL"
+						statistics += "\n• " + String.num_uint64(count_by_field) + " " + tr_n(field_name, field_name_plural, count_by_field)
 					Notifier.call_deferred(
 						"show_notification",
 						"Merger Detected [Experimental!]",
 						(
-							"You are trying to paste resources from `" + pulled.chunk.title +
-							"` (chapter " + String.num_int64(pulled.chunk.chapter) + "), including: " + statistics + "\n" +
-							"in which " + String.num_uint64(pulled.chunk.list.size()) +
-							" are the main resource(s) and the rest are the referenced dependencies.\n\n" +
-							("Please choose your merger strategy if sharable resources with similar UIDs exist:" if allow_reuse else "")
+							(
+								tr("MERGER_OPERATION_DESCRIPTION")
+								.format({
+									"origin": pulled.chunk.title,
+									"cid": String.num_int64(pulled.chunk.chapter),
+									"statistics": statistics,
+									"main_count": String.num_uint64(pulled.chunk.list.size()),
+								})
+							) +
+							(
+								tr("MERGER_OPERATION_STRATEGY_CHOICE")
+								if allow_reuse
+								else ""
+							)
 						),
 						[
 							{ "label": "Reuse", "callee": Main.Mind, "method": "os_clipboard_pull", "arguments": [Settings.OS_CLIPBOARD_MERGE_MODE.REUSE, offset_for_nodes] },
@@ -2384,36 +2371,31 @@ class Mind :
 					close_project(false, try_quit_app)
 				load_projects_list()
 		else:
-			show_error(
-				"Invalid Operation!",
-				(
-					"We can not save projects in snapshot preview mode.\n" +
-					"If you intend to keep the snapshot, take another snapshot of it to keep modifications in memory, " +
-					"or restore the open snapshot as the working draft and save it.\n" +
-					"You can also export any previewed snapshot and reimport it as a new project."
-				)
-			)
+			show_error("Invalid Operation!", "NO_SAVE_IN_SNAPSHOT_PREVIEW")
 		pass
 	
 	func try_remove_local_project(project_id) -> void:
 		var project_listed = ProMan.get_project_listing_by_id(project_id)
-		var project_name = ("`%s` " % project_listed.title) if project_listed is Dictionary && project_listed.has("title") else ""
+		var project_name = ("%s" % project_listed.title) if project_listed is Dictionary && project_listed.has("title") else ""
 		Notifier.call_deferred(
 				"show_notification",
 				"Are you sure ?!",
 				(
 					(
-						"You're about to remove listed project " + project_name + ("(#%s.) \n" % project_id) +
-						"If unlisted, the document will remain intact and will only be dropped from the projects list.\n" + 
-						"Deleted files will not be recoverable.\n" + 
-						(
-							( "\nProject file: `" + project_listed.filename + Settings.PROJECT_FILE_EXTENSION + "`\n")
-							if project_listed is Dictionary && project_listed.has("filename") else ""
-						)
+						tr("PROJECT_REMOVAL_PROMPT")
+						.format({
+							"name": project_name,
+							"pid": project_id,
+						})
+					) +
+					(
+						( tr("Project file: `%s`") % (project_listed.filename + Settings.PROJECT_FILE_EXTENSION) )
+						if project_listed is Dictionary && project_listed.has("filename")
+						else ""
 					)
 				),
 				[
-					{ "label": " Delete File", "callee": Main.Mind, "method": "remove_local_project", "arguments": [project_id, true] },
+					{ "label": "Delete File!", "callee": Main.Mind, "method": "remove_local_project", "arguments": [project_id, true] },
 					{ "label": "Unlist", "callee": Main.Mind, "method": "remove_local_project", "arguments": [project_id, false] },
 				],
 				Settings.WARNING_COLOR
@@ -2497,15 +2479,10 @@ class Mind :
 				"show_notification",
 				"Are you sure ?!",
 				(
-					(
-						"You're about to restore snapshot `%s`. " +
-						"This operation will override current state of the project in memory, " +
-						"but the file (unless saved afterwards) or other snapshots won't budge.\n" +
-						"If you intend to use current draft later, " +
-						"make sure to close preview and take a snapshot, before restoring this one."
-					) % snapshot_version
+					tr("SNAPSHOT_RESTORATION_PROMPT")
+					% snapshot_version
 				),
-				[ { "label": "Restore; I'm Sure", "callee": Main.Mind, "method": "restore_snapshot", "arguments": [index] },],
+				[ { "label": "Restore; I'm Sure", "callee": Main.Mind, "method": "restore_snapshot", "arguments": [index] }, ],
 				Settings.CAUTION_COLOR
 			)
 		else:
@@ -2559,10 +2536,7 @@ class Mind :
 			Notifier.call_deferred(
 				"show_notification",
 				"Invalid Project File!",
-				(
-					"We are not able to validate and import the selected file.\n" +
-					"The File might not be of a supported format or is corrupted."
-				),
+				"INVALID_PROJECT_FILE_IMPORT",
 				[],
 				Settings.CAUTION_COLOR
 			)
@@ -2578,14 +2552,7 @@ class Mind :
 			ProMan.save_project_into(target_registered_uid_to_save_into, importing_data, false, (Settings.USE_DEPRECATED_BIN_SAVE != true))
 			load_projects_list()
 		else:
-			show_error(
-				"Invalid Project File!",
-				(
-					"Imported file is not of supported format or is corrupted.\n" +
-					"Note also that binary save files are deprecated. " +
-					"You can use offline releases of Arrow to re-save them in textual format."
-				)
-			)
+			show_error("Invalid Project File!", "INVALID_PROJECT_FILE_IMPORT")
 		pass
 	
 	var _QUICK_EXPORT_FORMAT: String
@@ -2604,12 +2571,7 @@ class Mind :
 		elif _QUICK_EXPORT_FORMAT.length() > 0 && _QUICK_EXPORT_FILENAME.length() > 0 && _QUICK_EXPORT_BASE_DIR.length() > 0:
 			export_project_as(_QUICK_EXPORT_FORMAT, _QUICK_EXPORT_FILENAME, _QUICK_EXPORT_BASE_DIR)
 		else:
-			show_error(
-				"Quick Re-Export Not Available!",
-				"You have not yet exported your project in current session.\n" +
-				"This shortcut allows re-exporting project with path and format of the latest export.\n" +
-				"Please export your project first from `Inspector panel > Project tab > Export`."
-			)
+			show_error("Quick Re-Export Not Available!", "QUICK_REEXPORT_NOT_YET")
 		pass
 	
 	func export_project_as(format, filename:String, base_directory:String) -> void:
@@ -2630,11 +2592,7 @@ class Mind :
 						saved = ProMan.save_project_csv(full_export_file_path, _PROJECT)
 				if saved != OK:
 					printerr('Unable to Read template or Write to the file!', full_export_file_path, saved)
-					show_error(
-						"IO Operation Failed!",
-						"We are not able to write to the destination path or read from runtime template file(s).\n"+
-						"Please check out if Arrow has proper permissions to read and write data."
-					)
+					show_error("IO Operation Failed!", "EXPORT_IO_FAILED")
 				# cache quick re-export data
 				_QUICK_EXPORT_FORMAT = format
 				_QUICK_EXPORT_FILENAME = filename
@@ -2714,7 +2672,7 @@ class Mind :
 					Grid.call_deferred("go_to_offset_by_node_id", node_id, highlight)
 		pass
 
-	func show_error(heading:String = "Error!", message:String = "Something's going wrong. Check stdout for more information", color:Color = Settings.WARNING_COLOR, actions:Array = []) -> void:
+	func show_error(heading:String = "Error!", message:String = "SHOW_ERROR_FALLBACK_MSG", color:Color = Settings.WARNING_COLOR, actions:Array = []) -> void:
 		Notifier.call_deferred("show_notification", heading, message, actions, color)
 		pass
 

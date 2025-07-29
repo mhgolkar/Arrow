@@ -1,0 +1,102 @@
+
+# Content Node Translation
+# ========================
+#          English        
+# ========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Content\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Content"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Rich [color=yellow]Title[/color]]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=green]Brief[/color] (legacy)]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Content [/color] all with [i]BBCode[/i] support]"
+# msgstr ""
+
+msgid "CONTENT_CONSOLE_CONTINUE_BTN"
+msgstr "Continue"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "CONTENT_INSPECTOR_FIELD_TITLE"
+msgstr "Title"
+
+msgid "CONTENT_INSPECTOR_FIELD_CONTENT"
+msgstr "Content"
+
+msgid "CONTENT_INSPECTOR_FIELD_BRIEF"
+msgstr "Brief"
+
+msgid "CONTENT_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
+msgstr "Sets brief length up to the the text cursor's position."
+
+msgid "CONTENT_INSPECTOR_OPT_AUTO_PLAY"
+msgstr "Auto Play"
+
+msgid "CONTENT_INSPECTOR_OPT_CLEAR_PAGE"
+msgstr "Clear Page"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Content"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=yellow]Title[/color]]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Content [/color] [color=green]Brief[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "CONTENT_CONSOLE_UNSET_TEXT"
+msgstr "No Content Text."
+
+msgid "CONTENT_CONSOLE_UNSET_TITLE"
+msgstr "Untitled"
+
+msgid "CONTENT_CONSOLE_UNSET_BRIEF"
+msgstr "No Brief."
+
+
+# -------
+# node.gd
+# -------
+
+msgid "CONTENT_NODE_UNSET_TITLE"
+msgstr "Untitled"

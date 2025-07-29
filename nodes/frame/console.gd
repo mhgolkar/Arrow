@@ -32,10 +32,10 @@ var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 @onready var FrameName:Label = $Play/Head/Name
 @onready var FrameLabel:Button = $Play/Action
 
-const LABEL_UNSET_MESSAGE = "Unlabeled"
+const LABEL_UNSET_MESSAGE = "FRAME_CONSOLE_LABEL_UNSET_MSG" # Translated ~ "Unlabeled"
 const LABEL_UNSET_SELF_MODULATION_COLOR  = Color(1, 1, 1, 0.30)
 
-const NO_NOTES_MESSAGE = "Frame Has No Extra Information."
+const NO_NOTES_MESSAGE = "FRAME_CONSOLE_NO_NOTES_MSG" # Translated ~ "Frame Has No Extra Information."
 
 func _ready() -> void:
 	register_connections()

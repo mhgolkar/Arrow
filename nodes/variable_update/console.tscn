@@ -42,8 +42,8 @@ alignment = 2
 
 [node name="Dismiss" type="Button" parent="Play/Actions"]
 layout_mode = 2
-text = "Dismiss"
+text = "VARIABLE_UPDATE_CONSOLE_ACT_DISMISS"
 
 [node name="Apply" type="Button" parent="Play/Actions"]
 layout_mode = 2
-text = "Apply"
+text = "VARIABLE_UPDATE_CONSOLE_ACT_APPLY"

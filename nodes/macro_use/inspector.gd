@@ -11,7 +11,7 @@ extends Control
 
 @onready var Main = get_tree().get_root().get_child(0)
 
-const NO_MACRO_TEXT = "No Macro Available"
+const NO_MACRO_TEXT = "MACRO_USE_INSPECTOR_NONE_AVAILABLE_TXT" # Translated ~ "No Macro Available"
 const NO_MACRO_ID = -1
 
 const DEFAULT_NODE_DATA = {

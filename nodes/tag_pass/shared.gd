@@ -12,13 +12,15 @@ const METHODS_ENUM = {
 }
 
 const METHODS = {
-	METHODS_ENUM.ANY: "Any (OR)",
-	METHODS_ENUM.ALL: "All (AND)",
+	# All the method names are expected to be translated
+	METHODS_ENUM.ANY: "TAG_PASS_METHOD_ANY",
+	METHODS_ENUM.ALL: "TAG_PASS_METHOD_ALL",
 }
 
 const METHODS_HINTS = {
-	METHODS_ENUM.ANY: "If at least one of the tags matches, it short-circuits and passes.",
-	METHODS_ENUM.ALL: "All tags shall match for the node to pass.",
+	# All the hints are expected to be translated
+	METHODS_ENUM.ANY: "TAG_PASS_METHOD_HINT_ANY",
+	METHODS_ENUM.ALL: "TAG_PASS_METHOD_HINT_ALL",
 }
 
 const METHOD_ACCEPTS_KEY_ONCE = [

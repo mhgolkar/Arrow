@@ -19,8 +19,6 @@ signal request_mind()
 @onready var ChapterIdSpinBox = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor/Id
 @onready var UpdateChapter = $/root/Main/Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor/Update
 
-const ACTIVE_AUTHOR_MARKER = "[✓] "
-
 func _ready() -> void:
 	register_connections()
 	pass
@@ -59,7 +57,7 @@ func reset_authors(project_meta:Dictionary, active_one = null, auto_select:bool 
 				var author_info = project_meta.authors[author_id][0]
 				var author_seed = project_meta.authors[author_id][1]
 				var author_item = (
-					(ACTIVE_AUTHOR_MARKER if author_id == active_one else "") +
+					(tr("ACTIVE_AUTHOR_MARKER") if author_id == active_one else "") +
 					String.num_int64(author_id) + ": " + author_info + " (" + String.num_int64(author_seed) + ")"
 				)
 				AuthorsList.call_deferred("add_item", author_item)

@@ -40,7 +40,7 @@ var _INSPECT_VARIABLES:bool = false
 var _INSPECT_CHAR_TAGS:bool = false
 var _SHOW_SKIPPED_NODES:bool = false
 
-const CLEARANCE_PREVENTION_MESSAGE = "Clearance ignored."
+const CLEARANCE_PREVENTION_MESSAGE = "CONSOLE_CLEARANCE_PREVENTION_MESSAGE" # Translated ~ "Clearance ignored."
 const CLEARANCE_PREVENTION_MESSAGE_COLOR = Color.YELLOW
 
 const CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_ON = Settings.CONSOLE_SKIPPED_NODES_SELF_MODULATION_COLOR_ON
@@ -552,9 +552,9 @@ func interpret_status_code(code:int, the_player_node = null, the_player_node_uid
 				# It seems like a macro's end of line
 				_OPEN_MACRO.ELEMENT.play_forward_from() # ~ PLAY_MACRO_END_SLOT
 			else:
-				print_console( CONSOLE_STATUS_CODE.END_EDGE_MESSAGE.format(caller), Settings.INFO_COLOR, the_player_node )
+				print_console( tr(CONSOLE_STATUS_CODE.END_EDGE_MESSAGE).format(caller), Settings.INFO_COLOR, the_player_node )
 		CONSOLE_STATUS_CODE.NO_DEFAULT:
-			print_console( CONSOLE_STATUS_CODE.NO_DEFAULT_MESSAGE.format(caller), Settings.CAUTION_COLOR, the_player_node )
+			print_console( tr(CONSOLE_STATUS_CODE.NO_DEFAULT_MESSAGE).format(caller), Settings.CAUTION_COLOR, the_player_node )
 	pass
 
 func clear_nodes_before(the_player_node, the_player_node_uid) -> void:
@@ -571,7 +571,7 @@ func clear_nodes_before(the_player_node, the_player_node_uid) -> void:
 			self.call_deferred("refresh_variables_list")
 			self.call_deferred("refresh_characters_list")
 	else:
-		print_console( CLEARANCE_PREVENTION_MESSAGE, CLEARANCE_PREVENTION_MESSAGE_COLOR, the_player_node )
+		print_console( tr(CLEARANCE_PREVENTION_MESSAGE), CLEARANCE_PREVENTION_MESSAGE_COLOR, the_player_node )
 	pass
 
 func reset_synced_variables(update_list:Dictionary, _the_player_node = null, the_player_node_uid = null) -> void:

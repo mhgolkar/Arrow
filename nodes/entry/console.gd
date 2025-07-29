@@ -54,7 +54,7 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 	pass
 
 func setup_view() -> void:
-	var label = { "name": "Invalid", "plaque": "No Plaque" }
+	var label = { "name": "ENTRY_CONSOLE_INVALID_TXT", "plaque": "ENTRY_CONSOLE_NO_PLAQUE_TXT" }
 	if _NODE_RESOURCE.has("name"):
 		label.name = _NODE_RESOURCE.name
 	if _NODE_RESOURCE.has("data"):

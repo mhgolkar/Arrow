@@ -7,7 +7,7 @@ extends GraphNode
 
 @onready var Main = get_tree().get_root().get_child(0)
 
-const INVALID_OR_UNSET_PLAQUE_TEXT = "Unset"
+const INVALID_OR_UNSET_PLAQUE_TEXT = "ENTRY_NODE_INVALID_OR_UNSET_PLAQUE_TXT" # Translated ~ "Unset"
 const HIDE_UNSET_OR_INVALID_PLAQUE = true
 
 @warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id

@@ -51,8 +51,8 @@ alignment = 2
 
 [node name="Skip" type="Button" parent="Play/Actions"]
 layout_mode = 2
-text = "Skip"
+text = "SEQUENCER_CONSOLE_ACT_SKIP"
 
 [node name="Play" type="Button" parent="Play/Actions"]
 layout_mode = 2
-text = "Run"
+text = "SEQUENCER_CONSOLE_ACT_RUN"

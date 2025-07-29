@@ -1,0 +1,1040 @@
+
+# Arrow Translation
+# =================
+#      English     
+# =================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+#
+# This file is expected to cover the editor messages, including controls, notifications, etc. (but not nodes)
+# and may be used as a foundation to create new translations for other languages. As a convention,
+# for general messages and those short (in english), the original values are kept as keys
+# (~ untranslated); otherwise UPPER_CASE keys would be used for brevity and precision.
+#
+# For nodes, check out their respective translations sub-directories.
+#
+# NOTE:
+# + Tags like `%s` and mustache `{placeholders}` are mostly for formatting purposes and shall be kept as they are to allow proper replacement.
+# + A particular world or phrase may have been used in multiple modules, identically, and to avoid duplicates, only listed in one section, most-likely the topmost/first one.
+# + The messages commented out (and being marked with a preceding `# !` attribute) are likely to be UI fillers and replaced by scripts, so there may not be any need for them to be translated.
+#
+# ---
+
+msgid "Arrow"
+msgstr ""
+
+
+# ---------
+# main.tscn
+# ---------
+
+# ~ Generational Version Code
+msgid "[v3.x]"
+msgstr ""
+
+msgid "Website"
+msgstr ""
+
+msgid "Repository"
+msgstr ""
+
+msgid "Documentation"
+msgstr ""
+
+# ~ Welcome Message Tab Name
+msgid "Hello"
+msgstr ""
+
+msgid "WELCOME_MESSAGE"
+msgstr ""
+"[b]Welcome to Arrow 3.x[/b]\n"
+"\n"
+"Arrow is the free, open-source and feature-rich tool for [i]game narrative[/i] design, and creation of [i]interactive nonlinear storytelling[/i] works.\n"
+"\n"
+"Just a few quick notes:\n"
+"\n"
+"[b]• PWA Data Storage[/b]\n"
+"Arrow web app uses browser storage to manage projects.\n"
+"[i]Your data is all and only on this device.[/i]\n"
+"To export projects use:\n"
+"[indent][bgcolor=black][color=white][i][code] Inspector (panel) > Project (tab) > Export [/code][/i][/color][/bgcolor][/indent]\n"
+"To clean up app storage try:\n"
+"[indent][bgcolor=black][color=white][i][code] Arrow (menu button; top-left) > Clear [/code][/i][/color][/bgcolor][/indent]\n"
+"\n"
+"For more information, please browse our website and/or the project's repository.\n"
+"\n"
+"Best regards\n"
+"Mor. H. Golkar and contributors\n"
+
+# ~ Embedded Copyright Document Tab Name
+msgid "Copyright"
+msgstr ""
+
+# !
+# msgid "[Will be Auto-generated]"
+# msgstr ""
+
+msgid "New"
+msgstr ""
+
+msgid "Open"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Preferences"
+msgstr ""
+
+msgid "Dismiss"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "User Interface"
+msgstr ""
+
+msgid "Theme"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Data Management"
+msgstr ""
+
+msgid "Work Directory"
+msgstr ""
+
+msgid "[Working Directory Path]"
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "History (Undo/Redo)"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "HISTORY_SIZE_TOOLTIP"
+msgstr ""
+"History size defines how many steps you can move a project in time.\n"
+"Currently history functions (undo `Ctrl+Z` & redo `Ctrl+Shift+Z`)\n"
+"work by capturing a full image of the open project in memory.\n"
+"Performance may vary, depending on the device specs and project size."
+
+msgid "Authors"
+msgstr ""
+
+msgid "Contributors"
+msgstr ""
+
+msgid "AUID"
+msgstr ""
+
+msgid "AUID_TOOLTIP"
+msgstr ""
+"Author Unique ID acts as the 2nd segment of a resource UID's namespace,\n"
+"allowing multiple contributors to work on the same document\n"
+"simultaneously without ID collisions."
+
+msgid "ACTIVE_CONTRIBUTOR_TOOLTIP"
+msgstr ""
+"If checked, selected author will be considered as the\n"
+"contributor of the created resources afterwards."
+
+msgid "Active Contributor"
+msgstr ""
+
+msgid "Info"
+msgstr ""
+
+# ~ Author Info Placeholder
+msgid "John Doe (contributor@project.tld)"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Apply"
+msgstr ""
+
+msgid "Chapter"
+msgstr ""
+
+msgid "CHAPTER_ID_TOOLTIP"
+msgstr ""
+"Chapter ID is a unique identifier for each document\n"
+"(as the 1st segment of resource UIDs' namespace),\n"
+"to avoid collisions when a project is divided to multiple files."
+
+msgid "CHAPTER_ID_UPDATE_TOOLTIP"
+msgstr ""
+"A different  Chapter ID applies only to the future UIDs.\n"
+"It would not update or affect already created resources."
+
+msgid "Update"
+msgstr ""
+
+msgid "New Document"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Project or Chapter Title"
+msgstr ""
+
+msgid "Filename"
+msgstr ""
+
+msgid "(without extension)"
+msgstr ""
+
+msgid "Filename's already used or invalid"
+msgstr ""
+
+msgid "Full Path"
+msgstr ""
+
+# ~ New Document Path Value Placeholder
+msgid "[Generated]"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Select Current Folder"
+msgstr ""
+
+# !
+# msgid "[Heading]"
+# msgstr ""
+
+# !
+# msgid "[i][Message Here!][/i]"
+# msgstr ""
+
+# !
+# msgid "[Action(s)]"
+# msgstr ""
+
+msgid "Inspector"
+msgstr ""
+
+msgid "Project"
+msgstr ""
+
+msgid "Filter Projects"
+msgstr ""
+
+msgid "FILTER_REVERSE_TOOLTIP"
+msgstr ""
+"Reverses filters\n"
+"(Those not matching will pass.)"
+
+msgid "SORT_AZ_OR_UID_TOOLTIP"
+msgstr ""
+"Sorts Alphabetical\n"
+"(Otherwise sorts by UID.)"
+
+# !
+# msgid "[ [color=green]Project descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Set"
+msgstr ""
+
+msgid "Export"
+msgstr ""
+
+msgid "Latest Save"
+msgstr ""
+
+# !
+# msgid "[Timestamp]"
+# msgstr ""
+
+msgid "Revert to the Latest Save"
+msgstr ""
+
+msgid "Revert"
+msgstr ""
+
+msgid "Snapshots"
+msgstr ""
+
+msgid "Restore"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "Rem."
+msgstr ""
+
+# ~ Node Tab Name (Inspector)
+msgid "Node"
+msgstr ""
+
+msgid "Unique Node Name"
+msgstr ""
+
+msgid "NODE_FOCUS_BTN_TOOLTIP"
+msgstr ""
+"Locate Inspected Node on\n"
+"the Grid (Ctrl + Backslash)"
+
+# ~ Node (Dev) Notes Placeholder
+msgid "[Notes]"
+msgstr ""
+
+msgid "Previous Local History Modification"
+msgstr ""
+
+msgid "Reset Node Parameters (Ctrl + Shift + Minus)"
+msgstr ""
+
+msgid "Next Local History Modification"
+msgstr ""
+
+msgid "SKIP_NODES_TOOLTIP"
+msgstr ""
+"Skipped nodes would not be effective in the narrative.\n"
+"The alternative behavior depends on the node's type."
+
+msgid "Skip"
+msgstr ""
+
+msgid "Update Node (Ctrl + Shift + Plus)"
+msgstr ""
+
+msgid "Locate Previous Referrer"
+msgstr ""
+
+# !
+# msgid "Ref(s)"
+# msgstr ""
+
+msgid "Locate Next Referrer"
+msgstr ""
+
+msgid "Scoped (Filter for Scene)"
+msgstr ""
+
+msgid "NODES_TAB_BLOCKER"
+msgstr ""
+"Select A Node to Inspect or\n"
+"Right-Click on the Grid to\n"
+"Create New Nodes."
+
+# ~ Scenes Tab Name (Inspector)
+msgid "Scenes"
+msgstr ""
+
+msgid "Filter Scenes"
+msgstr ""
+
+# !
+# msgid "[ [color=green]Scene descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Unique Scene Name"
+msgstr ""
+
+msgid "Macros"
+msgstr ""
+
+msgid "Filter Macros"
+msgstr ""
+
+# !
+# msgid "[ [color=green]Macro descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Unique Macro Name"
+msgstr ""
+
+# !
+# msgid "Instance(s)"
+# msgstr ""
+
+# ~ Variables Tab Name (Inspector)
+msgid "Variables"
+msgstr ""
+
+# ~ Used in Multiple Selectors
+msgid "Variable"
+msgstr ""
+
+msgid "Filter Variables"
+msgstr ""
+
+msgid "Filter by Type"
+msgstr ""
+
+msgid "Any"
+msgstr ""
+
+msgid "Num"
+msgstr ""
+
+msgid "Str"
+msgstr ""
+
+msgid "Bool"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Unique Variable Name"
+msgstr ""
+
+msgid "Initial"
+msgstr ""
+
+msgid "Str Value"
+msgstr ""
+
+msgid "True"
+msgstr ""
+
+msgid "False"
+msgstr ""
+
+# !
+# msgid "Reference(s)"
+# msgstr ""
+
+msgid "Characters"
+msgstr ""
+
+msgid "Filter Characters"
+msgstr ""
+
+msgid "Unique Character Name"
+msgstr ""
+
+msgid "No Initial Tag"
+msgstr ""
+
+msgid "Key"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Oversets (adds or updates) a tag"
+msgstr ""
+
+# !
+# msgid "Appearance(s)"
+# msgstr ""
+
+msgid "Console"
+msgstr ""
+
+msgid "No Initial Tags"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Hides Console Preserving the State"
+msgstr ""
+
+msgid "Clears Console & State of Play"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Filter Node Types"
+msgstr ""
+
+msgid "Insert"
+msgstr ""
+
+msgid "Clear Clipboard"
+msgstr ""
+
+msgid "Copy Node(s)"
+msgstr ""
+
+msgid "Cut Node(s)"
+msgstr ""
+
+msgid "Paste Node(s)"
+msgstr ""
+
+msgid "Remove Node(s)"
+msgstr ""
+
+# !
+# msgid "[New Version ?]"
+# msgstr ""
+
+msgid "History Undo (Ctrl + Z)"
+msgstr ""
+
+msgid "History Redo (Ctrl + Shift + Z)"
+msgstr ""
+
+# !
+# msgid "[Project Title]"
+# msgstr ""
+
+msgid "Play from Project Entry (F4)"
+msgstr ""
+
+msgid "Play from Scene Entry (F5)"
+msgstr ""
+
+msgid "Show Console (F6)"
+msgstr ""
+
+msgid "Play Selected Node (F7)"
+msgstr ""
+
+msgid "Save Document (Ctrl + S)"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+# !
+# msgid "[Current Scene]"
+# msgstr ""
+
+msgid "Query"
+msgstr ""
+
+# !
+# msgid "[Mode]"
+# msgstr ""
+
+msgid "SCOPED_QUERY_TOOLTIP"
+msgstr ""
+"Scoped: Filter for Scene\n"
+"(Otherwise search project-wide.)"
+
+msgid "Query (Ctrl + Q)"
+msgstr ""
+
+msgid "Locate Previous Match (Ctrl + 1)"
+msgstr ""
+
+# !
+# msgid "[S:T Matches]"
+# msgstr ""
+
+msgid "Locate Next Match (Ctrl + 2)"
+msgstr ""
+
+msgid "Toggle Inspector Panel (Ctrl + P)"
+msgstr ""
+
+msgid "Inspect."
+msgstr ""
+
+msgid "Quick Pref."
+msgstr ""
+
+
+# ----------------------------
+# scripts/core/central_mind.gd
+# ----------------------------
+
+msgid "Discarding New Project ?"
+msgstr ""
+
+msgid "PROJECT_DISCARD_WARNING"
+msgstr ""
+"`%s` is modified. "
+"Creating a new blank project will discard all the unsaved data."
+
+msgid "OK! Proceed Anyway"
+msgstr ""
+
+msgid "Lost Project!"
+msgstr ""
+
+msgid "LOST_PROJECT_WARNING"
+msgstr ""
+"We can not find and read selected project (~ %s).\n"
+"The file might be inaccessible due to lack of proper permission, "
+"or lost (i.e. renamed or deleted.) "
+"A corrupted projects listing file can also cause this issue. \n\n"
+
+msgid "Expected file: "
+msgstr ""
+
+msgid "Unlist Project"
+msgstr ""
+
+msgid "Overriding Unsaved Project ?"
+msgstr ""
+
+msgid "UNSAVED_PROJECT_WARNING"
+msgstr ""
+"Editor is holding modifications for `%s`. "
+"Opening another project will discard these unsaved data. "
+"Would you like to proceed anyway?"
+
+msgid "Yes, Open"
+msgstr ""
+
+msgid "Are you sure ?!"
+msgstr ""
+
+msgid "UNSAVED_CHANGES_WARNING"
+msgstr ""
+"Project `%s` is modified. "
+"Closing it anyway will discard unsaved changes."
+
+msgid "Close Anyway"
+msgstr ""
+
+msgid "Save Project"
+msgstr ""
+
+msgid "PROJECT_REVERT_WARNING"
+msgstr ""
+"You're about to revert current project to the last physically saved state. "
+"This operation will drop any change in memory and re-open the project from the saved file."
+
+msgid "Revert; I'm Sure"
+msgstr ""
+
+msgid "UPDATE_CHAPTER_ID_NOTIFICATION"
+msgstr ""
+"A new Chapter ID will change resource UID namespace for this project file.\n"
+"You only need this operation if your project is divided into multiple documents, "
+"and you want to avoid identifier collision by assigning a unique namespace to each one. \n"
+"Also note that this update will only affect new resource UIDs (i.e. new nodes, scenes, etc.) "
+"Previously created resources (including default nodes) will keep their current UIDs."
+
+msgid "OK; Update"
+msgstr ""
+
+msgid "Invalid Operation!"
+msgstr ""
+
+msgid "PROJECT_ENTRY_IN_MACRO_ERROR"
+msgstr "Macros are repeatable scenes, they are not designed to host a project entry!"
+
+msgid "Unsafe Operation Ignored!"
+msgstr ""
+
+msgid "USED_RESOURCE_NOT_REMOVED"
+msgstr "The resource can not be removed, because some other nodes or resources rely on this one. "
+
+msgid "MAY_BE_USED_SCENE_NOT_REMOVED"
+msgstr "For example, one of the child nodes of the scene might be referenced by a jump in another scene."
+
+msgid "Referenced resource(s): "
+msgstr ""
+
+msgid "REFERENCED_RESOURCE_NOT_REMOVED"
+msgstr ""
+"At least one of the resources you want to remove is required by another resource or node. "
+"We can not proceed this operation, for continuum safety, unless you remove the referrers as well. \n\n"
+
+# ~ On clipboard move (pull) operation
+msgid "Unsafe Move Detected!"
+msgstr ""
+
+msgid "IMMOVABLE_NODES_ERROR"
+msgstr "We can not move all or some of the nodes due to continuum safety (e.g. scene entry.) \n\n"
+
+msgid "Immovable(s): "
+msgstr ""
+
+msgid "Move What's Safe (%s)"
+msgstr ""
+
+msgid "Merger Detected [Experimental!]"
+msgstr ""
+
+msgid "MERGER_OPERATION_DESCRIPTION"
+msgstr ""
+"You are trying to paste resources from `{origin}` (chapter {cid}) including: {statistics} \n"
+"in which {main_count} are the main resource(s) and the rest are the referenced dependencies.\n\n"
+
+msgid "SCENES_FIELD_NAME"
+msgid_plural "SCENES_FIELD_NAME_PLURAL"
+msgstr[0] "scene"
+msgstr[1] "scenes"
+
+msgid "MACROS_FIELD_NAME"
+msgid_plural "MACROS_FIELD_NAME_PLURAL"
+msgstr[0] "macro"
+msgstr[1] "macros"
+
+msgid "NODES_FIELD_NAME"
+msgid_plural "NODES_FIELD_NAME_PLURAL"
+msgstr[0] "node"
+msgstr[1] "nodes"
+
+msgid "VARIABLES_FIELD_NAME"
+msgid_plural "VARIABLES_FIELD_NAME_PLURAL"
+msgstr[0] "variable"
+msgstr[1] "variables"
+
+msgid "CHARACTERS_FIELD_NAME"
+msgid_plural "CHARACTERS_FIELD_NAME_PLURAL"
+msgstr[0] "character"
+msgstr[1] "characters"
+
+msgid "MERGER_OPERATION_STRATEGY_CHOICE"
+msgstr "Please choose your merger strategy if sharable resources with similar UIDs exist:"
+
+msgid "Reuse"
+msgstr ""
+
+msgid "Recreate"
+msgstr ""
+
+msgid "NO_SAVE_IN_SNAPSHOT_PREVIEW"
+msgstr ""
+"We can not save projects in snapshot preview mode.\n"
+"If you intend to keep a snapshot's changes in the memory, take another snapshot of it, "
+"or restore the open snapshot as the working draft and save it.\n"
+"You can also export any previewed snapshot and reimport it as a new project."
+
+msgid "PROJECT_REMOVAL_PROMPT"
+msgstr ""
+"You're about to remove listed project [i]`{name}`[/i] ({pid}).\n"
+"If unlisted, the document will remain intact and will only be dropped from the projects list.\n"
+"Deleted files would not be recoverable.\n\n"
+
+msgid "Project file: `%s`"
+msgstr ""
+
+msgid "Delete File!"
+msgstr ""
+
+msgid "Unlist"
+msgstr ""
+
+msgid "SNAPSHOT_RESTORATION_PROMPT"
+msgstr ""
+"You're about to restore snapshot [i]`v%s`[/i].\n"
+"This operation will override current state of the project in memory, "
+"but the file (unless saved afterwards) or other snapshots won't budge.\n"
+"If you intend to use current draft later, "
+"make sure to close preview and take a snapshot, before restoring this one."
+
+msgid "Restore; I'm Sure"
+msgstr ""
+
+msgid "Invalid Project File!"
+msgstr ""
+
+msgid "INVALID_PROJECT_FILE_IMPORT"
+msgstr ""
+"We are not able to validate and import the selected file.\n"
+"The File might not be of a supported format or is corrupted."
+
+msgid "Quick Re-Export Not Available!"
+msgstr ""
+
+msgid "QUICK_REEXPORT_NOT_YET"
+msgstr ""
+"You have not yet exported your project in current session.\n"
+"This shortcut allows re-exporting project with path and format of the latest export.\n"
+"Please export your project first from [i]`Inspector panel > Project tab > Export`[/i]."
+
+msgid "IO Operation Failed!"
+msgstr ""
+
+msgid "EXPORT_IO_FAILED"
+msgstr ""
+"We are not able to write to the destination path or read from runtime template file(s).\n"
+"Please check out if Arrow has proper permissions to read and write data."
+
+msgid "Error!"
+msgstr ""
+
+msgid "SHOW_ERROR_FALLBACK_MSG"
+msgstr "Something's went wrong. Please check logs (stdout) for more information."
+
+
+# -------------------
+# scripts/settings.gd
+# -------------------
+
+msgid "Select an Arrow Document"
+msgstr ""
+
+msgid "Save Document"
+msgstr ""
+
+msgid "Export as JSON"
+msgstr ""
+
+msgid "Export Playable HTML"
+msgstr ""
+
+msgid "Export CSV (Translation)"
+msgstr ""
+
+msgid "Select App Local Directory"
+msgstr ""
+
+
+# -------------------------------------
+# scripts/core/configuration_handler.gd
+# -------------------------------------
+
+msgid "NO_ALD_ACCESS"
+msgstr "Unable to Access Work Directory!"
+
+msgid "UNABLE_TO_ACCESS_ALD_MSG"
+msgstr ""
+"We can not access to the selected app local/work directory. "
+"It may be due to lack of read-write permission to the path.\n"
+"Previously confirmed directory will be used."
+
+
+# --------------------------
+# scripts/editor/app_menu.gd
+# --------------------------
+
+msgid "Fullscreen (F11)"
+msgstr ""
+
+msgid "Exit Fullscreen (F11)"
+msgstr ""
+
+msgid "Stay Above"
+msgstr ""
+
+msgid "Leave Above"
+msgstr ""
+
+msgid "Refresh"
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "Quit"
+msgstr ""
+
+msgid "BROWSER_STORAGE_CLEAR_PROMPT"
+msgstr ""
+"You are about to clear storage. "
+"This will permanently remove projects from virtual file-system of Arrow in this browser.\n"
+"Removed data will not be recoverable.\n"
+
+msgid "Ok; Terminate!"
+msgstr ""
+
+
+# ---------------------------------
+# scripts/editor/grid_graph_edit.gd
+# ---------------------------------
+
+msgid "Unable to Remove!"
+msgstr ""
+
+msgid "UNABLE_TO_REMOVE_FROM_GRID"
+msgstr ""
+"At least one of the selected nodes is not removable.\n"
+"For continuum safety, Arrow does not allow removing nodes while any other resource depends on them. "
+"We shall not also remove a scene's or a project's active entry. \n\n"
+
+msgid "Non-removable(s): "
+msgstr ""
+
+
+# -----------------------------------
+# scripts/editor/new_release_check.gd
+# -----------------------------------
+
+msgid "NEW_VERSION_RELEASE_MSG"
+msgstr "New Arrow %s Released!"
+
+
+# -----------------------
+# scripts/editor/query.gd
+# -----------------------
+
+msgid "QUERY_MATCH_OPTION_BUTTON_TEXT_TEMPLATE"
+msgstr "{current} : {total} Matches"
+
+msgid "QUERY_MATCH_ITEM_TEXT_TEMPLATE"
+msgstr "{name} - {capitalized_type}"
+
+msgid "Any Match"
+msgstr ""
+
+msgid "Including"
+msgstr ""
+
+msgid "Exact Match"
+msgstr ""
+
+msgid "RegEx"
+msgstr ""
+
+
+# -----------------------------------
+# scripts/editor/quick_preferences.gd
+# -----------------------------------
+
+msgid "Auto Inspection"
+msgstr ""
+
+msgid "Auto Node Update"
+msgstr ""
+
+msgid "Reset on Reinspection"
+msgstr ""
+
+msgid "Quick Node Insertion"
+msgstr ""
+
+msgid "Connection Assist"
+msgstr ""
+
+msgid "Auto Rebuild Runtime(s)"
+msgstr ""
+
+
+# --------------------------------
+# scripts/editor/panels/authors.gd
+# --------------------------------
+
+msgid "ACTIVE_AUTHOR_MARKER"
+msgstr "[✓] "
+
+
+# ---------------------------------------------
+# scripts/editor/panels/console_status_codes.gd
+# ---------------------------------------------
+
+msgid "CONSOLE_STATUS_END_EDGE_MESSAGE"
+msgstr "◆ EOL: {name} ({uid})"
+
+msgid "CONSOLE_STATUS_NO_DEFAULT_MESSAGE"
+msgstr "⚠ No DEFAULT: {name} ({uid})"
+
+
+# --------------------------------
+# scripts/editor/panels/console.gd
+# --------------------------------
+
+msgid "CONSOLE_CLEARANCE_PREVENTION_MESSAGE"
+msgstr "Clearance ignored."
+
+msgid "Auto-scroll"
+msgstr ""
+
+msgid "Allow Auto-play"
+msgstr ""
+
+msgid "Prevent Clearance"
+msgstr ""
+
+msgid "Show Skipped Nodes"
+msgstr ""
+
+msgid "Inspect Variables"
+msgstr ""
+
+msgid "Inspect Character Tags"
+msgstr ""
+
+
+# -----------------------------------------
+# scripts/editor/panels/inspector_[type].gd
+# -----------------------------------------
+
+msgid "TYPE_INSPECTOR_RAW_UID_HINT"
+msgstr "\n [Press Button to Copy]"
+
+msgid "RESOURCE_PERMANENT_REMOVAL_WARNING"
+msgstr ""
+"You're removing the {field_name} `{res_name}`, permanently.\n"
+"Would you like to proceed?"
+
+msgid "Yes, Remove"
+msgstr ""
+
+
+# ---------------------------------------------------
+# scripts/editor/panels/inspector_project_new_menu.gd
+# ---------------------------------------------------
+
+msgid "New Blank Project"
+msgstr ""
+
+msgid "Save Current & Continue"
+msgstr ""
+
+msgid "Load Project"
+msgstr ""
+
+msgid "Import Project File"
+msgstr ""
+
+
+# -----------------------------------------------------
+# scripts/editor/panels/inspector_project_properties.gd
+# -----------------------------------------------------
+
+msgid "Save a Copy"
+msgstr ""
+
+msgid "Download a Copy"
+msgstr ""
+
+msgid "Export JSON"
+msgstr ""
+
+msgid "Export HTML"
+msgstr ""
+
+msgid "Export CSV"
+msgstr ""
+
+msgid "Invalid Filename!"
+msgstr ""
+
+msgid "INVALID_FILENAME_MSG"
+msgstr "Please choose a valid filename of at-least 1 character length."
+
+
+# ---------------------------------------------
+# scripts/editor/panels/preferences_ald_menu.gd
+# ---------------------------------------------
+
+msgid "ALD_PRESET_USER_DIR"
+msgstr "OS Default App Local Directory"
+
+msgid "ALD_PRESET_RES_DIR"
+msgstr "Relative to Arrow's executable"

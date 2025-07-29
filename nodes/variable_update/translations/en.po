@@ -1,0 +1,191 @@
+
+# Variable-Update Node Translation
+# ================================
+#              English            
+# ================================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Variable-Update\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Variable Update"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Expression]"
+# msgstr ""
+
+msgid "VARIABLE_UPDATE_CONSOLE_ACT_DISMISS"
+msgstr "Dismiss"
+
+msgid "VARIABLE_UPDATE_CONSOLE_ACT_APPLY"
+msgstr "Apply"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "VARIABLE_UPDATE_INSPECTOR_FIELD_UPDATE"
+msgstr "Update"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"Apply Global Filters\n"
+"\n"
+"It will follow the same listing instructions\n"
+"that are defined in the Variables inspector.\n"
+"+ Current variable of the node is always listed."
+
+msgid "VARIABLE_UPDATE_INSPECTOR_FIELD_BY"
+msgstr "by"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_FIELD_TO"
+msgstr "with/to"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_PARAM_STR_PLACEHOLDER"
+msgstr "Str Value"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_PARAM_BOOL_TRUE"
+msgstr "True"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_PARAM_BOOL_FALSE"
+msgstr "False"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Variable Update"
+# msgstr ""
+
+# !
+# msgid "[Expression]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "VARIABLE_UPDATE_CONSOLE_UNSET_OR_INVALID_MSG"
+msgstr "Unset !"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+# NOTE: This is used for operator selector items formatting.
+msgid "VARIABLE_UPDATE_INSPECTOR_OPERATOR_ITEM_TEXT_TEMPLATE"
+msgstr "{text} ({sign})"
+
+# DEV:
+# This string can accept `{self}` placeholder
+# which will be replaced by the variable name,
+# e.g. "Self (Initial Value of `{self}`)".
+msgid "VARIABLE_UPDATE_INSPECTOR_COMPARE_TO_SELF_INITIAL"
+msgstr "Self (Initial Value)"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_NO_VARIABLE"
+msgstr "No Variable Available"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "VARIABLE_UPDATE_NODE_UNSET_OR_INVALID_MSG"
+msgstr "Unset"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "VARIABLE_UPDATE_OP_SET_NUM"
+msgstr "Set Equal"
+
+msgid "VARIABLE_UPDATE_OP_ADD"
+msgstr "Addition"
+
+msgid "VARIABLE_UPDATE_OP_SUB"
+msgstr "Subtraction"
+
+msgid "VARIABLE_UPDATE_OP_DIV"
+msgstr "Division"
+
+msgid "VARIABLE_UPDATE_OP_REM"
+msgstr "Remainder"
+
+msgid "VARIABLE_UPDATE_OP_MUL"
+msgstr "Multiplication"
+
+msgid "VARIABLE_UPDATE_OP_EXP"
+msgstr "Exponentiation"
+
+msgid "VARIABLE_UPDATE_OP_ABS"
+msgstr "Absolute"
+
+msgid "VARIABLE_UPDATE_OP_SET_STR"
+msgstr "Set"
+
+msgid "VARIABLE_UPDATE_OP_STC"
+msgstr "Set Capitalized"
+
+msgid "VARIABLE_UPDATE_OP_STL"
+msgstr "Set Lowercased"
+
+msgid "VARIABLE_UPDATE_OP_STU"
+msgstr "Set Uppercased"
+
+msgid "VARIABLE_UPDATE_OP_INS"
+msgstr "Insert Right"
+
+msgid "VARIABLE_UPDATE_OP_INB"
+msgstr "Insert Left"
+
+msgid "VARIABLE_UPDATE_OP_RMC"
+msgstr "Remove Left"
+
+msgid "VARIABLE_UPDATE_OP_RML"
+msgstr "Remove Left (Case Insensitive)"
+
+msgid "VARIABLE_UPDATE_OP_RMR"
+msgstr "Remove Right"
+
+msgid "VARIABLE_UPDATE_OP_RMI"
+msgstr "Remove Right (Case Insensitive)"
+
+msgid "VARIABLE_UPDATE_OP_RPL"
+msgstr "Replace"
+
+msgid "VARIABLE_UPDATE_OP_RPL_HINT"
+msgstr "Use pipe to define arguments (i.e. `find|replace`)."
+
+msgid "VARIABLE_UPDATE_OP_RPI"
+msgstr "Replace (Case Insensitive)"
+
+msgid "VARIABLE_UPDATE_OP_RPI_HINT"
+msgstr "Use pipe to define arguments (i.e. `find|replace`)."
+
+msgid "VARIABLE_UPDATE_OP_SET_BOOL"
+msgstr "Set"
+
+msgid "VARIABLE_UPDATE_OP_NEG"
+msgstr "Set Negative"

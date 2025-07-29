@@ -28,7 +28,7 @@ class ConfigHandler :
 	# CAUTION! this is the CONSTANT default configuration, used in config file generation, resets, etc.
 	const DEFAULT = {
 		"appearance_theme": 0,
-		"language": 0,
+		"language": "en",
 		"app_local_dir_path": "user://", # (IMPORTANT: Only `user://` works in `HTML5` exports)
 		"window": null,
 		"panels": null,
@@ -67,9 +67,11 @@ class ConfigHandler :
 						})
 						# and give user a heads up!
 						end_user_error = {
-							"heading": "Access Permission Denied!",
-							"message": "We are not granted read and write permission to the selected app directory. \nThe previously confirmed directory will be used.",
+							"heading": "NO_ALD_ACCESS",
+							"message": "UNABLE_TO_ACCESS_ALD_MSG",
 						}
+				"language":
+					Main.UI.PANELS.preferences.reset_language(new_value)
 		else:
 			is_valid_and_ok = false
 			printerr("Unexpected Behavior! Modified Preference Field is NOT a VALID CONFIG: ", field)

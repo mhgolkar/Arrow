@@ -20,7 +20,7 @@ script = ExtResource("1_f7lwo")
 
 [node name="Character" type="Label" parent="."]
 layout_mode = 2
-text = "Character"
+text = "MONOLOG_INSPECTOR_FIELD_CHARACTER"
 
 [node name="Selector" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -32,11 +32,7 @@ size_flags_horizontal = 3
 [node name="Filtered" type="Button" parent="Selector"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Apply Global Filters
-
-It will follow the same listing instructions
-that are defined in the Characters inspector.
-+ Current character of the node and Anonymous are always listed."
+tooltip_text = "MONOLOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_ccitl")
 icon_alignment = 1
@@ -44,7 +40,7 @@ expand_icon = true
 
 [node name="MonologLabel" type="Label" parent="."]
 layout_mode = 2
-text = "Monolog"
+text = "MONOLOG_INSPECTOR_FIELD_MONOLOG"
 
 [node name="Monolog" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 96)
@@ -57,7 +53,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Brief"]
 layout_mode = 2
-text = "Brief"
+text = "MONOLOG_INSPECTOR_FIELD_BRIEF"
 
 [node name="Length" type="SpinBox" parent="Brief"]
 layout_mode = 2
@@ -69,14 +65,14 @@ allow_greater = true
 [node name="Pick" type="Button" parent="Brief"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Sets brief length up to the the text cursor's position."
+tooltip_text = "MONOLOG_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
 icon = SubResource("AtlasTexture_fkcvu")
 expand_icon = true
 
 [node name="AutoPlay" type="CheckBox" parent="."]
 layout_mode = 2
-text = "Auto Play"
+text = "MONOLOG_INSPECTOR_OPT_AUTO_PLAY"
 
 [node name="ClearPage" type="CheckBox" parent="."]
 layout_mode = 2
-text = "Clear Page"
+text = "MONOLOG_INSPECTOR_OPT_CLEAR_PAGE"

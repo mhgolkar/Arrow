@@ -1,0 +1,175 @@
+
+# User-Input Node Translation
+# ===========================
+#           English          
+# ===========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-User-Input\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "User Input"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Prompt Question]"
+# msgstr ""
+
+msgid "USER_INPUT_CONSOLE_STR_VALUE_PLACEHOLDER"
+msgstr "Str Value"
+
+msgid "USER_INPUT_CONSOLE_BOOL_SELECTOR_FALSE"
+msgstr "False"
+
+msgid "USER_INPUT_CONSOLE_BOOL_SELECTOR_TRUE"
+msgstr "True"
+
+msgid "USER_INPUT_CONSOLE_INVALID_INPUT_ERR"
+msgstr "* Invalid Input!"
+
+# !
+# msgid "[Result]"
+# msgstr ""
+
+msgid "USER_INPUT_CONSOLE_ACT_SKIP"
+msgstr "Skip"
+
+msgid "USER_INPUT_CONSOLE_ACT_SUBMIT"
+msgstr "Submit"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "USER_INPUT_INSPECTOR_FIELD_PROMPT"
+msgstr "Ask player"
+
+msgid "USER_INPUT_INSPECTOR_FIELD_TARGET"
+msgstr "Set user input to"
+
+msgid "USER_INPUT_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS"
+msgstr ""
+"Apply Global Filters\n"
+"\n"
+"It will follow the same listing instructions\n"
+"that are defined in the Variables inspector.\n"
+"+ Current variable of the node is always listed."
+
+msgid "USER_INPUT_INSPECTOR_FIELD_CUSTOMIZE"
+msgstr "Customize controls"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN"
+msgstr "Pattern"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN_PLACEHOLDER"
+msgstr "RegEx"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT"
+msgstr "Default"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT_PLACEHOLDER"
+msgstr "Preset value"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA"
+msgstr "Extra"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA_PLACEHOLDER"
+msgstr "Placeholder, Hint, etc."
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_MIN"
+msgstr "Min"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_MAX"
+msgstr "Max"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_STEP"
+msgstr "Step"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_VALUE"
+msgstr "Value"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE"
+msgstr "False"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE_PLACEHOLDER"
+msgstr "Negative"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE"
+msgstr "True"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE_PLACEHOLDER"
+msgstr "Positive"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT"
+msgstr "Default"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT_OPT_TRUE"
+msgstr "Preset True"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "User Input"
+# msgstr ""
+
+# !
+# msgid "[Type]"
+# msgstr ""
+
+# !
+# msgid "[Variable Name]"
+# msgstr ""
+
+# !
+# msgid "[Prompt Question]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "USER_INPUT_CONSOLE_PROMPT_UNSET_MSG"
+msgstr "No Question!"
+
+msgid "USER_INPUT_CONSOLE_NO_VARIABLE_MSG"
+msgstr "Unset/Invalid Variable!"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "USER_INPUT_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "No Variable Available"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "USER_INPUT_NODE_NO_PROMPT_TXT"
+msgstr "Unset"
+
+msgid "USER_INPUT_NODE_NO_TARGET_TYPE"
+msgstr "nil"
+
+msgid "USER_INPUT_NODE_NO_TARGET_NAME"
+msgstr "undefined"

@@ -18,7 +18,7 @@ var This = self
 
 @onready var MacroIdentity = $Display/Title
 
-const MACRO_USE_TARGET_FAILED_MESSAGE = "No Macro"
+const MACRO_USE_TARGET_FAILED_MESSAGE = "MACRO_USE_NODE_NO_TARGET_MSG" # Translated ~ "No Macro"
 const MACRO_IDENTITY_FORMAT_STRING = "{name}" if Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS else "{name} ({uid})"
 
 #func _ready() -> void:

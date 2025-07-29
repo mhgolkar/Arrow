@@ -40,6 +40,6 @@ expand_icon = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_vertical = 1
-text = "Marker Label"
+text = "[Marker Label]"
 horizontal_alignment = 1
 autowrap_mode = 3

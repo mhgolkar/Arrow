@@ -66,7 +66,7 @@ horizontal_alignment = 1
 [node name="Invalid" type="Label" parent="Pass"]
 visible = false
 layout_mode = 2
-text = "Undefined!"
+text = "TAG_PASS_NODE_UNDEFINED"
 horizontal_alignment = 1
 
 [node name="Margin" type="MarginContainer" parent="Pass"]
@@ -83,7 +83,7 @@ size_flags_vertical = 3
 
 [node name="NoTagsToCheck" type="Label" parent="Pass/Margin"]
 layout_mode = 2
-text = "No Tags To Check!"
+text = "TAG_PASS_NODE_NOTHING_TO_CHECK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -101,10 +101,10 @@ horizontal_alignment = 1
 
 [node name="False" type="Label" parent="."]
 layout_mode = 2
-text = "False"
+text = "TAG_PASS_NODE_FALSE"
 horizontal_alignment = 2
 
 [node name="True" type="Label" parent="."]
 layout_mode = 2
-text = "True"
+text = "TAG_PASS_NODE_TRUE"
 horizontal_alignment = 2

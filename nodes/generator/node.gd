@@ -16,10 +16,10 @@ var This = self
 @onready var Arguments = $Display/Arguments
 @onready var Target = $Display/Target
 
-const UNSET_OR_INVALID_TARGET_VAR_MESSAGE = "Undefined"
-const TARGET_VARIABLE_MESSAGE_TEMPLATE = "{name} ({type})"
-const UNSET_OR_INVALID_METHOD_MESSAGE = "Unset"
-const UNSET_OR_INVALID_ARGUMENTS_MESSAGE = "Null/Invalid"
+const UNSET_OR_INVALID_TARGET_VAR_MESSAGE = "GENERATOR_NODE_UNSET_OR_INVALID_TARGET_VAR_MSG" # Translated ~ "Undefined"
+const TARGET_VARIABLE_MESSAGE_TEMPLATE = "GENERATOR_NODE_TARGET_VARIABLE_MSG_TEMPLATE" # Translated ~ "{name} ({type})"
+const UNSET_OR_INVALID_METHOD_MESSAGE = "GENERATOR_NODE_UNSET_OR_INVALID_METHOD_MSG" # Translated ~ "Unset"
+const UNSET_OR_INVALID_ARGUMENTS_MESSAGE = "GENERATOR_NODE_UNSET_OR_INVALID_ARGUMENTS_MSG" # Translated ~ "Null/Invalid"
 const HIDE_ARGUMENTS_IF_UNSET = true
 
 #func _ready() -> void:
@@ -37,7 +37,7 @@ func _update_node(data:Dictionary) -> void:
 	) :
 		var the_target_variable = Main.Mind.lookup_resource(data.variable, "variables")
 		Target.set_deferred( "text", (
-			TARGET_VARIABLE_MESSAGE_TEMPLATE.format(the_target_variable)
+			tr(TARGET_VARIABLE_MESSAGE_TEMPLATE).format(the_target_variable)
 			if the_target_variable is Dictionary && the_target_variable.has_all(["name", "type"])
 			else UNSET_OR_INVALID_TARGET_VAR_MESSAGE
 		))

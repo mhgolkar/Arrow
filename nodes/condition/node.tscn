@@ -58,7 +58,7 @@ expand_icon = true
 
 [node name="False" type="Label" parent="."]
 layout_mode = 2
-text = "False"
+text = "CONDITION_NODE_FALSE"
 horizontal_alignment = 2
 
 [node name="Statement" type="Label" parent="."]
@@ -69,5 +69,5 @@ autowrap_mode = 3
 
 [node name="True" type="Label" parent="."]
 layout_mode = 2
-text = "True"
+text = "CONDITION_NODE_TRUE"
 horizontal_alignment = 2

@@ -32,7 +32,6 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-const UNSET_OR_INVALID_MESSAGE = "Unset !"
 @onready var ConditionStatement = ConditionSharedClass.Statement.new(Main.Mind)
 
 @onready var Statement = $Play/Statement
@@ -70,7 +69,7 @@ func setup_view() -> void:
 			Statement.set_deferred("text", statement_text)
 			unset = false
 	if unset:
-		Statement.set_deferred("text", UNSET_OR_INVALID_MESSAGE)
+		Statement.set_deferred("text", "CONDITION_CONSOLE_UNSET_DATA_ERR")
 	pass
 	
 func setup_play(

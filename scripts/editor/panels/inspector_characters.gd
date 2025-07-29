@@ -54,7 +54,7 @@ var _KEY_BEING_REVISED = null
 
 const TAG_KEY_VALUE_DISPLAY_TEMPLATE = "`{value}`" # also available: {key}
 const CHARACTER_APPEARANCE_COUNT_TEMPLATE = "{0} [{1}]"
-const RAW_UID_TIP_TEMPLATE = "UID: %s \n[press button to copy]"
+const RAW_UID_TIP_TEMPLATE = "UID: %s"
 
 func _ready() -> void:
 	register_connections()
@@ -245,7 +245,7 @@ func request_remove_character(resource_id:int = -1) -> void:
 func load_character_in_editor(character_id:int) -> void:
 	_SELECTED_CHARACTER_BEING_EDITED_ID = character_id
 	var the_character = _LISTED_CHARACTERS_BY_ID[character_id]
-	CharacterRawUid.set_deferred("tooltip_text", RAW_UID_TIP_TEMPLATE % character_id)
+	CharacterRawUid.set_deferred("tooltip_text", (RAW_UID_TIP_TEMPLATE % character_id) + tr("TYPE_INSPECTOR_RAW_UID_HINT"))
 	CharacterEditorName.set_text(the_character.name)
 	CharacterColorPickerButton.set("color", Helpers.Utils.rgba_hex_to_color(the_character.color))
 	# can't it be removed ? not if it's used by other resources

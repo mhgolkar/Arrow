@@ -19,7 +19,7 @@ script = ExtResource("1_lrar4")
 
 [node name="Character" type="Label" parent="."]
 layout_mode = 2
-text = "Character"
+text = "TAG_MATCH_INSPECTOR_FIELD_CHARACTER"
 
 [node name="Selector" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -31,11 +31,7 @@ size_flags_horizontal = 3
 [node name="Filtered" type="Button" parent="Selector"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Apply Global Filters
-
-It will follow the same listing instructions
-that are defined in the Characters inspector.
-+ Current character of the node is always listed."
+tooltip_text = "TAG_MATCH_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_2tsxu")
 icon_alignment = 1
@@ -43,15 +39,15 @@ expand_icon = true
 
 [node name="Tag" type="Label" parent="."]
 layout_mode = 2
-text = "Tag Key"
+text = "TAG_MATCH_INSPECTOR_FIELD_KEY"
 
 [node name="TagKey" type="LineEdit" parent="."]
 layout_mode = 2
-placeholder_text = "Required & Non-blank"
+placeholder_text = "TAG_MATCH_INSPECTOR_FIELD_KEY_PLACEHOLDER"
 
 [node name="Entries" type="Label" parent="."]
 layout_mode = 2
-text = "Patterns"
+text = "TAG_MATCH_INSPECTOR_FIELD_PATTERNS"
 
 [node name="Pattern" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -77,4 +73,4 @@ allow_rmb_select = true
 
 [node name="RegExp" type="CheckBox" parent="."]
 layout_mode = 2
-text = "RegEx"
+text = "TAG_MATCH_INSPECTOR_OPT_REGEX"

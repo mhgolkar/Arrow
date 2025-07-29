@@ -1,0 +1,91 @@
+
+# Macro-Use Node Translation
+# ==========================
+#           English         
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Macro-Use\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Macro Use"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Macro Title]"
+# msgstr ""
+
+msgid "MACRO_USE_CONSOLE_ACT_SKIP"
+msgstr "Skip"
+
+msgid "MACRO_USE_CONSOLE_ACT_PLAY"
+msgstr "Play"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MACRO_USE_INSPECTOR_FIELD_MACRO"
+msgstr "Macro"
+
+msgid "MACRO_USE_INSPECTOR_APPLY_GLOBAL_MACRO_FILTERS_TOOLTIP"
+msgstr ""
+"Apply Global Filters\n"
+"\n"
+"It will follow the same listing instructions\n"
+"that are defined in the Macros inspector.\n"
+"+ Current macro of the node is always listed."
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Macro Use"
+# msgstr ""
+
+# !
+# msgid "[Macro Title]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MACRO_USE_CONSOLE_INVALID_MSG"
+msgstr "Invalid!"
+
+msgid "MACRO_USE_CONSOLE_UNSET_TARGET_MSG"
+msgstr "Unset"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "MACRO_USE_INSPECTOR_NONE_AVAILABLE_TXT"
+msgstr "No Macro Available"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "MACRO_USE_NODE_NO_TARGET_MSG"
+msgstr "No Macro"

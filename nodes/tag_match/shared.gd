@@ -23,7 +23,7 @@ const DEFAULT_NODE_DATA = {
 
 # Invalid, used in display
 const INVALID_CHARACTER = {
-	"name": "Invalid Character" ,
+	"name": "TAG_MATCH_INVALID_CHAR_NAME", # Translated ~ "Invalid Character"
 	"color": "00000000", # 00-Alpha
 }
 

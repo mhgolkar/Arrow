@@ -15,7 +15,7 @@ script = ExtResource("1_ql46j")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-text = "Macro"
+text = "MACRO_USE_INSPECTOR_FIELD_MACRO"
 
 [node name="Macro" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -27,11 +27,7 @@ size_flags_horizontal = 3
 [node name="Filtered" type="Button" parent="Macro"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Apply Global Filters
-
-It will follow the same listing instructions
-that are defined in the Macros inspector.
-+ Current macro of the node is always listed."
+tooltip_text = "MACRO_USE_INSPECTOR_APPLY_GLOBAL_MACRO_FILTERS_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_e0vxc")
 icon_alignment = 1

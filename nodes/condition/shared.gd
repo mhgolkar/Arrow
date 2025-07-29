@@ -23,27 +23,28 @@ const PARAMETER_MODES_ENUM_CODE = {
 
 const COMPARISON_OPERATORS = {
 	# CAUTION! this list shall correspond to the `evaluate_...` functions
+	# Also note that `text` pieces are all expected to be translated.
 	"num": {
-		"eq": { "text": "is Equal", "sign": "==" },
-		"nq": { "text": "is Not Equal", "sign": "!=" },
-		"gt": { "text": "is Greater", "sign": ">" },
-		"gte": { "text": "is Greater or Equal", "sign": ">=" },
-		"ls": { "text": "is Lesser", "sign": "<" },
-		"lse": { "text": "is Lesser or Equal", "sign": "<=" },
+		"eq":  { "text": "CONDITION_OP_EQ_NUM", "sign": "==" }, # is Equal
+		"nq":  { "text": "CONDITION_OP_NQ_NUM", "sign": "!=" }, # is Not Equal
+		"gt":  { "text": "CONDITION_OP_GT",  	"sign": ">"  }, # is Greater
+		"gte": { "text": "CONDITION_OP_GTE", 	"sign": ">=" }, # is Greater or Equal
+		"ls":  { "text": "CONDITION_OP_LS",  	"sign": "<"  }, # is Lesser
+		"lse": { "text": "CONDITION_OP_LSE", 	"sign": "<=" }, # is Lesser or Equal
 	},
 	"str": {
-		"rgx":{ "text": "Matches RegEx Pattern", "sign": "~=" },
-		"ct":{ "text": "Contains Substring", "sign": "%~" },
-		"cts":{ "text": "Contains Substring (Case-Sensitive)", "sign": "%=" },
-		"bgn":{ "text": "Begins with", "sign": "^=" },
-		"end":{ "text": "Ends with", "sign": "=^" },
-		"eql":{ "text": "Has Equal Length", "sign": "#=" },
-		"lng":{ "text": "Is Longer", "sign": "#>" },
-		"shr":{ "text": "Is Shorter", "sign": "#<" },
+		"rgx": { "text": "CONDITION_OP_RGX", "sign": "~=" }, # Matches RegEx Pattern
+		"ct":  { "text": "CONDITION_OP_CT",  "sign": "%~" }, # Contains Substring
+		"cts": { "text": "CONDITION_OP_CTS", "sign": "%=" }, # Contains Substring (Case-Sensitive)
+		"bgn": { "text": "CONDITION_OP_BGN", "sign": "^=" }, # Begins with
+		"end": { "text": "CONDITION_OP_END", "sign": "=^" }, # Ends with
+		"eql": { "text": "CONDITION_OP_EQL", "sign": "#=" }, # Has Equal Length
+		"lng": { "text": "CONDITION_OP_LNG", "sign": "#>" }, # Is Longer
+		"shr": { "text": "CONDITION_OP_SHR", "sign": "#<" }, # Is Shorter
 	},
 	"bool": {
-		"eq": { "text": "Conforms", "sign": "=="},
-		"nq": { "text": "Doesn't Conform", "sign": "!="},
+		"eq":  { "text": "CONDITION_OP_EQ_BOOL", "sign": "==" }, # Conforms
+		"nq":  { "text": "CONDITION_OP_NQ_BOOL", "sign": "!=" }, # Doesn't Conform
 	},
 }
 
@@ -69,13 +70,13 @@ class Statement :
 							statement.rhs = "`%s`" % data.with[1]
 						PARAMETER_MODES_ENUM_CODE.variable:
 							if data.with[1] == data.variable : # the variable is compared to self (initial value)
-								statement.rhs = "Self (Initial `%s`)" % lhs.init
+								statement.rhs = tr("CONDITION_STATEMENT_RHS_IS_LHS_INIT") % lhs.init
 							else: # or another variable
 								var rhs = (variables_current[data.with[1]] if variables_current != null else Mind.lookup_resource(data.with[1],"variables"))
 								if rhs is Dictionary && rhs.has_all(["name", "type", "init"]):
 									statement.rhs = (("`%s` " % (rhs.value if rhs.has("value") else rhs.init)) if variables_current != null else "") + rhs.name
 								else:
-									statement.rhs = "[Invalid]"
+									statement.rhs = tr("CONDITION_RHS_INVALID")
 					parsed = "{lhs} {operator} {rhs}".format(statement)
 		return parsed
 	

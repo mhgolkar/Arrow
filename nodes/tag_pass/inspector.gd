@@ -13,7 +13,7 @@ var _OPEN_NODE
 var _PROJECT_CHARACTERS_CACHE
 	
 # data for unset character (view)
-const NO_CHARACTER_TEXT = "No Character Available"
+const NO_CHARACTER_TEXT = "TAG_PASS_INSPECTOR_NO_CHARACTER_TXT" # Translated ~ "No Character Available"
 const NO_CHARACTER_ID = -1
 
 const TAG_KEY_ONLY_FORMAT_STRING = "{key}: *"

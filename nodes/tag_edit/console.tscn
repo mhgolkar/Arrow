@@ -50,7 +50,7 @@ alignment = 2
 
 [node name="Skip" type="Button" parent="Play/Actions"]
 layout_mode = 2
-text = "Skip"
+text = "TAG_EDIT_CONSOLE_ACT_SKIP"
 
 [node name="Apply" type="Button" parent="Play/Actions"]
 layout_mode = 2

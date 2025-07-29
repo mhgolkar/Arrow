@@ -49,7 +49,7 @@ horizontal_alignment = 1
 [node name="Invalid" type="Label" parent="Play/Body/Checkables"]
 visible = false
 layout_mode = 2
-text = "Invalid!"
+text = "TAG_PASS_CONSOLE_INVALID"
 horizontal_alignment = 1
 
 [node name="Margin" type="MarginContainer" parent="Play/Body/Checkables"]
@@ -62,7 +62,7 @@ size_flags_vertical = 3
 
 [node name="NoTagsToCheck" type="Label" parent="Play/Body/Checkables/Margin"]
 layout_mode = 2
-text = "No Tags To Check!"
+text = "TAG_PASS_CONSOLE_NOTHING_TO_CHECK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -80,9 +80,9 @@ alignment = 2
 [node name="False" type="Button" parent="Play/Body/Checkables/Actions"]
 layout_mode = 2
 theme_type_variation = &"TagPassConsoleFalse"
-text = "False"
+text = "TAG_PASS_CONSOLE_FALSE"
 
 [node name="True" type="Button" parent="Play/Body/Checkables/Actions"]
 layout_mode = 2
 theme_type_variation = &"TagPassConsoleTrue"
-text = "True"
+text = "TAG_PASS_CONSOLE_TRUE"

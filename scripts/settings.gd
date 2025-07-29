@@ -127,8 +127,10 @@ const NODE_TYPE_NODE_FILE_NAME = "node.tscn"
 const NODE_TYPE_INSPECTOR_FILE_NAME = "inspector.tscn"
 const NODE_TYPE_CONSOLE_FILE_NAME = "console.tscn"
 const NODE_TYPE_ICON_FILE_NAME = "icon.svg"
-# 	Note: If you plan to use a custom node type and export your project with default runtime(s) such as built-in 'html-js',
-# 	... you may also checkout `res://runtimes` and do some developments there as well.
+const NODE_TYPE_TRANSLATION_FILES_DIR = "translations" # NOTE: We load every file in this directory, if existent for any of the nodes, as a Translation resource into the TranslationServer.
+# ...
+# NOTE: If you plan to use a custom node type and export your project with default runtime(s) such as built-in 'html-js', checkout `runtimes` directory as well.
+# ...
 const GRID_NODE_SLOT = {
 	"DEFAULT": {
 		"IN": { "TYPE": 0, "COLOR": Color.WHITE },
@@ -327,6 +329,4 @@ const THEMES = {
 	1: { "name": "Light",  "resource": preload("res://assets/themes/light.tres") },
 }
 
-const SUPPORTED_UI_LANGUAGES = {
-	0: { "name": "English", "code": "en-US", "locale": "en" },
-}
+const UI_TRANSLATIONS_DIR = "res://assets/translations"

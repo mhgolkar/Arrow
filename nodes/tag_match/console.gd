@@ -36,12 +36,12 @@ var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 @onready var ManualMatchButton = $Play/Body/Matchable/Manual/Actions/Match
 @onready var MatchedPattern = $Play/Body/Matchable/Matched
 
-const ANONYMOUS_CHARACTER = TagMatchSharedClass.INVALID_CHARACTER
+const INVALID_CHARACTER = TagMatchSharedClass.INVALID_CHARACTER
 const DEFAULT_NODE_DATA = TagMatchSharedClass.DEFAULT_NODE_DATA
 
-const INVALID_TAG_KEY_ERROR = "Invalid Tag Key"
+const INVALID_OR_UNSET_KEY = "TAG_MATCH_CONSOLE_INVALID_OR_UNSET_KEY" # Translated ~ "Invalid Tag Key"
 const MATCHING_FORMAT_STRING = "`{value}` ~= `{pattern}`"
-const NO_MATCH = "No Match (EOL)"
+const NO_MATCH = "TAG_MATCH_CONSOLE_NO_MATCH" # Translated ~ "No Match (EOL)"
 
 func _ready() -> void:
 	register_connections()
@@ -74,7 +74,7 @@ func update_character(profile:Dictionary) -> void:
 	pass
 
 func set_character_anonymous() -> void:
-	update_character( ANONYMOUS_CHARACTER )
+	update_character( INVALID_CHARACTER )
 	pass
 
 func update_character_profile() -> void:
@@ -99,7 +99,7 @@ func update_tag_key() -> void:
 			_NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("tag_key") &&
 			_NODE_RESOURCE.data.tag_key is String && _NODE_RESOURCE.data.tag_key.length() > 0
 		)
-		else INVALID_TAG_KEY_ERROR
+		else INVALID_OR_UNSET_KEY
 	)
 	pass
 

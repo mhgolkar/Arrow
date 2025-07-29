@@ -16,33 +16,34 @@ const PARAMETER_MODES_ENUM_CODE = {
 }
 const UPDATE_OPERATORS = {
 	# CAUTION! this list shall correspond to the `evaluate_...` functions
+	# Also note that `text` pieces are all expected to be translated.
 	"num": {
-		"set": { "text": "Set Equal", "sign": "=" },
-		"add": { "text": "Addition", "sign": "+=" },
-		"sub": { "text": "Subtraction", "sign": "-=" },
-		"div": { "text": "Division", "sign": "/=" },
-		"rem": { "text": "Remainder", "sign": "%=" },
-		"mul": { "text": "Multiplication", "sign": "*=" },
-		"exp": { "text": "Exponentiation", "sign": "^=" },
-		"abs": { "text": "Absolute", "sign": "=||" },
+		"set": { "text": "VARIABLE_UPDATE_OP_SET_NUM", "sign": "=" }, # Set Equal
+		"add": { "text": "VARIABLE_UPDATE_OP_ADD", "sign": "+=" }, # Addition
+		"sub": { "text": "VARIABLE_UPDATE_OP_SUB", "sign": "-=" }, # Subtraction
+		"div": { "text": "VARIABLE_UPDATE_OP_DIV", "sign": "/=" }, # Division
+		"rem": { "text": "VARIABLE_UPDATE_OP_REM", "sign": "%=" }, # Remainder
+		"mul": { "text": "VARIABLE_UPDATE_OP_MUL", "sign": "*=" }, # Multiplication
+		"exp": { "text": "VARIABLE_UPDATE_OP_EXP", "sign": "^=" }, # Exponentiation
+		"abs": { "text": "VARIABLE_UPDATE_OP_ABS", "sign": "=||" }, # Absolute
 	},
 	"str": {
-		"set": { "text": "Set", "sign": "=" },
-		"stc": { "text": "Set Capitalized", "sign": "C=" },
-		"stl": { "text": "Set Lowercased", "sign": "l=" },
-		"stu": { "text": "Set Uppercased", "sign": "U=" },
-		"ins": { "text": "Insert Right", "sign": "=+" },
-		"inb": { "text": "Insert Left", "sign": "+=" },
-		"rmc": { "text": "Remove Left", "sign": "-=" },
-		"rml": { "text": "Remove Left (Case Insensitive)", "sign": "-~" },
-		"rmr": { "text": "Remove Right", "sign": "=-" },
-		"rmi": { "text": "Remove Right (Case Insensitive)", "sign": "~-" },
-		"rpl": { "text": "Replace", "sign": "=*", "hint": "Use pipe to define arguments (i.e. `find|replace`)." },
-		"rpi": { "text": "Replace (Case Insensitive)", "sign": "~*", "hint": "Use pipe to define arguments (i.e. `find|replace`)." },
+		"set": { "text": "VARIABLE_UPDATE_OP_SET_STR", "sign": "=" }, # Set
+		"stc": { "text": "VARIABLE_UPDATE_OP_STC", "sign": "C=" }, # Set Capitalized
+		"stl": { "text": "VARIABLE_UPDATE_OP_STL", "sign": "l=" }, # Set Lowercased
+		"stu": { "text": "VARIABLE_UPDATE_OP_STU", "sign": "U=" }, # Set Uppercased
+		"ins": { "text": "VARIABLE_UPDATE_OP_INS", "sign": "=+" }, # Insert Right
+		"inb": { "text": "VARIABLE_UPDATE_OP_INB", "sign": "+=" }, # Insert Left
+		"rmc": { "text": "VARIABLE_UPDATE_OP_RMC", "sign": "-=" }, # Remove Left
+		"rml": { "text": "VARIABLE_UPDATE_OP_RML", "sign": "-~" }, # Remove Left (Case Insensitive)
+		"rmr": { "text": "VARIABLE_UPDATE_OP_RMR", "sign": "=-" }, # Remove Right
+		"rmi": { "text": "VARIABLE_UPDATE_OP_RMI", "sign": "~-" }, # Remove Right (Case Insensitive)
+		"rpl": { "text": "VARIABLE_UPDATE_OP_RPL", "sign": "=*", "hint": "VARIABLE_UPDATE_OP_RPL_HINT" }, # Replace
+		"rpi": { "text": "VARIABLE_UPDATE_OP_RPI", "sign": "~*", "hint": "VARIABLE_UPDATE_OP_RPI_HINT" }, # Replace (Case Insensitive)
 	},
 	"bool": {
-		"set": { "text": "Set", "sign": "=" },
-		"neg": { "text": "Set Negative", "sign": "=!" },
+		"set": { "text": "VARIABLE_UPDATE_OP_SET_BOOL", "sign": "=" }, # Set
+		"neg": { "text": "VARIABLE_UPDATE_OP_NEG", "sign": "=!" }, # Set Negative
 	},
 }
 

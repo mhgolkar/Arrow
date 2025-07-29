@@ -1,0 +1,154 @@
+
+# Tag-Edit Node Translation
+# =========================
+#          English         
+# =========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Edit\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Tag Edit"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# msgid "[Character Name]"
+# msgstr
+
+# msgid "[Tag: Value]"
+# msgstr
+
+msgid "TAG_EDIT_CONSOLE_ACT_SKIP"
+msgstr "Skip"
+
+# msgid "[Method]"
+# msgstr
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_CHARACTER"
+msgstr "Character"
+
+msgid "TAG_EDIT_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"Apply Global Filters\n"
+"\n"
+"It will follow the same listing instructions\n"
+"that are defined in the Characters inspector.\n"
+"+ Current character of the node is always listed."
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_EDIT"
+msgstr "Edit"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "Key (Required & Non-blank)"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_VALUE_PLACEHOLDER"
+msgstr "Value"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Tag Edit"
+# msgstr ""
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Tag: Value]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "TAG_EDIT_CONSOLE_METHOD_INVALID"
+msgstr "N/A"
+
+msgid "TAG_EDIT_CONSOLE_METHOD_INVALID_HINT"
+msgstr "Not Applicable: The node's resource data is corrupt"
+
+msgid "TAG_EDIT_CONSOLE_INVALID_DATA"
+msgstr "Invalid!"
+
+msgid "TAG_EDIT_CONSOLE_TAG_KEY_VALUE_FORMAT_STR"
+msgstr "{key}: `{value}`"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "TAG_EDIT_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "No Character Available"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "TAG_EDIT_NODE_INVALID_DATA"
+msgstr "Invalid!"
+
+msgid "TAG_EDIT_NODE_TAG_KEY_VALUE_FORMAT_STR"
+msgstr "{key}: `{value}`"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "TAG_EDIT_METHOD_INSET"
+msgstr "Inset"
+
+msgid "TAG_EDIT_METHOD_RESET"
+msgstr "Reset"
+
+msgid "TAG_EDIT_METHOD_OVERSET"
+msgstr "Overset"
+
+msgid "TAG_EDIT_METHOD_OUTSET"
+msgstr "Outset"
+
+msgid "TAG_EDIT_METHOD_UNSET"
+msgstr "Unset"
+
+msgid "TAG_EDIT_METHOD_HINT_INSET"
+msgstr "Adds a key:value tag, only if the key does not exist."
+
+msgid "TAG_EDIT_METHOD_HINT_RESET"
+msgstr "Resets value of a tag, only if the key exists."
+
+msgid "TAG_EDIT_METHOD_HINT_OVERSET"
+msgstr "Overwrites or adds a key:value tag, whether the key exists or not."
+
+msgid "TAG_EDIT_METHOD_HINT_OUTSET"
+msgstr "Removes a tag if both key & value match."
+
+msgid "TAG_EDIT_METHOD_HINT_UNSET"
+msgstr "Removes a tag if just the key matches."

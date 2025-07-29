@@ -16,7 +16,7 @@ script = ExtResource("1_1l8m3")
 
 [node name="Character" type="Label" parent="."]
 layout_mode = 2
-text = "Character"
+text = "TAG_EDIT_INSPECTOR_FIELD_CHARACTER"
 
 [node name="Selector" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -28,11 +28,7 @@ size_flags_horizontal = 3
 [node name="Filtered" type="Button" parent="Selector"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Apply Global Filters
-
-It will follow the same listing instructions
-that are defined in the Characters inspector.
-+ Current character of the node is always listed."
+tooltip_text = "TAG_EDIT_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_sgnlk")
 icon_alignment = 1
@@ -40,15 +36,15 @@ expand_icon = true
 
 [node name="Edit" type="Label" parent="."]
 layout_mode = 2
-text = "Edit"
+text = "TAG_EDIT_INSPECTOR_FIELD_EDIT"
 
 [node name="Method" type="OptionButton" parent="."]
 layout_mode = 2
 
 [node name="Key" type="LineEdit" parent="."]
 layout_mode = 2
-placeholder_text = "Key (Required & Non-blank)"
+placeholder_text = "TAG_EDIT_INSPECTOR_FIELD_KEY_PLACEHOLDER"
 
 [node name="Value" type="LineEdit" parent="."]
 layout_mode = 2
-placeholder_text = "Value"
+placeholder_text = "TAG_EDIT_INSPECTOR_FIELD_VALUE_PLACEHOLDER"

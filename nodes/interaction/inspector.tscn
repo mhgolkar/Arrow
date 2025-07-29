@@ -15,7 +15,7 @@ script = ExtResource("1_sdbjx")
 
 [node name="Entries" type="Label" parent="."]
 layout_mode = 2
-text = "Lines"
+text = "INTERACTION_INSPECTOR_FIELD_LINES"
 
 [node name="Choice" type="HBoxContainer" parent="."]
 layout_mode = 2

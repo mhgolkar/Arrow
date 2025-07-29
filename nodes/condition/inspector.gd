@@ -15,8 +15,8 @@ var _PROJECT_VARIABLES_CACHE
 var _OPERATORS_LISTED_BY_ITEM_ID
 var _OPERATORS_ITEM_ID_LISTED_BY_KEY
 
-const OPERATOR_ITEM_TEXT_TEMPLATE = "{text} ({sign})"
-const COMPARE_TO_INITIAL_VALUE_OF_VAR_TEXT_TEMPLATE = "Self (Initial Value)" # "Initial value of {self}"
+const OPERATOR_ITEM_TEXT_TEMPLATE = "CONDITION_INSPECTOR_OPERATOR_ITEM_TEXT_TEMPLATE" # Translated ~ "{text} ({sign})"
+const COMPARE_TO_INITIAL_VALUE_OF_VAR_TEXT_TEMPLATE = "CONDITION_INSPECTOR_COMPARE_TO_SELF_INITIAL" # Translated ~ "Self (Initial Value)" (accepting `{self}` placeholder for the variable name)
 
 const PARAMETER_MODES_ENUM = ConditionSharedClass.PARAMETER_MODES_ENUM
 const PARAMETER_MODES_ENUM_CODE = ConditionSharedClass.PARAMETER_MODES_ENUM_CODE
@@ -25,7 +25,7 @@ const COMPARISON_OPERATORS = ConditionSharedClass.COMPARISON_OPERATORS
 
 # data for unset variable (view)
 const NO_VARIABLE_VAR_TYPE = "bool"
-const NO_VARIABLE_TEXT = "No Variable Available"
+const NO_VARIABLE_TEXT = "CONDITION_INSPECTOR_NO_VARIABLE" # Translated ~ "No Variable Available"
 const NO_VARIABLE_ID = -1
 
 var DEFAULT_NODE_DATA = {
@@ -82,7 +82,13 @@ func refresh_operators_list() -> void:
 	for operator in the_operators:
 		_OPERATORS_LISTED_BY_ITEM_ID[operator_id] = operator
 		_OPERATORS_ITEM_ID_LISTED_BY_KEY[operator] = operator_id
-		Operators.add_item(OPERATOR_ITEM_TEXT_TEMPLATE.format(the_operators[operator]), operator_id)
+		Operators.add_item(
+			tr(OPERATOR_ITEM_TEXT_TEMPLATE).format({
+				"sign": the_operators[operator].sign,
+				"text": tr(the_operators[operator].text),
+			}),
+			operator_id
+		)
 		operator_id += 1
 	# select the operator if the node has one set
 	if a_node_is_open() && _OPEN_NODE.data.variable == selected_variable_id:
@@ -198,7 +204,7 @@ func refresh_comparison_parameters_variable_list(select_by_variable_id:int = -1)
 		var the_variable = _PROJECT_VARIABLES_CACHE[variable_id]
 		# only variables of the same type can be compared, so ...
 		if the_variable.type == type_of_selected_check_var_id:
-			var the_param_var_item_text = ( the_variable.name if ( variable_id != selected_check_var_id ) else (COMPARE_TO_INITIAL_VALUE_OF_VAR_TEXT_TEMPLATE.format({ "self": the_variable.name })) )
+			var the_param_var_item_text = ( the_variable.name if ( variable_id != selected_check_var_id ) else (tr(COMPARE_TO_INITIAL_VALUE_OF_VAR_TEXT_TEMPLATE).format({ "self": the_variable.name })) )
 			ParameterVariable.add_item(the_param_var_item_text, variable_id)
 			ParameterVariable.set_item_metadata(item_index, variable_id)
 			item_index += 1

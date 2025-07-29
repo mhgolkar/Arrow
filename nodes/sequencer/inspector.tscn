@@ -11,7 +11,7 @@ script = ExtResource("1_1dnp5")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-text = "Sequence length"
+text = "SEQUENCER_INSPECTOR_FIELD_SEQ_LENGTH"
 
 [node name="Slots" type="SpinBox" parent="."]
 layout_mode = 2
@@ -23,23 +23,8 @@ alignment = 1
 
 [node name="Warning" type="Label" parent="."]
 layout_mode = 2
-tooltip_text = "Handle with Extensive Care!
-
-Although sequencers play their connected nodes in slots order,
-depending on playing nodes and runtime implementations,
-they may run queued or in parallel with no guarantee.
-Branches could run in exponentially unexpected order.
-
-It may cause many different unintended behaviors, such as
-variable checks and updates in wrong order,
-displaying multiple nodes waiting for user action,
-printing contents in surprising ways,
-etc.
-
---------------
-Note!
-Skipped sequencers only run their last connected slot."
+tooltip_text = "SEQUENCER_INSPECTOR_HANDLE_WITH_CARE_EXTRA_INFO"
 mouse_filter = 0
 mouse_default_cursor_shape = 16
 theme_type_variation = &"LabelTransparent"
-text = "* Handle with Care!"
+text = "SEQUENCER_INSPECTOR_HANDLE_WITH_CARE"

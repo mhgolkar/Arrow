@@ -12,7 +12,7 @@ const DEFAULT_NODE_DATA = TagMatchSharedClass.DEFAULT_NODE_DATA
 const SAVE_UNOPTIMIZED = TagMatchSharedClass.SAVE_UNOPTIMIZED
 
 const DO_NOT_ALLOW_BLANK_PATTERNS = false # ~ tag values can be blank by convention
-const NO_CHARACTER_TEXT = "No Character Available"
+const NO_CHARACTER_TEXT = "TAG_MATCH_INSPECTOR_NO_CHARACTER_TXT" # Translated ~ "No Character Available"
 const NO_CHARACTER_ID = -254
 const RESERVED_BLANK_KEYWORD = "--BLANK--"
 
@@ -35,18 +35,18 @@ var This = self
 @onready var RegExp = $RegExp
 
 const TOOLS_MENU_BUTTON_POPUP = { # <id>:int { label:string, action:string<function-ident-to-be-called> }
-	0: { "label": "Append New Pattern", "action": "append_new_pattern" },
+	0: { "label": "TAG_MATCH_INSPECTOR_MENU_APPEND_NEW_PATTERN", "action": "append_new_pattern" },
 	1: null, # separator
-	2: { "label": "Extract Selected Pattern", "action": "extract_selected_pattern" },
-	3: { "label": "Replace Selected Pattern", "action": "replace_selected_pattern" },
-	4: { "label": "Remove Selected Pattern(s)", "action": "remove_selected_patterns" },
+	2: { "label": "TAG_MATCH_INSPECTOR_MENU_EXTRACT_SELECTED", "action": "extract_selected_pattern" },
+	3: { "label": "TAG_MATCH_INSPECTOR_MENU_REPLACE_SELECTED", "action": "replace_selected_pattern" },
+	4: { "label": "TAG_MATCH_INSPECTOR_MENU_REMOVE_SELECTED", "action": "remove_selected_patterns" },
 	5: null,
-	6: { "label": "Sort Patterns (Alphabetical)", "action": "sort_items_alphabetical" },
-	7: { "label": "Move Selected Top", "action": "move_selected_top" },
-	8: { "label": "Move Selected End", "action": "move_selected_end" },
+	6: { "label": "TAG_MATCH_INSPECTOR_MENU_SORT_PATTERNS_AZ", "action": "sort_items_alphabetical" },
+	7: { "label": "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_TOP", "action": "move_selected_top" },
+	8: { "label": "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_END", "action": "move_selected_end" },
 	9: null,
-	10: { "label": "Move Selected Up", "action": "move_selected_up" },
-	11: { "label": "Move Selected Down", "action": "move_selected_down" },
+	10: { "label": "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_UP", "action": "move_selected_up" },
+	11: { "label": "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_DOWN", "action": "move_selected_down" },
 }
 var _TOOLS_ITEM_INDEX_BY_ACTION = {}
 

@@ -11,8 +11,6 @@ extends Button
 var NewVersionNotification = self
 var Checker
 
-const NEW_VERSION_MESSAGE = "Arrow %s is Available"
-
 func _ready() -> void:
 	Checker = HTTPRequest.new()
 	self.add_child(Checker)
@@ -33,7 +31,7 @@ func _new_version_check_request_completed(_result, response_code, _headers, body
 func notify_new_release( data ) -> void:
 	print_debug("New Version Check Successful. Latest Version Tag: ", data.tag_name)
 	if data.tag_name != Settings.CURRENT_RELEASE_TAG:
-		NewVersionNotification.set_text( NEW_VERSION_MESSAGE % data.tag_name )
+		NewVersionNotification.set_text( tr("NEW_VERSION_RELEASE_MSG") % data.tag_name )
 		NewVersionNotification.pressed.connect(OS.shell_open.bind(Settings.ARROW_RELEASES_ARCHIVE))
 		NewVersionNotification.set_visible( true )
 	pass

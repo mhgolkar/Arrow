@@ -28,10 +28,10 @@ var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 @onready var MarkerLabel:Label = $Play/Head/Name
 @onready var Action:Button = $Play/Action
 
-const LABEL_UNSET_MESSAGE = "Unlabeled"
+const LABEL_UNSET_MESSAGE = "MARKER_CONSOLE_LABEL_UNSET_MSG" # Translated ~ "Unlabeled"
 const LABEL_UNSET_SELF_MODULATION_COLOR  = Color(1, 1, 1, 0.30)
 
-const NO_NOTES_MESSAGE = "[No Notes.]"
+const NO_NOTES_MESSAGE = "MARKER_CONSOLE_NO_NOTES_MSG" # Translated ~ "[No Notes.]"
 
 func _ready() -> void:
 	register_connections()

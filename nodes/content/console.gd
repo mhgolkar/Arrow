@@ -38,13 +38,13 @@ var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 @onready var Brief = $Play/BriefLegacy
 @onready var Continue = $Play/Continue
 
-const CONTENT_UNSET_MESSAGE = "No Content."
+const CONTENT_UNSET_MESSAGE = "CONTENT_CONSOLE_UNSET_TEXT" # Translated ~ "No Content."
 const CONTENT_UNSET_SELF_MODULATION_COLOR = Color(1, 1, 1, 0.30)
 
-const TITLE_UNSET_MESSAGE = "Untitled"
+const TITLE_UNSET_MESSAGE = "CONTENT_CONSOLE_UNSET_TITLE" # Translated ~ "Untitled"
 const HIDE_UNSET_TITLE = true
 
-const BRIEF_UNSET_MESSAGE = "No Brief."
+const BRIEF_UNSET_MESSAGE = "CONTENT_CONSOLE_UNSET_BRIEF" # Translated ~ "No Brief."
 const HIDE_UNSET_BRIEF = true
 
 func _ready() -> void:

@@ -19,7 +19,7 @@ script = ExtResource("1_y715l")
 
 [node name="Character" type="Label" parent="."]
 layout_mode = 2
-text = "Character"
+text = "TAG_PASS_INSPECTOR_FIELD_CHARACTER"
 
 [node name="Selector" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -31,11 +31,7 @@ size_flags_horizontal = 3
 [node name="Filtered" type="Button" parent="Selector"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Apply Global Filters
-
-It will follow the same listing instructions
-that are defined in the Characters inspector.
-+ Current character of the node is always listed."
+tooltip_text = "TAG_PASS_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_j7lj0")
 icon_alignment = 1
@@ -43,7 +39,7 @@ expand_icon = true
 
 [node name="Check" type="Label" parent="."]
 layout_mode = 2
-text = "Check"
+text = "TAG_PASS_INSPECTOR_FIELD_CHECK"
 
 [node name="Method" type="OptionButton" parent="."]
 layout_mode = 2
@@ -69,7 +65,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "No Tags To Check"
+text = "TAG_PASS_INSPECTOR_NOTHING_TO_CHECK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -82,12 +78,12 @@ layout_mode = 2
 [node name="Key" type="LineEdit" parent="Checkables/Parts/Edit/Params"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Key"
+placeholder_text = "TAG_PASS_INSPECTOR_FIELD_KEY_PLACEHOLDER"
 
 [node name="Value" type="LineEdit" parent="Checkables/Parts/Edit/Params"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Value"
+placeholder_text = "TAG_PASS_INSPECTOR_FIELD_VALUE_PLACEHOLDER"
 
 [node name="Check" type="HBoxContainer" parent="Checkables/Parts/Edit"]
 layout_mode = 2
@@ -95,7 +91,7 @@ layout_mode = 2
 [node name="KeyOnly" type="CheckBox" parent="Checkables/Parts/Edit/Check"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Check Key Only"
+text = "TAG_PASS_INSPECTOR_OPT_KEY_ONLY"
 
 [node name="Add" type="Button" parent="Checkables/Parts/Edit/Check"]
 custom_minimum_size = Vector2(24, 0)

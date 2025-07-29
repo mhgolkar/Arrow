@@ -1,0 +1,90 @@
+
+# Interaction Node Translation
+# ============================
+#            English          
+# ============================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Interaction\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Interaction"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# !
+# msgid "Action Choice X."
+# msgstr ""
+
+# !
+# msgid "Action Choice Y!"
+# msgstr ""
+
+# !
+# msgid "[Played Action]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "INTERACTION_INSPECTOR_FIELD_LINES"
+msgstr "Lines"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Interaction"
+# msgstr ""
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "INTERACTION_INSPECTOR_MENU_APPEND_NEW_ACTION"
+msgstr "Append New Action"
+
+msgid "INTERACTION_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "Extract Selected Action"
+
+msgid "INTERACTION_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "Replace Selected Action"
+
+msgid "INTERACTION_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "Remove Selected Action(s)"
+
+msgid "INTERACTION_INSPECTOR_MENU_SORT_ACTIONS_AZ"
+msgstr "Sort Actions (Alphabetical)"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "Move Selected Top"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "Move Selected End"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "Move Selected Up"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "Move Selected Down"

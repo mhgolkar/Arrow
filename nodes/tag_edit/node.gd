@@ -18,8 +18,8 @@ var This = self
 @onready var CharacterProfileColor = $Display/Character/Color
 @onready var CharacterProfileName = $Display/Character/Name
 
-const TAG_EDIT_INVALID = "Invalid!"
-const TAG_KEY_VALUE_FORMAT_STRING = "{key}: `{value}`"
+const TAG_EDIT_INVALID = "TAG_EDIT_NODE_INVALID_DATA" # Translated ~ "Invalid!"
+const TAG_KEY_VALUE_FORMAT_STRING = "TAG_EDIT_NODE_TAG_KEY_VALUE_FORMAT_STR" # Translated ~ "{key}: `{value}`"
 
 const ANONYMOUS_CHARACTER = TagEditSharedClass.ANONYMOUS_CHARACTER
 const METHODS = TagEditSharedClass.METHODS
@@ -53,7 +53,7 @@ func _update_node(data:Dictionary) -> void:
 		var target_character = Main.Mind.lookup_resource(data.character, "characters")
 		if target_character != null :
 			update_character( target_character )
-			tag_text = TAG_KEY_VALUE_FORMAT_STRING.format({
+			tag_text = tr(TAG_KEY_VALUE_FORMAT_STRING).format({
 				"key": data.edit[1], "value": data.edit[2]
 			})
 		else:

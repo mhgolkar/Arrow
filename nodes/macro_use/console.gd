@@ -61,7 +61,7 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 	pass
 
 func setup_view() -> void:
-	var label = { "user": "Invalid!", "target_name": "Unset", "target_uid": "-1" }
+	var label = { "user": tr("MACRO_USE_CONSOLE_INVALID_MSG"), "target_name": tr("MACRO_USE_CONSOLE_UNSET_TARGET_MSG"), "target_uid": "-1" }
 	if _NODE_RESOURCE.has("name"):
 		label.user = _NODE_RESOURCE.name
 	if _NODE_RESOURCE.has("data"):

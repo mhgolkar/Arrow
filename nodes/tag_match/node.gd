@@ -22,7 +22,7 @@ const LINE_AUTO_WRAP = TextServer.AutowrapMode.AUTOWRAP_WORD_SMART
 const INVALID_CHARACTER = TagMatchSharedClass.INVALID_CHARACTER
 const DEFAULT_NODE_DATA = TagMatchSharedClass.DEFAULT_NODE_DATA
 
-const INVALID_TAG_KEY_ERROR = "Unset Tag Key!"
+const INVALID_OR_UNSET_KEY = "TAG_MATCH_NODE_INVALID_OR_UNSET_KEY" # Translated ~ "Unset or Invalid Tag Key!"
 
 @warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_id
 @warning_ignore("UNUSED_PRIVATE_CLASS_VARIABLE") var _node_resource
@@ -94,7 +94,7 @@ func _update_node(data:Dictionary) -> void:
 	TagKey.set_text(
 		data.tag_key
 		if data.has("tag_key") && (data.tag_key is String) && data.tag_key.length() > 0
-		else INVALID_TAG_KEY_ERROR
+		else INVALID_OR_UNSET_KEY
 	)
 	if data.has("patterns") && (data.patterns is Array):
 		update_patterns(data.patterns, true)

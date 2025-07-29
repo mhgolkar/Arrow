@@ -7,7 +7,7 @@ extends Control
 
 @onready var Main = get_tree().get_root().get_child(0)
 
-const NO_VARIABLE_TEXT = "No Variable Available"
+const NO_VARIABLE_TEXT = "USER_INPUT_INSPECTOR_NO_VARIABLE_TXT" # Translated ~ "No Variable Available"
 const NO_VARIABLE_ID = -1
 
 const DEFAULT_NODE_DATA = {
@@ -51,29 +51,29 @@ var This = self
 	# Check out `DEFAULT_NODE_DATA` for more information.
 	#
 	"str": {
-		"group": $Customization/String,
+		"group": $Customization/InputProperties/String,
 		"fields": [
 			# [node, parameter, default-value]
-			[$Customization/String/Pattern/LineEdit, "text", ""],
-			[$Customization/String/Default/LineEdit, "text", ""],
-			[$Customization/String/Extra/LineEdit, "text", ""],
+			[$Customization/InputProperties/String/Pattern/LineEdit, "text", ""],
+			[$Customization/InputProperties/String/Default/LineEdit, "text", ""],
+			[$Customization/InputProperties/String/Extra/LineEdit, "text", ""],
 		]
 	},
 	"num": {
-		"group": $Customization/Number,
+		"group": $Customization/InputProperties/Number,
 		"fields": [
-			[$Customization/Number/Min/SpinBox, "value", -100],
-			[$Customization/Number/Max/SpinBox, "value", 100],
-			[$Customization/Number/Step/SpinBox, "value", 1],
-			[$Customization/Number/Value/SpinBox, "value", 0],
+			[$Customization/InputProperties/Number/Min/SpinBox, "value", -100],
+			[$Customization/InputProperties/Number/Max/SpinBox, "value", 100],
+			[$Customization/InputProperties/Number/Step/SpinBox, "value", 1],
+			[$Customization/InputProperties/Number/Value/SpinBox, "value", 0],
 		]
 	},
 	"bool": {
-		"group": $Customization/Boolean,
+		"group": $Customization/InputProperties/Boolean,
 		"fields": [
-			[$Customization/Boolean/False/LineEdit, "text", ""],
-			[$Customization/Boolean/True/LineEdit, "text", ""],
-			[$Customization/Boolean/Default/CheckButton, "button_pressed", true],
+			[$Customization/InputProperties/Boolean/False/LineEdit, "text", ""],
+			[$Customization/InputProperties/Boolean/True/LineEdit, "text", ""],
+			[$Customization/InputProperties/Boolean/Default/CheckButton, "button_pressed", true],
 		]
 	},
 }

@@ -49,4 +49,4 @@ fit_content = true
 [node name="Continue" type="Button" parent="Play"]
 layout_mode = 2
 size_flags_horizontal = 8
-text = "Continue"
+text = "MONOLOG_CONSOLE_CONTINUE_BTN"

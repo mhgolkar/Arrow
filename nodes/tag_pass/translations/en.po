@@ -1,0 +1,138 @@
+
+# Tag-Pass Node Translation
+# =========================
+#          English         
+# =========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Pass\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Tag Pass"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr
+
+# !
+# msgid "[Method]"
+# msgstr
+
+msgid "TAG_PASS_CONSOLE_INVALID"
+msgstr "Invalid!"
+
+msgid "TAG_PASS_CONSOLE_NOTHING_TO_CHECK"
+msgstr "No Tags To Check!"
+
+# !
+# msgid "[Tag-Key: Value]"
+# msgstr
+
+msgid "TAG_PASS_CONSOLE_FALSE"
+msgstr "False"
+
+msgid "TAG_PASS_CONSOLE_TRUE"
+msgstr "True"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "TAG_PASS_INSPECTOR_FIELD_CHARACTER"
+msgstr "Character"
+
+msgid "TAG_PASS_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"Apply Global Filters\n"
+"\n"
+"It will follow the same listing instructions\n"
+"that are defined in the Characters inspector.\n"
+"+ Current character of the node is always listed."
+
+msgid "TAG_PASS_INSPECTOR_FIELD_CHECK"
+msgstr "Check"
+
+msgid "TAG_PASS_INSPECTOR_NOTHING_TO_CHECK"
+msgstr "No Tags To Check"
+
+msgid "TAG_PASS_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "Key"
+
+msgid "TAG_PASS_INSPECTOR_FIELD_VALUE_PLACEHOLDER"
+msgstr "Value"
+
+msgid "TAG_PASS_INSPECTOR_OPT_KEY_ONLY"
+msgstr "Check Key Only"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Tag Pass"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+msgid "TAG_PASS_NODE_UNDEFINED"
+msgstr "Undefined!"
+
+msgid "TAG_PASS_NODE_NOTHING_TO_CHECK"
+msgstr "No Tags To Check!"
+
+# !
+# msgid "[Tag-Key: Value]"
+# msgstr ""
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+msgid "TAG_PASS_NODE_FALSE"
+msgstr "False"
+
+msgid "TAG_PASS_NODE_TRUE"
+msgstr "True"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "TAG_PASS_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "No Character Available"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "TAG_PASS_METHOD_ANY"
+msgstr "Any (OR)"
+
+msgid "TAG_PASS_METHOD_ALL"
+msgstr "All (AND)"
+
+msgid "TAG_PASS_METHOD_HINT_ANY"
+msgstr "If at least one of the tags matches, it short-circuits and passes.",
+
+msgid "TAG_PASS_METHOD_HINT_ALL"
+msgstr "All tags shall match for the node to pass.",

@@ -18,8 +18,6 @@ const TAG_KEY_VALUE_FORMAT_STRING = "{key}: `{value}`"
 
 const ANONYMOUS_CHARACTER = TagPassSharedClass.ANONYMOUS_CHARACTER
 const METHODS = TagPassSharedClass.METHODS
-const METHODS_HINTS = TagPassSharedClass.METHODS_HINTS
-const METHODS_ENUM = TagPassSharedClass.METHODS_ENUM
 
 const METHOD_INVALID = ""
 

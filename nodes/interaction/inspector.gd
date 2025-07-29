@@ -26,18 +26,18 @@ var This = self
 @onready var ActionsList = $Actions
 
 const TOOLS_MENU_BUTTON_POPUP = { # <id>:int { label:string, action:string<function-ident-to-be-called> }
-	0: { "label": "Append New Action", "action": "append_new_action" },
+	0: { "label": "INTERACTION_INSPECTOR_MENU_APPEND_NEW_ACTION", "action": "append_new_action" },
 	1: null, # separator
-	2: { "label": "Extract Selected Action", "action": "extract_selected_action" },
-	3: { "label": "Replace Selected Action", "action": "replace_selected_action" },
-	4: { "label": "Remove Selected Action(s)", "action": "remove_selected_actions" },
+	2: { "label": "INTERACTION_INSPECTOR_MENU_EXTRACT_SELECTED", "action": "extract_selected_action" },
+	3: { "label": "INTERACTION_INSPECTOR_MENU_REPLACE_SELECTED", "action": "replace_selected_action" },
+	4: { "label": "INTERACTION_INSPECTOR_MENU_REMOVE_SELECTED", "action": "remove_selected_actions" },
 	5: null,
-	6: { "label": "Sort Actions (Alphabetical)", "action": "sort_items_alphabetical" },
-	7: { "label": "Move Selected Top", "action": "move_selected_top" },
-	8: { "label": "Move Selected End", "action": "move_selected_end" },
+	6: { "label": "INTERACTION_INSPECTOR_MENU_SORT_ACTIONS_AZ", "action": "sort_items_alphabetical" },
+	7: { "label": "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_TOP", "action": "move_selected_top" },
+	8: { "label": "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_END", "action": "move_selected_end" },
 	9: null,
-	10: { "label": "Move Selected Up", "action": "move_selected_up" },
-	11: { "label": "Move Selected Down", "action": "move_selected_down" },
+	10: { "label": "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_UP", "action": "move_selected_up" },
+	11: { "label": "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_DOWN", "action": "move_selected_down" },
 }
 var _TOOLS_ITEM_INDEX_BY_ACTION = {}
 

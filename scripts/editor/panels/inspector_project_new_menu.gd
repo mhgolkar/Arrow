@@ -17,7 +17,7 @@ var _MENU_ITEMS_DATA = [
 	{ "text": "Save Current & Continue", "request": "new_project", "arguments": "from_current"},
 	null,
 	{ "text": "Load Project", "request": "new_project", "arguments": "from_file"},
-	{ "html5": true, "text": "Import Project File", "request": "new_project", "arguments": "from_browsed"}
+	{ "text": "Import Project File", "request": "new_project", "arguments": "from_browsed", "html5": true }
 ]
 # items listed by key to ...
 var _IDX = {} # index

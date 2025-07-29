@@ -11,6 +11,7 @@ const NODE_TYPE_NODE_FILE_NAME = Settings.NODE_TYPE_NODE_FILE_NAME
 const NODE_TYPE_INSPECTOR_FILE_NAME = Settings.NODE_TYPE_INSPECTOR_FILE_NAME
 const NODE_TYPE_CONSOLE_FILE_NAME = Settings.NODE_TYPE_CONSOLE_FILE_NAME
 const NODE_TYPE_ICON_FILE_NAME = Settings.NODE_TYPE_ICON_FILE_NAME
+const NODE_TYPE_TRANSLATION_FILES_DIR = Settings.NODE_TYPE_TRANSLATION_FILES_DIR
 
 
 class NodeTypesHandler :
@@ -36,6 +37,13 @@ class NodeTypesHandler :
 			var the_inspector = load(the_inspector_path)
 			var the_console = load(the_console_path)
 			var the_icon = load(the_icon_path)
+			# ...
+			var the_translations_dir = Helpers.Utils.normalize_dir_path(dir_path + NODE_TYPE_TRANSLATION_FILES_DIR)
+			var translation_files = DirAccess.get_files_at(the_translations_dir) if DirAccess.dir_exists_absolute(the_translations_dir) else PackedStringArray()
+			for each_rel_path in translation_files:
+				var translation: Translation = ResourceLoader.load(the_translations_dir + each_rel_path, "Translation", ResourceLoader.CacheMode.CACHE_MODE_REUSE)
+				TranslationServer.add_translation(translation)
+			# ...
 			return {
 				"type": node_type_dir_name,
 				"text": node_type_dir_name.capitalize(),

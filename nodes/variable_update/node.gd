@@ -14,7 +14,7 @@ var This = self
 
 @onready var Expr = $Display/Expression
 
-const UNSET_OR_INVALID_MESSAGE = "Unset"
+const UNSET_OR_INVALID_MESSAGE = "VARIABLE_UPDATE_NODE_UNSET_OR_INVALID_MSG" # Translated ~ "Unset"
 @onready var VarUpExpr = VariableUpdateSharedClass.expression.new(Main.Mind)
 
 #func _ready() -> void:

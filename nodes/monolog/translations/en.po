@@ -1,0 +1,92 @@
+
+# Monolog Node Translation
+# ========================
+#          English        
+# ========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Monolog\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Monolog"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=cyan]Monolog[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+msgid "MONOLOG_CONSOLE_CONTINUE_BTN"
+msgstr "Continue"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MONOLOG_INSPECTOR_FIELD_CHARACTER"
+msgstr "Character"
+
+msgid "MONOLOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"Apply Global Filters\n"
+"\n"
+"It will follow the same listing instructions\n"
+"that are defined in the Characters inspector.\n"
+"+ Current character of the node and Anonymous are always listed."
+
+msgid "MONOLOG_INSPECTOR_FIELD_MONOLOG"
+msgstr "Monolog"
+
+msgid "MONOLOG_INSPECTOR_FIELD_BRIEF"
+msgstr "Brief"
+
+msgid "MONOLOG_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
+msgstr "Sets brief length up to the the text cursor's position."
+
+msgid "MONOLOG_INSPECTOR_OPT_AUTO_PLAY"
+msgstr "Auto Play"
+
+msgid "MONOLOG_INSPECTOR_OPT_CLEAR_PAGE"
+msgstr "Clear Page"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Monolog"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=cyan]Monolog[/color] [color=yellow]Brief[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MONOLOG_CONSOLE_UNSET_MSG"
+msgstr "No Monolog."

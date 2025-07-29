@@ -90,11 +90,7 @@ func prompt_to_clear_browser_storage() -> void:
 		Main.Mind.Notifier.call_deferred(
 			"show_notification",
 			"Are you sure ?",
-			(
-				"You are about to clear storage.\n" +
-				"This will permanently remove projects from virtual file-system of Arrow in this browser.\n" +
-				"Removed data will not be recoverable.\n"
-			),
+			"BROWSER_STORAGE_CLEAR_PROMPT",
 			[
 				{ 
 					"label": "Ok; Terminate!",

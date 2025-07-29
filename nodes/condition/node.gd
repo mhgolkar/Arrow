@@ -14,7 +14,6 @@ var This = self
 
 @onready var Condition = $Statement
 
-const UNSET_OR_INVALID_MESSAGE = "Unset !"
 @onready var ConditionStatement = ConditionSharedClass.Statement.new(Main.Mind)
 
 #func _ready() -> void:
@@ -30,5 +29,5 @@ func _update_node(data:Dictionary) -> void:
 	if statement_text is String:
 		Condition.set_deferred("text", statement_text)
 	else:
-		Condition.set_deferred("text", UNSET_OR_INVALID_MESSAGE)
+		Condition.set_deferred("text", "CONDITION_NODE_UNSET_OR_INVALID")
 	pass

@@ -31,10 +31,9 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-const PROMPT_UNSET_MESSAGE = "No Question!"
-const NO_VARIABLE_MESSAGE = "Unset/Invalid Variable!"
+const PROMPT_UNSET_MESSAGE = "USER_INPUT_CONSOLE_PROMPT_UNSET_MSG" # Translated ~ "No Question!"
+const NO_VARIABLE_MESSAGE = "USER_INPUT_CONSOLE_NO_VARIABLE_MSG" # Translated ~ "Unset/Invalid Variable!"
 const DONE_RESULT_TEMPLATE = "{variable_name} `{original_value}` = `{new_value}`"
-const SKIPPED_MESSAGE = "[Skipped]"
 
 const DEFAULT_CUSTOM = {
 	"str": ["", "", ""],

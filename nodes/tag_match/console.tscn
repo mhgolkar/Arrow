@@ -59,11 +59,11 @@ alignment = 2
 
 [node name="Eol" type="Button" parent="Play/Body/Matchable/Manual/Actions"]
 layout_mode = 2
-text = "EOL"
+text = "TAG_MATCH_CONSOLE_ACT_EOL"
 
 [node name="Match" type="Button" parent="Play/Body/Matchable/Manual/Actions"]
 layout_mode = 2
-text = "Match"
+text = "TAG_MATCH_CONSOLE_ACT_MATCH"
 
 [node name="Matched" type="Label" parent="Play/Body/Matchable"]
 layout_mode = 2

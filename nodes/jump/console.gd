@@ -26,7 +26,7 @@ var _DEFERRED_VIEW_PLAY:bool = false
 @onready var Reason:Label = $Play/Head/Reason
 @onready var Action:Button = $Play/Action
 
-const REASON_TEXT_UNSET_MESSAGE = "No Reason"
+const UNSET_REASON_MESSAGE = "JUMP_CONSOLE_UNSET_REASON_MSG" # Translated ~ "No Reason"
 const JUMP_TARGET_LABEL_FORMAT_STRING = (
 	"{target_name}" if Settings.FORCE_UNIQUE_NAMES_FOR_NODES else "{target_name} ({target_uid})"
 )
@@ -55,7 +55,7 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 
 func setup_view() -> void:
 	# Jump action label (identity of the jump and its target)
-	var label = { "jump": "Invalid!", "target_name": "Unset", "target_uid": "-1" }
+	var label = { "jump": tr("JUMP_CONSOLE_INVALID_MSG"), "target_name": tr("JUMP_CONSOLE_UNSET_TARGET_MSG"), "target_uid": "-1" }
 	if _NODE_RESOURCE.has("name"):
 		label.jump = _NODE_RESOURCE.name
 	if _NODE_RESOURCE.has("data"):
@@ -68,7 +68,7 @@ func setup_view() -> void:
 	if _NODE_RESOURCE.has("data") && _NODE_RESOURCE.data.has("reason") && (_NODE_RESOURCE.data.reason is String) && _NODE_RESOURCE.data.reason.length() > 0:
 		Reason.set_text( _NODE_RESOURCE.data.reason )
 	else:
-		Reason.set_text( REASON_TEXT_UNSET_MESSAGE )
+		Reason.set_text( UNSET_REASON_MESSAGE )
 	# ...
 	This.set("tooltip_text", (_NODE_RESOURCE.notes if _NODE_RESOURCE.has("notes") else ""))
 	pass

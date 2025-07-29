@@ -10,7 +10,7 @@ script = ExtResource("1_8qlpy")
 
 [node name="Color" type="Label" parent="."]
 layout_mode = 2
-text = "Color"
+text = "FRAME_INSPECTOR_FIELD_COLOR"
 
 [node name="ColorPicker" type="ColorPickerButton" parent="."]
 layout_mode = 2
@@ -19,7 +19,7 @@ color = Color(0, 0.643137, 0.392157, 1)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-text = "Label"
+text = "FRAME_INSPECTOR_FIELD_LABEL"
 
 [node name="TextEdit" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 64)
@@ -32,7 +32,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Width"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Width"
+text = "FRAME_INSPECTOR_FIELD_WIDTH"
 
 [node name="Value" type="SpinBox" parent="Width"]
 layout_mode = 2
@@ -50,7 +50,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Height"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Height"
+text = "FRAME_INSPECTOR_FIELD_HEIGHT"
 
 [node name="Value" type="SpinBox" parent="Height"]
 layout_mode = 2

@@ -11,8 +11,8 @@ signal item_selected_value()
 
 var _MENU_ITEMS = ["USER", "RES"]
 var _MENU_ITEMS_DATA = [
-	{ "text": "OS Default App Local Directory", "value": "user://" },
-	{ "text": "Relative to Arrow's executable", "value": "res://" },
+	{ "text": "ALD_PRESET_USER_DIR", "value": "user://" },
+	{ "text": "ALD_PRESET_RES_DIR", "value": "res://" },
 ]
 # items listed by key to ...
 var _IDX = {} # index

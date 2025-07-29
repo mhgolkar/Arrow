@@ -160,12 +160,9 @@ class UiManager :
 			adjustment_layer.call_deferred("set_theme", theme)
 		return by_id
 
-	func reset_language(by_id:int = 0) -> int:
-		if by_id < 0 || by_id > Settings.SUPPORTED_UI_LANGUAGES.size() :
-			by_id = 0
-		var lang = Settings.SUPPORTED_UI_LANGUAGES[by_id]
-		TranslationServer.set_locale(lang.locale)
-		return by_id
+	func reset_language(by_locale:String = "en") -> String:
+		PANELS.preferences.reset_language(by_locale)
+		return by_locale
 	
 	func read_panels_state() -> Dictionary:
 		var stateful: Dictionary = {}

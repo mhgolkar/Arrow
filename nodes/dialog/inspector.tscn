@@ -19,7 +19,7 @@ script = ExtResource("1_d7svk")
 
 [node name="Character" type="Label" parent="."]
 layout_mode = 2
-text = "Character"
+text = "DIALOG_INSPECTOR_FIELD_CHARACTER"
 
 [node name="Selector" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -31,11 +31,7 @@ size_flags_horizontal = 3
 [node name="Filtered" type="Button" parent="Selector"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Apply Global Filters
-
-It will follow the same listing instructions
-that are defined in the Characters inspector.
-+ Current character of the node and Anonymous are always listed."
+tooltip_text = "DIALOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_r16v1")
 icon_alignment = 1
@@ -43,7 +39,7 @@ expand_icon = true
 
 [node name="Entries" type="Label" parent="."]
 layout_mode = 2
-text = "Lines"
+text = "DIALOG_INSPECTOR_FIELD_LINES"
 
 [node name="Line" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -70,4 +66,4 @@ allow_rmb_select = true
 [node name="Playable" type="CheckBox" parent="."]
 layout_mode = 2
 button_pressed = true
-text = "Playable"
+text = "DIALOG_INSPECTOR_OPT_PLAYABLE"

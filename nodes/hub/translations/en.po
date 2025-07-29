@@ -1,0 +1,50 @@
+
+# Hub Node Translation
+# ====================
+#        English      
+# ====================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Hub\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Hub"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Name]"
+# msgstr ""
+
+# !
+# msgid "[Slots]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "HUB_INSPECTOR_FIELD_SLOTS_COUNT"
+msgstr "Input Slots Count"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Hub"
+# msgstr ""

@@ -19,24 +19,23 @@ script = ExtResource("1_61hvh")
 
 [node name="PlaqueLabel" type="Label" parent="."]
 layout_mode = 2
-text = "Plaque"
+text = "ENTRY_INSPECTOR_FIELD_PLAQUE"
 
 [node name="Plaque" type="LineEdit" parent="."]
 layout_mode = 2
 
 [node name="Active" type="Label" parent="."]
 layout_mode = 2
-tooltip_text = "⚠ Every project and all its scenes
-require an entry node to play properly."
+tooltip_text = "ENTRY_INSPECTOR_FIELD_ACTIVE_TOOLTIP"
 mouse_filter = 0
-text = "Active entry for"
+text = "ENTRY_INSPECTOR_FIELD_ACTIVE_FOR"
 
 [node name="ForProject" type="CheckBox" parent="."]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 focus_mode = 0
 disabled = true
-text = "Project"
+text = "ENTRY_INSPECTOR_OPT_PROJECT"
 icon = SubResource("AtlasTexture_p5h66")
 flat = true
 icon_alignment = 2
@@ -47,7 +46,7 @@ custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 focus_mode = 0
 disabled = true
-text = "Scene"
+text = "ENTRY_INSPECTOR_OPT_SCENE"
 icon = SubResource("AtlasTexture_hp71p")
 flat = true
 icon_alignment = 2

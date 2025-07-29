@@ -1,0 +1,77 @@
+
+# Sequencer Node Translation
+# ==========================
+#           English         
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Sequencer\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Sequencer"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Name]"
+# msgstr ""
+
+# !
+# msgid "[Slots]"
+# msgstr ""
+
+msgid "SEQUENCER_CONSOLE_ACT_SKIP"
+msgstr "Skip"
+
+msgid "SEQUENCER_CONSOLE_ACT_RUN"
+msgstr "Run"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "SEQUENCER_INSPECTOR_FIELD_SEQ_LENGTH"
+msgstr "Sequence length"
+
+msgid "SEQUENCER_INSPECTOR_HANDLE_WITH_CARE_EXTRA_INFO"
+msgstr ""
+"Handle with Extensive Care!\n"
+"\n"
+"Although sequencers play their connected nodes in slots order,\n"
+"depending on playing nodes and runtime implementations,\n"
+"they may run queued or in parallel with no guarantee.\n"
+"Branches could run in exponentially unexpected order.\n"
+"\n"
+"It may cause many different unintended behaviors, such as\n"
+"variable checks and updates in wrong order,\n"
+"displaying multiple nodes waiting for user action,\n"
+"printing contents in surprising ways,\n"
+"etc.\n"
+"\n"
+"Note!\n"
+"Skipped sequencers only run their last connected slot."
+
+msgid "SEQUENCER_INSPECTOR_HANDLE_WITH_CARE"
+msgstr "* Handle with Care!"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Sequencer"
+# msgstr ""

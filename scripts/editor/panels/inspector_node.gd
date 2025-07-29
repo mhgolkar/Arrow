@@ -29,7 +29,7 @@ var _CURRENT_STATE_OF_SUB_INSPECTOR_BLOCKER = true
 var REFERRERS_MENU_BUTTON_TEXT_TEMPLATE = "{0} [{1}]"
 var _CURRENT_LOCATED_REF_ID = -1
 
-const RAW_UID_TIP_TEMPLATE = "UID: %s \n[press button to copy]"
+const RAW_UID_TIP_TEMPLATE = "UID: %s"
 
 @onready var InspectorBlocker = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Node/Blocker
 # properties
@@ -153,7 +153,7 @@ func update_parameters(node_id:int, node:Dictionary, node_map:Dictionary, sub_in
 	NodeTypeDisplay.set_deferred("tooltip_text", NODE_TYPES_LIST_CACHE[node.type].text)
 	NodeTypeDisplay.set_deferred("icon", NODE_TYPES_LIST_CACHE[node.type].icon)
 	NodeNameEdit.set_deferred("text", node.name)
-	NodeUid.set_deferred("tooltip_text", RAW_UID_TIP_TEMPLATE % node_id)
+	NodeUid.set_deferred("tooltip_text", (RAW_UID_TIP_TEMPLATE % node_id) + tr("TYPE_INSPECTOR_RAW_UID_HINT"))
 	# skip
 	var is_node_skip = ( true if (node_map.has("skip") && node_map.skip == true ) else false )
 	toggle_node_skip(is_node_skip, false)

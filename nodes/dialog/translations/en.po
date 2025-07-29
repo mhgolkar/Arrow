@@ -1,0 +1,108 @@
+
+# Dialog Node Translation
+# =======================
+#         English       
+# =======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Dialog\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Dialog"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr
+
+# !
+# msgid "Dialog line X."
+# msgstr
+
+# !
+# msgid "Dialog line Y!"
+# msgstr
+
+# !
+# msgid "[Played Action]"
+# msgstr
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "DIALOG_INSPECTOR_FIELD_CHARACTER"
+msgstr "Character"
+
+msgid "DIALOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"Apply Global Filters\n"
+"\n"
+"It will follow the same listing instructions\n"
+"that are defined in the Characters inspector.\n"
+"+ Current character of the node and Anonymous are always listed."
+
+msgid "DIALOG_INSPECTOR_FIELD_LINES"
+msgstr "Lines"
+
+msgid "DIALOG_INSPECTOR_OPT_PLAYABLE"
+msgstr "Playable"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Dialog"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "DIALOG_INSPECTOR_MENU_APPEND_NEW_LINE"
+msgstr "Append New Line"
+
+msgid "DIALOG_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "Extract Selected Line"
+
+msgid "DIALOG_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "Replace Selected Line"
+
+msgid "DIALOG_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "Remove Selected Line(s)"
+
+msgid "DIALOG_INSPECTOR_MENU_SORT_LINES_AZ"
+msgstr "Sort Lines (Alphabetical)"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "Move Selected Top"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "Move Selected End"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "Move Selected Up"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "Move Selected Down"

@@ -16,7 +16,7 @@ script = ExtResource("1_dffcf")
 
 [node name="Ask" type="Label" parent="."]
 layout_mode = 2
-text = "Ask player"
+text = "USER_INPUT_INSPECTOR_FIELD_PROMPT"
 
 [node name="Prompt" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 96)
@@ -26,7 +26,7 @@ wrap_mode = 1
 
 [node name="Target" type="Label" parent="."]
 layout_mode = 2
-text = "Set user input to"
+text = "USER_INPUT_INSPECTOR_FIELD_TARGET"
 
 [node name="Variable" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -38,82 +38,81 @@ size_flags_horizontal = 3
 [node name="Filtered" type="Button" parent="Variable"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Apply Global Filters
-
-It will follow the same listing instructions
-that are defined in the Variables inspector.
-+ Current variable of the node is always listed."
+tooltip_text = "USER_INPUT_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS"
 toggle_mode = true
 icon = SubResource("AtlasTexture_ns8q2")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Customize" type="Label" parent="."]
-layout_mode = 2
-text = "Cstomize controls"
-
-[node name="Customization" type="PanelContainer" parent="."]
+[node name="Customization" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="String" type="VBoxContainer" parent="Customization"]
+[node name="Label" type="Label" parent="Customization"]
+layout_mode = 2
+text = "USER_INPUT_INSPECTOR_FIELD_CUSTOMIZE"
+
+[node name="InputProperties" type="PanelContainer" parent="Customization"]
+layout_mode = 2
+
+[node name="String" type="VBoxContainer" parent="Customization/InputProperties"]
 visible = false
 layout_mode = 2
 
-[node name="Pattern" type="HBoxContainer" parent="Customization/String"]
+[node name="Pattern" type="HBoxContainer" parent="Customization/InputProperties/String"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Customization/String/Pattern"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Pattern"
-
-[node name="LineEdit" type="LineEdit" parent="Customization/String/Pattern"]
+[node name="Label" type="Label" parent="Customization/InputProperties/String/Pattern"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
-placeholder_text = "Regular Expression"
+text = "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN"
 
-[node name="Default" type="HBoxContainer" parent="Customization/String"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Customization/String/Default"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Default"
-
-[node name="LineEdit" type="LineEdit" parent="Customization/String/Default"]
+[node name="LineEdit" type="LineEdit" parent="Customization/InputProperties/String/Pattern"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
-placeholder_text = "Preset value"
+placeholder_text = "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN_PLACEHOLDER"
 
-[node name="Extra" type="HBoxContainer" parent="Customization/String"]
+[node name="Default" type="HBoxContainer" parent="Customization/InputProperties/String"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Customization/String/Extra"]
+[node name="Label" type="Label" parent="Customization/InputProperties/String/Default"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Extra"
+text = "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT"
 
-[node name="LineEdit" type="LineEdit" parent="Customization/String/Extra"]
+[node name="LineEdit" type="LineEdit" parent="Customization/InputProperties/String/Default"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
-placeholder_text = "Placeholder, Hint, etc."
+placeholder_text = "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT_PLACEHOLDER"
 
-[node name="Number" type="VBoxContainer" parent="Customization"]
+[node name="Extra" type="HBoxContainer" parent="Customization/InputProperties/String"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Customization/InputProperties/String/Extra"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA"
+
+[node name="LineEdit" type="LineEdit" parent="Customization/InputProperties/String/Extra"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+placeholder_text = "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA_PLACEHOLDER"
+
+[node name="Number" type="VBoxContainer" parent="Customization/InputProperties"]
 visible = false
 layout_mode = 2
 
-[node name="Min" type="HBoxContainer" parent="Customization/Number"]
+[node name="Min" type="HBoxContainer" parent="Customization/InputProperties/Number"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Customization/Number/Min"]
+[node name="Label" type="Label" parent="Customization/InputProperties/Number/Min"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Min"
+text = "USER_INPUT_INSPECTOR_CUSTOM_NUM_MIN"
 
-[node name="SpinBox" type="SpinBox" parent="Customization/Number/Min"]
+[node name="SpinBox" type="SpinBox" parent="Customization/InputProperties/Number/Min"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
@@ -124,15 +123,15 @@ allow_greater = true
 allow_lesser = true
 alignment = 1
 
-[node name="Max" type="HBoxContainer" parent="Customization/Number"]
+[node name="Max" type="HBoxContainer" parent="Customization/InputProperties/Number"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Customization/Number/Max"]
+[node name="Label" type="Label" parent="Customization/InputProperties/Number/Max"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Max"
+text = "USER_INPUT_INSPECTOR_CUSTOM_NUM_MAX"
 
-[node name="SpinBox" type="SpinBox" parent="Customization/Number/Max"]
+[node name="SpinBox" type="SpinBox" parent="Customization/InputProperties/Number/Max"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
@@ -143,15 +142,15 @@ allow_greater = true
 allow_lesser = true
 alignment = 1
 
-[node name="Step" type="HBoxContainer" parent="Customization/Number"]
+[node name="Step" type="HBoxContainer" parent="Customization/InputProperties/Number"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Customization/Number/Step"]
+[node name="Label" type="Label" parent="Customization/InputProperties/Number/Step"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Step"
+text = "USER_INPUT_INSPECTOR_CUSTOM_NUM_STEP"
 
-[node name="SpinBox" type="SpinBox" parent="Customization/Number/Step"]
+[node name="SpinBox" type="SpinBox" parent="Customization/InputProperties/Number/Step"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
@@ -162,15 +161,15 @@ allow_greater = true
 allow_lesser = true
 alignment = 1
 
-[node name="Value" type="HBoxContainer" parent="Customization/Number"]
+[node name="Value" type="HBoxContainer" parent="Customization/InputProperties/Number"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Customization/Number/Value"]
+[node name="Label" type="Label" parent="Customization/InputProperties/Number/Value"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Value"
+text = "USER_INPUT_INSPECTOR_CUSTOM_NUM_VALUE"
 
-[node name="SpinBox" type="SpinBox" parent="Customization/Number/Value"]
+[node name="SpinBox" type="SpinBox" parent="Customization/InputProperties/Number/Value"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
@@ -180,48 +179,48 @@ allow_greater = true
 allow_lesser = true
 alignment = 1
 
-[node name="Boolean" type="VBoxContainer" parent="Customization"]
+[node name="Boolean" type="VBoxContainer" parent="Customization/InputProperties"]
 layout_mode = 2
 
-[node name="False" type="HBoxContainer" parent="Customization/Boolean"]
+[node name="False" type="HBoxContainer" parent="Customization/InputProperties/Boolean"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Customization/Boolean/False"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "False"
-
-[node name="LineEdit" type="LineEdit" parent="Customization/Boolean/False"]
+[node name="Label" type="Label" parent="Customization/InputProperties/Boolean/False"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
-placeholder_text = "Negative"
+text = "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE"
 
-[node name="True" type="HBoxContainer" parent="Customization/Boolean"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Customization/Boolean/True"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "True"
-
-[node name="LineEdit" type="LineEdit" parent="Customization/Boolean/True"]
+[node name="LineEdit" type="LineEdit" parent="Customization/InputProperties/Boolean/False"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
-placeholder_text = "Positive"
+placeholder_text = "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE_PLACEHOLDER"
 
-[node name="Default" type="HBoxContainer" parent="Customization/Boolean"]
+[node name="True" type="HBoxContainer" parent="Customization/InputProperties/Boolean"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Customization/Boolean/Default"]
+[node name="Label" type="Label" parent="Customization/InputProperties/Boolean/True"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Default"
+text = "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE"
 
-[node name="CheckButton" type="CheckButton" parent="Customization/Boolean/Default"]
+[node name="LineEdit" type="LineEdit" parent="Customization/InputProperties/Boolean/True"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+placeholder_text = "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE_PLACEHOLDER"
+
+[node name="Default" type="HBoxContainer" parent="Customization/InputProperties/Boolean"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Customization/InputProperties/Boolean/Default"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT"
+
+[node name="CheckButton" type="CheckButton" parent="Customization/InputProperties/Boolean/Default"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 button_pressed = true
-text = "Preset True"
+text = "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT_OPT_TRUE"

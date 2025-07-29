@@ -15,7 +15,7 @@ script = ExtResource("1_v2nbu")
 
 [node name="For" type="Label" parent="."]
 layout_mode = 2
-text = "For"
+text = "GENERATOR_INSPECTOR_FIELD_FOR"
 
 [node name="Variable" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -27,11 +27,7 @@ size_flags_horizontal = 3
 [node name="Filtered" type="Button" parent="Variable"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-tooltip_text = "Apply Global Filters
-
-It will follow the same listing instructions
-that are defined in the Variables inspector.
-+ Current variable of the node is always listed."
+tooltip_text = "GENERATOR_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
 toggle_mode = true
 icon = SubResource("AtlasTexture_txcjx")
 icon_alignment = 1
@@ -39,7 +35,7 @@ expand_icon = true
 
 [node name="Generate" type="Label" parent="."]
 layout_mode = 2
-text = "Generate"
+text = "GENERATOR_INSPECTOR_FIELD_GENERATE"
 
 [node name="Method" type="OptionButton" parent="."]
 layout_mode = 2
@@ -59,7 +55,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Arguments/RandomInt/From"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "From"
+text = "GENERATOR_INSPECTOR_FIELD_FROM"
 
 [node name="Value" type="SpinBox" parent="Arguments/RandomInt/From"]
 layout_mode = 2
@@ -74,7 +70,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Arguments/RandomInt/To"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "To"
+text = "GENERATOR_INSPECTOR_FIELD_TO"
 
 [node name="Value" type="SpinBox" parent="Arguments/RandomInt/To"]
 layout_mode = 2
@@ -91,19 +87,19 @@ layout_mode = 2
 [node name="Negative" type="CheckBox" parent="Arguments/RandomInt/Modifiers"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Neg"
+text = "GENERATOR_INSPECTOR_RANDOM_INT_NEG"
 
 [node name="Even" type="CheckBox" parent="Arguments/RandomInt/Modifiers"]
 layout_mode = 2
 size_flags_horizontal = 3
 button_pressed = true
-text = "Even"
+text = "GENERATOR_INSPECTOR_RANDOM_INT_EVEN"
 
 [node name="Odd" type="CheckBox" parent="Arguments/RandomInt/Modifiers"]
 layout_mode = 2
 size_flags_horizontal = 3
 button_pressed = true
-text = "Odd"
+text = "GENERATOR_INSPECTOR_RANDOM_INT_ODD"
 
 [node name="RandomAscii" type="VBoxContainer" parent="Arguments"]
 visible = false
@@ -115,13 +111,13 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Arguments/RandomAscii/Pool"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Pool"
+text = "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL"
 
 [node name="Value" type="LineEdit" parent="Arguments/RandomAscii/Pool"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
-placeholder_text = "ASCII Characters (En Alphanumeric)"
+placeholder_text = "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL_PLACEHOLDER"
 alignment = 1
 
 [node name="Length" type="HBoxContainer" parent="Arguments/RandomAscii"]
@@ -130,7 +126,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Arguments/RandomAscii/Length"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Length"
+text = "GENERATOR_INSPECTOR_RANDOM_ASCII_LENGTH"
 
 [node name="Value" type="SpinBox" parent="Arguments/RandomAscii/Length"]
 layout_mode = 2
@@ -147,7 +143,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Arguments/FromStrSet"]
 layout_mode = 2
-text = "Pool of Strings"
+text = "GENERATOR_INSPECTOR_FROM_STR_SET_POOL"
 
 [node name="Pool" type="TextEdit" parent="Arguments/FromStrSet"]
 custom_minimum_size = Vector2(0, 64)

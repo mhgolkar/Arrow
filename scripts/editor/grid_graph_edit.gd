@@ -715,11 +715,8 @@ func _gui_input(event: InputEvent) -> void:
 								"show_notification",
 								"Unable to Remove!",
 								(
-									"At least one of the selected nodes is not removable.\n" +
-									"For continuum safety, " +
-									"Arrow does not allow removing nodes while any other resource depends on them. " +
-									"We can not also remove a scene's or a project's active entry. \n\n" +
-									"Non-removable(s): " + Helpers.Utils.stringify_json(non_removables.names, "") + "\n"
+									tr("UNABLE_TO_REMOVE_FROM_GRID") +
+									tr("Non-removable(s): ") + Helpers.Utils.stringify_json(non_removables.names, "") + "\n"
 								),
 								[],
 								Settings.CAUTION_COLOR

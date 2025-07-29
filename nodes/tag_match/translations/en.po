@@ -1,0 +1,150 @@
+
+# Tag-Match Node Translation
+# ==========================
+#           English         
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Match\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Tag Match"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Tag Key]"
+# msgstr ""
+
+msgid "TAG_MATCH_CONSOLE_ACT_EOL"
+msgstr "EOL"
+
+msgid "TAG_MATCH_CONSOLE_ACT_MATCH"
+msgstr "Match"
+
+# !
+# msgid "[Matched Pattern | EOL]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_CHARACTER"
+msgstr "Character"
+
+msgid "TAG_MATCH_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"Apply Global Filters\n"
+"\n"
+"It will follow the same listing instructions\n"
+"that are defined in the Characters inspector.\n"
+"+ Current character of the node is always listed."
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_KEY"
+msgstr "Tag Key"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "Required & Non-blank"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_PATTERNS"
+msgstr "Patterns"
+
+msgid "TAG_MATCH_INSPECTOR_OPT_REGEX"
+msgstr "RegEx"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Tag Match"
+# msgstr
+
+# !
+# msgid "[Character Name]"
+# msgstr
+
+# !
+# msgid "[Tag Key]"
+# msgstr
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "TAG_MATCH_CONSOLE_INVALID_OR_UNSET_KEY"
+msgstr "Invalid Tag Key"
+
+msgid "TAG_MATCH_CONSOLE_NO_MATCH"
+msgstr "No Match (EOL)"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "TAG_MATCH_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "No Character Available"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_APPEND_NEW_PATTERN"
+msgstr "Append New Pattern"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "Extract Selected Pattern"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "Replace Selected Pattern"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "Remove Selected Pattern(s)"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_SORT_PATTERNS_AZ"
+msgstr "Sort Patterns (Alphabetical)"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "Move Selected Top"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "Move Selected End"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "Move Selected Up"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "Move Selected Down"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "TAG_MATCH_NODE_INVALID_OR_UNSET_KEY"
+msgstr "Invalid Tag Key!"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "TAG_MATCH_INVALID_CHAR_NAME"
+msgstr "Invalid Character"

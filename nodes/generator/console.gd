@@ -30,12 +30,13 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-const UNSET_OR_INVALID_TARGET_VAR_MESSAGE = "Undefined"
-const UNSET_OR_INVALID_METHOD_MESSAGE = "Unset"
-const UNSET_OR_INVALID_ARGUMENTS_MESSAGE = "Null/Invalid"
+const UNSET_OR_INVALID_TARGET_VAR_MESSAGE = "GENERATOR_CONSOLE_UNSET_OR_INVALID_TARGET_VAR_MSG" # Translated ~ "Undefined"
+const UNSET_OR_INVALID_METHOD_MESSAGE = "GENERATOR_CONSOLE_UNSET_OR_INVALID_METHOD_MSG" # Translated ~ "Unset"
+const UNSET_OR_INVALID_ARGUMENTS_MESSAGE = "GENERATOR_CONSOLE_UNSET_OR_INVALID_ARGUMENTS_MSG" # Translated ~ "Null/Invalid"
 const HIDE_ARGUMENTS_IF_UNSET = true
+const SKIPPED_MESSAGE = "GENERATOR_CONSOLE_SKIPPED_MSG" # Translated ~ "[Skipped]"
 
-const OPERATION_STATE_FORMAT_STRING = "{name} `{original}` : {updated}"
+const OPERATION_STATE_FORMAT_STRING = "GENERATOR_CONSOLE_OPERATION_STATE_FORMAT_STR" # Translated ~ "{name} `{original}` : {updated}"
 
 @onready var TheGenerator = GeneratorSharedClass.generator.new(Main.Mind)
 
@@ -70,11 +71,15 @@ func remap_connections_for_slots(map:Dictionary = _NODE_MAP, this_node_id:int = 
 
 func reset_operation_view(generated_value = "?") -> void:
 	Target.set_deferred(
-		"text", OPERATION_STATE_FORMAT_STRING.format({
-			"name": _THE_TARGET_VARIABLE.name,
-			"original": _THE_TARGET_VARIABLE_ORIGINAL_VALUE,
-			"updated": generated_value,
-		})
+		"text",
+		(
+			tr(OPERATION_STATE_FORMAT_STRING)
+			.format({
+				"name": _THE_TARGET_VARIABLE.name,
+				"original": _THE_TARGET_VARIABLE_ORIGINAL_VALUE,
+				"updated": generated_value,
+			})
+		)
 	)
 	pass
 
@@ -192,7 +197,7 @@ func set_view_played(_slot_idx:int = ONLY_PLAY_SLOT) -> void:
 	pass
 
 func skip_play() -> void:
-	reset_operation_view("[Skipped]")
+	reset_operation_view(tr(SKIPPED_MESSAGE))
 	play_forward_from(ONLY_PLAY_SLOT)
 	pass
 

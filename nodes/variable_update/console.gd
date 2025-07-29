@@ -31,7 +31,7 @@ var _PLAY_IS_SET_UP:bool = false
 var _NODE_IS_READY:bool = false
 var _DEFERRED_VIEW_PLAY_SLOT:int = -1
 
-const UNSET_OR_INVALID_MESSAGE = "Unset !"
+const UNSET_OR_INVALID_MESSAGE = "VARIABLE_UPDATE_CONSOLE_UNSET_OR_INVALID_MSG" # Translated ~ "Unset !"
 @onready var VarUpExpression = VariableUpdateSharedClass.expression.new(Main.Mind)
 
 @onready var TheExpression = $Play/Head/Expression

@@ -54,7 +54,7 @@ const VARIABLE_TYPE_IN_SELECTION_TEXT_TEMPLATE = "{name} ({type})"
 const VARIABLE_IN_LIST_TEXT_TEMPLATE = "{name} ({type}, {init})"
 
 const VARIABLE_APPEARANCE_COUNT_TEMPLATE = "{0} [{1}]"
-const RAW_UID_TIP_TEMPLATE = "UID: %s \n[press button to copy]"
+const RAW_UID_TIP_TEMPLATE = "UID: %s"
 
 func _ready() -> void:
 	register_connections()
@@ -232,7 +232,7 @@ func load_variable_in_editor(variable_id) -> void:
 	_SELECTED_VARIABLE_BEING_EDITED_ID = variable_id
 	var the_variable = _LISTED_VARIABLES_BY_ID[variable_id]
 	switch_variable_initial_value_sub_editor(the_variable.type)
-	VariableRawUid.set_deferred("tooltip_text", RAW_UID_TIP_TEMPLATE % variable_id)
+	VariableRawUid.set_deferred("tooltip_text", (RAW_UID_TIP_TEMPLATE % variable_id) + tr("TYPE_INSPECTOR_RAW_UID_HINT"))
 	VariableEditorName.set_text(the_variable.name)
 	set_variable_initial_value_sub_editor(the_variable.type, the_variable.init)
 	# can't it be removed ? not if it's used by other resources

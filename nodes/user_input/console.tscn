@@ -41,7 +41,7 @@ size_flags_horizontal = 3
 [node name="String" type="LineEdit" parent="Play/Input"]
 visible = false
 layout_mode = 2
-placeholder_text = "Str Value"
+placeholder_text = "USER_INPUT_CONSOLE_STR_VALUE_PLACEHOLDER"
 alignment = 1
 
 [node name="Number" type="SpinBox" parent="Play/Input"]
@@ -55,14 +55,14 @@ alignment = 1
 layout_mode = 2
 selected = 0
 item_count = 2
-popup/item_0/text = "False"
+popup/item_0/text = "USER_INPUT_CONSOLE_BOOL_SELECTOR_FALSE"
 popup/item_0/id = 0
-popup/item_1/text = "True"
+popup/item_1/text = "USER_INPUT_CONSOLE_BOOL_SELECTOR_TRUE"
 popup/item_1/id = 1
 
 [node name="Invalid" type="Label" parent="Play"]
 layout_mode = 2
-text = "* Invalid Input!"
+text = "USER_INPUT_CONSOLE_INVALID_INPUT_ERR"
 
 [node name="Result" type="Label" parent="Play"]
 layout_mode = 2
@@ -74,8 +74,8 @@ alignment = 2
 
 [node name="Skip" type="Button" parent="Play/Actions"]
 layout_mode = 2
-text = "Skip"
+text = "USER_INPUT_CONSOLE_ACT_SKIP"
 
 [node name="Submit" type="Button" parent="Play/Actions"]
 layout_mode = 2
-text = "Submit"
+text = "USER_INPUT_CONSOLE_ACT_SUBMIT"
