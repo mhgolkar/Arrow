@@ -989,6 +989,7 @@ text = "Restore"
 [node name="Preview" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox/Actions"]
 layout_mode = 2
 size_flags_horizontal = 3
+toggle_mode = true
 text = "Preview"
 
 [node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox/Actions"]
