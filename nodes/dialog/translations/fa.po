@@ -1,0 +1,105 @@
+
+# Dialog Node Translation
+# =======================
+#     Persian (Farsi)    
+# =======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Dialog\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Dialog"
+msgstr "گفتگو"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr
+
+# !
+# msgid "Dialog line X."
+# msgstr
+
+# !
+# msgid "Dialog line Y!"
+# msgstr
+
+# !
+# msgid "[Played Action]"
+# msgstr
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "DIALOG_INSPECTOR_FIELD_CHARACTER"
+msgstr "شخصیت"
+
+msgid "DIALOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه شخصیت‌های کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته ناشناس (Anonymous) و شخصیت فعلی گره همواره نمایش داده می‌شود."
+
+msgid "DIALOG_INSPECTOR_FIELD_LINES"
+msgstr "گفته‌ها"
+
+msgid "DIALOG_INSPECTOR_OPT_PLAYABLE"
+msgstr "قابل انتخاب (غیر خودکار)"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Dialog"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "DIALOG_INSPECTOR_MENU_APPEND_NEW_LINE"
+msgstr "گفته جدید را اضافه کن"
+
+msgid "DIALOG_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "گفته انتخاب شده را بیرون بکش"
+
+msgid "DIALOG_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "گفته را جایگزین مورد انتخاب شده کن"
+
+msgid "DIALOG_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "گفته(های) انتخاب شده را حذف کن"
+
+msgid "DIALOG_INSPECTOR_MENU_SORT_LINES_AZ"
+msgstr "مرتب کن (الفبایی)"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "انتخاب را به بالای فهرست ببر"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "انتخاب را به انتهای فهرست ببر"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "انتخاب را بالاتر ببر"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "انتخاب را پایین‌تر ببر"

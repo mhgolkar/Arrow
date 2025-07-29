@@ -1,0 +1,135 @@
+
+# Tag-Pass Node Translation
+# =========================
+#      Persian (Farsi)     
+# =========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Pass\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Tag Pass"
+msgstr "شرط برچسبی"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr
+
+# !
+# msgid "[Method]"
+# msgstr
+
+msgid "TAG_PASS_CONSOLE_INVALID"
+msgstr "نامعتبر!"
+
+msgid "TAG_PASS_CONSOLE_NOTHING_TO_CHECK"
+msgstr "برچسبی برای بررسی نیست!"
+
+# !
+# msgid "[Tag-Key: Value]"
+# msgstr
+
+msgid "TAG_PASS_CONSOLE_FALSE"
+msgstr "غلط"
+
+msgid "TAG_PASS_CONSOLE_TRUE"
+msgstr "درست"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "TAG_PASS_INSPECTOR_FIELD_CHARACTER"
+msgstr "شخصیت"
+
+msgid "TAG_PASS_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه شخصیت‌های کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته شخصیت فعلی گره همواره نمایش داده می‌شود."
+
+msgid "TAG_PASS_INSPECTOR_FIELD_CHECK"
+msgstr "بررسی"
+
+msgid "TAG_PASS_INSPECTOR_NOTHING_TO_CHECK"
+msgstr "برچسبی برای بررسی نیست"
+
+msgid "TAG_PASS_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "کلید"
+
+msgid "TAG_PASS_INSPECTOR_FIELD_VALUE_PLACEHOLDER"
+msgstr "مقدار"
+
+msgid "TAG_PASS_INSPECTOR_OPT_KEY_ONLY"
+msgstr "فقط کلید را چک کن"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Tag Pass"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+msgid "TAG_PASS_NODE_UNDEFINED"
+msgstr "تعریف نشده!"
+
+msgid "TAG_PASS_NODE_NOTHING_TO_CHECK"
+msgstr "برچسبی برای بررسی نیست!"
+
+# !
+# msgid "[Tag-Key: Value]"
+# msgstr ""
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+msgid "TAG_PASS_NODE_FALSE"
+msgstr "غلط"
+
+msgid "TAG_PASS_NODE_TRUE"
+msgstr "درست"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "TAG_PASS_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "شخصیتی در کار نیست"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "TAG_PASS_METHOD_ANY"
+msgstr "هر کدام (یا)"
+
+msgid "TAG_PASS_METHOD_ALL"
+msgstr "همه (و)"
+
+msgid "TAG_PASS_METHOD_HINT_ANY"
+msgstr "اگر حتی برای یکی از برچسب‌ها همخوانی وجود داشته باشد، شرط درست فرض می‌شود.",
+
+msgid "TAG_PASS_METHOD_HINT_ALL"
+msgstr "همه برچسب‌ها باید همخوان داشته باشند تا شرط درست باشد.",

@@ -1,0 +1,82 @@
+
+# Entry Node Translation
+# ======================
+#     Persian (Farsi)   
+# ======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Entry\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Entry"
+msgstr "ورودی"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# msgid "[Plaque]"
+# msgstr ""
+
+# msgid "[Node Name]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "ENTRY_INSPECTOR_FIELD_PLAQUE"
+msgstr "پلاک"
+
+msgid "ENTRY_INSPECTOR_FIELD_ACTIVE_TOOLTIP"
+msgstr ""
+"هر پروژه و یکایک صحنه‌ها، \n"
+"برای اجرای درست نیاز به حداقل یک گره ورودی دارند."
+
+msgid "ENTRY_INSPECTOR_FIELD_ACTIVE_FOR"
+msgstr "فعال برای"
+
+msgid "ENTRY_INSPECTOR_OPT_PROJECT"
+msgstr "پروژه"
+
+msgid "ENTRY_INSPECTOR_OPT_SCENE"
+msgstr "صحنه"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Entry"
+# msgstr ""
+
+# !
+# msgid "[Plaque]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "ENTRY_CONSOLE_INVALID_TXT"
+msgstr "نامعتبر"
+
+msgid "ENTRY_CONSOLE_NO_PLAQUE_TXT"
+msgstr "بدون پلاک"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "ENTRY_NODE_INVALID_OR_UNSET_PLAQUE_TXT"
+msgstr "نامشخص"

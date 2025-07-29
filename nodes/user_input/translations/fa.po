@@ -1,0 +1,172 @@
+
+# User-Input Node Translation
+# ===========================
+#       Persian (Farsi)      
+# ===========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-User-Input\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "User Input"
+msgstr "ورودی داده کاربر"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Prompt Question]"
+# msgstr ""
+
+msgid "USER_INPUT_CONSOLE_STR_VALUE_PLACEHOLDER"
+msgstr "متن نوشته"
+
+msgid "USER_INPUT_CONSOLE_BOOL_SELECTOR_FALSE"
+msgstr "غلط"
+
+msgid "USER_INPUT_CONSOLE_BOOL_SELECTOR_TRUE"
+msgstr "درست"
+
+msgid "USER_INPUT_CONSOLE_INVALID_INPUT_ERR"
+msgstr "* ورودی نامعتبر!"
+
+# !
+# msgid "[Result]"
+# msgstr ""
+
+msgid "USER_INPUT_CONSOLE_ACT_SKIP"
+msgstr "بگذر"
+
+msgid "USER_INPUT_CONSOLE_ACT_SUBMIT"
+msgstr "ثبت کن"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "USER_INPUT_INSPECTOR_FIELD_PROMPT"
+msgstr "از کاربر بپرس"
+
+msgid "USER_INPUT_INSPECTOR_FIELD_TARGET"
+msgstr "و پاسخ را بگذار برای"
+
+msgid "USER_INPUT_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه متغیرهای کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته متغیر فعلی گره همواره نمایش داده می‌شود."
+
+msgid "USER_INPUT_INSPECTOR_FIELD_CUSTOMIZE"
+msgstr "ویرایش کنترل‌های ورودی"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN"
+msgstr "الگو"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN_PLACEHOLDER"
+msgstr "RegEx"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT"
+msgstr "پیش‌فرض"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT_PLACEHOLDER"
+msgstr "مقدار اولیه"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA"
+msgstr "سایر"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA_PLACEHOLDER"
+msgstr "راهنمایی، نمونه و غیره..."
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_MIN"
+msgstr "حداقل"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_MAX"
+msgstr "حداکثر"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_STEP"
+msgstr "گام"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_VALUE"
+msgstr "مقدار"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE"
+msgstr "غلط"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE_PLACEHOLDER"
+msgstr "وضعیت منفی"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE"
+msgstr "درست"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE_PLACEHOLDER"
+msgstr "وضعیت مثبت"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT"
+msgstr "پیش‌فرض"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT_OPT_TRUE"
+msgstr "پیش‌فرض مثبت"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "User Input"
+# msgstr ""
+
+# !
+# msgid "[Type]"
+# msgstr ""
+
+# !
+# msgid "[Variable Name]"
+# msgstr ""
+
+# !
+# msgid "[Prompt Question]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "USER_INPUT_CONSOLE_PROMPT_UNSET_MSG"
+msgstr "بدون پرسش!"
+
+msgid "USER_INPUT_CONSOLE_NO_VARIABLE_MSG"
+msgstr "متغیر نامعتبر/نامشخص!"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "USER_INPUT_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "متغیری در کار نیست"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "USER_INPUT_NODE_NO_PROMPT_TXT"
+msgstr "بدون پرسش"
+
+msgid "USER_INPUT_NODE_NO_TARGET_TYPE"
+msgstr "nil"
+
+msgid "USER_INPUT_NODE_NO_TARGET_NAME"
+msgstr "تعریف نشده"

@@ -1,0 +1,188 @@
+
+# Variable-Update Node Translation
+# ================================
+#          Persian (Farsi)        
+# ================================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Variable-Update\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Variable Update"
+msgstr "ویرایش متغیر"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Expression]"
+# msgstr ""
+
+msgid "VARIABLE_UPDATE_CONSOLE_ACT_DISMISS"
+msgstr "رد کن"
+
+msgid "VARIABLE_UPDATE_CONSOLE_ACT_APPLY"
+msgstr "اعمال کن"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "VARIABLE_UPDATE_INSPECTOR_FIELD_UPDATE"
+msgstr "ویرایش"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه متغیرهای کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته متغیر فعلی گره همواره نمایش داده می‌شود."
+
+msgid "VARIABLE_UPDATE_INSPECTOR_FIELD_BY"
+msgstr "با"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_FIELD_TO"
+msgstr "به/توسط"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_PARAM_STR_PLACEHOLDER"
+msgstr "متن نوشته"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_PARAM_BOOL_TRUE"
+msgstr "درست"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_PARAM_BOOL_FALSE"
+msgstr "غلط"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Variable Update"
+# msgstr ""
+
+# !
+# msgid "[Expression]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "VARIABLE_UPDATE_CONSOLE_UNSET_OR_INVALID_MSG"
+msgstr "نامشخص !"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+# NOTE: This is used for operator selector items formatting.
+msgid "VARIABLE_UPDATE_INSPECTOR_OPERATOR_ITEM_TEXT_TEMPLATE"
+msgstr "{text} ({sign})"
+
+# DEV:
+# This string can accept `{self}` placeholder
+# which will be replaced by the variable name,
+# e.g. "Self (Initial Value of `{self}`)".
+msgid "VARIABLE_UPDATE_INSPECTOR_COMPARE_TO_SELF_INITIAL"
+msgstr "خودش (مقدار اولیه)"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_NO_VARIABLE"
+msgstr "متغیری در کار نیست"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "VARIABLE_UPDATE_NODE_UNSET_OR_INVALID_MSG"
+msgstr "نامشخص"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "VARIABLE_UPDATE_OP_SET_NUM"
+msgstr "برابر نهادن"
+
+msgid "VARIABLE_UPDATE_OP_ADD"
+msgstr "اضافه/جمع"
+
+msgid "VARIABLE_UPDATE_OP_SUB"
+msgstr "تفریق/کم"
+
+msgid "VARIABLE_UPDATE_OP_DIV"
+msgstr "تقسیم"
+
+msgid "VARIABLE_UPDATE_OP_REM"
+msgstr "باقی‌مانده"
+
+msgid "VARIABLE_UPDATE_OP_MUL"
+msgstr "ضرب"
+
+msgid "VARIABLE_UPDATE_OP_EXP"
+msgstr "توان"
+
+msgid "VARIABLE_UPDATE_OP_ABS"
+msgstr "مطلق"
+
+msgid "VARIABLE_UPDATE_OP_SET_STR"
+msgstr "جایگزینی"
+
+msgid "VARIABLE_UPDATE_OP_STC"
+msgstr "جایگزینی با بزرگ‌نویسی حرف اول"
+
+msgid "VARIABLE_UPDATE_OP_STL"
+msgstr "جایگزینی با حروف کوچک"
+
+msgid "VARIABLE_UPDATE_OP_STU"
+msgstr "جایگزینی با حروف بزرگ"
+
+msgid "VARIABLE_UPDATE_OP_INS"
+msgstr "اضافه به راست"
+
+msgid "VARIABLE_UPDATE_OP_INB"
+msgstr "اضافه به چپ"
+
+msgid "VARIABLE_UPDATE_OP_RMC"
+msgstr "حذف از چپ"
+
+msgid "VARIABLE_UPDATE_OP_RML"
+msgstr "حذف از چپ (بی‌توجه به بزرگی حروف)"
+
+msgid "VARIABLE_UPDATE_OP_RMR"
+msgstr "حذف از راست"
+
+msgid "VARIABLE_UPDATE_OP_RMI"
+msgstr "حذف از راست (بی‌توجه به بزرگی حروف)"
+
+msgid "VARIABLE_UPDATE_OP_RPL"
+msgstr "جایگزینی"
+
+msgid "VARIABLE_UPDATE_OP_RPL_HINT"
+msgstr "از علامت پایپ یا خط افقی برای جدا کردن استفاده کنید (برای مثال: `موجود|جایگزین`)."
+
+msgid "VARIABLE_UPDATE_OP_RPI"
+msgstr "جایگزینی (بی‌توجه به بزرگی حروف)"
+
+msgid "VARIABLE_UPDATE_OP_RPI_HINT"
+msgstr "از علامت پایپ یا خط افقی برای جدا کردن استفاده کنید (برای مثال: `موجود|جایگزین`)."
+
+msgid "VARIABLE_UPDATE_OP_SET_BOOL"
+msgstr "تغییر"
+
+msgid "VARIABLE_UPDATE_OP_NEG"
+msgstr "تغییر به عکس"

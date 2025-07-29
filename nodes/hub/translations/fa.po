@@ -1,0 +1,47 @@
+
+# Hub Node Translation
+# ====================
+#    Persian (Farsi)  
+# ====================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Hub\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Hub"
+msgstr "هاب"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Name]"
+# msgstr ""
+
+# !
+# msgid "[Slots]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "HUB_INSPECTOR_FIELD_SLOTS_COUNT"
+msgstr "تعداد درگاه ورودی"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Hub"
+# msgstr ""

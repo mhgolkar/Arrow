@@ -1,0 +1,74 @@
+
+# Sequencer Node Translation
+# ==========================
+#       Persian (Farsi)     
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Sequencer\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Sequencer"
+msgstr "تسلسل"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Name]"
+# msgstr ""
+
+# !
+# msgid "[Slots]"
+# msgstr ""
+
+msgid "SEQUENCER_CONSOLE_ACT_SKIP"
+msgstr "بگذر"
+
+msgid "SEQUENCER_CONSOLE_ACT_RUN"
+msgstr "اجرا کن"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "SEQUENCER_INSPECTOR_FIELD_SEQ_LENGTH"
+msgstr "تعداد اتصالات"
+
+msgid "SEQUENCER_INSPECTOR_HANDLE_WITH_CARE_EXTRA_INFO"
+msgstr ""
+"مراقب این گره باشید!\n"
+"\n"
+"اگرچه تسلسل‌ها گره‌های خروجی خود را به ترتیب درگاه متصل اجرا می‌کنند،\n"
+"اما بسته به گره‌هایی که اجرا خواهند شد و الگوریتم‌های مجری (Runtime)،\n"
+"اجرا ممکن است به صورت سری یا موازی اتفاق بیفتد.\n"
+"شاخه‌های فرعی هم به صورت تصاعدی ترتیب‌های اجرایی پیچیده‌تری خواهند داشت.\n"
+"\n"
+"در نتیجه این پیچیدگی ممکن است رفتارهای غیرمنتظره‌ای رخ دهند. برای مثال:\n"
+"ممکن است فرآماد و بررسی متغیرها در ترتیب تصادفی اتفاق بیفتد،\n"
+"کنش‌های تعاملی که باید جدا باشند همزمان نمایش داده شوند،\n"
+"متن‌ها به ترتیب‌های غیرمنتظره نمایش داده شوند\n"
+"و غیره...\n"
+"\n"
+"توجه!\n"
+"تسلسل‌های بی‌اثر تنها آخرین گره متصل خود را اجرا می‌کنند."
+
+msgid "SEQUENCER_INSPECTOR_HANDLE_WITH_CARE"
+msgstr "* با احتیاط استفاده کنید!"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Sequencer"
+# msgstr ""

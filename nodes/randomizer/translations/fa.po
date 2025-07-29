@@ -1,0 +1,47 @@
+
+# Randomizer Node Translation
+# ===========================
+#           English          
+# ===========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Randomizer\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Randomizer"
+msgstr "تصادف"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Name]"
+# msgstr ""
+
+# !
+# msgid "[Slots]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "RANDOMIZER_INSPECTOR_FIELD_SLOTS_COUNT"
+msgstr "تعداد درگاه خروجی"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Randomizer"
+# msgstr ""

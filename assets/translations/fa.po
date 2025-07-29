@@ -1,0 +1,1028 @@
+
+# Arrow Translation
+# =================
+#  Persian (Farsi) 
+# =================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Arrow"
+msgstr "پیکان ◆ Arrow"
+
+
+# ---------
+# main.tscn
+# ---------
+
+# ~ Generational Version Code
+msgid "[v3.x]"
+msgstr ""
+
+msgid "Website"
+msgstr "وبگاه"
+
+msgid "Repository"
+msgstr "مخزن (متن‌باز)"
+
+msgid "Documentation"
+msgstr "اسناد راهنما"
+
+# ~ Welcome Message Tab Name
+msgid "Hello"
+msgstr "درود"
+
+msgid "WELCOME_MESSAGE"
+msgstr ""
+"[b]به نرم‌افزار پیکان (Arrow 3.x) خوش آمدید[/b]\n"
+"\n"
+"پیکان نرم‌افزاری رایگان، متن‌باز و ابزاری کارآمد است برای [i]طراحی روایت بازی[/i] و کمک به خلق انواع محصولات [i]تعاملی داستان‌گوی غیرخطی[/i].\n"
+"\n"
+"چند نکته کوتاه:\n"
+"\n"
+"[b]• ذخیره‌سازی داده در نسخه وب[/b]\n"
+"اگر از نسخه وب استفاده می‌کنید باید به یاد داشته باشید که اطلاعات کار شما در مرورگر شما ذخیره می‌شود.\n"
+"[i]تمام داده‌های مرتبط با کار شما با پیکان فقط روی همین دستگاه حفظ می‌شود.[/i]\n"
+"برای دریافت خروجی از کارتان از مسیر ذیل اقدام کنید:\n"
+"[indent][bgcolor=black][color=white][i][code] کاردان (پنل) > پروژه (زبانه) > خروجی [/code][/i][/color][/bgcolor][/indent]\n"
+"برای پاک کردن حافظه (فقط در نسخه وب):\n"
+"[indent][bgcolor=black][color=white][i][code] کلید پیکان (گوشه بالا) > پاکسازی [/code][/i][/color][/bgcolor][/indent]\n"
+"\n"
+"برای اطلاعات بیشتر، لطفاً به وبگاه، راهنما و یا مخزن (متن‌باز) نرم‌افزار مراجعه فرمایید.\n"
+"\n"
+"با بهترین آرزوها\n"
+"م. ح. گلکار و همراهان توسعه پیکان\n"
+
+# ~ Embedded Copyright Document Tab Name
+msgid "Copyright"
+msgstr ""
+
+# !
+# msgid "[Will be Auto-generated]"
+# msgstr ""
+
+msgid "New"
+msgstr "جدید"
+
+msgid "Open"
+msgstr "گشودن"
+
+msgid "Cancel"
+msgstr "لغو"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "Preferences"
+msgstr "تنظیمات"
+
+msgid "Dismiss"
+msgstr "بی‌خیال"
+
+msgid "Confirm"
+msgstr "تأیید"
+
+msgid "User Interface"
+msgstr "واسط کاربری"
+
+msgid "Theme"
+msgstr "پوسته"
+
+msgid "Language"
+msgstr "زبان"
+
+msgid "Data Management"
+msgstr "مدیریت داده‌ها"
+
+msgid "Work Directory"
+msgstr "پوشه کارها"
+
+msgid "[Working Directory Path]"
+msgstr "آدرس پوشه کارها"
+
+msgid "Select"
+msgstr "انتخاب"
+
+msgid "Reset"
+msgstr "برگردان"
+
+msgid "History (Undo/Redo)"
+msgstr "تاریخچه (پیش‌گرد/پس‌گرد)"
+
+msgid "Size"
+msgstr "اندازه"
+
+msgid "HISTORY_SIZE_TOOLTIP"
+msgstr ""
+"اندازه تاریخچه مشخص می‌کند که شما می‌توانید چند گام پروژه خود را پیش‌گرد (undo) یا پس‌گرد (‍redo) کنید.\n"
+"در حال حاضر مکانیزم‌های مورد اشاره (undo `Ctrl+Z` و redo `Ctrl+Shift+Z`)\n"
+"به وسیله‌ی ذخیره‌سازی موقت یک نسخه کامل از پروژه باز شده در حافظه کار می‌کنند.\n"
+"به همین دلیل، با توجه به توان دستگاه شما و حجم کارتان، انتخاب اندازه می‌تواند بر سرعت بازخوانی گام‌ها تأثیر بگذارد."
+
+msgid "Authors"
+msgstr "مؤلفان"
+
+msgid "Contributors"
+msgstr "همکاران"
+
+msgid "AUID"
+msgstr ""
+
+msgid "AUID_TOOLTIP"
+msgstr ""
+"شناسه یکتای مؤلف (AUID) به عنوان برش دوم شناسه یکتای داخلی برای هر داده عمل می‌کند؛\n"
+"که اجازه خواهد داد مؤلفان مختلف همزمان روی یک پروژه کار کنند\n"
+"بدون این که داده‌هایی که به کار اضافه می‌کنند تداخل شناسه پیدا کنند."
+
+msgid "ACTIVE_CONTRIBUTOR_TOOLTIP"
+msgstr ""
+"اگر این گزینه فعال شده باشد مؤلف مورد نظر\n"
+"به عنوان همکاری که در حال ویرایش این پروژه است در نظر گرفته می‌شود."
+
+msgid "Active Contributor"
+msgstr "مؤلف فعلی"
+
+msgid "Info"
+msgstr "اطلاعات"
+
+# ~ Author Info Placeholder
+msgid "John Doe (contributor@project.tld)"
+msgstr ""
+
+msgid "Remove"
+msgstr "حذف"
+
+msgid "Apply"
+msgstr "اعمال"
+
+msgid "Chapter"
+msgstr "فصل"
+
+msgid "CHAPTER_ID_TOOLTIP"
+msgstr ""
+"شناسه یکتای فصل به عنوان برش اول شناسه یکتای داخلی برای هر داده عمل می‌کند؛\n"
+"اگر این شناسه برای هر سند از یک مجموعه به طور مستقل و یکتا تعریف شود\n"
+"از تداخل شناسه‌های یکتای داده‌ها در آن مجموعه جلوگیری می‌کند."
+
+msgid "CHAPTER_ID_UPDATE_TOOLTIP"
+msgstr ""
+"شناسه فصل متفاوتی که انتخاب می‌کنید تنها بر تولید شناسه‌ها در آینده تأثیر می‌گذارد.\n"
+"به بیان دیگر، منابع و داده‌هایی که تا این لحظه به کار اضافه شده‌اند تغییری نخواهند کرد."
+
+msgid "Update"
+msgstr "فرآماد"
+
+msgid "New Document"
+msgstr "کار جدید"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Project or Chapter Title"
+msgstr "عنوان پروژه یا فصل"
+
+msgid "Filename"
+msgstr "نام فایل"
+
+msgid "(without extension)"
+msgstr "(بدون پسوند)"
+
+msgid "Filename's already used or invalid"
+msgstr "این نام قبلا استفاده شده یا ناکارآمد است"
+
+msgid "Full Path"
+msgstr "نشانی کامل فایل"
+
+# !
+# ~ New Document Path Value Placeholder
+# msgid "[Generated]"
+# msgstr ""
+
+msgid "Create"
+msgstr "بساز"
+
+msgid "Select Current Folder"
+msgstr "همین پوشه را انتخاب کن"
+
+# !
+# msgid "[Heading]"
+# msgstr ""
+
+# !
+# msgid "[i][Message Here!][/i]"
+# msgstr ""
+
+# !
+# msgid "[Action(s)]"
+# msgstr ""
+
+msgid "Inspector"
+msgstr "کاردان"
+
+msgid "Project"
+msgstr "پروژه"
+
+msgid "Filter Projects"
+msgstr "فیلتر پروژه‌ها"
+
+msgid "FILTER_REVERSE_TOOLTIP"
+msgstr ""
+"معکوس فیلترها\n"
+"(نمایش آنهایی که ناهمگون هستند)"
+
+msgid "SORT_AZ_OR_UID_TOOLTIP"
+msgstr ""
+"به ترتیب الفبا\n"
+"(در غیر این صورت به ترتیب شناسه یکتای داده)"
+
+# !
+# msgid "[ [color=green]Project descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Set"
+msgstr "ثبت"
+
+msgid "Export"
+msgstr "خروجی"
+
+msgid "Latest Save"
+msgstr "آخرین ذخیره‌سازی"
+
+# !
+# msgid "[Timestamp]"
+# msgstr ""
+
+msgid "Revert to the Latest Save"
+msgstr "به آخرین نسخه ذخیره شده برگرد"
+
+msgid "Revert"
+msgstr "بازخوانی"
+
+msgid "Snapshots"
+msgstr "نسخه‌های موقت"
+
+msgid "Restore"
+msgstr "بازیابی"
+
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+msgid "Rem."
+msgstr "حذف"
+
+# ~ Node Tab Name (Inspector)
+msgid "Node"
+msgstr "گره"
+
+msgid "Unique Node Name"
+msgstr "نام یکتای گره"
+
+msgid "NODE_FOCUS_BTN_TOOLTIP"
+msgstr ""
+"گره مورد نظر را روی کارگاه پیدا کن\n"
+"(Ctrl + Backslash)"
+
+# ~ Node (Dev) Notes Placeholder
+msgid "[Notes]"
+msgstr "[یادداشت‌ها]"
+
+msgid "Previous Local History Modification"
+msgstr "تغییر پیشین از حافظه محلی گره"
+
+msgid "Reset Node Parameters (Ctrl + Shift + Minus)"
+msgstr "بازگردانی داده‌های گره (Ctrl + Shift + Minus)"
+
+msgid "Next Local History Modification"
+msgstr "تغییر پسین از حافظه محلی گره"
+
+msgid "SKIP_NODES_TOOLTIP"
+msgstr ""
+"گره‌های بی‌اثر هنگام اجرای داستان نادیده‌انگاشته می‌شوند.\n"
+"اما اینکه دقیقا چطور از آنها عبور کنیم به نوع گره بستگی دارد."
+
+msgid "Skip"
+msgstr "بی‌اثر"
+
+msgid "Update Node (Ctrl + Shift + Plus)"
+msgstr ""
+"تغییر داده‌های گره در حافظه اثر\n"
+"(Ctrl + Shift + Plus)"
+
+msgid "Locate Previous Referrer"
+msgstr "ارجاع بعدی را پیدا کن"
+
+# !
+# msgid "Ref(s)"
+# msgstr ""
+
+msgid "Locate Next Referrer"
+msgstr "ارجاع قبلی را پیدا کن"
+
+msgid "Scoped (Filter for Scene)"
+msgstr "در محدوده (فقط شامل این صحنه)"
+
+msgid "NODES_TAB_BLOCKER"
+msgstr ""
+"یک گره را برای کاردانی انتخاب کنید\n"
+"یا روی کارگاه راست-کلیک کنید\n"
+"تا گره‌های نو بزنید."
+
+# ~ Scenes Tab Name (Inspector)
+msgid "Scenes"
+msgstr "صحنه‌ها"
+
+msgid "Filter Scenes"
+msgstr "فیلتر صحنه‌ها"
+
+# !
+# msgid "[ [color=green]Scene descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Unique Scene Name"
+msgstr "نام یکتای صحنه"
+
+msgid "Macros"
+msgstr "ماکروها"
+
+msgid "Filter Macros"
+msgstr "فیلتر ماکروها"
+
+# !
+# msgid "[ [color=green]Macro descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Unique Macro Name"
+msgstr "نام یکتای ماکرو"
+
+# !
+# msgid "Instance(s)"
+# msgstr ""
+
+# ~ Variables Tab Name (Inspector)
+msgid "Variables"
+msgstr "متغیرها"
+
+# ~ Used in Multiple Selectors
+msgid "Variable"
+msgstr "متغیر"
+
+msgid "Filter Variables"
+msgstr "فیلتر متغیرها"
+
+msgid "Filter by Type"
+msgstr "بر اساس نوع"
+
+msgid "Any"
+msgstr "هرکدام"
+
+msgid "Num"
+msgstr "اعداد"
+
+msgid "Str"
+msgstr "نوشته"
+
+msgid "Bool"
+msgstr "دوگانه"
+
+msgid "Name"
+msgstr "نام"
+
+msgid "Unique Variable Name"
+msgstr "نام یکتای متغیر"
+
+msgid "Initial"
+msgstr "اولیه"
+
+msgid "Str Value"
+msgstr "متن نوشته"
+
+msgid "True"
+msgstr "درست"
+
+msgid "False"
+msgstr "غلط"
+
+# !
+# msgid "Reference(s)"
+# msgstr ""
+
+msgid "Characters"
+msgstr "شخصیت‌ها"
+
+msgid "Filter Characters"
+msgstr "فیلتر شخصیت‌ها"
+
+msgid "Unique Character Name"
+msgstr "نام یکتای شخصیت"
+
+msgid "No Initial Tag"
+msgstr "بدون برچسب اولیه"
+
+msgid "Key"
+msgstr "کلید"
+
+msgid "Value"
+msgstr "مقدار"
+
+msgid "Oversets (adds or updates) a tag"
+msgstr "برنوشت (به معنی افزودن یا تغییر) برچسب"
+
+# !
+# msgid "Appearance(s)"
+# msgstr ""
+
+msgid "Console"
+msgstr "پیشخوان"
+
+msgid "No Initial Tags"
+msgstr "بدون برچسب اولیه"
+
+msgid "Settings"
+msgstr "تنظیمات"
+
+msgid "Hides Console Preserving the State"
+msgstr "پیشخوان را با حفظ وضعیت پنهان می‌کند"
+
+msgid "Clears Console & State of Play"
+msgstr "پیشخوان و اجرای فعلی را پاک می‌کند"
+
+msgid "Clear"
+msgstr "پاکسازی"
+
+msgid "Back"
+msgstr "بازگشت"
+
+msgid "Filter Node Types"
+msgstr "فیلتر انواع گره"
+
+msgid "Insert"
+msgstr "افزودن"
+
+msgid "Clear Clipboard"
+msgstr "پاک کردن تخته‌شاسی"
+
+msgid "Copy Node(s)"
+msgstr "برداشت گره(ها)"
+
+msgid "Cut Node(s)"
+msgstr "برش گره(ها)"
+
+msgid "Paste Node(s)"
+msgstr "الصاق گره(ها)"
+
+msgid "Remove Node(s)"
+msgstr "حذف گره‌(ها)"
+
+# !
+# msgid "[New Version ?]"
+# msgstr ""
+
+msgid "History Undo (Ctrl + Z)"
+msgstr "پیش‌گرد تاریخچه  (Ctrl + Z)"
+
+msgid "History Redo (Ctrl + Shift + Z)"
+msgstr "پس‌گرد (Ctrl + Shift + Z)"
+
+# !
+# msgid "[Project Title]"
+# msgstr ""
+
+msgid "Play from Project Entry (F4)"
+msgstr "اجرا از ورودی پروژه (F4)"
+
+msgid "Play from Scene Entry (F5)"
+msgstr "اجرا از ورودی صحنه (F5)"
+
+msgid "Show Console (F6)"
+msgstr "نمایش پیشخوان در وضعیت موجود (F6)"
+
+msgid "Play Selected Node (F7)"
+msgstr "اجرای گره انتخاب شده (F7)"
+
+msgid "Save Document (Ctrl + S)"
+msgstr "ذخیره‌سازی کار در حافظه دستگاه (Ctrl + S)"
+
+msgid "Save"
+msgstr "ذخیره‌سازی"
+
+# !
+# msgid "[Current Scene]"
+# msgstr ""
+
+msgid "Query"
+msgstr "جستجو"
+
+# !
+# msgid "[Mode]"
+# msgstr ""
+
+msgid "SCOPED_QUERY_TOOLTIP"
+msgstr ""
+"در محدود: فیلتر برای این صحنه\n"
+"(در غیر این صورت در تمام پروژه جستجو خواهد شد.)"
+
+msgid "Query (Ctrl + Q)"
+msgstr "جستجو"
+
+msgid "Locate Previous Match (Ctrl + 1)"
+msgstr "پریدن به یافته پیشین (Ctrl + 1)"
+
+# !
+# msgid "[S:T Matches]"
+# msgstr ""
+
+msgid "Locate Next Match (Ctrl + 2)"
+msgstr "پریدن به یافته پسین (Ctrl + 2)"
+
+msgid "Toggle Inspector Panel (Ctrl + P)"
+msgstr "نمایش یا پنهان کردن پنل کاردان (Ctrl + P)"
+
+msgid "Inspect."
+msgstr "کاردان"
+
+msgid "Quick Pref."
+msgstr "تنظیم سریع"
+
+
+# ----------------------------
+# scripts/core/central_mind.gd
+# ----------------------------
+
+msgid "Discarding New Project ?"
+msgstr "کار جدید را دور می‌ریزید؟"
+
+msgid "PROJECT_DISCARD_WARNING"
+msgstr ""
+"`%s` تغییراتی داشته است. "
+"با ایجاد یک پروژه جدید تغییراتی که ذخیره نشده باشند را از دست می‌دهید."
+
+msgid "OK! Proceed Anyway"
+msgstr "مشکلی نیست!"
+
+msgid "Lost Project!"
+msgstr "پروژه گمشده!"
+
+msgid "LOST_PROJECT_WARNING"
+msgstr ""
+"ما نمی‌توانیم پروژه مورد نظر را پیدا کنیم (~ %s).\n"
+"فایلی که به دنبال آن هستیم ممکن است به دلیل تنظیمات سیستم عامل از دسترس خارج شده باشد, "
+"یا به نحوی از گم شده باشد (مثلا با تغییر نام یا پاک کردن دستی فایل از دستگاه). "
+"خراب شدن فایل فهرست پروژه‌ها هم می‌تواند باعث این مشکل شود. \n\n"
+
+msgid "Expected file: "
+msgstr "فایل خروجی: "
+
+msgid "Unlist Project"
+msgstr "پروژه را فراموش کن"
+
+msgid "Overriding Unsaved Project ?"
+msgstr "پروژه را بدون ذخیره‌سازی ترک می‌کنید؟"
+
+msgid "UNSAVED_PROJECT_WARNING"
+msgstr ""
+"حافظه موقت ویرایشگر حاوی تغییراتی است که در پروژه `%s` اعمال کرده‌اید. "
+"با باز کردن یک پروژه دیگر، بدون ذخیره‌سازی این یکی، تغییرات اخیر را از دست می‌دهید. "
+"آیا مایلید به هر حال ادامه داده و تغییرات را دور بریزید؟"
+
+msgid "Yes, Open"
+msgstr "بله، باز کن"
+
+msgid "Are you sure ?!"
+msgstr "اطمینان دارید ؟!"
+
+msgid "UNSAVED_CHANGES_WARNING"
+msgstr ""
+"پروژه `%s` تغییر داده شده است. "
+"با بستن پروژه بدون ذخیره‌سازی تغیرات جدید را از دست خواهید داد."
+
+msgid "Close Anyway"
+msgstr "به هر حال ببند"
+
+msgid "Save Project"
+msgstr "ذخیره کن"
+
+msgid "PROJECT_REVERT_WARNING"
+msgstr ""
+"شما در حال بازخوانی این پروژه از آخرین نسخه ذخیره شده روی حافظه دستگاه هستید. "
+"این به معنی فراموش کردن همه تغییرات اخیری است که هنوز در حافظه کوتاه‌مدت هستند و ذخیره نشده‌اند."
+
+msgid "Revert; I'm Sure"
+msgstr "بازخوانی کن؛ مشکلی نیست"
+
+msgid "UPDATE_CHAPTER_ID_NOTIFICATION"
+msgstr ""
+"تغییر شناسه فصل دامنه شناسه‌های یکتایی را که هویت هر داده را در پروژه شما مشخص می‌کنند تغییر می‌دهد.\n"
+"یکتا بودن شناسه فصل در نتیجه دامنه سایر شناسه‌ها بیشتر زمانی به کار شما می‌آید که می‌خواهید پروژه خود را به چند فایل تقسیم کنید"
+"در آن وضعیت، دامنه‌های متفاوت باعث می‌شوند شناسه‌های داده‌های متفاوت با هم تداخل نداشته باشند که بر موارد فنی در زمان اجرای بازی‌ها تأثیر خواهد داشت. \n"
+"همچنین توجه داشته باشید که این تغییر تنها روی شناسه‌هایی که از این به بعد تولید خواهند شد اعمال می‌شود. "
+"به بیان دیگر شناسه‌های فعلی (برای صحنه‌ها، گره‌ها و...) که اکنون در پروژه حاضر هستند تغییری نخواهند کرد."
+
+msgid "OK; Update"
+msgstr "بسیار عالی! تغییر بده"
+
+msgid "Invalid Operation!"
+msgstr "عملیات غیر قابل قبول!"
+
+msgid "PROJECT_ENTRY_IN_MACRO_ERROR"
+msgstr "ماکروها مثل صحنه‌های تکرارپذیر می‌مانند و برای این طراحی نشده‌اند که میزبان ورودی اصلی پروژه باشند."
+
+msgid "Unsafe Operation Ignored!"
+msgstr "عملیات ناایمن نادیده گرفته شد!"
+
+msgid "USED_RESOURCE_NOT_REMOVED"
+msgstr "این داده قابل حذف کردن نیست؛ چرا که منابع و داده‌های دیگری به آن وابسته هستند. "
+
+msgid "MAY_BE_USED_SCENE_NOT_REMOVED"
+msgstr "برای مثال یکی از گره‌های این صحنه ممکن است مقصد گره پرشی (Jump) از یک صحنه دیگر باشد."
+
+msgid "Referenced resource(s): "
+msgstr "منابع مورد ارجاع: "
+
+msgid "REFERENCED_RESOURCE_NOT_REMOVED"
+msgstr ""
+"حداقل یکی از منابع یا داده‌هایی که می‌خواهید حذف کنید مورد نیاز سایر منابع یا گره‌های پروژه است. "
+"برای اطمینان از حفظ تداوم فنی و روایی، امکان حذف تنها زمانی وجود دارد که شما آن منابع دیگر ارجاع دهنده را نیز حذف کنید. \n\n"
+
+# ~ On clipboard move (pull) operation
+msgid "Unsafe Move Detected!"
+msgstr "جابه‌جایی ناامن داده!"
+
+msgid "IMMOVABLE_NODES_ERROR"
+msgstr "به جهت حفظ تداوم فنی و روایی (برای مثال بقای ورودی صحنه) امکان جابه‌جایی یک یا چند گره انتخاب شده وجود ندارد. \n\n"
+
+msgid "Immovable(s): "
+msgstr "موارد غیر قابل جابه‌جایی: "
+
+msgid "Move What's Safe (%s)"
+msgstr "بخشی را که امن است جابه‌جا کن (%s)"
+
+msgid "Merger Detected [Experimental!]"
+msgstr "درحال اعمال تلفیق (ناپایدار)"
+
+msgid "MERGER_OPERATION_DESCRIPTION"
+msgstr ""
+"شما در حال الصاق داده‌هایی از `{origin}` (به شناسه فصل {cid}) حاوی موارد ذیل هستید: {statistics} \n"
+"که مشتمل است بر {main_count} منبع اصلی و الباقی داده‌های مرتبط ارجاعی.\n\n"
+
+msgid "SCENES_FIELD_NAME"
+msgid_plural "SCENES_FIELD_NAME_PLURAL"
+msgstr[0] "صحنه"
+msgstr[1] "صحنه"
+
+msgid "MACROS_FIELD_NAME"
+msgid_plural "MACROS_FIELD_NAME_PLURAL"
+msgstr[0] "ماکرو"
+msgstr[1] "ماکرو"
+
+msgid "NODES_FIELD_NAME"
+msgid_plural "NODES_FIELD_NAME_PLURAL"
+msgstr[0] "گره"
+msgstr[1] "گره"
+
+msgid "VARIABLES_FIELD_NAME"
+msgid_plural "VARIABLES_FIELD_NAME_PLURAL"
+msgstr[0] "متغیر"
+msgstr[1] "متغیر"
+
+msgid "CHARACTERS_FIELD_NAME"
+msgid_plural "CHARACTERS_FIELD_NAME_PLURAL"
+msgstr[0] "شخصیت"
+msgstr[1] "شخصیت"
+
+msgid "MERGER_OPERATION_STRATEGY_CHOICE"
+msgstr "در صورتی که منابع اشتراکی با شناسه مشابه وجود دارند، لطفاً استراتژی تلفیق خود را انتخاب کنید:"
+
+msgid "Reuse"
+msgstr "استفاده مجدد"
+
+msgid "Recreate"
+msgstr "بازسازی"
+
+msgid "NO_SAVE_IN_SNAPSHOT_PREVIEW"
+msgstr ""
+"امکان ذخیره‌سازی پروژه در وضعیت پیش‌نمایش نسخه‌های موقت وجود ندارد.\n"
+"اگر مایلید تغییراتی را که در نسخه موقت اعمال کرده‌اید در حافظه نگه‌دارید از آن یک نسخه دیگر بردارد، "
+"یا نسخه مورد نظر را به عنوان وضعیت فعلی کار بازیابی کنید تا بتوانید آن را ذخیره‌سازی کنید.\n"
+"همچنین می‌توانید از نسخه‌ها در حالت پیش‌نمایش خروجی بگیرید و بعدا آن‌ها را به عنوان پروژه‌های جدید وارد کنید."
+
+msgid "PROJECT_REMOVAL_PROMPT"
+msgstr ""
+"شما در حال حذف پروژه‌ای هستید که با نام [i]`{name}`[/i] (شماره {pid}) فهرست شده است.\n"
+"اگر از فهرست خارجش کنید اصل فایل همانطور دست‌نخورده روی حافظه دستگاه باقی می‌ماند.\n"
+"در مقابل فایل‌هایی که حذف شوند کاملاً از روی دستگاه هم پاک می‌شوند.\n\n"
+
+msgid "Project file: `%s`"
+msgstr "فایل پروژه: `%s`"
+
+msgid "Delete File!"
+msgstr "فایل را حذف کن!"
+
+msgid "Unlist"
+msgstr "از فهرست خارج کن"
+
+msgid "SNAPSHOT_RESTORATION_PROMPT"
+msgstr ""
+"شما در حال بازیابی نسخه موقت [i]`v%s`[/i] هستید.\n"
+"این عملیات وضعیت فعلی پروژه در حافظه موقت را به نسخه مورد نظر تغییر می‌دهد، "
+"اما سایر نسخه‌های موقت و نیز فایل اصلی (مگر اینکه وضعیت جدید را ذخیره کنید) دست نمی‌خورد.\n"
+"اگر قصد دارید بعداً از نسخه فعلی هم استفاده کنید، اول از حالت پیش‌نمایش خارج شوید و یک نسخه از وضع فعلی بگیرید "
+"سپس می‌توانید هر نسخه‌ای را بازیابی کنید."
+
+msgid "Restore; I'm Sure"
+msgstr "بازیابی کن؛ مشکلی نیست!"
+
+msgid "Invalid Project File!"
+msgstr "فایل پروژه سالم نیست!"
+
+msgid "INVALID_PROJECT_FILE_IMPORT"
+msgstr ""
+"فایلی را که برای گشایش و یا وارد کردن انتخاب کرده‌اید، از نظر این نرم‌افزار غیر قابل قبول است.\n"
+"شاید از این ساختار فایل و یا نسخه پشتیبانی نمی‌شود یا فایل شما به نحوی (هنگام انتقال یا نسخه‌برداری) دستکاری شده و یا آسیب دیده است."
+
+msgid "Quick Re-Export Not Available!"
+msgstr "امکان خروجی سریع وجود ندارد!"
+
+msgid "QUICK_REEXPORT_NOT_YET"
+msgstr ""
+"این مکانیز اجازه می‌دهد که درست مثل آخرین بار پس از باز کردن نرم‌افزار از پروژه خود خروجی بگیرید. همانجا و با همان ساختار.\n"
+"بنابر این پیش از خروجی سریع باید حداقل یکبار از کارتان خروجی معمولی یا دستی گرفته باشید.\n"
+"برای آن منظور از مسیر [i]`کاردان (پنل) > پروژه (زبانه) > خروجی`[/i] استفاده کنید."
+
+msgid "IO Operation Failed!"
+msgstr "مشکل در عملیات داده‌پردازی"
+
+msgid "EXPORT_IO_FAILED"
+msgstr ""
+"به دلیلی امکان خواندن اطلاعات (قالب‌های مجری) و یا ذخیره‌سازی خروجی‌ها در محل مشخص شده وجود ندارد.\n"
+"لطفاً اطمینان حاصل کنید که سیستم عامل شما دسترسی‌های خواندن و نوشتن لازم را به این نرم‌افزار ارائه می‌کند."
+
+msgid "Error!"
+msgstr "خطا!"
+
+msgid "SHOW_ERROR_FALLBACK_MSG"
+msgstr "اشکالی در کار است. لطفاً برای اطلاعات بیشتر لاگ نرم‌افزار (stdout) را بررسی کنید."
+
+
+# -------------------
+# scripts/settings.gd
+# -------------------
+
+msgid "Select an Arrow Document"
+msgstr "انتخاب پروژه"
+
+msgid "Save Document"
+msgstr "ذخیره‌سازی پروژه"
+
+msgid "Export as JSON"
+msgstr "دریافت خروجی JSON"
+
+msgid "Export Playable HTML"
+msgstr "دریافت خروجی قابل اجرای HTML"
+
+msgid "Export CSV (Translation)"
+msgstr "دریافت خروجی CSV (برای ترجمه)"
+
+msgid "Select App Local Directory"
+msgstr "انتخاب پوشه کارها"
+
+
+# -------------------------------------
+# scripts/core/configuration_handler.gd
+# -------------------------------------
+
+msgid "NO_ALD_ACCESS"
+msgstr "دسترسی به پوشه کارها وجود ندارد!"
+
+msgid "UNABLE_TO_ACCESS_ALD_MSG"
+msgstr ""
+"ما دسترسی به پوشه انتخاب شده برای  ذخیره‌سازی و مدیریت کارها و داده‌های مرتبط نداریم. "
+"ممکن است این مشکل به دلیل عدم ارائه دسترسی‌های خواندن و نوشتن لازم (از سوی سیستم عامل) برای این نرم‌افزار به وجود آمده باشد.\n"
+"فعلا همچنان با استفاده از آخرین پوشه تأیید شده ادامه می‌دهیم."
+
+
+# --------------------------
+# scripts/editor/app_menu.gd
+# --------------------------
+
+msgid "Fullscreen (F11)"
+msgstr "تمام‌صفحه (F11)"
+
+msgid "Exit Fullscreen (F11)"
+msgstr "خروج از تمام‌صفحه (F11)"
+
+msgid "Stay Above"
+msgstr "بالاتر از پنجره‌های دیگر"
+
+msgid "Leave Above"
+msgstr "جایگاه بالا را رها کن"
+
+msgid "Refresh"
+msgstr "اجرای مجدد"
+
+msgid "About"
+msgstr "درباره نرم‌افزار"
+
+msgid "Quit"
+msgstr "خروج"
+
+msgid "BROWSER_STORAGE_CLEAR_PROMPT"
+msgstr ""
+"شما در حال پاکسازی حافظه ذخیره‌سازی هستید. "
+"این عملیات کلیه داده‌هایی را که پیکان در مرورگر شما ایجاد کرده است، از جمله پروژه‌های فهرست شده را پاک می‌کند .\n"
+"این داده‌ها برای همیشه از دستگاه پاک خواهند شد و به طور معمول قابل بازیابی نخواهند بود.\n"
+
+msgid "Ok; Terminate!"
+msgstr "متوجه شدم؛ نابود کن!"
+
+
+# ---------------------------------
+# scripts/editor/grid_graph_edit.gd
+# ---------------------------------
+
+msgid "Unable to Remove!"
+msgstr "امکان حذف وجود ندارد!"
+
+msgid "UNABLE_TO_REMOVE_FROM_GRID"
+msgstr ""
+"حداقل یکی از گره‌ها قابل حذف کردن نیست.\n"
+"برای حفظ تداوم فنی و روایی، پیکان اجازه حذف گره‌هایی را که سایر منابع و داده‌ها به آن‌ها ارجاع می‌دهند و یا وابسته هستند را نمی‌دهد. "
+"برای مثال امکان حذف کردن مقصد یک پرش و یا ورودی فعال صحنه و یا پروژه وجود ندارد. \n\n"
+
+msgid "موارد غیر قابل حذف: "
+msgstr ""
+
+
+# -----------------------------------
+# scripts/editor/new_release_check.gd
+# -----------------------------------
+
+msgid "NEW_VERSION_RELEASE_MSG"
+msgstr "نسخه جدید پیکان %s منتشر شده است!"
+
+
+# -----------------------
+# scripts/editor/query.gd
+# -----------------------
+
+msgid "QUERY_MATCH_OPTION_BUTTON_TEXT_TEMPLATE"
+msgstr "{current} : {total} یافته"
+
+msgid "QUERY_MATCH_ITEM_TEXT_TEMPLATE"
+msgstr "{name} - {capitalized_type}"
+
+msgid "Any Match"
+msgstr "هر همگونی"
+
+msgid "Including"
+msgstr "شمول"
+
+msgid "Exact Match"
+msgstr "همگونی کامل"
+
+msgid "RegEx"
+msgstr ""
+
+
+# -----------------------------------
+# scripts/editor/quick_preferences.gd
+# -----------------------------------
+
+msgid "Auto Inspection"
+msgstr "باز کردن خودکار در کاردان"
+
+msgid "Auto Node Update"
+msgstr "فرآماد خودکار گره"
+
+msgid "Reset on Reinspection"
+msgstr "بازخوانی گره در کاردانی مجدد"
+
+msgid "Quick Node Insertion"
+msgstr "گره‌سازی سریع"
+
+msgid "Connection Assist"
+msgstr "دستیار اتصالات"
+
+msgid "Auto Rebuild Runtime(s)"
+msgstr "بازپردازی خودکار مجری‌ها"
+
+
+# --------------------------------
+# scripts/editor/panels/authors.gd
+# --------------------------------
+
+msgid "ACTIVE_AUTHOR_MARKER"
+msgstr "[✓] "
+
+
+# ---------------------------------------------
+# scripts/editor/panels/console_status_codes.gd
+# ---------------------------------------------
+
+msgid "CONSOLE_STATUS_END_EDGE_MESSAGE"
+msgstr "◆ پایان خط: {name} ({uid})"
+
+msgid "CONSOLE_STATUS_NO_DEFAULT_MESSAGE"
+msgstr "⚠ بدون پیش‌فرض: {name} ({uid})"
+
+
+# --------------------------------
+# scripts/editor/panels/console.gd
+# --------------------------------
+
+msgid "CONSOLE_CLEARANCE_PREVENTION_MESSAGE"
+msgstr "پاکسازی نادیده‌گرفته شد."
+
+msgid "Auto-scroll"
+msgstr "حرکت خودکار"
+
+msgid "Allow Auto-play"
+msgstr "امکان پیشروی خودکار"
+
+msgid "Prevent Clearance"
+msgstr "پیشگیری از پاکسازی"
+
+msgid "Show Skipped Nodes"
+msgstr "نمایش گره‌های بی‌اثر"
+
+msgid "Inspect Variables"
+msgstr "بررسی متغیرها"
+
+msgid "Inspect Character Tags"
+msgstr "بررسی برچسب‌های شخصیت‌ها"
+
+
+# -----------------------------------------
+# scripts/editor/panels/inspector_[type].gd
+# -----------------------------------------
+
+msgid "TYPE_INSPECTOR_RAW_UID_HINT"
+msgstr "\n [برداشت با فشردن کلید]"
+
+msgid "RESOURCE_PERMANENT_REMOVAL_WARNING"
+msgstr ""
+"شما در حال حذف همیشگی {field_name} با نام `{res_name}` هستید.\n"
+"آیا قصد دارید ادامه بدهید؟"
+
+msgid "Yes, Remove"
+msgstr "بله، حذف کن"
+
+
+# ---------------------------------------------------
+# scripts/editor/panels/inspector_project_new_menu.gd
+# ---------------------------------------------------
+
+msgid "New Blank Project"
+msgstr "پروژه سفید جدید"
+
+msgid "Save Current & Continue"
+msgstr "از وضعیت فعلی یک پروژه بساز"
+
+msgid "Load Project"
+msgstr "بارگذاری پروژه"
+
+msgid "Import Project File"
+msgstr "وارد کردن فایل پروژه از حافظه"
+
+
+# -----------------------------------------------------
+# scripts/editor/panels/inspector_project_properties.gd
+# -----------------------------------------------------
+
+msgid "Save a Copy"
+msgstr "رونوشت بگیر"
+
+msgid "Download a Copy"
+msgstr "دریافت رونوشت"
+
+msgid "Export JSON"
+msgstr "خروجی JSON"
+
+msgid "Export HTML"
+msgstr "خروجی HTML"
+
+msgid "Export CSV"
+msgstr "خروجی CSV"
+
+msgid "Invalid Filename!"
+msgstr "نام فایل نادرست است!"
+
+msgid "INVALID_FILENAME_MSG"
+msgstr "لطفاً یک نام قابل قبول با حداقل یک کاراکتر انتخاب کنید."
+
+
+# ---------------------------------------------
+# scripts/editor/panels/preferences_ald_menu.gd
+# ---------------------------------------------
+
+msgid "ALD_PRESET_USER_DIR"
+msgstr "نشانی پیش‌فرض (بسته به نوع سیستم عامل)"
+
+msgid "ALD_PRESET_RES_DIR"
+msgstr "در همان پوشه نرم‌افزار پیکان"

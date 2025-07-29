@@ -1,0 +1,89 @@
+
+# Monolog Node Translation
+# ========================
+#      Persian (Farsi)    
+# ========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Monolog\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Monolog"
+msgstr "تک‌گویی"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=cyan]Monolog[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+msgid "MONOLOG_CONSOLE_CONTINUE_BTN"
+msgstr "ادامه"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MONOLOG_INSPECTOR_FIELD_CHARACTER"
+msgstr "شخصیت"
+
+msgid "MONOLOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه شخصیت‌های کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته ناشناس (Anonymous) و شخصیت فعلی گره همواره نمایش داده می‌شود."
+
+msgid "MONOLOG_INSPECTOR_FIELD_MONOLOG"
+msgstr "تک‌گویی"
+
+msgid "MONOLOG_INSPECTOR_FIELD_BRIEF"
+msgstr "خلاصه"
+
+msgid "MONOLOG_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
+msgstr "طول خلاصه را تا محل فعلی نشانگر در متن مشخص می‌کند."
+
+msgid "MONOLOG_INSPECTOR_OPT_AUTO_PLAY"
+msgstr "پیشروی خودکار"
+
+msgid "MONOLOG_INSPECTOR_OPT_CLEAR_PAGE"
+msgstr "پاکسازی صفحه"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Monolog"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=cyan]Monolog[/color] [color=yellow]Brief[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MONOLOG_CONSOLE_UNSET_MSG"
+msgstr "فاقد متن."

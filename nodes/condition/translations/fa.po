@@ -1,0 +1,176 @@
+
+# Condition Node Translation
+# ==========================
+#       Persian (Farsi)     
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Condition\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Condition"
+msgstr "شرط"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Statement]"
+# msgstr ""
+
+msgid "CONDITION_CONSOLE_FALSE"
+msgstr "غلط"
+
+msgid "CONDITION_CONSOLE_TRUE"
+msgstr "درست"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "CONDITION_INSPECTOR_CHECK_FOR_VAR"
+msgstr "متغیر را بررسی کن"
+
+msgid "CONDITION_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه متغیرهای کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته متغیر فعلی گره همواره نمایش داده می‌شود."
+
+msgid "CONDITION_INSPECTOR_IF"
+msgstr "که آیا"
+
+msgid "CONDITION_INSPECTOR_COMPARING_TO"
+msgstr "در مقایسه با"
+
+msgid "CONDITION_INSPECTOR_FALSE"
+msgstr "غلط"
+
+msgid "CONDITION_INSPECTOR_TRUE"
+msgstr "درست"
+
+msgid "CONDITION_INSPECTOR_RHS_STR_PLACEHOLDER"
+msgstr "متن نوشته"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Condition"
+# msgstr ""
+
+# !
+# msgid "[Statement]"
+# msgstr ""
+
+msgid "CONDITION_NODE_FALSE"
+msgstr "غلط"
+
+msgid "CONDITION_NODE_TRUE"
+msgstr "درست"
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "CONDITION_CONSOLE_UNSET_DATA_ERR"
+msgstr "نامشخص!"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+# NOTE: This is used for operator selector items formatting.
+msgid "CONDITION_INSPECTOR_OPERATOR_ITEM_TEXT_TEMPLATE"
+msgstr "{text} ({sign})"
+
+# DEV:
+# This string can accept `{self}` placeholder
+# which will be replaced by the variable name,
+# e.g. "Self (Initial Value of `{self}`)".
+msgid "CONDITION_INSPECTOR_COMPARE_TO_SELF_INITIAL"
+msgstr "خودش (مقدار اولیه)"
+
+msgid "CONDITION_INSPECTOR_NO_VARIABLE"
+msgstr "متغیری در کار نیست"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "CONDITION_NODE_UNSET_OR_INVALID"
+msgstr "نامشخص!"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "CONDITION_OP_EQ_NUM"
+msgstr "برابر است"
+
+msgid "CONDITION_OP_NQ_NUM"
+msgstr "برابر نیست"
+
+msgid "CONDITION_OP_GT"
+msgstr "بزرگتر است"
+
+msgid "CONDITION_OP_GTE"
+msgstr "بزرگتر یا برابر است"
+
+msgid "CONDITION_OP_LS"
+msgstr "کوچکتر است"
+
+msgid "CONDITION_OP_LSE"
+msgstr "کوچکتر یا برابر است"
+
+msgid "CONDITION_OP_RGX"
+msgstr "با الگوی RegEx همخوان است"
+
+msgid "CONDITION_OP_CT"
+msgstr "شامل برش نوشته است"
+
+msgid "CONDITION_OP_CTS"
+msgstr "شامل برش است (بی‌توجه به بزرگی حروف)"
+
+msgid "CONDITION_OP_BGN"
+msgstr "با آن آغاز می‌شود"
+
+msgid "CONDITION_OP_END"
+msgstr "با آن ختم می‌شود"
+
+msgid "CONDITION_OP_EQL"
+msgstr "طول برابری دارد"
+
+msgid "CONDITION_OP_LNG"
+msgstr "بلندتر است"
+
+msgid "CONDITION_OP_SHR"
+msgstr "کوتاه‌تر است"
+
+msgid "CONDITION_OP_EQ_BOOL"
+msgstr "موافق است"
+
+msgid "CONDITION_OP_NQ_BOOL"
+msgstr "مخالف است"
+
+msgid "CONDITION_STATEMENT_RHS_IS_LHS_INIT"
+msgstr "خودش (مقدار اولیه `%s`)"
+
+msgid "CONDITION_RHS_INVALID"
+msgstr "[نامعتبر]"

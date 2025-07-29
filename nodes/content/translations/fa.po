@@ -1,0 +1,99 @@
+
+# Content Node Translation
+# ========================
+#      Persian (Farsi)    
+# ========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Content\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Content"
+msgstr "متن"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Rich [color=yellow]Title[/color]]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=green]Brief[/color] (legacy)]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Content [/color] all with [i]BBCode[/i] support]"
+# msgstr ""
+
+msgid "CONTENT_CONSOLE_CONTINUE_BTN"
+msgstr "ادامه"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "CONTENT_INSPECTOR_FIELD_TITLE"
+msgstr "عنوان"
+
+msgid "CONTENT_INSPECTOR_FIELD_CONTENT"
+msgstr "متن"
+
+msgid "CONTENT_INSPECTOR_FIELD_BRIEF"
+msgstr "خلاصه"
+
+msgid "CONTENT_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
+msgstr "طول خلاصه را تا محل فعلی نشانگر در متن مشخص می‌کند."
+
+msgid "CONTENT_INSPECTOR_OPT_AUTO_PLAY"
+msgstr "پیشروی خودکار"
+
+msgid "CONTENT_INSPECTOR_OPT_CLEAR_PAGE"
+msgstr "پاکسازی صفحه"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Content"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=yellow]Title[/color]]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Content [/color] [color=green]Brief[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "CONTENT_CONSOLE_UNSET_TEXT"
+msgstr "فاقد متن."
+
+msgid "CONTENT_CONSOLE_UNSET_TITLE"
+msgstr "بدون عنوان"
+
+msgid "CONTENT_CONSOLE_UNSET_BRIEF"
+msgstr "بدون خلاصه."
+
+
+# -------
+# node.gd
+# -------
+
+msgid "CONTENT_NODE_UNSET_TITLE"
+msgstr "بدون عنوان"

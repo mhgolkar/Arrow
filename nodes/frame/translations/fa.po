@@ -1,0 +1,87 @@
+
+# Frame Node Translation
+# ======================
+#     Persian (Farsi)   
+# ======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Frame\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Frame"
+msgstr "قاب"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# !
+# msgid "[Frame Label]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "FRAME_INSPECTOR_FIELD_COLOR"
+msgstr "رنگ"
+
+# !
+# msgid "[Frame Color]"
+# msgstr ""
+
+msgid "FRAME_INSPECTOR_FIELD_LABEL"
+msgstr "عنوان"
+
+msgid "FRAME_INSPECTOR_FIELD_WIDTH"
+msgstr "عرض"
+
+msgid "FRAME_INSPECTOR_FIELD_HEIGHT"
+msgstr "ارتفاع"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# msgid "Frame"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Frame [/color] [color=green]Label[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "FRAME_CONSOLE_LABEL_UNSET_MSG"
+msgstr "بدون عنوان"
+
+msgid "FRAME_CONSOLE_NO_NOTES_MSG"
+msgstr "قاب فاقد اطلاعات (یادداشت) جانبی است."
+
+
+# -------
+# node.gd
+# -------
+
+msgid "FRAME_NODE_NO_LABEL_MSG"
+msgstr "بدون عنوان!"

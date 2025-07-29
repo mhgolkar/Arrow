@@ -1,0 +1,89 @@
+
+# Jump Node Translation
+# =====================
+#    Persian (Farsi)   
+# =====================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Jump\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Jump"
+msgstr "پرش"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Reason]"
+# msgstr ""
+
+# !
+# msgid "[Destination Name]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "JUMP_INSPECTOR_FIELD_REASON"
+msgstr "هدف"
+
+msgid "JUMP_INSPECTOR_FIELD_REASON_PLACEHOLDER"
+msgstr "برای مثال: رفتن به صحنه یا مرحله بعد"
+
+msgid "JUMP_INSPECTOR_FIELD_DESTINATION"
+msgstr "مقصد"
+
+msgid "JUMP_INSPECTOR_FIELD_DESTINATION_PLACEHOLDER"
+msgstr "نام یکتای گره"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Jump"
+# msgstr ""
+
+# !
+# msgid "[Destination]"
+# msgstr ""
+
+# !
+# msgid "[Reason]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "JUMP_CONSOLE_UNSET_REASON_MSG"
+msgstr "بدون هدف"
+
+msgid "JUMP_CONSOLE_INVALID_MSG"
+msgstr "نامعتبر!"
+
+msgid "JUMP_CONSOLE_UNSET_TARGET_MSG"
+msgstr "نامشخص"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "JUMP_NODE_UNSET_REASON_MSG"
+msgstr "بدون هدف"
+
+msgid "JUMP_NODE_UNSET_TARGET_NAME"
+msgstr "نامشخص"

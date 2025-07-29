@@ -1,0 +1,73 @@
+
+# Marker Node Translation
+# =======================
+#     Persian (Farsi)    
+# =======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Marker\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Marker"
+msgstr "علامت"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# !
+# msgid "[Marker Label]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MARKER_INSPECTOR_FIELD_COLOR"
+msgstr "رنگ"
+
+# !
+# msgid "[Marker Color]"
+# msgstr ""
+
+msgid "MARKER_INSPECTOR_FIELD_LABEL"
+msgstr "برچسب"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# msgid "Marker"
+# msgstr ""
+
+# !
+# msgid "[Marker Label]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MARKER_CONSOLE_LABEL_UNSET_MSG"
+msgstr "بدون برچسب"
+
+msgid "MARKER_CONSOLE_NO_NOTES_MSG"
+msgstr "[بدون یادداشت.]"

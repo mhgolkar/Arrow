@@ -1,0 +1,151 @@
+
+# Tag-Edit Node Translation
+# =========================
+#      Persian (Farsi)     
+# =========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Edit\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Tag Edit"
+msgstr "ویرایش برچسب"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# msgid "[Character Name]"
+# msgstr
+
+# msgid "[Tag: Value]"
+# msgstr
+
+msgid "TAG_EDIT_CONSOLE_ACT_SKIP"
+msgstr "بگذر"
+
+# msgid "[Method]"
+# msgstr
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_CHARACTER"
+msgstr "شخصیت"
+
+msgid "TAG_EDIT_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه شخصیت‌های کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته شخصیت فعلی گره همواره نمایش داده می‌شود."
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_EDIT"
+msgstr "ویرایش"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "کلید (ضروری)"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_VALUE_PLACEHOLDER"
+msgstr "مقدار"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Tag Edit"
+# msgstr ""
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Tag: Value]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "TAG_EDIT_CONSOLE_METHOD_INVALID"
+msgstr "ناکارآمد"
+
+msgid "TAG_EDIT_CONSOLE_METHOD_INVALID_HINT"
+msgstr "داده‌های گره به نظر مخدوش یا ناکافی می‌آیند"
+
+msgid "TAG_EDIT_CONSOLE_INVALID_DATA"
+msgstr "نامعتبر!"
+
+msgid "TAG_EDIT_CONSOLE_TAG_KEY_VALUE_FORMAT_STR"
+msgstr "{key}: `{value}`"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "TAG_EDIT_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "شخصیتی در کار نیست"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "TAG_EDIT_NODE_INVALID_DATA"
+msgstr "نامعتبر!"
+
+msgid "TAG_EDIT_NODE_TAG_KEY_VALUE_FORMAT_STR"
+msgstr "{key}: `{value}`"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "TAG_EDIT_METHOD_INSET"
+msgstr "افزایش"
+
+msgid "TAG_EDIT_METHOD_RESET"
+msgstr "بازنویسی"
+
+msgid "TAG_EDIT_METHOD_OVERSET"
+msgstr "برنوشت"
+
+msgid "TAG_EDIT_METHOD_OUTSET"
+msgstr "سایش"
+
+msgid "TAG_EDIT_METHOD_UNSET"
+msgstr "حذف"
+
+msgid "TAG_EDIT_METHOD_HINT_INSET"
+msgstr "یک برچسب به صورت کلید:مقدار را اضافه می‌کند، به شرطی که کلید جدید باشد."
+
+msgid "TAG_EDIT_METHOD_HINT_RESET"
+msgstr "مقدار یک بر چسب را برای کلید موجود تغییر می‌دهد."
+
+msgid "TAG_EDIT_METHOD_HINT_OVERSET"
+msgstr "برنوشت یک برچسب به صورت کلید:مقدار را برای شخصیت بازنویسی یا اضافه می‌کند."
+
+msgid "TAG_EDIT_METHOD_HINT_OUTSET"
+msgstr "برچسبی را که همین کلید و مقدار را داشته باشد حذف می‌کند."
+
+msgid "TAG_EDIT_METHOD_HINT_UNSET"
+msgstr "برچسب را فقط با همین کلید (بی‌توجه به مقدار) حذف می‌کند."

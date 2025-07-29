@@ -1,0 +1,173 @@
+
+# Generator Node Translation
+# ==========================
+#       Persian (Farsi)     
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Generator\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Generator"
+msgstr "مولد"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+# !
+# msgid "[Arguments]"
+# msgstr ""
+
+# !
+# msgid "[Target]"
+# msgstr ""
+
+msgid "GENERATOR_CONSOLE_ACT_SKIP"
+msgstr "بگذر"
+
+msgid "GENERATOR_CONSOLE_ACT_PROCEED"
+msgstr "اجرا کن"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "GENERATOR_INSPECTOR_FIELD_FOR"
+msgstr "برای"
+
+msgid "GENERATOR_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه متغیرهای کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته متغیر فعلی گره همواره نمایش داده می‌شود."
+
+msgid "GENERATOR_INSPECTOR_FIELD_GENERATE"
+msgstr "مقداری بساز با"
+
+msgid "GENERATOR_INSPECTOR_FIELD_FROM"
+msgstr "از"
+
+msgid "GENERATOR_INSPECTOR_FIELD_TO"
+msgstr "تا"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_NEG"
+msgstr "منفی"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_EVEN"
+msgstr "زوج"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_ODD"
+msgstr "فرد"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL"
+msgstr "مجموعه"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL_PLACEHOLDER"
+msgstr "کاراکترهای ASCII (حروف و اعداد انگلیسی)"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_LENGTH"
+msgstr "طول"
+
+msgid "GENERATOR_INSPECTOR_FROM_STR_SET_POOL"
+msgstr "مجموعه‌ی متون"
+
+# !
+# msgid "* Separated with [delimiter]"
+# msgstr ""
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "Generator"
+# msgstr ""
+
+# !
+# msgid "[Arguments]"
+# msgstr ""
+
+# !
+# msgid "[Target]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "تعریف نشده"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "نامشخص"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "تهی/نادرست"
+
+msgid "GENERATOR_CONSOLE_SKIPPED_MSG"
+msgstr "[رد شده]"
+
+msgid "GENERATOR_CONSOLE_OPERATION_STATE_FORMAT_STR"
+msgstr "{name} `{original}` : {updated}"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "GENERATOR_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "متغیری در کار نیست"
+
+msgid "GENERATOR_INSPECTOR_STRST_DELIMITER_HINT_MSG"
+msgstr "* قابل جداسازی با `%s`"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "تعریف نشده"
+
+msgid "GENERATOR_NODE_TARGET_VARIABLE_MSG_TEMPLATE"
+msgstr "{name} ({type})"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "نامشخص"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "تهی/نادرست"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "GENERATOR_METHOD_RANDOM_INTEGER"
+msgstr "عدد صحیح تصادفی"
+
+msgid "GENERATOR_METHOD_RANDOM_ASCII_STRING"
+msgstr "رشته متنی ASCII تصادفی"
+
+msgid "GENERATOR_METHOD_FROM_SET_OF_STRINGS"
+msgstr "از مجموعه متون"
+
+msgid "GENERATOR_METHOD_RANDOM_BOOLEAN"
+msgstr "دوگانه تصادفی"

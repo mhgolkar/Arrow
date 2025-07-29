@@ -1,0 +1,88 @@
+
+# Macro-Use Node Translation
+# ==========================
+#       Persian (Farsi)     
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Macro-Use\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Macro Use"
+msgstr "ماکرودان"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Macro Title]"
+# msgstr ""
+
+msgid "MACRO_USE_CONSOLE_ACT_SKIP"
+msgstr "بگذر"
+
+msgid "MACRO_USE_CONSOLE_ACT_PLAY"
+msgstr "اجرا کن"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MACRO_USE_INSPECTOR_FIELD_MACRO"
+msgstr "ماکرو"
+
+msgid "MACRO_USE_INSPECTOR_APPLY_GLOBAL_MACRO_FILTERS_TOOLTIP"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه ماکروهای کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته ماکرو فعلی گره همواره نمایش داده می‌شود."
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Macro Use"
+# msgstr ""
+
+# !
+# msgid "[Macro Title]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MACRO_USE_CONSOLE_INVALID_MSG"
+msgstr "نامعتبر!"
+
+msgid "MACRO_USE_CONSOLE_UNSET_TARGET_MSG"
+msgstr "ناشناس"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "MACRO_USE_INSPECTOR_NONE_AVAILABLE_TXT"
+msgstr "ماکرویی در کار نیست"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "MACRO_USE_NODE_NO_TARGET_MSG"
+msgstr "بدون ماکرو"
