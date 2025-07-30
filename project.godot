@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Arrow"
 config/description="Game Narrative Design Tool"
+config/version="3.1.0"
 run/main_scene="res://main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="arrow"

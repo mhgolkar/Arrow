@@ -93,8 +93,8 @@ Have a Good Time
 
 <!-- Download -->
 [releases]: https://github.com/mhgolkar/Arrow/releases
-[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v3.0.0/Arrow-v3.0.0-linux-x86_64.tar.gz
-[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v3.0.0/Arrow-v3.0.0-win.64.zip
+[linux-x11-x86-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v3.1.0/Arrow-v3.1.0-linux-x86_64.tar.gz
+[win-64-latest]: https://github.com/mhgolkar/Arrow/releases/download/v3.1.0/Arrow-v3.1.0-win.64.zip
 <!-- PWA -->
 [web-app]: https://mhgolkar.github.io/Arrow/
 <!-- Wiki -->
