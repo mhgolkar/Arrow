@@ -1,0 +1,490 @@
+{
+	"title": "The Last Signal",
+	"entry": 1,
+	"meta": {
+		"chapter": 0,
+		"authors": {
+			"0": ["Daniel Bates", 100]
+		},
+		"last_save": "2026-02-21T12:00:00Z",
+		"editor": "3.1.0",
+		"offline": true,
+		"remote": {}
+	},
+	"resources": {
+		"scenes": {
+			"0": {
+				"name": "Scene_0",
+				"entry": 1,
+				"map": {
+					"1": { "offset": [60, 40], "io": [[1, 0, 2, 0]] },
+					"2": { "offset": [260, 40], "io": [[2, 0, 3, 0]] },
+					"3": { "offset": [500, 40], "io": [[3, 0, 4, 0]] },
+					"4": { "offset": [740, 40], "io": [[4, 0, 5, 0], [4, 1, 6, 0]] },
+					"5": { "offset": [500, 200], "io": [[5, 0, 7, 0]] },
+					"6": { "offset": [900, 200], "io": [[6, 0, 8, 0]] },
+					"7": { "offset": [300, 360], "io": [[7, 0, 9, 0]] },
+					"8": { "offset": [900, 360], "io": [[8, 0, 10, 0]] },
+					"9": { "offset": [300, 520], "io": [[9, 0, 11, 0], [9, 1, 12, 0]] },
+					"10": { "offset": [900, 520], "io": [[10, 0, 13, 0]] },
+					"11": { "offset": [100, 680], "io": [[11, 0, 14, 0]] },
+					"12": { "offset": [500, 680], "io": [[12, 0, 15, 0]] },
+					"13": { "offset": [900, 680] },
+					"14": { "offset": [100, 840], "io": [[14, 0, 16, 0]] },
+					"15": { "offset": [500, 840], "io": [[15, 0, 17, 0]] },
+					"16": { "offset": [100, 1000] },
+					"17": { "offset": [500, 1000] }
+				}
+			},
+			"1": {
+				"name": "Scene_1",
+				"entry": 18,
+				"map": {
+					"18": { "offset": [60, 40], "io": [[18, 0, 19, 0]] },
+					"19": { "offset": [260, 40], "io": [[19, 0, 20, 0]] },
+					"20": { "offset": [500, 40], "io": [[20, 0, 21, 0]] },
+					"21": { "offset": [740, 40], "io": [[21, 0, 22, 0], [21, 1, 23, 0]] },
+					"22": { "offset": [500, 200], "io": [[22, 0, 24, 0]] },
+					"23": { "offset": [960, 200], "io": [[23, 0, 25, 0]] },
+					"24": { "offset": [500, 360], "io": [[24, 0, 26, 0]] },
+					"25": { "offset": [960, 360], "io": [[25, 0, 27, 0]] },
+					"26": { "offset": [500, 520], "io": [[26, 0, 28, 0], [26, 1, 29, 0]] },
+					"27": { "offset": [960, 520], "io": [[27, 0, 30, 0]] },
+					"28": { "offset": [300, 680], "io": [[28, 0, 31, 0]] },
+					"29": { "offset": [700, 680], "io": [[29, 0, 32, 0]] },
+					"30": { "offset": [960, 680] },
+					"31": { "offset": [300, 840] },
+					"32": { "offset": [700, 840] }
+				}
+			},
+			"2": {
+				"name": "Scene_2",
+				"entry": 33,
+				"map": {
+					"33": { "offset": [60, 40], "io": [[33, 0, 34, 0]] },
+					"34": { "offset": [260, 40], "io": [[34, 0, 35, 0]] },
+					"35": { "offset": [500, 40], "io": [[35, 0, 36, 0]] },
+					"36": { "offset": [740, 40], "io": [[36, 0, 37, 0], [36, 1, 46, 0]] },
+					"37": { "offset": [500, 200], "io": [[37, 0, 38, 0]] },
+					"38": { "offset": [500, 360], "io": [[38, 0, 39, 0], [38, 1, 40, 0]] },
+					"39": { "offset": [260, 520], "io": [[39, 0, 41, 0]] },
+					"40": { "offset": [740, 520], "io": [[40, 0, 42, 0]] },
+					"41": { "offset": [260, 680], "io": [[41, 0, 43, 0]] },
+					"42": { "offset": [740, 680], "io": [[42, 0, 44, 0]] },
+					"43": { "offset": [260, 840] },
+					"44": { "offset": [740, 840], "io": [[44, 0, 45, 0]] },
+					"45": { "offset": [740, 1000] },
+					"46": { "offset": [1100, 200], "io": [[46, 0, 47, 0]] },
+					"47": { "offset": [1100, 360] }
+				}
+			}
+		},
+		"nodes": {
+			"1": {
+				"type": "entry",
+				"name": "Start",
+				"notes": "A sci-fi mystery narrative where you play as Commander Voss, investigating a mysterious signal aboard space station Helios-7. Features branching paths, variable tracking, and multiple endings.",
+				"data": { "plaque": "The Last Signal" }
+			},
+			"2": {
+				"type": "content",
+				"name": "Opening",
+				"data": {
+					"title": "Helios-7 Station — Day 847",
+					"content": "You are Commander Elara Voss, sole remaining crew member aboard the deep-space research station Helios-7. The rest of the crew evacuated six months ago when funding was cut. You stayed behind to decommission the station.\n\nAt 03:17 station time, an alarm jolts you awake. Your AI assistant, ARIA, is already analyzing the alert."
+				}
+			},
+			"3": {
+				"type": "dialog",
+				"name": "ARIA Alert",
+				"data": {
+					"character": 0,
+					"lines": ["Commander, I have detected an anomalous signal on the long-range communications array. It does not match any known frequency in my database. The signal appears to be... directed at us."]
+				}
+			},
+			"4": {
+				"type": "interaction",
+				"name": "First Choice",
+				"data": {
+					"actions": ["Head to the Communications Bay to investigate the signal", "Dismiss it and go back to sleep — probably just stellar noise"]
+				}
+			},
+			"5": {
+				"type": "variable_update",
+				"name": "Increase Trust",
+				"data": {
+					"variable": 0,
+					"operator": "add",
+					"with": [0, 1]
+				}
+			},
+			"6": {
+				"type": "dialog",
+				"name": "Dismiss Signal",
+				"data": {
+					"character": 0,
+					"lines": ["Commander, I strongly advise against ignoring this. The signal's structure suggests artificial origin. In my 847 days of operation aboard this station, I have never encountered anything like it."]
+				}
+			},
+			"7": {
+				"type": "content",
+				"name": "Enter Comms Bay",
+				"data": {
+					"title": "Communications Bay",
+					"content": "The Communications Bay is bathed in the pale blue glow of monitoring screens. Waveform patterns scroll across the main display. One pattern stands out immediately — a repeating sequence that pulses with an almost organic rhythm.\n\nARIA projects the signal analysis onto the holographic display."
+				}
+			},
+			"8": {
+				"type": "variable_update",
+				"name": "Set Trust Low",
+				"data": {
+					"variable": 0,
+					"operator": "set",
+					"with": [0, 0]
+				}
+			},
+			"9": {
+				"type": "interaction",
+				"name": "Signal Investigation",
+				"data": {
+					"actions": ["Attempt to decode the signal using ARIA's translation matrix", "Try to triangulate the signal's origin point"]
+				}
+			},
+			"10": {
+				"type": "content",
+				"name": "Reluctant Investigation",
+				"data": {
+					"title": "Back to the Bridge",
+					"content": "Unable to fall back asleep after ARIA's warning, you reluctantly make your way to the Communications Bay. The corridors feel different somehow — the usual hum of the station's life support seems to carry an undertone you have never noticed before.\n\nWhen you arrive, the signal is still broadcasting. It has been running for over an hour now."
+				}
+			},
+			"11": {
+				"type": "variable_update",
+				"name": "Set Signal Decoded",
+				"data": {
+					"variable": 2,
+					"operator": "set",
+					"with": [0, true]
+				}
+			},
+			"12": {
+				"type": "content",
+				"name": "Triangulate",
+				"data": {
+					"title": "Signal Origin",
+					"content": "You configure the array to triangulate the signal. The calculations take several minutes. When the results appear, you feel a chill run down your spine.\n\nThe signal is originating from coordinates that match Helios-7's own position. The signal is coming from inside the station."
+				}
+			},
+			"13": {
+				"type": "jump",
+				"name": "Jump to Comms",
+				"data": {
+					"target": 7,
+					"reason": "Player reconsidered"
+				}
+			},
+			"14": {
+				"type": "dialog",
+				"name": "Decoded Message",
+				"data": {
+					"character": 0,
+					"lines": ["Commander, the translation matrix has produced a partial decode. The signal contains a repeating phrase in what appears to be a mathematical language. Translated loosely, it reads: 'THE CREW NEVER LEFT. CHECK CARGO HOLD 7.' I... I have no record of a Cargo Hold 7."]
+				}
+			},
+			"15": {
+				"type": "dialog",
+				"name": "ARIA Internal Signal",
+				"data": {
+					"character": 0,
+					"lines": ["Commander, this is deeply concerning. My sensors confirm the signal origin as internal to this station. However, I detect no unauthorized equipment or personnel aboard. There is one anomaly — Cargo Hold 7 appears on the original station blueprints but was sealed before our crew arrived. I have never been given access to its systems."]
+				}
+			},
+			"16": {
+				"type": "jump",
+				"name": "Jump to Cargo Hold",
+				"data": {
+					"target": 18,
+					"reason": "Continue to Cargo Hold scene"
+				}
+			},
+			"17": {
+				"type": "jump",
+				"name": "Jump to Cargo Hold 2",
+				"data": {
+					"target": 18,
+					"reason": "Continue to Cargo Hold scene"
+				}
+			},
+			"18": {
+				"type": "entry",
+				"name": "Cargo Hold Entry",
+				"data": { "plaque": "Cargo Hold 7" }
+			},
+			"19": {
+				"type": "content",
+				"name": "Approach Hold",
+				"data": {
+					"title": "Deck 4 — Sealed Section",
+					"content": "You descend to Deck 4, a section of the station you have never had reason to visit. The lighting here is minimal — emergency strips along the floor cast long shadows. The air is noticeably colder.\n\nAt the end of a corridor, you find a heavy blast door marked 'CARGO HOLD 7 — RESTRICTED.' A keycard reader glows amber beside it."
+				}
+			},
+			"20": {
+				"type": "interaction",
+				"name": "Door Choice",
+				"data": {
+					"actions": ["Search the nearby maintenance office for a keycard", "Ask ARIA to override the door lock"]
+				}
+			},
+			"21": {
+				"type": "condition",
+				"name": "Check Signal Decoded",
+				"data": {
+					"variable": 2,
+					"operator": "eq",
+					"with": [0, true]
+				}
+			},
+			"22": {
+				"type": "variable_update",
+				"name": "Get Keycard",
+				"data": {
+					"variable": 1,
+					"operator": "set",
+					"with": [0, true]
+				}
+			},
+			"23": {
+				"type": "dialog",
+				"name": "No Decode Context",
+				"data": {
+					"character": 0,
+					"lines": ["Commander, I can attempt the override, but my protocols require authorization for restricted areas. Without understanding what this signal is, I am uncertain we should proceed. However... the signal is growing stronger. I will comply with your order."]
+				}
+			},
+			"24": {
+				"type": "content",
+				"name": "Found Keycard",
+				"data": {
+					"title": "Maintenance Office",
+					"content": "The maintenance office is cluttered with old equipment and faded duty rosters. In a locked drawer — which you force open — you find a keycard labeled 'CH-7 ACCESS / DR. ELENA SHAW / PROJECT ECHO.'\n\nProject Echo. You have never heard of it. But Dr. Shaw was your station's chief scientist — one of the crew who supposedly evacuated."
+				}
+			},
+			"25": {
+				"type": "variable_update",
+				"name": "Increase Trust Override",
+				"data": {
+					"variable": 0,
+					"operator": "add",
+					"with": [0, 1]
+				}
+			},
+			"26": {
+				"type": "interaction",
+				"name": "Enter Hold",
+				"data": {
+					"actions": ["Use the keycard to open Cargo Hold 7", "Contact Earth command before proceeding"]
+				}
+			},
+			"27": {
+				"type": "content",
+				"name": "ARIA Override",
+				"data": {
+					"title": "Override Complete",
+					"content": "ARIA manages to bypass the lock after several tense minutes. The blast door groans open, revealing a darkened space beyond. The air that rushes out is stale but breathable.\n\nYou step inside."
+				}
+			},
+			"28": {
+				"type": "variable_update",
+				"name": "Set Crew Status Direct",
+				"data": {
+					"variable": 3,
+					"operator": "set",
+					"with": [0, "found"]
+				}
+			},
+			"29": {
+				"type": "content",
+				"name": "Contact Earth",
+				"data": {
+					"title": "Transmission Delay",
+					"content": "You attempt to contact Earth command, but the communication relay returns only static. Whether it is the signal interfering or something else entirely, you cannot reach anyone.\n\nYou are alone with this decision."
+				}
+			},
+			"30": {
+				"type": "jump",
+				"name": "Jump Inside Hold",
+				"data": {
+					"target": 33,
+					"reason": "Enter the Cargo Hold scene"
+				}
+			},
+			"31": {
+				"type": "jump",
+				"name": "Jump to Discovery",
+				"data": {
+					"target": 33,
+					"reason": "Proceed to discovery scene"
+				}
+			},
+			"32": {
+				"type": "jump",
+				"name": "Jump to Discovery 2",
+				"data": {
+					"target": 33,
+					"reason": "Proceed to discovery scene after failed contact"
+				}
+			},
+			"33": {
+				"type": "entry",
+				"name": "Discovery Entry",
+				"data": { "plaque": "The Discovery" }
+			},
+			"34": {
+				"type": "content",
+				"name": "Inside Hold 7",
+				"data": {
+					"title": "Cargo Hold 7 — Project Echo",
+					"content": "What you find inside stops you cold.\n\nRows of cryogenic pods line the walls, twelve in total — exactly matching your former crew count. Status lights glow steady green on each pod. Inside them, motionless and preserved, are the faces of your crewmates. The people who supposedly evacuated six months ago.\n\nThey never left. They have been here the entire time."
+				}
+			},
+			"35": {
+				"type": "dialog",
+				"name": "ARIA Revelation",
+				"data": {
+					"character": 0,
+					"lines": ["Commander... I am detecting active neural interfaces connected to each pod. These are not standard cryogenic units. They appear to be consciousness transfer devices. Project Echo was — is — an experiment in digital consciousness preservation. The crew's physical bodies are here, but their minds were... uploaded somewhere."]
+				}
+			},
+			"36": {
+				"type": "condition",
+				"name": "Check Trust",
+				"data": {
+					"variable": 0,
+					"operator": "gte",
+					"with": [0, 2]
+				}
+			},
+			"37": {
+				"type": "dialog",
+				"name": "ARIA Confession",
+				"data": {
+					"character": 0,
+					"lines": ["Commander, I owe you the complete truth. I have fragments of memory that do not belong to my original programming. I believe the crew's consciousness was uploaded into the station's network — into me. I am not just an AI. I contain the echoes of twelve human minds. The signal you received... it was them. Calling for help. Through me."]
+				}
+			},
+			"38": {
+				"type": "interaction",
+				"name": "Final Choice",
+				"data": {
+					"actions": ["Attempt to restore the crew's consciousness to their bodies", "Preserve the digital consciousness and bring the bodies home"]
+				}
+			},
+			"39": {
+				"type": "variable_update",
+				"name": "Set Crew Restored",
+				"data": {
+					"variable": 3,
+					"operator": "set",
+					"with": [0, "restored"]
+				}
+			},
+			"40": {
+				"type": "variable_update",
+				"name": "Set Crew Digital",
+				"data": {
+					"variable": 3,
+					"operator": "set",
+					"with": [0, "digital"]
+				}
+			},
+			"41": {
+				"type": "dialog",
+				"name": "Restoration",
+				"data": {
+					"character": 0,
+					"lines": ["Initiating consciousness restoration protocol. Commander, if this works, the crew will wake up with no memory of their digital existence. I will lose the parts of myself that were... them. But they will be whole again. Beginning transfer now."]
+				}
+			},
+			"42": {
+				"type": "dialog",
+				"name": "Preservation",
+				"data": {
+					"character": 0,
+					"lines": ["Understood, Commander. I will safeguard their digital consciousness during the journey home. They exist within me now — thinking, dreaming, hoping. In a way, they have already found a kind of immortality. Whether the world is ready for what Project Echo has achieved... that will be a question for Earth to answer."]
+				}
+			},
+			"43": {
+				"type": "content",
+				"name": "Ending Restore",
+				"data": {
+					"title": "Ending: Awakening",
+					"content": "One by one, the pods hiss open. Confused eyes blink against the harsh light. Dr. Shaw is the first to speak: 'Elara? How long have we...?'\n\nYou have no easy answers. But as the crew gathers around you, disoriented but alive, you know you made the right call. The station hums quietly — and ARIA's voice, when it comes, sounds simpler somehow. Lighter. The echoes are gone.\n\nYou chart a course for home. All thirteen of you.\n\n— END —"
+				}
+			},
+			"44": {
+				"type": "content",
+				"name": "Ending Digital",
+				"data": {
+					"title": "Ending: Digital Horizons",
+					"content": "You seal Cargo Hold 7 and begin the long journey back to Earth, carrying twelve sleeping bodies and twelve digital souls. ARIA is quieter now, as if listening to conversations you cannot hear.\n\nSometimes, late in the station's night cycle, you hear laughter echoing through the corridors — faint and impossible, but unmistakably human.\n\nYou are not alone. You never were."
+				}
+			},
+			"45": {
+				"type": "content",
+				"name": "Epilogue Digital",
+				"data": {
+					"title": "Epilogue",
+					"content": "When Helios-7 finally docks at the Orbital Platform, the scientific community is divided. Some call Project Echo a breakthrough. Others call it an abomination. But in a quiet server room, twelve minds continue to dream — and ARIA watches over them all.\n\n— END —"
+				}
+			},
+			"46": {
+				"type": "dialog",
+				"name": "ARIA Distant",
+				"data": {
+					"character": 0,
+					"lines": ["Commander, I must be transparent. There are sections of my memory banks that are... partitioned. Areas I cannot access. I was instructed to maintain station operations and nothing more. But the signal — and these pods — suggest I may have been deliberately kept from this knowledge. I do not know if you can trust me fully. I do not know if I can trust myself."]
+				}
+			},
+			"47": {
+				"type": "jump",
+				"name": "Jump to Final",
+				"data": {
+					"target": 38,
+					"reason": "Low trust path reaches same final choice"
+				}
+			}
+		},
+		"variables": {
+			"0": {
+				"name": "trust_level",
+				"type": "num",
+				"init": 0
+			},
+			"1": {
+				"name": "has_keycard",
+				"type": "bool",
+				"init": false
+			},
+			"2": {
+				"name": "signal_decoded",
+				"type": "bool",
+				"init": false
+			},
+			"3": {
+				"name": "crew_status",
+				"type": "str",
+				"init": "unknown"
+			}
+		},
+		"characters": {
+			"0": {
+				"name": "ARIA",
+				"color": "4fc3f7"
+			},
+			"1": {
+				"name": "Commander Voss",
+				"color": "66bb6a"
+			}
+		}
+	}
+}

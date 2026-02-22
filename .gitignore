@@ -6,3 +6,6 @@
 *.arrow
 .arrow.config
 .arrow.project
+
+# Exception for example projects
+!examples/*.arrow
