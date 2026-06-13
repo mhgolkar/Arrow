@@ -1,0 +1,20 @@
+
+# Randomizer Node Translation
+# ===========================
+#     Simplified Chinese     
+# ===========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Randomizer\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Randomizer"
+msgstr "随机器"
+
+msgid "RANDOMIZER_INSPECTOR_FIELD_SLOTS_COUNT"
+msgstr "输出槽数量"

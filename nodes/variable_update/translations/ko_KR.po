@@ -1,0 +1,191 @@
+
+# Variable-Update Node Translation
+# ================================
+#            Korean            
+# ================================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Variable-Update\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Variable Update"
+msgstr "변수 업데이트"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Expression]"
+# msgstr ""
+
+msgid "VARIABLE_UPDATE_CONSOLE_ACT_DISMISS"
+msgstr "닫기"
+
+msgid "VARIABLE_UPDATE_CONSOLE_ACT_APPLY"
+msgstr "적용"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "VARIABLE_UPDATE_INSPECTOR_FIELD_UPDATE"
+msgstr "업데이트"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"전역 필터 적용\n"
+"\n"
+"동일한 목록 지침을 따릅니다.\n"
+"변수 관리자에 정의되어 있습니다.\n"
+"+ 노드의 현재 변수가 항상 나열됩니다."
+
+msgid "VARIABLE_UPDATE_INSPECTOR_FIELD_BY"
+msgstr "~에 의해"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_FIELD_TO"
+msgstr "와/와"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_PARAM_STR_PLACEHOLDER"
+msgstr "문자열 값"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_PARAM_BOOL_TRUE"
+msgstr "참"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_PARAM_BOOL_FALSE"
+msgstr "거짓"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Variable Update"
+# msgstr ""
+
+# !
+# msgid "[Expression]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "VARIABLE_UPDATE_CONSOLE_UNSET_OR_INVALID_MSG"
+msgstr "설정 해제!"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+# NOTE: This is used for operator selector items formatting.
+msgid "VARIABLE_UPDATE_INSPECTOR_OPERATOR_ITEM_TEXT_TEMPLATE"
+msgstr "{text} ({sign})"
+
+# DEV:
+# This string can accept `{self}` placeholder
+# which will be replaced by the variable name,
+# e.g. "Self (Initial Value of `{self}`)".
+msgid "VARIABLE_UPDATE_INSPECTOR_COMPARE_TO_SELF_INITIAL"
+msgstr "자체(초기값)"
+
+msgid "VARIABLE_UPDATE_INSPECTOR_NO_VARIABLE"
+msgstr "사용 가능한 변수가 없습니다"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "VARIABLE_UPDATE_NODE_UNSET_OR_INVALID_MSG"
+msgstr "설정 안 됨"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "VARIABLE_UPDATE_OP_SET_NUM"
+msgstr "동일하게 설정"
+
+msgid "VARIABLE_UPDATE_OP_ADD"
+msgstr "덧셈"
+
+msgid "VARIABLE_UPDATE_OP_SUB"
+msgstr "빼기"
+
+msgid "VARIABLE_UPDATE_OP_DIV"
+msgstr "분할"
+
+msgid "VARIABLE_UPDATE_OP_REM"
+msgstr "나머지"
+
+msgid "VARIABLE_UPDATE_OP_MUL"
+msgstr "곱셈"
+
+msgid "VARIABLE_UPDATE_OP_EXP"
+msgstr "지수화"
+
+msgid "VARIABLE_UPDATE_OP_ABS"
+msgstr "순수한"
+
+msgid "VARIABLE_UPDATE_OP_SET_STR"
+msgstr "설정"
+
+msgid "VARIABLE_UPDATE_OP_STC"
+msgstr "대문자로 설정"
+
+msgid "VARIABLE_UPDATE_OP_STL"
+msgstr "소문자로 설정"
+
+msgid "VARIABLE_UPDATE_OP_STU"
+msgstr "대문자로 설정"
+
+msgid "VARIABLE_UPDATE_OP_INS"
+msgstr "오른쪽에 삽입"
+
+msgid "VARIABLE_UPDATE_OP_INB"
+msgstr "왼쪽에 삽입"
+
+msgid "VARIABLE_UPDATE_OP_RMC"
+msgstr "왼쪽 제거"
+
+msgid "VARIABLE_UPDATE_OP_RML"
+msgstr "왼쪽 제거(대소문자 구분)"
+
+msgid "VARIABLE_UPDATE_OP_RMR"
+msgstr "제거 권한"
+
+msgid "VARIABLE_UPDATE_OP_RMI"
+msgstr "오른쪽 제거(대소문자 구분)"
+
+msgid "VARIABLE_UPDATE_OP_RPL"
+msgstr "바꾸기"
+
+msgid "VARIABLE_UPDATE_OP_RPL_HINT"
+msgstr "파이프를 사용하여 인수를 정의합니다(예: `find|replace`)."
+
+msgid "VARIABLE_UPDATE_OP_RPI"
+msgstr "바꾸기(대소문자 구분 안 함)"
+
+msgid "VARIABLE_UPDATE_OP_RPI_HINT"
+msgstr "파이프를 사용하여 인수를 정의합니다(예: `find|replace`)."
+
+msgid "VARIABLE_UPDATE_OP_SET_BOOL"
+msgstr "설정"
+
+msgid "VARIABLE_UPDATE_OP_NEG"
+msgstr "음수로 설정"

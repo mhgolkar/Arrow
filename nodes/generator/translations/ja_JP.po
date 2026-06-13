@@ -1,0 +1,176 @@
+
+# Generator Node Translation
+# ==========================
+#           Japanese           
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Generator\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Generator"
+msgstr "ジェネレーター"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+# !
+# msgid "[Arguments]"
+# msgstr ""
+
+# !
+# msgid "[Target]"
+# msgstr ""
+
+msgid "GENERATOR_CONSOLE_ACT_SKIP"
+msgstr "スキップ"
+
+msgid "GENERATOR_CONSOLE_ACT_PROCEED"
+msgstr "続行"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "GENERATOR_INSPECTOR_FIELD_FOR"
+msgstr "対象"
+
+msgid "GENERATOR_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"グローバルフィルターを適用する\n"
+"\n"
+"同じ出品手順に従います\n"
+"変数インスペクターで定義されています。\n"
+"+ ノードの現在の変数が常にリストされます。"
+
+msgid "GENERATOR_INSPECTOR_FIELD_GENERATE"
+msgstr "生成"
+
+msgid "GENERATOR_INSPECTOR_FIELD_FROM"
+msgstr "開始"
+
+msgid "GENERATOR_INSPECTOR_FIELD_TO"
+msgstr "終了"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_NEG"
+msgstr "ネグ"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_EVEN"
+msgstr "偶数"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_ODD"
+msgstr "奇数"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL"
+msgstr "プール"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL_PLACEHOLDER"
+msgstr "ASCII 文字 (英数字)"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_LENGTH"
+msgstr "長さ"
+
+msgid "GENERATOR_INSPECTOR_FROM_STR_SET_POOL"
+msgstr "文字列のプール"
+
+# !
+# msgid "* Separated with [delimiter]"
+# msgstr ""
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "Generator"
+# msgstr ""
+
+# !
+# msgid "[Arguments]"
+# msgstr ""
+
+# !
+# msgid "[Target]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "未定義"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "未設定"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "ヌル/無効"
+
+msgid "GENERATOR_CONSOLE_SKIPPED_MSG"
+msgstr "[スキップ]"
+
+msgid "GENERATOR_CONSOLE_OPERATION_STATE_FORMAT_STR"
+msgstr "{name} `{original}` : {updated}"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "GENERATOR_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "利用可能な変数がありません"
+
+msgid "GENERATOR_INSPECTOR_STRST_DELIMITER_HINT_MSG"
+msgstr "※`%s`と別途"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "未定義"
+
+msgid "GENERATOR_NODE_TARGET_VARIABLE_MSG_TEMPLATE"
+msgstr "{name} ({type})"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "未設定"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "ヌル/無効"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "GENERATOR_METHOD_RANDOM_INTEGER"
+msgstr "ランダム整数"
+
+msgid "GENERATOR_METHOD_RANDOM_ASCII_STRING"
+msgstr "ランダム ASCII 文字列"
+
+msgid "GENERATOR_METHOD_FROM_SET_OF_STRINGS"
+msgstr "文字列のセットから"
+
+msgid "GENERATOR_METHOD_RANDOM_BOOLEAN"
+msgstr "ランダム真偽値"

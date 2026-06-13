@@ -1,0 +1,953 @@
+
+# Arrow Translation
+# =================
+#   Simplified Chinese
+# =================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+
+msgid "Arrow"
+msgstr "Arrow"
+
+
+# ---------
+# main.tscn
+# ---------
+
+# ~ Generational Version Code
+msgid "[v3.x]"
+msgstr ""
+
+msgid "Website"
+msgstr "官方网站"
+
+msgid "Repository"
+msgstr "代码仓库"
+
+msgid "Documentation"
+msgstr "文档"
+
+# ~ Welcome Message Tab Name
+msgid "Hello"
+msgstr "你好"
+
+msgid "WELCOME_MESSAGE"
+msgstr ""
+"[b]欢迎使用 Arrow 3.x[/b]\n"
+"\n"
+"Arrow 是一款免费、开源且功能丰富的[i]游戏叙事[/i]设计工具，用于创作[i]交互式非线性叙事[/i]作品。\n"
+"\n"
+"以下是一些快速说明：\n"
+"\n"
+"[b]• PWA 数据存储[/b]\n"
+"Arrow 网页应用使用浏览器存储来管理项目。\n"
+"[i]您的数据全部且仅存储在本设备上。[/i]\n"
+"导出项目请使用：\n"
+"[indent][bgcolor=black][color=white][i][code] 检查器（面板）> 项目（标签页）> 导出 [/code][/i][/color][/bgcolor][/indent]\n"
+"清理应用存储请尝试：\n"
+"[indent][bgcolor=black][color=white][i][code] Arrow（左上角菜单按钮）> 清除 [/code][/i][/color][/bgcolor][/indent]\n"
+"\n"
+"更多信息请访问我们的网站和/或项目仓库。\n"
+"\n"
+"此致\n"
+"Mor. H. Golkar 及贡献者们\n"
+
+# ~ Embedded Copyright Document Tab Name
+msgid "Copyright"
+msgstr "版权信息"
+
+msgid "New"
+msgstr "新建"
+
+msgid "Open"
+msgstr "打开"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Preferences"
+msgstr "偏好设置"
+
+msgid "Dismiss"
+msgstr "取消"
+
+msgid "Confirm"
+msgstr "确认"
+
+msgid "User Interface"
+msgstr "用户界面"
+
+msgid "Theme"
+msgstr "主题"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Data Management"
+msgstr "数据管理"
+
+msgid "Work Directory"
+msgstr "工作目录"
+
+msgid "[Working Directory Path]"
+msgstr "[工作目录路径]"
+
+msgid "Select"
+msgstr "选择"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "History (Undo/Redo)"
+msgstr "历史记录（撤销/重做）"
+
+msgid "Size"
+msgstr "大小"
+
+msgid "HISTORY_SIZE_TOOLTIP"
+msgstr ""
+"历史记录大小决定了项目可以回退的步数。\n"
+"目前历史记录功能（撤销 `Ctrl+Z` 和重做 `Ctrl+Shift+Z`）\n"
+"通过在内存中保存打开项目的完整快照来实现。\n"
+"性能可能因设备配置和项目大小而异。"
+
+msgid "Authors"
+msgstr "作者"
+
+msgid "Contributors"
+msgstr "贡献者"
+
+msgid "AUID"
+msgstr "AUID"
+
+msgid "AUID_TOOLTIP"
+msgstr ""
+"作者唯一 ID 作为资源 UID 命名空间的第二段，\n"
+"允许多名贡献者同时编辑同一文档\n"
+"而不会产生 ID 冲突。"
+
+msgid "ACTIVE_CONTRIBUTOR_TOOLTIP"
+msgstr ""
+"勾选后，所选作者将被视为\n"
+"之后创建资源的贡献者。"
+
+msgid "Active Contributor"
+msgstr "当前贡献者"
+
+msgid "Info"
+msgstr "信息"
+
+# ~ Author Info Placeholder
+msgid "John Doe (contributor@project.tld)"
+msgstr "张三 (contributor@project.tld)"
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "Apply"
+msgstr "应用"
+
+msgid "Chapter"
+msgstr "章节"
+
+msgid "CHAPTER_ID_TOOLTIP"
+msgstr ""
+"章节 ID 是每个文档的唯一标识符\n"
+"（作为资源 UID 命名空间的第一段），\n"
+"用于在项目拆分为多个文件时避免冲突。"
+
+msgid "CHAPTER_ID_UPDATE_TOOLTIP"
+msgstr ""
+"新的章节 ID 仅对未来的 UID 生效，\n"
+"不会更新或影响已创建的资源。"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "New Document"
+msgstr "新建文档"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Project or Chapter Title"
+msgstr "项目或章节标题"
+
+msgid "Filename"
+msgstr "文件名"
+
+msgid "(without extension)"
+msgstr "（不含扩展名）"
+
+msgid "Filename's already used or invalid"
+msgstr "文件名已被使用或无效"
+
+msgid "Full Path"
+msgstr "完整路径"
+
+# ~ New Document Path Value Placeholder
+msgid "[Generated]"
+msgstr "[自动生成]"
+
+msgid "Create"
+msgstr "创建"
+
+msgid "Select Current Folder"
+msgstr "选择当前文件夹"
+
+msgid "Inspector"
+msgstr "检查器"
+
+msgid "Project"
+msgstr "项目"
+
+msgid "Filter Projects"
+msgstr "筛选项目"
+
+msgid "FILTER_REVERSE_TOOLTIP"
+msgstr ""
+"反转筛选条件\n"
+"（不匹配的项将被保留。）"
+
+msgid "SORT_AZ_OR_UID_TOOLTIP"
+msgstr ""
+"按字母顺序排列\n"
+"（否则按 UID 排列。）"
+
+msgid "Set"
+msgstr "设置"
+
+msgid "Export"
+msgstr "导出"
+
+msgid "Latest Save"
+msgstr "最近保存"
+
+msgid "Revert to the Latest Save"
+msgstr "恢复到最近保存的状态"
+
+msgid "Revert"
+msgstr "恢复"
+
+msgid "Snapshots"
+msgstr "快照"
+
+msgid "Restore"
+msgstr "还原"
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "Rem."
+msgstr "删除"
+
+# ~ Node Tab Name (Inspector)
+msgid "Node"
+msgstr "节点"
+
+msgid "Unique Node Name"
+msgstr "唯一节点名称"
+
+msgid "NODE_FOCUS_BTN_TOOLTIP"
+msgstr ""
+"在网格上定位当前检查的节点\n"
+"(Ctrl + Backslash)"
+
+# ~ Node (Dev) Notes Placeholder
+msgid "[Notes]"
+msgstr "[备注]"
+
+msgid "Previous Local History Modification"
+msgstr "上一条本地历史修改"
+
+msgid "Reset Node Parameters (Ctrl + Shift + Minus)"
+msgstr "重置节点参数 (Ctrl + Shift + Minus)"
+
+msgid "Next Local History Modification"
+msgstr "下一条本地历史修改"
+
+msgid "SKIP_NODES_TOOLTIP"
+msgstr ""
+"被跳过的节点不会在叙事中生效。\n"
+"替代行为取决于节点类型。"
+
+msgid "Skip"
+msgstr "跳过"
+
+msgid "Update Node (Ctrl + Shift + Plus)"
+msgstr "更新节点 (Ctrl + Shift + Plus)"
+
+msgid "Locate Previous Referrer"
+msgstr "定位上一个引用者"
+
+msgid "Locate Next Referrer"
+msgstr "定位下一个引用者"
+
+msgid "Scoped (Filter for Scene)"
+msgstr "限定范围（按场景筛选）"
+
+msgid "NODES_TAB_BLOCKER"
+msgstr ""
+"选择一个节点进行检查，或\n"
+"在网格上右键单击\n"
+"以创建新节点。"
+
+# ~ Scenes Tab Name (Inspector)
+msgid "Scenes"
+msgstr "场景"
+
+msgid "Filter Scenes"
+msgstr "筛选场景"
+
+msgid "Unique Scene Name"
+msgstr "唯一场景名称"
+
+msgid "Macros"
+msgstr "宏"
+
+msgid "Filter Macros"
+msgstr "筛选宏"
+
+msgid "Unique Macro Name"
+msgstr "唯一宏名称"
+
+# ~ Variables Tab Name (Inspector)
+msgid "Variables"
+msgstr "变量"
+
+# ~ Used in Multiple Selectors
+msgid "Variable"
+msgstr "变量"
+
+msgid "Filter Variables"
+msgstr "筛选变量"
+
+msgid "Filter by Type"
+msgstr "按类型筛选"
+
+msgid "Any"
+msgstr "任意"
+
+msgid "Num"
+msgstr "数值"
+
+msgid "Str"
+msgstr "字符串"
+
+msgid "Bool"
+msgstr "布尔"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Unique Variable Name"
+msgstr "唯一变量名称"
+
+msgid "Initial"
+msgstr "初始值"
+
+msgid "Str Value"
+msgstr "字符串值"
+
+msgid "True"
+msgstr "真"
+
+msgid "False"
+msgstr "假"
+
+msgid "Characters"
+msgstr "角色"
+
+msgid "Filter Characters"
+msgstr "筛选角色"
+
+msgid "Unique Character Name"
+msgstr "唯一角色名称"
+
+msgid "No Initial Tag"
+msgstr "无初始标签"
+
+msgid "Key"
+msgstr "键"
+
+msgid "Value"
+msgstr "值"
+
+msgid "Oversets (adds or updates) a tag"
+msgstr "覆写（添加或更新）一个标签"
+
+msgid "Console"
+msgstr "控制台"
+
+msgid "No Initial Tags"
+msgstr "无初始标签"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Hides Console Preserving the State"
+msgstr "隐藏控制台并保留状态"
+
+msgid "Clears Console & State of Play"
+msgstr "清除控制台和播放状态"
+
+msgid "Clear"
+msgstr "清除"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "Filter Node Types"
+msgstr "筛选节点类型"
+
+msgid "Insert"
+msgstr "插入"
+
+msgid "Clear Clipboard"
+msgstr "清除剪贴板"
+
+msgid "Copy Node(s)"
+msgstr "复制节点"
+
+msgid "Cut Node(s)"
+msgstr "剪切节点"
+
+msgid "Paste Node(s)"
+msgstr "粘贴节点"
+
+msgid "Remove Node(s)"
+msgstr "移除节点"
+
+msgid "History Undo (Ctrl + Z)"
+msgstr "撤销 (Ctrl + Z)"
+
+msgid "History Redo (Ctrl + Shift + Z)"
+msgstr "重做 (Ctrl + Shift + Z)"
+
+msgid "Play from Project Entry (F4)"
+msgstr "从项目入口播放 (F4)"
+
+msgid "Play from Scene Entry (F5)"
+msgstr "从场景入口播放 (F5)"
+
+msgid "Show Console (F6)"
+msgstr "显示控制台 (F6)"
+
+msgid "Play Selected Node (F7)"
+msgstr "播放选中节点 (F7)"
+
+msgid "Save Document (Ctrl + S)"
+msgstr "保存文档 (Ctrl + S)"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Query"
+msgstr "查询"
+
+msgid "SCOPED_QUERY_TOOLTIP"
+msgstr ""
+"限定范围：按场景筛选\n"
+"（否则在整个项目中搜索。）"
+
+msgid "Query (Ctrl + Q)"
+msgstr "查询 (Ctrl + Q)"
+
+msgid "Locate Previous Match (Ctrl + 1)"
+msgstr "定位上一个匹配项 (Ctrl + 1)"
+
+msgid "Locate Next Match (Ctrl + 2)"
+msgstr "定位下一个匹配项 (Ctrl + 2)"
+
+msgid "Toggle Inspector Panel (Ctrl + P)"
+msgstr "切换检查器面板 (Ctrl + P)"
+
+msgid "Inspect."
+msgstr "检查器"
+
+msgid "Quick Pref."
+msgstr "快捷设置"
+
+
+# ----------------------------
+# scripts/core/central_mind.gd
+# ----------------------------
+
+msgid "Discarding New Project ?"
+msgstr "放弃新项目？"
+
+msgid "PROJECT_DISCARD_WARNING"
+msgstr ""
+"`%s` 已被修改。"
+"创建新的空白项目将丢弃所有未保存的数据。"
+
+msgid "OK! Proceed Anyway"
+msgstr "确定，继续"
+
+msgid "Lost Project!"
+msgstr "项目丢失！"
+
+msgid "LOST_PROJECT_WARNING"
+msgstr ""
+"无法找到并读取所选项目 (~ %s)。\n"
+"该文件可能因权限不足而无法访问，"
+"或者已丢失（即被重命名或删除）。"
+"损坏的项目列表文件也可能导致此问题。\n\n"
+
+msgid "Expected file: "
+msgstr "预期文件："
+
+msgid "Unlist Project"
+msgstr "从列表移除项目"
+
+msgid "Overriding Unsaved Project ?"
+msgstr "覆盖未保存的项目？"
+
+msgid "UNSAVED_PROJECT_WARNING"
+msgstr ""
+"编辑器中保留着 `%s` 的未保存修改。"
+"打开另一个项目将丢弃这些未保存的数据。"
+"确定要继续吗？"
+
+msgid "Yes, Open"
+msgstr "是的，打开"
+
+msgid "Are you sure ?!"
+msgstr "确定吗？！"
+
+msgid "UNSAVED_CHANGES_WARNING"
+msgstr ""
+"项目 `%s` 已被修改。"
+"强制关闭将丢弃未保存的更改。"
+
+msgid "Close Anyway"
+msgstr "仍然关闭"
+
+msgid "Save Project"
+msgstr "保存项目"
+
+msgid "PROJECT_REVERT_WARNING"
+msgstr ""
+"您即将将当前项目恢复到上次物理保存的状态。"
+"此操作将丢弃内存中的所有更改，并从保存的文件重新打开项目。"
+
+msgid "Revert; I'm Sure"
+msgstr "恢复，我确定"
+
+msgid "UPDATE_CHAPTER_ID_NOTIFICATION"
+msgstr ""
+"新的章节 ID 将更改此项目文件的资源 UID 命名空间。\n"
+"只有当您的项目被拆分为多个文档，"
+"并且希望通过为每个文档分配唯一的命名空间来避免标识符冲突时，才需要此操作。\n"
+"另外请注意，此更新仅影响新的资源 UID（即新节点、场景等），"
+"之前创建的资源（包括默认节点）将保留其当前的 UID。"
+
+msgid "OK; Update"
+msgstr "确定，更新"
+
+msgid "Invalid Operation!"
+msgstr "无效操作！"
+
+msgid "PROJECT_ENTRY_IN_MACRO_ERROR"
+msgstr "宏是可重复的场景，无法用于承载项目入口！"
+
+msgid "Unsafe Operation Ignored!"
+msgstr "不安全操作已忽略！"
+
+msgid "USED_RESOURCE_NOT_REMOVED"
+msgstr "该资源无法移除，因为其他节点或资源依赖于它。"
+
+msgid "MAY_BE_USED_SCENE_NOT_REMOVED"
+msgstr "例如，该场景的某个子节点可能被另一个场景中的跳转所引用。"
+
+msgid "Referenced resource(s): "
+msgstr "被引用的资源："
+
+msgid "REFERENCED_RESOURCE_NOT_REMOVED"
+msgstr ""
+"您要移除的资源中，至少有一个被其他资源或节点所依赖。"
+"出于连续性安全考虑，除非同时移除引用者，否则无法执行此操作。\n\n"
+
+# ~ On clipboard move (pull) operation
+msgid "Unsafe Move Detected!"
+msgstr "检测到不安全的移动操作！"
+
+msgid "IMMOVABLE_NODES_ERROR"
+msgstr "出于连续性安全考虑，部分或全部节点无法移动（例如场景入口）。\n\n"
+
+msgid "Immovable(s): "
+msgstr "不可移动的节点："
+
+msgid "Move What's Safe (%s)"
+msgstr "移动安全的节点 (%s)"
+
+msgid "Merger Detected [Experimental!]"
+msgstr "检测到合并操作 [实验性功能！]"
+
+msgid "MERGER_OPERATION_DESCRIPTION"
+msgstr ""
+"您正在尝试从 `{origin}`（章节 {cid}）粘贴资源，包含：{statistics}\n"
+"其中 {main_count} 个是主资源，其余是引用的依赖项。\n\n"
+
+msgid "SCENES_FIELD_NAME"
+msgid_plural "SCENES_FIELD_NAME_PLURAL"
+msgstr[0] "场景"
+
+msgid "MACROS_FIELD_NAME"
+msgid_plural "MACROS_FIELD_NAME_PLURAL"
+msgstr[0] "宏"
+
+msgid "NODES_FIELD_NAME"
+msgid_plural "NODES_FIELD_NAME_PLURAL"
+msgstr[0] "节点"
+
+msgid "VARIABLES_FIELD_NAME"
+msgid_plural "VARIABLES_FIELD_NAME_PLURAL"
+msgstr[0] "变量"
+
+msgid "CHARACTERS_FIELD_NAME"
+msgid_plural "CHARACTERS_FIELD_NAME_PLURAL"
+msgstr[0] "角色"
+
+msgid "MERGER_OPERATION_STRATEGY_CHOICE"
+msgstr "当存在具有相同 UID 的可共享资源时，请选择合并策略："
+
+msgid "Reuse"
+msgstr "复用"
+
+msgid "Recreate"
+msgstr "重新创建"
+
+msgid "NO_SAVE_IN_SNAPSHOT_PREVIEW"
+msgstr ""
+"在快照预览模式下无法保存项目。\n"
+"如果您想将快照的更改保留在内存中，请再次对其拍摄快照，"
+"或将打开的快照还原为工作草稿后再保存。\n"
+"您也可以导出任何预览中的快照，并将其作为新项目重新导入。"
+
+msgid "PROJECT_REMOVAL_PROMPT"
+msgstr ""
+"您即将移除已列出的项目 [i]`{name}`[/i] ({pid})。\n"
+"如果仅从列表移除，文档文件将保持完整，只是从项目列表中删除。\n"
+"删除的文件将无法恢复。\n\n"
+
+msgid "Project file: `%s`"
+msgstr "项目文件：`%s`"
+
+msgid "Delete File!"
+msgstr "删除文件！"
+
+msgid "Unlist"
+msgstr "从列表移除"
+
+msgid "SNAPSHOT_RESTORATION_PROMPT"
+msgstr ""
+"您即将还原快照 [i]`v%s`[/i]。\n"
+"此操作将覆盖内存中项目的当前状态，"
+"但文件（除非随后保存）和其他快照不会受到影响。\n"
+"如果您打算稍后使用当前草稿，"
+"请确保先关闭预览并拍摄快照，然后再还原此快照。"
+
+msgid "Restore; I'm Sure"
+msgstr "还原，我确定"
+
+msgid "Invalid Project File!"
+msgstr "无效的项目文件！"
+
+msgid "INVALID_PROJECT_FILE_IMPORT"
+msgstr ""
+"无法验证和导入所选文件。\n"
+"该文件可能格式不受支持或已损坏。"
+
+msgid "Quick Re-Export Not Available!"
+msgstr "快速重新导出不可用！"
+
+msgid "QUICK_REEXPORT_NOT_YET"
+msgstr ""
+"您在当前会话中尚未导出过项目。\n"
+"此快捷方式允许使用上次导出的路径和格式重新导出项目。\n"
+"请先通过 [i]`检查器面板 > 项目标签页 > 导出`[/i] 导出您的项目。"
+
+msgid "IO Operation Failed!"
+msgstr "IO 操作失败！"
+
+msgid "EXPORT_IO_FAILED"
+msgstr ""
+"无法写入目标路径或读取运行时模板文件。\n"
+"请检查 Arrow 是否拥有读写数据的权限。"
+
+msgid "Error!"
+msgstr "错误！"
+
+msgid "SHOW_ERROR_FALLBACK_MSG"
+msgstr "出现错误。请检查日志（标准输出）获取更多信息。"
+
+
+# -------------------
+# scripts/settings.gd
+# -------------------
+
+msgid "Select an Arrow Document"
+msgstr "选择 Arrow 文档"
+
+msgid "Save Document"
+msgstr "保存文档"
+
+msgid "Export as JSON"
+msgstr "导出为 JSON"
+
+msgid "Export Playable HTML"
+msgstr "导出可播放 HTML"
+
+msgid "Export CSV (Translation)"
+msgstr "导出 CSV（翻译）"
+
+msgid "Select App Local Directory"
+msgstr "选择应用本地目录"
+
+
+# -------------------------------------
+# scripts/core/configuration_handler.gd
+# -------------------------------------
+
+msgid "NO_ALD_ACCESS"
+msgstr "无法访问工作目录！"
+
+msgid "UNABLE_TO_ACCESS_ALD_MSG"
+msgstr ""
+"无法访问所选的应用本地/工作目录。"
+"可能是因为对该路径缺少读写权限。\n"
+"将继续使用之前确认的目录。"
+
+
+# --------------------------
+# scripts/editor/app_menu.gd
+# --------------------------
+
+msgid "Fullscreen (F11)"
+msgstr "全屏 (F11)"
+
+msgid "Exit Fullscreen (F11)"
+msgstr "退出全屏 (F11)"
+
+msgid "Stay Above"
+msgstr "置顶"
+
+msgid "Leave Above"
+msgstr "取消置顶"
+
+msgid "Refresh"
+msgstr "刷新"
+
+msgid "About"
+msgstr "关于"
+
+msgid "Quit"
+msgstr "退出"
+
+msgid "BROWSER_STORAGE_CLEAR_PROMPT"
+msgstr ""
+"您即将清除存储。"
+"此操作将永久删除该浏览器中 Arrow 虚拟文件系统中的项目。\n"
+"删除的数据将无法恢复。\n"
+
+msgid "Ok; Terminate!"
+msgstr "确定，执行！"
+
+
+# ---------------------------------
+# scripts/editor/grid_graph_edit.gd
+# ---------------------------------
+
+msgid "Unable to Remove!"
+msgstr "无法移除！"
+
+msgid "UNABLE_TO_REMOVE_FROM_GRID"
+msgstr ""
+"所选节点中至少有一个不可移除。\n"
+"出于连续性安全考虑，Arrow 不允许在其他资源依赖某节点时将其移除。"
+"同样，场景或项目的当前入口也不可被移除。\n\n"
+
+msgid "Non-removable(s): "
+msgstr "不可移除的节点："
+
+
+# -----------------------------------
+# scripts/editor/new_release_check.gd
+# -----------------------------------
+
+msgid "NEW_VERSION_RELEASE_MSG"
+msgstr "Arrow %s 新版本已发布！"
+
+
+# -----------------------
+# scripts/editor/query.gd
+# -----------------------
+
+msgid "QUERY_MATCH_OPTION_BUTTON_TEXT_TEMPLATE"
+msgstr "{current} / {total} 个匹配"
+
+msgid "QUERY_MATCH_ITEM_TEXT_TEMPLATE"
+msgstr "{name} - {capitalized_type}"
+
+msgid "Any Match"
+msgstr "任意匹配"
+
+msgid "Including"
+msgstr "包含"
+
+msgid "Exact Match"
+msgstr "精确匹配"
+
+msgid "RegEx"
+msgstr "正则表达式"
+
+
+# -----------------------------------
+# scripts/editor/quick_preferences.gd
+# -----------------------------------
+
+msgid "Auto Inspection"
+msgstr "自动检查"
+
+msgid "Auto Node Update"
+msgstr "自动更新节点"
+
+msgid "Reset on Reinspection"
+msgstr "重新检查时重置"
+
+msgid "Quick Node Insertion"
+msgstr "快速插入节点"
+
+msgid "Connection Assist"
+msgstr "连接辅助"
+
+msgid "Auto Rebuild Runtime(s)"
+msgstr "自动重建运行时"
+
+
+# --------------------------------
+# scripts/editor/panels/authors.gd
+# --------------------------------
+
+msgid "ACTIVE_AUTHOR_MARKER"
+msgstr "[✓] "
+
+
+# ---------------------------------------------
+# scripts/editor/panels/console_status_codes.gd
+# ---------------------------------------------
+
+msgid "CONSOLE_STATUS_END_EDGE_MESSAGE"
+msgstr "◆ 结束：{name} ({uid})"
+
+msgid "CONSOLE_STATUS_NO_DEFAULT_MESSAGE"
+msgstr "⚠ 无默认值：{name} ({uid})"
+
+
+# --------------------------------
+# scripts/editor/panels/console.gd
+# --------------------------------
+
+msgid "CONSOLE_CLEARANCE_PREVENTION_MESSAGE"
+msgstr "清除操作已阻止。"
+
+msgid "Auto-scroll"
+msgstr "自动滚动"
+
+msgid "Allow Auto-play"
+msgstr "允许自动播放"
+
+msgid "Prevent Clearance"
+msgstr "阻止清除"
+
+msgid "Show Skipped Nodes"
+msgstr "显示被跳过的节点"
+
+msgid "Inspect Variables"
+msgstr "检查变量"
+
+msgid "Inspect Character Tags"
+msgstr "检查角色标签"
+
+
+# -----------------------------------------
+# scripts/editor/panels/inspector_[type].gd
+# -----------------------------------------
+
+msgid "TYPE_INSPECTOR_RAW_UID_HINT"
+msgstr "\n [点击按钮复制]"
+
+msgid "RESOURCE_PERMANENT_REMOVAL_WARNING"
+msgstr ""
+"您正在永久移除{field_name} `{res_name}`。\n"
+"确定要继续吗？"
+
+msgid "Yes, Remove"
+msgstr "是的，移除"
+
+
+# ---------------------------------------------------
+# scripts/editor/panels/inspector_project_new_menu.gd
+# ---------------------------------------------------
+
+msgid "New Blank Project"
+msgstr "新建空白项目"
+
+msgid "Save Current & Continue"
+msgstr "保存当前项目并继续"
+
+msgid "Load Project"
+msgstr "加载项目"
+
+msgid "Import Project File"
+msgstr "导入项目文件"
+
+
+# -----------------------------------------------------
+# scripts/editor/panels/inspector_project_properties.gd
+# -----------------------------------------------------
+
+msgid "Save a Copy"
+msgstr "保存副本"
+
+msgid "Download a Copy"
+msgstr "下载副本"
+
+msgid "Export JSON"
+msgstr "导出 JSON"
+
+msgid "Export HTML"
+msgstr "导出 HTML"
+
+msgid "Export CSV"
+msgstr "导出 CSV"
+
+msgid "Invalid Filename!"
+msgstr "无效的文件名！"
+
+msgid "INVALID_FILENAME_MSG"
+msgstr "请选择一个至少包含 1 个字符的有效文件名。"
+
+
+# ---------------------------------------------
+# scripts/editor/panels/preferences_ald_menu.gd
+# ---------------------------------------------
+
+msgid "ALD_PRESET_USER_DIR"
+msgstr "操作系统默认应用本地目录"
+
+msgid "ALD_PRESET_RES_DIR"
+msgstr "相对于 Arrow 可执行文件的路径"

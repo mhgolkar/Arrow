@@ -1,0 +1,50 @@
+
+# Randomizer Node Translation
+# ===========================
+#            Korean            
+# ===========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Randomizer\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Randomizer"
+msgstr "랜덤화기"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Name]"
+# msgstr ""
+
+# !
+# msgid "[Slots]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "RANDOMIZER_INSPECTOR_FIELD_SLOTS_COUNT"
+msgstr "출력 슬롯 수"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Randomizer"
+# msgstr ""

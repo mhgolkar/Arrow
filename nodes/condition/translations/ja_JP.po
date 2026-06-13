@@ -1,0 +1,179 @@
+
+# Condition Node Translation
+# ==========================
+#           Japanese           
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Condition\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Condition"
+msgstr "条件"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Statement]"
+# msgstr ""
+
+msgid "CONDITION_CONSOLE_FALSE"
+msgstr "偽"
+
+msgid "CONDITION_CONSOLE_TRUE"
+msgstr "真"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "CONDITION_INSPECTOR_CHECK_FOR_VAR"
+msgstr "変数をチェックする"
+
+msgid "CONDITION_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"グローバルフィルターを適用する\n"
+"\n"
+"同じ出品手順に従います\n"
+"変数インスペクターで定義されています。\n"
+"+ ノードの現在の変数が常にリストされます。"
+
+msgid "CONDITION_INSPECTOR_IF"
+msgstr "もし"
+
+msgid "CONDITION_INSPECTOR_COMPARING_TO"
+msgstr "と比較して"
+
+msgid "CONDITION_INSPECTOR_FALSE"
+msgstr "偽"
+
+msgid "CONDITION_INSPECTOR_TRUE"
+msgstr "真"
+
+msgid "CONDITION_INSPECTOR_RHS_STR_PLACEHOLDER"
+msgstr "文字列値"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Condition"
+# msgstr ""
+
+# !
+# msgid "[Statement]"
+# msgstr ""
+
+msgid "CONDITION_NODE_FALSE"
+msgstr "偽"
+
+msgid "CONDITION_NODE_TRUE"
+msgstr "真"
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "CONDITION_CONSOLE_UNSET_DATA_ERR"
+msgstr "設定を解除してください！"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+# NOTE: This is used for operator selector items formatting.
+msgid "CONDITION_INSPECTOR_OPERATOR_ITEM_TEXT_TEMPLATE"
+msgstr "{text} ({sign})"
+
+# DEV:
+# This string can accept `{self}` placeholder
+# which will be replaced by the variable name,
+# e.g. "Self (Initial Value of `{self}`)".
+msgid "CONDITION_INSPECTOR_COMPARE_TO_SELF_INITIAL"
+msgstr "自分（初期値）"
+
+msgid "CONDITION_INSPECTOR_NO_VARIABLE"
+msgstr "利用可能な変数がありません"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "CONDITION_NODE_UNSET_OR_INVALID"
+msgstr "設定を解除してください！"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "CONDITION_OP_EQ_NUM"
+msgstr "等しい"
+
+msgid "CONDITION_OP_NQ_NUM"
+msgstr "等しくない"
+
+msgid "CONDITION_OP_GT"
+msgstr "より大きい"
+
+msgid "CONDITION_OP_GTE"
+msgstr "以上です"
+
+msgid "CONDITION_OP_LS"
+msgstr "小さいです"
+
+msgid "CONDITION_OP_LSE"
+msgstr "それより小さいか等しい"
+
+msgid "CONDITION_OP_RGX"
+msgstr "正規表現パターンに一致します"
+
+msgid "CONDITION_OP_CT"
+msgstr "部分文字列を含む"
+
+msgid "CONDITION_OP_CTS"
+msgstr "部分文字列を含む (大文字と小文字が区別される)"
+
+msgid "CONDITION_OP_BGN"
+msgstr "から始まる"
+
+msgid "CONDITION_OP_END"
+msgstr "で終わる"
+
+msgid "CONDITION_OP_EQL"
+msgstr "長さが等しい"
+
+msgid "CONDITION_OP_LNG"
+msgstr "長いです"
+
+msgid "CONDITION_OP_SHR"
+msgstr "短いです"
+
+msgid "CONDITION_OP_EQ_BOOL"
+msgstr "適合"
+
+msgid "CONDITION_OP_NQ_BOOL"
+msgstr "適合しません"
+
+msgid "CONDITION_STATEMENT_RHS_IS_LHS_INIT"
+msgstr "セルフ（イニシャル`%s`）"
+
+msgid "CONDITION_RHS_INVALID"
+msgstr "[無効]"

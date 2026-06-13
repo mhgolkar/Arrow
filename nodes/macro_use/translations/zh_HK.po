@@ -1,0 +1,91 @@
+
+# Macro-Use Node Translation
+# ==========================
+#   Traditional Chinese (Hong Kong)   
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Macro-Use\n"
+"Language: zh_HK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Macro Use"
+msgstr "使用巨集"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Macro Title]"
+# msgstr ""
+
+msgid "MACRO_USE_CONSOLE_ACT_SKIP"
+msgstr "略過"
+
+msgid "MACRO_USE_CONSOLE_ACT_PLAY"
+msgstr "玩"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MACRO_USE_INSPECTOR_FIELD_MACRO"
+msgstr "宏"
+
+msgid "MACRO_USE_INSPECTOR_APPLY_GLOBAL_MACRO_FILTERS_TOOLTIP"
+msgstr ""
+"應用全域過濾器\n"
+"\n"
+"它將遵循相同的列表說明\n"
+"在巨集檢查器中定義的。\n"
+"+ 始終列出節點的目前巨集。"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Macro Use"
+# msgstr ""
+
+# !
+# msgid "[Macro Title]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MACRO_USE_CONSOLE_INVALID_MSG"
+msgstr "無效的！"
+
+msgid "MACRO_USE_CONSOLE_UNSET_TARGET_MSG"
+msgstr "取消設定"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "MACRO_USE_INSPECTOR_NONE_AVAILABLE_TXT"
+msgstr "沒有可用的宏"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "MACRO_USE_NODE_NO_TARGET_MSG"
+msgstr "無宏"

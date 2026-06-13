@@ -1,0 +1,20 @@
+
+# Hub Node Translation
+# ====================
+#   Simplified Chinese 
+# ====================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Hub\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Hub"
+msgstr "集线器"
+
+msgid "HUB_INSPECTOR_FIELD_SLOTS_COUNT"
+msgstr "输入槽数量"

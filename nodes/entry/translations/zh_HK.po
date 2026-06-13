@@ -1,0 +1,85 @@
+
+# Entry Node Translation
+# ======================
+#   Traditional Chinese (Hong Kong)   
+# ======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Entry\n"
+"Language: zh_HK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Entry"
+msgstr "入口"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# msgid "[Plaque]"
+# msgstr ""
+
+# msgid "[Node Name]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "ENTRY_INSPECTOR_FIELD_PLAQUE"
+msgstr "牌匾"
+
+msgid "ENTRY_INSPECTOR_FIELD_ACTIVE_TOOLTIP"
+msgstr ""
+"每個項目及其所有場景\n"
+"需要一個入口節點才能正常播放。"
+
+msgid "ENTRY_INSPECTOR_FIELD_ACTIVE_FOR"
+msgstr "活躍於"
+
+msgid "ENTRY_INSPECTOR_OPT_PROJECT"
+msgstr "項目"
+
+msgid "ENTRY_INSPECTOR_OPT_SCENE"
+msgstr "場景"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Entry"
+# msgstr ""
+
+# !
+# msgid "[Plaque]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "ENTRY_CONSOLE_INVALID_TXT"
+msgstr "無效的"
+
+msgid "ENTRY_CONSOLE_NO_PLAQUE_TXT"
+msgstr "無牙菌斑"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "ENTRY_NODE_INVALID_OR_UNSET_PLAQUE_TXT"
+msgstr "取消設定"

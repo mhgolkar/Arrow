@@ -1,0 +1,154 @@
+
+# Tag-Edit Node Translation
+# =========================
+#           Japanese           
+# =========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Edit\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Tag Edit"
+msgstr "タグ編集"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# msgid "[Character Name]"
+# msgstr
+
+# msgid "[Tag: Value]"
+# msgstr
+
+msgid "TAG_EDIT_CONSOLE_ACT_SKIP"
+msgstr "スキップ"
+
+# msgid "[Method]"
+# msgstr
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_CHARACTER"
+msgstr "キャラクター"
+
+msgid "TAG_EDIT_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"グローバルフィルターを適用する\n"
+"\n"
+"同じ出品手順に従います\n"
+"文字インスペクタで定義されます。\n"
+"+ ノードの現在のキャラクターが常にリストされます。"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_EDIT"
+msgstr "編集"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "キー (必須および空白以外)"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_VALUE_PLACEHOLDER"
+msgstr "値"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Tag Edit"
+# msgstr ""
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Tag: Value]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "TAG_EDIT_CONSOLE_METHOD_INVALID"
+msgstr "該当なし"
+
+msgid "TAG_EDIT_CONSOLE_METHOD_INVALID_HINT"
+msgstr "該当なし: ノードのリソース データが壊れています"
+
+msgid "TAG_EDIT_CONSOLE_INVALID_DATA"
+msgstr "無効！"
+
+msgid "TAG_EDIT_CONSOLE_TAG_KEY_VALUE_FORMAT_STR"
+msgstr "{key}: `{value}`"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "TAG_EDIT_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "利用可能なキャラクターがありません"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "TAG_EDIT_NODE_INVALID_DATA"
+msgstr "無効！"
+
+msgid "TAG_EDIT_NODE_TAG_KEY_VALUE_FORMAT_STR"
+msgstr "{key}: `{value}`"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "TAG_EDIT_METHOD_INSET"
+msgstr "挿入図"
+
+msgid "TAG_EDIT_METHOD_RESET"
+msgstr "リセット"
+
+msgid "TAG_EDIT_METHOD_OVERSET"
+msgstr "オーバーセット"
+
+msgid "TAG_EDIT_METHOD_OUTSET"
+msgstr "最初"
+
+msgid "TAG_EDIT_METHOD_UNSET"
+msgstr "未設定"
+
+msgid "TAG_EDIT_METHOD_HINT_INSET"
+msgstr "キーが存在しない場合にのみ、key:value タグを追加します。"
+
+msgid "TAG_EDIT_METHOD_HINT_RESET"
+msgstr "キーが存在する場合にのみ、タグの値をリセットします。"
+
+msgid "TAG_EDIT_METHOD_HINT_OVERSET"
+msgstr "キーが存在するかどうかに関係なく、key:value タグを上書きまたは追加します。"
+
+msgid "TAG_EDIT_METHOD_HINT_OUTSET"
+msgstr "キーと値の両方が一致する場合にタグを削除します。"
+
+msgid "TAG_EDIT_METHOD_HINT_UNSET"
+msgstr "キーのみが一致する場合にタグを削除します。"

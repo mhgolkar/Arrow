@@ -1,0 +1,76 @@
+
+# Marker Node Translation
+# =======================
+#            Korean            
+# =======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Marker\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Marker"
+msgstr "마커"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# !
+# msgid "[Marker Label]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MARKER_INSPECTOR_FIELD_COLOR"
+msgstr "색상"
+
+# !
+# msgid "[Marker Color]"
+# msgstr ""
+
+msgid "MARKER_INSPECTOR_FIELD_LABEL"
+msgstr "레이블"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# msgid "Marker"
+# msgstr ""
+
+# !
+# msgid "[Marker Label]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MARKER_CONSOLE_LABEL_UNSET_MSG"
+msgstr "레이블 없음"
+
+msgid "MARKER_CONSOLE_NO_NOTES_MSG"
+msgstr "[메모 없음.]"

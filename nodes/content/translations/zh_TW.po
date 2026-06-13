@@ -1,0 +1,102 @@
+
+# Content Node Translation
+# ========================
+#   Traditional Chinese (Taiwan)   
+# ========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Content\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Content"
+msgstr "內容"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Rich [color=yellow]Title[/color]]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=green]Brief[/color] (legacy)]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Content [/color] all with [i]BBCode[/i] support]"
+# msgstr ""
+
+msgid "CONTENT_CONSOLE_CONTINUE_BTN"
+msgstr "繼續"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "CONTENT_INSPECTOR_FIELD_TITLE"
+msgstr "標題"
+
+msgid "CONTENT_INSPECTOR_FIELD_CONTENT"
+msgstr "內容"
+
+msgid "CONTENT_INSPECTOR_FIELD_BRIEF"
+msgstr "摘要"
+
+msgid "CONTENT_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
+msgstr "設定直到文字遊標位置的簡短長度。"
+
+msgid "CONTENT_INSPECTOR_OPT_AUTO_PLAY"
+msgstr "自動播放"
+
+msgid "CONTENT_INSPECTOR_OPT_CLEAR_PAGE"
+msgstr "清除頁面"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Content"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=yellow]Title[/color]]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Content [/color] [color=green]Brief[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "CONTENT_CONSOLE_UNSET_TEXT"
+msgstr "無內容文字。"
+
+msgid "CONTENT_CONSOLE_UNSET_TITLE"
+msgstr "未命名"
+
+msgid "CONTENT_CONSOLE_UNSET_BRIEF"
+msgstr "沒有簡介。"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "CONTENT_NODE_UNSET_TITLE"
+msgstr "未命名"

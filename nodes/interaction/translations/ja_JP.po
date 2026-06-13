@@ -1,0 +1,90 @@
+
+# Interaction Node Translation
+# ============================
+#           Japanese           
+# ============================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Interaction\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Interaction"
+msgstr "インタラクション"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# !
+# msgid "Action Choice X."
+# msgstr ""
+
+# !
+# msgid "Action Choice Y!"
+# msgstr ""
+
+# !
+# msgid "[Played Action]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "INTERACTION_INSPECTOR_FIELD_LINES"
+msgstr "行"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Interaction"
+# msgstr ""
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "INTERACTION_INSPECTOR_MENU_APPEND_NEW_ACTION"
+msgstr "新しいアクションを追加"
+
+msgid "INTERACTION_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "選択したアクションを抽出する"
+
+msgid "INTERACTION_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "選択したアクションを置換"
+
+msgid "INTERACTION_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "選択したアクションを削除"
+
+msgid "INTERACTION_INSPECTOR_MENU_SORT_ACTIONS_AZ"
+msgstr "ソートアクション (アルファベット順)"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "選択した上部を移動"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "選択した端を移動"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "上へ移動"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "下へ移動"

@@ -1,0 +1,38 @@
+
+# Frame Node Translation
+# ======================
+#    Simplified Chinese  
+# ======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Frame\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Frame"
+msgstr "框架"
+
+msgid "FRAME_INSPECTOR_FIELD_COLOR"
+msgstr "颜色"
+
+msgid "FRAME_INSPECTOR_FIELD_LABEL"
+msgstr "标签"
+
+msgid "FRAME_INSPECTOR_FIELD_WIDTH"
+msgstr "宽度"
+
+msgid "FRAME_INSPECTOR_FIELD_HEIGHT"
+msgstr "高度"
+
+msgid "FRAME_CONSOLE_LABEL_UNSET_MSG"
+msgstr "无标签"
+
+msgid "FRAME_CONSOLE_NO_NOTES_MSG"
+msgstr "框架没有额外信息。"
+
+msgid "FRAME_NODE_NO_LABEL_MSG"
+msgstr "无标签！"

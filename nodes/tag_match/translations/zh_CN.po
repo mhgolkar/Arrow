@@ -1,0 +1,88 @@
+
+# Tag-Match Node Translation
+# ==========================
+#     Simplified Chinese    
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Match\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Tag Match"
+msgstr "标签匹配"
+
+msgid "TAG_MATCH_CONSOLE_ACT_EOL"
+msgstr "结束"
+
+msgid "TAG_MATCH_CONSOLE_ACT_MATCH"
+msgstr "匹配"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_CHARACTER"
+msgstr "角色"
+
+msgid "TAG_MATCH_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"应用全局筛选\n"
+"\n"
+"将遵循角色检查器中\n"
+"定义的相同列表规则。\n"
+"+ 当前节点的角色始终会显示。"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_KEY"
+msgstr "标签键"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "必填且不能为空"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_PATTERNS"
+msgstr "匹配模式"
+
+msgid "TAG_MATCH_INSPECTOR_OPT_REGEX"
+msgstr "正则表达式"
+
+msgid "TAG_MATCH_CONSOLE_INVALID_OR_UNSET_KEY"
+msgstr "无效的标签键"
+
+msgid "TAG_MATCH_CONSOLE_NO_MATCH"
+msgstr "无匹配（结束）"
+
+msgid "TAG_MATCH_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "无可用角色"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_APPEND_NEW_PATTERN"
+msgstr "添加新模式"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "提取选中模式"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "替换选中模式"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "移除选中模式"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_SORT_PATTERNS_AZ"
+msgstr "按字母排序模式"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "移至顶部"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "移至底部"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "上移"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "下移"
+
+msgid "TAG_MATCH_NODE_INVALID_OR_UNSET_KEY"
+msgstr "无效的标签键！"
+
+msgid "TAG_MATCH_INVALID_CHAR_NAME"
+msgstr "无效角色"

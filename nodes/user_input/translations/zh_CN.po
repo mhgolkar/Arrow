@@ -1,0 +1,118 @@
+
+# User-Input Node Translation
+# ===========================
+#     Simplified Chinese     
+# ===========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-User-Input\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "User Input"
+msgstr "用户输入"
+
+msgid "USER_INPUT_CONSOLE_STR_VALUE_PLACEHOLDER"
+msgstr "字符串值"
+
+msgid "USER_INPUT_CONSOLE_BOOL_SELECTOR_FALSE"
+msgstr "假"
+
+msgid "USER_INPUT_CONSOLE_BOOL_SELECTOR_TRUE"
+msgstr "真"
+
+msgid "USER_INPUT_CONSOLE_INVALID_INPUT_ERR"
+msgstr "* 无效输入！"
+
+msgid "USER_INPUT_CONSOLE_ACT_SKIP"
+msgstr "跳过"
+
+msgid "USER_INPUT_CONSOLE_ACT_SUBMIT"
+msgstr "提交"
+
+msgid "USER_INPUT_INSPECTOR_FIELD_PROMPT"
+msgstr "向玩家提问"
+
+msgid "USER_INPUT_INSPECTOR_FIELD_TARGET"
+msgstr "将用户输入赋值给"
+
+msgid "USER_INPUT_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS"
+msgstr ""
+"应用全局筛选\n"
+"\n"
+"将遵循变量检查器中\n"
+"定义的相同列表规则。\n"
+"+ 当前节点的变量始终会显示。"
+
+msgid "USER_INPUT_INSPECTOR_FIELD_CUSTOMIZE"
+msgstr "自定义控件"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN"
+msgstr "模式"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN_PLACEHOLDER"
+msgstr "正则表达式"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT"
+msgstr "默认值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT_PLACEHOLDER"
+msgstr "预设值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA"
+msgstr "附加"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA_PLACEHOLDER"
+msgstr "占位符、提示等"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_MIN"
+msgstr "最小值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_MAX"
+msgstr "最大值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_STEP"
+msgstr "步长"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_VALUE"
+msgstr "值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE"
+msgstr "假"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE_PLACEHOLDER"
+msgstr "否定"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE"
+msgstr "真"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE_PLACEHOLDER"
+msgstr "肯定"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT"
+msgstr "默认值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT_OPT_TRUE"
+msgstr "预设为真"
+
+msgid "USER_INPUT_CONSOLE_PROMPT_UNSET_MSG"
+msgstr "无提问！"
+
+msgid "USER_INPUT_CONSOLE_NO_VARIABLE_MSG"
+msgstr "未设置/无效变量！"
+
+msgid "USER_INPUT_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "无可用变量"
+
+msgid "USER_INPUT_NODE_NO_PROMPT_TXT"
+msgstr "未设置"
+
+msgid "USER_INPUT_NODE_NO_TARGET_TYPE"
+msgstr "空"
+
+msgid "USER_INPUT_NODE_NO_TARGET_NAME"
+msgstr "未定义"

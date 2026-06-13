@@ -8,6 +8,10 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Arrow"
@@ -18,7 +22,7 @@ config/use_custom_user_dir=true
 config/custom_user_dir_name="arrow"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 run/low_processor_mode=true
 boot_splash/bg_color=Color(0.219608, 0.219608, 0.219608, 1)
 boot_splash/image="res://assets/boot_splash.png"
@@ -31,6 +35,10 @@ buses/default_bus_layout="res://assets/default_bus_layout.tres"
 [display]
 
 window/stretch/aspect="ignore"
+
+[dotnet]
+
+project/assembly_name="Arrow"
 
 [input]
 

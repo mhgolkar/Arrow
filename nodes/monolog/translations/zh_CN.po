@@ -1,0 +1,49 @@
+
+# Monolog Node Translation
+# ========================
+#    Simplified Chinese   
+# ========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Monolog\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Monolog"
+msgstr "独白"
+
+msgid "MONOLOG_CONSOLE_CONTINUE_BTN"
+msgstr "继续"
+
+msgid "MONOLOG_INSPECTOR_FIELD_CHARACTER"
+msgstr "角色"
+
+msgid "MONOLOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"应用全局筛选\n"
+"\n"
+"将遵循角色检查器中\n"
+"定义的相同列表规则。\n"
+"+ 当前节点的角色和匿名角色始终会显示。"
+
+msgid "MONOLOG_INSPECTOR_FIELD_MONOLOG"
+msgstr "独白"
+
+msgid "MONOLOG_INSPECTOR_FIELD_BRIEF"
+msgstr "摘要"
+
+msgid "MONOLOG_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
+msgstr "将摘要长度设置到文本光标所在位置。"
+
+msgid "MONOLOG_INSPECTOR_OPT_AUTO_PLAY"
+msgstr "自动播放"
+
+msgid "MONOLOG_INSPECTOR_OPT_CLEAR_PAGE"
+msgstr "清除页面"
+
+msgid "MONOLOG_CONSOLE_UNSET_MSG"
+msgstr "无独白。"

@@ -1,0 +1,1024 @@
+
+# Arrow Translation
+# =================
+#            Korean            
+# =================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+#
+# This file is expected to cover the editor messages, including controls, notifications, etc. (but not nodes)
+# and may be used as a foundation to create new translations for other languages. As a convention,
+# for general messages and those short (in english), the original values are kept as keys
+# (~ untranslated); otherwise UPPER_CASE keys would be used for brevity and precision.
+#
+# For nodes, check out their respective translations sub-directories.
+#
+# NOTE:
+# + Tags like `%s` and mustache `{placeholders}` are mostly for formatting purposes and shall be kept as they are to allow proper replacement.
+# + A particular world or phrase may have been used in multiple modules, identically, and to avoid duplicates, only listed in one section, most-likely the topmost/first one.
+# + The messages commented out (and being marked with a preceding `# !` attribute) are likely to be UI fillers and replaced by scripts, so there may not be any need for them to be translated.
+#
+# ---
+
+msgid "Arrow"
+msgstr "Arrow"
+
+
+# ---------
+# main.tscn
+# ---------
+
+# ~ Generational Version Code
+msgid "[v3.x]"
+msgstr "[v3.x]"
+
+msgid "Website"
+msgstr "웹사이트"
+
+msgid "Repository"
+msgstr "저장소"
+
+msgid "Documentation"
+msgstr "문서"
+
+# ~ Welcome Message Tab Name
+msgid "Hello"
+msgstr "안녕하세요"
+
+msgid "WELCOME_MESSAGE"
+msgstr ""
+"[b]Arrow 3.x[/b]에 오신 것을 환영합니다.\n"
+"\n"
+"Arrow는 [i]게임 내러티브[/i] 디자인과 [i]대화형 비선형 스토리텔링[/i] 제작을 위한 무료 오픈 소스이자 기능이 풍부한 도구입니다.\n"
+"\n"
+"몇 가지 간단한 참고사항:\n"
+"\n"
+"[b]• PWA 데이터 스토리지[/b]\n"
+"Arrow 웹 앱은 브라우저 저장소를 사용하여 프로젝트를 관리합니다.\n"
+"[i]귀하의 데이터는 모두 이 기기에만 있습니다.[/i]\n"
+"프로젝트를 내보내려면 다음을 사용하십시오.\n"
+"[indent][bgcolor=black][color=white][i][code] 검사기(패널) > 프로젝트(탭) > [/code][/i][/color][/bgcolor][/indent] 내보내기\n"
+"앱 저장 공간을 정리하려면 다음을 시도해 보세요.\n"
+"[indent][bgcolor=black][color=white][i][code] Arrow(메뉴 버튼, 왼쪽 상단) > [/code][/i][/color][/bgcolor][/indent] 지우기\n"
+"\n"
+"자세한 내용은 당사 웹사이트 및/또는 프로젝트 저장소를 찾아보세요.\n"
+"\n"
+"안부 인사\n"
+"모르. H. Golkar 및 기여자\n"
+
+# ~ Embedded Copyright Document Tab Name
+msgid "Copyright"
+msgstr "저작권 정보"
+
+# !
+# msgid "[Will be Auto-generated]"
+# msgstr ""
+
+msgid "New"
+msgstr "새로 만들기"
+
+msgid "Open"
+msgstr "열기"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Preferences"
+msgstr "환경설정"
+
+msgid "Dismiss"
+msgstr "닫기"
+
+msgid "Confirm"
+msgstr "확인"
+
+msgid "User Interface"
+msgstr "사용자 인터페이스"
+
+msgid "Theme"
+msgstr "테마"
+
+msgid "Language"
+msgstr "언어"
+
+msgid "Data Management"
+msgstr "데이터 관리"
+
+msgid "Work Directory"
+msgstr "작업 디렉터리"
+
+msgid "[Working Directory Path]"
+msgstr "[작업 디렉터리 경로]"
+
+msgid "Select"
+msgstr "선택"
+
+msgid "Reset"
+msgstr "초기화"
+
+msgid "History (Undo/Redo)"
+msgstr "기록(실행 취소/다시 실행)"
+
+msgid "Size"
+msgstr "크기"
+
+msgid "HISTORY_SIZE_TOOLTIP"
+msgstr ""
+"기록 크기는 시간에 맞춰 프로젝트를 이동할 수 있는 단계 수를 정의합니다.\n"
+"현재 기록 기능(`Ctrl+Z` 실행 취소 및 `Ctrl+Shift+Z` 다시 실행)\n"
+"열려 있는 프로젝트의 전체 이미지를 메모리에 캡처하여 작업합니다.\n"
+"성능은 장치 사양 및 프로젝트 규모에 따라 달라질 수 있습니다."
+
+msgid "Authors"
+msgstr "작성자"
+
+msgid "Contributors"
+msgstr "기여자"
+
+msgid "AUID"
+msgstr "AUID"
+
+msgid "AUID_TOOLTIP"
+msgstr ""
+"작성자 고유 ID는 리소스 UID 네임스페이스의 두 번째 세그먼트 역할을 합니다.\n"
+"여러 참가자가 동일한 문서에서 작업할 수 있도록 허용\n"
+"ID 충돌 없이 동시에."
+
+msgid "ACTIVE_CONTRIBUTOR_TOOLTIP"
+msgstr ""
+"체크하면 선택된 작가가 작가로 간주됩니다.\n"
+"나중에 생성된 리소스의 기여자입니다."
+
+msgid "Active Contributor"
+msgstr "활성 기여자"
+
+msgid "Info"
+msgstr "정보"
+
+# ~ Author Info Placeholder
+msgid "John Doe (contributor@project.tld)"
+msgstr "홍길동 (contributor@project.tld)"
+
+msgid "Remove"
+msgstr "제거"
+
+msgid "Apply"
+msgstr "적용"
+
+msgid "Chapter"
+msgstr "챕터"
+
+msgid "CHAPTER_ID_TOOLTIP"
+msgstr ""
+"장 ID는 각 문서의 고유 식별자입니다.\n"
+"(리소스 UID 네임스페이스의 첫 번째 세그먼트로)\n"
+"프로젝트가 여러 파일로 분할될 때 충돌을 방지합니다."
+
+msgid "CHAPTER_ID_UPDATE_TOOLTIP"
+msgstr ""
+"다른 챕터 ID는 향후 UID에만 적용됩니다.\n"
+"이미 생성된 리소스를 업데이트하거나 영향을 주지 않습니다."
+
+msgid "Update"
+msgstr "업데이트"
+
+msgid "New Document"
+msgstr "새 문서"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "Project or Chapter Title"
+msgstr "프로젝트 또는 챕터 제목"
+
+msgid "Filename"
+msgstr "파일 이름"
+
+msgid "(without extension)"
+msgstr "(확장자 제외)"
+
+msgid "Filename's already used or invalid"
+msgstr "파일 이름이 이미 사용 중이거나 유효하지 않습니다"
+
+msgid "Full Path"
+msgstr "전체 경로"
+
+# ~ New Document Path Value Placeholder
+msgid "[Generated]"
+msgstr "[자동 생성됨]"
+
+msgid "Create"
+msgstr "만들기"
+
+msgid "Select Current Folder"
+msgstr "현재 폴더 선택"
+
+# !
+# msgid "[Heading]"
+# msgstr ""
+
+# !
+# msgid "[i][Message Here!][/i]"
+# msgstr ""
+
+# !
+# msgid "[Action(s)]"
+# msgstr ""
+
+msgid "Inspector"
+msgstr "인스펙터"
+
+msgid "Project"
+msgstr "프로젝트"
+
+msgid "Filter Projects"
+msgstr "프로젝트 필터"
+
+msgid "FILTER_REVERSE_TOOLTIP"
+msgstr ""
+"필터 반전\n"
+"(일치하지 않는 경우 합격합니다.)"
+
+msgid "SORT_AZ_OR_UID_TOOLTIP"
+msgstr ""
+"알파벳순으로 정렬\n"
+"(그렇지 않으면 UID별로 정렬됩니다.)"
+
+# !
+# msgid "[ [color=green]Project descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Set"
+msgstr "설정"
+
+msgid "Export"
+msgstr "내보내기"
+
+msgid "Latest Save"
+msgstr "최근 저장"
+
+# !
+# msgid "[Timestamp]"
+# msgstr ""
+
+msgid "Revert to the Latest Save"
+msgstr "최근 저장 상태로 되돌리기"
+
+msgid "Revert"
+msgstr "되돌리기"
+
+msgid "Snapshots"
+msgstr "스냅샷"
+
+msgid "Restore"
+msgstr "복원"
+
+msgid "Preview"
+msgstr "미리보기"
+
+msgid "Rem."
+msgstr "비고"
+
+# ~ Node Tab Name (Inspector)
+msgid "Node"
+msgstr "노드"
+
+msgid "Unique Node Name"
+msgstr "고유 노드 이름"
+
+msgid "NODE_FOCUS_BTN_TOOLTIP"
+msgstr ""
+"검사된 노드 찾기\n"
+"그리드(Ctrl + 백슬래시)"
+
+# ~ Node (Dev) Notes Placeholder
+msgid "[Notes]"
+msgstr "[메모]"
+
+msgid "Previous Local History Modification"
+msgstr "이전 로컬 기록 수정"
+
+msgid "Reset Node Parameters (Ctrl + Shift + Minus)"
+msgstr "노드 매개변수 초기화(Ctrl + Shift + Minus)"
+
+msgid "Next Local History Modification"
+msgstr "다음 로컬 기록 수정"
+
+msgid "SKIP_NODES_TOOLTIP"
+msgstr ""
+"건너뛴 노드는 내러티브에서 효과적이지 않습니다.\n"
+"대체 동작은 노드 유형에 따라 다릅니다."
+
+msgid "Skip"
+msgstr "건너뛰기"
+
+msgid "Update Node (Ctrl + Shift + Plus)"
+msgstr "노드 업데이트(Ctrl + Shift + Plus)"
+
+msgid "Locate Previous Referrer"
+msgstr "이전 참조 위치 찾기"
+
+# !
+# msgid "Ref(s)"
+# msgstr ""
+
+msgid "Locate Next Referrer"
+msgstr "다음 참조 위치 찾기"
+
+msgid "Scoped (Filter for Scene)"
+msgstr "범위 지정(장면 필터)"
+
+msgid "NODES_TAB_BLOCKER"
+msgstr ""
+"검사할 노드를 선택하거나\n"
+"그리드를 마우스 오른쪽 버튼으로 클릭하여\n"
+"새 노드를 만듭니다."
+
+# ~ Scenes Tab Name (Inspector)
+msgid "Scenes"
+msgstr "장면"
+
+msgid "Filter Scenes"
+msgstr "장면 필터"
+
+# !
+# msgid "[ [color=green]Scene descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Unique Scene Name"
+msgstr "고유 장면 이름"
+
+msgid "Macros"
+msgstr "매크로"
+
+msgid "Filter Macros"
+msgstr "매크로 필터"
+
+# !
+# msgid "[ [color=green]Macro descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Unique Macro Name"
+msgstr "고유 매크로 이름"
+
+# !
+# msgid "Instance(s)"
+# msgstr ""
+
+# ~ Variables Tab Name (Inspector)
+msgid "Variables"
+msgstr "변수"
+
+# ~ Used in Multiple Selectors
+msgid "Variable"
+msgstr "변수"
+
+msgid "Filter Variables"
+msgstr "변수 필터"
+
+msgid "Filter by Type"
+msgstr "유형별 필터"
+
+msgid "Any"
+msgstr "임의"
+
+msgid "Num"
+msgstr "숫자"
+
+msgid "Str"
+msgstr "문자열"
+
+msgid "Bool"
+msgstr "불리언"
+
+msgid "Name"
+msgstr "이름"
+
+msgid "Unique Variable Name"
+msgstr "고유 변수 이름"
+
+msgid "Initial"
+msgstr "초기값"
+
+msgid "Str Value"
+msgstr "문자열 값"
+
+msgid "True"
+msgstr "참"
+
+msgid "False"
+msgstr "거짓"
+
+# !
+# msgid "Reference(s)"
+# msgstr ""
+
+msgid "Characters"
+msgstr "캐릭터"
+
+msgid "Filter Characters"
+msgstr "캐릭터 필터"
+
+msgid "Unique Character Name"
+msgstr "고유 캐릭터 이름"
+
+msgid "No Initial Tag"
+msgstr "초기 태그 없음"
+
+msgid "Key"
+msgstr "키"
+
+msgid "Value"
+msgstr "값"
+
+msgid "Oversets (adds or updates) a tag"
+msgstr "태그를 덮어쓰기 설정(추가 또는 업데이트)"
+
+# !
+# msgid "Appearance(s)"
+# msgstr ""
+
+msgid "Console"
+msgstr "콘솔"
+
+msgid "No Initial Tags"
+msgstr "초기 태그 없음"
+
+msgid "Settings"
+msgstr "설정"
+
+msgid "Hides Console Preserving the State"
+msgstr "상태를 보존하는 콘솔을 숨깁니다."
+
+msgid "Clears Console & State of Play"
+msgstr "콘솔 및 플레이 상태 지우기"
+
+msgid "Clear"
+msgstr "지우기"
+
+msgid "Back"
+msgstr "뒤로"
+
+msgid "Filter Node Types"
+msgstr "노드 유형 필터"
+
+msgid "Insert"
+msgstr "삽입"
+
+msgid "Clear Clipboard"
+msgstr "클립보드 지우기"
+
+msgid "Copy Node(s)"
+msgstr "노드 복사"
+
+msgid "Cut Node(s)"
+msgstr "노드 잘라내기"
+
+msgid "Paste Node(s)"
+msgstr "노드 붙여넣기"
+
+msgid "Remove Node(s)"
+msgstr "노드 제거"
+
+# !
+# msgid "[New Version ?]"
+# msgstr ""
+
+msgid "History Undo (Ctrl + Z)"
+msgstr "기록 실행 취소(Ctrl + Z)"
+
+msgid "History Redo (Ctrl + Shift + Z)"
+msgstr "기록 다시 실행(Ctrl + Shift + Z)"
+
+# !
+# msgid "[Project Title]"
+# msgstr ""
+
+msgid "Play from Project Entry (F4)"
+msgstr "프로젝트 항목에서 재생(F4)"
+
+msgid "Play from Scene Entry (F5)"
+msgstr "장면 항목에서 재생(F5)"
+
+msgid "Show Console (F6)"
+msgstr "콘솔 표시(F6)"
+
+msgid "Play Selected Node (F7)"
+msgstr "선택한 노드 재생(F7)"
+
+msgid "Save Document (Ctrl + S)"
+msgstr "문서 저장(Ctrl + S)"
+
+msgid "Save"
+msgstr "저장"
+
+# !
+# msgid "[Current Scene]"
+# msgstr ""
+
+msgid "Query"
+msgstr "검색"
+
+# !
+# msgid "[Mode]"
+# msgstr ""
+
+msgid "SCOPED_QUERY_TOOLTIP"
+msgstr ""
+"범위: 장면 필터\n"
+"(그렇지 않으면 프로젝트 전체를 검색합니다.)"
+
+msgid "Query (Ctrl + Q)"
+msgstr "쿼리(Ctrl + Q)"
+
+msgid "Locate Previous Match (Ctrl + 1)"
+msgstr "이전 일치 항목 찾기(Ctrl + 1)"
+
+# !
+# msgid "[S:T Matches]"
+# msgstr ""
+
+msgid "Locate Next Match (Ctrl + 2)"
+msgstr "다음 일치 항목 찾기(Ctrl + 2)"
+
+msgid "Toggle Inspector Panel (Ctrl + P)"
+msgstr "검사기 패널 전환(Ctrl + P)"
+
+msgid "Inspect."
+msgstr "검사"
+
+msgid "Quick Pref."
+msgstr "빠른 설정"
+
+
+# ----------------------------
+# scripts/core/central_mind.gd
+# ----------------------------
+
+msgid "Discarding New Project ?"
+msgstr "새 프로젝트를 폐기하시겠습니까?"
+
+msgid "PROJECT_DISCARD_WARNING"
+msgstr "'%s'가 수정되었습니다. 새 빈 프로젝트를 생성하면 저장되지 않은 모든 데이터가 삭제됩니다."
+
+msgid "OK! Proceed Anyway"
+msgstr "좋아요! 어쨌든 진행"
+
+msgid "Lost Project!"
+msgstr "프로젝트를 찾을 수 없습니다!"
+
+msgid "LOST_PROJECT_WARNING"
+msgstr ""
+"선택한 프로젝트(~%s)를 찾아서 읽을 수 없습니다.\n"
+"적절한 권한이 부족하여 파일에 액세스할 수 없거나 손실(예: 이름 변경 또는 삭제)되었을 수 있습니다. 손상된 프로젝트 목록 파일로 인해 이 문제가 발생할 수도 있습니다.\n"
+"\n"
+
+msgid "Expected file: "
+msgstr "예상 파일: "
+
+msgid "Unlist Project"
+msgstr "프로젝트 목록 해제"
+
+msgid "Overriding Unsaved Project ?"
+msgstr "저장되지 않은 프로젝트를 재정의하시겠습니까?"
+
+msgid "UNSAVED_PROJECT_WARNING"
+msgstr "편집자는 `%s`에 대한 수정 사항을 보류하고 있습니다. 다른 프로젝트를 열면 저장되지 않은 데이터가 삭제됩니다. 그래도 계속하시겠습니까?"
+
+msgid "Yes, Open"
+msgstr "예, 열기"
+
+msgid "Are you sure ?!"
+msgstr "정말 계속하시겠습니까?!"
+
+msgid "UNSAVED_CHANGES_WARNING"
+msgstr "프로젝트 '%s'가 수정되었습니다. 어쨌든 닫으면 저장되지 않은 변경 사항이 삭제됩니다."
+
+msgid "Close Anyway"
+msgstr "그래도 닫기"
+
+msgid "Save Project"
+msgstr "프로젝트 저장"
+
+msgid "PROJECT_REVERT_WARNING"
+msgstr "현재 프로젝트를 마지막으로 물리적으로 저장된 상태로 되돌리려고 합니다. 이 작업은 메모리의 모든 변경 사항을 삭제하고 저장된 파일에서 프로젝트를 다시 엽니다."
+
+msgid "Revert; I'm Sure"
+msgstr "돌아가는 것; 나는 확신한다"
+
+msgid "UPDATE_CHAPTER_ID_NOTIFICATION"
+msgstr ""
+"새 챕터 ID는 이 프로젝트 파일의 리소스 UID 네임스페이스를 변경합니다.\n"
+"프로젝트가 여러 문서로 나누어져 있고 각 문서에 고유한 네임스페이스를 할당하여 식별자 충돌을 피하려는 경우에만 이 작업이 필요합니다.\n"
+"또한 이 업데이트는 새 리소스 UID(예: 새 노드, 장면 등)에만 영향을 미칩니다. 이전에 생성된 리소스(기본 노드 포함)는 현재 UID를 유지합니다."
+
+msgid "OK; Update"
+msgstr "확인, 업데이트"
+
+msgid "Invalid Operation!"
+msgstr "유효하지 않은 작업입니다!"
+
+msgid "PROJECT_ENTRY_IN_MACRO_ERROR"
+msgstr "매크로는 반복 가능한 장면이며 프로젝트 항목을 호스팅하도록 설계되지 않았습니다!"
+
+msgid "Unsafe Operation Ignored!"
+msgstr "안전하지 않은 작업을 무시했습니다!"
+
+msgid "USED_RESOURCE_NOT_REMOVED"
+msgstr "일부 다른 노드 또는 리소스가 이 리소스에 의존하기 때문에 리소스를 제거할 수 없습니다."
+
+msgid "MAY_BE_USED_SCENE_NOT_REMOVED"
+msgstr "예를 들어 장면의 하위 노드 중 하나가 다른 장면의 점프에 의해 참조될 수 있습니다."
+
+msgid "Referenced resource(s): "
+msgstr "참조된 리소스: "
+
+msgid "REFERENCED_RESOURCE_NOT_REMOVED"
+msgstr ""
+"제거하려는 리소스 중 하나 이상이 다른 리소스 또는 노드에 필요합니다. 리퍼러도 제거하지 않으면 연속체 안전을 위해 이 작업을 진행할 수 없습니다.\n"
+"\n"
+
+# ~ On clipboard move (pull) operation
+msgid "Unsafe Move Detected!"
+msgstr "안전하지 않은 이동이 감지되었습니다!"
+
+msgid "IMMOVABLE_NODES_ERROR"
+msgstr ""
+"연속체 안전(예: 장면 진입)으로 인해 노드 전체 또는 일부를 이동할 수 없습니다.\n"
+"\n"
+
+msgid "Immovable(s): "
+msgstr "이동할 수 없음: "
+
+msgid "Move What's Safe (%s)"
+msgstr "안전한 것을 옮기세요(%s)"
+
+msgid "Merger Detected [Experimental!]"
+msgstr "합병 감지 [실험적!]"
+
+msgid "MERGER_OPERATION_DESCRIPTION"
+msgstr ""
+"`{origin}`(챕터 {cid})에서 가져온 리소스를 붙여넣으려고 합니다: {statistics}\n"
+"여기서 {main_count}개는 기본 리소스이고, 나머지는 참조된 종속 항목입니다.\n"
+"\n"
+
+msgid "SCENES_FIELD_NAME"
+msgid_plural "SCENES_FIELD_NAME_PLURAL"
+msgstr[0] "장면"
+
+msgid "MACROS_FIELD_NAME"
+msgid_plural "MACROS_FIELD_NAME_PLURAL"
+msgstr[0] "매크로"
+
+msgid "NODES_FIELD_NAME"
+msgid_plural "NODES_FIELD_NAME_PLURAL"
+msgstr[0] "노드"
+
+msgid "VARIABLES_FIELD_NAME"
+msgid_plural "VARIABLES_FIELD_NAME_PLURAL"
+msgstr[0] "변수"
+
+msgid "CHARACTERS_FIELD_NAME"
+msgid_plural "CHARACTERS_FIELD_NAME_PLURAL"
+msgstr[0] "캐릭터"
+
+msgid "MERGER_OPERATION_STRATEGY_CHOICE"
+msgstr "유사한 UID를 가진 공유 가능한 리소스가 있는 경우 병합 전략을 선택하십시오."
+
+msgid "Reuse"
+msgstr "재사용"
+
+msgid "Recreate"
+msgstr "다시 만들기"
+
+msgid "NO_SAVE_IN_SNAPSHOT_PREVIEW"
+msgstr ""
+"스냅샷 미리보기 모드에서는 프로젝트를 저장할 수 없습니다.\n"
+"스냅샷의 변경 사항을 메모리에 유지하려면 다른 스냅샷을 찍거나 열려 있는 스냅샷을 작업 초안으로 복원하고 저장하세요.\n"
+"미리 본 스냅샷을 내보내고 새 프로젝트로 다시 가져올 수도 있습니다."
+
+msgid "PROJECT_REMOVAL_PROMPT"
+msgstr ""
+"나열된 프로젝트 [i]`{name}`[/i]({pid})를 제거하려고 합니다.\n"
+"목록에 없으면 문서는 그대로 유지되며 프로젝트 목록에서만 삭제됩니다.\n"
+"삭제된 파일은 복구할 수 없습니다.\n"
+"\n"
+
+msgid "Project file: `%s`"
+msgstr "프로젝트 파일: `%s`"
+
+msgid "Delete File!"
+msgstr "파일 삭제!"
+
+msgid "Unlist"
+msgstr "목록에서 제거"
+
+msgid "SNAPSHOT_RESTORATION_PROMPT"
+msgstr ""
+"스냅샷 [i]`v%s`[/i]를 복원하려고 합니다.\n"
+"이 작업은 메모리에 있는 프로젝트의 현재 상태를 무시하지만 파일(나중에 저장되지 않는 한) 또는 기타 스냅샷은 변경되지 않습니다.\n"
+"나중에 현재 초안을 사용하려면 미리보기를 닫고 스냅샷을 찍은 후 복원하세요."
+
+msgid "Restore; I'm Sure"
+msgstr "복원하다; 나는 확신한다"
+
+msgid "Invalid Project File!"
+msgstr "유효하지 않은 프로젝트 파일입니다!"
+
+msgid "INVALID_PROJECT_FILE_IMPORT"
+msgstr ""
+"선택한 파일을 검증하고 가져올 수 없습니다.\n"
+"파일이 지원되는 형식이 아니거나 손상되었을 수 있습니다."
+
+msgid "Quick Re-Export Not Available!"
+msgstr "빠른 재내보내기가 불가능합니다!"
+
+msgid "QUICK_REEXPORT_NOT_YET"
+msgstr ""
+"현재 세션에서 아직 프로젝트를 내보내지 않았습니다.\n"
+"이 바로가기를 사용하면 최근 내보내기의 경로와 형식으로 프로젝트를 다시 내보낼 수 있습니다.\n"
+"[i]`Inspector 패널> 프로젝트 탭> 내보내기`[/i]에서 먼저 프로젝트를 내보내십시오."
+
+msgid "IO Operation Failed!"
+msgstr "I/O 작업 실패!"
+
+msgid "EXPORT_IO_FAILED"
+msgstr ""
+"대상 경로에 쓰거나 런타임 템플릿 파일에서 읽을 수 없습니다.\n"
+"Arrow에 데이터를 읽고 쓸 수 있는 적절한 권한이 있는지 확인하세요."
+
+msgid "Error!"
+msgstr "오류!"
+
+msgid "SHOW_ERROR_FALLBACK_MSG"
+msgstr "문제가 발생했습니다. 자세한 내용은 로그(stdout)를 확인하세요."
+
+
+# -------------------
+# scripts/settings.gd
+# -------------------
+
+msgid "Select an Arrow Document"
+msgstr "Arrow 문서 선택"
+
+msgid "Save Document"
+msgstr "문서 저장"
+
+msgid "Export as JSON"
+msgstr "JSON으로 내보내기"
+
+msgid "Export Playable HTML"
+msgstr "플레이 가능한 HTML 내보내기"
+
+msgid "Export CSV (Translation)"
+msgstr "CSV(번역) 내보내기"
+
+msgid "Select App Local Directory"
+msgstr "앱 로컬 디렉터리 선택"
+
+
+# -------------------------------------
+# scripts/core/configuration_handler.gd
+# -------------------------------------
+
+msgid "NO_ALD_ACCESS"
+msgstr "작업 디렉터리에 액세스할 수 없습니다!"
+
+msgid "UNABLE_TO_ACCESS_ALD_MSG"
+msgstr ""
+"선택한 앱의 로컬/작업 디렉터리에 접근할 수 없습니다. 경로에 대한 읽기-쓰기 권한이 부족하기 때문일 수 있습니다.\n"
+"이전에 확인된 디렉터리가 사용됩니다."
+
+
+# --------------------------
+# scripts/editor/app_menu.gd
+# --------------------------
+
+msgid "Fullscreen (F11)"
+msgstr "전체 화면(F11)"
+
+msgid "Exit Fullscreen (F11)"
+msgstr "전체 화면 종료(F11)"
+
+msgid "Stay Above"
+msgstr "위에 머무르다"
+
+msgid "Leave Above"
+msgstr "위에 남겨두기"
+
+msgid "Refresh"
+msgstr "새로 고침"
+
+msgid "About"
+msgstr "정보"
+
+msgid "Quit"
+msgstr "종료"
+
+msgid "BROWSER_STORAGE_CLEAR_PROMPT"
+msgstr ""
+"저장용량을 삭제하려고 합니다. 그러면 이 브라우저에 있는 Arrow의 가상 파일 시스템에서 프로젝트가 영구적으로 제거됩니다.\n"
+"제거된 데이터는 복구할 수 없습니다.\n"
+
+msgid "Ok; Terminate!"
+msgstr "확인, 종료합니다!"
+
+
+# ---------------------------------
+# scripts/editor/grid_graph_edit.gd
+# ---------------------------------
+
+msgid "Unable to Remove!"
+msgstr "제거할 수 없습니다!"
+
+msgid "UNABLE_TO_REMOVE_FROM_GRID"
+msgstr ""
+"선택한 노드 중 하나 이상을 제거할 수 없습니다.\n"
+"연속체 안전을 위해 Arrow는 다른 리소스가 노드에 의존하는 동안 노드 제거를 허용하지 않습니다. 장면이나 프로젝트의 활성 항목도 제거하지 않습니다.\n"
+"\n"
+
+msgid "Non-removable(s): "
+msgstr "제거할 수 없는 항목: "
+
+
+# -----------------------------------
+# scripts/editor/new_release_check.gd
+# -----------------------------------
+
+msgid "NEW_VERSION_RELEASE_MSG"
+msgstr "새 Arrow %s 출시!"
+
+
+# -----------------------
+# scripts/editor/query.gd
+# -----------------------
+
+msgid "QUERY_MATCH_OPTION_BUTTON_TEXT_TEMPLATE"
+msgstr "{current} : {total} 일치"
+
+msgid "QUERY_MATCH_ITEM_TEXT_TEMPLATE"
+msgstr "{name} - {capitalized_type}"
+
+msgid "Any Match"
+msgstr "일부 일치"
+
+msgid "Including"
+msgstr "포함"
+
+msgid "Exact Match"
+msgstr "정확히 일치"
+
+msgid "RegEx"
+msgstr "RegEx"
+
+
+# -----------------------------------
+# scripts/editor/quick_preferences.gd
+# -----------------------------------
+
+msgid "Auto Inspection"
+msgstr "자동 검사"
+
+msgid "Auto Node Update"
+msgstr "노드 자동 업데이트"
+
+msgid "Reset on Reinspection"
+msgstr "재검사 시 재설정"
+
+msgid "Quick Node Insertion"
+msgstr "빠른 노드 삽입"
+
+msgid "Connection Assist"
+msgstr "연결 지원"
+
+msgid "Auto Rebuild Runtime(s)"
+msgstr "자동 재구축 런타임"
+
+
+# --------------------------------
+# scripts/editor/panels/authors.gd
+# --------------------------------
+
+msgid "ACTIVE_AUTHOR_MARKER"
+msgstr "[✓]"
+
+
+# ---------------------------------------------
+# scripts/editor/panels/console_status_codes.gd
+# ---------------------------------------------
+
+msgid "CONSOLE_STATUS_END_EDGE_MESSAGE"
+msgstr "◆ 단종: {name}({uid})"
+
+msgid "CONSOLE_STATUS_NO_DEFAULT_MESSAGE"
+msgstr "⚠ 기본값 없음: {name}({uid})"
+
+
+# --------------------------------
+# scripts/editor/panels/console.gd
+# --------------------------------
+
+msgid "CONSOLE_CLEARANCE_PREVENTION_MESSAGE"
+msgstr "클리어런스가 무시되었습니다."
+
+msgid "Auto-scroll"
+msgstr "자동 스크롤"
+
+msgid "Allow Auto-play"
+msgstr "자동 재생 허용"
+
+msgid "Prevent Clearance"
+msgstr "클리어런스 방지"
+
+msgid "Show Skipped Nodes"
+msgstr "건너뛴 노드 표시"
+
+msgid "Inspect Variables"
+msgstr "변수 검사"
+
+msgid "Inspect Character Tags"
+msgstr "문자 태그 검사"
+
+
+# -----------------------------------------
+# scripts/editor/panels/inspector_[type].gd
+# -----------------------------------------
+
+msgid "TYPE_INSPECTOR_RAW_UID_HINT"
+msgstr ""
+"\n"
+"[복사하려면 버튼을 누르세요]"
+
+msgid "RESOURCE_PERMANENT_REMOVAL_WARNING"
+msgstr ""
+"{field_name} '{res_name}'를 영구적으로 제거합니다.\n"
+"계속하시겠습니까?"
+
+msgid "Yes, Remove"
+msgstr "예, 제거"
+
+
+# ---------------------------------------------------
+# scripts/editor/panels/inspector_project_new_menu.gd
+# ---------------------------------------------------
+
+msgid "New Blank Project"
+msgstr "새 빈 프로젝트"
+
+msgid "Save Current & Continue"
+msgstr "현재 저장 및 계속"
+
+msgid "Load Project"
+msgstr "프로젝트 불러오기"
+
+msgid "Import Project File"
+msgstr "프로젝트 파일 가져오기"
+
+
+# -----------------------------------------------------
+# scripts/editor/panels/inspector_project_properties.gd
+# -----------------------------------------------------
+
+msgid "Save a Copy"
+msgstr "사본 저장"
+
+msgid "Download a Copy"
+msgstr "사본 다운로드"
+
+msgid "Export JSON"
+msgstr "JSON 내보내기"
+
+msgid "Export HTML"
+msgstr "HTML 내보내기"
+
+msgid "Export CSV"
+msgstr "CSV 내보내기"
+
+msgid "Invalid Filename!"
+msgstr "유효하지 않은 파일 이름입니다!"
+
+msgid "INVALID_FILENAME_MSG"
+msgstr "1자 이상의 유효한 파일 이름을 선택하세요."
+
+
+# ---------------------------------------------
+# scripts/editor/panels/preferences_ald_menu.gd
+# ---------------------------------------------
+
+msgid "ALD_PRESET_USER_DIR"
+msgstr "OS 기본 앱 로컬 디렉터리"
+
+msgid "ALD_PRESET_RES_DIR"
+msgstr "Arrow의 실행 파일과 관련"
