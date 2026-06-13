@@ -1,0 +1,150 @@
+
+# Tag-Match Node Translation
+# ==========================
+#   Traditional Chinese (Hong Kong)   
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Match\n"
+"Language: zh_HK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Tag Match"
+msgstr "配對標籤"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Tag Key]"
+# msgstr ""
+
+msgid "TAG_MATCH_CONSOLE_ACT_EOL"
+msgstr "EOL"
+
+msgid "TAG_MATCH_CONSOLE_ACT_MATCH"
+msgstr "匹配"
+
+# !
+# msgid "[Matched Pattern | EOL]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_CHARACTER"
+msgstr "特點"
+
+msgid "TAG_MATCH_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"應用全域過濾器\n"
+"\n"
+"它將遵循相同的列表說明\n"
+"在字元檢查器中定義。\n"
+"+ 始終列出節點的目前字元。"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_KEY"
+msgstr "標籤鍵"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "必填和非空白"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_PATTERNS"
+msgstr "圖案"
+
+msgid "TAG_MATCH_INSPECTOR_OPT_REGEX"
+msgstr "RegEx"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Tag Match"
+# msgstr
+
+# !
+# msgid "[Character Name]"
+# msgstr
+
+# !
+# msgid "[Tag Key]"
+# msgstr
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "TAG_MATCH_CONSOLE_INVALID_OR_UNSET_KEY"
+msgstr "標籤鍵無效"
+
+msgid "TAG_MATCH_CONSOLE_NO_MATCH"
+msgstr "不符 (EOL)"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "TAG_MATCH_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "沒有可用的角色"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_APPEND_NEW_PATTERN"
+msgstr "追加新模式"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "提取選定的模式"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "替換選定的圖案"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "刪除選定的模式"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_SORT_PATTERNS_AZ"
+msgstr "排序模式（按字母順序）"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "移動選定的頂部"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "移動選定端"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "上移所選內容"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "下移所選內容"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "TAG_MATCH_NODE_INVALID_OR_UNSET_KEY"
+msgstr "標籤鍵無效！"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "TAG_MATCH_INVALID_CHAR_NAME"
+msgstr "無效字元"

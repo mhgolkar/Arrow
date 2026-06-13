@@ -1,0 +1,175 @@
+
+# User-Input Node Translation
+# ===========================
+#   Traditional Chinese (Taiwan)   
+# ===========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-User-Input\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "User Input"
+msgstr "使用者輸入"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Prompt Question]"
+# msgstr ""
+
+msgid "USER_INPUT_CONSOLE_STR_VALUE_PLACEHOLDER"
+msgstr "字串值"
+
+msgid "USER_INPUT_CONSOLE_BOOL_SELECTOR_FALSE"
+msgstr "假"
+
+msgid "USER_INPUT_CONSOLE_BOOL_SELECTOR_TRUE"
+msgstr "真"
+
+msgid "USER_INPUT_CONSOLE_INVALID_INPUT_ERR"
+msgstr "* 輸入無效！"
+
+# !
+# msgid "[Result]"
+# msgstr ""
+
+msgid "USER_INPUT_CONSOLE_ACT_SKIP"
+msgstr "略過"
+
+msgid "USER_INPUT_CONSOLE_ACT_SUBMIT"
+msgstr "送出"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "USER_INPUT_INSPECTOR_FIELD_PROMPT"
+msgstr "詢問玩家"
+
+msgid "USER_INPUT_INSPECTOR_FIELD_TARGET"
+msgstr "將使用者輸入設定為"
+
+msgid "USER_INPUT_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS"
+msgstr ""
+"應用全域過濾器\n"
+"\n"
+"它將遵循相同的列表說明\n"
+"在變數檢查器中定義。\n"
+"+ 始終列出節點的目前變數。"
+
+msgid "USER_INPUT_INSPECTOR_FIELD_CUSTOMIZE"
+msgstr "自訂控制項"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN"
+msgstr "模式"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN_PLACEHOLDER"
+msgstr "RegEx"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT"
+msgstr "預設值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT_PLACEHOLDER"
+msgstr "預設值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA"
+msgstr "額外"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA_PLACEHOLDER"
+msgstr "預留文字、提示等"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_MIN"
+msgstr "最小值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_MAX"
+msgstr "最大值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_STEP"
+msgstr "步進"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_VALUE"
+msgstr "值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE"
+msgstr "假"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE_PLACEHOLDER"
+msgstr "負向"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE"
+msgstr "真"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE_PLACEHOLDER"
+msgstr "正向"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT"
+msgstr "預設值"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT_OPT_TRUE"
+msgstr "預設為真"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "User Input"
+# msgstr ""
+
+# !
+# msgid "[Type]"
+# msgstr ""
+
+# !
+# msgid "[Variable Name]"
+# msgstr ""
+
+# !
+# msgid "[Prompt Question]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "USER_INPUT_CONSOLE_PROMPT_UNSET_MSG"
+msgstr "沒有問題！"
+
+msgid "USER_INPUT_CONSOLE_NO_VARIABLE_MSG"
+msgstr "未設定/無效的變數！"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "USER_INPUT_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "沒有可用變數"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "USER_INPUT_NODE_NO_PROMPT_TXT"
+msgstr "未設定"
+
+msgid "USER_INPUT_NODE_NO_TARGET_TYPE"
+msgstr "nil"
+
+msgid "USER_INPUT_NODE_NO_TARGET_NAME"
+msgstr "未定義"

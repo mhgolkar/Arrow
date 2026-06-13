@@ -1,0 +1,175 @@
+
+# User-Input Node Translation
+# ===========================
+#            Korean            
+# ===========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-User-Input\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "User Input"
+msgstr "사용자 입력"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Prompt Question]"
+# msgstr ""
+
+msgid "USER_INPUT_CONSOLE_STR_VALUE_PLACEHOLDER"
+msgstr "문자열 값"
+
+msgid "USER_INPUT_CONSOLE_BOOL_SELECTOR_FALSE"
+msgstr "거짓"
+
+msgid "USER_INPUT_CONSOLE_BOOL_SELECTOR_TRUE"
+msgstr "참"
+
+msgid "USER_INPUT_CONSOLE_INVALID_INPUT_ERR"
+msgstr "* 입력이 잘못되었습니다!"
+
+# !
+# msgid "[Result]"
+# msgstr ""
+
+msgid "USER_INPUT_CONSOLE_ACT_SKIP"
+msgstr "건너뛰기"
+
+msgid "USER_INPUT_CONSOLE_ACT_SUBMIT"
+msgstr "제출"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "USER_INPUT_INSPECTOR_FIELD_PROMPT"
+msgstr "플레이어에게 물어보세요"
+
+msgid "USER_INPUT_INSPECTOR_FIELD_TARGET"
+msgstr "사용자 입력을 다음으로 설정"
+
+msgid "USER_INPUT_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS"
+msgstr ""
+"전역 필터 적용\n"
+"\n"
+"동일한 목록 지침을 따릅니다.\n"
+"변수 관리자에 정의되어 있습니다.\n"
+"+ 노드의 현재 변수가 항상 나열됩니다."
+
+msgid "USER_INPUT_INSPECTOR_FIELD_CUSTOMIZE"
+msgstr "컨트롤 맞춤설정"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN"
+msgstr "패턴"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_PATTERN_PLACEHOLDER"
+msgstr "RegEx"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT"
+msgstr "기본값"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_DEFAULT_PLACEHOLDER"
+msgstr "사전 설정 값"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA"
+msgstr "추가"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_STR_EXTRA_PLACEHOLDER"
+msgstr "자리 표시자, 힌트 등"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_MIN"
+msgstr "최소"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_MAX"
+msgstr "최대"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_STEP"
+msgstr "단계"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_NUM_VALUE"
+msgstr "값"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE"
+msgstr "거짓"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_FALSE_PLACEHOLDER"
+msgstr "음수"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE"
+msgstr "참"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_TRUE_PLACEHOLDER"
+msgstr "양수"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT"
+msgstr "기본값"
+
+msgid "USER_INPUT_INSPECTOR_CUSTOM_BOOL_DEFAULT_OPT_TRUE"
+msgstr "사전 설정 참"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "User Input"
+# msgstr ""
+
+# !
+# msgid "[Type]"
+# msgstr ""
+
+# !
+# msgid "[Variable Name]"
+# msgstr ""
+
+# !
+# msgid "[Prompt Question]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "USER_INPUT_CONSOLE_PROMPT_UNSET_MSG"
+msgstr "질문 없습니다!"
+
+msgid "USER_INPUT_CONSOLE_NO_VARIABLE_MSG"
+msgstr "설정되지 않은/잘못된 변수!"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "USER_INPUT_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "사용 가능한 변수가 없습니다"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "USER_INPUT_NODE_NO_PROMPT_TXT"
+msgstr "설정 안 됨"
+
+msgid "USER_INPUT_NODE_NO_TARGET_TYPE"
+msgstr "nil"
+
+msgid "USER_INPUT_NODE_NO_TARGET_NAME"
+msgstr "정의되지 않음"

@@ -1,0 +1,150 @@
+
+# Tag-Match Node Translation
+# ==========================
+#           Japanese           
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Match\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Tag Match"
+msgstr "タグ照合"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Tag Key]"
+# msgstr ""
+
+msgid "TAG_MATCH_CONSOLE_ACT_EOL"
+msgstr "EOL"
+
+msgid "TAG_MATCH_CONSOLE_ACT_MATCH"
+msgstr "マッチ"
+
+# !
+# msgid "[Matched Pattern | EOL]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_CHARACTER"
+msgstr "キャラクター"
+
+msgid "TAG_MATCH_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"グローバルフィルターを適用する\n"
+"\n"
+"同じ出品手順に従います\n"
+"文字インスペクタで定義されます。\n"
+"+ ノードの現在のキャラクターが常にリストされます。"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_KEY"
+msgstr "タグキー"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "必須、空白不可"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_PATTERNS"
+msgstr "パターン"
+
+msgid "TAG_MATCH_INSPECTOR_OPT_REGEX"
+msgstr "RegEx"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Tag Match"
+# msgstr
+
+# !
+# msgid "[Character Name]"
+# msgstr
+
+# !
+# msgid "[Tag Key]"
+# msgstr
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "TAG_MATCH_CONSOLE_INVALID_OR_UNSET_KEY"
+msgstr "無効なタグキー"
+
+msgid "TAG_MATCH_CONSOLE_NO_MATCH"
+msgstr "一致しません (EOL)"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "TAG_MATCH_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "利用可能なキャラクターがありません"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_APPEND_NEW_PATTERN"
+msgstr "新しいパターンを追加"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "選択したパターンを抽出する"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "選択したパターンを置換"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "選択したパターンを削除します"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_SORT_PATTERNS_AZ"
+msgstr "ソートパターン（アルファベット順）"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "選択した上部を移動"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "選択した端を移動"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "上へ移動"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "下へ移動"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "TAG_MATCH_NODE_INVALID_OR_UNSET_KEY"
+msgstr "タグキーが無効です!"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "TAG_MATCH_INVALID_CHAR_NAME"
+msgstr "無効なキャラクター"

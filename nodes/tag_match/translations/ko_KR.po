@@ -1,0 +1,150 @@
+
+# Tag-Match Node Translation
+# ==========================
+#            Korean            
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Match\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Tag Match"
+msgstr "태그 일치"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Tag Key]"
+# msgstr ""
+
+msgid "TAG_MATCH_CONSOLE_ACT_EOL"
+msgstr "EOL"
+
+msgid "TAG_MATCH_CONSOLE_ACT_MATCH"
+msgstr "성냥"
+
+# !
+# msgid "[Matched Pattern | EOL]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_CHARACTER"
+msgstr "캐릭터"
+
+msgid "TAG_MATCH_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"전역 필터 적용\n"
+"\n"
+"동일한 목록 지침을 따릅니다.\n"
+"이는 문자 관리자에서 정의됩니다.\n"
+"+ 노드의 현재 캐릭터가 항상 나열됩니다."
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_KEY"
+msgstr "태그 키"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "필수, 공백 불가"
+
+msgid "TAG_MATCH_INSPECTOR_FIELD_PATTERNS"
+msgstr "패턴"
+
+msgid "TAG_MATCH_INSPECTOR_OPT_REGEX"
+msgstr "RegEx"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Tag Match"
+# msgstr
+
+# !
+# msgid "[Character Name]"
+# msgstr
+
+# !
+# msgid "[Tag Key]"
+# msgstr
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "TAG_MATCH_CONSOLE_INVALID_OR_UNSET_KEY"
+msgstr "유효하지 않은 태그 키"
+
+msgid "TAG_MATCH_CONSOLE_NO_MATCH"
+msgstr "일치하지 않음(EOL)"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "TAG_MATCH_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "사용할 수 있는 문자가 없습니다."
+
+msgid "TAG_MATCH_INSPECTOR_MENU_APPEND_NEW_PATTERN"
+msgstr "새 패턴 추가"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "선택한 패턴 추출"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "선택한 패턴 바꾸기"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "선택한 패턴 제거"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_SORT_PATTERNS_AZ"
+msgstr "정렬 패턴(알파벳순)"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "선택한 상단 이동"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "선택한 끝 이동"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "위로 이동"
+
+msgid "TAG_MATCH_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "아래로 이동"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "TAG_MATCH_NODE_INVALID_OR_UNSET_KEY"
+msgstr "태그 키가 잘못되었습니다!"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "TAG_MATCH_INVALID_CHAR_NAME"
+msgstr "유효하지 않은 캐릭터"

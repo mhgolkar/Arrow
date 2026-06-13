@@ -1,0 +1,176 @@
+
+# Generator Node Translation
+# ==========================
+#            Korean            
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Generator\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Generator"
+msgstr "생성기"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+# !
+# msgid "[Arguments]"
+# msgstr ""
+
+# !
+# msgid "[Target]"
+# msgstr ""
+
+msgid "GENERATOR_CONSOLE_ACT_SKIP"
+msgstr "건너뛰기"
+
+msgid "GENERATOR_CONSOLE_ACT_PROCEED"
+msgstr "진행"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "GENERATOR_INSPECTOR_FIELD_FOR"
+msgstr "대상"
+
+msgid "GENERATOR_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"전역 필터 적용\n"
+"\n"
+"동일한 목록 지침을 따릅니다.\n"
+"변수 관리자에 정의되어 있습니다.\n"
+"+ 노드의 현재 변수가 항상 나열됩니다."
+
+msgid "GENERATOR_INSPECTOR_FIELD_GENERATE"
+msgstr "생성"
+
+msgid "GENERATOR_INSPECTOR_FIELD_FROM"
+msgstr "시작"
+
+msgid "GENERATOR_INSPECTOR_FIELD_TO"
+msgstr "끝"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_NEG"
+msgstr "네거"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_EVEN"
+msgstr "짝수"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_ODD"
+msgstr "홀수"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL"
+msgstr "풀"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL_PLACEHOLDER"
+msgstr "ASCII 문자(영숫자)"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_LENGTH"
+msgstr "길이"
+
+msgid "GENERATOR_INSPECTOR_FROM_STR_SET_POOL"
+msgstr "문자열 풀"
+
+# !
+# msgid "* Separated with [delimiter]"
+# msgstr ""
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "Generator"
+# msgstr ""
+
+# !
+# msgid "[Arguments]"
+# msgstr ""
+
+# !
+# msgid "[Target]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "정의되지 않음"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "설정 안 됨"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "Null/잘못됨"
+
+msgid "GENERATOR_CONSOLE_SKIPPED_MSG"
+msgstr "[건너뛰었습니다]"
+
+msgid "GENERATOR_CONSOLE_OPERATION_STATE_FORMAT_STR"
+msgstr "{name} `{original}` : {updated}"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "GENERATOR_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "사용 가능한 변수가 없습니다"
+
+msgid "GENERATOR_INSPECTOR_STRST_DELIMITER_HINT_MSG"
+msgstr "* `%s`로 분리"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "정의되지 않음"
+
+msgid "GENERATOR_NODE_TARGET_VARIABLE_MSG_TEMPLATE"
+msgstr "{name} ({type})"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "설정 안 됨"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "Null/잘못됨"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "GENERATOR_METHOD_RANDOM_INTEGER"
+msgstr "무작위 정수"
+
+msgid "GENERATOR_METHOD_RANDOM_ASCII_STRING"
+msgstr "무작위 ASCII 문자열"
+
+msgid "GENERATOR_METHOD_FROM_SET_OF_STRINGS"
+msgstr "문자열 세트에서"
+
+msgid "GENERATOR_METHOD_RANDOM_BOOLEAN"
+msgstr "무작위 불리언"

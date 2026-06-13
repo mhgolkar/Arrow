@@ -1,0 +1,102 @@
+
+# Content Node Translation
+# ========================
+#           Japanese           
+# ========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Content\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Content"
+msgstr "コンテンツ"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Rich [color=yellow]Title[/color]]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=green]Brief[/color] (legacy)]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Content [/color] all with [i]BBCode[/i] support]"
+# msgstr ""
+
+msgid "CONTENT_CONSOLE_CONTINUE_BTN"
+msgstr "続行"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "CONTENT_INSPECTOR_FIELD_TITLE"
+msgstr "タイトル"
+
+msgid "CONTENT_INSPECTOR_FIELD_CONTENT"
+msgstr "コンテンツ"
+
+msgid "CONTENT_INSPECTOR_FIELD_BRIEF"
+msgstr "概要"
+
+msgid "CONTENT_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
+msgstr "テキストカーソルの位置までの短い長さを設定します。"
+
+msgid "CONTENT_INSPECTOR_OPT_AUTO_PLAY"
+msgstr "自動再生"
+
+msgid "CONTENT_INSPECTOR_OPT_CLEAR_PAGE"
+msgstr "ページをクリア"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Content"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=yellow]Title[/color]]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Content [/color] [color=green]Brief[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "CONTENT_CONSOLE_UNSET_TEXT"
+msgstr "コンテンツテキストはありません。"
+
+msgid "CONTENT_CONSOLE_UNSET_TITLE"
+msgstr "無題"
+
+msgid "CONTENT_CONSOLE_UNSET_BRIEF"
+msgstr "概要はありません。"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "CONTENT_NODE_UNSET_TITLE"
+msgstr "無題"

@@ -1,0 +1,102 @@
+
+# Content Node Translation
+# ========================
+#            Korean            
+# ========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Content\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Content"
+msgstr "콘텐츠"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Rich [color=yellow]Title[/color]]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=green]Brief[/color] (legacy)]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Content [/color] all with [i]BBCode[/i] support]"
+# msgstr ""
+
+msgid "CONTENT_CONSOLE_CONTINUE_BTN"
+msgstr "계속"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "CONTENT_INSPECTOR_FIELD_TITLE"
+msgstr "제목"
+
+msgid "CONTENT_INSPECTOR_FIELD_CONTENT"
+msgstr "콘텐츠"
+
+msgid "CONTENT_INSPECTOR_FIELD_BRIEF"
+msgstr "요약"
+
+msgid "CONTENT_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
+msgstr "텍스트 커서 위치까지의 간략한 길이를 설정합니다."
+
+msgid "CONTENT_INSPECTOR_OPT_AUTO_PLAY"
+msgstr "자동 재생"
+
+msgid "CONTENT_INSPECTOR_OPT_CLEAR_PAGE"
+msgstr "페이지 지우기"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Content"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=yellow]Title[/color]]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=red]Content [/color] [color=green]Brief[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "CONTENT_CONSOLE_UNSET_TEXT"
+msgstr "콘텐츠 텍스트가 없습니다."
+
+msgid "CONTENT_CONSOLE_UNSET_TITLE"
+msgstr "제목 없음"
+
+msgid "CONTENT_CONSOLE_UNSET_BRIEF"
+msgstr "간략한 내용은 없습니다."
+
+
+# -------
+# node.gd
+# -------
+
+msgid "CONTENT_NODE_UNSET_TITLE"
+msgstr "제목 없음"

@@ -1,0 +1,179 @@
+
+# Condition Node Translation
+# ==========================
+#   Traditional Chinese (Taiwan)   
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Condition\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Condition"
+msgstr "條件"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Statement]"
+# msgstr ""
+
+msgid "CONDITION_CONSOLE_FALSE"
+msgstr "假"
+
+msgid "CONDITION_CONSOLE_TRUE"
+msgstr "真"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "CONDITION_INSPECTOR_CHECK_FOR_VAR"
+msgstr "檢查變數"
+
+msgid "CONDITION_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"應用全域過濾器\n"
+"\n"
+"它將遵循相同的列表說明\n"
+"在變數檢查器中定義。\n"
+"+ 始終列出節點的目前變數。"
+
+msgid "CONDITION_INSPECTOR_IF"
+msgstr "如果"
+
+msgid "CONDITION_INSPECTOR_COMPARING_TO"
+msgstr "相比於"
+
+msgid "CONDITION_INSPECTOR_FALSE"
+msgstr "假"
+
+msgid "CONDITION_INSPECTOR_TRUE"
+msgstr "真"
+
+msgid "CONDITION_INSPECTOR_RHS_STR_PLACEHOLDER"
+msgstr "字串值"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Condition"
+# msgstr ""
+
+# !
+# msgid "[Statement]"
+# msgstr ""
+
+msgid "CONDITION_NODE_FALSE"
+msgstr "假"
+
+msgid "CONDITION_NODE_TRUE"
+msgstr "真"
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "CONDITION_CONSOLE_UNSET_DATA_ERR"
+msgstr "取消設定！"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+# NOTE: This is used for operator selector items formatting.
+msgid "CONDITION_INSPECTOR_OPERATOR_ITEM_TEXT_TEMPLATE"
+msgstr "{text} ({sign})"
+
+# DEV:
+# This string can accept `{self}` placeholder
+# which will be replaced by the variable name,
+# e.g. "Self (Initial Value of `{self}`)".
+msgid "CONDITION_INSPECTOR_COMPARE_TO_SELF_INITIAL"
+msgstr "自身（初始值）"
+
+msgid "CONDITION_INSPECTOR_NO_VARIABLE"
+msgstr "沒有可用變數"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "CONDITION_NODE_UNSET_OR_INVALID"
+msgstr "取消設定！"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "CONDITION_OP_EQ_NUM"
+msgstr "是平等的"
+
+msgid "CONDITION_OP_NQ_NUM"
+msgstr "不等於"
+
+msgid "CONDITION_OP_GT"
+msgstr "是更大的"
+
+msgid "CONDITION_OP_GTE"
+msgstr "大於或等於"
+
+msgid "CONDITION_OP_LS"
+msgstr "較小"
+
+msgid "CONDITION_OP_LSE"
+msgstr "小於或等於"
+
+msgid "CONDITION_OP_RGX"
+msgstr "匹配正規表示式模式"
+
+msgid "CONDITION_OP_CT"
+msgstr "包含子字串"
+
+msgid "CONDITION_OP_CTS"
+msgstr "包含子字串（區分大小寫）"
+
+msgid "CONDITION_OP_BGN"
+msgstr "開始於"
+
+msgid "CONDITION_OP_END"
+msgstr "結束於"
+
+msgid "CONDITION_OP_EQL"
+msgstr "長度相等"
+
+msgid "CONDITION_OP_LNG"
+msgstr "更長"
+
+msgid "CONDITION_OP_SHR"
+msgstr "較短"
+
+msgid "CONDITION_OP_EQ_BOOL"
+msgstr "符合"
+
+msgid "CONDITION_OP_NQ_BOOL"
+msgstr "不符合"
+
+msgid "CONDITION_STATEMENT_RHS_IS_LHS_INIT"
+msgstr "自身（首字母“%s”）"
+
+msgid "CONDITION_RHS_INVALID"
+msgstr "[無效的]"

@@ -1,0 +1,179 @@
+
+# Condition Node Translation
+# ==========================
+#            Korean            
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Condition\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Condition"
+msgstr "조건"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Statement]"
+# msgstr ""
+
+msgid "CONDITION_CONSOLE_FALSE"
+msgstr "거짓"
+
+msgid "CONDITION_CONSOLE_TRUE"
+msgstr "참"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "CONDITION_INSPECTOR_CHECK_FOR_VAR"
+msgstr "변수 확인"
+
+msgid "CONDITION_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"전역 필터 적용\n"
+"\n"
+"동일한 목록 지침을 따릅니다.\n"
+"변수 관리자에 정의되어 있습니다.\n"
+"+ 노드의 현재 변수가 항상 나열됩니다."
+
+msgid "CONDITION_INSPECTOR_IF"
+msgstr "만약에"
+
+msgid "CONDITION_INSPECTOR_COMPARING_TO"
+msgstr "비교하다"
+
+msgid "CONDITION_INSPECTOR_FALSE"
+msgstr "거짓"
+
+msgid "CONDITION_INSPECTOR_TRUE"
+msgstr "참"
+
+msgid "CONDITION_INSPECTOR_RHS_STR_PLACEHOLDER"
+msgstr "문자열 값"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Condition"
+# msgstr ""
+
+# !
+# msgid "[Statement]"
+# msgstr ""
+
+msgid "CONDITION_NODE_FALSE"
+msgstr "거짓"
+
+msgid "CONDITION_NODE_TRUE"
+msgstr "참"
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "CONDITION_CONSOLE_UNSET_DATA_ERR"
+msgstr "설정 해제됨"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+# NOTE: This is used for operator selector items formatting.
+msgid "CONDITION_INSPECTOR_OPERATOR_ITEM_TEXT_TEMPLATE"
+msgstr "{text} ({sign})"
+
+# DEV:
+# This string can accept `{self}` placeholder
+# which will be replaced by the variable name,
+# e.g. "Self (Initial Value of `{self}`)".
+msgid "CONDITION_INSPECTOR_COMPARE_TO_SELF_INITIAL"
+msgstr "자체(초기값)"
+
+msgid "CONDITION_INSPECTOR_NO_VARIABLE"
+msgstr "사용 가능한 변수가 없습니다"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "CONDITION_NODE_UNSET_OR_INVALID"
+msgstr "설정 해제됨"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "CONDITION_OP_EQ_NUM"
+msgstr "같음"
+
+msgid "CONDITION_OP_NQ_NUM"
+msgstr "같지 않음"
+
+msgid "CONDITION_OP_GT"
+msgstr "더 크다"
+
+msgid "CONDITION_OP_GTE"
+msgstr "크거나 같음"
+
+msgid "CONDITION_OP_LS"
+msgstr "더 작습니다"
+
+msgid "CONDITION_OP_LSE"
+msgstr "작거나 같음"
+
+msgid "CONDITION_OP_RGX"
+msgstr "RegEx 패턴과 일치"
+
+msgid "CONDITION_OP_CT"
+msgstr "하위 문자열 포함"
+
+msgid "CONDITION_OP_CTS"
+msgstr "하위 문자열 포함(대소문자 구분)"
+
+msgid "CONDITION_OP_BGN"
+msgstr "다음으로 시작"
+
+msgid "CONDITION_OP_END"
+msgstr "다음으로 끝남"
+
+msgid "CONDITION_OP_EQL"
+msgstr "길이가 같음"
+
+msgid "CONDITION_OP_LNG"
+msgstr "더 길다"
+
+msgid "CONDITION_OP_SHR"
+msgstr "더 짧다"
+
+msgid "CONDITION_OP_EQ_BOOL"
+msgstr "준수"
+
+msgid "CONDITION_OP_NQ_BOOL"
+msgstr "준수하지 않음"
+
+msgid "CONDITION_STATEMENT_RHS_IS_LHS_INIT"
+msgstr "셀프(초기 `%s`)"
+
+msgid "CONDITION_RHS_INVALID"
+msgstr "[유효하지 않은]"

@@ -1,0 +1,76 @@
+
+# Marker Node Translation
+# =======================
+#           Japanese           
+# =======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Marker\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Marker"
+msgstr "マーカー"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# !
+# msgid "[Marker Label]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MARKER_INSPECTOR_FIELD_COLOR"
+msgstr "色"
+
+# !
+# msgid "[Marker Color]"
+# msgstr ""
+
+msgid "MARKER_INSPECTOR_FIELD_LABEL"
+msgstr "ラベル"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "[Node Name]"
+# msgstr ""
+
+# msgid "Marker"
+# msgstr ""
+
+# !
+# msgid "[Marker Label]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MARKER_CONSOLE_LABEL_UNSET_MSG"
+msgstr "ラベルなし"
+
+msgid "MARKER_CONSOLE_NO_NOTES_MSG"
+msgstr "[メモはありません。]"

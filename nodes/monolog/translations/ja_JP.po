@@ -1,0 +1,92 @@
+
+# Monolog Node Translation
+# ========================
+#           Japanese           
+# ========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Monolog\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Monolog"
+msgstr "モノローグ"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=cyan]Monolog[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+msgid "MONOLOG_CONSOLE_CONTINUE_BTN"
+msgstr "続行"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MONOLOG_INSPECTOR_FIELD_CHARACTER"
+msgstr "キャラクター"
+
+msgid "MONOLOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"グローバルフィルターを適用する\n"
+"\n"
+"同じ出品手順に従います\n"
+"文字インスペクタで定義されます。\n"
+"+ ノードの現在のキャラクターと匿名が常にリストされます。"
+
+msgid "MONOLOG_INSPECTOR_FIELD_MONOLOG"
+msgstr "モノローグ"
+
+msgid "MONOLOG_INSPECTOR_FIELD_BRIEF"
+msgstr "概要"
+
+msgid "MONOLOG_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
+msgstr "テキストカーソルの位置までの短い長さを設定します。"
+
+msgid "MONOLOG_INSPECTOR_OPT_AUTO_PLAY"
+msgstr "自動再生"
+
+msgid "MONOLOG_INSPECTOR_OPT_CLEAR_PAGE"
+msgstr "ページをクリア"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Monolog"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Rich [color=cyan]Monolog[/color] [color=yellow]Brief[/color] with [i]BBCode[/i] support]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MONOLOG_CONSOLE_UNSET_MSG"
+msgstr "モノローグはありません。"

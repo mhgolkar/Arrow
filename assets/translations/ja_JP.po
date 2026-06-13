@@ -1,0 +1,1024 @@
+
+# Arrow Translation
+# =================
+#           Japanese           
+# =================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+#
+# This file is expected to cover the editor messages, including controls, notifications, etc. (but not nodes)
+# and may be used as a foundation to create new translations for other languages. As a convention,
+# for general messages and those short (in english), the original values are kept as keys
+# (~ untranslated); otherwise UPPER_CASE keys would be used for brevity and precision.
+#
+# For nodes, check out their respective translations sub-directories.
+#
+# NOTE:
+# + Tags like `%s` and mustache `{placeholders}` are mostly for formatting purposes and shall be kept as they are to allow proper replacement.
+# + A particular world or phrase may have been used in multiple modules, identically, and to avoid duplicates, only listed in one section, most-likely the topmost/first one.
+# + The messages commented out (and being marked with a preceding `# !` attribute) are likely to be UI fillers and replaced by scripts, so there may not be any need for them to be translated.
+#
+# ---
+
+msgid "Arrow"
+msgstr "Arrow"
+
+
+# ---------
+# main.tscn
+# ---------
+
+# ~ Generational Version Code
+msgid "[v3.x]"
+msgstr "[v3.x]"
+
+msgid "Website"
+msgstr "ウェブサイト"
+
+msgid "Repository"
+msgstr "リポジトリ"
+
+msgid "Documentation"
+msgstr "ドキュメント"
+
+# ~ Welcome Message Tab Name
+msgid "Hello"
+msgstr "ようこそ"
+
+msgid "WELCOME_MESSAGE"
+msgstr ""
+"[b]Arrow 3.x[/b] へようこそ\n"
+"\n"
+"Arrow は、[i]ゲーム ナラティブ[/i] のデザイン、および [i] インタラクティブなノンリニア ストーリーテリング [/i] 作品の作成のための、無料のオープンソースで機能豊富なツールです。\n"
+"\n"
+"いくつかの簡単なメモ:\n"
+"\n"
+"[b]• PWA データ ストレージ[/b]\n"
+"Arrow Web アプリは、ブラウザー ストレージを使用してプロジェクトを管理します。\n"
+"[i]あなたのデータはすべてこのデバイス上にのみあります。[/i]\n"
+"プロジェクトをエクスポートするには、以下を使用します。\n"
+"[indent][bgcolor=black][color=white][i][code] インスペクター (パネル) > プロジェクト (タブ) > エクスポート [/code][/i][/color][/bgcolor][/indent]\n"
+"アプリのストレージをクリーンアップするには、次のことを試してください。\n"
+"[indent][bgcolor=black][color=white][i][code] Arrow (メニュー ボタン; 左上) > クリア [/code][/i][/color][/bgcolor][/indent]\n"
+"\n"
+"詳細については、当社の Web サイトやプロジェクトのリポジトリを参照してください。\n"
+"\n"
+"よろしくお願いします\n"
+"モル。 H. ゴルカルと貢献者\n"
+
+# ~ Embedded Copyright Document Tab Name
+msgid "Copyright"
+msgstr "著作権情報"
+
+# !
+# msgid "[Will be Auto-generated]"
+# msgstr ""
+
+msgid "New"
+msgstr "新規"
+
+msgid "Open"
+msgstr "開く"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Preferences"
+msgstr "環境設定"
+
+msgid "Dismiss"
+msgstr "閉じる"
+
+msgid "Confirm"
+msgstr "確認"
+
+msgid "User Interface"
+msgstr "ユーザーインターフェイス"
+
+msgid "Theme"
+msgstr "テーマ"
+
+msgid "Language"
+msgstr "言語"
+
+msgid "Data Management"
+msgstr "データ管理"
+
+msgid "Work Directory"
+msgstr "作業ディレクトリ"
+
+msgid "[Working Directory Path]"
+msgstr "[作業ディレクトリのパス]"
+
+msgid "Select"
+msgstr "選択"
+
+msgid "Reset"
+msgstr "リセット"
+
+msgid "History (Undo/Redo)"
+msgstr "履歴（元に戻す/やり直し）"
+
+msgid "Size"
+msgstr "サイズ"
+
+msgid "HISTORY_SIZE_TOOLTIP"
+msgstr ""
+"履歴サイズは、時間内にプロジェクトを移動できるステップ数を定義します。\n"
+"現在の履歴機能 (「Ctrl+Z」を元に戻し、「Ctrl+Shift+Z」をやり直す)\n"
+"開いているプロジェクトの完全なイメージをメモリ内にキャプチャすることで作業します。\n"
+"パフォーマンスはデバイスの仕様やプロジェクトのサイズによって異なる場合があります。"
+
+msgid "Authors"
+msgstr "作者"
+
+msgid "Contributors"
+msgstr "コントリビューター"
+
+msgid "AUID"
+msgstr "AUID"
+
+msgid "AUID_TOOLTIP"
+msgstr ""
+"作成者固有の ID は、リソース UID の名前空間の 2 番目のセグメントとして機能します。\n"
+"複数の寄稿者が同じドキュメントで作業できるようにする\n"
+"ID の衝突なしで同時に実行できます。"
+
+msgid "ACTIVE_CONTRIBUTOR_TOOLTIP"
+msgstr ""
+"チェックすると、選択した著者が著者とみなされます。\n"
+"その後作成されたリソースの寄稿者。"
+
+msgid "Active Contributor"
+msgstr "有効なコントリビューター"
+
+msgid "Info"
+msgstr "情報"
+
+# ~ Author Info Placeholder
+msgid "John Doe (contributor@project.tld)"
+msgstr "山田 太郎 (contributor@project.tld)"
+
+msgid "Remove"
+msgstr "削除"
+
+msgid "Apply"
+msgstr "適用"
+
+msgid "Chapter"
+msgstr "チャプター"
+
+msgid "CHAPTER_ID_TOOLTIP"
+msgstr ""
+"章 ID は各ドキュメントの一意の識別子です。\n"
+"(リソース UID の名前空間の最初のセグメントとして)、\n"
+"プロジェクトが複数のファイルに分割されている場合の衝突を避けるため。"
+
+msgid "CHAPTER_ID_UPDATE_TOOLTIP"
+msgstr ""
+"異なるチャプタ ID は、将来の UID にのみ適用されます。\n"
+"すでに作成されたリソースが更新されたり、影響を受けたりすることはありません。"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "New Document"
+msgstr "新規ドキュメント"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Project or Chapter Title"
+msgstr "プロジェクトまたはチャプターのタイトル"
+
+msgid "Filename"
+msgstr "ファイル名"
+
+msgid "(without extension)"
+msgstr "（拡張子なし）"
+
+msgid "Filename's already used or invalid"
+msgstr "ファイル名は使用済みか無効です"
+
+msgid "Full Path"
+msgstr "フルパス"
+
+# ~ New Document Path Value Placeholder
+msgid "[Generated]"
+msgstr "[自動生成]"
+
+msgid "Create"
+msgstr "作成"
+
+msgid "Select Current Folder"
+msgstr "現在のフォルダーを選択"
+
+# !
+# msgid "[Heading]"
+# msgstr ""
+
+# !
+# msgid "[i][Message Here!][/i]"
+# msgstr ""
+
+# !
+# msgid "[Action(s)]"
+# msgstr ""
+
+msgid "Inspector"
+msgstr "インスペクター"
+
+msgid "Project"
+msgstr "プロジェクト"
+
+msgid "Filter Projects"
+msgstr "プロジェクトを絞り込み"
+
+msgid "FILTER_REVERSE_TOOLTIP"
+msgstr ""
+"フィルターを反転します\n"
+"（一致しないものは通過します。）"
+
+msgid "SORT_AZ_OR_UID_TOOLTIP"
+msgstr ""
+"アルファベット順に並べ替えます\n"
+"(それ以外の場合は、UID でソートされます。)"
+
+# !
+# msgid "[ [color=green]Project descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Set"
+msgstr "設定"
+
+msgid "Export"
+msgstr "エクスポート"
+
+msgid "Latest Save"
+msgstr "最新の保存"
+
+# !
+# msgid "[Timestamp]"
+# msgstr ""
+
+msgid "Revert to the Latest Save"
+msgstr "最新の保存状態へ戻す"
+
+msgid "Revert"
+msgstr "元に戻す"
+
+msgid "Snapshots"
+msgstr "スナップショット"
+
+msgid "Restore"
+msgstr "復元"
+
+msgid "Preview"
+msgstr "プレビュー"
+
+msgid "Rem."
+msgstr "備考"
+
+# ~ Node Tab Name (Inspector)
+msgid "Node"
+msgstr "ノード"
+
+msgid "Unique Node Name"
+msgstr "一意のノード名"
+
+msgid "NODE_FOCUS_BTN_TOOLTIP"
+msgstr ""
+"検査対象のノードを検索します\n"
+"グリッド (Ctrl + バックスラッシュ)"
+
+# ~ Node (Dev) Notes Placeholder
+msgid "[Notes]"
+msgstr "[メモ]"
+
+msgid "Previous Local History Modification"
+msgstr "前のローカル履歴変更"
+
+msgid "Reset Node Parameters (Ctrl + Shift + Minus)"
+msgstr "ノードパラメーターをリセット（Ctrl + Shift + Minus）"
+
+msgid "Next Local History Modification"
+msgstr "次のローカル履歴変更"
+
+msgid "SKIP_NODES_TOOLTIP"
+msgstr ""
+"スキップされたノードは物語では効果的ではありません。\n"
+"代替動作はノードのタイプによって異なります。"
+
+msgid "Skip"
+msgstr "スキップ"
+
+msgid "Update Node (Ctrl + Shift + Plus)"
+msgstr "ノードを更新（Ctrl + Shift + Plus）"
+
+msgid "Locate Previous Referrer"
+msgstr "前の参照元へ移動"
+
+# !
+# msgid "Ref(s)"
+# msgstr ""
+
+msgid "Locate Next Referrer"
+msgstr "次の参照元へ移動"
+
+msgid "Scoped (Filter for Scene)"
+msgstr "スコープ指定（シーンで絞り込み）"
+
+msgid "NODES_TAB_BLOCKER"
+msgstr ""
+"検査するノードを選択するか、\n"
+"グリッドを右クリックして、\n"
+"新しいノードを作成します。"
+
+# ~ Scenes Tab Name (Inspector)
+msgid "Scenes"
+msgstr "シーン"
+
+msgid "Filter Scenes"
+msgstr "シーンを絞り込み"
+
+# !
+# msgid "[ [color=green]Scene descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Unique Scene Name"
+msgstr "一意のシーン名"
+
+msgid "Macros"
+msgstr "マクロ"
+
+msgid "Filter Macros"
+msgstr "マクロを絞り込み"
+
+# !
+# msgid "[ [color=green]Macro descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
+# msgstr ""
+
+msgid "Unique Macro Name"
+msgstr "一意のマクロ名"
+
+# !
+# msgid "Instance(s)"
+# msgstr ""
+
+# ~ Variables Tab Name (Inspector)
+msgid "Variables"
+msgstr "変数"
+
+# ~ Used in Multiple Selectors
+msgid "Variable"
+msgstr "変数"
+
+msgid "Filter Variables"
+msgstr "変数を絞り込み"
+
+msgid "Filter by Type"
+msgstr "タイプで絞り込み"
+
+msgid "Any"
+msgstr "任意"
+
+msgid "Num"
+msgstr "数値"
+
+msgid "Str"
+msgstr "文字列"
+
+msgid "Bool"
+msgstr "真偽値"
+
+msgid "Name"
+msgstr "名前"
+
+msgid "Unique Variable Name"
+msgstr "一意の変数名"
+
+msgid "Initial"
+msgstr "初期値"
+
+msgid "Str Value"
+msgstr "文字列値"
+
+msgid "True"
+msgstr "真"
+
+msgid "False"
+msgstr "偽"
+
+# !
+# msgid "Reference(s)"
+# msgstr ""
+
+msgid "Characters"
+msgstr "キャラクター"
+
+msgid "Filter Characters"
+msgstr "キャラクターを絞り込み"
+
+msgid "Unique Character Name"
+msgstr "一意のキャラクター名"
+
+msgid "No Initial Tag"
+msgstr "初期タグなし"
+
+msgid "Key"
+msgstr "キー"
+
+msgid "Value"
+msgstr "値"
+
+msgid "Oversets (adds or updates) a tag"
+msgstr "タグを上書き設定（追加または更新）"
+
+# !
+# msgid "Appearance(s)"
+# msgstr ""
+
+msgid "Console"
+msgstr "コンソール"
+
+msgid "No Initial Tags"
+msgstr "初期タグなし"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Hides Console Preserving the State"
+msgstr "コンソールを非表示にする 状態を保持する"
+
+msgid "Clears Console & State of Play"
+msgstr "コンソールとプレイ状況をクリアします"
+
+msgid "Clear"
+msgstr "クリア"
+
+msgid "Back"
+msgstr "戻る"
+
+msgid "Filter Node Types"
+msgstr "ノードタイプを絞り込み"
+
+msgid "Insert"
+msgstr "挿入"
+
+msgid "Clear Clipboard"
+msgstr "クリップボードをクリア"
+
+msgid "Copy Node(s)"
+msgstr "ノードをコピー"
+
+msgid "Cut Node(s)"
+msgstr "ノードを切り取り"
+
+msgid "Paste Node(s)"
+msgstr "ノードを貼り付け"
+
+msgid "Remove Node(s)"
+msgstr "ノードを削除"
+
+# !
+# msgid "[New Version ?]"
+# msgstr ""
+
+msgid "History Undo (Ctrl + Z)"
+msgstr "履歴を元に戻す (Ctrl + Z)"
+
+msgid "History Redo (Ctrl + Shift + Z)"
+msgstr "履歴をやり直す (Ctrl + Shift + Z)"
+
+# !
+# msgid "[Project Title]"
+# msgstr ""
+
+msgid "Play from Project Entry (F4)"
+msgstr "プロジェクトエントリから再生(F4)"
+
+msgid "Play from Scene Entry (F5)"
+msgstr "シーンエントリーから再生(F5)"
+
+msgid "Show Console (F6)"
+msgstr "コンソールを表示 (F6)"
+
+msgid "Play Selected Node (F7)"
+msgstr "選択したノードを再生 (F7)"
+
+msgid "Save Document (Ctrl + S)"
+msgstr "ドキュメントの保存 (Ctrl + S)"
+
+msgid "Save"
+msgstr "保存"
+
+# !
+# msgid "[Current Scene]"
+# msgstr ""
+
+msgid "Query"
+msgstr "検索"
+
+# !
+# msgid "[Mode]"
+# msgstr ""
+
+msgid "SCOPED_QUERY_TOOLTIP"
+msgstr ""
+"スコープ付き: シーンのフィルター\n"
+"(それ以外の場合は、プロジェクト全体で検索します。)"
+
+msgid "Query (Ctrl + Q)"
+msgstr "クエリ (Ctrl + Q)"
+
+msgid "Locate Previous Match (Ctrl + 1)"
+msgstr "前の一致を検索 (Ctrl + 1)"
+
+# !
+# msgid "[S:T Matches]"
+# msgstr ""
+
+msgid "Locate Next Match (Ctrl + 2)"
+msgstr "次の一致を検索 (Ctrl + 2)"
+
+msgid "Toggle Inspector Panel (Ctrl + P)"
+msgstr "インスペクターパネルの切り替え (Ctrl + P)"
+
+msgid "Inspect."
+msgstr "検査"
+
+msgid "Quick Pref."
+msgstr "簡易設定"
+
+
+# ----------------------------
+# scripts/core/central_mind.gd
+# ----------------------------
+
+msgid "Discarding New Project ?"
+msgstr "新しいプロジェクトを破棄しますか?"
+
+msgid "PROJECT_DISCARD_WARNING"
+msgstr "「%s」を修正しました。新しい空のプロジェクトを作成すると、保存されていないデータはすべて破棄されます。"
+
+msgid "OK! Proceed Anyway"
+msgstr "わかりました！とにかく続行"
+
+msgid "Lost Project!"
+msgstr "プロジェクトが見つかりません！"
+
+msgid "LOST_PROJECT_WARNING"
+msgstr ""
+"選択したプロジェクト (~ %s) が見つかりません、読み込めません。\n"
+"ファイルは、適切な権限がないためにアクセスできないか、失われた (つまり、名前が変更または削除された) ためにアクセスできない可能性があります。破損したプロジェクト リスト ファイルによっても、この問題が発生する可能性があります。\n"
+"\n"
+
+msgid "Expected file: "
+msgstr "想定ファイル: "
+
+msgid "Unlist Project"
+msgstr "プロジェクトのリストを解除する"
+
+msgid "Overriding Unsaved Project ?"
+msgstr "未保存のプロジェクトを上書きしますか?"
+
+msgid "UNSAVED_PROJECT_WARNING"
+msgstr "編集者は「%s」の修正を保持しています。別のプロジェクトを開くと、これらの保存されていないデータは破棄されます。とにかく続行しますか?"
+
+msgid "Yes, Open"
+msgstr "はい、開く"
+
+msgid "Are you sure ?!"
+msgstr "本当によろしいですか？"
+
+msgid "UNSAVED_CHANGES_WARNING"
+msgstr "プロジェクト「%s」が変更されました。いずれにしても閉じると、保存されていない変更が破棄されます。"
+
+msgid "Close Anyway"
+msgstr "保存せず閉じる"
+
+msgid "Save Project"
+msgstr "プロジェクトを保存"
+
+msgid "PROJECT_REVERT_WARNING"
+msgstr "現在のプロジェクトを最後に物理的に保存された状態に戻そうとしています。この操作により、メモリ内の変更がすべて削除され、保存されたファイルからプロジェクトが再度開かれます。"
+
+msgid "Revert; I'm Sure"
+msgstr "元に戻す（確認済み）"
+
+msgid "UPDATE_CHAPTER_ID_NOTIFICATION"
+msgstr ""
+"新しいチャプタ ID により、このプロジェクト ファイルのリソース UID 名前空間が変更されます。\n"
+"この操作が必要になるのは、プロジェクトが複数のドキュメントに分割されており、各ドキュメントに一意の名前空間を割り当てることで識別子の衝突を回避したい場合のみです。\n"
+"また、この更新は新しいリソース UID (新しいノード、シーンなど) にのみ影響することに注意してください。以前に作成されたリソース (デフォルト ノードを含む) は現在の UID を保持します。"
+
+msgid "OK; Update"
+msgstr "OK、更新"
+
+msgid "Invalid Operation!"
+msgstr "無効な操作です！"
+
+msgid "PROJECT_ENTRY_IN_MACRO_ERROR"
+msgstr "マクロは繰り返し可能なシーンであり、プロジェクト エントリをホストするように設計されていません。"
+
+msgid "Unsafe Operation Ignored!"
+msgstr "安全でない操作を無視しました！"
+
+msgid "USED_RESOURCE_NOT_REMOVED"
+msgstr "他のノードまたはリソースがこのリソースに依存しているため、このリソースを削除できません。"
+
+msgid "MAY_BE_USED_SCENE_NOT_REMOVED"
+msgstr "たとえば、シーンの子ノードの 1 つが、別のシーンのジャンプによって参照される可能性があります。"
+
+msgid "Referenced resource(s): "
+msgstr "参照されているリソース: "
+
+msgid "REFERENCED_RESOURCE_NOT_REMOVED"
+msgstr ""
+"削除するリソースの少なくとも 1 つは、別のリソースまたはノードに必要です。リファラーも削除しない限り、継続性の安全性のため、この操作を続行できません。\n"
+"\n"
+
+# ~ On clipboard move (pull) operation
+msgid "Unsafe Move Detected!"
+msgstr "安全でない移動を検出しました！"
+
+msgid "IMMOVABLE_NODES_ERROR"
+msgstr ""
+"連続性の安全性のため、ノードのすべてまたは一部を移動することはできません (シーンエントリなど)。\n"
+"\n"
+
+msgid "Immovable(s): "
+msgstr "移動不可: "
+
+msgid "Move What's Safe (%s)"
+msgstr "安全なものを移動 (%s)"
+
+msgid "Merger Detected [Experimental!]"
+msgstr "マージが検出されました [実験的!]"
+
+msgid "MERGER_OPERATION_DESCRIPTION"
+msgstr ""
+"「{origin}」 (章 {cid}) から次のリソースを貼り付けようとしています: {statistics}\n"
+"ここで、{main_count} はメイン リソースであり、残りは参照される依存関係です。\n"
+"\n"
+
+msgid "SCENES_FIELD_NAME"
+msgid_plural "SCENES_FIELD_NAME_PLURAL"
+msgstr[0] "シーン"
+
+msgid "MACROS_FIELD_NAME"
+msgid_plural "MACROS_FIELD_NAME_PLURAL"
+msgstr[0] "マクロ"
+
+msgid "NODES_FIELD_NAME"
+msgid_plural "NODES_FIELD_NAME_PLURAL"
+msgstr[0] "ノード"
+
+msgid "VARIABLES_FIELD_NAME"
+msgid_plural "VARIABLES_FIELD_NAME_PLURAL"
+msgstr[0] "変数"
+
+msgid "CHARACTERS_FIELD_NAME"
+msgid_plural "CHARACTERS_FIELD_NAME_PLURAL"
+msgstr[0] "キャラクター"
+
+msgid "MERGER_OPERATION_STRATEGY_CHOICE"
+msgstr "類似の UID を持つ共有可能なリソースが存在する場合は、合併戦略を選択してください。"
+
+msgid "Reuse"
+msgstr "再利用"
+
+msgid "Recreate"
+msgstr "再作成"
+
+msgid "NO_SAVE_IN_SNAPSHOT_PREVIEW"
+msgstr ""
+"スナップショット プレビュー モードではプロジェクトを保存できません。\n"
+"スナップショットの変更をメモリ内に保持する場合は、そのスナップショットを再度作成するか、開いているスナップショットを作業ドラフトとして復元して保存します。\n"
+"プレビューしたスナップショットをエクスポートし、新しいプロジェクトとして再インポートすることもできます。"
+
+msgid "PROJECT_REMOVAL_PROMPT"
+msgstr ""
+"リストされているプロジェクト [i]`{name}`[/i] ({pid}) を削除しようとしています。\n"
+"リストにない場合、ドキュメントはそのまま残り、プロジェクト リストからのみ削除されます。\n"
+"削除されたファイルは回復できません。\n"
+"\n"
+
+msgid "Project file: `%s`"
+msgstr "プロジェクトファイル：「%s」"
+
+msgid "Delete File!"
+msgstr "ファイルを削除！"
+
+msgid "Unlist"
+msgstr "一覧から削除"
+
+msgid "SNAPSHOT_RESTORATION_PROMPT"
+msgstr ""
+"スナップショット [i]`v%s`[/i] を復元しようとしています。\n"
+"この操作はメモリ内のプロジェクトの現在の状態をオーバーライドしますが、ファイル (後で保存しない限り) や他のスナップショットは変更されません。\n"
+"後で現在のドラフトを使用する場合は、これを復元する前に必ずプレビューを閉じてスナップショットを作成してください。"
+
+msgid "Restore; I'm Sure"
+msgstr "復元する（確認済み）"
+
+msgid "Invalid Project File!"
+msgstr "無効なプロジェクトファイルです！"
+
+msgid "INVALID_PROJECT_FILE_IMPORT"
+msgstr ""
+"選択したファイルを検証してインポートできません。\n"
+"ファイルがサポートされている形式ではないか、破損している可能性があります。"
+
+msgid "Quick Re-Export Not Available!"
+msgstr "クイック再エクスポートは利用できません!"
+
+msgid "QUICK_REEXPORT_NOT_YET"
+msgstr ""
+"現在のセッションではプロジェクトをまだエクスポートしていません。\n"
+"このショートカットを使用すると、最新のエクスポートのパスと形式でプロジェクトを再エクスポートできます。\n"
+"まず、[i]`インスペクター パネル > プロジェクト タブ > エクスポート`[/i] からプロジェクトをエクスポートしてください。"
+
+msgid "IO Operation Failed!"
+msgstr "I/O 操作に失敗しました！"
+
+msgid "EXPORT_IO_FAILED"
+msgstr ""
+"宛先パスに書き込んだり、ランタイム テンプレート ファイルから読み取ることができません。\n"
+"Arrow にデータの読み取りおよび書き込みに対する適切な権限があるかどうかを確認してください。"
+
+msgid "Error!"
+msgstr "エラー！"
+
+msgid "SHOW_ERROR_FALLBACK_MSG"
+msgstr "何か問題が発生しました。詳細については、ログ (標準出力) を確認してください。"
+
+
+# -------------------
+# scripts/settings.gd
+# -------------------
+
+msgid "Select an Arrow Document"
+msgstr "Arrow ドキュメントを選択してください"
+
+msgid "Save Document"
+msgstr "ドキュメントを保存"
+
+msgid "Export as JSON"
+msgstr "JSON としてエクスポート"
+
+msgid "Export Playable HTML"
+msgstr "プレイ可能な HTML をエクスポート"
+
+msgid "Export CSV (Translation)"
+msgstr "CSV（翻訳）をエクスポート"
+
+msgid "Select App Local Directory"
+msgstr "アプリのローカル ディレクトリを選択します"
+
+
+# -------------------------------------
+# scripts/core/configuration_handler.gd
+# -------------------------------------
+
+msgid "NO_ALD_ACCESS"
+msgstr "作業ディレクトリにアクセスできません!"
+
+msgid "UNABLE_TO_ACCESS_ALD_MSG"
+msgstr ""
+"選択したアプリのローカル/作業ディレクトリにアクセスできません。パスへの読み取り/書き込み権限がないことが原因である可能性があります。\n"
+"以前に確認されたディレクトリが使用されます。"
+
+
+# --------------------------
+# scripts/editor/app_menu.gd
+# --------------------------
+
+msgid "Fullscreen (F11)"
+msgstr "フルスクリーン（F11）"
+
+msgid "Exit Fullscreen (F11)"
+msgstr "フルスクリーンを終了（F11）"
+
+msgid "Stay Above"
+msgstr "上に留まる"
+
+msgid "Leave Above"
+msgstr "上を離れる"
+
+msgid "Refresh"
+msgstr "更新"
+
+msgid "About"
+msgstr "このアプリについて"
+
+msgid "Quit"
+msgstr "終了"
+
+msgid "BROWSER_STORAGE_CLEAR_PROMPT"
+msgstr ""
+"ストレージを空にしようとしています。これにより、このブラウザの Arrow の仮想ファイル システムからプロジェクトが完全に削除されます。\n"
+"削除されたデータは復元できません。\n"
+
+msgid "Ok; Terminate!"
+msgstr "OK、終了します！"
+
+
+# ---------------------------------
+# scripts/editor/grid_graph_edit.gd
+# ---------------------------------
+
+msgid "Unable to Remove!"
+msgstr "削除できません！"
+
+msgid "UNABLE_TO_REMOVE_FROM_GRID"
+msgstr ""
+"選択したノードの少なくとも 1 つは削除できません。\n"
+"連続体の安全性を確保するため、Arrow では、他のリソースがノードに依存している間はノードを削除できません。シーンまたはプロジェクトのアクティブなエントリも削除しません。\n"
+"\n"
+
+msgid "Non-removable(s): "
+msgstr "削除できない項目: "
+
+
+# -----------------------------------
+# scripts/editor/new_release_check.gd
+# -----------------------------------
+
+msgid "NEW_VERSION_RELEASE_MSG"
+msgstr "Arrow %s がリリースされました！"
+
+
+# -----------------------
+# scripts/editor/query.gd
+# -----------------------
+
+msgid "QUERY_MATCH_OPTION_BUTTON_TEXT_TEMPLATE"
+msgstr "{current} : {total} が一致します"
+
+msgid "QUERY_MATCH_ITEM_TEXT_TEMPLATE"
+msgstr "{name} - {capitalized_type}"
+
+msgid "Any Match"
+msgstr "いずれかに一致"
+
+msgid "Including"
+msgstr "含む"
+
+msgid "Exact Match"
+msgstr "完全一致"
+
+msgid "RegEx"
+msgstr "RegEx"
+
+
+# -----------------------------------
+# scripts/editor/quick_preferences.gd
+# -----------------------------------
+
+msgid "Auto Inspection"
+msgstr "自動検査"
+
+msgid "Auto Node Update"
+msgstr "ノードの自動更新"
+
+msgid "Reset on Reinspection"
+msgstr "再検査時にリセット"
+
+msgid "Quick Node Insertion"
+msgstr "クイックノードの挿入"
+
+msgid "Connection Assist"
+msgstr "接続アシスト"
+
+msgid "Auto Rebuild Runtime(s)"
+msgstr "自動再構築ランタイム"
+
+
+# --------------------------------
+# scripts/editor/panels/authors.gd
+# --------------------------------
+
+msgid "ACTIVE_AUTHOR_MARKER"
+msgstr "[✓]"
+
+
+# ---------------------------------------------
+# scripts/editor/panels/console_status_codes.gd
+# ---------------------------------------------
+
+msgid "CONSOLE_STATUS_END_EDGE_MESSAGE"
+msgstr "◆生産終了：{name}({uid})"
+
+msgid "CONSOLE_STATUS_NO_DEFAULT_MESSAGE"
+msgstr "⚠ デフォルトなし: {name} ({uid})"
+
+
+# --------------------------------
+# scripts/editor/panels/console.gd
+# --------------------------------
+
+msgid "CONSOLE_CLEARANCE_PREVENTION_MESSAGE"
+msgstr "クリアランスは無視されました。"
+
+msgid "Auto-scroll"
+msgstr "自動スクロール"
+
+msgid "Allow Auto-play"
+msgstr "自動再生を許可する"
+
+msgid "Prevent Clearance"
+msgstr "クリアランスの防止"
+
+msgid "Show Skipped Nodes"
+msgstr "スキップされたノードを表示"
+
+msgid "Inspect Variables"
+msgstr "変数を検査する"
+
+msgid "Inspect Character Tags"
+msgstr "文字タグの検査"
+
+
+# -----------------------------------------
+# scripts/editor/panels/inspector_[type].gd
+# -----------------------------------------
+
+msgid "TYPE_INSPECTOR_RAW_UID_HINT"
+msgstr ""
+"\n"
+"[ボタンを押してコピー]"
+
+msgid "RESOURCE_PERMANENT_REMOVAL_WARNING"
+msgstr ""
+"{field_name}「{res_name}」を完全に削除します。\n"
+"続行しますか?"
+
+msgid "Yes, Remove"
+msgstr "はい、削除"
+
+
+# ---------------------------------------------------
+# scripts/editor/panels/inspector_project_new_menu.gd
+# ---------------------------------------------------
+
+msgid "New Blank Project"
+msgstr "新規空プロジェクト"
+
+msgid "Save Current & Continue"
+msgstr "現在を保存して続行"
+
+msgid "Load Project"
+msgstr "プロジェクトを読み込み"
+
+msgid "Import Project File"
+msgstr "プロジェクトファイルをインポート"
+
+
+# -----------------------------------------------------
+# scripts/editor/panels/inspector_project_properties.gd
+# -----------------------------------------------------
+
+msgid "Save a Copy"
+msgstr "コピーを保存"
+
+msgid "Download a Copy"
+msgstr "コピーをダウンロード"
+
+msgid "Export JSON"
+msgstr "JSONのエクスポート"
+
+msgid "Export HTML"
+msgstr "HTMLのエクスポート"
+
+msgid "Export CSV"
+msgstr "CSVのエクスポート"
+
+msgid "Invalid Filename!"
+msgstr "無効なファイル名です！"
+
+msgid "INVALID_FILENAME_MSG"
+msgstr "少なくとも 1 文字の長さの有効なファイル名を選択してください。"
+
+
+# ---------------------------------------------
+# scripts/editor/panels/preferences_ald_menu.gd
+# ---------------------------------------------
+
+msgid "ALD_PRESET_USER_DIR"
+msgstr "OSのデフォルトアプリのローカルディレクトリ"
+
+msgid "ALD_PRESET_RES_DIR"
+msgstr "Arrow の実行可能ファイルとの比較"

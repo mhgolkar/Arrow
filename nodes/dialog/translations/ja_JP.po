@@ -1,0 +1,108 @@
+
+# Dialog Node Translation
+# =======================
+#           Japanese           
+# =======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Dialog\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Dialog"
+msgstr "ダイアログ"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Character Name]"
+# msgstr
+
+# !
+# msgid "Dialog line X."
+# msgstr
+
+# !
+# msgid "Dialog line Y!"
+# msgstr
+
+# !
+# msgid "[Played Action]"
+# msgstr
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "DIALOG_INSPECTOR_FIELD_CHARACTER"
+msgstr "キャラクター"
+
+msgid "DIALOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"グローバルフィルターを適用する\n"
+"\n"
+"同じ出品手順に従います\n"
+"文字インスペクタで定義されます。\n"
+"+ ノードの現在のキャラクターと匿名が常にリストされます。"
+
+msgid "DIALOG_INSPECTOR_FIELD_LINES"
+msgstr "行"
+
+msgid "DIALOG_INSPECTOR_OPT_PLAYABLE"
+msgstr "再生可能"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Dialog"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "DIALOG_INSPECTOR_MENU_APPEND_NEW_LINE"
+msgstr "新しい行を追加"
+
+msgid "DIALOG_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "選択した行を抽出"
+
+msgid "DIALOG_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "選択した行を置換"
+
+msgid "DIALOG_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "選択した行を削除"
+
+msgid "DIALOG_INSPECTOR_MENU_SORT_LINES_AZ"
+msgstr "行のソート (アルファベット順)"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "選択した上部を移動"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "選択した端を移動"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "上へ移動"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "下へ移動"
