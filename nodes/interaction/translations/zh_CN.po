@@ -1,0 +1,47 @@
+
+# Interaction Node Translation
+# ============================
+#      Simplified Chinese     
+# ============================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Interaction\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Interaction"
+msgstr "交互"
+
+msgid "INTERACTION_INSPECTOR_FIELD_LINES"
+msgstr "选项"
+
+msgid "INTERACTION_INSPECTOR_MENU_APPEND_NEW_ACTION"
+msgstr "添加新选项"
+
+msgid "INTERACTION_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "提取选中选项"
+
+msgid "INTERACTION_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "替换选中选项"
+
+msgid "INTERACTION_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "移除选中选项"
+
+msgid "INTERACTION_INSPECTOR_MENU_SORT_ACTIONS_AZ"
+msgstr "按字母排序选项"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "移至顶部"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "移至底部"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "上移"
+
+msgid "INTERACTION_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "下移"

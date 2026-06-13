@@ -1,0 +1,46 @@
+
+# Macro-Use Node Translation
+# ==========================
+#     Simplified Chinese    
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Macro-Use\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Macro Use"
+msgstr "宏调用"
+
+msgid "MACRO_USE_CONSOLE_ACT_SKIP"
+msgstr "跳过"
+
+msgid "MACRO_USE_CONSOLE_ACT_PLAY"
+msgstr "播放"
+
+msgid "MACRO_USE_INSPECTOR_FIELD_MACRO"
+msgstr "宏"
+
+msgid "MACRO_USE_INSPECTOR_APPLY_GLOBAL_MACRO_FILTERS_TOOLTIP"
+msgstr ""
+"应用全局筛选\n"
+"\n"
+"将遵循宏检查器中\n"
+"定义的相同列表规则。\n"
+"+ 当前节点的宏始终会显示。"
+
+msgid "MACRO_USE_CONSOLE_INVALID_MSG"
+msgstr "无效！"
+
+msgid "MACRO_USE_CONSOLE_UNSET_TARGET_MSG"
+msgstr "未设置"
+
+msgid "MACRO_USE_INSPECTOR_NONE_AVAILABLE_TXT"
+msgstr "无可用宏"
+
+msgid "MACRO_USE_NODE_NO_TARGET_MSG"
+msgstr "无宏"

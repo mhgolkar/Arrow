@@ -1,0 +1,47 @@
+
+# Sequencer Node Translation
+# ==========================
+#     Simplified Chinese    
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Sequencer\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Sequencer"
+msgstr "序列器"
+
+msgid "SEQUENCER_CONSOLE_ACT_SKIP"
+msgstr "跳过"
+
+msgid "SEQUENCER_CONSOLE_ACT_RUN"
+msgstr "运行"
+
+msgid "SEQUENCER_INSPECTOR_FIELD_SEQ_LENGTH"
+msgstr "序列长度"
+
+msgid "SEQUENCER_INSPECTOR_HANDLE_WITH_CARE_EXTRA_INFO"
+msgstr ""
+"请谨慎操作！\n"
+"\n"
+"虽然序列器会按槽位顺序播放其连接的节点，\n"
+"但根据播放节点和运行时实现的不同，\n"
+"它们可能以队列或并行方式运行，且无法保证顺序。\n"
+"分支可能以指数级别的意外顺序运行。\n"
+"\n"
+"这可能导致许多不同的意外行为，例如\n"
+"变量检查和更新顺序错误、\n"
+"同时显示多个等待用户操作的节点、\n"
+"以意外方式输出内容，\n"
+"等等。\n"
+"\n"
+"注意！\n"
+"被跳过的序列器只会运行其最后一个连接的槽位。"
+
+msgid "SEQUENCER_INSPECTOR_HANDLE_WITH_CARE"
+msgstr "* 请谨慎操作！"

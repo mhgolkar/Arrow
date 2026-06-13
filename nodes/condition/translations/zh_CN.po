@@ -1,0 +1,124 @@
+
+# Condition Node Translation
+# ==========================
+#     Simplified Chinese    
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Condition\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Condition"
+msgstr "条件"
+
+msgid "CONDITION_CONSOLE_FALSE"
+msgstr "假"
+
+msgid "CONDITION_CONSOLE_TRUE"
+msgstr "真"
+
+msgid "CONDITION_INSPECTOR_CHECK_FOR_VAR"
+msgstr "检查变量"
+
+msgid "CONDITION_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"应用全局筛选\n"
+"\n"
+"将遵循变量检查器中\n"
+"定义的相同列表规则。\n"
+"+ 当前节点的变量始终会显示。"
+
+msgid "CONDITION_INSPECTOR_IF"
+msgstr "如果"
+
+msgid "CONDITION_INSPECTOR_COMPARING_TO"
+msgstr "比较值"
+
+msgid "CONDITION_INSPECTOR_FALSE"
+msgstr "假"
+
+msgid "CONDITION_INSPECTOR_TRUE"
+msgstr "真"
+
+msgid "CONDITION_INSPECTOR_RHS_STR_PLACEHOLDER"
+msgstr "字符串值"
+
+msgid "CONDITION_NODE_FALSE"
+msgstr "假"
+
+msgid "CONDITION_NODE_TRUE"
+msgstr "真"
+
+msgid "CONDITION_CONSOLE_UNSET_DATA_ERR"
+msgstr "未设置！"
+
+msgid "CONDITION_INSPECTOR_OPERATOR_ITEM_TEXT_TEMPLATE"
+msgstr "{text} ({sign})"
+
+msgid "CONDITION_INSPECTOR_COMPARE_TO_SELF_INITIAL"
+msgstr "自身（初始值）"
+
+msgid "CONDITION_INSPECTOR_NO_VARIABLE"
+msgstr "无可用变量"
+
+msgid "CONDITION_NODE_UNSET_OR_INVALID"
+msgstr "未设置！"
+
+msgid "CONDITION_OP_EQ_NUM"
+msgstr "等于"
+
+msgid "CONDITION_OP_NQ_NUM"
+msgstr "不等于"
+
+msgid "CONDITION_OP_GT"
+msgstr "大于"
+
+msgid "CONDITION_OP_GTE"
+msgstr "大于或等于"
+
+msgid "CONDITION_OP_LS"
+msgstr "小于"
+
+msgid "CONDITION_OP_LSE"
+msgstr "小于或等于"
+
+msgid "CONDITION_OP_RGX"
+msgstr "匹配正则表达式"
+
+msgid "CONDITION_OP_CT"
+msgstr "包含子串"
+
+msgid "CONDITION_OP_CTS"
+msgstr "包含子串（区分大小写）"
+
+msgid "CONDITION_OP_BGN"
+msgstr "以…开头"
+
+msgid "CONDITION_OP_END"
+msgstr "以…结尾"
+
+msgid "CONDITION_OP_EQL"
+msgstr "长度相等"
+
+msgid "CONDITION_OP_LNG"
+msgstr "更长"
+
+msgid "CONDITION_OP_SHR"
+msgstr "更短"
+
+msgid "CONDITION_OP_EQ_BOOL"
+msgstr "符合"
+
+msgid "CONDITION_OP_NQ_BOOL"
+msgstr "不符合"
+
+msgid "CONDITION_STATEMENT_RHS_IS_LHS_INIT"
+msgstr "自身（初始值 `%s`）"
+
+msgid "CONDITION_RHS_INVALID"
+msgstr "[无效]"

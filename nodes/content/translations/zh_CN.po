@@ -1,0 +1,50 @@
+
+# Content Node Translation
+# ========================
+#    Simplified Chinese    
+# ========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Content\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Content"
+msgstr "内容"
+
+msgid "CONTENT_CONSOLE_CONTINUE_BTN"
+msgstr "继续"
+
+msgid "CONTENT_INSPECTOR_FIELD_TITLE"
+msgstr "标题"
+
+msgid "CONTENT_INSPECTOR_FIELD_CONTENT"
+msgstr "内容"
+
+msgid "CONTENT_INSPECTOR_FIELD_BRIEF"
+msgstr "摘要"
+
+msgid "CONTENT_INSPECTOR_BRIEF_PICK_BTN_TOOLTIP"
+msgstr "将摘要长度设置到文本光标所在位置。"
+
+msgid "CONTENT_INSPECTOR_OPT_AUTO_PLAY"
+msgstr "自动播放"
+
+msgid "CONTENT_INSPECTOR_OPT_CLEAR_PAGE"
+msgstr "清除页面"
+
+msgid "CONTENT_CONSOLE_UNSET_TEXT"
+msgstr "无内容文本。"
+
+msgid "CONTENT_CONSOLE_UNSET_TITLE"
+msgstr "未命名"
+
+msgid "CONTENT_CONSOLE_UNSET_BRIEF"
+msgstr "无摘要。"
+
+msgid "CONTENT_NODE_UNSET_TITLE"
+msgstr "未命名"

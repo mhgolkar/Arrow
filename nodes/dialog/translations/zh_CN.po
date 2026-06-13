@@ -1,0 +1,61 @@
+
+# Dialog Node Translation
+# =======================
+#    Simplified Chinese   
+# =======================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Dialog\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Dialog"
+msgstr "对话"
+
+msgid "DIALOG_INSPECTOR_FIELD_CHARACTER"
+msgstr "角色"
+
+msgid "DIALOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"应用全局筛选\n"
+"\n"
+"将遵循角色检查器中\n"
+"定义的相同列表规则。\n"
+"+ 当前节点的角色和匿名角色始终会显示。"
+
+msgid "DIALOG_INSPECTOR_FIELD_LINES"
+msgstr "台词"
+
+msgid "DIALOG_INSPECTOR_OPT_PLAYABLE"
+msgstr "可播放"
+
+msgid "DIALOG_INSPECTOR_MENU_APPEND_NEW_LINE"
+msgstr "添加新台词"
+
+msgid "DIALOG_INSPECTOR_MENU_EXTRACT_SELECTED"
+msgstr "提取选中台词"
+
+msgid "DIALOG_INSPECTOR_MENU_REPLACE_SELECTED"
+msgstr "替换选中台词"
+
+msgid "DIALOG_INSPECTOR_MENU_REMOVE_SELECTED"
+msgstr "移除选中台词"
+
+msgid "DIALOG_INSPECTOR_MENU_SORT_LINES_AZ"
+msgstr "按字母排序台词"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_TOP"
+msgstr "移至顶部"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_END"
+msgstr "移至底部"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_UP"
+msgstr "上移"
+
+msgid "DIALOG_INSPECTOR_MENU_MOVE_SELECTED_DOWN"
+msgstr "下移"

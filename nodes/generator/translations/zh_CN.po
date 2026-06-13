@@ -1,0 +1,109 @@
+
+# Generator Node Translation
+# ==========================
+#     Simplified Chinese    
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Generator\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Generator"
+msgstr "生成器"
+
+msgid "GENERATOR_CONSOLE_ACT_SKIP"
+msgstr "跳过"
+
+msgid "GENERATOR_CONSOLE_ACT_PROCEED"
+msgstr "执行"
+
+msgid "GENERATOR_INSPECTOR_FIELD_FOR"
+msgstr "目标"
+
+msgid "GENERATOR_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"应用全局筛选\n"
+"\n"
+"将遵循变量检查器中\n"
+"定义的相同列表规则。\n"
+"+ 当前节点的变量始终会显示。"
+
+msgid "GENERATOR_INSPECTOR_FIELD_GENERATE"
+msgstr "生成"
+
+msgid "GENERATOR_INSPECTOR_FIELD_FROM"
+msgstr "从"
+
+msgid "GENERATOR_INSPECTOR_FIELD_TO"
+msgstr "到"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_NEG"
+msgstr "负数"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_EVEN"
+msgstr "偶数"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_ODD"
+msgstr "奇数"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL"
+msgstr "字符池"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL_PLACEHOLDER"
+msgstr "ASCII 字符（英文字母和数字）"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_LENGTH"
+msgstr "长度"
+
+msgid "GENERATOR_INSPECTOR_FROM_STR_SET_POOL"
+msgstr "字符串集合"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "未定义"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "未设置"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "空/无效"
+
+msgid "GENERATOR_CONSOLE_SKIPPED_MSG"
+msgstr "[已跳过]"
+
+msgid "GENERATOR_CONSOLE_OPERATION_STATE_FORMAT_STR"
+msgstr "{name} `{original}` : {updated}"
+
+msgid "GENERATOR_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "无可用变量"
+
+msgid "GENERATOR_INSPECTOR_STRST_DELIMITER_HINT_MSG"
+msgstr "* 使用 `%s` 分隔"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "未定义"
+
+msgid "GENERATOR_NODE_TARGET_VARIABLE_MSG_TEMPLATE"
+msgstr "{name} ({type})"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "未设置"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "空/无效"
+
+msgid "GENERATOR_METHOD_RANDOM_INTEGER"
+msgstr "随机整数"
+
+msgid "GENERATOR_METHOD_RANDOM_ASCII_STRING"
+msgstr "随机 ASCII 字符串"
+
+msgid "GENERATOR_METHOD_FROM_SET_OF_STRINGS"
+msgstr "从字符串集合中选取"
+
+msgid "GENERATOR_METHOD_RANDOM_BOOLEAN"
+msgstr "随机布尔值"

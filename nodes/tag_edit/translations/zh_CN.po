@@ -1,0 +1,91 @@
+
+# Tag-Edit Node Translation
+# =========================
+#     Simplified Chinese   
+# =========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Edit\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Tag Edit"
+msgstr "标签编辑"
+
+msgid "TAG_EDIT_CONSOLE_ACT_SKIP"
+msgstr "跳过"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_CHARACTER"
+msgstr "角色"
+
+msgid "TAG_EDIT_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"应用全局筛选\n"
+"\n"
+"将遵循角色检查器中\n"
+"定义的相同列表规则。\n"
+"+ 当前节点的角色始终会显示。"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_EDIT"
+msgstr "编辑"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "键（必填且不能为空）"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_VALUE_PLACEHOLDER"
+msgstr "值"
+
+msgid "TAG_EDIT_CONSOLE_METHOD_INVALID"
+msgstr "不适用"
+
+msgid "TAG_EDIT_CONSOLE_METHOD_INVALID_HINT"
+msgstr "不适用：该节点的资源数据已损坏"
+
+msgid "TAG_EDIT_CONSOLE_INVALID_DATA"
+msgstr "无效！"
+
+msgid "TAG_EDIT_CONSOLE_TAG_KEY_VALUE_FORMAT_STR"
+msgstr "{key}: `{value}`"
+
+msgid "TAG_EDIT_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "无可用角色"
+
+msgid "TAG_EDIT_NODE_INVALID_DATA"
+msgstr "无效！"
+
+msgid "TAG_EDIT_NODE_TAG_KEY_VALUE_FORMAT_STR"
+msgstr "{key}: `{value}`"
+
+msgid "TAG_EDIT_METHOD_INSET"
+msgstr "插入"
+
+msgid "TAG_EDIT_METHOD_RESET"
+msgstr "重置"
+
+msgid "TAG_EDIT_METHOD_OVERSET"
+msgstr "覆写"
+
+msgid "TAG_EDIT_METHOD_OUTSET"
+msgstr "匹配移除"
+
+msgid "TAG_EDIT_METHOD_UNSET"
+msgstr "按键移除"
+
+msgid "TAG_EDIT_METHOD_HINT_INSET"
+msgstr "仅在键不存在时添加键值标签。"
+
+msgid "TAG_EDIT_METHOD_HINT_RESET"
+msgstr "仅在键存在时重置标签的值。"
+
+msgid "TAG_EDIT_METHOD_HINT_OVERSET"
+msgstr "无论键是否存在，都覆写或添加键值标签。"
+
+msgid "TAG_EDIT_METHOD_HINT_OUTSET"
+msgstr "仅在键和值都匹配时移除标签。"
+
+msgid "TAG_EDIT_METHOD_HINT_UNSET"
+msgstr "只要键匹配就移除标签。"
