@@ -23,6 +23,8 @@ var _SELECTED_SCENE_BEING_EDITED_ID = -1
 
 @onready var SceneEditorBox = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs
 @onready var SceneRawUid = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs/Uid
+@onready var SceneColorPickerButton =  $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs/Color
+@onready var SceneThumbnailPickerButton =  $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs/Thumbnail
 @onready var SceneEditorName = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs/Name
 @onready var SceneEditorUpdateButton = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs/Set
 
@@ -49,6 +51,7 @@ func register_connections() -> void:
 	Filter.text_changed.connect(self._on_listing_instruction_change, CONNECT_DEFERRED)
 	FilterReverse.toggled.connect(self._on_listing_instruction_change, CONNECT_DEFERRED)
 	SortAlphabetical.toggled.connect(self._on_listing_instruction_change, CONNECT_DEFERRED)
+	SceneThumbnailPickerButton.pressed.connect(self._on_thumbnail_select_button, CONNECT_DEFERRED)
 	pass
 
 func initialize_tab() -> void:
@@ -144,6 +147,23 @@ func insert_scene_list_item(scene_id:int, the_scene:Dictionary) -> void:
 	# the item is added last, so...
 	var item_index = (ScenesList.get_item_count() - 1)
 	ScenesList.set_item_metadata(item_index, scene_id)
+	if the_scene.has("color") && (the_scene.color is String):
+		ScenesList.set_item_custom_fg_color(item_index, Helpers.Utils.rgba_hex_to_color(the_scene.color))
+	else:
+		ScenesList.set_item_custom_fg_color(item_index, Color(1, 1, 1, 1))
+	# if scene has thumbnail avilable, add or update thumbnail
+	var ThumbnailTexture = load("res://assets/default_thumbnail.png")
+	if the_scene.has("thumbnail") && (the_scene.thumbnail is String):
+		var ThumbnailImage = Image.new()
+		ThumbnailImage.load_png_from_buffer(Marshalls.base64_to_raw(the_scene.thumbnail))
+		ThumbnailTexture = ImageTexture.create_from_image(ThumbnailImage)
+		ScenesList.set_item_icon_modulate(item_index, Color(1, 1, 1, 1))
+	# if not, use default scene icon
+	elif the_scene.has("color") && (the_scene.color is String):
+		ScenesList.set_item_icon_modulate(item_index, Helpers.Utils.rgba_hex_to_color(the_scene.color))
+	else:
+		ScenesList.set_item_icon_modulate(item_index, Color(1, 1, 1, 1))
+	ScenesList.set_item_icon(item_index, ThumbnailTexture)
 	pass
 
 func update_scene_list_item(scene_id:int, the_scene:Dictionary) -> void:
@@ -152,8 +172,39 @@ func update_scene_list_item(scene_id:int, the_scene:Dictionary) -> void:
 		if ScenesList.get_item_metadata(idx) == scene_id:
 			# found it, update...
 			ScenesList.set_item_text(idx, the_scene.name)
+			if the_scene.has("color") && (the_scene.color is String):
+				ScenesList.set_item_custom_fg_color(idx, Helpers.Utils.rgba_hex_to_color(the_scene.color))
+			else:
+				ScenesList.set_item_custom_fg_color(idx, Color(1, 1, 1, 1))
+			# if character has thumbnail avilable, add or update thumbnail
+			var ThumbnailTexture = load("res://assets/default_thumbnail.png")
+			if the_scene.has("thumbnail") && (the_scene.thumbnail is String):
+				var ThumbnailImage = Image.new()
+				ThumbnailImage.load_png_from_buffer(Marshalls.base64_to_raw(the_scene.thumbnail))
+				ThumbnailTexture = ImageTexture.create_from_image(ThumbnailImage)
+				ScenesList.set_item_icon_modulate(idx, Color(1, 1, 1, 1))
+			# if not, use scene character icon
+			elif the_scene.has("color") && (the_scene.color is String):
+				ScenesList.set_item_icon_modulate(idx, Helpers.Utils.rgba_hex_to_color(the_scene.color))
+			else:
+				ScenesList.set_item_icon_modulate(idx, Color(1, 1, 1, 1))
+			ScenesList.set_item_icon(idx, ThumbnailTexture)
+			# update input fields
 			if _SELECTED_SCENE_BEING_EDITED_ID == scene_id:
 				SceneEditorName.set_text(the_scene.name)
+				SceneColorPickerButton.set("color", Helpers.Utils.rgba_hex_to_color(the_scene.color))
+				if the_scene.has("thumbnail") && (the_scene.thumbnail is String):
+					var ThumbnailImage = Image.new()
+					ThumbnailImage.load_png_from_buffer(Marshalls.base64_to_raw(the_scene.thumbnail))
+					ThumbnailTexture = ImageTexture.create_from_image(ThumbnailImage)
+					SceneThumbnailPickerButton.set("icon", ThumbnailTexture)
+				else:
+					var SymbolsTexture = load("res://assets/symbols.png")
+					var SymbolsAtlas = AtlasTexture.new()
+					SymbolsAtlas.atlas = SymbolsTexture
+					SymbolsAtlas.region = Rect2(Vector2(240, 144), Vector2(48, 48))
+					SceneThumbnailPickerButton.set("icon", SymbolsAtlas)
+				SceneThumbnailPickerButton.set_meta("has_new_thumbnail", false)
 			return
 	printerr("Unexpected Behavior! Trying to update scene=%s which is not found in the list!")
 	pass
@@ -288,6 +339,22 @@ func update_scene_editorial_state(scene_id:int = -1) -> void:
 		var the_scene = _LISTED_SCENES_BY_ID[scene_id]
 		SceneRawUid.set_deferred("tooltip_text", (RAW_UID_TIP_TEMPLATE % scene_id) + tr("TYPE_INSPECTOR_RAW_UID_HINT"))
 		SceneEditorName.set_text(the_scene.name)
+		if the_scene.has("color") && (the_scene.color is String):
+			SceneColorPickerButton.set("color", Helpers.Utils.rgba_hex_to_color(the_scene.color))
+		else:
+			SceneColorPickerButton.set("color", Color(1, 1, 1, 1))
+		if the_scene.has("thumbnail") && (the_scene.thumbnail is String):
+			var ThumbnailImage = Image.new()
+			ThumbnailImage.load_png_from_buffer(Marshalls.base64_to_raw(the_scene.thumbnail))
+			var ThumbnailTexture = ImageTexture.create_from_image(ThumbnailImage)
+			SceneThumbnailPickerButton.set("icon", ThumbnailTexture)
+		else:
+			var SymbolsTexture = load("res://assets/symbols.png")
+			var SymbolsAtlas = AtlasTexture.new()
+			SymbolsAtlas.atlas = SymbolsTexture
+			SymbolsAtlas.region = Rect2(Vector2(240, 144), Vector2(48, 48))
+			SceneThumbnailPickerButton.set("icon", SymbolsAtlas)
+		SceneThumbnailPickerButton.set_meta("has_new_thumbnail", false)
 		# SceneEditorBox.set("visible", true) # moved to `smartly_update_tools`
 		# this may be called by other scripts, so let's reselect the open scene
 		select_list_item_by_scene_id(scene_id)
@@ -315,11 +382,23 @@ func submit_scene_modification() -> void:
 		"field": "scenes"
 	}
 	var mod_name = SceneEditorName.get_text()
+	var mod_color = Helpers.Utils.color_to_rgba_hex(SceneColorPickerButton.get("color"), false)
+	# If new thumbnail is set, get thumbnail image and encode as base64 to store in scene
+	if SceneThumbnailPickerButton.get_meta("has_new_thumbnail", false):
+		var ThumbnailTexture = SceneThumbnailPickerButton.get("icon")
+		var ThumbnailImage = ThumbnailTexture.get_image()
+		var ThumbnailByteArray = ThumbnailImage.save_png_to_buffer()
+		var ThumbnailBase64 = Marshalls.raw_to_base64(ThumbnailByteArray)
+		var mod_thumbnail = ThumbnailBase64
+		if (not the_scene_original.has("thumbnail")) || (the_scene_original.has("thumbnail") && mod_thumbnail != the_scene_original.thumbnail): # thumbnail is changed
+			resource_updater.modification["thumbnail"] = mod_thumbnail
 	if mod_name.length() > 0 && mod_name != the_scene_original.name: # name is changed
 		# force using unique names for variables ?
 		while Settings.FORCE_UNIQUE_NAMES_FOR_SCENES_AND_MACROS && Main.Mind.is_resource_name_duplicate(mod_name, "scenes"):
 			mod_name = ( mod_name + Settings.REUSED_SCENE_OR_MACRO_NAMES_AUTO_POSTFIX )
 		resource_updater.modification["name"] = mod_name
+	if (not the_scene_original.has("color")) || (the_scene_original.has("color") && mod_color != the_scene_original.color): # emphasis-color value is changed
+		resource_updater.modification["color"] = mod_color
 	if resource_updater.modification.size() > 0 :
 		self.relay_request_mind.emit("update_resource", resource_updater)
 	pass
@@ -339,3 +418,25 @@ func _on_list_gui_input(event: InputEvent) -> void:
 						if event.is_shift_pressed():
 							self.relay_request_mind.emit("os_clipboard_pull", [null, null]) # (no moving)
 		pass
+		
+func _on_thumbnail_select_button() -> void:
+	Main.Mind.prompt_path_to(self, "use_image_as_thumbnail", [], Settings.PATH_DIALOG_PROPERTIES.ICON_IMAGE.OPEN)
+	pass
+
+func use_image_as_thumbnail(file_path:String) -> void:
+	# Get image from file
+	var ThumbnailImage = Image.load_from_file(file_path)
+	var ThumbnailHeight = ThumbnailImage.get_height()
+	var ThumbnailWidth = ThumbnailImage.get_width()
+	var ScalingFactor = 1
+	if ThumbnailHeight > ThumbnailWidth: # If height is larger than width, scale by limiting to height
+		ScalingFactor = float(ThumbnailHeight)/Settings.THUMBNAIL_RESOLUTION
+	else: # If width is larger or equal to than height, scale by limiting to width
+		ScalingFactor = float(ThumbnailWidth)/Settings.THUMBNAIL_RESOLUTION
+	ThumbnailImage.resize(ThumbnailWidth/ScalingFactor, ThumbnailHeight/ScalingFactor, Image.INTERPOLATE_CUBIC)
+	
+	# convert to ImageTexture to display in Button
+	var ThumbnailTexture = ImageTexture.create_from_image(ThumbnailImage)
+	SceneThumbnailPickerButton.set("icon", ThumbnailTexture)
+	SceneThumbnailPickerButton.set_meta("has_new_thumbnail", true)
+	pass

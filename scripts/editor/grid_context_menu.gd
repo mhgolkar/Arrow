@@ -9,7 +9,7 @@ extends PopupPanel
 signal request_mind()
 
 @onready var Main = get_tree().get_root().get_child(0)
-@onready var Grid = $/root/Main/Editor/Center/Grid
+@onready var Grid = $/root/Main/Editor/Center/Center/Grid
 
 # cached click point position
 # (where user has right-clicked and probably wants the node to be placed)

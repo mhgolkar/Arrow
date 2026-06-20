@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cckmwdqcq1ede"]
+
+[ext_resource type="Script" uid="uid://dqwk8q1shyo6c" path="res://nodes/scene/console.gd" id="1_odi1f"]
+[ext_resource type="Texture2D" uid="uid://dma5x8atcxjxk" path="res://nodes/scene/icon.svg" id="2_lxj82"]
+
+[node name="Scene" type="PanelContainer" unique_id=1812175460]
+offset_right = 256.0
+size_flags_horizontal = 3
+script = ExtResource("1_odi1f")
+
+[node name="Play" type="VBoxContainer" parent="." unique_id=424890873]
+layout_mode = 2
+
+[node name="Head" type="HBoxContainer" parent="Play" unique_id=1459476620]
+layout_mode = 2
+
+[node name="Icon" type="Button" parent="Play/Head" unique_id=598172076]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+icon = ExtResource("2_lxj82")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
+
+[node name="Description" type="Label" parent="Play/Head" unique_id=674180283]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[Description]"
+horizontal_alignment = 1
+
+[node name="Action" type="Button" parent="Play" unique_id=1703104879]
+layout_mode = 2
+text = "[Destination Name]"

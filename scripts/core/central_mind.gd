@@ -8,7 +8,7 @@ class_name CentralMind
 
 const PREF_PANEL = "/root/Main/Overlays/Control/Preferences"
 const EDITOR = "/root/Main/Editor"
-const GRID = "/root/Main/Editor/Center/Grid"
+const GRID = "/root/Main/Editor/Center/Center/Grid"
 const INSPECTOR = "/root/Main/FloatingTools/Control/Inspector"
 const QUERY = "/root/Main/Editor/Bottom/Bar/Query"
 const GRID_CONTEXT_MENU = "/root/Main/FloatingTools/Control/Context"
@@ -658,6 +658,12 @@ class Mind :
 			Grid.call_deferred("reset_view_to_initial")
 			# load the scene title / name
 			Editor.call_deferred("set_scene_name", the_scene.name)
+			if (the_scene.has("thumbnail")):
+				Editor.call_deferred("set_scene_thumbnail", the_scene.thumbnail, the_scene.color)
+			elif (the_scene.has("color")):
+				Editor.call_deferred("set_scene_thumbnail", null, the_scene.color)
+			else:
+				Editor.call_deferred("set_scene_thumbnail", null, "FFFFFF")
 			# then jump to a node if annotated
 			if focus_node_id >= 0:
 				if the_scene.map.has(focus_node_id):
@@ -1395,6 +1401,7 @@ class Mind :
 						Inspector.Tab.Scenes.call_deferred("list_scenes", { resource_uid : cloned_resource })
 					if resource_uid == get_current_open_scene_id():
 						Editor.call_deferred("set_scene_name", cloned_resource.name)
+						Editor.call_deferred("set_scene_thumbnail", cloned_resource.thumbnail, cloned_resource.color)
 				"nodes":
 					# update the grid view
 					Grid.call_deferred("update_grid_node_box", resource_uid, the_resource)
@@ -1725,7 +1732,8 @@ class Mind :
 		var new_res_seed_id = create_new_resource_id()
 		var the_new_character = {
 			"name": create_character_name_from_id(new_res_seed_id),
-			"color": Helpers.Utils.color_to_rgba_hex(Helpers.Generators.create_random_color(), false)
+			"color": Helpers.Utils.color_to_rgba_hex(Helpers.Generators.create_random_color(), false),
+			"avatar": null
 		}
 		write_resource("characters", the_new_character, new_res_seed_id, false)
 		Inspector.Tab.Characters.call_deferred("list_characters", ({ new_res_seed_id: the_new_character }))
@@ -1743,6 +1751,8 @@ class Mind :
 		var the_new_scene = {
 			"name": new_scene_name,
 			"entry": null, # will be updated later
+			"color": Helpers.Utils.color_to_rgba_hex(Helpers.Generators.create_random_color(), false),
+			"thumbnail": null,
 			"map": {}
 		}
 		if is_macro:

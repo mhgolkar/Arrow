@@ -8,7 +8,7 @@ extends Control
 @onready var TheTree = get_tree()
 @onready var TheViewport = get_viewport()
 @onready var Main = TheTree.get_root().get_child(0)
-@onready var Grid = $/root/Main/Editor/Center/Grid
+@onready var Grid = $/root/Main/Editor/Center/Center/Grid
 @onready var MinimapBox = get_parent()
 
 const PANEL_OPACITY_MODULATION_COLOR_HIDE = Settings.MINIMAP_PANEL_OPACITY_MODULATION_COLOR_HIDE

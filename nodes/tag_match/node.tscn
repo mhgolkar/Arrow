@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://8t8d3i13otqe"]
+[gd_scene format=3 uid="uid://8t8d3i13otqe"]
 
 [ext_resource type="Script" uid="uid://c4heptcorqpgp" path="res://nodes/tag_match/node.gd" id="1_3d23j"]
 [ext_resource type="Texture2D" uid="uid://cx836tmywk8hs" path="res://nodes/tag_match/icon.svg" id="1_wttxb"]
@@ -8,7 +8,9 @@
 atlas = ExtResource("2_r0uu2")
 region = Rect2(0, 0, 48, 0)
 
-[node name="TagMatch" type="GraphNode"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6dyg"]
+
+[node name="TagMatch" type="GraphNode" unique_id=1064405677]
 offset_right = 256.0
 resizable = true
 slot/0/left_enabled = true
@@ -22,13 +24,13 @@ slot/0/right_icon = null
 slot/0/draw_stylebox = true
 script = ExtResource("1_3d23j")
 
-[node name="Head" type="VBoxContainer" parent="."]
+[node name="Head" type="VBoxContainer" parent="." unique_id=141769169]
 layout_mode = 2
 
-[node name="State" type="HBoxContainer" parent="Head"]
+[node name="State" type="HBoxContainer" parent="Head" unique_id=2055251510]
 layout_mode = 2
 
-[node name="Kind" type="Button" parent="Head/State"]
+[node name="Kind" type="Button" parent="Head/State" unique_id=103958783]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -40,7 +42,7 @@ flat = true
 text_overrun_behavior = 3
 expand_icon = true
 
-[node name="RegExp" type="Button" parent="Head/State"]
+[node name="RegExp" type="Button" parent="Head/State" unique_id=1161471870]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 focus_mode = 0
@@ -51,24 +53,30 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="Character" type="HBoxContainer" parent="Head"]
+[node name="Character" type="HBoxContainer" parent="Head" unique_id=769025753]
 layout_mode = 2
 
-[node name="Color" type="ColorRect" parent="Head/Character"]
-custom_minimum_size = Vector2(24, 0)
+[node name="Avatar" type="Button" parent="Head/Character" unique_id=630950788]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_styles/disabled = SubResource("StyleBoxFlat_i6dyg")
+disabled = true
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="Name" type="Label" parent="Head/Character"]
+[node name="Name" type="Label" parent="Head/Character" unique_id=949177411]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[Character Name]"
 horizontal_alignment = 1
 
-[node name="TagKey" type="Label" parent="Head"]
+[node name="TagKey" type="Label" parent="Head" unique_id=382939681]
 layout_mode = 2
 text = "[Tag Key]"
 horizontal_alignment = 1
 
-[node name="Margin" type="MarginContainer" parent="Head"]
+[node name="Margin" type="MarginContainer" parent="Head" unique_id=191302058]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2

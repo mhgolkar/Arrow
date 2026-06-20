@@ -1,0 +1,92 @@
+
+# Scene Node Translation
+# =====================
+#        English       
+# =====================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Scene\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Scene"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Reason]"
+# msgstr ""
+
+# !
+# msgid "[Destination Name]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "SCENE_INSPECTOR_FIELD_DESCRIPTION"
+msgstr "Description"
+
+msgid "SCENE_INSPECTOR_FIELD_DESCRIPTION_PLACEHOLDER"
+msgstr "e.g. In a forest, At home ..."
+
+msgid "SCENE_INSPECTOR_FIELD_SCENE"
+msgstr "Destination"
+
+msgid "SCENE_INSPECTOR_FIELD_SCENE_PLACEHOLDER"
+msgstr "Node UID"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Scene"
+# msgstr ""
+
+# !
+# msgid "[Destination]"
+# msgstr ""
+
+# !
+# msgid "[Description]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "SCENE_CONSOLE_UNSET_DESCRIPTION_MSG"
+msgstr "No Description"
+
+msgid "SCENE_CONSOLE_INVALID_MSG"
+msgstr "Invalid!"
+
+msgid "SCENE_CONSOLE_UNSET_SCENE_MSG"
+msgstr "Unset"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "SCENE_NODE_UNSET_DESCRIPTION_MSG"
+msgstr "No Description"
+
+msgid "SCENE_NODE_UNSET_SCENE_NAME"
+msgstr "Unset"

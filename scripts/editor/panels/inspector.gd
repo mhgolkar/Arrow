@@ -8,6 +8,12 @@ extends Control
 signal request_mind()
 
 @onready var Main = get_tree().get_root().get_child(0)
+@onready var LeftDock = $/root/Main/Editor/Center/LeftDock
+@onready var RightDock = $/root/Main/Editor/Center/RightDock
+@onready var FloatingTools = $/root/Main/FloatingTools/Control
+
+@onready var drag_point = $/root/Main/FloatingTools/Control/Inspector/Sections/Titlebar/Drag
+@onready var resize_point = $/root/Main/FloatingTools/Control/Inspector/Sections/Titlebar/Resizer
 
 @onready var TheTabContainer = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs
 @onready var Tab = {
@@ -21,6 +27,14 @@ signal request_mind()
 @onready var TabSelectorPopup = (
 	$/root/Main/FloatingTools/Control/Inspector/Sections/Titlebar/TabSelector
 ).get_popup()
+@onready var DockButton = $/root/Main/FloatingTools/Control/Inspector/Sections/Titlebar/Dock
+
+# make this panel,
+# draggable
+	# ... it also makes the panel compete for the parent's top z-index by default
+@onready var draggable = Helpers.Draggable.new(self, drag_point)
+# and resizable
+@onready var resizable = Helpers.Resizable.new(self, resize_point)
 
 func _ready() -> void:
 	_register_connections()
@@ -39,7 +53,17 @@ func _register_connections() -> void:
 	TheTabContainer.tab_changed.connect(self.refresh_inspector_tab)
 	TheTabContainer.gui_input.connect(self._on_gui_input)
 	TabSelectorPopup.id_pressed.connect(self._on_tab_selector_popup_id_pressed)
+	DockButton.toggled.connect(self._on_button_pressed)
+	# Connect Draggable functions to UiManager AFTER UI has been initialized
+	while Main.UI == null: # TODO maybe make more elegant by moving to main_ui_management or by different means
+		await get_tree().process_frame
+	draggable.on_drag_started = Main.UI._on_panel_drag_started
+	draggable.on_drag_moved = Main.UI._on_panel_dragged
+	draggable.on_drag_ended = Main.UI._on_panel_drag_ended
 	pass
+	
+func _process(_delta: float) -> void:
+	draggable.process_drag()
 
 # called by Mind while opening a project
 func initialize_tabs():
@@ -124,11 +148,57 @@ func _on_gui_input(event: InputEvent) -> void:
 		scroll_tabs_workaround(event)
 	pass
 
-# make this panel,
-# draggable
-	# ... it also makes the panel compete for the parent's top z-index by default
-@onready var drag_point = $/root/Main/FloatingTools/Control/Inspector/Sections/Titlebar/Drag
-@onready var draggable = Helpers.Draggable.new(self, drag_point)
-# and resizable
-@onready var resize_pont = $/root/Main/FloatingTools/Control/Inspector/Sections/Titlebar/Resizer
-@onready var resizable = Helpers.Resizable.new(self, resize_pont)
+func _on_button_pressed(toggled_on: bool) -> void:
+	if toggled_on:
+		Main.UI.set_panel_dock_state("inspector", true, Settings.DEFAULT_INSPECTOR_DOCK_SLOT)
+	else:
+		Main.UI.set_panel_dock_state("inspector", false)
+	pass
+
+# Called from UiManager
+func dock_panel(dock: bool, slot=null) -> void:
+	# Remember global position
+	if dock:
+		# Reparent to Editor
+		self.get_parent().remove_child(self)
+		if slot != null && slot is Dictionary && slot.has("dock") && slot.dock is String:
+			draggable.disable_top_layer()
+			if slot.dock == "left":
+				if slot.has("position") && slot.position is int:
+					Main.UI.insert_panel_at_index("left_dock", self, slot.position)
+				else:
+					Main.UI.insert_panel_at_index("left_dock", self)
+			elif slot.dock == "right":
+				if slot.has("position") && slot.position is int:
+					Main.UI.insert_panel_at_index("right_dock", self, slot.position)
+				else:
+					Main.UI.insert_panel_at_index("right_dock", self)
+			else:
+				printerr("Invalid docking slot")
+				Main.UI.insert_panel_at_index("right_dock", self)
+			draggable.update_parent()
+			# Disable resizing & dragging
+			#draggable.disable()
+			resizable.disable()
+			#drag_point.mouse_default_cursor_shape = Control.CURSOR_ARROW
+			resize_point.visible = false
+			DockButton.set_pressed_no_signal(true) # Turn button on to have button be on if panel is docked during init and not via button press
+		else:
+			printerr("No docking slot specified")
+	else:
+		draggable.enable_top_layer()
+		# Remember global position
+		var global_pos = self.global_position
+		# Reparent to FloatingTools
+		self.get_parent().remove_child(self)
+		FloatingTools.add_child(self)
+		# Plaxe at global position
+		global_position = global_pos
+		draggable.update_parent()
+		# Enable resizing & dragging
+		#draggable.enable()
+		resizable.enable()
+		#drag_point.mouse_default_cursor_shape = Control.CURSOR_DRAG
+		resize_point.visible = true
+		DockButton.set_pressed_no_signal(false)
+	pass

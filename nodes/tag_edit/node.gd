@@ -15,8 +15,8 @@ var This = self
 @onready var Method = $Display/Method
 @onready var Tag = $Display/Tag
 @onready var CharacterProfile = $Display/Character
-@onready var CharacterProfileColor = $Display/Character/Color
-@onready var CharacterProfileName = $Display/Character/Name
+@onready var CharacterName = $Display/Character/Name
+@onready var CharacterAvatar = $Display/Character/Avatar
 
 const TAG_EDIT_INVALID = "TAG_EDIT_NODE_INVALID_DATA" # Translated ~ "Invalid!"
 const TAG_KEY_VALUE_FORMAT_STRING = "TAG_EDIT_NODE_TAG_KEY_VALUE_FORMAT_STR" # Translated ~ "{key}: `{value}`"
@@ -33,16 +33,19 @@ const METHODS = TagEditSharedClass.METHODS
 #	pass
 
 func update_character(profile:Dictionary) -> void:
-	CharacterProfileName.set(
-		"text",
-		profile.name if profile.has("name") && (profile.name is String) else ANONYMOUS_CHARACTER.name
-	)
-	CharacterProfileColor.set(
-		"color",
-		Helpers.Utils.rgba_hex_to_color(
-			profile.color if profile.has("color") && (profile.color is String) else ANONYMOUS_CHARACTER.color
-		)
-	)
+	if profile.has("name") && (profile.name is String):
+		CharacterName.set("text", profile.name)
+	if profile.has("avatar") && (profile.avatar is String):
+		var AvatarImage = Image.new()
+		AvatarImage.load_png_from_buffer(Marshalls.base64_to_raw(profile.avatar))
+		var AvatarTexture = ImageTexture.create_from_image(AvatarImage)
+		CharacterAvatar.set("icon", AvatarTexture) 
+		CharacterAvatar.modulate = Color(1, 1, 1, 1)
+	elif profile.has("color") && (profile.color is String):
+		var AvatarTexture = load("res://assets/default_avatar.png")
+		CharacterAvatar.set("icon", AvatarTexture)
+		CharacterAvatar.modulate = Helpers.Utils.rgba_hex_to_color(profile.color)
+	CharacterAvatar.size = Vector2(32,32)
 	pass
 
 func _update_node(data:Dictionary) -> void:

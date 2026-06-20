@@ -102,6 +102,8 @@ const Data = {
 				0: {
 					"name": Settings.SCENE_NAME_PREFIX + "0",
 					"entry": 1, # The scene's active entry node
+					"color": "7F7F7F",
+					"thumbnail": null,
 					"map": {
 						1 : { "offset":[100, 100], "io": [ [1, 0, 2, 0] ] },
 						2 : { "offset":[280, 170] },

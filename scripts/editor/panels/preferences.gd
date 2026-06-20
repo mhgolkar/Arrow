@@ -20,6 +20,8 @@ const PREF_PANEL_FIELDS = {
 	# CAUTION! handle with care: same lowercase strings (as the keys here,) are used in signaling and saving modified preferences,
 	"appearance_theme": "/root/Main/Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Theme/Selector/Options",
 	"language": "/root/Main/Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Language/Selector/Options",
+	"ui_scaling": "/root/Main/Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Scaling/Selector/Slider/Slider",
+	"ui_scaling_value": "/root/Main/Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Scaling/Selector/Slider/Value",
 	"app_local_dir_path": "/root/Main/Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector/Tools/Path",
 	"app_local_dir_browse": "/root/Main/Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector/Tools/Select",
 	"app_local_dir_reset_menu": "/root/Main/Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector/Tools/Reset",
@@ -31,6 +33,7 @@ var FIELDS = {}
 const FIELDS_VALUE_PROPERTY = {
 	"appearance_theme": "selected",
 	"language": "selected",
+	"ui_scaling": "value",
 	"app_local_dir_path": "text",
 	"history_size": "value",
 }
@@ -89,6 +92,10 @@ func reset_language(by_locale:String = "en") -> void:
 	select_language_selector_for(by_locale)
 	pass
 
+func change_ui_scaling(scaling_factor:float) -> void:
+	get_window().content_scale_factor = scaling_factor
+	pass
+
 func register_connections() -> void:
 	# action buttons
 	ACTIONS.dismiss.pressed.connect(self._dismiss_preferences, CONNECT_DEFERRED)
@@ -96,6 +103,8 @@ func register_connections() -> void:
 	# fields
 	FIELDS.appearance_theme.item_selected.connect(self.preprocess_and_emit_modification_signal.bind("appearance_theme"), CONNECT_DEFERRED)
 	FIELDS.language.item_selected.connect(self.preprocess_and_emit_modification_signal.bind("language"), CONNECT_DEFERRED)
+	FIELDS.ui_scaling.drag_ended.connect(self.preprocess_and_emit_modification_signal.bind("ui_scaling"), CONNECT_DEFERRED)
+	FIELDS.ui_scaling.value_changed.connect(self.update_scaling_value_display, CONNECT_DEFERRED)
 	FIELDS.app_local_dir_browse.pressed.connect(self.prompt_local_dir_path, CONNECT_DEFERRED)
 	FIELDS.app_local_dir_reset_menu.item_selected_value.connect(self._on_app_local_dir_reset_menu_item_selected, CONNECT_DEFERRED)
 	FIELDS.history_size.get_line_edit().text_changed.connect(self.preprocess_and_emit_modification_signal.bind("history_size"), CONNECT_DEFERRED)
@@ -107,6 +116,9 @@ func refresh_fields_view(preferences:Dictionary) -> void:
 		match field:
 			"language":
 				select_language_selector_for.call_deferred(preferences[field])
+			"ui_scaling":
+				FIELDS.ui_scaling.set_value_no_signal(preferences[field])
+				FIELDS.ui_scaling_value.text = str("×", preferences[field])
 			_:
 				if field in FIELDS:
 					FIELDS[field].set_deferred(FIELDS_VALUE_PROPERTY[field], preferences[field])
@@ -127,6 +139,8 @@ func preprocess_and_emit_modification_signal(value, field) -> void:
 			value = FIELDS.appearance_theme.get_item_id(value) # Convert idx to theme_id
 		"language":
 			value = FIELDS.language.get_item_metadata(value)
+		"ui_scaling":
+			value = FIELDS.ui_scaling.value
 		"history_size":
 			value = max(0, int(value))
 	# .. then signal
@@ -145,6 +159,10 @@ func _on_app_local_dir_selected(dir:String) -> void:
 
 func _on_app_local_dir_reset_menu_item_selected(reset_value_dir_path) -> void:
 	handle_app_local_dir_selection(reset_value_dir_path)
+	pass
+	
+func update_scaling_value_display(val) -> void:
+	FIELDS.ui_scaling_value.text = str("×", val)
 	pass
 
 func prompt_local_dir_path() -> void:

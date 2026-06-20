@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bov4cqr4bs6n4"]
+
+[ext_resource type="Script" uid="uid://c1oftet36p6l1" path="res://nodes/exit/node.gd" id="1_ywpas"]
+[ext_resource type="Texture2D" uid="uid://w1d3jrcpoa3k" path="res://nodes/exit/icon.svg" id="2_fuo3w"]
+
+[node name="Jump" type="GraphNode" unique_id=1761378504]
+offset_right = 256.0
+resizable = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_ywpas")
+
+[node name="Display" type="VBoxContainer" parent="." unique_id=1487914624]
+layout_mode = 2
+
+[node name="Kind" type="Button" parent="Display" unique_id=1387390072]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+text = "Exit"
+icon = ExtResource("2_fuo3w")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
+
+[node name="Reason" type="Label" parent="Display" unique_id=75463136]
+layout_mode = 2
+size_flags_vertical = 3
+text = "[Reason]"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 4

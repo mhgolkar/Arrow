@@ -937,6 +937,9 @@ msgstr "[✓] "
 # scripts/editor/panels/console_status_codes.gd
 # ---------------------------------------------
 
+msgid "CONSOLE_STATUS_EXIT_END_MESSAGE"
+msgstr "⇥ End of project: {name} ({uid})"
+
 msgid "CONSOLE_STATUS_END_EDGE_MESSAGE"
 msgstr "◆ EOL: {name} ({uid})"
 

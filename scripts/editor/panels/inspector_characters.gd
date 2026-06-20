@@ -8,7 +8,7 @@ extends Control
 signal relay_request_mind()
 
 @onready var Main = get_tree().get_root().get_child(0)
-@onready var Grid = $/root/Main/Editor/Center/Grid
+@onready var Grid = $/root/Main/Editor/Center/Center/Grid
 
 var _LISTED_CHARACTERS_BY_ID = {}
 var _LISTED_CHARACTERS_BY_NAME = {}
@@ -34,6 +34,8 @@ var _KEY_BEING_REVISED = null
 @onready var CharacterRawUid = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs/Uid
 @onready var CharacterEditorName = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs/Name
 @onready var CharacterColorPickerButton = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs/Color
+@onready var CharacterAvatarPickerButton = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs/Avatar
+@onready var PathDialog = $/root/Main/Overlays/Control/PathDialog
 @onready var CharacterEditorSaveButton = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs/Set
 # > Tags
 @onready var TagBox = $/root/Main/FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Scroll/Pairs
@@ -78,6 +80,7 @@ func register_connections() -> void:
 	FilterReverse.toggled.connect(self._on_listing_instruction_change, CONNECT_DEFERRED)
 	FilterForScene.toggled.connect(self._on_listing_instruction_change, CONNECT_DEFERRED)
 	SortAlphabetical.toggled.connect(self._on_listing_instruction_change, CONNECT_DEFERRED)
+	CharacterAvatarPickerButton.pressed.connect(self._on_avatar_select_button, CONNECT_DEFERRED)
 	pass
 
 func initialize_tab() -> void:
@@ -206,10 +209,21 @@ func dereference_listed_characters(character_id:int) -> void:
 func insert_character_list_item(character_id:int, the_character:Dictionary) -> void:
 	reference_listed_characters(character_id, the_character)
 	# insert the character as list item
-	CharactersList.add_item( the_character.name )
+	CharactersList.add_item( the_character.name )		
 	# we need to keep track of ids in metadata
 	# the item is added last, so...
 	var item_index = (CharactersList.get_item_count() - 1)
+	# if character has avatar avilable, add avatar to list item
+	var AvatarTexture = null
+	if the_character.has("avatar") && (the_character.avatar is String):
+		var AvatarImage = Image.new()
+		AvatarImage.load_png_from_buffer(Marshalls.base64_to_raw(the_character.avatar))
+		AvatarTexture = ImageTexture.create_from_image(AvatarImage)
+		CharactersList.set_item_icon_modulate(item_index, Color(1, 1, 1, 1))
+	else:
+		AvatarTexture = load("res://assets/default_avatar.png")
+		CharactersList.set_item_icon_modulate(item_index, Helpers.Utils.rgba_hex_to_color(the_character.color))
+	CharactersList.set_item_icon(item_index, AvatarTexture)
 	CharactersList.set_item_metadata(item_index, character_id)
 	CharactersList.set_item_custom_fg_color(item_index, Helpers.Utils.rgba_hex_to_color(the_character.color))
 	# then select and load it in the character editor
@@ -224,6 +238,18 @@ func update_character_list_item(character_id:int, the_character:Dictionary) -> v
 			# found it, update...
 			CharactersList.set_item_text(idx, the_character.name)
 			CharactersList.set_item_custom_fg_color(idx, Helpers.Utils.rgba_hex_to_color(the_character.color))
+			# if character has avatar avilable, add or update avatar
+			var AvatarTexture = null
+			if the_character.has("avatar") && (the_character.avatar is String):
+				var AvatarImage = Image.new()
+				AvatarImage.load_png_from_buffer(Marshalls.base64_to_raw(the_character.avatar))
+				AvatarTexture = ImageTexture.create_from_image(AvatarImage)
+				CharactersList.set_item_icon_modulate(idx, Color(1, 1, 1, 1))
+			# if not, use default character icon
+			else:
+				AvatarTexture = load("res://assets/default_avatar.png")
+				CharactersList.set_item_icon_modulate(idx, Helpers.Utils.rgba_hex_to_color(the_character.color))
+			CharactersList.set_item_icon(idx, AvatarTexture)
 			return
 	printerr("Unexpected Behavior! Trying to update character=%s which is not found in the list!")
 	pass
@@ -248,6 +274,18 @@ func load_character_in_editor(character_id:int) -> void:
 	CharacterRawUid.set_deferred("tooltip_text", (RAW_UID_TIP_TEMPLATE % character_id) + tr("TYPE_INSPECTOR_RAW_UID_HINT"))
 	CharacterEditorName.set_text(the_character.name)
 	CharacterColorPickerButton.set("color", Helpers.Utils.rgba_hex_to_color(the_character.color))
+	if the_character.has("avatar") && (the_character.avatar is String):
+		var AvatarImage = Image.new()
+		AvatarImage.load_png_from_buffer(Marshalls.base64_to_raw(the_character.avatar))
+		var AvatarTexture = ImageTexture.create_from_image(AvatarImage)
+		CharacterAvatarPickerButton.set("icon", AvatarTexture)
+	else:
+		var SymbolsTexture = load("res://assets/symbols.png")
+		var SymbolsAtlas = AtlasTexture.new()
+		SymbolsAtlas.atlas = SymbolsTexture
+		SymbolsAtlas.region = Rect2(Vector2(240, 96), Vector2(48, 48))
+		CharacterAvatarPickerButton.set("icon", SymbolsAtlas)
+	CharacterAvatarPickerButton.set_meta("has_new_avatar", false)
 	# can't it be removed ? not if it's used by other resources
 	CharacterRemoveButton.set_disabled( (the_character.has("use") && the_character.use.size() > 0) )
 	# ...
@@ -432,6 +470,15 @@ func submit_character_modification() -> void:
 	}
 	var mod_name  = CharacterEditorName.get_text()
 	var mod_color = Helpers.Utils.color_to_rgba_hex(CharacterColorPickerButton.get("color"), false)
+	# If new avatar is set, get avatar image and encode as base64 to store in character
+	if CharacterAvatarPickerButton.get_meta("has_new_avatar", false):
+		var AvatarTexture = CharacterAvatarPickerButton.get("icon")
+		var AvatarImage = AvatarTexture.get_image()
+		var AvatarByteArray = AvatarImage.save_png_to_buffer()
+		var AvatarBase64 = Marshalls.raw_to_base64(AvatarByteArray)
+		var mod_avatar = AvatarBase64
+		if not the_character_original.has("avatar") || mod_avatar != the_character_original.avatar: # avatar is changed
+			resource_updater.modification["avatar"] = mod_avatar
 	if mod_name.length() > 0 && mod_name != the_character_original.name: # name is changed
 		mod_name = Helpers.Utils.exposure_safe_resource_name(mod_name)
 		# force using unique name for characters ?
@@ -482,3 +529,25 @@ func _on_list_gui_input(event: InputEvent) -> void:
 						if event.is_shift_pressed():
 							self.relay_request_mind.emit("os_clipboard_pull", [null, null]) # (no moving)
 		pass
+
+func _on_avatar_select_button() -> void:
+	Main.Mind.prompt_path_to(self, "use_image_as_avatar", [], Settings.PATH_DIALOG_PROPERTIES.ICON_IMAGE.OPEN)
+	pass
+
+func use_image_as_avatar(file_path:String) -> void:
+	# Get image from file
+	var AvatarImage = Image.load_from_file(file_path)
+	var AvatarHeight = AvatarImage.get_height()
+	var AvatarWidth = AvatarImage.get_width()
+	var ScalingFactor = 1
+	if AvatarHeight > AvatarWidth: # If height is larger than width, scale by limiting to height
+		ScalingFactor = float(AvatarHeight)/Settings.AVATAR_RESOLUTION
+	else: # If width is larger or equal to than height, scale by limiting to width
+		ScalingFactor = float(AvatarWidth)/Settings.AVATAR_RESOLUTION
+	AvatarImage.resize(AvatarWidth/ScalingFactor, AvatarHeight/ScalingFactor, Image.INTERPOLATE_CUBIC)
+	
+	# convert to ImageTexture to display in Button
+	var AvatarTexture = ImageTexture.create_from_image(AvatarImage)
+	CharacterAvatarPickerButton.set("icon", AvatarTexture)
+	CharacterAvatarPickerButton.set_meta("has_new_avatar", true)
+	pass

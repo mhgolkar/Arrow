@@ -30,8 +30,8 @@ const INVALID_OR_UNSET_KEY = "TAG_MATCH_NODE_INVALID_OR_UNSET_KEY" # Translated 
 var This = self
 
 @onready var RegExp  = $Head/State/RegExp
-@onready var CharacterProfileName  = $Head/Character/Name
-@onready var CharacterProfileColor = $Head/Character/Color
+@onready var CharacterName  = $Head/Character/Name
+@onready var CharacterAvatar = $Head/Character/Avatar
 @onready var TagKey = $Head/TagKey
 
 #func _ready() -> void:
@@ -70,9 +70,18 @@ func update_patterns(patterns:Array, clear_first:bool = true) -> void:
 
 func update_character(profile:Dictionary) -> void:
 	if profile.has("name") && (profile.name is String):
-		CharacterProfileName.set("text", profile.name)
-	if profile.has("color") && (profile.color is String):
-		CharacterProfileColor.set("color", Helpers.Utils.rgba_hex_to_color(profile.color))
+		CharacterName.set("text", profile.name)
+	if profile.has("avatar") && (profile.avatar is String):
+		var AvatarImage = Image.new()
+		AvatarImage.load_png_from_buffer(Marshalls.base64_to_raw(profile.avatar))
+		var AvatarTexture = ImageTexture.create_from_image(AvatarImage)
+		CharacterAvatar.set("icon", AvatarTexture) 
+		CharacterAvatar.modulate = Color(1, 1, 1, 1)
+	elif profile.has("color") && (profile.color is String):
+		var AvatarTexture = load("res://assets/default_avatar.png")
+		CharacterAvatar.set("icon", AvatarTexture)
+		CharacterAvatar.modulate = Helpers.Utils.rgba_hex_to_color(profile.color)
+	CharacterAvatar.size = Vector2(32,32)
 	pass
 
 func set_character_invalid() -> void:

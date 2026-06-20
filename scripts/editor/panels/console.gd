@@ -8,7 +8,10 @@ extends Control
 signal request_mind()
 
 @onready var TheTree = get_tree()
-@onready var Main = TheTree.get_root().get_child(0)
+@onready var Main = get_tree().get_root().get_child(0)
+@onready var LeftDock = $/root/Main/Editor/Center/LeftDock
+@onready var RightDock = $/root/Main/Editor/Center/RightDock
+@onready var FloatingTools = $/root/Main/FloatingTools/Control
 
 @onready var TerminalScroll = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/Display/Scroll
 @onready var Terminal = $/root/Main/FloatingTools/Control/Console/Sections/Interpreter/Split/Display/Scroll/Terminal
@@ -18,6 +21,11 @@ signal request_mind()
 @onready var SettingsMenuButton = $/root/Main/FloatingTools/Control/Console/Sections/Toolbar/Settings
 @onready var SettingsMenuButtonPopup = SettingsMenuButton.get_popup()
 
+@onready var DockButton = $/root/Main/FloatingTools/Control/Console/Sections/Titlebar/Dock
+
+@onready var drag_point = $/root/Main/FloatingTools/Control/Console/Sections/Titlebar/Drag
+@onready var resize_point = $/root/Main/FloatingTools/Control/Console/Sections/Titlebar/Resizer
+
 const CONSOLE_MESSAGE_DEFAULT_COLOR = Settings.CONSOLE_MESSAGE_DEFAULT_COLOR
 const CONSOLE_MESSAGE_PRINT_PROPERTIES = {
 	"size_flags_vertical": Control.SizeFlags.SIZE_EXPAND_FILL,
@@ -25,6 +33,7 @@ const CONSOLE_MESSAGE_PRINT_PROPERTIES = {
 	"autowrap_mode": TextServer.AutowrapMode.AUTOWRAP_WORD_SMART,
 }
 
+var _SCENE_CALL_STACK:Array[Dictionary] = [] # used by scene & exit node to determine which node called current scene
 var _CACHED_TYPES:Dictionary = {}
 var _NODES_IN_TERMINAL = [] # new one first [0]
 var _VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL = []
@@ -80,10 +89,20 @@ var _CONSOLE_SETTINGS_MENU_ITEM_INDEX_BY_ACTION = {}
 
 const CHAR_TAG_KEY_VALUE_DISPLAY_TEMPLATE = "`{value}`" # also available: {key}
 
+# make this panel,
+# draggable
+# ... it also makes the panel compete for the parent's top z-index by default
+@onready var draggable = Helpers.Draggable.new(self, drag_point)
+# and resizable
+@onready var resizable = Helpers.Resizable.new(self, resize_point)
+
 func _ready() -> void:
 	register_connections()
 	load_console_settings_menu()
 	pass
+
+func _process(_delta: float) -> void:
+	draggable.process_drag()
 
 func register_connections() -> void:
 	ClearConsoleButton.pressed.connect(self._request_mind.bind("console_clear"), CONNECT_DEFERRED)
@@ -94,6 +113,13 @@ func register_connections() -> void:
 	VariableInspectorUpdateButton.pressed.connect(self.update_current_inspected_variable, CONNECT_DEFERRED)
 	CharTagsInspectorSelect.item_selected.connect(self._on_char_tags_inspector_item_select, CONNECT_DEFERRED)
 	CharTagsInspectorEditOverset.pressed.connect(self.read_and_overset_current_inspected_char_tag, CONNECT_DEFERRED)
+	DockButton.toggled.connect(self._on_button_pressed)
+	# Connect Draggable functions to UiManager AFTER UI has been initialized
+	while Main.UI == null: # TODO maybe make more elegant by moving to main_ui_management or by different means
+		await get_tree().process_frame
+	draggable.on_drag_started = Main.UI._on_panel_drag_started
+	draggable.on_drag_moved = Main.UI._on_panel_dragged
+	draggable.on_drag_ended = Main.UI._on_panel_drag_ended
 	pass
 
 func _request_mind(req:String, args = null) -> void:
@@ -399,6 +425,7 @@ func clear_console() -> void:
 	while (all_nodes_count > 0):
 		_NODES_IN_TERMINAL.pop_front().instance.queue_free()
 		all_nodes_count -= 1
+	_SCENE_CALL_STACK.clear()
 	_VARIABLES_SYNCED_WITH_NODES_IN_TERMINAL.clear()
 	_CHARACTERS_SYNCED_WITH_NODES_IN_TERMINAL.clear()
 	_SKIPPED_NODES.clear()
@@ -411,11 +438,14 @@ func clear_console() -> void:
 # because every playing node will finish in a 'play_forward' or a 'status_code'.
 # Some nodes may also ask for clearance (like contents) which can happen only once.
 const POSSIBLE_SIGNALS_FROM_PLAYING_NODES = {
-	"play_forward"   : "request_play_forward",
-	"status_code"    : "interpret_status_code",
-	"clear_up"       : "clear_nodes_before",
-	"reset_variables" : "reset_synced_variables",
+	"play_forward"          : "request_play_forward",
+	"status_code"           : "interpret_status_code",
+	"clear_up"              : "clear_nodes_before",
+	"reset_variables"       : "reset_synced_variables",
 	"reset_characters_tags" : "reset_synced_characters_tags",
+	"push_scene_stack"      : "push_scene_call_stack",
+	"exit_scene"            : "handle_exit_scene",
+	"get_return_node"       : "get_last_scene_call_stack_item",
 }
 
 func listen_to_playing_node(node:Node, node_uid:int = -1) -> void:
@@ -547,6 +577,8 @@ func interpret_status_code(code:int, the_player_node = null, the_player_node_uid
 		caller.name = resource.name if resource is Dictionary && resource.has("name") else "Undefined"
 	# ...
 	match code:
+		CONSOLE_STATUS_CODE.EXIT_END:
+			print_console( tr(CONSOLE_STATUS_CODE.EXIT_END_MESSAGE).format(caller), Settings.CAUTION_COLOR, the_player_node )
 		CONSOLE_STATUS_CODE.END_EDGE:
 			if _OPEN_MACRO != null && the_player_node_uid != _OPEN_MACRO.ID:
 				# It seems like a macro's end of line
@@ -697,11 +729,77 @@ func _on_playing_node_gui_input(event:InputEvent, _node = null, node_uid:int = -
 				_request_mind("locate_node_on_grid", { "id": node_uid, "highlight": true } )
 	pass
 
-# make this panel,
-# draggable
-# ... it also makes the panel compete for the parent's top z-index by default
-@onready var drag_point = $/root/Main/FloatingTools/Control/Console/Sections/Titlebar/Drag
-@onready var draggable = Helpers.Draggable.new(self, drag_point)
-# and resizable
-@onready var resize_point = $/root/Main/FloatingTools/Control/Console/Sections/Titlebar/Resizer
-@onready var resizable = Helpers.Resizable.new(self, resize_point)
+func push_scene_call_stack(node_id:int, slot_id:int, _the_player_one = null, _the_player_one_uid = null) -> void:
+	_SCENE_CALL_STACK.push_back({
+		"node": node_id,
+		"slot": slot_id
+	})
+	pass
+
+func handle_exit_scene(the_player_one = null, the_player_one_uid = null) -> void:
+	if _SCENE_CALL_STACK.size() > 0:
+		var entry = _SCENE_CALL_STACK.pop_back()
+		request_play_forward(entry.node, entry.slot)
+	else:
+		interpret_status_code(CONSOLE_STATUS_CODE.EXIT_END, the_player_one, the_player_one_uid)
+	pass
+
+func get_last_scene_call_stack_item(_the_player_one = null, _the_player_one_uid = null)  -> Dictionary:
+	if _SCENE_CALL_STACK.size() > 0:
+		return _SCENE_CALL_STACK[-1] # return last element
+	return {}
+
+func _on_button_pressed(toggled_on: bool) -> void:
+	if toggled_on:
+		Main.UI.set_panel_dock_state("console", true, Settings.DEFAULT_CONSOLE_DOCK_SLOT)
+	else:
+		Main.UI.set_panel_dock_state("console", false)
+	pass
+
+# Called from UiManager
+func dock_panel(dock: bool, slot=null) -> void:
+	# Remember global position
+	if dock:
+		# Reparent to Editor
+		self.get_parent().remove_child(self)
+		if slot != null && slot is Dictionary && slot.has("dock") && slot.dock is String:
+			draggable.disable_top_layer()
+			if slot.dock == "left":
+				if slot.has("position") && slot.position is int:
+					Main.UI.insert_panel_at_index("left_dock", self, slot.position)
+				else:
+					Main.UI.insert_panel_at_index("left_dock", self)
+			elif slot.dock == "right":
+				if slot.has("position") && slot.position is int:
+					Main.UI.insert_panel_at_index("right_dock", self, slot.position)
+				else:
+					Main.UI.insert_panel_at_index("right_dock", self)
+			else:
+				printerr("Invalid docking slot")
+				Main.UI.insert_panel_at_index("right_dock", self)
+			draggable.update_parent()
+			# Disable resizing & dragging
+			#draggable.disable()
+			resizable.disable()
+			#drag_point.mouse_default_cursor_shape = Control.CURSOR_ARROW
+			resize_point.visible = false
+			DockButton.set_pressed_no_signal(true) # Turn button on to have button be on if panel is docked during init and not via button press
+		else:
+			printerr("No docking slot specified")
+	else:
+		draggable.enable_top_layer()
+		# Remember global position
+		var global_pos = self.global_position
+		# Reparent to FloatingTools
+		self.get_parent().remove_child(self)
+		FloatingTools.add_child(self)
+		# Plaxe at global position
+		global_position = global_pos
+		draggable.update_parent()
+		# Enable resizing & dragging
+		#draggable.enable()
+		resizable.enable()
+		#drag_point.mouse_default_cursor_shape = Control.CURSOR_DRAG
+		resize_point.visible = true
+		DockButton.set_pressed_no_signal(false)
+	pass

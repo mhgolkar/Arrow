@@ -28,10 +28,12 @@ class ConfigHandler :
 	# CAUTION! this is the CONSTANT default configuration, used in config file generation, resets, etc.
 	const DEFAULT = {
 		"appearance_theme": 0,
+		"ui_scaling": 1.0,
 		"language": "en",
 		"app_local_dir_path": "user://", # (IMPORTANT: Only `user://` works in `HTML5` exports)
 		"window": null,
 		"panels": null,
+		"docks": null,
 		"history_size": 0,
 	}
 	# active configurations
@@ -72,6 +74,8 @@ class ConfigHandler :
 						}
 				"language":
 					Main.UI.PANELS.preferences.reset_language(new_value)
+				"ui_scaling":
+					Main.UI.PANELS.preferences.change_ui_scaling(new_value)
 		else:
 			is_valid_and_ok = false
 			printerr("Unexpected Behavior! Modified Preference Field is NOT a VALID CONFIG: ", field)

@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://c1am68ggte48j"]
+
+[ext_resource type="Script" uid="uid://b3p80qbycpwvb" path="res://nodes/scene/inspector.gd" id="1_74y6k"]
+[ext_resource type="Texture2D" uid="uid://by8lwldcvhfq0" path="res://assets/symbols.png" id="2_fd4im"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06dv1"]
+atlas = ExtResource("2_fd4im")
+region = Rect2(192, 192, 48, 48)
+
+[node name="Scene" type="VBoxContainer" unique_id=970541855]
+offset_right = 256.0
+offset_bottom = 156.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_74y6k")
+
+[node name="DescriptionLabel" type="Label" parent="." unique_id=1715596901]
+layout_mode = 2
+text = "SCENE_INSPECTOR_FIELD_DESCRIPTION"
+
+[node name="Description" type="LineEdit" parent="." unique_id=103648253]
+layout_mode = 2
+placeholder_text = "SCENE_INSPECTOR_FIELD_DESCRIPTION_PLACEHOLDER"
+
+[node name="SceneLabel" type="Label" parent="." unique_id=780265944]
+layout_mode = 2
+text = "SCENE_INSPECTOR_FIELD_SCENE"
+
+[node name="Selector" type="HBoxContainer" parent="." unique_id=1384065210]
+layout_mode = 2
+
+[node name="List" type="OptionButton" parent="Selector" unique_id=649201208]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Filtered" type="Button" parent="Selector" unique_id=315185711]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "DIALOG_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+toggle_mode = true
+icon = SubResource("AtlasTexture_06dv1")
+icon_alignment = 1
+expand_icon = true

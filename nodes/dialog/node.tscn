@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://rvibkchscsj6"]
+[gd_scene format=3 uid="uid://rvibkchscsj6"]
 
 [ext_resource type="Script" uid="uid://g0vjiy5p3nif" path="res://nodes/dialog/node.gd" id="1_6e61j"]
 [ext_resource type="Texture2D" uid="uid://bijot6p0ir6m0" path="res://nodes/dialog/icon.svg" id="1_hc4fj"]
@@ -12,7 +12,9 @@ region = Rect2(0, 0, 48, 0)
 atlas = ExtResource("2_g2p1t")
 region = Rect2(48, 0, 48, 0)
 
-[node name="Dialog" type="GraphNode"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1g41a"]
+
+[node name="Dialog" type="GraphNode" unique_id=803183719]
 offset_right = 256.0
 resizable = true
 slot/0/left_enabled = true
@@ -26,13 +28,13 @@ slot/0/right_icon = null
 slot/0/draw_stylebox = true
 script = ExtResource("1_6e61j")
 
-[node name="Head" type="VBoxContainer" parent="."]
+[node name="Head" type="VBoxContainer" parent="." unique_id=945292239]
 layout_mode = 2
 
-[node name="State" type="HBoxContainer" parent="Head"]
+[node name="State" type="HBoxContainer" parent="Head" unique_id=346206209]
 layout_mode = 2
 
-[node name="Kind" type="Button" parent="Head/State"]
+[node name="Kind" type="Button" parent="Head/State" unique_id=362938040]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -44,7 +46,7 @@ flat = true
 text_overrun_behavior = 3
 expand_icon = true
 
-[node name="Playable" type="Button" parent="Head/State"]
+[node name="Playable" type="Button" parent="Head/State" unique_id=334895265]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 focus_mode = 0
@@ -54,7 +56,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="Auto" type="Button" parent="Head/State"]
+[node name="Auto" type="Button" parent="Head/State" unique_id=1966072426]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 focus_mode = 0
@@ -64,19 +66,25 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="Character" type="HBoxContainer" parent="Head"]
+[node name="Character" type="HBoxContainer" parent="Head" unique_id=2134869873]
 layout_mode = 2
 
-[node name="Color" type="ColorRect" parent="Head/Character"]
-custom_minimum_size = Vector2(24, 0)
+[node name="Avatar" type="Button" parent="Head/Character" unique_id=1425378418]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1g41a")
+disabled = true
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="Name" type="Label" parent="Head/Character"]
+[node name="Name" type="Label" parent="Head/Character" unique_id=780411924]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[Character Name]"
 horizontal_alignment = 1
 
-[node name="Margin" type="MarginContainer" parent="Head"]
+[node name="Margin" type="MarginContainer" parent="Head" unique_id=490143816]
 custom_minimum_size = Vector2(128, 16)
 layout_mode = 2

@@ -12,7 +12,7 @@ signal request_mind()
 @onready var TheViewport = get_viewport()
 @onready var GridContextMenu = $/root/Main/FloatingTools/Control/Context
 
-@onready var Minimap = $/root/Main/Editor/Center/MiniMap/Area
+@onready var Minimap = $/root/Main/Editor/Center/Center/MiniMap/Area
 @onready var MinimapBox = Minimap.get_parent()
 const USE_ARROW_MINIMAP:bool = Settings.CLASSIC_MINIMAP_ENABLED
 
@@ -663,7 +663,7 @@ func resize_to_best_fit(instance, data: Dictionary) -> void:
 		var new_size = Helpers.Utils.array_to_vector2(data.rect)
 		instance.set_deferred("size", new_size)
 	else:
-		shrink_to_fit(instance)
+		shrink_to_fit(instance) # TODO fix bug where instance has sometimes been freed at this point (caused when alt+doubleclicking scene node and loading scene, only happens in Godot Debugger so far)
 	pass
 
 func _on_resize_request(new_size, instance) -> void:

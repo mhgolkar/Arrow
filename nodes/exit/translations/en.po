@@ -1,0 +1,79 @@
+
+# Exit Node Translation
+# =====================
+#        English       
+# =====================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Exit\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ---
+# NOTE: Built-in node translations follow the same conventions as the main `assets/translations/en.po` file.
+# ---
+
+msgid "Exit"
+msgstr ""
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Reason]"
+# msgstr ""
+
+# !
+# msgid "[Destination Name]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "EXIT_INSPECTOR_FIELD_REASON"
+msgstr "Reason"
+
+msgid "EXIT_INSPECTOR_FIELD_REASON_PLACEHOLDER"
+msgstr "e.g. Next scene, Ending ..."
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Exit"
+# msgstr ""
+
+# !
+# msgid "[Reason]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "EXIT_CONSOLE_NO_PARENT_SCENE"
+msgstr "No Parent Scene"
+
+msgid "EXIT_CONSOLE_UNSET_REASON_MSG"
+msgstr "No Reason"
+
+msgid "EXIT_CONSOLE_INVALID_MSG"
+msgstr "Invalid!"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "EXIT_NODE_UNSET_REASON_MSG"
+msgstr "No Reason"

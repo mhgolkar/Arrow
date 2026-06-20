@@ -6,3 +6,6 @@
 *.arrow
 .arrow.config
 .arrow.project
+
+# Godot Runtime
+Arrow

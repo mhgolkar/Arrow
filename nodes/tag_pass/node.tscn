@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://jjgn5v6oooi4"]
+[gd_scene format=3 uid="uid://jjgn5v6oooi4"]
 
 [ext_resource type="Texture2D" uid="uid://b568msdfakrr1" path="res://nodes/tag_pass/icon.svg" id="1_1ycxp"]
 [ext_resource type="Script" uid="uid://bla78enerc6ui" path="res://nodes/tag_pass/node.gd" id="1_ffvn2"]
 
-[node name="TagPass" type="GraphNode"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03n5l"]
+
+[node name="TagPass" type="GraphNode" unique_id=2126368059]
 offset_right = 256.0
 resizable = true
 slot/0/left_enabled = true
@@ -35,10 +37,10 @@ slot/2/right_icon = null
 slot/2/draw_stylebox = true
 script = ExtResource("1_ffvn2")
 
-[node name="Pass" type="VBoxContainer" parent="."]
+[node name="Pass" type="VBoxContainer" parent="." unique_id=20915319]
 layout_mode = 2
 
-[node name="Kind" type="Button" parent="Pass"]
+[node name="Kind" type="Button" parent="Pass" unique_id=996788175]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -50,61 +52,67 @@ flat = true
 text_overrun_behavior = 3
 expand_icon = true
 
-[node name="Character" type="HBoxContainer" parent="Pass"]
+[node name="Character" type="HBoxContainer" parent="Pass" unique_id=214752726]
 layout_mode = 2
 
-[node name="Color" type="ColorRect" parent="Pass/Character"]
-custom_minimum_size = Vector2(24, 0)
+[node name="Avatar" type="Button" parent="Pass/Character" unique_id=1140648964]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_styles/disabled = SubResource("StyleBoxFlat_03n5l")
+disabled = true
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="Name" type="Label" parent="Pass/Character"]
+[node name="Name" type="Label" parent="Pass/Character" unique_id=1431770943]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[Character Name]"
 horizontal_alignment = 1
 
-[node name="Invalid" type="Label" parent="Pass"]
+[node name="Invalid" type="Label" parent="Pass" unique_id=1319639229]
 visible = false
 layout_mode = 2
 text = "TAG_PASS_NODE_UNDEFINED"
 horizontal_alignment = 1
 
-[node name="Margin" type="MarginContainer" parent="Pass"]
+[node name="Margin" type="MarginContainer" parent="Pass" unique_id=71536281]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Checks" type="ScrollContainer" parent="Pass/Margin"]
+[node name="Checks" type="ScrollContainer" parent="Pass/Margin" unique_id=155638448]
 layout_mode = 2
 
-[node name="Tags" type="HFlowContainer" parent="Pass/Margin/Checks"]
+[node name="Tags" type="HFlowContainer" parent="Pass/Margin/Checks" unique_id=413697669]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="NoTagsToCheck" type="Label" parent="Pass/Margin"]
+[node name="NoTagsToCheck" type="Label" parent="Pass/Margin" unique_id=2047260366]
 layout_mode = 2
 text = "TAG_PASS_NODE_NOTHING_TO_CHECK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TagTemplate" type="Label" parent="Pass/Margin"]
+[node name="TagTemplate" type="Label" parent="Pass/Margin" unique_id=1899630846]
 visible = false
 layout_mode = 2
 text = "[Tag-Key: Value]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Method" type="Label" parent="Pass"]
+[node name="Method" type="Label" parent="Pass" unique_id=503833535]
 layout_mode = 2
 text = "[Method]"
 horizontal_alignment = 1
 
-[node name="False" type="Label" parent="."]
+[node name="False" type="Label" parent="." unique_id=788867886]
 layout_mode = 2
 text = "TAG_PASS_NODE_FALSE"
 horizontal_alignment = 2
 
-[node name="True" type="Label" parent="."]
+[node name="True" type="Label" parent="." unique_id=1331785651]
 layout_mode = 2
 text = "TAG_PASS_NODE_TRUE"
 horizontal_alignment = 2

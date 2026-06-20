@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cu81u1xeedg35"]
+[gd_scene format=3 uid="uid://cu81u1xeedg35"]
 
 [ext_resource type="Script" uid="uid://cfses46r6e3m8" path="res://nodes/tag_edit/node.gd" id="1_ti8rv"]
 [ext_resource type="Texture2D" uid="uid://b76d3868erbte" path="res://nodes/tag_edit/icon.svg" id="1_xmd5k"]
 
-[node name="TagEdit" type="GraphNode"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf0lg"]
+
+[node name="TagEdit" type="GraphNode" unique_id=1714220909]
 offset_right = 256.0
 resizable = true
 slot/0/left_enabled = true
@@ -17,10 +19,10 @@ slot/0/right_icon = null
 slot/0/draw_stylebox = true
 script = ExtResource("1_ti8rv")
 
-[node name="Display" type="VBoxContainer" parent="."]
+[node name="Display" type="VBoxContainer" parent="." unique_id=1224107241]
 layout_mode = 2
 
-[node name="Kind" type="Button" parent="Display"]
+[node name="Kind" type="Button" parent="Display" unique_id=1726953993]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -32,26 +34,32 @@ flat = true
 text_overrun_behavior = 3
 expand_icon = true
 
-[node name="Method" type="Label" parent="Display"]
+[node name="Method" type="Label" parent="Display" unique_id=1552016032]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[Method]"
 horizontal_alignment = 1
 
-[node name="Character" type="HBoxContainer" parent="Display"]
+[node name="Character" type="HBoxContainer" parent="Display" unique_id=69244093]
 layout_mode = 2
 
-[node name="Color" type="ColorRect" parent="Display/Character"]
-custom_minimum_size = Vector2(24, 0)
+[node name="Avatar" type="Button" parent="Display/Character" unique_id=77408378]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_styles/disabled = SubResource("StyleBoxFlat_gf0lg")
+disabled = true
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="Name" type="Label" parent="Display/Character"]
+[node name="Name" type="Label" parent="Display/Character" unique_id=231803949]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[Character Name]"
 horizontal_alignment = 1
 
-[node name="Tag" type="Label" parent="Display"]
+[node name="Tag" type="Label" parent="Display" unique_id=690742192]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_horizontal = 3

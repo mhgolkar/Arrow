@@ -25,7 +25,8 @@ signal request_mind()
 @onready var PlayFromProjectEntryButton = $/root/Main/Editor/Top/Bar/Play/From/ProjectEntry
 @onready var PlayFromLeftConsoleButton = $/root/Main/Editor/Top/Bar/Play/From/ShowConsole
 # bottom
-@onready var OpenSceneTitle = $/root/Main/Editor/Bottom/Bar/SceneTitle
+@onready var OpenSceneTitle = $/root/Main/Editor/Bottom/Bar/Scene/SceneTitle
+@onready var OpenSceneThumbnail = $/root/Main/Editor/Bottom/Bar/Scene/SceneThumbnail
 
 func _ready() -> void:
 	register_connections()
@@ -52,6 +53,19 @@ func set_project_save_status(is_saved:bool = false) -> void:
 
 func set_scene_name(the_scene_name:String) -> void:
 	OpenSceneTitle.set_deferred("text", the_scene_name)
+	pass
+	
+func set_scene_thumbnail(the_scene_thumbnail, the_scene_color:String) -> void:
+	if (the_scene_thumbnail is String):
+		var ThumbnailImage = Image.new()
+		ThumbnailImage.load_png_from_buffer(Marshalls.base64_to_raw(the_scene_thumbnail))
+		var ThumbnailTexture = ImageTexture.create_from_image(ThumbnailImage)
+		OpenSceneThumbnail.set("icon", ThumbnailTexture) 
+		OpenSceneThumbnail.modulate = Color(1, 1, 1, 1)
+	else:
+		var ThumbnailTexture = load("res://assets/default_thumbnail.png")
+		OpenSceneThumbnail.set("icon", ThumbnailTexture)
+		OpenSceneThumbnail.modulate = Helpers.Utils.rgba_hex_to_color(the_scene_color)
 	pass
 
 func reset_history_tools(current_index: int, history_size: int, is_locked: bool = false) -> void:

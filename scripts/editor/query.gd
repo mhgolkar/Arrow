@@ -8,7 +8,7 @@ extends Control
 signal request_mind()
 
 @onready var Main = get_tree().get_root().get_child(0)
-@onready var Grid = $/root/Main/Editor/Center/Grid
+@onready var Grid = $/root/Main/Editor/Center/Center/Grid
 
 @onready var QueryInput = $/root/Main/Editor/Bottom/Bar/Query/Tools/Input
 @onready var QuerySearchButton = $/root/Main/Editor/Bottom/Bar/Query/Tools/Search

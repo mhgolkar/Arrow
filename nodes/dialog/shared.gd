@@ -23,4 +23,5 @@ const DEFAULT_NODE_DATA = {
 const ANONYMOUS_CHARACTER = {
 	"name": "Anonymous" ,
 	"color": "ffffff", # white
+	"avatar": null
 }

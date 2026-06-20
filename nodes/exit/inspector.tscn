@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://lxrucp2a7ik1"]
+
+[ext_resource type="Script" uid="uid://l4quup2ad7fi" path="res://nodes/exit/inspector.gd" id="1_pq32t"]
+
+[node name="Exit" type="VBoxContainer" unique_id=970541855]
+offset_right = 256.0
+offset_bottom = 156.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_pq32t")
+
+[node name="ReasonLabel" type="Label" parent="." unique_id=1715596901]
+layout_mode = 2
+text = "EXIT_INSPECTOR_FIELD_REASON"
+
+[node name="Reason" type="LineEdit" parent="." unique_id=103648253]
+layout_mode = 2
+placeholder_text = "EXIT_INSPECTOR_FIELD_REASON_PLACEHOLDER"

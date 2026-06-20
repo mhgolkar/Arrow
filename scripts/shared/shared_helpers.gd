@@ -587,6 +587,15 @@ class Draggable:
 	var _COMPETE_FOR_PARENT_TOP_VIEW:bool = false
 	var _PARENT:Node
 	
+	var _ENABLED: bool = true
+	
+	var _DRAGGING: bool = false
+	var _DRAG_OFFSET: Vector2 = Vector2.ZERO
+	
+	var on_drag_started: Callable
+	var on_drag_moved: Callable
+	var on_drag_ended: Callable
+	
 	func _init(draggable:Node, drag_point:Node, compete_for_parent_top_layer:bool = true) -> void:
 		_DRAGGABLE = draggable
 		_DRAG_POINT = drag_point
@@ -604,21 +613,62 @@ class Draggable:
 		pass
 	
 	func drag_element(event:InputEvent) -> void:
-		if event is InputEventMouseMotion:
-			if event.get_button_mask() == MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
-				var rel_mouse_position = event.get_relative() # ... to its previous pos
-				var current_draggable_position  = _DRAGGABLE.get_position()
-				var the_viewport_size = _VIEWPORT.get_size()
-				var new_draggable_position = (current_draggable_position + rel_mouse_position)
-				new_draggable_position = Vector2d.limit_vector2(new_draggable_position, the_viewport_size, true, LIMIT_PADDING)
-				_DRAGGABLE.set_position(new_draggable_position)
+		if not _ENABLED:
+			return
 		if event is InputEventMouseButton:
-			if event.is_pressed() && _COMPETE_FOR_PARENT_TOP_VIEW == true:
-				steal_top()
+			if event.is_pressed(): # Mouse pressed
+				_DRAGGING = true
+				_DRAG_OFFSET = _VIEWPORT.get_mouse_position() - _DRAGGABLE.global_position # Remember distance from ouse pointer to panel corner
+				if _COMPETE_FOR_PARENT_TOP_VIEW:
+					steal_top()
+				if on_drag_started.is_valid():
+					on_drag_started.call(_DRAGGABLE) # TODO determine if call_deferred would be better
+		pass
+	
+	func process_drag() -> void:
+		if not _DRAGGING || not _ENABLED:
+			return
+		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): # TODO use more elegant input checking method?
+			_DRAGGING = false
+			if on_drag_ended.is_valid():
+				on_drag_ended.call(_DRAGGABLE) # TODO determine if call_deferred would be better
+			return
+			
+		var mouse = _VIEWPORT.get_mouse_position()
+		var new_draggable_position = mouse - _DRAG_OFFSET
+		var the_viewport_size = _VIEWPORT.get_size()
+		new_draggable_position = Vector2d.limit_vector2(new_draggable_position, the_viewport_size, true, LIMIT_PADDING)
+		_DRAGGABLE.set_global_position(new_draggable_position)
+		if on_drag_moved.is_valid():
+			on_drag_moved.call(_DRAGGABLE) # TODO determine if call_deferred would be better
 		pass
 	
 	func steal_top() -> void:
 		_PARENT.move_child(_DRAGGABLE, _PARENT.get_child_count())
+		pass
+		
+	func enable() -> void:
+		_ENABLED = true
+		pass
+	
+	func disable() -> void:
+		_ENABLED = false
+		pass
+	
+	func update_parent() -> void:
+		_PARENT = _DRAGGABLE.get_parent()
+		pass
+		
+	func enable_top_layer() -> void:
+		_COMPETE_FOR_PARENT_TOP_VIEW = true
+		if _DRAGGABLE.has_signal("visibility_changed"):
+			_DRAGGABLE.visibility_changed.connect(self.steal_top, CONNECT_DEFERRED)
+		pass
+		
+	func disable_top_layer() -> void:
+		_COMPETE_FOR_PARENT_TOP_VIEW = true
+		if _DRAGGABLE.has_signal("visibility_changed"):
+			_DRAGGABLE.visibility_changed.disconnect(self.steal_top)
 		pass
 
 # Resizable Controls
@@ -631,6 +681,8 @@ class Resizable:
 	var _USE_REVERSE_MOUSE_Y:bool
 	var _RESIZE_FROM_TOP:bool
 	var _VIEWPORT:Node
+	
+	var _ENABLED: bool = true
 	
 	func _init(resizable:Node, resize_point:Node, use_reverse_mouse_y:bool = true, resize_from_top:bool = true) -> void:
 		_RESIZABLE = resizable
@@ -646,6 +698,8 @@ class Resizable:
 		pass
 	
 	func resize_element(event:InputEvent) -> void:
+		if not _ENABLED:
+			return
 		if event is InputEventMouseMotion:
 			if event.get_button_mask() == MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
 				var rel_mouse_position = event.get_relative() # ... to its previous pos
@@ -660,6 +714,14 @@ class Resizable:
 					var current_resizable_position  = _RESIZABLE.get_position()
 					current_resizable_position.y = current_resizable_position.y - rel_mouse_position.y
 					_RESIZABLE.set_position(current_resizable_position)
+		pass
+	
+	func enable() -> void:
+		_ENABLED = true
+		pass
+	
+	func disable() -> void:
+		_ENABLED = false
 		pass
 
 # Generator helpers

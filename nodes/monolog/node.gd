@@ -18,7 +18,7 @@ var This = self
 @onready var AutoPlay = $Display/Head/AutoPlay
 @onready var ClearPage = $Display/Head/ClearPage
 @onready var CharacterName  = $Display/Character/Name
-@onready var CharacterColor = $Display/Character/Color
+@onready var CharacterAvatar = $Display/Character/Avatar
 @onready var Brief = $Display/Brief
 
 #func _ready() -> void:
@@ -32,8 +32,17 @@ var This = self
 func update_character(profile:Dictionary) -> void:
 	if profile.has("name") && (profile.name is String):
 		CharacterName.set("text", profile.name)
-	if profile.has("color") && (profile.color is String):
-		CharacterColor.set("color", Helpers.Utils.rgba_hex_to_color(profile.color))
+	if profile.has("avatar") && (profile.avatar is String):
+		var AvatarImage = Image.new()
+		AvatarImage.load_png_from_buffer(Marshalls.base64_to_raw(profile.avatar))
+		var AvatarTexture = ImageTexture.create_from_image(AvatarImage)
+		CharacterAvatar.set("icon", AvatarTexture) 
+		CharacterAvatar.modulate = Color(1, 1, 1, 1)
+	elif profile.has("color") && (profile.color is String):
+		var AvatarTexture = load("res://assets/default_avatar.png")
+		CharacterAvatar.set("icon", AvatarTexture)
+		CharacterAvatar.modulate = Helpers.Utils.rgba_hex_to_color(profile.color)
+	CharacterAvatar.size = Vector2(48,48)
 	pass
 
 func set_character_anonymous() -> void:
