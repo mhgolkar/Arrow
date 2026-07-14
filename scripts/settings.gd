@@ -298,6 +298,14 @@ const PATH_DIALOG_PROPERTIES = {
 			"access": FileDialog.ACCESS_FILESYSTEM,
 			"filters": []
 		}
+	},
+	"FONT" : {
+		"OPEN" : {
+			"title": "Select Interface Font",
+			"file_mode": FileDialog.FileMode.FILE_MODE_OPEN_FILE,
+			"access": FileDialog.ACCESS_FILESYSTEM,
+			"filters": ["*.ttf, *.otf, *.woff, *.woff2;Font Files"]
+		}
 	}
 }
 
@@ -328,5 +336,12 @@ const THEMES = {
 	0: { "name": "Dark",  "resource": preload("res://assets/themes/dark.tres") },
 	1: { "name": "Light",  "resource": preload("res://assets/themes/light.tres") },
 }
+
+const LOCALE_FONTS = {
+	"zh_TW": preload("res://assets/fonts/NotoSansCJKtc-Medium.otf"),
+}
+
+const UI_FONTS_DIR = "res://assets/fonts/"
+const UI_FONT_EXTENSIONS = ["ttf", "otf", "woff", "woff2"]
 
 const UI_TRANSLATIONS_DIR = "res://assets/translations"

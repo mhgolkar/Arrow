@@ -50,6 +50,9 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
+msgid "Zh-TW Repository"
+msgstr ""
+
 # ~ Welcome Message Tab Name
 msgid "Hello"
 msgstr ""

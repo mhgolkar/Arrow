@@ -200,3 +200,57 @@ License: SIL Open Font License, Version 1.1.
     DISCLAIMER
 
     THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
+
+
+[+ Fonts Added by the Traditional Chinese Community Build]
+
+The following font files are bundled with this build so that users can select
+an interface font in Preferences. They are licensed under the SIL Open Font
+License, Version 1.1, whose complete text appears above. They may be used,
+studied, copied, embedded, modified and redistributed under the conditions of
+that license. In particular, the font software must not be sold by itself;
+copyright and license notices must accompany redistributed copies; modified
+fonts must observe any Reserved Font Names; and the font software and its
+derivatives remain under the OFL. Documents and other works created with these
+fonts are not required to use the OFL.
+
++ Cubic 11
+  Bundled file: Cubic 11.ttf
+  Source: https://github.com/ACh-K/Cubic-11
+  License: SIL Open Font License, Version 1.1
+  Based on M+ bitmap fonts and work by COZ.
+  Copyright (c) 2005 M+ FONTS PROJECT
+  Copyright (C) 2002-2004 COZ
+
++ Gen Jyuu Gothic
+  Bundled files: GenJyuuGothic-Medium.ttf, GenJyuuGothic-Regular.ttf
+  Source: http://jikasei.me/font/genjyuu/
+  License: SIL Open Font License, Version 1.1
+  A derivative of Source Han Sans and M+ fonts, produced by
+  Jikasei Font Studio (自家製フォント工房).
+
++ GenSeki Gothic Moon (TW modern-common glyph variant)
+  Bundled files: GenSekiGothic2TW-M.otf, GenSekiGothic2TW-R.otf
+  Source: https://github.com/ButTaiwan/genseki-font
+  License: SIL Open Font License, Version 1.1
+  Produced by But Ko (ButTaiwan), based on Source Han Sans. The Moon (TW)
+  variant follows modern common glyph conventions used in contemporary Taiwan.
+
++ Noto Sans
+  Bundled file: NotoSans-Regular.ttf
+  Source: https://github.com/notofonts/noto-fonts
+  License: SIL Open Font License, Version 1.1
+  Copyright 2018 The Noto Project Authors.
+
++ Noto Sans Traditional Chinese and Noto Sans CJK TC
+  Bundled files: NotoSansTC-Medium.ttf, NotoSansCJKtc-Medium.otf,
+  NotoSansCJKtc-Regular.otf
+  Sources: https://github.com/notofonts/noto-cjk
+           https://fonts.google.com/noto/specimen/Noto+Sans+TC
+  License: SIL Open Font License, Version 1.1
+  Noto is a trademark of Google LLC. Noto CJK font data includes work
+  originally developed by Adobe and its contributors.
+
+Font names, trademarks, project names and author names above are retained for
+identification and attribution only. They do not imply endorsement of Arrow or
+this community build by the font authors or copyright holders.

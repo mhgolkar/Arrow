@@ -39,6 +39,10 @@ func _ready() -> void:
 	cleanup_query.call_deferred()
 	pass
 
+func _notification(what:int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED && is_node_ready():
+		load_how_options.call_deferred()
+
 func register_connections() -> void:
 	QueryInput.text_submitted.connect(self.do_query)
 	QuerySearchButton.pressed.connect(self.do_query)
@@ -53,7 +57,7 @@ func register_connections() -> void:
 func load_how_options() -> void:
 	QueryHowOptions.clear()
 	for id in HOWS:
-		QueryHowOptions.add_item(HOWS[id].text, id)
+		QueryHowOptions.add_item(tr(HOWS[id].text), id)
 	pass
 
 func do_query(string:String = "", and_focus:bool = false) -> void:

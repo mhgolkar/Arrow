@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bqitgi15pxprx"]
+[gd_scene format=3 uid="uid://bqitgi15pxprx"]
 
 [ext_resource type="Texture2D" uid="uid://c1d56i348qty0" path="res://assets/about_splash.png" id="1_ktviq"]
 [ext_resource type="Theme" uid="uid://7iui7va3jch8" path="res://assets/themes/dark.tres" id="1_nah4y"]
@@ -150,7 +150,7 @@ region = Rect2(144, 192, 48, 48)
 atlas = ExtResource("7_0tmvq")
 region = Rect2(96, 192, 48, 48)
 
-[node name="Main" type="PanelContainer"]
+[node name="Main" type="PanelContainer" unique_id=1092260088]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -159,10 +159,10 @@ grow_vertical = 2
 theme = ExtResource("1_nah4y")
 script = ExtResource("2_nfnrg")
 
-[node name="Overlays" type="CanvasLayer" parent="."]
+[node name="Overlays" type="CanvasLayer" parent="." unique_id=1996519012]
 layer = 2
 
-[node name="Control" type="Control" parent="Overlays"]
+[node name="Control" type="Control" parent="Overlays" unique_id=1191633705]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -174,7 +174,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme = ExtResource("1_nah4y")
 
-[node name="Blocker" type="ColorRect" parent="Overlays/Control"]
+[node name="Blocker" type="ColorRect" parent="Overlays/Control" unique_id=431009445]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -185,7 +185,7 @@ grow_vertical = 2
 mouse_force_pass_scroll_events = false
 color = Color(0.24, 0.24, 0.24, 0.729412)
 
-[node name="About" type="PanelContainer" parent="Overlays/Control"]
+[node name="About" type="PanelContainer" parent="Overlays/Control" unique_id=1342862715]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -197,57 +197,61 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_1hktc")
 
-[node name="Margin" type="MarginContainer" parent="Overlays/Control/About"]
+[node name="Margin" type="MarginContainer" parent="Overlays/Control/About" unique_id=493106833]
 layout_mode = 2
 theme_type_variation = &"Margin16"
 
-[node name="Half" type="HBoxContainer" parent="Overlays/Control/About/Margin"]
+[node name="Half" type="HBoxContainer" parent="Overlays/Control/About/Margin" unique_id=580696352]
 layout_mode = 2
 
-[node name="Left" type="VBoxContainer" parent="Overlays/Control/About/Margin/Half"]
+[node name="Left" type="VBoxContainer" parent="Overlays/Control/About/Margin/Half" unique_id=941173738]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Splash" type="TextureRect" parent="Overlays/Control/About/Margin/Half/Left"]
+[node name="Splash" type="TextureRect" parent="Overlays/Control/About/Margin/Half/Left" unique_id=609810184]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_ktviq")
 expand_mode = 4
 stretch_mode = 6
 
-[node name="Information" type="VBoxContainer" parent="Overlays/Control/About/Margin/Half/Left"]
+[node name="Information" type="VBoxContainer" parent="Overlays/Control/About/Margin/Half/Left" unique_id=814204895]
 layout_mode = 2
 
-[node name="Version" type="Label" parent="Overlays/Control/About/Margin/Half/Left/Information"]
+[node name="Version" type="Label" parent="Overlays/Control/About/Margin/Half/Left/Information" unique_id=2119837215]
 layout_mode = 2
 text = "[v3.x]"
 
-[node name="Website" type="LinkButton" parent="Overlays/Control/About/Margin/Half/Left/Information"]
+[node name="Website" type="LinkButton" parent="Overlays/Control/About/Margin/Half/Left/Information" unique_id=2060935952]
 layout_mode = 2
 text = "Website"
 
-[node name="Repository" type="LinkButton" parent="Overlays/Control/About/Margin/Half/Left/Information"]
+[node name="Repository" type="LinkButton" parent="Overlays/Control/About/Margin/Half/Left/Information" unique_id=347667236]
 layout_mode = 2
 text = "Repository"
 
-[node name="Documentation" type="LinkButton" parent="Overlays/Control/About/Margin/Half/Left/Information"]
+[node name="Documentation" type="LinkButton" parent="Overlays/Control/About/Margin/Half/Left/Information" unique_id=2087543830]
 layout_mode = 2
 text = "Documentation"
 
-[node name="Right" type="VBoxContainer" parent="Overlays/Control/About/Margin/Half"]
+[node name="TranslatorRepository" type="LinkButton" parent="Overlays/Control/About/Margin/Half/Left/Information"]
+layout_mode = 2
+text = "Zh-TW Repository"
+
+[node name="Right" type="VBoxContainer" parent="Overlays/Control/About/Margin/Half" unique_id=2139861858]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_type_variation = &"BoxGap8"
 
-[node name="Tabs" type="TabContainer" parent="Overlays/Control/About/Margin/Half/Right"]
+[node name="Tabs" type="TabContainer" parent="Overlays/Control/About/Margin/Half/Right" unique_id=1175198346]
 layout_mode = 2
 size_flags_vertical = 3
 tab_alignment = 2
 current_tab = 0
 
-[node name="Hello" type="RichTextLabel" parent="Overlays/Control/About/Margin/Half/Right/Tabs"]
+[node name="Hello" type="RichTextLabel" parent="Overlays/Control/About/Margin/Half/Right/Tabs" unique_id=1100055341]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -257,22 +261,22 @@ text = "WELCOME_MESSAGE"
 text_direction = 3
 metadata/_tab_index = 0
 
-[node name="Copyright" type="RichTextLabel" parent="Overlays/Control/About/Margin/Half/Right/Tabs"]
+[node name="Copyright" type="RichTextLabel" parent="Overlays/Control/About/Margin/Half/Right/Tabs" unique_id=419428099]
 visible = false
 layout_mode = 2
 theme_type_variation = &"RichTextLabelPadded"
 text = "[Will be Auto-generated]"
 metadata/_tab_index = 1
 
-[node name="Toolbar" type="HBoxContainer" parent="Overlays/Control/About/Margin/Half/Right"]
+[node name="Toolbar" type="HBoxContainer" parent="Overlays/Control/About/Margin/Half/Right" unique_id=1928541561]
 layout_mode = 2
 alignment = 2
 
-[node name="Close" type="Button" parent="Overlays/Control/About/Margin/Half/Right/Toolbar"]
+[node name="Close" type="Button" parent="Overlays/Control/About/Margin/Half/Right/Toolbar" unique_id=1483577162]
 layout_mode = 2
 text = "Close"
 
-[node name="Preferences" type="PanelContainer" parent="Overlays/Control"]
+[node name="Preferences" type="PanelContainer" parent="Overlays/Control" unique_id=1757252194]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -284,139 +288,160 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_dexb8")
 
-[node name="Margin" type="MarginContainer" parent="Overlays/Control/Preferences"]
+[node name="Margin" type="MarginContainer" parent="Overlays/Control/Preferences" unique_id=728165342]
 layout_mode = 2
 theme_type_variation = &"Margin8"
 
-[node name="Sections" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin"]
+[node name="Sections" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin" unique_id=1104655604]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_type_variation = &"BoxGap8"
 
-[node name="Toolbar" type="HBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections"]
+[node name="Toolbar" type="HBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections" unique_id=1144884627]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Toolbar"]
+[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Toolbar" unique_id=145848964]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"LabelH2"
 text = "Preferences"
 
-[node name="Dismiss" type="Button" parent="Overlays/Control/Preferences/Margin/Sections/Toolbar"]
+[node name="Dismiss" type="Button" parent="Overlays/Control/Preferences/Margin/Sections/Toolbar" unique_id=70834728]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Dismiss"
 
-[node name="Confirm" type="Button" parent="Overlays/Control/Preferences/Margin/Sections/Toolbar"]
+[node name="Confirm" type="Button" parent="Overlays/Control/Preferences/Margin/Sections/Toolbar" unique_id=619179473]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Confirm"
 
-[node name="Configs" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections"]
+[node name="Configs" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections" unique_id=111583453]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Scroll" type="ScrollContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs"]
+[node name="Scroll" type="ScrollContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs" unique_id=49407639]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Params" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll"]
+[node name="Params" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll" unique_id=1836650451]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"BoxGap8"
 
-[node name="Interface" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params"]
+[node name="Interface" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params" unique_id=14209382]
 layout_mode = 2
 theme_type_variation = &"LabelH3"
 text = "User Interface"
 
-[node name="Theme" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params"]
+[node name="Theme" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params" unique_id=701490397]
 layout_mode = 2
 
-[node name="Selector" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Theme"]
+[node name="Selector" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Theme" unique_id=1798286661]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Theme/Selector"]
+[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Theme/Selector" unique_id=1159504953]
 layout_mode = 2
 text = "Theme"
 
-[node name="Options" type="OptionButton" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Theme/Selector"]
+[node name="Options" type="OptionButton" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Theme/Selector" unique_id=1061209646]
 layout_mode = 2
 
-[node name="Language" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params"]
+[node name="Language" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params" unique_id=978541563]
 layout_mode = 2
 
-[node name="Selector" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Language"]
+[node name="Selector" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Language" unique_id=1978697824]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Language/Selector"]
+[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Language/Selector" unique_id=234587506]
 layout_mode = 2
 text = "Language"
 
-[node name="Options" type="OptionButton" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Language/Selector"]
+[node name="Options" type="OptionButton" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Language/Selector" unique_id=1320947295]
 layout_mode = 2
 
-[node name="DataManagement" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params"]
+[node name="Font" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params"]
+layout_mode = 2
+
+[node name="Selector" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Font"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Font/Selector"]
+layout_mode = 2
+text = "Interface Font"
+
+[node name="Tools" type="HBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Font/Selector"]
+layout_mode = 2
+
+[node name="Options" type="OptionButton" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Font/Selector/Tools"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Browse" type="Button" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/Font/Selector/Tools"]
+layout_mode = 2
+text = "Browse…"
+
+[node name="DataManagement" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params" unique_id=675093075]
 layout_mode = 2
 theme_type_variation = &"LabelH3"
 text = "Data Management"
 
-[node name="WorkDir" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params"]
+[node name="WorkDir" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params" unique_id=1273391350]
 layout_mode = 2
 
-[node name="Selector" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir"]
+[node name="Selector" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir" unique_id=501483350]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector"]
+[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector" unique_id=1059386462]
 layout_mode = 2
 text = "Work Directory"
 
-[node name="Tools" type="HBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector"]
+[node name="Tools" type="HBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector" unique_id=253246167]
 layout_mode = 2
 
-[node name="Path" type="LineEdit" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector/Tools"]
+[node name="Path" type="LineEdit" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector/Tools" unique_id=80228795]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "user://"
 placeholder_text = "[Working Directory Path]"
 editable = false
 
-[node name="Select" type="Button" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector/Tools"]
+[node name="Select" type="Button" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector/Tools" unique_id=1802062502]
 layout_mode = 2
 text = "Select"
 
-[node name="Reset" type="MenuButton" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector/Tools"]
+[node name="Reset" type="MenuButton" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/WorkDir/Selector/Tools" unique_id=1331604856]
 layout_mode = 2
 text = "Reset"
 flat = false
 script = ExtResource("6_uff3i")
 
-[node name="History" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params"]
+[node name="History" type="PanelContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params" unique_id=1195725111]
 layout_mode = 2
 
-[node name="Selector" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History"]
+[node name="Selector" type="VBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History" unique_id=2106545742]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History/Selector"]
+[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History/Selector" unique_id=92633068]
 layout_mode = 2
 text = "History (Undo/Redo)"
 
-[node name="Size" type="HBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History/Selector"]
+[node name="Size" type="HBoxContainer" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History/Selector" unique_id=2113858910]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History/Selector/Size"]
+[node name="Label" type="Label" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History/Selector/Size" unique_id=905029872]
 layout_mode = 2
 text = "Size"
 
-[node name="Value" type="SpinBox" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History/Selector/Size"]
+[node name="Value" type="SpinBox" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History/Selector/Size" unique_id=886122416]
 layout_mode = 2
 size_flags_horizontal = 3
 rounded = true
 allow_greater = true
 
-[node name="info" type="TextureRect" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History/Selector/Size"]
+[node name="info" type="TextureRect" parent="Overlays/Control/Preferences/Margin/Sections/Configs/Scroll/Params/History/Selector/Size" unique_id=951937639]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -427,7 +452,7 @@ texture = SubResource("AtlasTexture_6unog")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Authors" type="PanelContainer" parent="Overlays/Control"]
+[node name="Authors" type="PanelContainer" parent="Overlays/Control" unique_id=1574580852]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -439,128 +464,128 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_klf5l")
 
-[node name="Margin" type="MarginContainer" parent="Overlays/Control/Authors"]
+[node name="Margin" type="MarginContainer" parent="Overlays/Control/Authors" unique_id=989915904]
 layout_mode = 2
 theme_type_variation = &"Margin8"
 
-[node name="Sections" type="VBoxContainer" parent="Overlays/Control/Authors/Margin"]
+[node name="Sections" type="VBoxContainer" parent="Overlays/Control/Authors/Margin" unique_id=1548635705]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_type_variation = &"BoxGap8"
 
-[node name="Toolbar" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections"]
+[node name="Toolbar" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections" unique_id=592861474]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/Authors/Margin/Sections/Toolbar"]
+[node name="Label" type="Label" parent="Overlays/Control/Authors/Margin/Sections/Toolbar" unique_id=530884704]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"LabelH2"
 text = "Authors"
 
-[node name="Close" type="Button" parent="Overlays/Control/Authors/Margin/Sections/Toolbar"]
+[node name="Close" type="Button" parent="Overlays/Control/Authors/Margin/Sections/Toolbar" unique_id=1222241998]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Close"
 
-[node name="Management" type="PanelContainer" parent="Overlays/Control/Authors/Margin/Sections"]
+[node name="Management" type="PanelContainer" parent="Overlays/Control/Authors/Margin/Sections" unique_id=1862497148]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Parts" type="VBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management"]
+[node name="Parts" type="VBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management" unique_id=1161102288]
 layout_mode = 2
 theme_type_variation = &"BoxGap8"
 
-[node name="Contributors" type="PanelContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts"]
+[node name="Contributors" type="PanelContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts" unique_id=1128511118]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Tools" type="VBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors"]
+[node name="Tools" type="VBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors" unique_id=1260248935]
 layout_mode = 2
 theme_type_variation = &"BoxGap8"
 
-[node name="Label" type="Label" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools"]
+[node name="Label" type="Label" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools" unique_id=2105193304]
 layout_mode = 2
 text = "Contributors"
 
-[node name="List" type="ItemList" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools"]
+[node name="List" type="ItemList" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools" unique_id=2067985780]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Editor" type="PanelContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools"]
+[node name="Editor" type="PanelContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools" unique_id=1823839508]
 layout_mode = 2
 
-[node name="Author" type="VBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor"]
+[node name="Author" type="VBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor" unique_id=63036749]
 layout_mode = 2
 theme_type_variation = &"BoxGap8"
 
-[node name="Data" type="PanelContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author"]
+[node name="Data" type="PanelContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author" unique_id=1074251977]
 layout_mode = 2
 
-[node name="Identity" type="VBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data"]
+[node name="Identity" type="VBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data" unique_id=1131883330]
 layout_mode = 2
 
-[node name="Unique" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity"]
+[node name="Unique" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity" unique_id=1760347613]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Unique"]
+[node name="Label" type="Label" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Unique" unique_id=439718616]
 layout_mode = 2
 text = "AUID"
 
-[node name="Uid" type="SpinBox" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Unique"]
+[node name="Uid" type="SpinBox" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Unique" unique_id=1193574525]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "AUID_TOOLTIP"
 alignment = 1
 
-[node name="Active" type="CheckBox" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Unique"]
+[node name="Active" type="CheckBox" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Unique" unique_id=1783282636]
 layout_mode = 2
 tooltip_text = "ACTIVE_CONTRIBUTOR_TOOLTIP"
 text = "Active Contributor"
 
-[node name="Information" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity"]
+[node name="Information" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity" unique_id=862609754]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Information"]
+[node name="Label" type="Label" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Information" unique_id=1233563617]
 layout_mode = 2
 text = "Info"
 
-[node name="Input" type="LineEdit" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Information"]
+[node name="Input" type="LineEdit" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Data/Identity/Information" unique_id=721199179]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "John Doe (contributor@project.tld)"
 
-[node name="Actions" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author"]
+[node name="Actions" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author" unique_id=1306979451]
 layout_mode = 2
 alignment = 2
 
-[node name="Remove" type="Button" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Actions"]
+[node name="Remove" type="Button" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Actions" unique_id=852033950]
 layout_mode = 2
 text = "Remove"
 
-[node name="Apply" type="Button" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Actions"]
+[node name="Apply" type="Button" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Contributors/Tools/Editor/Author/Actions" unique_id=291815278]
 layout_mode = 2
 text = "Apply"
 
-[node name="Chapter" type="PanelContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts"]
+[node name="Chapter" type="PanelContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts" unique_id=1029098568]
 layout_mode = 2
 
-[node name="Editor" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter"]
+[node name="Editor" type="HBoxContainer" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter" unique_id=457281994]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor"]
+[node name="Label" type="Label" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor" unique_id=866350340]
 layout_mode = 2
 text = "Chapter"
 
-[node name="Id" type="SpinBox" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor"]
+[node name="Id" type="SpinBox" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor" unique_id=386111731]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 tooltip_text = "CHAPTER_ID_TOOLTIP"
 alignment = 1
 
-[node name="Update" type="Button" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor"]
+[node name="Update" type="Button" parent="Overlays/Control/Authors/Margin/Sections/Management/Parts/Chapter/Editor" unique_id=1074847013]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "CHAPTER_ID_UPDATE_TOOLTIP"
@@ -569,7 +594,7 @@ icon = SubResource("AtlasTexture_1mvp3")
 icon_alignment = 2
 expand_icon = true
 
-[node name="NewDocument" type="PanelContainer" parent="Overlays/Control"]
+[node name="NewDocument" type="PanelContainer" parent="Overlays/Control" unique_id=1071566740]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -581,58 +606,58 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_kh4o4")
 
-[node name="Margin" type="MarginContainer" parent="Overlays/Control/NewDocument"]
+[node name="Margin" type="MarginContainer" parent="Overlays/Control/NewDocument" unique_id=121860826]
 layout_mode = 2
 theme_type_variation = &"Margin8"
 
-[node name="Sections" type="VBoxContainer" parent="Overlays/Control/NewDocument/Margin"]
+[node name="Sections" type="VBoxContainer" parent="Overlays/Control/NewDocument/Margin" unique_id=1185079489]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_type_variation = &"BoxGap8"
 
-[node name="Label" type="Label" parent="Overlays/Control/NewDocument/Margin/Sections"]
+[node name="Label" type="Label" parent="Overlays/Control/NewDocument/Margin/Sections" unique_id=572555699]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"LabelH2"
 text = "New Document"
 
-[node name="Path" type="PanelContainer" parent="Overlays/Control/NewDocument/Margin/Sections"]
+[node name="Path" type="PanelContainer" parent="Overlays/Control/NewDocument/Margin/Sections" unique_id=444444508]
 layout_mode = 2
 
-[node name="Structure" type="VBoxContainer" parent="Overlays/Control/NewDocument/Margin/Sections/Path"]
+[node name="Structure" type="VBoxContainer" parent="Overlays/Control/NewDocument/Margin/Sections/Path" unique_id=457702298]
 layout_mode = 2
 theme_type_variation = &"BoxGap8"
 
-[node name="Title" type="HBoxContainer" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure"]
+[node name="Title" type="HBoxContainer" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure" unique_id=1503472742]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Title"]
+[node name="Label" type="Label" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Title" unique_id=642772221]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Title"
 
-[node name="Value" type="LineEdit" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Title"]
+[node name="Value" type="LineEdit" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Title" unique_id=1315608099]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 placeholder_text = "Project or Chapter Title"
 
-[node name="Filename" type="HBoxContainer" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure"]
+[node name="Filename" type="HBoxContainer" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure" unique_id=1855801453]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Filename"]
+[node name="Label" type="Label" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Filename" unique_id=1053250551]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Filename"
 
-[node name="Value" type="LineEdit" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Filename"]
+[node name="Value" type="LineEdit" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Filename" unique_id=724942315]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 placeholder_text = "(without extension)"
 
-[node name="Warning" type="Button" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure"]
+[node name="Warning" type="Button" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure" unique_id=466049144]
 visible = false
 layout_mode = 2
 text = "Filename's already used or invalid"
@@ -640,34 +665,34 @@ icon = SubResource("AtlasTexture_erl4q")
 flat = true
 expand_icon = true
 
-[node name="Preview" type="HBoxContainer" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure"]
+[node name="Preview" type="HBoxContainer" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure" unique_id=535529475]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Preview"]
+[node name="Label" type="Label" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Preview" unique_id=602895812]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Full Path"
 
-[node name="Value" type="LineEdit" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Preview"]
+[node name="Value" type="LineEdit" parent="Overlays/Control/NewDocument/Margin/Sections/Path/Structure/Preview" unique_id=556546291]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 placeholder_text = "[Generated]"
 editable = false
 
-[node name="Actions" type="HBoxContainer" parent="Overlays/Control/NewDocument/Margin/Sections"]
+[node name="Actions" type="HBoxContainer" parent="Overlays/Control/NewDocument/Margin/Sections" unique_id=1653216541]
 layout_mode = 2
 alignment = 2
 
-[node name="Dismiss" type="Button" parent="Overlays/Control/NewDocument/Margin/Sections/Actions"]
+[node name="Dismiss" type="Button" parent="Overlays/Control/NewDocument/Margin/Sections/Actions" unique_id=1274647542]
 layout_mode = 2
 text = "Dismiss"
 
-[node name="Confirm" type="Button" parent="Overlays/Control/NewDocument/Margin/Sections/Actions"]
+[node name="Confirm" type="Button" parent="Overlays/Control/NewDocument/Margin/Sections/Actions" unique_id=1933895371]
 layout_mode = 2
 text = "Create"
 
-[node name="PathDialog" type="FileDialog" parent="Overlays/Control"]
+[node name="PathDialog" type="FileDialog" parent="Overlays/Control" unique_id=778392454]
 initial_position = 4
 size = Vector2i(768, 512)
 ok_button_text = "Select Current Folder"
@@ -677,7 +702,7 @@ access = 1
 show_hidden_files = true
 script = ExtResource("10_nf8xx")
 
-[node name="Notification" type="ColorRect" parent="Overlays/Control"]
+[node name="Notification" type="ColorRect" parent="Overlays/Control" unique_id=335831680]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -688,7 +713,7 @@ grow_vertical = 2
 color = Color(0.24, 0.24, 0.24, 0.729412)
 script = ExtResource("10_w548v")
 
-[node name="Panel" type="Panel" parent="Overlays/Control/Notification"]
+[node name="Panel" type="Panel" parent="Overlays/Control/Notification" unique_id=1041826389]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -702,7 +727,7 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Colorband" type="ColorRect" parent="Overlays/Control/Notification/Panel"]
+[node name="Colorband" type="ColorRect" parent="Overlays/Control/Notification/Panel" unique_id=1695910504]
 custom_minimum_size = Vector2(0, 6)
 layout_mode = 1
 anchors_preset = 12
@@ -714,7 +739,7 @@ grow_vertical = 0
 size_flags_horizontal = 0
 color = Color(1, 0.483333, 0, 1)
 
-[node name="Margin" type="MarginContainer" parent="Overlays/Control/Notification/Panel"]
+[node name="Margin" type="MarginContainer" parent="Overlays/Control/Notification/Panel" unique_id=1315702528]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -723,48 +748,47 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"Margin16"
 
-[node name="Sections" type="VBoxContainer" parent="Overlays/Control/Notification/Panel/Margin"]
+[node name="Sections" type="VBoxContainer" parent="Overlays/Control/Notification/Panel/Margin" unique_id=465382608]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_type_variation = &"BoxGap16"
 
-[node name="Heading" type="Label" parent="Overlays/Control/Notification/Panel/Margin/Sections"]
+[node name="Heading" type="Label" parent="Overlays/Control/Notification/Panel/Margin/Sections" unique_id=1229926366]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"LabelH2"
 text = "[Heading]"
 
-[node name="Message" type="RichTextLabel" parent="Overlays/Control/Notification/Panel/Margin/Sections"]
+[node name="Message" type="RichTextLabel" parent="Overlays/Control/Notification/Panel/Margin/Sections" unique_id=52514362]
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 text = "[i][Message Here!][/i]"
 text_direction = 3
 
-[node name="Actions" type="HBoxContainer" parent="Overlays/Control/Notification/Panel/Margin/Sections"]
+[node name="Actions" type="HBoxContainer" parent="Overlays/Control/Notification/Panel/Margin/Sections" unique_id=1497521499]
 layout_mode = 2
 alignment = 2
 
-[node name="Dismiss" type="Button" parent="Overlays/Control/Notification/Panel/Margin/Sections/Actions"]
+[node name="Dismiss" type="Button" parent="Overlays/Control/Notification/Panel/Margin/Sections/Actions" unique_id=1728171693]
 layout_mode = 2
 text = "Dismiss"
 
-[node name="Spacer" type="MarginContainer" parent="Overlays/Control/Notification/Panel/Margin/Sections/Actions"]
+[node name="Spacer" type="MarginContainer" parent="Overlays/Control/Notification/Panel/Margin/Sections/Actions" unique_id=236801588]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Custom" type="HBoxContainer" parent="Overlays/Control/Notification/Panel/Margin/Sections/Actions"]
+[node name="Custom" type="HBoxContainer" parent="Overlays/Control/Notification/Panel/Margin/Sections/Actions" unique_id=1649810345]
 layout_mode = 2
 
-[node name="Action" type="Button" parent="Overlays/Control/Notification/Panel/Margin/Sections/Actions/Custom"]
+[node name="Action" type="Button" parent="Overlays/Control/Notification/Panel/Margin/Sections/Actions/Custom" unique_id=1013662924]
 layout_mode = 2
 text = "[Action(s)]"
 
-[node name="FloatingTools" type="CanvasLayer" parent="."]
+[node name="FloatingTools" type="CanvasLayer" parent="." unique_id=176264705]
 
-[node name="Control" type="Control" parent="FloatingTools"]
-layout_direction = 2
+[node name="Control" type="Control" parent="FloatingTools" unique_id=949565009]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -773,10 +797,11 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+layout_direction = 2
 mouse_filter = 2
 theme = ExtResource("1_nah4y")
 
-[node name="Inspector" type="PanelContainer" parent="FloatingTools/Control"]
+[node name="Inspector" type="PanelContainer" parent="FloatingTools/Control" unique_id=1127209416]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.7
@@ -785,14 +810,14 @@ anchor_right = 0.975
 anchor_bottom = 0.855
 script = ExtResource("12_renut")
 
-[node name="Sections" type="VBoxContainer" parent="FloatingTools/Control/Inspector"]
+[node name="Sections" type="VBoxContainer" parent="FloatingTools/Control/Inspector" unique_id=5814897]
+layout_mode = 2
 layout_direction = 1
+
+[node name="Titlebar" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections" unique_id=819424206]
 layout_mode = 2
 
-[node name="Titlebar" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections"]
-layout_mode = 2
-
-[node name="Drag" type="Button" parent="FloatingTools/Control/Inspector/Sections/Titlebar"]
+[node name="Drag" type="Button" parent="FloatingTools/Control/Inspector/Sections/Titlebar" unique_id=460099747]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -804,14 +829,14 @@ flat = true
 alignment = 0
 expand_icon = true
 
-[node name="TabSelector" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Titlebar"]
+[node name="TabSelector" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Titlebar" unique_id=62638954]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 icon = SubResource("AtlasTexture_yjkme")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Resizer" type="Button" parent="FloatingTools/Control/Inspector/Sections/Titlebar"]
+[node name="Resizer" type="Button" parent="FloatingTools/Control/Inspector/Sections/Titlebar" unique_id=2119648117]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 focus_mode = 0
@@ -822,29 +847,29 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="Tabs" type="TabContainer" parent="FloatingTools/Control/Inspector/Sections"]
+[node name="Tabs" type="TabContainer" parent="FloatingTools/Control/Inspector/Sections" unique_id=1621514407]
 layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
 
-[node name="Project" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs"]
+[node name="Project" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs" unique_id=2134092334]
 layout_mode = 2
 script = ExtResource("13_xkghd")
 metadata/_tab_index = 0
 
-[node name="Listing" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project"]
+[node name="Listing" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project" unique_id=992653314]
 layout_mode = 2
 
-[node name="Filters" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing"]
+[node name="Filters" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing" unique_id=808074094]
 layout_mode = 2
 
-[node name="Input" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Filters"]
+[node name="Input" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Filters" unique_id=158952039]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Filter Projects"
 clear_button_enabled = true
 
-[node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Filters"]
+[node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Filters" unique_id=1871946133]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "FILTER_REVERSE_TOOLTIP"
@@ -852,7 +877,7 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_jgf31")
 expand_icon = true
 
-[node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Filters"]
+[node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Filters" unique_id=1851765706]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "SORT_AZ_OR_UID_TOOLTIP"
@@ -860,157 +885,157 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_fimxt")
 expand_icon = true
 
-[node name="VSplit" type="VSplitContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing"]
+[node name="VSplit" type="VSplitContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing" unique_id=814823930]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Items" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/VSplit"]
+[node name="Items" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/VSplit" unique_id=183983314]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Description" type="RichTextLabel" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/VSplit"]
+[node name="Description" type="RichTextLabel" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/VSplit" unique_id=387851449]
 visible = false
 layout_mode = 2
 bbcode_enabled = true
 text = "[ [color=green]Project descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
 fit_content = true
 
-[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing"]
+[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing" unique_id=25952234]
 layout_mode = 2
 
-[node name="New" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Actions"]
+[node name="New" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Actions" unique_id=1161147801]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "New"
 flat = false
 script = ExtResource("14_tk6u0")
 
-[node name="Open" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Actions"]
+[node name="Open" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Actions" unique_id=1582760806]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Open"
 
-[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Actions"]
+[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Listing/Actions" unique_id=289695761]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove"
 
-[node name="Properties" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project"]
+[node name="Properties" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project" unique_id=651957686]
 visible = false
 layout_mode = 2
 script = ExtResource("14_h0gnp")
 
-[node name="Title" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties"]
+[node name="Title" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties" unique_id=1617020882]
 layout_mode = 2
 
-[node name="Value" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Title"]
+[node name="Value" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Title" unique_id=982035439]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[Project Title]"
 alignment = 1
 
-[node name="Set" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Title"]
+[node name="Set" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Title" unique_id=2113709895]
 layout_mode = 2
 text = "Set"
 
-[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties"]
+[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties" unique_id=1691314628]
 layout_mode = 2
 
-[node name="Authors" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Actions"]
+[node name="Authors" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Actions" unique_id=748807308]
 layout_mode = 2
 text = "Authors"
 
-[node name="Spacer" type="MarginContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Actions"]
+[node name="Spacer" type="MarginContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Actions" unique_id=794790943]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Export" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Actions"]
+[node name="Export" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Actions" unique_id=2089236730]
 layout_mode = 2
 text = "Export"
 flat = false
 
-[node name="Close" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Actions"]
+[node name="Close" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Actions" unique_id=793901833]
 layout_mode = 2
 text = "Close"
 
-[node name="Drafts" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties"]
+[node name="Drafts" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties" unique_id=1386826471]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Management" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts"]
+[node name="Management" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts" unique_id=383929995]
 layout_mode = 2
 
-[node name="LastSave" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management"]
+[node name="LastSave" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management" unique_id=637190964]
 layout_mode = 2
 tooltip_text = "Latest Save"
 
-[node name="Timestamp" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/LastSave"]
+[node name="Timestamp" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/LastSave" unique_id=2047268088]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Latest Save"
 placeholder_text = "[Timestamp]"
 editable = false
 
-[node name="Revert" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/LastSave"]
+[node name="Revert" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/LastSave" unique_id=970005683]
 layout_mode = 2
 tooltip_text = "Revert to the Latest Save"
 text = "Revert"
 
-[node name="Snapshots" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management"]
+[node name="Snapshots" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management" unique_id=1142827504]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBox" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots"]
+[node name="VBox" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots" unique_id=551484395]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox"]
+[node name="Label" type="Label" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox" unique_id=961671310]
 layout_mode = 2
 text = "Snapshots"
 
-[node name="List" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox"]
+[node name="List" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox" unique_id=855480527]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox"]
+[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox" unique_id=1139258541]
 layout_mode = 2
 
-[node name="Take" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox/Actions"]
+[node name="Take" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox/Actions" unique_id=678354930]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "New"
 
-[node name="Restore" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox/Actions"]
+[node name="Restore" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox/Actions" unique_id=1534641209]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Restore"
 
-[node name="Preview" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox/Actions"]
+[node name="Preview" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox/Actions" unique_id=1013803500]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "Preview"
 
-[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox/Actions"]
+[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Project/Properties/Drafts/Management/Snapshots/VBox/Actions" unique_id=1881398393]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Rem."
 
-[node name="Node" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs"]
+[node name="Node" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs" unique_id=910682310]
 visible = false
 layout_mode = 2
 script = ExtResource("16_v0k7j")
 metadata/_tab_index = 1
 
-[node name="Properties" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node"]
+[node name="Properties" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node" unique_id=680126213]
 visible = false
 layout_mode = 2
 
-[node name="Header" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties"]
+[node name="Header" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties" unique_id=345027806]
 layout_mode = 2
 
-[node name="Type" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Header"]
+[node name="Type" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Header" unique_id=1128577595]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 focus_mode = 0
@@ -1019,19 +1044,19 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="Name" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Header"]
+[node name="Name" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Header" unique_id=1096728361]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Unique Node Name"
 alignment = 1
 
-[node name="Uid" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Header"]
+[node name="Uid" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Header" unique_id=991264148]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = SubResource("AtlasTexture_73xki")
 expand_icon = true
 
-[node name="Focus" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Header"]
+[node name="Focus" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Header" unique_id=284241724]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "NODE_FOCUS_BTN_TOOLTIP"
@@ -1039,86 +1064,86 @@ icon = SubResource("AtlasTexture_7jppa")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Parameters" type="VSplitContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties"]
+[node name="Parameters" type="VSplitContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties" unique_id=256943377]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SubInspector" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Parameters"]
+[node name="SubInspector" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Parameters" unique_id=1650681582]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="Holder" type="ScrollContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Parameters/SubInspector"]
+[node name="Holder" type="ScrollContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Parameters/SubInspector" unique_id=1366681772]
 layout_mode = 2
 follow_focus = true
 
-[node name="Notes" type="TextEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Parameters"]
+[node name="Notes" type="TextEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Parameters" unique_id=18453048]
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "[Notes]"
 wrap_mode = 1
 
-[node name="Versioning" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties"]
+[node name="Versioning" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties" unique_id=748960278]
 layout_mode = 2
 
-[node name="Tools" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning"]
+[node name="Tools" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning" unique_id=287424894]
 layout_mode = 2
 
-[node name="Previous" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools"]
+[node name="Previous" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools" unique_id=1733804113]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Previous Local History Modification"
 icon = SubResource("AtlasTexture_mpora")
 expand_icon = true
 
-[node name="Reset" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools"]
+[node name="Reset" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools" unique_id=1021374755]
 layout_mode = 2
 tooltip_text = "Reset Node Parameters (Ctrl + Shift + Minus)"
 text = "Reset"
 
-[node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools"]
+[node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools" unique_id=730166384]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Next Local History Modification"
 icon = SubResource("AtlasTexture_gxh6s")
 expand_icon = true
 
-[node name="Spacer" type="MarginContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools"]
+[node name="Spacer" type="MarginContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools" unique_id=665940993]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Skipped" type="CheckBox" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools"]
+[node name="Skipped" type="CheckBox" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools" unique_id=1138237920]
 layout_mode = 2
 tooltip_text = "SKIP_NODES_TOOLTIP"
 text = "Skip"
 
-[node name="Update" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools"]
+[node name="Update" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/Versioning/Tools" unique_id=707537161]
 layout_mode = 2
 tooltip_text = "Update Node (Ctrl + Shift + Plus)"
 text = "Update"
 
-[node name="References" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties"]
+[node name="References" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties" unique_id=1691934562]
 layout_mode = 2
 
-[node name="Previous" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/References"]
+[node name="Previous" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/References" unique_id=1400674933]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Locate Previous Referrer"
 icon = SubResource("AtlasTexture_yujvl")
 expand_icon = true
 
-[node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/References"]
+[node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/References" unique_id=383727485]
 layout_mode = 2
 text = "Ref(s)"
 
-[node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/References"]
+[node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/References" unique_id=173600575]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Locate Next Referrer"
 icon = SubResource("AtlasTexture_plcb7")
 expand_icon = true
 
-[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/References"]
+[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node/Properties/References" unique_id=958828033]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Scoped (Filter for Scene)"
@@ -1126,7 +1151,7 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_lea63")
 expand_icon = true
 
-[node name="Blocker" type="Label" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node"]
+[node name="Blocker" type="Label" parent="FloatingTools/Control/Inspector/Sections/Tabs/Node" unique_id=752589555]
 self_modulate = Color(1, 1, 1, 0.5)
 layout_mode = 2
 size_flags_vertical = 1
@@ -1134,25 +1159,25 @@ text = "NODES_TAB_BLOCKER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Scenes" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs"]
+[node name="Scenes" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs" unique_id=1194192928]
 visible = false
 layout_mode = 2
 script = ExtResource("17_hvt6o")
 metadata/_tab_index = 2
 
-[node name="Manager" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes"]
+[node name="Manager" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes" unique_id=509912565]
 layout_mode = 2
 
-[node name="Filters" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager"]
+[node name="Filters" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager" unique_id=466008041]
 layout_mode = 2
 
-[node name="Input" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Filters"]
+[node name="Input" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Filters" unique_id=297038736]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Filter Scenes"
 clear_button_enabled = true
 
-[node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Filters"]
+[node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Filters" unique_id=1651712063]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "FILTER_REVERSE_TOOLTIP"
@@ -1160,7 +1185,7 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_jgf31")
 expand_icon = true
 
-[node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Filters"]
+[node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Filters" unique_id=1090526609]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "SORT_AZ_OR_UID_TOOLTIP"
@@ -1168,78 +1193,78 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_fimxt")
 expand_icon = true
 
-[node name="Listing" type="VSplitContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager"]
+[node name="Listing" type="VSplitContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager" unique_id=1416493259]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Items" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Listing"]
+[node name="Items" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Listing" unique_id=2123138721]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Description" type="RichTextLabel" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Listing"]
+[node name="Description" type="RichTextLabel" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Listing" unique_id=334015304]
 visible = false
 layout_mode = 2
 bbcode_enabled = true
 text = "[ [color=green]Scene descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
 fit_content = true
 
-[node name="Configs" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager"]
+[node name="Configs" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager" unique_id=1889484209]
 layout_mode = 2
 
-[node name="Uid" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs"]
+[node name="Uid" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs" unique_id=113172768]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = SubResource("AtlasTexture_73xki")
 expand_icon = true
 
-[node name="Name" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs"]
+[node name="Name" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs" unique_id=1689613142]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Unique Scene Name"
 alignment = 1
 
-[node name="Set" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs"]
+[node name="Set" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Configs" unique_id=1203938592]
 layout_mode = 2
 text = "Set"
 
-[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager"]
+[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager" unique_id=1576561905]
 layout_mode = 2
 
-[node name="New" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Actions"]
+[node name="New" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Actions" unique_id=777175026]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "New"
 
-[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Actions"]
+[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Actions" unique_id=649979981]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove"
 
-[node name="Open" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Actions"]
+[node name="Open" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Scenes/Manager/Actions" unique_id=1844823883]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Open"
 
-[node name="Macros" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs"]
+[node name="Macros" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs" unique_id=1065807651]
 visible = false
 layout_mode = 2
 script = ExtResource("18_8y6h6")
 metadata/_tab_index = 3
 
-[node name="Manager" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros"]
+[node name="Manager" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros" unique_id=2016453290]
 layout_mode = 2
 
-[node name="Filters" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager"]
+[node name="Filters" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager" unique_id=1723294548]
 layout_mode = 2
 
-[node name="Input" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Filters"]
+[node name="Input" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Filters" unique_id=159175026]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Filter Macros"
 clear_button_enabled = true
 
-[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Filters"]
+[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Filters" unique_id=1361990778]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Scoped (Filter for Scene)"
@@ -1247,7 +1272,7 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_lea63")
 expand_icon = true
 
-[node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Filters"]
+[node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Filters" unique_id=5184221]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "FILTER_REVERSE_TOOLTIP"
@@ -1255,7 +1280,7 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_jgf31")
 expand_icon = true
 
-[node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Filters"]
+[node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Filters" unique_id=769871084]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "SORT_AZ_OR_UID_TOOLTIP"
@@ -1263,64 +1288,64 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_fimxt")
 expand_icon = true
 
-[node name="Listing" type="VSplitContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager"]
+[node name="Listing" type="VSplitContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager" unique_id=1002904752]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Items" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Listing"]
+[node name="Items" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Listing" unique_id=500543095]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Description" type="RichTextLabel" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Listing"]
+[node name="Description" type="RichTextLabel" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Listing" unique_id=1189455027]
 visible = false
 layout_mode = 2
 bbcode_enabled = true
 text = "[ [color=green]Macro descriptions[/color] are fetched from the notes on the [color=yellow]entry node[/color] of the selected one ]"
 fit_content = true
 
-[node name="Configs" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager"]
+[node name="Configs" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager" unique_id=1038172725]
 layout_mode = 2
 
-[node name="Uid" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Configs"]
+[node name="Uid" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Configs" unique_id=270888897]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = SubResource("AtlasTexture_73xki")
 expand_icon = true
 
-[node name="Name" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Configs"]
+[node name="Name" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Configs" unique_id=1502856925]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Unique Macro Name"
 alignment = 1
 
-[node name="Set" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Configs"]
+[node name="Set" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Configs" unique_id=534757514]
 layout_mode = 2
 text = "Set"
 
-[node name="Instances" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager"]
+[node name="Instances" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager" unique_id=909428730]
 layout_mode = 2
 alignment = 1
 
-[node name="Previous" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Instances"]
+[node name="Previous" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Instances" unique_id=1172020986]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Locate Previous Referrer"
 icon = SubResource("AtlasTexture_yujvl")
 expand_icon = true
 
-[node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Instances"]
+[node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Instances" unique_id=1361493107]
 layout_mode = 2
 text = "Instance(s)"
 
-[node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Instances"]
+[node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Instances" unique_id=606066450]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Locate Next Referrer"
 icon = SubResource("AtlasTexture_plcb7")
 expand_icon = true
 
-[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Instances"]
+[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Instances" unique_id=1990046019]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Scoped (Filter for Scene)"
@@ -1328,43 +1353,43 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_lea63")
 expand_icon = true
 
-[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager"]
+[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager" unique_id=917024295]
 layout_mode = 2
 
-[node name="New" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Actions"]
+[node name="New" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Actions" unique_id=957244348]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "New"
 
-[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Actions"]
+[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Actions" unique_id=668002729]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove"
 
-[node name="Open" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Actions"]
+[node name="Open" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Macros/Manager/Actions" unique_id=864213044]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Open"
 
-[node name="Variables" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs"]
+[node name="Variables" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs" unique_id=1058290585]
 visible = false
 layout_mode = 2
 script = ExtResource("19_rrn5c")
 metadata/_tab_index = 4
 
-[node name="Manager" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables"]
+[node name="Manager" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables" unique_id=2113931867]
 layout_mode = 2
 
-[node name="Filters" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager"]
+[node name="Filters" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager" unique_id=2001900126]
 layout_mode = 2
 
-[node name="Input" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters"]
+[node name="Input" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters" unique_id=511085688]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Filter Variables"
 clear_button_enabled = true
 
-[node name="Type" type="OptionButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters"]
+[node name="Type" type="OptionButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters" unique_id=1116327375]
 layout_mode = 2
 tooltip_text = "Filter by Type"
 selected = 0
@@ -1379,7 +1404,7 @@ popup/item_2/id = 2
 popup/item_3/text = "Bool"
 popup/item_3/id = 3
 
-[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters"]
+[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters" unique_id=1332270571]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Scoped (Filter for Scene)"
@@ -1387,7 +1412,7 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_lea63")
 expand_icon = true
 
-[node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters"]
+[node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters" unique_id=1479997742]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "FILTER_REVERSE_TOOLTIP"
@@ -1395,7 +1420,7 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_jgf31")
 expand_icon = true
 
-[node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters"]
+[node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Filters" unique_id=1779313689]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "SORT_AZ_OR_UID_TOOLTIP"
@@ -1403,60 +1428,60 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_fimxt")
 expand_icon = true
 
-[node name="List" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager"]
+[node name="List" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager" unique_id=2061836542]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Editor" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager"]
+[node name="Editor" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager" unique_id=888025274]
 layout_mode = 2
 
-[node name="Tools" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor"]
+[node name="Tools" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor" unique_id=1302163126]
 layout_mode = 2
 
-[node name="Identifier" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools"]
+[node name="Identifier" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools" unique_id=1200401377]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Identifier"]
+[node name="Label" type="Label" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Identifier" unique_id=930837493]
 layout_mode = 2
 text = "Name"
 
-[node name="Name" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Identifier"]
+[node name="Name" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Identifier" unique_id=820578910]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Unique Variable Name"
 alignment = 1
 
-[node name="Uid" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Identifier"]
+[node name="Uid" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Identifier" unique_id=1496291831]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = SubResource("AtlasTexture_73xki")
 expand_icon = true
 
-[node name="Initial" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools"]
+[node name="Initial" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools" unique_id=265494812]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial"]
+[node name="Label" type="Label" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial" unique_id=901189257]
 layout_mode = 2
 text = "Initial"
 
-[node name="Value" type="MarginContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial"]
+[node name="Value" type="MarginContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial" unique_id=1125488393]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="String" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial/Value"]
+[node name="String" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial/Value" unique_id=88564353]
 layout_mode = 2
 placeholder_text = "Str Value"
 alignment = 1
 
-[node name="Number" type="SpinBox" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial/Value"]
+[node name="Number" type="SpinBox" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial/Value" unique_id=590561961]
 visible = false
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 alignment = 1
 
-[node name="Boolean" type="OptionButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial/Value"]
+[node name="Boolean" type="OptionButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Initial/Value" unique_id=2102019474]
 visible = false
 layout_mode = 2
 selected = 0
@@ -1466,46 +1491,46 @@ popup/item_0/id = 1
 popup/item_1/text = "False"
 popup/item_1/id = 0
 
-[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools"]
+[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools" unique_id=1981019324]
 layout_mode = 2
 
-[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Actions"]
+[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Actions" unique_id=1329026311]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove"
 
-[node name="Spacer" type="MarginContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Actions"]
+[node name="Spacer" type="MarginContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Actions" unique_id=490095084]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Update" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Actions"]
+[node name="Update" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/Actions" unique_id=238584777]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Update"
 
-[node name="References" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools"]
+[node name="References" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools" unique_id=1865760510]
 layout_mode = 2
 alignment = 1
 
-[node name="Previous" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/References"]
+[node name="Previous" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/References" unique_id=1092929566]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Locate Previous Referrer"
 icon = SubResource("AtlasTexture_yujvl")
 expand_icon = true
 
-[node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/References"]
+[node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/References" unique_id=859764747]
 layout_mode = 2
 text = "Reference(s)"
 
-[node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/References"]
+[node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/References" unique_id=527842994]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Locate Next Referrer"
 icon = SubResource("AtlasTexture_plcb7")
 expand_icon = true
 
-[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/References"]
+[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Editor/Tools/References" unique_id=240159331]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Scoped (Filter for Scene)"
@@ -1513,37 +1538,37 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_lea63")
 expand_icon = true
 
-[node name="Creation" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager"]
+[node name="Creation" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager" unique_id=2041719961]
 layout_mode = 2
 
-[node name="Type" type="OptionButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Creation"]
+[node name="Type" type="OptionButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Creation" unique_id=1855370218]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="New" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Creation"]
+[node name="New" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Variables/Manager/Creation" unique_id=509756355]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "New"
 
-[node name="Characters" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs"]
+[node name="Characters" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs" unique_id=819318273]
 visible = false
 layout_mode = 2
 script = ExtResource("20_71821")
 metadata/_tab_index = 5
 
-[node name="Manager" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters"]
+[node name="Manager" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters" unique_id=1693317445]
 layout_mode = 2
 
-[node name="Filters" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager"]
+[node name="Filters" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager" unique_id=786247245]
 layout_mode = 2
 
-[node name="Input" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Filters"]
+[node name="Input" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Filters" unique_id=668967281]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Filter Characters"
 clear_button_enabled = true
 
-[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Filters"]
+[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Filters" unique_id=550237721]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Scoped (Filter for Scene)"
@@ -1551,7 +1576,7 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_lea63")
 expand_icon = true
 
-[node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Filters"]
+[node name="Reverse" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Filters" unique_id=1661839038]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "FILTER_REVERSE_TOOLTIP"
@@ -1559,7 +1584,7 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_jgf31")
 expand_icon = true
 
-[node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Filters"]
+[node name="Alphabetical" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Filters" unique_id=1177835551]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "SORT_AZ_OR_UID_TOOLTIP"
@@ -1567,61 +1592,61 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_fimxt")
 expand_icon = true
 
-[node name="List" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager"]
+[node name="List" type="ItemList" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager" unique_id=1043591930]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Editor" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager"]
+[node name="Editor" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager" unique_id=564693028]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Tools" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor"]
+[node name="Tools" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor" unique_id=1618529057]
 layout_mode = 2
 
-[node name="Configs" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools"]
+[node name="Configs" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools" unique_id=1651296617]
 layout_mode = 2
 
-[node name="Uid" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs"]
+[node name="Uid" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs" unique_id=1895073698]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = SubResource("AtlasTexture_73xki")
 expand_icon = true
 
-[node name="Color" type="ColorPickerButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs"]
+[node name="Color" type="ColorPickerButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs" unique_id=515562007]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 1, 0, 1)
 edit_alpha = false
 
-[node name="Name" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs"]
+[node name="Name" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs" unique_id=1022336249]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 placeholder_text = "Unique Character Name"
 alignment = 1
 
-[node name="Set" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs"]
+[node name="Set" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Configs" unique_id=171140846]
 layout_mode = 2
 text = "Set"
 
-[node name="Tags" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools"]
+[node name="Tags" type="PanelContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools" unique_id=627137015]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Initials" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags"]
+[node name="Initials" type="VBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags" unique_id=1756700575]
 layout_mode = 2
 
-[node name="Scroll" type="ScrollContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials"]
+[node name="Scroll" type="ScrollContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials" unique_id=1376466639]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Pairs" type="HFlowContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Scroll"]
+[node name="Pairs" type="HFlowContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Scroll" unique_id=1835896814]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="None" type="Label" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Scroll"]
+[node name="None" type="Label" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Scroll" unique_id=381235087]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1629,49 +1654,49 @@ text = "No Initial Tag"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Edit" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials"]
+[node name="Edit" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials" unique_id=1070965835]
 layout_mode = 2
 
-[node name="Key" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Edit"]
+[node name="Key" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Edit" unique_id=1247830630]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Key"
 
-[node name="Value" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Edit"]
+[node name="Value" type="LineEdit" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Edit" unique_id=1850004056]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Value"
 
-[node name="Overset" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Edit"]
+[node name="Overset" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Tags/Initials/Edit" unique_id=1263430659]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Oversets (adds or updates) a tag"
 icon = SubResource("AtlasTexture_20hje")
 expand_icon = true
 
-[node name="Appearances" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools"]
+[node name="Appearances" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools" unique_id=1285316215]
 layout_mode = 2
 alignment = 1
 
-[node name="Previous" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Appearances"]
+[node name="Previous" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Appearances" unique_id=1230751607]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Locate Previous Referrer"
 icon = SubResource("AtlasTexture_yujvl")
 expand_icon = true
 
-[node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Appearances"]
+[node name="Referrers" type="MenuButton" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Appearances" unique_id=1475556661]
 layout_mode = 2
 text = "Appearance(s)"
 
-[node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Appearances"]
+[node name="Next" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Appearances" unique_id=53472793]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Locate Next Referrer"
 icon = SubResource("AtlasTexture_plcb7")
 expand_icon = true
 
-[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Appearances"]
+[node name="Scoped" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Editor/Tools/Appearances" unique_id=306633662]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Scoped (Filter for Scene)"
@@ -1679,24 +1704,24 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_lea63")
 expand_icon = true
 
-[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager"]
+[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager" unique_id=462314247]
 layout_mode = 2
 
-[node name="New" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Actions"]
+[node name="New" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Actions" unique_id=1084030685]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "New"
 
-[node name="Spacer" type="MarginContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Actions"]
+[node name="Spacer" type="MarginContainer" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Actions" unique_id=1573967757]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Actions"]
+[node name="Remove" type="Button" parent="FloatingTools/Control/Inspector/Sections/Tabs/Characters/Manager/Actions" unique_id=791274793]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove"
 
-[node name="Console" type="PanelContainer" parent="FloatingTools/Control"]
+[node name="Console" type="PanelContainer" parent="FloatingTools/Control" unique_id=1617776621]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -1706,14 +1731,14 @@ anchor_right = 0.69
 anchor_bottom = 0.855
 script = ExtResource("21_k3mxj")
 
-[node name="Sections" type="VBoxContainer" parent="FloatingTools/Control/Console"]
+[node name="Sections" type="VBoxContainer" parent="FloatingTools/Control/Console" unique_id=1440787988]
+layout_mode = 2
 layout_direction = 1
+
+[node name="Titlebar" type="HBoxContainer" parent="FloatingTools/Control/Console/Sections" unique_id=704882911]
 layout_mode = 2
 
-[node name="Titlebar" type="HBoxContainer" parent="FloatingTools/Control/Console/Sections"]
-layout_mode = 2
-
-[node name="Drag" type="Button" parent="FloatingTools/Control/Console/Sections/Titlebar"]
+[node name="Drag" type="Button" parent="FloatingTools/Control/Console/Sections/Titlebar" unique_id=129424007]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -1725,7 +1750,7 @@ flat = true
 alignment = 0
 expand_icon = true
 
-[node name="Resizer" type="Button" parent="FloatingTools/Control/Console/Sections/Titlebar"]
+[node name="Resizer" type="Button" parent="FloatingTools/Control/Console/Sections/Titlebar" unique_id=992928058]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 focus_mode = 0
@@ -1736,52 +1761,52 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="Interpreter" type="PanelContainer" parent="FloatingTools/Control/Console/Sections"]
+[node name="Interpreter" type="PanelContainer" parent="FloatingTools/Control/Console/Sections" unique_id=1788951993]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Split" type="VSplitContainer" parent="FloatingTools/Control/Console/Sections/Interpreter"]
+[node name="Split" type="VSplitContainer" parent="FloatingTools/Control/Console/Sections/Interpreter" unique_id=1705763383]
 layout_mode = 2
 
-[node name="Display" type="PanelContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split"]
+[node name="Display" type="PanelContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split" unique_id=2108496032]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Scroll" type="ScrollContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/Display"]
+[node name="Scroll" type="ScrollContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/Display" unique_id=666810266]
 layout_mode = 2
 
-[node name="Terminal" type="VBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/Display/Scroll"]
+[node name="Terminal" type="VBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/Display/Scroll" unique_id=1906525635]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="States" type="VBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split"]
+[node name="States" type="VBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split" unique_id=1557145702]
 layout_mode = 2
 
-[node name="Characters" type="PanelContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States"]
+[node name="Characters" type="PanelContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States" unique_id=262518531]
 layout_mode = 2
 
-[node name="Current" type="VBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters"]
+[node name="Current" type="VBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters" unique_id=63408257]
 layout_mode = 2
 
-[node name="List" type="OptionButton" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current"]
+[node name="List" type="OptionButton" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current" unique_id=464344368]
 layout_mode = 2
 
-[node name="Current" type="VBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current"]
+[node name="Current" type="VBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current" unique_id=1456097293]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Scroll" type="ScrollContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current"]
+[node name="Scroll" type="ScrollContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current" unique_id=330450939]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Pairs" type="HFlowContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Scroll"]
+[node name="Pairs" type="HFlowContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Scroll" unique_id=203634030]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="None" type="Label" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Scroll"]
+[node name="None" type="Label" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Scroll" unique_id=98826565]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1789,55 +1814,55 @@ text = "No Initial Tags"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Edit" type="HBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current"]
+[node name="Edit" type="HBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current" unique_id=1030909893]
 layout_mode = 2
 
-[node name="Key" type="LineEdit" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Edit"]
+[node name="Key" type="LineEdit" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Edit" unique_id=624246971]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Key"
 
-[node name="Value" type="LineEdit" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Edit"]
+[node name="Value" type="LineEdit" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Edit" unique_id=1061217851]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Value"
 
-[node name="Overset" type="Button" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Edit"]
+[node name="Overset" type="Button" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Characters/Current/Current/Edit" unique_id=211650626]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Oversets (adds or updates) a tag"
 icon = SubResource("AtlasTexture_20hje")
 expand_icon = true
 
-[node name="Variables" type="PanelContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States"]
+[node name="Variables" type="PanelContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States" unique_id=1970328218]
 layout_mode = 2
 
-[node name="Current" type="VBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables"]
+[node name="Current" type="VBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables" unique_id=1341548833]
 layout_mode = 2
 
-[node name="List" type="OptionButton" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current"]
+[node name="List" type="OptionButton" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current" unique_id=995328592]
 layout_mode = 2
 
-[node name="State" type="HBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current"]
+[node name="State" type="HBoxContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current" unique_id=522282897]
 layout_mode = 2
 
-[node name="Value" type="MarginContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State"]
+[node name="Value" type="MarginContainer" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State" unique_id=377913085]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="String" type="LineEdit" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value"]
+[node name="String" type="LineEdit" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value" unique_id=1697932624]
 layout_mode = 2
 placeholder_text = "Str Value"
 alignment = 1
 
-[node name="Number" type="SpinBox" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value"]
+[node name="Number" type="SpinBox" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value" unique_id=1225033369]
 visible = false
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 alignment = 1
 
-[node name="Boolean" type="OptionButton" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value"]
+[node name="Boolean" type="OptionButton" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State/Value" unique_id=1679384273]
 visible = false
 layout_mode = 2
 selected = 0
@@ -1847,42 +1872,42 @@ popup/item_0/id = 1
 popup/item_1/text = "False"
 popup/item_1/id = 0
 
-[node name="Update" type="Button" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State"]
+[node name="Update" type="Button" parent="FloatingTools/Control/Console/Sections/Interpreter/Split/States/Variables/Current/State" unique_id=201436386]
 layout_mode = 2
 text = "Update"
 
-[node name="Toolbar" type="HBoxContainer" parent="FloatingTools/Control/Console/Sections"]
+[node name="Toolbar" type="HBoxContainer" parent="FloatingTools/Control/Console/Sections" unique_id=1102768250]
 layout_mode = 2
 
-[node name="Settings" type="MenuButton" parent="FloatingTools/Control/Console/Sections/Toolbar"]
+[node name="Settings" type="MenuButton" parent="FloatingTools/Control/Console/Sections/Toolbar" unique_id=1417981627]
 layout_mode = 2
 text = "Settings"
 flat = false
 
-[node name="Spacer" type="MarginContainer" parent="FloatingTools/Control/Console/Sections/Toolbar"]
+[node name="Spacer" type="MarginContainer" parent="FloatingTools/Control/Console/Sections/Toolbar" unique_id=1885014995]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Close" type="Button" parent="FloatingTools/Control/Console/Sections/Toolbar"]
+[node name="Close" type="Button" parent="FloatingTools/Control/Console/Sections/Toolbar" unique_id=2082828830]
 layout_mode = 2
 tooltip_text = "Hides Console Preserving the State"
 text = "Close"
 
-[node name="Clear" type="Button" parent="FloatingTools/Control/Console/Sections/Toolbar"]
+[node name="Clear" type="Button" parent="FloatingTools/Control/Console/Sections/Toolbar" unique_id=742261226]
 layout_mode = 2
 tooltip_text = "Clears Console & State of Play"
 text = "Clear"
 
-[node name="Back" type="Button" parent="FloatingTools/Control/Console/Sections/Toolbar"]
+[node name="Back" type="Button" parent="FloatingTools/Control/Console/Sections/Toolbar" unique_id=1762022783]
 layout_mode = 2
 text = "Back"
 
-[node name="Context" type="PopupPanel" parent="FloatingTools/Control"]
+[node name="Context" type="PopupPanel" parent="FloatingTools/Control" unique_id=1267160121]
 position = Vector2i(200, 200)
 size = Vector2i(256, 256)
 script = ExtResource("22_qw7b1")
 
-[node name="Menu" type="VBoxContainer" parent="FloatingTools/Control/Context"]
+[node name="Menu" type="VBoxContainer" parent="FloatingTools/Control/Context" unique_id=1076923845]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 252.0
@@ -1890,36 +1915,36 @@ offset_bottom = 252.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Node" type="PanelContainer" parent="FloatingTools/Control/Context/Menu"]
+[node name="Node" type="PanelContainer" parent="FloatingTools/Control/Context/Menu" unique_id=1797614761]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Types" type="VBoxContainer" parent="FloatingTools/Control/Context/Menu/Node"]
+[node name="Types" type="VBoxContainer" parent="FloatingTools/Control/Context/Menu/Node" unique_id=1503127853]
 layout_mode = 2
 
-[node name="List" type="ItemList" parent="FloatingTools/Control/Context/Menu/Node/Types"]
+[node name="List" type="ItemList" parent="FloatingTools/Control/Context/Menu/Node/Types" unique_id=1800309609]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 fixed_icon_size = Vector2i(48, 24)
 
-[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Context/Menu/Node/Types"]
+[node name="Actions" type="HBoxContainer" parent="FloatingTools/Control/Context/Menu/Node/Types" unique_id=358256725]
 layout_mode = 2
 
-[node name="Filter" type="LineEdit" parent="FloatingTools/Control/Context/Menu/Node/Types/Actions"]
+[node name="Filter" type="LineEdit" parent="FloatingTools/Control/Context/Menu/Node/Types/Actions" unique_id=1044450318]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Filter Node Types"
 clear_button_enabled = true
 
-[node name="Insert" type="Button" parent="FloatingTools/Control/Context/Menu/Node/Types/Actions"]
+[node name="Insert" type="Button" parent="FloatingTools/Control/Context/Menu/Node/Types/Actions" unique_id=1161722031]
 layout_mode = 2
 text = "Insert"
 
-[node name="Tools" type="HBoxContainer" parent="FloatingTools/Control/Context/Menu"]
+[node name="Tools" type="HBoxContainer" parent="FloatingTools/Control/Context/Menu" unique_id=1040422935]
 layout_mode = 2
 
-[node name="ClearClipboard" type="Button" parent="FloatingTools/Control/Context/Menu/Tools"]
+[node name="ClearClipboard" type="Button" parent="FloatingTools/Control/Context/Menu/Tools" unique_id=836950612]
 visible = false
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
@@ -1929,7 +1954,7 @@ icon = SubResource("AtlasTexture_spigt")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Copy" type="Button" parent="FloatingTools/Control/Context/Menu/Tools"]
+[node name="Copy" type="Button" parent="FloatingTools/Control/Context/Menu/Tools" unique_id=2095998449]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1938,7 +1963,7 @@ icon = SubResource("AtlasTexture_e13h5")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Cut" type="Button" parent="FloatingTools/Control/Context/Menu/Tools"]
+[node name="Cut" type="Button" parent="FloatingTools/Control/Context/Menu/Tools" unique_id=1214525837]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1947,7 +1972,7 @@ icon = SubResource("AtlasTexture_yk16d")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Paste" type="Button" parent="FloatingTools/Control/Context/Menu/Tools"]
+[node name="Paste" type="Button" parent="FloatingTools/Control/Context/Menu/Tools" unique_id=171399496]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1956,7 +1981,7 @@ icon = SubResource("AtlasTexture_ygpkh")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Remove" type="Button" parent="FloatingTools/Control/Context/Menu/Tools"]
+[node name="Remove" type="Button" parent="FloatingTools/Control/Context/Menu/Tools" unique_id=17352901]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1965,54 +1990,54 @@ icon = SubResource("AtlasTexture_whf1p")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Editor" type="VBoxContainer" parent="."]
+[node name="Editor" type="VBoxContainer" parent="." unique_id=36742901]
 layout_mode = 2
 alignment = 1
 script = ExtResource("23_850di")
 
-[node name="Top" type="PanelContainer" parent="Editor"]
+[node name="Top" type="PanelContainer" parent="Editor" unique_id=1845101873]
 layout_mode = 2
 
-[node name="Bar" type="HBoxContainer" parent="Editor/Top"]
+[node name="Bar" type="HBoxContainer" parent="Editor/Top" unique_id=1804775091]
 layout_mode = 2
 theme_type_variation = &"BoxGap8"
 alignment = 1
 
-[node name="AppMenu" type="MenuButton" parent="Editor/Top/Bar"]
+[node name="AppMenu" type="MenuButton" parent="Editor/Top/Bar" unique_id=2119609408]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = "Arrow"
 flat = false
 script = ExtResource("23_s1o1v")
 
-[node name="NewReleaseCheck" type="Button" parent="Editor/Top/Bar"]
+[node name="NewReleaseCheck" type="Button" parent="Editor/Top/Bar" unique_id=1143192999]
 visible = false
 layout_mode = 2
 text = "[New Version ?]"
 script = ExtResource("24_2ksii")
 
-[node name="History" type="PanelContainer" parent="Editor/Top/Bar"]
+[node name="History" type="PanelContainer" parent="Editor/Top/Bar" unique_id=584245083]
 layout_mode = 2
 
-[node name="Tools" type="HBoxContainer" parent="Editor/Top/Bar/History"]
+[node name="Tools" type="HBoxContainer" parent="Editor/Top/Bar/History" unique_id=354037290]
 layout_mode = 2
 alignment = 1
 
-[node name="Undo" type="Button" parent="Editor/Top/Bar/History/Tools"]
+[node name="Undo" type="Button" parent="Editor/Top/Bar/History/Tools" unique_id=429811010]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "History Undo (Ctrl + Z)"
 icon = SubResource("AtlasTexture_ok1su")
 expand_icon = true
 
-[node name="Redo" type="Button" parent="Editor/Top/Bar/History/Tools"]
+[node name="Redo" type="Button" parent="Editor/Top/Bar/History/Tools" unique_id=2100040041]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "History Redo (Ctrl + Shift + Z)"
 icon = SubResource("AtlasTexture_y4ukx")
 expand_icon = true
 
-[node name="ProjectTitle" type="Label" parent="Editor/Top/Bar"]
+[node name="ProjectTitle" type="Label" parent="Editor/Top/Bar" unique_id=595114024]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[Project Title]"
@@ -2020,41 +2045,41 @@ horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="Play" type="PanelContainer" parent="Editor/Top/Bar"]
+[node name="Play" type="PanelContainer" parent="Editor/Top/Bar" unique_id=2044962307]
 layout_mode = 2
 
-[node name="From" type="HBoxContainer" parent="Editor/Top/Bar/Play"]
+[node name="From" type="HBoxContainer" parent="Editor/Top/Bar/Play" unique_id=1469766919]
 layout_mode = 2
 
-[node name="ProjectEntry" type="Button" parent="Editor/Top/Bar/Play/From"]
+[node name="ProjectEntry" type="Button" parent="Editor/Top/Bar/Play/From" unique_id=575475678]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "Play from Project Entry (F4)"
 icon = SubResource("AtlasTexture_mksnb")
 expand_icon = true
 
-[node name="SceneEntry" type="Button" parent="Editor/Top/Bar/Play/From"]
+[node name="SceneEntry" type="Button" parent="Editor/Top/Bar/Play/From" unique_id=1369513829]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "Play from Scene Entry (F5)"
 icon = SubResource("AtlasTexture_c0enu")
 expand_icon = true
 
-[node name="ShowConsole" type="Button" parent="Editor/Top/Bar/Play/From"]
+[node name="ShowConsole" type="Button" parent="Editor/Top/Bar/Play/From" unique_id=1930794788]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "Show Console (F6)"
 icon = SubResource("AtlasTexture_55qnl")
 expand_icon = true
 
-[node name="SelectedNode" type="Button" parent="Editor/Top/Bar/Play/From"]
+[node name="SelectedNode" type="Button" parent="Editor/Top/Bar/Play/From" unique_id=1097003093]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "Play Selected Node (F7)"
 icon = SubResource("AtlasTexture_h8feu")
 expand_icon = true
 
-[node name="Save" type="Button" parent="Editor/Top/Bar"]
+[node name="Save" type="Button" parent="Editor/Top/Bar" unique_id=1780272244]
 custom_minimum_size = Vector2(94, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -2064,7 +2089,7 @@ text = "Save"
 icon = SubResource("AtlasTexture_bxg2x")
 expand_icon = true
 
-[node name="Indicator" type="ColorRect" parent="Editor/Top/Bar/Save"]
+[node name="Indicator" type="ColorRect" parent="Editor/Top/Bar/Save" unique_id=1794386841]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.9
@@ -2074,12 +2099,12 @@ grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.74902, 0.121569, 0.54902, 1)
 
-[node name="Center" type="Control" parent="Editor"]
-layout_direction = 2
+[node name="Center" type="Control" parent="Editor" unique_id=1866769815]
 layout_mode = 2
 size_flags_vertical = 3
+layout_direction = 2
 
-[node name="Grid" type="GraphEdit" parent="Editor/Center"]
+[node name="Grid" type="GraphEdit" parent="Editor/Center" unique_id=447824544]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2096,7 +2121,7 @@ minimap_size = Vector2(1024, 256)
 show_zoom_label = true
 script = ExtResource("25_3y1ae")
 
-[node name="MiniMap" type="Panel" parent="Editor/Center"]
+[node name="MiniMap" type="Panel" parent="Editor/Center" unique_id=1578355113]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -2106,7 +2131,7 @@ offset_top = -100.0
 offset_right = 300.0
 offset_bottom = -25.0
 
-[node name="Area" type="Control" parent="Editor/Center/MiniMap"]
+[node name="Area" type="Control" parent="Editor/Center/MiniMap" unique_id=467887103]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2115,14 +2140,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("26_g6oda")
 
-[node name="Bottom" type="PanelContainer" parent="Editor"]
+[node name="Bottom" type="PanelContainer" parent="Editor" unique_id=113231539]
 layout_mode = 2
 
-[node name="Bar" type="HBoxContainer" parent="Editor/Bottom"]
+[node name="Bar" type="HBoxContainer" parent="Editor/Bottom" unique_id=612913553]
 layout_mode = 2
 theme_type_variation = &"BoxGap8"
 
-[node name="SceneTitle" type="Label" parent="Editor/Bottom/Bar"]
+[node name="SceneTitle" type="Label" parent="Editor/Bottom/Bar" unique_id=1536214799]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[Current Scene]"
@@ -2130,30 +2155,30 @@ horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 4
 
-[node name="Query" type="PanelContainer" parent="Editor/Bottom/Bar"]
+[node name="Query" type="PanelContainer" parent="Editor/Bottom/Bar" unique_id=809059137]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 script = ExtResource("27_oamwo")
 
-[node name="Tools" type="HBoxContainer" parent="Editor/Bottom/Bar/Query"]
+[node name="Tools" type="HBoxContainer" parent="Editor/Bottom/Bar/Query" unique_id=2103319167]
 layout_mode = 2
 
-[node name="Input" type="LineEdit" parent="Editor/Bottom/Bar/Query/Tools"]
+[node name="Input" type="LineEdit" parent="Editor/Bottom/Bar/Query/Tools" unique_id=866430627]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Query"
 alignment = 1
 clear_button_enabled = true
 
-[node name="Mode" type="OptionButton" parent="Editor/Bottom/Bar/Query/Tools"]
+[node name="Mode" type="OptionButton" parent="Editor/Bottom/Bar/Query/Tools" unique_id=1428695133]
 layout_mode = 2
 selected = 0
 item_count = 1
 popup/item_0/text = "[Mode]"
 popup/item_0/id = 0
 
-[node name="Scoped" type="Button" parent="Editor/Bottom/Bar/Query/Tools"]
+[node name="Scoped" type="Button" parent="Editor/Bottom/Bar/Query/Tools" unique_id=325307810]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "SCOPED_QUERY_TOOLTIP"
@@ -2161,42 +2186,42 @@ toggle_mode = true
 icon = SubResource("AtlasTexture_lea63")
 expand_icon = true
 
-[node name="Search" type="Button" parent="Editor/Bottom/Bar/Query/Tools"]
+[node name="Search" type="Button" parent="Editor/Bottom/Bar/Query/Tools" unique_id=1360669209]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "Query (Ctrl + Q)"
 icon = SubResource("AtlasTexture_tx0hw")
 expand_icon = true
 
-[node name="References" type="HBoxContainer" parent="Editor/Bottom/Bar/Query/Tools"]
+[node name="References" type="HBoxContainer" parent="Editor/Bottom/Bar/Query/Tools" unique_id=1036907360]
 layout_mode = 2
 alignment = 1
 
-[node name="Previous" type="Button" parent="Editor/Bottom/Bar/Query/Tools/References"]
+[node name="Previous" type="Button" parent="Editor/Bottom/Bar/Query/Tools/References" unique_id=1719719300]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "Locate Previous Match (Ctrl + 1)"
 icon = SubResource("AtlasTexture_yujvl")
 expand_icon = true
 
-[node name="Matches" type="MenuButton" parent="Editor/Bottom/Bar/Query/Tools/References"]
+[node name="Matches" type="MenuButton" parent="Editor/Bottom/Bar/Query/Tools/References" unique_id=1910167765]
 layout_mode = 2
 text = "[S:T Matches]"
 
-[node name="Next" type="Button" parent="Editor/Bottom/Bar/Query/Tools/References"]
+[node name="Next" type="Button" parent="Editor/Bottom/Bar/Query/Tools/References" unique_id=747902069]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "Locate Next Match (Ctrl + 2)"
 icon = SubResource("AtlasTexture_plcb7")
 expand_icon = true
 
-[node name="Quick" type="PanelContainer" parent="Editor/Bottom/Bar"]
+[node name="Quick" type="PanelContainer" parent="Editor/Bottom/Bar" unique_id=1094547178]
 layout_mode = 2
 
-[node name="Access" type="HBoxContainer" parent="Editor/Bottom/Bar/Quick"]
+[node name="Access" type="HBoxContainer" parent="Editor/Bottom/Bar/Quick" unique_id=1302251580]
 layout_mode = 2
 
-[node name="InspectorVisibility" type="Button" parent="Editor/Bottom/Bar/Quick/Access"]
+[node name="InspectorVisibility" type="Button" parent="Editor/Bottom/Bar/Quick/Access" unique_id=2095651145]
 custom_minimum_size = Vector2(128, 24)
 layout_mode = 2
 tooltip_text = "Toggle Inspector Panel (Ctrl + P)"
@@ -2206,7 +2231,7 @@ text = "Inspect."
 icon = SubResource("AtlasTexture_nb1b5")
 expand_icon = true
 
-[node name="SpecialPreferences" type="MenuButton" parent="Editor/Bottom/Bar/Quick/Access"]
+[node name="SpecialPreferences" type="MenuButton" parent="Editor/Bottom/Bar/Quick/Access" unique_id=37717738]
 custom_minimum_size = Vector2(128, 24)
 layout_mode = 2
 text = "Quick Pref."

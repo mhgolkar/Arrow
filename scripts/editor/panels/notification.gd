@@ -52,7 +52,7 @@ func check_and_append_custom_button(action:Dictionary) -> bool:
 		):
 			var extra_args = ( action.arguments if (action.has("arguments") && (action.arguments is Array)) else [] )
 			var custom_button = Button.new()
-			custom_button.set_text(action.label)
+			custom_button.set_text(tr(action.label))
 			for property in CUSTOM_BUTTONS_PROPERTIES:
 				custom_button.set(property, CUSTOM_BUTTONS_PROPERTIES[property])
 			custom_button.pressed.connect(self.call_and_close.bind(action.callee, action.method, extra_args), CONNECT_DEFERRED )
@@ -80,7 +80,7 @@ func show_notification(
 	# set up fields
 	if heading.length() > 0 && rich_text_message.length() > 0 :
 		# including heading and rich text message:
-		Heading.set_text(heading)
+		Heading.set_text(tr(heading))
 		Message.set_text(rich_text_message)
 		# and in case of custom actions (buttons:)
 		var has_custom_buttons:bool = false

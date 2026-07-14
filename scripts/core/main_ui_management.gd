@@ -158,10 +158,36 @@ class UiManager :
 		var theme = Settings.THEMES[by_id].resource
 		for adjustment_layer in get_theme_adjustment_layers():
 			adjustment_layer.call_deferred("set_theme", theme)
+		apply_interface_font(Main.Configs.CONFIRMED.get("appearance_font", "auto"), TranslationServer.get_locale(), theme)
 		return by_id
+
+	func apply_interface_font(selection = "auto", by_locale:String = "en", target_theme:Theme = null) -> void:
+		if selection is int:
+			selection = ["auto", "default", "res://assets/fonts/GenSekiGothic2TW-R.otf"][clampi(selection, 0, 2)]
+		var locale_font: Font = null
+		if selection == "auto":
+			locale_font = Settings.LOCALE_FONTS.get(by_locale, null)
+		elif selection != "default" && selection is String:
+			if selection.begins_with("res://") && ResourceLoader.exists(selection, "Font"):
+				locale_font = ResourceLoader.load(selection, "Font")
+			elif !selection.begins_with("res://") && FileAccess.file_exists(selection):
+				var external_font := FontFile.new()
+				if external_font.load_dynamic_font(selection) == OK:
+					locale_font = external_font
+			# A saved font may have been moved or removed. Fall back safely.
+			if locale_font == null:
+				locale_font = Settings.LOCALE_FONTS.get(by_locale, null)
+		if target_theme != null:
+			target_theme.default_font = locale_font
+			return
+		for adjustment_layer in get_theme_adjustment_layers():
+			var theme: Theme = adjustment_layer.get_theme()
+			if theme != null:
+				theme.default_font = locale_font
 
 	func reset_language(by_locale:String = "en") -> String:
 		PANELS.preferences.reset_language(by_locale)
+		apply_interface_font(Main.Configs.CONFIRMED.get("appearance_font", "auto"), by_locale)
 		return by_locale
 	
 	func read_panels_state() -> Dictionary:
@@ -236,6 +262,8 @@ class UiManager :
 			match config:
 				"appearance_theme":
 					reset_theme( cfg )
+				"appearance_font":
+					apply_interface_font(cfg, configuration.get("language", TranslationServer.get_locale()))
 				"language":
 					reset_language( cfg )
 				"window":

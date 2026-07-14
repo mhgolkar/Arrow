@@ -29,7 +29,7 @@ func create_menu_items() -> void:
 	for item in _MENU_ITEMS:
 		if item != null:
 			_ID[item] = item_id
-			popup.add_item(_MENU_ITEMS_DATA[item_id].text, item_id)
+			popup.add_item(tr(_MENU_ITEMS_DATA[item_id].text), item_id)
 			_IDX[item] = popup.get_item_index(item_id)
 		else:
 			popup.add_separator();

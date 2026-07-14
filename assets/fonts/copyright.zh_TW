@@ -1,0 +1,71 @@
+[＋附加字體]
+
+Arrow 除了使用 Godot Engine 隨附的字體外，也使用具相容授權的附加字體，
+用途包括介面符號、視覺素材與文字顯示。
+
++ DejaVu Sans Mono Nerd Font Complete
+  來源：https://github.com/ryanoasis/nerd-fonts
+  授權：MIT © Ryan L McIntyre
+  本字體以 DejaVu Sans Mono 為基礎；其 Bitstream Vera、DejaVu 與 Arev
+  字體聲明及完整英文法律原文保留於 assets/fonts/copyright。
+
++ Lato
+  來源：https://github.com/latofonts/lato-source
+  授權：SIL Open Font License, Version 1.1
+  Copyright (c) 2010-2019, Łukasz Dziedzic
+
+[＋本社群建置所附字體]
+
+本社群建置另附偏好設定中列出的 Traditional Chinese 與介面字體。
+字體名稱、著作權人及授權名稱屬於識別資訊，應維持原文；完整授權文件應隨
+各字體來源一併保存。中文說明不取代任何字體的原始授權條款。
+
+以下字體均採 SIL Open Font License, Version 1.1（OFL 1.1）授權。依該授權，
+可以使用、研究、複製、嵌入、修改及再散布字體，也可以用於商業或非商業作品。
+不得單獨販售字體；再散布時必須附上著作權及授權聲明；修改版必須遵守保留
+字體名稱的限制，且字體及其衍生版本仍須採 OFL。使用字體製作的文件、圖片或
+其他作品不必改採 OFL。
+
++ Cubic 11
+  隨附檔案：Cubic 11.ttf
+  來源：https://github.com/ACh-K/Cubic-11
+  授權：SIL Open Font License, Version 1.1
+  以 M+ 點陣字體及 COZ 的作品為基礎。
+  Copyright (c) 2005 M+ FONTS PROJECT
+  Copyright (C) 2002-2004 COZ
+
++ Gen Jyuu Gothic（源柔ゴシック）
+  隨附檔案：GenJyuuGothic-Medium.ttf、GenJyuuGothic-Regular.ttf
+  來源：http://jikasei.me/font/genjyuu/
+  授權：SIL Open Font License, Version 1.1
+  由自家製フォント工房以 Source Han Sans 與 M+ 字體為基礎製作。
+
++ 源石黑體月（TW 通俗字形版）
+  隨附檔案：GenSekiGothic2TW-M.otf、GenSekiGothic2TW-R.otf
+  來源：https://github.com/ButTaiwan/genseki-font
+  授權：SIL Open Font License, Version 1.1
+  由 But Ko（ButTaiwan）以 Source Han Sans 為基礎製作。「月」版採用
+  台灣近年多數字體慣用的通俗字形，適合現代介面、文書與簡報。
+
++ Noto Sans
+  隨附檔案：NotoSans-Regular.ttf
+  來源：https://github.com/notofonts/noto-fonts
+  授權：SIL Open Font License, Version 1.1
+  Copyright 2018 The Noto Project Authors.
+
++ Noto Sans Traditional Chinese 與 Noto Sans CJK TC
+  隨附檔案：NotoSansTC-Medium.ttf、NotoSansCJKtc-Medium.otf、
+  NotoSansCJKtc-Regular.otf
+  來源：https://github.com/notofonts/noto-cjk
+        https://fonts.google.com/noto/specimen/Noto+Sans+TC
+  授權：SIL Open Font License, Version 1.1
+  Noto 是 Google LLC 的商標；Noto CJK 字體資料包含 Adobe 及其貢獻者
+  原先開發的作品。
+
+以上字體名稱、商標、專案名稱及作者姓名僅用於辨識與著作權歸屬，不表示
+字體作者或著作權人為 Arrow 或此社群建置背書。
+
+[法律原文]
+
+MIT、Bitstream Vera、Arev Fonts 與 SIL Open Font License 的完整英文原文
+保留於 assets/fonts/copyright。若中文說明與原文有差異，應以英文原文為準。

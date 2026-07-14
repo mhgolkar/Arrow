@@ -1,0 +1,554 @@
+# Arrow Translation — Traditional Chinese (Taiwan)
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
+
+msgid "Website"
+msgstr "官方網站"
+
+msgid "Repository"
+msgstr "儲存庫"
+
+msgid "Documentation"
+msgstr "文件"
+
+msgid "Zh-TW Repository"
+msgstr "譯者儲存庫"
+
+msgid "Hello"
+msgstr "開始"
+
+msgid "WELCOME_MESSAGE"
+msgstr ""
+"[b]歡迎使用 Arrow 3.x-ZhTW[/b]\n"
+"\n"
+"Arrow 是一套免費、開放原始碼且功能豐富的[i]遊戲敘事[/i]設計工具，可用來創作[i]互動式非線性故事[/i]。\n"
+"\n"
+"以下是關於網頁版本（沒有中文）的資料存儲說明：\n"
+"Arrow 網頁版會使用瀏覽器儲存空間管理專案。[i]你的資料只會保留在這台裝置上。[/i]\n"
+"若要匯出專案，請使用：\n"
+"[indent][bgcolor=black][color=white][i][code] Inspector (panel) > Project (tab) > Export [/code][/i][/color][/bgcolor][/indent]\n"
+"若要清除應用程式儲存空間，請使用：\n"
+"[indent][bgcolor=black][color=white][i][code] Arrow (menu button; top-left) > Clear [/code][/i][/color][/bgcolor][/indent]\n"
+"\n"
+"如需更多資訊，請瀏覽官方網站或專案儲存庫。敬祝順心\n"
+"Mor. H. Golkar 與所有貢獻者"
+
+msgid "Copyright"
+msgstr "版權"
+
+msgid "New"
+msgstr "新增"
+
+msgid "Open"
+msgstr "開啟"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Preferences"
+msgstr "偏好設定"
+
+msgid "Dismiss"
+msgstr "返回"
+
+msgid "Confirm"
+msgstr "確認"
+
+msgid "User Interface"
+msgstr "使用者介面"
+
+msgid "Theme"
+msgstr "佈景主題"
+
+msgid "Interface Font"
+msgstr "介面字體"
+
+msgid "Follow Language"
+msgstr "跟隨語言"
+
+msgid "Theme Default"
+msgstr "主題預設"
+
+msgid "Browse…"
+msgstr "瀏覽…"
+
+msgid "Select Interface Font"
+msgstr "選擇介面字體"
+
+msgid "(External)"
+msgstr "（外部）"
+
+msgid "Language"
+msgstr "語言"
+
+msgid "Data Management"
+msgstr "資料管理"
+
+msgid "Work Directory"
+msgstr "工作目錄"
+
+msgid "[Working Directory Path]"
+msgstr "[工作目錄路徑]"
+
+msgid "Select"
+msgstr "選擇"
+
+msgid "Reset"
+msgstr "重設"
+
+msgid "History (Undo/Redo)"
+msgstr "歷史（復原／重做）"
+
+msgid "Size"
+msgstr "筆數"
+
+msgid "Authors"
+msgstr "作者"
+
+msgid "Contributors"
+msgstr "貢獻者"
+
+msgid "Active Contributor"
+msgstr "目前貢獻者"
+
+msgid "Info"
+msgstr "資訊"
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "Apply"
+msgstr "套用"
+
+msgid "Chapter"
+msgstr "章節"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "New Document"
+msgstr "新增文件"
+
+msgid "Title"
+msgstr "標題"
+
+# New-project template values are translated only when a new project is created.
+msgid "Untitled Adventure"
+msgstr "未命名的冒險"
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Hello World!"
+msgstr "哈囉，世界！"
+
+msgid "Let's begin our adventure."
+msgstr "讓我們開始這趟冒險吧。"
+
+# Query toolbox
+msgid "QUERY_MATCH_OPTION_BUTTON_TEXT_TEMPLATE"
+msgstr "{current}：{total} 個結果"
+
+msgid "QUERY_MATCH_ITEM_TEXT_TEMPLATE"
+msgstr "{name}－{capitalized_type}"
+
+msgid "Any Match"
+msgstr "任意符合"
+
+msgid "Including"
+msgstr "包含"
+
+msgid "Exact Match"
+msgstr "完全符合"
+
+msgid "RegEx"
+msgstr "正規表示式"
+
+msgid "Project or Chapter Title"
+msgstr "專案或章節名稱"
+
+msgid "Filename"
+msgstr "檔案名稱"
+
+msgid "(without extension)"
+msgstr "（不含副檔名）"
+
+msgid "Filename's already used or invalid"
+msgstr "檔案名稱已被使用或無效"
+
+msgid "Full Path"
+msgstr "完整路徑"
+
+msgid "[Generated]"
+msgstr "[自動產生]"
+
+msgid "Create"
+msgstr "建立"
+
+msgid "Select Current Folder"
+msgstr "選擇目前資料夾"
+
+msgid "Inspector"
+msgstr "屬性面板"
+
+msgid "Project"
+msgstr "專案"
+
+msgid "Filter Projects"
+msgstr "篩選專案"
+
+msgid "Set"
+msgstr "設定"
+
+msgid "Export"
+msgstr "匯出"
+
+msgid "Latest Save"
+msgstr "最近一次儲存"
+
+msgid "Revert to the Latest Save"
+msgstr "還原至最近一次儲存"
+
+msgid "Revert"
+msgstr "還原"
+
+msgid "Snapshots"
+msgstr "快照"
+
+msgid "Restore"
+msgstr "復原快照"
+
+msgid "Preview"
+msgstr "預覽"
+
+msgid "Node"
+msgstr "節點"
+
+msgid "Unique Node Name"
+msgstr "不重複的節點名稱"
+
+msgid "[Notes]"
+msgstr "[備註]"
+
+msgid "Previous Local History Modification"
+msgstr "上一筆本機修改記錄"
+
+msgid "Reset Node Parameters (Ctrl + Shift + Minus)"
+msgstr "重設節點參數（Ctrl + Shift + 減號）"
+
+msgid "Next Local History Modification"
+msgstr "下一筆本機修改記錄"
+
+msgid "Skip"
+msgstr "略過"
+
+msgid "Update Node (Ctrl + Shift + Plus)"
+msgstr "更新節點（Ctrl + Shift + 加號）"
+
+msgid "Locate Previous Referrer"
+msgstr "尋找上一個參照來源"
+
+msgid "Locate Next Referrer"
+msgstr "尋找下一個參照來源"
+
+msgid "Scoped (Filter for Scene)"
+msgstr "限定範圍（依場景篩選）"
+
+msgid "Scenes"
+msgstr "場景"
+
+msgid "Filter Scenes"
+msgstr "篩選場景"
+
+msgid "Unique Scene Name"
+msgstr "不重複的場景名稱"
+
+msgid "Macros"
+msgstr "巨集"
+
+msgid "Filter Macros"
+msgstr "篩選巨集"
+
+msgid "Unique Macro Name"
+msgstr "不重複的巨集名稱"
+
+msgid "Variables"
+msgstr "變數"
+
+msgid "Variable"
+msgstr "變數"
+
+msgid "Filter Variables"
+msgstr "篩選變數"
+
+msgid "Filter by Type"
+msgstr "依類型篩選"
+
+msgid "Any"
+msgstr "不限"
+
+msgid "Num"
+msgstr "數值"
+
+msgid "Str"
+msgstr "字串"
+
+msgid "Bool"
+msgstr "布林值"
+
+msgid "Name"
+msgstr "名稱"
+
+msgid "Unique Variable Name"
+msgstr "不重複的變數名稱"
+
+msgid "Initial"
+msgstr "初始值"
+
+msgid "Str Value"
+msgstr "字串值"
+
+msgid "True"
+msgstr "啟用"
+
+msgid "False"
+msgstr "禁用"
+
+msgid "Characters"
+msgstr "角色"
+
+msgid "Filter Characters"
+msgstr "篩選角色"
+
+msgid "Unique Character Name"
+msgstr "不重複的角色名稱"
+
+msgid "No Initial Tag"
+msgstr "沒有初始標籤"
+
+msgid "Key"
+msgstr "關鍵"
+
+msgid "Value"
+msgstr "值"
+
+msgid "Console"
+msgstr "主控台"
+
+msgid "No Initial Tags"
+msgstr "沒有初始標籤"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Clear"
+msgstr "清除"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "Filter Node Types"
+msgstr "篩選節點類型"
+
+msgid "Insert"
+msgstr "插入"
+
+msgid "Clear Clipboard"
+msgstr "清除剪貼簿"
+
+msgid "Copy Node(s)"
+msgstr "複製節點"
+
+msgid "Cut Node(s)"
+msgstr "剪下節點"
+
+msgid "Paste Node(s)"
+msgstr "貼上節點"
+
+msgid "Remove Node(s)"
+msgstr "移除節點"
+
+msgid "History Undo (Ctrl + Z)"
+msgstr "復原（Ctrl + Z）"
+
+msgid "History Redo (Ctrl + Shift + Z)"
+msgstr "重做（Ctrl + Shift + Z）"
+
+msgid "Play from Project Entry (F4)"
+msgstr "從專案入口開始播放（F4）"
+
+msgid "Play from Scene Entry (F5)"
+msgstr "從場景入口開始播放（F5）"
+
+msgid "Show Console (F6)"
+msgstr "顯示主控台（F6）"
+
+msgid "Play Selected Node (F7)"
+msgstr "播放選取的節點（F7）"
+
+msgid "Save Document (Ctrl + S)"
+msgstr "儲存文件（Ctrl + S）"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Query"
+msgstr "搜尋"
+
+msgid "Query (Ctrl + Q)"
+msgstr "搜尋（Ctrl + Q）"
+
+msgid "Locate Previous Match (Ctrl + 1)"
+msgstr "尋找上一筆符合項目（Ctrl + 1）"
+
+msgid "Locate Next Match (Ctrl + 2)"
+msgstr "尋找下一筆符合項目（Ctrl + 2）"
+
+msgid "Toggle Inspector Panel (Ctrl + P)"
+msgstr "切換屬性面板（Ctrl + P）"
+
+msgid "Inspect."
+msgstr "屬性面板"
+
+msgid "Quick Pref."
+msgstr "快速設定"
+
+msgid "Save Project"
+msgstr "儲存專案"
+
+msgid "Are you sure ?!"
+msgstr "確定要繼續嗎？！"
+
+msgid "UNSAVED_CHANGES_WARNING"
+msgstr "專案 `%s` 已被修改。若仍要關閉，尚未儲存的變更將會遺失。"
+
+msgid "Close Anyway"
+msgstr "仍要關閉"
+
+# ---------------------------------------------
+# scripts/editor/panels/preferences_ald_menu.gd
+# ---------------------------------------------
+msgid "ALD_PRESET_USER_DIR"
+msgstr "作業系統預設的應用程式資料目錄"
+
+msgid "ALD_PRESET_RES_DIR"
+msgstr "Arrow 執行檔所在目錄"
+
+msgid "Error!"
+msgstr "錯誤！"
+
+msgid "Select an Arrow Document"
+msgstr "選擇 Arrow 文件"
+
+msgid "Save Document"
+msgstr "儲存文件"
+
+msgid "Export as JSON"
+msgstr "匯出為 JSON"
+
+msgid "Export Playable HTML"
+msgstr "匯出可播放的 HTML"
+
+msgid "Export CSV (Translation)"
+msgstr "匯出 CSV（翻譯文件）"
+
+msgid "Select App Local Directory"
+msgstr "選擇應用程式的本機目錄"
+
+msgid "Fullscreen (F11)"
+msgstr "全螢幕（F11）"
+
+msgid "Exit Fullscreen (F11)"
+msgstr "退出全螢幕（F11）"
+
+msgid "Stay Above"
+msgstr "永遠顯示在最上層"
+
+msgid "Leave Above"
+msgstr "取消最上層顯示"
+
+msgid "Refresh"
+msgstr "重新整理"
+
+msgid "About"
+msgstr "關於"
+
+msgid "Quit"
+msgstr "結束程式"
+
+msgid "Auto Inspection"
+msgstr "自動檢查"
+
+msgid "Auto Node Update"
+msgstr "自動更新節點"
+
+msgid "Reset on Reinspection"
+msgstr "重新檢查時重設"
+
+msgid "Quick Node Insertion"
+msgstr "快速插入節點"
+
+msgid "Connection Assist"
+msgstr "連線輔助"
+
+msgid "Auto Rebuild Runtime(s)"
+msgstr "自動重建執行環境"
+
+msgid "Auto-scroll"
+msgstr "自動捲動"
+
+msgid "Allow Auto-play"
+msgstr "允許自動播放"
+
+msgid "Prevent Clearance"
+msgstr "防止清除"
+
+msgid "Show Skipped Nodes"
+msgstr "顯示略過的節點"
+
+msgid "Inspect Variables"
+msgstr "檢查變數"
+
+msgid "Inspect Character Tags"
+msgstr "檢查角色標籤"
+
+msgid "New Blank Project"
+msgstr "新增空白專案"
+
+msgid "Save Current & Continue"
+msgstr "儲存目前專案並繼續"
+
+msgid "Load Project"
+msgstr "載入專案"
+
+msgid "Import Project File"
+msgstr "匯入專案檔案"
+
+msgid "Save a Copy"
+msgstr "另存副本"
+
+msgid "Download a Copy"
+msgstr "下載副本"
+
+msgid "Export JSON"
+msgstr "匯出 JSON"
+
+msgid "Export HTML"
+msgstr "匯出 HTML"
+
+msgid "Export CSV"
+msgstr "匯出 CSV"

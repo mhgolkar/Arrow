@@ -6,3 +6,6 @@
 *.arrow
 .arrow.config
 .arrow.project
+
+# Local export artifacts
+/build/

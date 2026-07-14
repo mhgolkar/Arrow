@@ -1,0 +1,67 @@
+name: Build Linux
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: linux-build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: 4.7
+  GODOT_STATUS: stable
+
+jobs:
+  build-linux:
+    name: Linux x86_64
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Download Godot and export templates
+        shell: bash
+        run: |
+          set -euo pipefail
+          release="${GODOT_VERSION}-${GODOT_STATUS}"
+          base_url="https://github.com/godotengine/godot/releases/download/${release}"
+          curl --fail --location --retry 3 "${base_url}/Godot_v${release}_linux.x86_64.zip" --output godot.zip
+          curl --fail --location --retry 3 "${base_url}/Godot_v${release}_export_templates.tpz" --output templates.zip
+          unzip -q godot.zip -d .godot-bin
+          template_dir="${HOME}/.local/share/godot/export_templates/${GODOT_VERSION}.${GODOT_STATUS}"
+          mkdir -p "${template_dir}" .templates
+          unzip -q templates.zip -d .templates
+          cp -R .templates/templates/. "${template_dir}/"
+          chmod +x ".godot-bin/Godot_v${release}_linux.x86_64"
+
+      - name: Import project
+        shell: bash
+        run: |
+          set -euo pipefail
+          ".godot-bin/Godot_v${GODOT_VERSION}-${GODOT_STATUS}_linux.x86_64" --headless --editor --path . --quit
+
+      - name: Export Linux release
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/linux
+          ".godot-bin/Godot_v${GODOT_VERSION}-${GODOT_STATUS}_linux.x86_64" --headless --path . --export-release Linux build/linux/Arrow.x86_64
+          chmod +x build/linux/Arrow.x86_64
+          tar -czf build/Arrow-3.1.0-ZhTW-1-Linux-x86_64.tar.gz -C build/linux Arrow.x86_64 Arrow.pck
+
+      - name: Upload Linux build
+        uses: actions/upload-artifact@v7
+        with:
+          name: Arrow-3.1.0-ZhTW-1-Linux-x86_64
+          path: |
+            build/linux/Arrow.x86_64
+            build/linux/Arrow.pck
+            build/Arrow-3.1.0-ZhTW-1-Linux-x86_64.tar.gz
+          if-no-files-found: error
+          retention-days: 30

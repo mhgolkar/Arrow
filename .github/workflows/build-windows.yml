@@ -1,0 +1,20 @@
+name: Build Desktop
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desktop-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-windows:
+    name: Windows x86_64
+    uses: ./.github/workflows/build-windows-only.yml
+
+  build-linux:
+    name: Linux x86_64
+    uses: ./.github/workflows/build-linux-only.yml

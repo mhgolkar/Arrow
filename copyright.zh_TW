@@ -1,0 +1,47 @@
+著作權、授權與出處
+
+Arrow 是依 MIT 授權條款提供的自由開放原始碼軟體。
+
+@Import:ARROW_LICENSE
+
+[免責聲明]
+
+本文件所含的授權條款說明與影響解讀不構成法律意見。中文內容僅供閱讀參考；
+若中文譯文與英文原始授權文件有任何差異，應以英文原文為準。
+
+[聲明]
+
+本軟體在製作過程中使用了下列專案、素材與程式庫。個別元件或檔案可能採用
+不同但相容的授權條款；詳細資訊請參閱各專案及隨附的英文原始授權文件。
+
+依實際版本與建置方式不同，你所持有的本軟體可能不包含此處列出的部分資源。
+
+[＋Godot 著作權]
+
+Arrow 是使用 Godot Engine 製作的應用程式。本軟體使用 Godot Engine
+v@GODOT_VERSION；以下提供 Godot MIT 授權條款的繁體中文參考譯文：
+
+@Import:GODOT_LICENSE_FROM_ENGINE
+
+[＋Godot 第三方授權]
+
+Godot 包含由第三方開發、與 Godot 的 MIT 授權相容但不受其涵蓋的軟體。
+以下元件清單及檔案範圍由目前使用的 Godot 引擎提供。專案名稱、人名、
+授權名稱與檔案路徑屬於識別資訊，因此維持原文：
+
+@Import:GODOT_THIRD_PARTY_COMPONENTS_FROM_ENGINE
+
+更多資訊：
++ https://godotengine.org/license/
++ https://github.com/godotengine/godot/blob/master/COPYRIGHT.txt
+
+[第三方授權索引]
+
+以下列出目前 Godot 建置所包含的第三方授權名稱。完整法律原文保留於英文介面、
+Godot 引擎執行檔及隨附的英文原始散布檔案；中文介面不以非官方譯文取代法律原文：
+
+@Import:GODOT_LICENSES_TEXT_FROM_ENGINE
+
+[其他聲明]
+
+@Import:COPYRIGHT_PLUS_FILES

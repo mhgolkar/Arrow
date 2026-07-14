@@ -1,0 +1,11 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow\\n"
+"Language: zh_TW\\n"
+"MIME-Version: 1.0\\n"
+"Content-Type: text/plain; charset=UTF-8\\n"
+"Content-Transfer-Encoding: 8bit\\n"
+"Plural-Forms: nplurals=1; plural=0;\\n"
+
+msgid "Variable Update"
+msgstr "變數更新"

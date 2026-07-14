@@ -105,6 +105,12 @@ class ProjectManager :
 		_ACTIVE_PROJECT_UID = -1
 		_IS_ACTIVE_PROJECT_SAVED = true
 		var untitled_project = Embedded.Data.Untitled_Project.duplicate(true)
+		# Localize only the initial template. Once created, these values are user data
+		# and must not change when the interface locale changes.
+		untitled_project.title = tr(untitled_project.title)
+		untitled_project.resources.nodes[1].data.plaque = tr(untitled_project.resources.nodes[1].data.plaque)
+		untitled_project.resources.nodes[2].data.title = tr(untitled_project.resources.nodes[2].data.title)
+		untitled_project.resources.nodes[2].data.content = tr(untitled_project.resources.nodes[2].data.content)
 		if Settings.FORCE_SNOWFLAKE_UID_FOR_NEW_PROJECTS == true:
 			untitled_project.meta.epoch = Flake.Snow._unsafe_unix_now_millisecond()
 		print_debug("holding untitled (blank) project: ", untitled_project.meta)

@@ -1,0 +1,62 @@
+name: Build Windows
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: 4.7
+  GODOT_STATUS: stable
+
+jobs:
+  build-windows:
+    name: Windows x86_64
+    runs-on: windows-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Download Godot and export templates
+        shell: pwsh
+        run: |
+          $release = "${env:GODOT_VERSION}-${env:GODOT_STATUS}"
+          $baseUrl = "https://github.com/godotengine/godot/releases/download/$release"
+          Invoke-WebRequest "$baseUrl/Godot_v$release`_win64.exe.zip" -OutFile godot.zip
+          Invoke-WebRequest "$baseUrl/Godot_v$release`_export_templates.tpz" -OutFile templates.zip
+          Expand-Archive godot.zip -DestinationPath .godot-bin
+          $templateDir = Join-Path $env:APPDATA "Godot/export_templates/$($env:GODOT_VERSION).$($env:GODOT_STATUS)"
+          New-Item -ItemType Directory -Force -Path $templateDir | Out-Null
+          Expand-Archive templates.zip -DestinationPath .templates
+          Copy-Item ".templates/templates/*" $templateDir -Recurse -Force
+
+      - name: Import project
+        shell: pwsh
+        run: |
+          & ".godot-bin/Godot_v${env:GODOT_VERSION}-${env:GODOT_STATUS}_win64.exe" --headless --editor --path . --quit
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Export Windows release
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path build/windows | Out-Null
+          & ".godot-bin/Godot_v${env:GODOT_VERSION}-${env:GODOT_STATUS}_win64.exe" --headless --path . --export-release Windows build/windows/Arrow.exe
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v7
+        with:
+          name: Arrow-3.1.0-ZhTW-1-Windows-x86_64
+          path: |
+            build/windows/Arrow.exe
+            build/windows/Arrow.pck
+          if-no-files-found: error
+          retention-days: 30
