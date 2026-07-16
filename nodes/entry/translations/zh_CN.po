@@ -38,8 +38,10 @@ msgstr "铭牌"
 
 msgid "ENTRY_INSPECTOR_FIELD_ACTIVE_TOOLTIP"
 msgstr ""
-"هر 项目 و یکایک 场景‌ها، \n"
-"برای اجرای درست نیاز به حداقل یک گره 入口 دارند."
+"每个项目及其所有场景
+"
+"都需要一个入口节点才能正常运行。
+"
 
 msgid "ENTRY_INSPECTOR_FIELD_ACTIVE_FOR"
 msgstr "作为入口"
