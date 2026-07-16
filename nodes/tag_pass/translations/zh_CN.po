@@ -132,7 +132,7 @@ msgid "TAG_PASS_METHOD_ALL"
 msgstr "全部匹配"
 
 msgid "TAG_PASS_METHOD_HINT_ANY"
-msgstr "اگر حتی برای یکی از برچسب‌ها همخوانی وجود داشته باشد، شرط 真 فرض می‌شود.",
+msgstr "只要任一标签匹配即可通过。",
 
 msgid "TAG_PASS_METHOD_HINT_ALL"
-msgstr "همه برچسب‌ها باید همخوان داشته باشند تا شرط 真 باشد.",
+msgstr "所有标签都必须匹配才能通过。",
