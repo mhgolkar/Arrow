@@ -1,0 +1,63 @@
+
+# Sequencer Node Translation
+# ==========================
+#       Persian (Farsi)     
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Sequencer\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Sequencer"
+msgstr "序列器"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Name]"
+# msgstr ""
+
+# !
+# msgid "[Slots]"
+# msgstr ""
+
+msgid "SEQUENCER_CONSOLE_ACT_SKIP"
+msgstr "跳过"
+
+msgid "SEQUENCER_CONSOLE_ACT_RUN"
+msgstr "运行"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "SEQUENCER_INSPECTOR_FIELD_SEQ_LENGTH"
+msgstr "序列长度"
+
+msgid "SEQUENCER_INSPECTOR_HANDLE_WITH_CARE_EXTRA_INFO"
+msgstr ""
+"输入 0 使用当前连接的输出数；
+"
+"输入 N 则取前 N 个。误用可能损坏故事。
+"
+
+msgid "SEQUENCER_INSPECTOR_HANDLE_WITH_CARE"
+msgstr "⚠ 注意"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Sequencer"
+# msgstr ""

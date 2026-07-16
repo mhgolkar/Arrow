@@ -1,0 +1,154 @@
+
+# Tag-Edit Node Translation
+# =========================
+#      Persian (Farsi)     
+# =========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Tag-Edit\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Tag Edit"
+msgstr "标签编辑"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# msgid "[Character Name]"
+# msgstr
+
+# msgid "[Tag: Value]"
+# msgstr
+
+msgid "TAG_EDIT_CONSOLE_ACT_SKIP"
+msgstr "跳过"
+
+# msgid "[Method]"
+# msgstr
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_CHARACTER"
+msgstr "角色"
+
+msgid "TAG_EDIT_INSPECTOR_APPLY_GLOBAL_CHAR_FILTERS_TOOLTIP"
+msgstr ""
+"应用全局筛选
+"
+"
+"
+"遵循角色检查器中定义的相同列表规则。
+"
+"+ 始终列出节点当前角色及匿名。
+"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_EDIT"
+msgstr "编辑"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_KEY_PLACEHOLDER"
+msgstr "标签键"
+
+msgid "TAG_EDIT_INSPECTOR_FIELD_VALUE_PLACEHOLDER"
+msgstr "值"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Tag Edit"
+# msgstr ""
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+# !
+# msgid "[Character Name]"
+# msgstr ""
+
+# !
+# msgid "[Tag: Value]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "TAG_EDIT_CONSOLE_METHOD_INVALID"
+msgstr "操作无效"
+
+msgid "TAG_EDIT_CONSOLE_METHOD_INVALID_HINT"
+msgstr "无法识别"
+
+msgid "TAG_EDIT_CONSOLE_INVALID_DATA"
+msgstr "无效！"
+
+msgid "TAG_EDIT_CONSOLE_TAG_KEY_VALUE_FORMAT_STR"
+msgstr "{key}：{value}"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "TAG_EDIT_INSPECTOR_NO_CHARACTER_TXT"
+msgstr "无可用角色"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "TAG_EDIT_NODE_INVALID_DATA"
+msgstr "无效！"
+
+msgid "TAG_EDIT_NODE_TAG_KEY_VALUE_FORMAT_STR"
+msgstr "{key}：{value}"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "TAG_EDIT_METHOD_INSET"
+msgstr "插入"
+
+msgid "TAG_EDIT_METHOD_RESET"
+msgstr "覆盖"
+
+msgid "TAG_EDIT_METHOD_OVERSET"
+msgstr "覆盖"
+
+msgid "TAG_EDIT_METHOD_OUTSET"
+msgstr "移除"
+
+msgid "TAG_EDIT_METHOD_UNSET"
+msgstr "清空全部"
+
+msgid "TAG_EDIT_METHOD_HINT_INSET"
+msgstr "添加新标签（不覆盖已有）"
+
+msgid "TAG_EDIT_METHOD_HINT_RESET"
+msgstr "重置指定标签为默认值"
+
+msgid "TAG_EDIT_METHOD_HINT_OVERSET"
+msgstr "添加或覆盖指定标签"
+
+msgid "TAG_EDIT_METHOD_HINT_OUTSET"
+msgstr "移除指定标签"
+
+msgid "TAG_EDIT_METHOD_HINT_UNSET"
+msgstr "移除角色的所有标签"
