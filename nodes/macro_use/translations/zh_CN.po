@@ -1,0 +1,88 @@
+
+# Macro-Use Node Translation
+# ==========================
+#       Persian (Farsi)     
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Macro-Use\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Macro Use"
+msgstr "宏调用"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Macro Title]"
+# msgstr ""
+
+msgid "MACRO_USE_CONSOLE_ACT_SKIP"
+msgstr "跳过"
+
+msgid "MACRO_USE_CONSOLE_ACT_PLAY"
+msgstr "播放"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "MACRO_USE_INSPECTOR_FIELD_MACRO"
+msgstr "宏"
+
+msgid "MACRO_USE_INSPECTOR_APPLY_GLOBAL_MACRO_FILTERS_TOOLTIP"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه 宏های کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته 宏 فعلی گره همواره نمایش داده می‌شود."
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Macro Use"
+# msgstr ""
+
+# !
+# msgid "[Macro Title]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "MACRO_USE_CONSOLE_INVALID_MSG"
+msgstr "无效！"
+
+msgid "MACRO_USE_CONSOLE_UNSET_TARGET_MSG"
+msgstr "未设置目标"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "MACRO_USE_INSPECTOR_NONE_AVAILABLE_TXT"
+msgstr "无可用宏"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "MACRO_USE_NODE_NO_TARGET_MSG"
+msgstr "未选择宏"

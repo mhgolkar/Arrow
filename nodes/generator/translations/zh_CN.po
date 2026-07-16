@@ -1,0 +1,173 @@
+
+# Generator Node Translation
+# ==========================
+#       Persian (Farsi)     
+# ==========================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Generator\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Generator"
+msgstr "生成器"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Method]"
+# msgstr ""
+
+# !
+# msgid "[Arguments]"
+# msgstr ""
+
+# !
+# msgid "[Target]"
+# msgstr ""
+
+msgid "GENERATOR_CONSOLE_ACT_SKIP"
+msgstr "跳过"
+
+msgid "GENERATOR_CONSOLE_ACT_PROCEED"
+msgstr "继续"
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "GENERATOR_INSPECTOR_FIELD_FOR"
+msgstr "目标变量"
+
+msgid "GENERATOR_INSPECTOR_APPLY_GLOBAL_VAR_FILTERS_TOOLTIP"
+msgstr ""
+"اعمال فیلترهای عمومی\n"
+"\n"
+"در صورت فعال بودن این مکانیزم، همان فیلترهای عموم که\n"
+"در زبانه متغیرهای کاردان تنظیم شده‌اند، اینجا هم اعمال می‌شوند.\n"
+"+ البته متغیر فعلی گره همواره نمایش داده می‌شود."
+
+msgid "GENERATOR_INSPECTOR_FIELD_GENERATE"
+msgstr "生成方式"
+
+msgid "GENERATOR_INSPECTOR_FIELD_FROM"
+msgstr "从"
+
+msgid "GENERATOR_INSPECTOR_FIELD_TO"
+msgstr "到"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_NEG"
+msgstr "可为负数"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_EVEN"
+msgstr "偶数"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_INT_ODD"
+msgstr "奇数"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL"
+msgstr "字符池"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_POOL_PLACEHOLDER"
+msgstr "用于随机抽取的字符"
+
+msgid "GENERATOR_INSPECTOR_RANDOM_ASCII_LENGTH"
+msgstr "长度"
+
+msgid "GENERATOR_INSPECTOR_FROM_STR_SET_POOL"
+msgstr "候选值"
+
+# !
+# msgid "* Separated with [delimiter]"
+# msgstr ""
+
+
+# ---------
+# node.tscn
+# ---------
+
+# !
+# msgid "Generator"
+# msgstr ""
+
+# !
+# msgid "[Arguments]"
+# msgstr ""
+
+# !
+# msgid "[Target]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "目标变量未设置或无效！"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "生成方式未设置或无效！"
+
+msgid "GENERATOR_CONSOLE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "参数未设置或无效！"
+
+msgid "GENERATOR_CONSOLE_SKIPPED_MSG"
+msgstr "已跳过"
+
+msgid "GENERATOR_CONSOLE_OPERATION_STATE_FORMAT_STR"
+msgstr "{method}：{from} → {to}"
+
+
+# ------------
+# inspector.gd
+# ------------
+
+msgid "GENERATOR_INSPECTOR_NO_VARIABLE_TXT"
+msgstr "无可用变量"
+
+msgid "GENERATOR_INSPECTOR_STRST_DELIMITER_HINT_MSG"
+msgstr "候选值以英文逗号分隔"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_TARGET_VAR_MSG"
+msgstr "目标变量未设置或无效！"
+
+msgid "GENERATOR_NODE_TARGET_VARIABLE_MSG_TEMPLATE"
+msgstr "→ {var_name}"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_METHOD_MSG"
+msgstr "生成方式未设置或无效！"
+
+msgid "GENERATOR_NODE_UNSET_OR_INVALID_ARGUMENTS_MSG"
+msgstr "参数未设置或无效！"
+
+
+# ---------
+# shared.gd
+# ---------
+
+msgid "GENERATOR_METHOD_RANDOM_INTEGER"
+msgstr "随机整数"
+
+msgid "GENERATOR_METHOD_RANDOM_ASCII_STRING"
+msgstr "随机 ASCII 字符串"
+
+msgid "GENERATOR_METHOD_FROM_SET_OF_STRINGS"
+msgstr "从字符串集合中选取"
+
+msgid "GENERATOR_METHOD_RANDOM_BOOLEAN"
+msgstr "随机布尔"

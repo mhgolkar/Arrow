@@ -1,0 +1,89 @@
+
+# Jump Node Translation
+# =====================
+#    Persian (Farsi)   
+# =====================
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Arrow-Jump\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Jump"
+msgstr "跳转"
+
+
+# ------------
+# console.tscn
+# ------------
+
+# !
+# msgid "[Reason]"
+# msgstr ""
+
+# !
+# msgid "[Destination Name]"
+# msgstr ""
+
+
+# --------------
+# inspector.tscn
+# --------------
+
+msgid "JUMP_INSPECTOR_FIELD_REASON"
+msgstr "目标变量"
+
+msgid "JUMP_INSPECTOR_FIELD_REASON_PLACEHOLDER"
+msgstr "例如：升级、进入下一场景……"
+
+msgid "JUMP_INSPECTOR_FIELD_DESTINATION"
+msgstr "目标"
+
+msgid "JUMP_INSPECTOR_FIELD_DESTINATION_PLACEHOLDER"
+msgstr "节点 UID"
+
+
+# ---------
+# node.tscn
+# ---------
+
+# msgid "Jump"
+# msgstr ""
+
+# !
+# msgid "[Destination]"
+# msgstr ""
+
+# !
+# msgid "[Reason]"
+# msgstr ""
+
+
+# ----------
+# console.gd
+# ----------
+
+msgid "JUMP_CONSOLE_UNSET_REASON_MSG"
+msgstr "无原因"
+
+msgid "JUMP_CONSOLE_INVALID_MSG"
+msgstr "无效！"
+
+msgid "JUMP_CONSOLE_UNSET_TARGET_MSG"
+msgstr "未设置目标"
+
+
+# -------
+# node.gd
+# -------
+
+msgid "JUMP_NODE_UNSET_REASON_MSG"
+msgstr "无原因"
+
+msgid "JUMP_NODE_UNSET_TARGET_NAME"
+msgstr "未设置目标"
